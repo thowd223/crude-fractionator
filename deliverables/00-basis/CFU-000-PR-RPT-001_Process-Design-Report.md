@@ -112,7 +112,7 @@ overlap of 0 to -20 C (kero/diesel, diesel/AGO).
 | Stripping | 36-41 | 15 | 257 | 354 | 1.60 | 706 | 0.796 | 610 | 0.82 | 2.47 |
 
 
-Selected: ID 6.9 m (top/main) / 4.1 m (stripping) x 36.0 m T/T. Internals: 41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays.
+Selected: ID 6.9 m (top/main) / 3.5 m (stripping) x 37.0 m T/T. Internals: 41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays.
 
 ![C-101 section traffic](figures/c101_loads.png)
 
@@ -167,19 +167,19 @@ Trim duties (heat not recovered to crude):
 |---|---|---|
 | Process duty, MW | 59.55 | 14.69 |
 | Absorbed duty, MW | 60.68 | 14.69 |
-| Fired duty (LHV), MW | 67.42 | 16.7 |
-| Efficiency | 0.9 | 0.88 |
+| Fired duty (LHV), MW | 67.42 | 17.49 |
+| Efficiency | 0.9 | 0.84 |
 | Inlet T, C | 274.0 | 349.0 |
 | Outlet T (COT), C | 365.7 | 398.4 |
 | Outlet P, bar(a) | 3.38 | 0.31 |
 | Outlet vapour fraction (mass) | 0.533 | 0.264 |
-| Radiant duty, MW | 38.71 | 9.55 |
-| Radiant area, m2 | 1229.0 | 382.0 |
-| Radiant tubes (6 in x 18.3 m) | 128 | 40 |
+| Radiant duty, MW | 41.68 | 10.28 |
+| Radiant area, m2 | 1323.0 | 411.0 |
+| Radiant tubes (6 in x 18.3 m) | 144 | 44 |
 | Passes | 8 | 4 |
 | Mass flux, kg/m2s | 1176.0 | 1066.0 |
 | Burners | 16 | 6 |
-| Fuel gas, kg/h | 5164.0 | 1279.0 |
+| Fuel gas, kg/h | 5164.0 | 1340.0 |
 
 
 
@@ -200,7 +200,7 @@ Trim duties (heat not recovered to crude):
 C-201 bed sizing (packing at Cs = 0.11 m/s, wash grid 0.12 m/s; stripping trays at 75 % flood):
 | Section | V t/h | L t/h | T C | P mbar | rho V | Q m3/s | D calc m |
 |---|---|---|---|---|---|---|---|
-| Bed 1 - LVGO PA | 10.4 | 83 | 147 | 22 | 0.037 | 79 | 2.49 |
+| Bed 1 - LVGO PA | 53.2 | 83 | 147 | 22 | 0.110 | 135 | 4.27 |
 | Bed 2 - LVGO/HVGO fract. | 87.2 | 34 | 285 | 34 | 0.176 | 138 | 4.97 |
 | Bed 3 - HVGO PA | 177.6 | 161 | 347 | 44 | 0.283 | 174 | 6.41 |
 | Bed 4 - Wash | 151.9 | 13 | 382 | 56 | 0.307 | 137 | 5.50 |
@@ -208,7 +208,7 @@ C-201 bed sizing (packing at Cs = 0.11 m/s, wash grid 0.12 m/s; stripping trays 
 | Stripping | 5.0 | 108 | 371 | 70 | 0.041 | 35 | 2.49 |
 
 
-Selected: ID 2.6 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
+Selected: ID 4.4 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 
 # 8 Light ends
 | Item | C-105 stabiliser | C-106 splitter |
@@ -238,7 +238,7 @@ Selected: ID 2.6 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 | P-109A/B | Kero product | 122 | 148 | 46 | 55 | BB2 |
 | P-110A/B | Diesel product | 151 | 154 | 56 | 75 | BB2 |
 | P-111A/B | Ago product | 84 | 153 | 32 | 45 | BB2 |
-| P-112A/B | Atm. residue / vacuum heater charge | 398 | 172 | 189 | 250 | BB2 |
+| P-112A/B | Atm. residue / vacuum heater charge | 398 | 244 | 268 | 315 | BB2 |
 | P-114A/B | Desalter wash water | 37 | 82 | 13 | 18.5 | OH2 |
 | P-115A/B | Stabiliser reflux / LPG | 39 | 154 | 14 | 18.5 | OH2 |
 | P-116A/B | Splitter reflux / LN | 146 | 111 | 43 | 55 | OH2 |
@@ -249,7 +249,7 @@ Selected: ID 2.6 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 | P-203A/B | Slop wax | 12 | 114 | 5 | 5.5 | BB2 |
 | P-204A/B | Vacuum residue (incl. quench) | 196 | 187 | 112 | 132 | BB2 |
 | P-205A/B | Hotwell sour water | 13 | 51 | 3 | 3.7 | OH2 |
-| P-206A/B | Hotwell slop oil | 1 | 60 | 0 | 0.75 | OH2 |
+| P-206A/B | Hotwell slop oil | 1 | 60 | 0 | 0.75 | API 674/675 PD |
 
 
 

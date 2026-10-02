@@ -114,7 +114,7 @@ def build(m: Model) -> dict:
     mid_D = round_up(max(r["D_calc"] for r in secs[2:7]), 0.1)
     bot_D = round_up(secs[7]["D_calc"], 0.1)
     D_main = max(top_D, mid_D)
-    bot_D = max(bot_D, 0.6 * D_main)
+    bot_D = round_up(max(bot_D, 0.5 * D_main), 0.1)
     tray_h = 28 * 0.61 + 9 * 0.76 + 3 * 0.61
     sump = (a["prod"]["AR"].sum() / secs[7]["rho_l"] / 60 * 5) / (math.pi / 4 * bot_D ** 2)  # 5 min
     H101 = round_up(2.0 + tray_h + 4.0 - 0.61 + 1.5 + sump + 1.0, 0.5)  # tray_h spans trays 1-41 incl. stripping; FZ replaces one spacing
@@ -123,7 +123,7 @@ def build(m: Model) -> dict:
            D=D_main, D2=bot_D, H=H101, orient="V", internals="41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays",
            op_P=f"{a['Ptray'](1) - 1.013:.2f} / {a['P_fz'] - 1.013:.2f}", op_T=f"{a['T_top']:.0f} / {a['T_fz']:.0f}",
            des_P=3.5, des_T=design_T(a["T_fz"]), moc="CS + 410S clad below tray 10; Monel 400 lined top head & trays 1-5",
-           ca_mm=3, sections=secs, weight_t=round(D_main * H101 * 2.6, 0)))
+           ca_mm=3, sections=secs))
 
     # side strippers (6 trays each, size on draw liquid)
     for tag, p in [("C-102", "KERO"), ("C-103", "DIESEL"), ("C-104", "AGO")]:
@@ -184,7 +184,7 @@ def build(m: Model) -> dict:
            internals="4 packed beds (structured 250Y/grid), 4 stripping trays, vapour horn",
            op_P=f"{v['P_top'] * 1000:.0f} / {v['P_fz'] * 1000:.0f} mbar(a)", op_T=f"{v['T_top']:.0f} / {v['T_fz']:.0f}",
            des_P="FV / 3.5", des_T=design_T(v["T_fz"]), moc="CS + 410S clad (317L clad flash/wash zone)",
-           ca_mm=6, sections=vsecs, weight_t=round(D_mid * Hvac * 2.8)))
+           ca_mm=6, sections=vsecs))
 
     # ---------------- fired heaters ------------------------------------------
     heaters = {}
@@ -206,9 +206,9 @@ def build(m: Model) -> dict:
         E(dict(tag=tag, type="Fired heater", service=name, area="CDU" if tag == "H-101" else "VDU",
                size=f"{h['Q_abs_kw'] / 1000:.1f} MW abs. / {h['Q_fired_kw'] / 1000:.1f} MW fired; {cells}-cell cabin, "
                     f"{npass} passes, {ntubes} rad. tubes 6\" x {L} m",
-               orient="V", D=None, L=12.0 * cells + 2, W=W + 6, H=38.0 if tag == "H-101" else 32.0,
+               orient="V", D=None, L=round(L + 3.6, 1), W=(W + 6) * cells, H=38.0 if tag == "H-101" else 32.0,
                op_P=f"{h['P_out'] - 1.013:.2f} outlet", op_T=f"{h['T_in']:.0f} -> {h['T_out']:.0f}",
-               des_P=design_P(35 if tag == "H-101" else 18), des_T=design_T(h["T_out"]) + 60,
+               des_P=design_P(35 if tag == "H-101" else 18), des_T=design_T(h["T_out"]) + 150,  # API 530 tube metal
                moc="Tubes A335 P9 (9Cr-1Mo); convection P5 / CS studded", ca_mm=3,
                duty_kw=h["Q_abs_kw"], motor_kw=None))
     # APH and draft fans for H-101 (balanced draft)
@@ -246,13 +246,14 @@ def build(m: Model) -> dict:
         hx_list.append(hx)
         E(hx)
 
-    def simple_hx(tag, service, Q, U, Thi, Tho, Tci, Tco, tema, shell, tube, moc="CS", desP="15 / 10", typ="Shell & tube"):
+    def simple_hx(tag, service, Q, U, Thi, Tho, Tci, Tco, tema, shell, tube, moc="CS", desP="15 / 10", typ="Shell & tube",
+                  desT=None):
         A = Q * 1000 / (U * 0.9 * lmtd(Thi, Tho, Tci, Tco))
         sh = max(1, math.ceil(A / 650))
         d = dict(tag=tag, type=typ, service=service, area="CDU" if tag[2] == "1" else "VDU", tema=tema, duty_kw=Q,
                  size=f"{A:.0f} m2; {sh} shell(s)", area_m2=A, n_shells=sh, U=U,
                  op_T=f"H {Thi:.0f}->{Tho:.0f} / C {Tci:.0f}->{Tco:.0f}", shellside=shell, tubeside=tube,
-                 des_P=desP, des_T=design_T(max(Thi, Tco)), moc=moc, ca_mm=3, orient="H", L=6.5,
+                 des_P=desP, des_T=desT or design_T(max(Thi, Tco)), moc=moc, ca_mm=3, orient="H", L=6.5,
                  D=1.2 if A / sh > 300 else 0.9, Th_in=Thi, Th_out=Tho, Tc_in=Tci, Tc_out=Tco)
         hx_list.append(d)
         E(d)
@@ -271,9 +272,9 @@ def build(m: Model) -> dict:
     simple_hx("E-115", "Atm. overhead trim condenser", Qtrim, 600, 60, D["atm_drum_T"], 32, 43, "AEU",
               "OH vapour/condensate", "Cooling water", moc="CS shell / Ti tubes", desP="3.5 / 7")
     simple_hx("E-116", "Stabiliser reboiler (HP steam)", st["Q_reb"], 900, 253, 253, st["T_bot"] - 10, st["T_bot"],
-              "BKT", "Naphtha", "HP steam", desP="15 / 45")
+              "BKT", "Naphtha", "HP steam", desP="15 / 45", desT=design_T(400))
     simple_hx("E-117", "Splitter reboiler (MP steam)", sp["Q_reb"], 900, 186, 186, sp["T_bot"] - 8, sp["T_bot"],
-              "BXM (thermosyphon)", "Naphtha", "MP steam", desP="5 / 13")
+              "BXM (thermosyphon)", "Naphtha", "MP steam", desP="5 / 13", desT=design_T(250))
     simple_hx("E-118", "Desalter wash water / brine", 0.0 + p["wash_water"] * 4.19 * 70 / 3600 * 0.6, 800,
               p["T_desalter"] - 5, p["T_desalter"] - 30, 50, p["T_ww"], "AEL", "Wash water", "Brine",
               moc="CS shell / duplex 2205 tubes", desP="20 / 20")
@@ -307,10 +308,10 @@ def build(m: Model) -> dict:
             continue
         Ta_in = basis.SITE["amb_design_C"]
         Ta_out = Ta_in + 0.45 * (To - Ta_in) + 0.25 * (Ti - To)
-        Ta_out = min(Ta_out, To - 5)
+        Ta_out = min(Ta_out, To - 5, Ta_in + 25)
         F = 0.9
         A_bare = Q * 1000 / (U_ac.get(tag, 350) * F * lmtd(Ti, To, Ta_in, Ta_out))
-        bays = max(1, math.ceil(A_bare / 1100))
+        bays = max(1, math.ceil(A_bare / 700))   # 6-row bundles, 6 m x 12 m bay
         fans = 2 * bays
         fan_kw = max(Q / 1000 * 8.0, 15) / fans
         d = dict(tag=tag, type="Air cooler", service=name, area="CDU" if tag[2] == "1" else "VDU", duty_kw=Q,
@@ -345,7 +346,7 @@ def build(m: Model) -> dict:
     hc_liq = (a["R"] + a["drum"].liq.sum()) / 680
     drum("D-102", "Atm. overhead reflux drum (3-phase)", hc_liq, 10, LD=3.5, P=f"{D['atm_drum_P'] - 1.013:.1f}",
          T=f"{D['atm_drum_T']:.0f}", desP=3.5, desT=design_T(130), moc="CS (HIC-resistant), 6 mm CA",
-         boot="ID 1.5 m x 3.0 m")
+         boot="ID 1.5 m x 3.0 m")["ca_mm"] = 6
     drum("D-103", "Fuel gas knock-out drum", 2.0, 20, LD=2.5, vert=True, P="3.5", T="30", desP=7.0, desT=design_T(60))
     drum("D-105", "Stabiliser reflux drum", (st["reflux"] + st["lpg"].sum()) / 540, 10, P=f"{D['stab_drum_P'] - 1.013:.1f}",
          T=f"{D['stab_drum_T']:.0f}", desP=design_P(D["stab_drum_P"] - 1.013 + 3), desT=design_T(65),
@@ -398,7 +399,7 @@ def build(m: Model) -> dict:
     for tag, k in [("P-109", "KERO"), ("P-110", "DIESEL"), ("P-111", "AGO")]:
         pump(tag, f"{k.title()} product", a["prod"][k].sum(), a["T_out"][k], rho(a["prod"][k], a["T_out"][k]), 9.0)
     pump("P-112", "Atm. residue / vacuum heater charge", a["prod"]["AR"].sum(), a["T_bot"],
-         rho(a["prod"]["AR"], a["T_bot"]), 12.0)
+         rho(a["prod"]["AR"], a["T_bot"]), 17.0)
     pump("P-114", "Desalter wash water", p["wash_water"], 50, 990, 8.0)
     pump("P-115", "Stabiliser reflux / LPG", st["reflux"] + st["lpg"].sum(), 45, 530, 8.0)
     pump("P-116", "Splitter reflux / LN", sp["reflux"] + sp["d"].sum(), 50, 640, 7.0)
@@ -412,13 +413,13 @@ def build(m: Model) -> dict:
     pump("P-204", "Vacuum residue (incl. quench)", v["vr"].sum() * 1.25, v["T_bot"], rho(v["vr"], v["T_bot"]), 14.0,
          area="VDU")
     pump("P-205", "Hotwell sour water", ej["sour_water"], 45, 990, 5.0, area="VDU")
-    pump("P-206", "Hotwell slop oil", max(ej["slop_oil"], 500), 45, 850, 5.0, area="VDU")
+    pump("P-206", "Hotwell slop oil", max(ej["slop_oil"], 500), 45, 850, 5.0, area="VDU")["api610"] = "API 674/675 PD"
 
     # chemical injection packages
     for tag, nm in [("X-101", "Demulsifier injection package"), ("X-102", "Caustic injection package (desalted crude)"),
                     ("X-103", "Neutraliser / filming amine package (atm OH)"),
                     ("X-104", "Corrosion inhibitor package (VDU OH)")]:
-        E(dict(tag=tag, type="Package", service=nm, area="CDU" if "10" in tag else "VDU",
+        E(dict(tag=tag, type="Package", service=nm, area="VDU" if tag == "X-104" else "CDU",
                size="Tank 2 m3 + 2 x 100 % metering pumps", motor_kw=0.75, orient="H", L=3.0, W=2.0, H=2.5,
                moc="SS316"))
 

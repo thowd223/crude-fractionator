@@ -841,16 +841,16 @@
   "P_barg": 3.49,
   "P_bara": 4.5,
   "phase": "V",
-  "total_kg_h": 6443.0,
+  "total_kg_h": 6504.0,
   "hc_kg_h": 0.0,
   "water_kg_h": 0.0,
   "std_m3h": "",
   "liq_kg_h": 0.0,
-  "vap_kg_h": 6443.0,
+  "vap_kg_h": 6504.0,
   "mw_vap": 20.0,
   "rho_vap": 3.5707,
-  "vap_act_m3h": 1804.0,
+  "vap_act_m3h": 1821.0,
   "vf_mass": 1.0,
-  "gas_kg_h": 6442.9
+  "gas_kg_h": 6503.8
  }
 ]

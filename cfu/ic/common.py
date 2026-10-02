@@ -280,7 +280,8 @@ class Pen:
         g.add(self.d.rect((x, y), (w, h), rx=w / 2 if w < 14 else 6, ry=6, fill="white", stroke=INK, stroke_width=0.5))
         for t in trays or []:
             g.add(self.d.line((x, t), (x + w * 0.7, t), stroke=INK, stroke_width=0.25))
-        self.text(tag, x + w / 2, y - 3.0 - (3.0 if desc else 0), 2.8, "middle", bold=True)
+        if tag:
+            self.text(tag, x + w / 2, y - 3.0 - (3.0 if desc else 0), 2.8, "middle", bold=True)
         if desc:
             self.text(desc, x + w / 2, y - 2.6, 2.0, "middle", color=GREY)
 

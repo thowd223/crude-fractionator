@@ -122,9 +122,9 @@ Desalted crude: salt <= 1 PTB, BS&W <= 0.2 vol%. Brine oil content <= 100 ppmw.
 | split drum P | 1.8 |
 | split drum T | 50.0 |
 | h101 eff | 0.9 |
-| h201 eff | 0.88 |
+| h201 eff | 0.84 |
 | rad flux kW m2 | 31.5 |
-| rad fraction | 0.65 |
+| rad fraction | 0.7 |
 | desalter T | 135.0 |
 | wash water lv | 0.05 |
 | min approach | 20.0 |

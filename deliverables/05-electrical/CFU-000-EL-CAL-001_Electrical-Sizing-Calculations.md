@@ -27,13 +27,13 @@ Maximum demand MD = 1.0 x C + 0.3 x I + 0.1 x S (continuous / intermittent / sta
 
 | Bus | Connected kW | C kW | I kW | S kW | MD kW | MD kvar | MD kVA | PF |
 |---|---|---|---|---|---|---|---|---|
-| MCC-101A | 1,768 | 1,082 | 127 | 559 | 1,176 | 641 | 1,340 | 0.88 |
-| MCC-101B | 1,778 | 1,079 | 124 | 575 | 1,173 | 632 | 1,333 | 0.88 |
-| SWG-102A | 1,821 | 985 | 0 | 836 | 1,068 | 524 | 1,190 | 0.90 |
-| SWG-102B | 1,821 | 836 | 0 | 985 | 934 | 487 | 1,054 | 0.89 |
-| SWG-102A incl. LV |  |  |  |  | 2,257 | 1,190 | 2,551 | 0.88 |
-| SWG-102B incl. LV |  |  |  |  | 2,120 | 1,145 | 2,409 | 0.88 |
-| **Unit total at 13.8 kV** |  |  |  |  | **4,411** | **2,475** | **5,058** | 0.87 |
+| MCC-101A | 1,769 | 1,084 | 127 | 559 | 1,178 | 643 | 1,342 | 0.88 |
+| MCC-101B | 1,779 | 1,080 | 124 | 575 | 1,175 | 634 | 1,335 | 0.88 |
+| SWG-102A | 1,903 | 985 | 0 | 918 | 1,077 | 528 | 1,199 | 0.90 |
+| SWG-102B | 1,903 | 918 | 0 | 985 | 1,017 | 534 | 1,148 | 0.89 |
+| SWG-102A incl. LV |  |  |  |  | 2,266 | 1,197 | 2,563 | 0.88 |
+| SWG-102B incl. LV |  |  |  |  | 2,203 | 1,193 | 2,505 | 0.88 |
+| **Unit total at 13.8 kV** |  |  |  |  | **4,505** | **2,533** | **5,168** | 0.87 |
 
 LV transformer through-load includes 1 % active / 4 % reactive transformer losses; MV transformer 0.8 % / 6 %.
 
@@ -43,12 +43,12 @@ Criteria: (a) ONAN rating >= contingency maximum demand (both bus sections on on
 
 | Transformer | Ratio | MD kVA | 1.25 x MD | Selected ONAN/ONAF kVA | ONAN load % | Z % | Secondary FLC (ONAF) A |
 |---|---|---|---|---|---|---|---|
-| TR-101 / TR-102 | 13.8/4.16 kV | 4,960 | 6,200 | 7,500 / 9,375 | 66 | 7.0 | 1,301 |
-| TR-103 / TR-104 | 4.16/0.48 kV | 2,673 | 3,341 | 3,000 / 3,750 | 89 | 5.75 | 4,511 |
+| TR-101 / TR-102 | 13.8/4.16 kV | 5,068 | 6,335 | 7,500 / 9,375 | 68 | 7.0 | 1,301 |
+| TR-103 / TR-104 | 4.16/0.48 kV | 2,676 | 3,345 | 3,000 / 3,750 | 89 | 5.75 | 4,511 |
 | LTR-101A | 480-208Y/120 V | 41 | 51 | 75 (dry, AN) | 54 | 4.0 |  |
 | LTR-101B | 480-208Y/120 V | 41 | 51 | 75 (dry, AN) | 54 | 4.0 |  |
 
-The 13.8/4.16 kV unit rating (7.5 MVA) is governed by the 95 % ONAN loading limit: the next smaller standard size (5 MVA) would be loaded to 99 % with no ONAN margin. The 480 V transformers are at the practical upper limit for 480 V unit substations (5000 A bus); see Section 11.
+The 13.8/4.16 kV unit rating (7.5 MVA) is governed by the 95 % ONAN loading limit: the next smaller standard size (5 MVA) would be loaded to 101 % with no ONAN margin. The 480 V transformers are at the practical upper limit for 480 V unit substations (5000 A bus); see Section 11.
 
 ## 6. Short-circuit levels
 
@@ -63,20 +63,20 @@ Method: IEEE 141 / ANSI E/X hand calculation on a 100 MVA base, prefault voltage
 | Case | Bus | Ik" kA sym | X/R | ip kA peak |
 |---|---|---|---|---|
 | normal (tie open) - section A | 13.8 kV | 31.9 | 14.9 | 82.1 |
-| normal (tie open) - section A | 4.16 kV | 14.4 | 13.7 | 36.8 |
-| normal (tie open) - section A | 0.48 kV | 46.2 | 7.3 | 109.2 |
+| normal (tie open) - section A | 4.16 kV | 14.4 | 13.7 | 36.9 |
+| normal (tie open) - section A | 0.48 kV | 46.3 | 7.3 | 109.4 |
 | normal (tie open) - section B | 13.8 kV | 31.9 | 14.9 | 82.2 |
-| normal (tie open) - section B | 4.16 kV | 14.5 | 13.7 | 37.0 |
-| normal (tie open) - section B | 0.48 kV | 46.4 | 7.3 | 109.5 |
-| one transformer, tie closed | 13.8 kV | 32.2 | 14.9 | 82.9 |
-| one transformer, tie closed | 4.16 kV | 15.8 | 13.4 | 40.3 |
-| one transformer, tie closed | 0.48 kV | 52.2 | 7.1 | 122.7 |
+| normal (tie open) - section B | 4.16 kV | 14.5 | 13.7 | 37.2 |
+| normal (tie open) - section B | 0.48 kV | 46.5 | 7.3 | 109.9 |
+| one transformer, tie closed | 13.8 kV | 32.2 | 14.9 | 83.0 |
+| one transformer, tie closed | 4.16 kV | 15.9 | 13.4 | 40.5 |
+| one transformer, tie closed | 0.48 kV | 52.4 | 7.1 | 123.3 |
 
 | Equipment | Max. calculated Ik" kA | Selected rating (kA sym, >= 1.1 x calc.) | Bus continuous A |
 |---|---|---|---|
 | SWG-101 13.8 kV | 32.2 | 40 | 1200 |
-| SWG-102 4.16 kV | 15.8 | 31.5 | 2000 |
-| MCC-101 480 V | 52.2 | 65 | 5000 |
+| SWG-102 4.16 kV | 15.9 | 31.5 | 2000 |
+| MCC-101 480 V | 52.4 | 65 | 5000 |
 
 The 13.8 kV rating is set by the utility (31.5 kA) plus motor contribution; 40 kA switchgear is specified. Ratings assume the tie is never closed with both incomers in service (2-out-of-3 interlock).
 
@@ -86,9 +86,9 @@ Largest DOL motor: P-101A (710 kW, 4.16 kV; P-101A/B and P-102A/B are identical 
 
 | Case | Pre-start load kVA | Bus dip % | Terminal dip % | Result |
 |---|---|---|---|---|
-| Normal: tie open, motor bus section on its own transformer | 1,833 | 5.3 | 5.8 | OK |
-| Contingency: one 13.8/4.16 kV transformer feeding both sections, largest motor started last | 4,242 | 5.2 | 5.8 | OK |
-| Contingency + one 13.8 kV incomer (utility fault level reduced to 20 kA assumed) | 4,242 | 5.6 | 6.1 | OK |
+| Normal: tie open, motor bus section on its own transformer | 1,845 | 5.3 | 5.8 | OK |
+| Contingency: one 13.8/4.16 kV transformer feeding both sections, largest motor started last | 4,350 | 5.2 | 5.8 | OK |
+| Contingency + one 13.8 kV incomer (utility fault level reduced to 20 kA assumed) | 4,350 | 5.6 | 6.1 | OK |
 
 DOL starting of the 710 kW pumps is therefore acceptable; no soft-starter / autotransformer is required. Motor-acceleration time and pump torque margin to be confirmed with vendor curves (IEEE 399 dynamic study at detailed design). LV motors: bus dip on MCC-101A/B for each DOL start is computed in the cable schedule (largest 3.5 %).
 
@@ -99,17 +99,17 @@ DOL starting of the 710 kW pumps is therefore acceptable; no soft-starter / auto
 - Voltage drop: dV% = sqrt(3) I L (R cos(phi) + X sin(phi)) / V x 100 with R at 90 C. Running <= 5 %. Starting (DOL, 6.5 x FLC at PF 0.35 LV / 0.2 MV): bus dip + cable drop <= 15 % at motor terminals; bus dip <= 10 %.
 - Short-circuit withstand: S >= sqrt(I^2 t) / k, k = 143 (Cu/XLPE 90->250 C). MV: prospective bus fault current with t = 0.25 s (motor feeders, instantaneous 50 element) / 0.5 s (incomers, transformer feeders). LV: let-through I^2t of current-limiting MCCB by rating (manufacturer typical, 65 kA class).
 - Minimum sizes: LV power 4 mm2; 4.16 kV 35 mm2. Parallel LV runs >= 95 mm2.
-- Route length = Manhattan distance from SS-100 reference point (25, 12.5) m to the consumer + 15 m riser/termination allowance (+10 m for air-cooler fan motors on top of the pipe rack), rounded up to 5 m. Coordinates source: data/layout.json (137 tagged items).
+- Route length = Manhattan distance from SS-100 reference point (25, 12.5) m to the consumer + 15 m riser/termination allowance (+10 m for air-cooler fan motors on top of the pipe rack), rounded up to 5 m. Coordinates source: data/layout.json (139 tagged items).
 - 13.8 kV incomer route from the refinery main substation assumed 600 m (OSBL, to be confirmed by refinery electrical master plan).
 
-**Worked example CBL-P-101A:** Crude charge pump A; design FLC 115 A; route 100 m (layout); required ampacity 143 A; selected 3C x 70 mm2 Cu/XLPE/CWS/SWA/PVC 3.6/6 kV; derated ampacity 186 A; VD running 0.17 %; VD starting (cable) 0.5 %; bus dip 5.3 % -> terminal 5.9 %; SC minimum 55 mm2.
+**Worked example CBL-P-101A:** Crude charge pump A; design FLC 115 A; route 100 m (layout); required ampacity 143 A; selected 3C x 70 mm2 Cu/XLPE/CWS/SWA/PVC 3.6/6 kV; derated ampacity 186 A; VD running 0.17 %; VD starting (cable) 0.5 %; bus dip 5.3 % -> terminal 5.9 %; SC minimum 56 mm2.
 
 **Worked example CBL-P-104A:** Unstabilised naphtha pump A; design FLC 233 A; route 140 m (layout); required ampacity 291 A; selected 3C x 185 + E95 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV; derated ampacity 332 A; VD running 1.75 %; VD starting (cable) 9.0 %; bus dip 3.5 % -> terminal 12.5 %; SC minimum 17 mm2.
 
 | Summary | Value |
 |---|---|
-| Number of cables | 113 |
-| Total route length (m) | 16,435 |
+| Number of cables | 117 |
+| Total route length (m) | 16,975 |
 | Max running VD % | 4.94 |
 | Max terminal dip at start % | 15.0 |
 
@@ -148,18 +148,18 @@ No emergency generator is provided. The unit is supplied by two independent 13.8
 - Long 480 V motor feeders: SS-100 is in the SW corner while the VDU pumps are ~170 m east, so the 15 % terminal-dip criterion governs (e.g. P-201B 150 mm2 at 260 m, P-107B 240 mm2 at 195 m, P-107A 240 mm2 at 195 m, P-201A 150 mm2 at 255 m). Moving the >= 110 kW LV pumps to 4.16 kV, or a satellite LV substation near the VDU, would reduce copper; to be reviewed with the plot plan.
 - Allowance loads (lighting, HVAC, heat tracing, MOVs, welding, UPS, CP, analyser house) are FEED estimates and must be replaced by vendor / discipline data.
 - Desalter transformer load factor (0.35) assumed; desalter vendor to confirm grid power.
-- Cable lengths use equipment coordinates from data/layout.json (137 tagged items) with Manhattan routing from SS-100 plus allowances; actual tray/trench routes to be confirmed at detailed design (lengths regenerate automatically when the layout changes).
+- Cable lengths use equipment coordinates from data/layout.json (139 tagged items) with Manhattan routing from SS-100 plus allowances; actual tray/trench routes to be confirmed at detailed design (lengths regenerate automatically when the layout changes).
 - Hazardous-area classification: CFU-000-EL-HAC-001/002/003 (Section 12); motor Ex protection per location in data/electrical.json (loads[].area_class).
 
 ## 12. Hazardous area classification and equipment protection
 
-Classification CFU-000-EL-HAC-001/002 (schedule HAC-003) per API RP 505 / NFPA 70 Art. 505, point-source method, fluid categories per EI 15. Gas group IIA T3 generally, IIB in H2S / fuel-gas / off-gas services. 144 release sources: Atmospheric vent 1, Control-valve station 32, Ejector / condenser flanges 1, Exchanger flanges 25, Header box plugs / flanges 10, Pump seal 42, Sample point 14, Vessel flanges / instruments 19.
+Classification CFU-000-EL-HAC-001/002 (schedule HAC-003) per API RP 505 / NFPA 70 Art. 505, point-source method, fluid categories per EI 15. Gas group IIA T3 generally, IIB in H2S / fuel-gas / off-gas services. 146 release sources: Atmospheric vent 1, Control-valve station 32, Ejector / condenser flanges 1, Exchanger flanges 25, Header box plugs / flanges 12, Pump seal 42, Sample point 14, Vessel flanges / instruments 19.
 
 | Unclassified item | Clearance to nearest classified area (m) | Nearest source |
 |---|---|---|
-| H-101 | 16.6 | RS-130 Control valves FV-1011, FV-1012, FV-1013, FV-1014, |
-| H-201 | 12.5 | RS-124 Control valves LV-9002 (D-103) |
-| E-120 | 34.1 | RS-130 Control valves FV-1011, FV-1012, FV-1013, FV-1014, |
+| H-101 | 10.3 | RS-132 Control valves FV-1011, FV-1012, FV-1013, FV-1014, |
+| H-201 | 13.2 | RS-126 Control valves LV-9002 (D-103) |
+| E-120 | 34.1 | RS-132 Control valves FV-1011, FV-1012, FV-1013, FV-1014, |
 | SS-100 | 17.1 | RS-076 D-101B Electrostatic desalter, 2nd stage |
 | FAR-100 | 20.1 | RS-076 D-101B Electrostatic desalter, 2nd stage |
 

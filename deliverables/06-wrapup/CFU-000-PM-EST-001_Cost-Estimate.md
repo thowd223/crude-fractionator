@@ -2,7 +2,7 @@
 - AACE Class 4 (expected accuracy -30 % / +50 %), ISBL only, US Gulf Coast, 2026 USD (CEPCI 820, assumed).
 - Purchased equipment: Towler & Sinnott correlations (CEPCI 532.9), with material factors per equipment
   metallurgy (5Cr 1.4, 9Cr 1.7, clad 1.6, Monel 1.9). Vessel shell weights come from the mechanical calculations
-  (data/mech.json) where available (not available: estimated from design pressure and dimensions).
+  (data/mech.json) where available.
 - Installation: Towler fluids-processing factors (erection 0.3, piping 0.8, instrumentation
   0.3, electrical 0.2, civil 0.3, structures 0.2, lagging/paint 0.1).
 - Excluded: Tankage, SWS, flare stack, CCR, main substation, OSBL racks; owner's costs, licence fees, land, escalation beyond 2026, catalyst/chemicals first fill.
@@ -10,27 +10,27 @@
 # 2 Summary
 | Item | USD million |
 |---|---|
-| Purchased equipment (2026 USGC) | 57.7 |
-| Installed ISBL (Towler factors) | 170.4 |
-| Design & engineering (25 %) | 42.6 |
-| Contingency (20 %) | 42.6 |
-| Total installed cost, ISBL | 255.7 |
+| Purchased equipment (2026 USGC) | 56.7 |
+| Installed ISBL (Towler factors) | 167.8 |
+| Design & engineering (25 %) | 42.0 |
+| Contingency (20 %) | 42.0 |
+| Total installed cost, ISBL | 251.7 |
 
-Specific cost: **2,557 USD per BPSD** of capacity, ISBL. Check this against the owner's own
+Specific cost: **2,517 USD per BPSD** of capacity, ISBL. Check this against the owner's own
 benchmark data for grassroots CDU/VDU units before using it for budgeting. The factored method tends to
 under-estimate large, alloy-heavy refinery units.
 
 # 3 Purchased equipment by type
 | Type | USD million | Share |
 |---|---|---|
-| Fired heater | 19.24 | 33% |
-| Column | 11.93 | 21% |
-| Air cooler | 9.00 | 16% |
-| Shell & tube | 7.48 | 13% |
-| Desalter | 4.06 | 7% |
-| Pump | 3.60 | 6% |
+| Fired heater | 19.24 | 34% |
+| Column | 11.65 | 21% |
+| Air cooler | 8.87 | 16% |
+| Shell & tube | 7.17 | 13% |
+| Desalter | 3.83 | 7% |
+| Pump | 3.62 | 6% |
 | Package | 0.74 | 1% |
-| Drum | 0.61 | 1% |
+| Drum | 0.62 | 1% |
 | Ejector | 0.42 | 1% |
 | Fan | 0.33 | 1% |
 | Air preheater | 0.24 | 0% |
@@ -38,13 +38,13 @@ under-estimate large, alloy-heavy refinery units.
 # 4 Equipment detail
 | Tag | Service | Basis | Ce 2026 kUSD |
 |---|---|---|---|
-| C-101 | Atmospheric crude fractionator | shell 188 t, 41 trays | 4,212 |
-| C-102 | Kero side stripper | shell 5 t, 6 trays | 110 |
-| C-103 | Diesel side stripper | shell 6 t, 6 trays | 188 |
-| C-104 | Ago side stripper | shell 4 t, 6 trays | 141 |
-| C-105 | Naphtha stabiliser (debutaniser) | shell 17 t, 19 trays | 285 |
-| C-106 | Naphtha splitter | shell 40 t, 38 trays | 681 |
-| C-201 | Vacuum column (wet, packed) | shell 155 t, 20 trays, 308 m3 packing | 6,310 |
+| C-101 | Atmospheric crude fractionator | shell 141 t, 41 trays | 3,566 |
+| C-102 | Kero side stripper | shell 8 t, 6 trays | 143 |
+| C-103 | Diesel side stripper | shell 13 t, 6 trays | 303 |
+| C-104 | Ago side stripper | shell 9 t, 6 trays | 224 |
+| C-105 | Naphtha stabiliser (debutaniser) | shell 22 t, 19 trays | 334 |
+| C-106 | Naphtha splitter | shell 44 t, 38 trays | 718 |
+| C-201 | Vacuum column (wet, packed) | shell 160 t, 20 trays, 308 m3 packing | 6,363 |
 | H-101 | Atmospheric crude charge heater | 60.7 MW box | 14,455 |
 | H-201 | Vacuum heater | 14.7 MW box | 4,788 |
 | K-101A/B | H-101 forced-draft fan | 2 x 90 kW | 125 |
@@ -62,33 +62,33 @@ under-estimate large, alloy-heavy refinery units.
 | E-110 | Crude / Bottom (diesel) pumparound | 886 m2, 2 shell(s) | 716 |
 | E-111 | Crude / Vacuum residue | 1094 m2, 2 shell(s) | 875 |
 | E-113 | BPA / MP steam generator (kettle) | 223 m2, 1 shell(s) | 120 |
-| E-201 | VR / LP steam generator (kettle) | 648 m2, 1 shell(s) | 425 |
-| E-114 | Stabiliser feed / bottoms | 117 m2, 1 shell(s) | 82 |
+| E-201 | VR / LP steam generator (kettle) | 84 m2, 1 shell(s) | 100 |
+| E-114 | Stabiliser feed / bottoms | 86 m2, 1 shell(s) | 72 |
 | E-115 | Atm. overhead trim condenser | 740 m2, 2 shell(s) | 358 |
-| E-116 | Stabiliser reboiler (HP steam) | 190 m2, 1 shell(s) | 108 |
+| E-116 | Stabiliser reboiler (HP steam) | 242 m2, 1 shell(s) | 127 |
 | E-117 | Splitter reboiler (MP steam) | 225 m2, 1 shell(s) | 121 |
 | E-118 | Desalter wash water / brine | 84 m2, 1 shell(s) | 71 |
 | E-202 | 1st-stage ejector intercondenser | 549 m2, 1 shell(s) | 335 |
 | E-203 | 2nd-stage ejector intercondenser | 79 m2, 1 shell(s) | 90 |
 | E-204 | Ejector aftercondenser | 30 m2, 1 shell(s) | 72 |
-| A-101 | Atm. overhead condenser | 1667 m2 bare | 2,976 |
+| A-101 | Atm. overhead condenser | 1667 m2 bare | 3,053 |
 | A-103 | Kero cooler | 184 m2 bare | 388 |
-| A-104 | Diesel cooler | 430 m2 bare | 804 |
+| A-104 | Diesel cooler | 302 m2 bare | 589 |
 | A-105 | Ago cooler | 287 m2 bare | 562 |
 | A-106 | Stabiliser overhead condenser | 214 m2 bare | 439 |
-| A-107 | Splitter overhead condenser | 881 m2 bare | 1,568 |
+| A-107 | Splitter overhead condenser | 881 m2 bare | 1,645 |
 | A-108 | Heavy naphtha product cooler | 401 m2 bare | 756 |
 | A-201 | Lvgo cooler | 397 m2 bare | 748 |
-| A-202 | Hvgo Product cooler | 403 m2 bare | 758 |
-| D-101A | Electrostatic desalter, 1st stage | shell 108 t | 2,029 |
-| D-101B | Electrostatic desalter, 2nd stage | shell 108 t | 2,029 |
+| A-202 | Hvgo Product cooler | 361 m2 bare | 688 |
+| D-101A | Electrostatic desalter, 1st stage | shell 101 t | 1,917 |
+| D-101B | Electrostatic desalter, 2nd stage | shell 101 t | 1,917 |
 | D-102 | Atm. overhead reflux drum (3-phase) | shell 19 t | 219 |
-| D-103 | Fuel gas knock-out drum | shell 1 t | 31 |
-| D-105 | Stabiliser reflux drum | shell 4 t | 71 |
-| D-106 | Splitter reflux drum | shell 9 t | 130 |
-| D-201 | Ejector hotwell / sour water separator | shell 2 t | 51 |
-| D-202 | Vacuum off-gas knock-out drum | shell 0 t | 25 |
-| D-104 | Flare knock-out drum (unit) | shell 5 t | 84 |
+| D-103 | Fuel gas knock-out drum | shell 1 t | 36 |
+| D-105 | Stabiliser reflux drum | shell 6 t | 91 |
+| D-106 | Splitter reflux drum | shell 8 t | 120 |
+| D-201 | Ejector hotwell / sour water separator | shell 2 t | 49 |
+| D-202 | Vacuum off-gas knock-out drum | shell 1 t | 31 |
+| D-104 | Flare knock-out drum (unit) | shell 4 t | 73 |
 | J-201 | Steam ejector (20 -> 130 mbar(a)) | 2 x 50 % train | 138 |
 | J-202 | Steam ejector (120 -> 350 mbar(a)) | 2 x 50 % train | 138 |
 | J-203 | Steam ejector (330 -> 1100 mbar(a)) | 2 x 50 % train | 138 |
@@ -103,7 +103,7 @@ under-estimate large, alloy-heavy refinery units.
 | P-109A/B | Kero product | 2 x 122 m3/h, 55 kW | 125 |
 | P-110A/B | Diesel product | 2 x 151 m3/h, 75 kW | 143 |
 | P-111A/B | Ago product | 2 x 84 m3/h, 45 kW | 110 |
-| P-112A/B | Atm. residue / vacuum heater charge | 2 x 398 m3/h, 250 kW | 268 |
+| P-112A/B | Atm. residue / vacuum heater charge | 2 x 398 m3/h, 315 kW | 290 |
 | P-114A/B | Desalter wash water | 2 x 37 m3/h, 18.5 kW | 65 |
 | P-115A/B | Stabiliser reflux / LPG | 2 x 39 m3/h, 18.5 kW | 66 |
 | P-116A/B | Splitter reflux / LN | 2 x 146 m3/h, 55 kW | 112 |

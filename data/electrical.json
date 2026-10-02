@@ -25,66 +25,66 @@
    "S": 0.1
   },
   "transformer_future_margin": 1.25,
-  "location_source": "data/layout.json (137 tagged items)",
+  "location_source": "data/layout.json (139 tagged items)",
   "substation": "SS-100",
   "far": "FAR-100"
  },
  "max_demand": {
   "total_13_8kV": {
-   "kW": 4411.1,
-   "kvar": 2474.9,
-   "kVA": 5058.0,
+   "kW": 4504.8,
+   "kvar": 2533.3,
+   "kVA": 5168.3,
    "pf": 0.9
   },
   "lv_total": {
-   "kW": 2349.8,
-   "kvar": 1273.4,
-   "kVA": 2672.6,
+   "kW": 2352.1,
+   "kvar": 1277.0,
+   "kVA": 2676.3,
    "pf": 0.9,
-   "connected_kW": 3546.2
+   "connected_kW": 3548.4
   },
   "mv_motors_total": {
-   "kW": 2002.8,
-   "kvar": 1010.5,
-   "kVA": 2243.3,
+   "kW": 2093.5,
+   "kvar": 1061.9,
+   "kVA": 2347.4,
    "pf": 0.9,
-   "connected_kW": 3641.5
+   "connected_kW": 3806.3
   },
   "per_bus": {
    "MCC-101A": {
-    "C_kW": 1082.4,
+    "C_kW": 1083.6,
     "I_kW": 127.0,
     "S_kW": 558.8,
-    "kW": 1176.4,
-    "kvar": 641.1,
-    "kVA": 1339.7,
+    "kW": 1177.5,
+    "kvar": 642.8,
+    "kVA": 1341.6,
     "pf": 0.9
    },
    "MCC-101B": {
-    "C_kW": 1078.6,
+    "C_kW": 1079.8,
     "I_kW": 124.1,
     "S_kW": 575.2,
-    "kW": 1173.4,
-    "kvar": 632.3,
-    "kVA": 1332.9,
+    "kW": 1174.5,
+    "kvar": 634.1,
+    "kVA": 1334.8,
     "pf": 0.9
    },
    "SWG-102A": {
     "C_kW": 984.8,
     "I_kW": 0.0,
-    "S_kW": 835.9,
-    "kW": 1068.4,
-    "kvar": 523.5,
-    "kVA": 1189.8,
+    "S_kW": 918.3,
+    "kW": 1076.6,
+    "kvar": 528.2,
+    "kVA": 1199.2,
     "pf": 0.9
    },
    "SWG-102B": {
-    "C_kW": 835.9,
+    "C_kW": 918.3,
     "I_kW": 0.0,
     "S_kW": 984.8,
-    "kW": 934.4,
-    "kvar": 487.0,
-    "kVA": 1053.7,
+    "kW": 1016.8,
+    "kvar": 533.7,
+    "kVA": 1148.4,
     "pf": 0.9
    }
   }
@@ -100,9 +100,9 @@
    "type": "Metal-clad, drawout VCB (IEEE C37.20.2)",
    "tie": "N.O. tie to SWG-101B",
    "max_demand_incl_downstream": {
-    "kW": 2274.6,
-    "kvar": 1261.6,
-    "kVA": 2601.1
+    "kW": 2284.1,
+    "kvar": 1268.6,
+    "kVA": 2612.7
    },
    "loads": []
   },
@@ -116,9 +116,9 @@
    "type": "Metal-clad, drawout VCB (IEEE C37.20.2)",
    "tie": "N.O. tie to SWG-101A",
    "max_demand_incl_downstream": {
-    "kW": 2136.5,
-    "kvar": 1213.3,
-    "kVA": 2457.0
+    "kW": 2220.7,
+    "kvar": 1264.8,
+    "kVA": 2555.6
    },
    "loads": []
   },
@@ -134,21 +134,21 @@
    "max_demand": {
     "C_kW": 984.8,
     "I_kW": 0.0,
-    "S_kW": 835.9,
-    "kW": 1068.4,
-    "kvar": 523.5,
-    "kVA": 1189.8,
+    "S_kW": 918.3,
+    "kW": 1076.6,
+    "kvar": 528.2,
+    "kVA": 1199.2,
     "pf": 0.9,
-    "connected_kW": 1820.8
+    "connected_kW": 1903.2
    },
    "max_demand_incl_downstream": {
-    "mv_kW": 1068.4,
-    "mv_kvar": 523.5,
-    "lv_kW": 1188.2,
-    "lv_kvar": 666.7,
-    "kW": 2256.6,
-    "kvar": 1190.2,
-    "kVA": 2551.2
+    "mv_kW": 1076.6,
+    "mv_kvar": 528.2,
+    "lv_kW": 1189.3,
+    "lv_kvar": 668.6,
+    "kW": 2266.0,
+    "kvar": 1196.8,
+    "kVA": 2562.6
    },
    "loads": [
     "P-101A",
@@ -168,23 +168,23 @@
    "type": "Metal-clad, drawout VCB (IEEE C37.20.2), arc-resistant Type 2B",
    "tie": "N.O. tie to SWG-102A",
    "max_demand": {
-    "C_kW": 835.9,
+    "C_kW": 918.3,
     "I_kW": 0.0,
     "S_kW": 984.8,
-    "kW": 934.4,
-    "kvar": 487.0,
-    "kVA": 1053.7,
+    "kW": 1016.8,
+    "kvar": 533.7,
+    "kVA": 1148.4,
     "pf": 0.9,
-    "connected_kW": 1820.8
+    "connected_kW": 1903.2
    },
    "max_demand_incl_downstream": {
-    "mv_kW": 934.4,
-    "mv_kvar": 487.0,
-    "lv_kW": 1185.1,
-    "lv_kvar": 657.6,
-    "kW": 2119.5,
-    "kvar": 1144.6,
-    "kVA": 2408.9
+    "mv_kW": 1016.8,
+    "mv_kvar": 533.7,
+    "lv_kW": 1186.3,
+    "lv_kvar": 659.5,
+    "kW": 2203.1,
+    "kvar": 1193.2,
+    "kVA": 2505.4
    },
    "loads": [
     "P-101B",
@@ -204,14 +204,14 @@
    "type": "LV switchgear (ACB incomers/tie, IEEE C37.20.1) + MCC sections (UL 845), withdrawable buckets",
    "tie": "N.O. tie to MCC-101B",
    "max_demand": {
-    "C_kW": 1082.4,
+    "C_kW": 1083.6,
     "I_kW": 127.0,
     "S_kW": 558.8,
-    "kW": 1176.4,
-    "kvar": 641.1,
-    "kVA": 1339.7,
+    "kW": 1177.5,
+    "kvar": 642.8,
+    "kVA": 1341.6,
     "pf": 0.9,
-    "connected_kW": 1768.2
+    "connected_kW": 1769.4
    },
    "loads": [
     "P-103A",
@@ -235,11 +235,13 @@
     "K-101A",
     "A-101-M1",
     "A-101-M3",
+    "A-101-M5",
     "A-103-M1",
     "A-104-M1",
     "A-105-M1",
     "A-106-M1",
     "A-107-M1",
+    "A-107-M3",
     "A-108-M1",
     "A-201-M1",
     "A-202-M1",
@@ -275,14 +277,14 @@
    "type": "LV switchgear (ACB incomers/tie, IEEE C37.20.1) + MCC sections (UL 845), withdrawable buckets",
    "tie": "N.O. tie to MCC-101A",
    "max_demand": {
-    "C_kW": 1078.6,
+    "C_kW": 1079.8,
     "I_kW": 124.1,
     "S_kW": 575.2,
-    "kW": 1173.4,
-    "kvar": 632.3,
-    "kVA": 1332.9,
+    "kW": 1174.5,
+    "kvar": 634.1,
+    "kVA": 1334.8,
     "pf": 0.9,
-    "connected_kW": 1777.9
+    "connected_kW": 1779.1
    },
    "loads": [
     "P-103B",
@@ -307,11 +309,13 @@
     "K-101B",
     "A-101-M2",
     "A-101-M4",
+    "A-101-M6",
     "A-103-M2",
     "A-104-M2",
     "A-105-M2",
     "A-106-M2",
     "A-107-M2",
+    "A-107-M4",
     "A-108-M2",
     "A-201-M2",
     "A-202-M2",
@@ -379,8 +383,8 @@
    "type": "Oil-immersed, outdoor, off-circuit tap changer +/-2 x 2.5 %",
    "from_bus": "SWG-101A",
    "to_bus": "SWG-102A",
-   "md_contingency_kVA": 4960.0,
-   "loading_onan_pct": 66.1
+   "md_contingency_kVA": 5068.0,
+   "loading_onan_pct": 67.6
   },
   {
    "tag": "TR-102",
@@ -394,8 +398,8 @@
    "type": "Oil-immersed, outdoor, off-circuit tap changer +/-2 x 2.5 %",
    "from_bus": "SWG-101B",
    "to_bus": "SWG-102B",
-   "md_contingency_kVA": 4960.0,
-   "loading_onan_pct": 66.1
+   "md_contingency_kVA": 5068.0,
+   "loading_onan_pct": 67.6
   },
   {
    "tag": "TR-103",
@@ -409,8 +413,8 @@
    "type": "Oil-immersed, outdoor, off-circuit tap changer +/-2 x 2.5 %",
    "from_bus": "SWG-102A",
    "to_bus": "MCC-101A",
-   "md_contingency_kVA": 2672.6,
-   "loading_onan_pct": 89.1
+   "md_contingency_kVA": 2676.3,
+   "loading_onan_pct": 89.2
   },
   {
    "tag": "TR-104",
@@ -424,8 +428,8 @@
    "type": "Oil-immersed, outdoor, off-circuit tap changer +/-2 x 2.5 %",
    "from_bus": "SWG-102B",
    "to_bus": "MCC-101B",
-   "md_contingency_kVA": 2672.6,
-   "loading_onan_pct": 89.1
+   "md_contingency_kVA": 2676.3,
+   "loading_onan_pct": 89.2
   },
   {
    "tag": "LTR-101A",
@@ -501,13 +505,13 @@
  "short_circuit": {
   "max_kA": {
    "13.8 kV": 32.2,
-   "4.16 kV": 15.8,
-   "0.48 kV": 52.2
+   "4.16 kV": 15.9,
+   "0.48 kV": 52.4
   },
   "max_peak_kA": {
-   "13.8 kV": 82.9,
-   "4.16 kV": 40.3,
-   "0.48 kV": 122.7
+   "13.8 kV": 83.0,
+   "4.16 kV": 40.5,
+   "0.48 kV": 123.3
   },
   "rating_kA": {
    "13.8 kV": 40.0,
@@ -521,7 +525,7 @@
    "motor": "P-101A",
    "kW": 710,
    "LR_kVA": 5373.5,
-   "pre_kVA": 1833.2,
+   "pre_kVA": 1844.5,
    "bus_dip_pct": 5.3,
    "term_dip_pct": 5.8,
    "ok": true
@@ -531,7 +535,7 @@
    "motor": "P-101A",
    "kW": 710,
    "LR_kVA": 5373.5,
-   "pre_kVA": 4242.1,
+   "pre_kVA": 4350.0,
    "bus_dip_pct": 5.2,
    "term_dip_pct": 5.8,
    "ok": true
@@ -541,7 +545,7 @@
    "motor": "P-101A",
    "kW": 710,
    "LR_kVA": 5373.5,
-   "pre_kVA": 4242.1,
+   "pre_kVA": 4350.0,
    "bus_dip_pct": 5.6,
    "term_dip_pct": 6.1,
    "ok": true
@@ -779,13 +783,13 @@
    "bus": "SWG-102A",
    "starter": "VCB-DOL",
    "vfd": false,
-   "rated_kW": 250.0,
-   "absorbed_kW": 188.85,
-   "input_kW": 197.75,
-   "kVA": 227.3,
+   "rated_kW": 315.0,
+   "absorbed_kW": 267.54,
+   "input_kW": 280.15,
+   "kVA": 322.01,
    "duty": "S",
    "pair": "P-112B",
-   "FLC_A": 41.8,
+   "FLC_A": 52.6,
    "mccb_A": null,
    "cable": "3C x 70 mm2 Cu/XLPE/CWS/SWA/PVC 3.6/6 kV",
    "cable_tag": "CBL-P-112A",
@@ -824,13 +828,13 @@
    "bus": "SWG-102B",
    "starter": "VCB-DOL",
    "vfd": false,
-   "rated_kW": 250.0,
-   "absorbed_kW": 188.85,
-   "input_kW": 197.75,
-   "kVA": 227.3,
+   "rated_kW": 315.0,
+   "absorbed_kW": 267.54,
+   "input_kW": 280.15,
+   "kVA": 322.01,
    "duty": "C",
    "pair": "P-112A",
-   "FLC_A": 41.8,
+   "FLC_A": 52.6,
    "mccb_A": null,
    "cable": "3C x 70 mm2 Cu/XLPE/CWS/SWA/PVC 3.6/6 kV",
    "cable_tag": "CBL-P-112B",
@@ -2779,22 +2783,22 @@
   },
   {
    "tag": "A-101-M1",
-   "description": "Atm. overhead condenser - fan motor 1/4 (VFD)",
+   "description": "Atm. overhead condenser - fan motor 1/6 (VFD)",
    "equipment": "A-101",
    "category": "Air-cooler fans",
    "voltage_V": 480,
    "bus": "MCC-101A",
    "starter": "VFD",
    "vfd": true,
-   "rated_kW": 90.0,
-   "absorbed_kW": 67.49,
-   "input_kW": 74.42,
-   "kVA": 78.34,
+   "rated_kW": 55.0,
+   "absorbed_kW": 45.0,
+   "input_kW": 49.61,
+   "kVA": 52.22,
    "duty": "C",
    "pair": null,
-   "FLC_A": 134.6,
-   "mccb_A": 175,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "FLC_A": 82.3,
+   "mccb_A": 100,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
    "cable_tag": "CBL-A-101-M1",
    "cable_length_m": 140.0,
    "ct": null,
@@ -2828,22 +2832,22 @@
   },
   {
    "tag": "A-101-M2",
-   "description": "Atm. overhead condenser - fan motor 2/4 (VFD)",
+   "description": "Atm. overhead condenser - fan motor 2/6 (VFD)",
    "equipment": "A-101",
    "category": "Air-cooler fans",
    "voltage_V": 480,
    "bus": "MCC-101B",
    "starter": "VFD",
    "vfd": true,
-   "rated_kW": 90.0,
-   "absorbed_kW": 67.49,
-   "input_kW": 74.42,
-   "kVA": 78.34,
+   "rated_kW": 55.0,
+   "absorbed_kW": 45.0,
+   "input_kW": 49.61,
+   "kVA": 52.22,
    "duty": "C",
    "pair": null,
-   "FLC_A": 134.6,
-   "mccb_A": 175,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "FLC_A": 82.3,
+   "mccb_A": 100,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
    "cable_tag": "CBL-A-101-M2",
    "cable_length_m": 140.0,
    "ct": null,
@@ -2877,22 +2881,22 @@
   },
   {
    "tag": "A-101-M3",
-   "description": "Atm. overhead condenser - fan motor 3/4 (VFD)",
+   "description": "Atm. overhead condenser - fan motor 3/6 (VFD)",
    "equipment": "A-101",
    "category": "Air-cooler fans",
    "voltage_V": 480,
    "bus": "MCC-101A",
    "starter": "VFD",
    "vfd": true,
-   "rated_kW": 90.0,
-   "absorbed_kW": 67.49,
-   "input_kW": 74.42,
-   "kVA": 78.34,
+   "rated_kW": 55.0,
+   "absorbed_kW": 45.0,
+   "input_kW": 49.61,
+   "kVA": 52.22,
    "duty": "C",
    "pair": null,
-   "FLC_A": 134.6,
-   "mccb_A": 175,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "FLC_A": 82.3,
+   "mccb_A": 100,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
    "cable_tag": "CBL-A-101-M3",
    "cable_length_m": 145.0,
    "ct": null,
@@ -2926,24 +2930,122 @@
   },
   {
    "tag": "A-101-M4",
-   "description": "Atm. overhead condenser - fan motor 4/4 (VFD)",
+   "description": "Atm. overhead condenser - fan motor 4/6 (VFD)",
    "equipment": "A-101",
    "category": "Air-cooler fans",
    "voltage_V": 480,
    "bus": "MCC-101B",
    "starter": "VFD",
    "vfd": true,
-   "rated_kW": 90.0,
-   "absorbed_kW": 67.49,
-   "input_kW": 74.42,
-   "kVA": 78.34,
+   "rated_kW": 55.0,
+   "absorbed_kW": 45.0,
+   "input_kW": 49.61,
+   "kVA": 52.22,
    "duty": "C",
    "pair": null,
-   "FLC_A": 134.6,
-   "mccb_A": 175,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "FLC_A": 82.3,
+   "mccb_A": 100,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
    "cable_tag": "CBL-A-101-M4",
    "cable_length_m": 145.0,
+   "ct": null,
+   "relays": null,
+   "dcs_signals": {
+    "DI": [
+     "running",
+     "tripped",
+     "remote_selected",
+     "vfd_fault"
+    ],
+    "DO": [
+     "start",
+     "stop"
+    ],
+    "AI": [
+     "motor_current",
+     "speed_feedback"
+    ],
+    "AO": [
+     "speed_reference"
+    ],
+    "comms": "IEC 61850 (MV relays) / Modbus-TCP (MCC IEDs)"
+   },
+   "area_class": {
+    "zone": "Zone 2",
+    "gas_group": "IIB",
+    "temp_class": "T3",
+    "protection": "Ex ec (Gc)"
+   }
+  },
+  {
+   "tag": "A-101-M5",
+   "description": "Atm. overhead condenser - fan motor 5/6 (VFD)",
+   "equipment": "A-101",
+   "category": "Air-cooler fans",
+   "voltage_V": 480,
+   "bus": "MCC-101A",
+   "starter": "VFD",
+   "vfd": true,
+   "rated_kW": 55.0,
+   "absorbed_kW": 45.0,
+   "input_kW": 49.61,
+   "kVA": 52.22,
+   "duty": "C",
+   "pair": null,
+   "FLC_A": 82.3,
+   "mccb_A": 100,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "cable_tag": "CBL-A-101-M5",
+   "cable_length_m": 150.0,
+   "ct": null,
+   "relays": null,
+   "dcs_signals": {
+    "DI": [
+     "running",
+     "tripped",
+     "remote_selected",
+     "vfd_fault"
+    ],
+    "DO": [
+     "start",
+     "stop"
+    ],
+    "AI": [
+     "motor_current",
+     "speed_feedback"
+    ],
+    "AO": [
+     "speed_reference"
+    ],
+    "comms": "IEC 61850 (MV relays) / Modbus-TCP (MCC IEDs)"
+   },
+   "area_class": {
+    "zone": "Zone 2",
+    "gas_group": "IIB",
+    "temp_class": "T3",
+    "protection": "Ex ec (Gc)"
+   }
+  },
+  {
+   "tag": "A-101-M6",
+   "description": "Atm. overhead condenser - fan motor 6/6 (VFD)",
+   "equipment": "A-101",
+   "category": "Air-cooler fans",
+   "voltage_V": 480,
+   "bus": "MCC-101B",
+   "starter": "VFD",
+   "vfd": true,
+   "rated_kW": 55.0,
+   "absorbed_kW": 45.0,
+   "input_kW": 49.61,
+   "kVA": 52.22,
+   "duty": "C",
+   "pair": null,
+   "FLC_A": 82.3,
+   "mccb_A": 100,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "cable_tag": "CBL-A-101-M6",
+   "cable_length_m": 150.0,
    "ct": null,
    "relays": null,
    "dcs_signals": {
@@ -3323,22 +3425,22 @@
   },
   {
    "tag": "A-107-M1",
-   "description": "Splitter overhead condenser - fan motor 1/2",
+   "description": "Splitter overhead condenser - fan motor 1/4",
    "equipment": "A-107",
    "category": "Air-cooler fans",
    "voltage_V": 480,
    "bus": "MCC-101A",
    "starter": "DOL",
    "vfd": false,
-   "rated_kW": 45.0,
-   "absorbed_kW": 38.5,
-   "input_kW": 41.18,
-   "kVA": 47.88,
+   "rated_kW": 30.0,
+   "absorbed_kW": 19.25,
+   "input_kW": 21.16,
+   "kVA": 24.89,
    "duty": "C",
    "pair": null,
-   "FLC_A": 67.3,
-   "mccb_A": 125,
-   "cable": "3C x 25 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "FLC_A": 46.7,
+   "mccb_A": 90,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
    "cable_tag": "CBL-A-107-M1",
    "cable_length_m": 115.0,
    "ct": null,
@@ -3368,24 +3470,114 @@
   },
   {
    "tag": "A-107-M2",
-   "description": "Splitter overhead condenser - fan motor 2/2",
+   "description": "Splitter overhead condenser - fan motor 2/4",
    "equipment": "A-107",
    "category": "Air-cooler fans",
    "voltage_V": 480,
    "bus": "MCC-101B",
    "starter": "DOL",
    "vfd": false,
-   "rated_kW": 45.0,
-   "absorbed_kW": 38.5,
-   "input_kW": 41.18,
-   "kVA": 47.88,
+   "rated_kW": 30.0,
+   "absorbed_kW": 19.25,
+   "input_kW": 21.16,
+   "kVA": 24.89,
    "duty": "C",
    "pair": null,
-   "FLC_A": 67.3,
-   "mccb_A": 125,
-   "cable": "3C x 25 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "FLC_A": 46.7,
+   "mccb_A": 90,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
    "cable_tag": "CBL-A-107-M2",
    "cable_length_m": 115.0,
+   "ct": null,
+   "relays": null,
+   "dcs_signals": {
+    "DI": [
+     "running",
+     "tripped",
+     "remote_selected"
+    ],
+    "DO": [
+     "start",
+     "stop"
+    ],
+    "AI": [
+     "motor_current"
+    ],
+    "AO": [],
+    "comms": "IEC 61850 (MV relays) / Modbus-TCP (MCC IEDs)"
+   },
+   "area_class": {
+    "zone": "Zone 2",
+    "gas_group": "IIA",
+    "temp_class": "T3",
+    "protection": "Ex ec (Gc)"
+   }
+  },
+  {
+   "tag": "A-107-M3",
+   "description": "Splitter overhead condenser - fan motor 3/4",
+   "equipment": "A-107",
+   "category": "Air-cooler fans",
+   "voltage_V": 480,
+   "bus": "MCC-101A",
+   "starter": "DOL",
+   "vfd": false,
+   "rated_kW": 30.0,
+   "absorbed_kW": 19.25,
+   "input_kW": 21.16,
+   "kVA": 24.89,
+   "duty": "C",
+   "pair": null,
+   "FLC_A": 46.7,
+   "mccb_A": 90,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "cable_tag": "CBL-A-107-M3",
+   "cable_length_m": 120.0,
+   "ct": null,
+   "relays": null,
+   "dcs_signals": {
+    "DI": [
+     "running",
+     "tripped",
+     "remote_selected"
+    ],
+    "DO": [
+     "start",
+     "stop"
+    ],
+    "AI": [
+     "motor_current"
+    ],
+    "AO": [],
+    "comms": "IEC 61850 (MV relays) / Modbus-TCP (MCC IEDs)"
+   },
+   "area_class": {
+    "zone": "Zone 2",
+    "gas_group": "IIA",
+    "temp_class": "T3",
+    "protection": "Ex ec (Gc)"
+   }
+  },
+  {
+   "tag": "A-107-M4",
+   "description": "Splitter overhead condenser - fan motor 4/4",
+   "equipment": "A-107",
+   "category": "Air-cooler fans",
+   "voltage_V": 480,
+   "bus": "MCC-101B",
+   "starter": "DOL",
+   "vfd": false,
+   "rated_kW": 30.0,
+   "absorbed_kW": 19.25,
+   "input_kW": 21.16,
+   "kVA": 24.89,
+   "duty": "C",
+   "pair": null,
+   "FLC_A": 46.7,
+   "mccb_A": 90,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "cable_tag": "CBL-A-107-M4",
+   "cable_length_m": 120.0,
    "ct": null,
    "relays": null,
    "dcs_signals": {
@@ -4932,10 +5124,10 @@
   "mv_switchgear_cubicles_13_8kV": 9,
   "mv_switchgear_cubicles_4_16kV": 19,
   "mv_vfds": 2,
-  "lv_vfds": 4,
-  "lv_motor_starters": 63,
+  "lv_vfds": 6,
+  "lv_motor_starters": 65,
   "lv_feeder_buckets": 30,
-  "motors_total": 77,
+  "motors_total": 81,
   "motors_mv": 10,
   "ups_kVA": "2 x 100",
   "ups_battery_Ah": 350,
@@ -4953,16 +5145,16 @@
    "3C x 240 + E120 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 865.0,
    "3C x 120 + E70 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 585.0,
    "3C x 70 + E35 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 900.0,
-   "3C x 25 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 1550.0,
+   "3C x 25 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 1320.0,
    "3C x 6 + E6 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 940.0,
    "3C x 150 + E95 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 515.0,
-   "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable": 570.0,
+   "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable": 870.0,
    "3C x 10 + E10 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 1290.0,
-   "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 810.0
+   "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV": 1280.0
   },
-  "cable_m_total": 16435.0,
+  "cable_m_total": 16975.0,
   "cable_m_mv": 2900.0,
-  "cable_m_lv": 13505.0
+  "cable_m_lv": 14045.0
  },
  "cables": [
   {
@@ -5001,7 +5193,7 @@
    "vd_run": 0.02,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 159.25,
+   "s_sc_min": 159.34,
    "device": "VCB 1200 A",
    "length_src": "SS-100 yard",
    "notes": "",
@@ -5022,7 +5214,7 @@
    "vd_run": 0.07,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 78.12,
+   "s_sc_min": 78.52,
    "device": "VCB 2000 A",
    "length_src": "SS-100 yard",
    "notes": "Alternative: 5 kV cable bus / non-segregated bus duct",
@@ -5043,7 +5235,7 @@
    "vd_run": 0.06,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 78.12,
+   "s_sc_min": 78.52,
    "device": "VCB 1200 A",
    "length_src": "SS-100 yard",
    "notes": "",
@@ -5106,7 +5298,7 @@
    "vd_run": 0.02,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 159.25,
+   "s_sc_min": 159.34,
    "device": "VCB 1200 A",
    "length_src": "SS-100 yard",
    "notes": "",
@@ -5127,7 +5319,7 @@
    "vd_run": 0.07,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 78.12,
+   "s_sc_min": 78.52,
    "device": "VCB 2000 A",
    "length_src": "SS-100 yard",
    "notes": "Alternative: 5 kV cable bus / non-segregated bus duct",
@@ -5148,7 +5340,7 @@
    "vd_run": 0.06,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 78.12,
+   "s_sc_min": 78.52,
    "device": "VCB 1200 A",
    "length_src": "SS-100 yard",
    "notes": "",
@@ -5190,7 +5382,7 @@
    "vd_run": 0.17,
    "vd_start": 0.55,
    "term_dip": 5.88,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "150/5 A",
    "relays": "50/51, 50G, 46, 49, 87M, 27, 66, 86",
@@ -5215,7 +5407,7 @@
    "vd_run": 0.16,
    "vd_start": 0.52,
    "term_dip": 5.84,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "150/5 A",
    "relays": "50/51, 50G, 46, 49, 87M, 27, 66, 86",
@@ -5240,7 +5432,7 @@
    "vd_run": 0.15,
    "vd_start": 0.49,
    "term_dip": 5.81,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "150/5 A",
    "relays": "50/51, 50G, 46, 49, 87M, 27, 66, 86",
@@ -5264,12 +5456,12 @@
    "ampacity": 185.64,
    "vd_run": 0.16,
    "vd_start": 0.52,
-   "term_dip": 5.86,
-   "s_sc_min": 55.24,
+   "term_dip": 5.85,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "150/5 A",
    "relays": "50/51, 50G, 46, 49, 87M, 27, 66, 86",
-   "bus_dip": 5.34,
+   "bus_dip": 5.33,
    "length_src": "layout",
    "load": "P-102B",
    "notes": "",
@@ -5281,20 +5473,20 @@
    "to": "P-112A",
    "kV": 4.16,
    "service": "Atm. residue / vacuum heater charge pump A",
-   "I_A": 41.76,
+   "I_A": 52.62,
    "L_m": 155.0,
    "cable": "3C x 70 mm2 Cu/XLPE/CWS/SWA/PVC 3.6/6 kV",
    "size": 70,
    "runs": 1,
    "ampacity": 185.64,
-   "vd_run": 0.1,
-   "vd_start": 0.31,
-   "term_dip": 2.31,
-   "s_sc_min": 55.24,
+   "vd_run": 0.12,
+   "vd_start": 0.39,
+   "term_dip": 2.9,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "75/5 A",
    "relays": "50/51, 50G, 46, 49, 27, 66, 86",
-   "bus_dip": 2.0,
+   "bus_dip": 2.51,
    "length_src": "layout",
    "load": "P-112A",
    "notes": "",
@@ -5306,20 +5498,20 @@
    "to": "P-112B",
    "kV": 4.16,
    "service": "Atm. residue / vacuum heater charge pump B",
-   "I_A": 41.76,
+   "I_A": 52.62,
    "L_m": 160.0,
    "cable": "3C x 70 mm2 Cu/XLPE/CWS/SWA/PVC 3.6/6 kV",
    "size": 70,
    "runs": 1,
    "ampacity": 185.64,
-   "vd_run": 0.1,
-   "vd_start": 0.32,
-   "term_dip": 2.32,
-   "s_sc_min": 55.24,
+   "vd_run": 0.12,
+   "vd_start": 0.4,
+   "term_dip": 2.92,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "75/5 A",
    "relays": "50/51, 50G, 46, 49, 27, 66, 86",
-   "bus_dip": 2.01,
+   "bus_dip": 2.51,
    "length_src": "layout",
    "load": "P-112B",
    "notes": "",
@@ -5340,7 +5532,7 @@
    "vd_run": 0.12,
    "vd_start": 0.4,
    "term_dip": 2.01,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "50/5 A",
    "relays": "50/51, 50G, 46, 49, 27, 66, 86",
@@ -5365,7 +5557,7 @@
    "vd_run": 0.12,
    "vd_start": 0.4,
    "term_dip": 2.01,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A, DOL",
    "ct": "50/5 A",
    "relays": "50/51, 50G, 46, 49, 27, 66, 86",
@@ -5390,7 +5582,7 @@
    "vd_run": 0.05,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A + VFD-K-102A (MV drive, 18-pulse/AFE)",
    "ct": "50/5 A",
    "relays": "50/51, 50N/51N, 27, 86 (motor protection in VFD: 49, 46, 37)",
@@ -5415,7 +5607,7 @@
    "vd_run": 0.06,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 55.24,
+   "s_sc_min": 55.52,
    "device": "VCB 1200 A + VFD-K-102B (MV drive, 18-pulse/AFE)",
    "ct": "50/5 A",
    "relays": "50/51, 50N/51N, 27, 86 (motor protection in VFD: 49, 46, 37)",
@@ -6327,18 +6519,18 @@
    "frm": "VFD-A-101-M1",
    "to": "A-101-M1",
    "kV": 0.48,
-   "service": "Atm. overhead condenser - fan motor 1/4 (VFD)",
-   "I_A": 134.63,
+   "service": "Atm. overhead condenser - fan motor 1/6 (VFD)",
+   "I_A": 82.27,
    "L_m": 140.0,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
-   "size": 70,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "size": 35,
    "runs": 1,
-   "ampacity": 179.09,
-   "vd_run": 2.28,
+   "ampacity": 115.02,
+   "vd_run": 2.58,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 8.56,
-   "device": "MCCB 175 A (250 AF) + VFD (6-pulse + harmonic filter)",
+   "s_sc_min": 4.94,
+   "device": "MCCB 100 A (125 AF) + VFD (6-pulse + harmonic filter)",
    "bus_dip": null,
    "length_src": "layout",
    "load": "A-101-M1",
@@ -6350,18 +6542,18 @@
    "frm": "VFD-A-101-M2",
    "to": "A-101-M2",
    "kV": 0.48,
-   "service": "Atm. overhead condenser - fan motor 2/4 (VFD)",
-   "I_A": 134.63,
+   "service": "Atm. overhead condenser - fan motor 2/6 (VFD)",
+   "I_A": 82.27,
    "L_m": 140.0,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
-   "size": 70,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "size": 35,
    "runs": 1,
-   "ampacity": 179.09,
-   "vd_run": 2.28,
+   "ampacity": 115.02,
+   "vd_run": 2.58,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 8.56,
-   "device": "MCCB 175 A (250 AF) + VFD (6-pulse + harmonic filter)",
+   "s_sc_min": 4.94,
+   "device": "MCCB 100 A (125 AF) + VFD (6-pulse + harmonic filter)",
    "bus_dip": null,
    "length_src": "layout",
    "load": "A-101-M2",
@@ -6373,18 +6565,18 @@
    "frm": "VFD-A-101-M3",
    "to": "A-101-M3",
    "kV": 0.48,
-   "service": "Atm. overhead condenser - fan motor 3/4 (VFD)",
-   "I_A": 134.63,
+   "service": "Atm. overhead condenser - fan motor 3/6 (VFD)",
+   "I_A": 82.27,
    "L_m": 145.0,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
-   "size": 70,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "size": 35,
    "runs": 1,
-   "ampacity": 179.09,
-   "vd_run": 2.36,
+   "ampacity": 115.02,
+   "vd_run": 2.67,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 8.56,
-   "device": "MCCB 175 A (250 AF) + VFD (6-pulse + harmonic filter)",
+   "s_sc_min": 4.94,
+   "device": "MCCB 100 A (125 AF) + VFD (6-pulse + harmonic filter)",
    "bus_dip": null,
    "length_src": "layout",
    "load": "A-101-M3",
@@ -6396,23 +6588,69 @@
    "frm": "VFD-A-101-M4",
    "to": "A-101-M4",
    "kV": 0.48,
-   "service": "Atm. overhead condenser - fan motor 4/4 (VFD)",
-   "I_A": 134.63,
+   "service": "Atm. overhead condenser - fan motor 4/6 (VFD)",
+   "I_A": 82.27,
    "L_m": 145.0,
-   "cable": "3C x 70 + 3E x 16 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
-   "size": 70,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "size": 35,
    "runs": 1,
-   "ampacity": 179.09,
-   "vd_run": 2.36,
+   "ampacity": 115.02,
+   "vd_run": 2.67,
    "vd_start": null,
    "term_dip": null,
-   "s_sc_min": 8.56,
-   "device": "MCCB 175 A (250 AF) + VFD (6-pulse + harmonic filter)",
+   "s_sc_min": 4.94,
+   "device": "MCCB 100 A (125 AF) + VFD (6-pulse + harmonic filter)",
    "bus_dip": null,
    "length_src": "layout",
    "load": "A-101-M4",
    "notes": "",
    "no": 63
+  },
+  {
+   "tag": "CBL-A-101-M5",
+   "frm": "VFD-A-101-M5",
+   "to": "A-101-M5",
+   "kV": 0.48,
+   "service": "Atm. overhead condenser - fan motor 5/6 (VFD)",
+   "I_A": 82.27,
+   "L_m": 150.0,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "size": 35,
+   "runs": 1,
+   "ampacity": 115.02,
+   "vd_run": 2.76,
+   "vd_start": null,
+   "term_dip": null,
+   "s_sc_min": 4.94,
+   "device": "MCCB 100 A (125 AF) + VFD (6-pulse + harmonic filter)",
+   "bus_dip": null,
+   "length_src": "layout",
+   "load": "A-101-M5",
+   "notes": "",
+   "no": 64
+  },
+  {
+   "tag": "CBL-A-101-M6",
+   "frm": "VFD-A-101-M6",
+   "to": "A-101-M6",
+   "kV": 0.48,
+   "service": "Atm. overhead condenser - fan motor 6/6 (VFD)",
+   "I_A": 82.27,
+   "L_m": 150.0,
+   "cable": "3C x 35 + 3E x 11.6667 mm2 Cu/XLPE/CWS/SWA/PVC 0.6/1 kV, symmetrical VFD cable",
+   "size": 35,
+   "runs": 1,
+   "ampacity": 115.02,
+   "vd_run": 2.76,
+   "vd_start": null,
+   "term_dip": null,
+   "s_sc_min": 4.94,
+   "device": "MCCB 100 A (125 AF) + VFD (6-pulse + harmonic filter)",
+   "bus_dip": null,
+   "length_src": "layout",
+   "load": "A-101-M6",
+   "notes": "",
+   "no": 65
   },
   {
    "tag": "CBL-A-103-M1",
@@ -6435,7 +6673,7 @@
    "length_src": "layout",
    "load": "A-103-M1",
    "notes": "",
-   "no": 64
+   "no": 66
   },
   {
    "tag": "CBL-A-103-M2",
@@ -6458,7 +6696,7 @@
    "length_src": "layout",
    "load": "A-103-M2",
    "notes": "",
-   "no": 65
+   "no": 67
   },
   {
    "tag": "CBL-A-104-M1",
@@ -6481,7 +6719,7 @@
    "length_src": "layout",
    "load": "A-104-M1",
    "notes": "",
-   "no": 66
+   "no": 68
   },
   {
    "tag": "CBL-A-104-M2",
@@ -6504,7 +6742,7 @@
    "length_src": "layout",
    "load": "A-104-M2",
    "notes": "",
-   "no": 67
+   "no": 69
   },
   {
    "tag": "CBL-A-105-M1",
@@ -6527,7 +6765,7 @@
    "length_src": "layout",
    "load": "A-105-M1",
    "notes": "",
-   "no": 68
+   "no": 70
   },
   {
    "tag": "CBL-A-105-M2",
@@ -6550,7 +6788,7 @@
    "length_src": "layout",
    "load": "A-105-M2",
    "notes": "",
-   "no": 69
+   "no": 71
   },
   {
    "tag": "CBL-A-106-M1",
@@ -6573,7 +6811,7 @@
    "length_src": "layout",
    "load": "A-106-M1",
    "notes": "",
-   "no": 70
+   "no": 72
   },
   {
    "tag": "CBL-A-106-M2",
@@ -6596,53 +6834,99 @@
    "length_src": "layout",
    "load": "A-106-M2",
    "notes": "",
-   "no": 71
+   "no": 73
   },
   {
    "tag": "CBL-A-107-M1",
    "frm": "MCC-101A",
    "to": "A-107-M1",
    "kV": 0.48,
-   "service": "Splitter overhead condenser - fan motor 1/2",
-   "I_A": 67.31,
+   "service": "Splitter overhead condenser - fan motor 1/4",
+   "I_A": 46.65,
    "L_m": 115.0,
-   "cable": "3C x 25 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
-   "size": 25,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "size": 16,
    "runs": 1,
-   "ampacity": 92.46,
-   "vd_run": 2.36,
-   "vd_start": 7.36,
-   "term_dip": 8.39,
+   "ampacity": 72.8,
+   "vd_run": 2.51,
+   "vd_start": 7.48,
+   "term_dip": 8.2,
    "s_sc_min": 4.94,
-   "device": "MCCB 125 A (125 AF) + DOL, NEMA size 4",
-   "bus_dip": 1.03,
+   "device": "MCCB 90 A (125 AF) + DOL, NEMA size 3",
+   "bus_dip": 0.71,
    "length_src": "layout",
    "load": "A-107-M1",
    "notes": "",
-   "no": 72
+   "no": 74
   },
   {
    "tag": "CBL-A-107-M2",
    "frm": "MCC-101B",
    "to": "A-107-M2",
    "kV": 0.48,
-   "service": "Splitter overhead condenser - fan motor 2/2",
-   "I_A": 67.31,
+   "service": "Splitter overhead condenser - fan motor 2/4",
+   "I_A": 46.65,
    "L_m": 115.0,
-   "cable": "3C x 25 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
-   "size": 25,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "size": 16,
    "runs": 1,
-   "ampacity": 92.46,
-   "vd_run": 2.36,
-   "vd_start": 7.36,
-   "term_dip": 8.39,
+   "ampacity": 72.8,
+   "vd_run": 2.51,
+   "vd_start": 7.48,
+   "term_dip": 8.2,
    "s_sc_min": 4.94,
-   "device": "MCCB 125 A (125 AF) + DOL, NEMA size 4",
-   "bus_dip": 1.03,
+   "device": "MCCB 90 A (125 AF) + DOL, NEMA size 3",
+   "bus_dip": 0.71,
    "length_src": "layout",
    "load": "A-107-M2",
    "notes": "",
-   "no": 73
+   "no": 75
+  },
+  {
+   "tag": "CBL-A-107-M3",
+   "frm": "MCC-101A",
+   "to": "A-107-M3",
+   "kV": 0.48,
+   "service": "Splitter overhead condenser - fan motor 3/4",
+   "I_A": 46.65,
+   "L_m": 120.0,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "size": 16,
+   "runs": 1,
+   "ampacity": 72.8,
+   "vd_run": 2.62,
+   "vd_start": 7.81,
+   "term_dip": 8.52,
+   "s_sc_min": 4.94,
+   "device": "MCCB 90 A (125 AF) + DOL, NEMA size 3",
+   "bus_dip": 0.71,
+   "length_src": "layout",
+   "load": "A-107-M3",
+   "notes": "",
+   "no": 76
+  },
+  {
+   "tag": "CBL-A-107-M4",
+   "frm": "MCC-101B",
+   "to": "A-107-M4",
+   "kV": 0.48,
+   "service": "Splitter overhead condenser - fan motor 4/4",
+   "I_A": 46.65,
+   "L_m": 120.0,
+   "cable": "3C x 16 + E16 mm2 Cu/XLPE/SWA/PVC 0.6/1 kV",
+   "size": 16,
+   "runs": 1,
+   "ampacity": 72.8,
+   "vd_run": 2.62,
+   "vd_start": 7.81,
+   "term_dip": 8.52,
+   "s_sc_min": 4.94,
+   "device": "MCCB 90 A (125 AF) + DOL, NEMA size 3",
+   "bus_dip": 0.71,
+   "length_src": "layout",
+   "load": "A-107-M4",
+   "notes": "",
+   "no": 77
   },
   {
    "tag": "CBL-A-108-M1",
@@ -6665,7 +6949,7 @@
    "length_src": "layout",
    "load": "A-108-M1",
    "notes": "",
-   "no": 74
+   "no": 78
   },
   {
    "tag": "CBL-A-108-M2",
@@ -6688,7 +6972,7 @@
    "length_src": "layout",
    "load": "A-108-M2",
    "notes": "",
-   "no": 75
+   "no": 79
   },
   {
    "tag": "CBL-A-201-M1",
@@ -6711,7 +6995,7 @@
    "length_src": "layout",
    "load": "A-201-M1",
    "notes": "",
-   "no": 76
+   "no": 80
   },
   {
    "tag": "CBL-A-201-M2",
@@ -6734,7 +7018,7 @@
    "length_src": "layout",
    "load": "A-201-M2",
    "notes": "",
-   "no": 77
+   "no": 81
   },
   {
    "tag": "CBL-A-202-M1",
@@ -6757,7 +7041,7 @@
    "length_src": "layout",
    "load": "A-202-M1",
    "notes": "",
-   "no": 78
+   "no": 82
   },
   {
    "tag": "CBL-A-202-M2",
@@ -6780,7 +7064,7 @@
    "length_src": "layout",
    "load": "A-202-M2",
    "notes": "",
-   "no": 79
+   "no": 83
   },
   {
    "tag": "CBL-X-101-PA",
@@ -6803,7 +7087,7 @@
    "length_src": "layout",
    "load": "X-101-PA",
    "notes": "",
-   "no": 80
+   "no": 84
   },
   {
    "tag": "CBL-X-101-PB",
@@ -6826,7 +7110,7 @@
    "length_src": "layout",
    "load": "X-101-PB",
    "notes": "",
-   "no": 81
+   "no": 85
   },
   {
    "tag": "CBL-X-102-PA",
@@ -6849,7 +7133,7 @@
    "length_src": "layout",
    "load": "X-102-PA",
    "notes": "",
-   "no": 82
+   "no": 86
   },
   {
    "tag": "CBL-X-102-PB",
@@ -6872,7 +7156,7 @@
    "length_src": "layout",
    "load": "X-102-PB",
    "notes": "",
-   "no": 83
+   "no": 87
   },
   {
    "tag": "CBL-X-103-PA",
@@ -6895,7 +7179,7 @@
    "length_src": "layout",
    "load": "X-103-PA",
    "notes": "",
-   "no": 84
+   "no": 88
   },
   {
    "tag": "CBL-X-103-PB",
@@ -6918,7 +7202,7 @@
    "length_src": "layout",
    "load": "X-103-PB",
    "notes": "",
-   "no": 85
+   "no": 89
   },
   {
    "tag": "CBL-X-104-PA",
@@ -6941,7 +7225,7 @@
    "length_src": "layout",
    "load": "X-104-PA",
    "notes": "",
-   "no": 86
+   "no": 90
   },
   {
    "tag": "CBL-X-104-PB",
@@ -6964,7 +7248,7 @@
    "length_src": "layout",
    "load": "X-104-PB",
    "notes": "",
-   "no": 87
+   "no": 91
   },
   {
    "tag": "CBL-DT-101A1",
@@ -6987,7 +7271,7 @@
    "length_src": "layout",
    "load": "DT-101A1",
    "notes": "",
-   "no": 88
+   "no": 92
   },
   {
    "tag": "CBL-DT-101A2",
@@ -7010,7 +7294,7 @@
    "length_src": "layout",
    "load": "DT-101A2",
    "notes": "",
-   "no": 89
+   "no": 93
   },
   {
    "tag": "CBL-DT-101B1",
@@ -7033,7 +7317,7 @@
    "length_src": "layout",
    "load": "DT-101B1",
    "notes": "",
-   "no": 90
+   "no": 94
   },
   {
    "tag": "CBL-DT-101B2",
@@ -7056,7 +7340,7 @@
    "length_src": "layout",
    "load": "DT-101B2",
    "notes": "",
-   "no": 91
+   "no": 95
   },
   {
    "tag": "CBL-MOV-A",
@@ -7079,7 +7363,7 @@
    "length_src": "area:PLOT",
    "load": "MOV-A",
    "notes": "",
-   "no": 92
+   "no": 96
   },
   {
    "tag": "CBL-MOV-B",
@@ -7102,7 +7386,7 @@
    "length_src": "area:PLOT",
    "load": "MOV-B",
    "notes": "",
-   "no": 93
+   "no": 97
   },
   {
    "tag": "CBL-HTP-101",
@@ -7125,7 +7409,7 @@
    "length_src": "area:CDU_P",
    "load": "HTP-101",
    "notes": "",
-   "no": 94
+   "no": 98
   },
   {
    "tag": "CBL-HTP-102",
@@ -7148,7 +7432,7 @@
    "length_src": "area:VDU_P",
    "load": "HTP-102",
    "notes": "",
-   "no": 95
+   "no": 99
   },
   {
    "tag": "CBL-AH-101",
@@ -7171,7 +7455,7 @@
    "length_src": "area:CDU",
    "load": "AH-101",
    "notes": "",
-   "no": 96
+   "no": 100
   },
   {
    "tag": "CBL-BEF-101A",
@@ -7194,7 +7478,7 @@
    "length_src": "inside SS-100",
    "load": "BEF-101A",
    "notes": "",
-   "no": 97
+   "no": 101
   },
   {
    "tag": "CBL-BEF-101B",
@@ -7217,7 +7501,7 @@
    "length_src": "inside SS-100",
    "load": "BEF-101B",
    "notes": "",
-   "no": 98
+   "no": 102
   },
   {
    "tag": "CBL-HVAC-101A",
@@ -7240,7 +7524,7 @@
    "length_src": "inside SS-100",
    "load": "HVAC-101A",
    "notes": "",
-   "no": 99
+   "no": 103
   },
   {
    "tag": "CBL-HVAC-101B",
@@ -7263,7 +7547,7 @@
    "length_src": "inside SS-100",
    "load": "HVAC-101B",
    "notes": "",
-   "no": 100
+   "no": 104
   },
   {
    "tag": "CBL-HVAC-102A",
@@ -7286,7 +7570,7 @@
    "length_src": "FAR-100",
    "load": "HVAC-102A",
    "notes": "",
-   "no": 101
+   "no": 105
   },
   {
    "tag": "CBL-HVAC-102B",
@@ -7309,7 +7593,7 @@
    "length_src": "FAR-100",
    "load": "HVAC-102B",
    "notes": "",
-   "no": 102
+   "no": 106
   },
   {
    "tag": "CBL-WR-A",
@@ -7332,7 +7616,7 @@
    "length_src": "area:PLOT",
    "load": "WR-A",
    "notes": "",
-   "no": 103
+   "no": 107
   },
   {
    "tag": "CBL-WR-B",
@@ -7355,7 +7639,7 @@
    "length_src": "area:PLOT",
    "load": "WR-B",
    "notes": "",
-   "no": 104
+   "no": 108
   },
   {
    "tag": "CBL-CP-101",
@@ -7378,7 +7662,7 @@
    "length_src": "area:DESALT",
    "load": "CP-101",
    "notes": "",
-   "no": 105
+   "no": 109
   },
   {
    "tag": "CBL-BC-101A",
@@ -7401,7 +7685,7 @@
    "length_src": "inside SS-100",
    "load": "BC-101A",
    "notes": "",
-   "no": 106
+   "no": 110
   },
   {
    "tag": "CBL-BC-101B",
@@ -7424,7 +7708,7 @@
    "length_src": "inside SS-100",
    "load": "BC-101B",
    "notes": "",
-   "no": 107
+   "no": 111
   },
   {
    "tag": "CBL-UPS-101A",
@@ -7447,7 +7731,7 @@
    "length_src": "inside SS-100",
    "load": "UPS-101A",
    "notes": "",
-   "no": 108
+   "no": 112
   },
   {
    "tag": "CBL-UPS-101B",
@@ -7470,7 +7754,7 @@
    "length_src": "inside SS-100",
    "load": "UPS-101B",
    "notes": "",
-   "no": 109
+   "no": 113
   },
   {
    "tag": "CBL-HST-101",
@@ -7493,7 +7777,7 @@
    "length_src": "area:DESALT_P",
    "load": "HST-101",
    "notes": "",
-   "no": 110
+   "no": 114
   },
   {
    "tag": "CBL-SB-101",
@@ -7516,7 +7800,7 @@
    "length_src": "area:H101",
    "load": "SB-101",
    "notes": "",
-   "no": 111
+   "no": 115
   },
   {
    "tag": "CBL-LTR-101A",
@@ -7538,7 +7822,7 @@
    "length_src": "inside SS-100",
    "load": "LTR-101A",
    "notes": "",
-   "no": 112
+   "no": 116
   },
   {
    "tag": "CBL-LTR-101B",
@@ -7560,7 +7844,7 @@
    "length_src": "inside SS-100",
    "load": "LTR-101B",
    "notes": "",
-   "no": 113
+   "no": 117
   }
  ],
  "hazardous_area": {
@@ -7570,10 +7854,10 @@
    "CFU-000-EL-HAC-003"
   ],
   "basis": "API RP 505 / NFPA 70 Art. 505 / EI 15; IIA T3 general, IIB in H2S/FG services",
-  "release_sources": 144,
+  "release_sources": 146,
   "clearances": {
-   "H-101": 16.6,
-   "H-201": 12.5,
+   "H-101": 10.3,
+   "H-201": 13.2,
    "E-120": 34.1,
    "SS-100": 17.1,
    "FAR-100": 20.1
@@ -7586,7 +7870,7 @@
   "Long 480 V motor feeders: SS-100 is in the SW corner while the VDU pumps are ~170 m east, so the 15 % terminal-dip criterion governs (e.g. P-201B 150 mm2 at 260 m, P-107B 240 mm2 at 195 m, P-107A 240 mm2 at 195 m, P-201A 150 mm2 at 255 m). Moving the >= 110 kW LV pumps to 4.16 kV, or a satellite LV substation near the VDU, would reduce copper; to be reviewed with the plot plan.",
   "Allowance loads (lighting, HVAC, heat tracing, MOVs, welding, UPS, CP, analyser house) are FEED estimates and must be replaced by vendor / discipline data.",
   "Desalter transformer load factor (0.35) assumed; desalter vendor to confirm grid power.",
-  "Cable lengths use equipment coordinates from data/layout.json (137 tagged items) with Manhattan routing from SS-100 plus allowances; actual tray/trench routes to be confirmed at detailed design (lengths regenerate automatically when the layout changes).",
+  "Cable lengths use equipment coordinates from data/layout.json (139 tagged items) with Manhattan routing from SS-100 plus allowances; actual tray/trench routes to be confirmed at detailed design (lengths regenerate automatically when the layout changes).",
   "Hazardous-area classification: CFU-000-EL-HAC-001/002/003 (Section 12); motor Ex protection per location in data/electrical.json (loads[].area_class)."
  ]
 }

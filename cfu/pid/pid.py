@@ -706,10 +706,10 @@ def sheet_004():
 
 
 # ============================================================================= SHEET 005
-def sif_block(C, x0, y0, w, sifs):
+def sif_block(C, x0, y0, w, sifs, title="H-101 BMS / SIS (SIL-RATED PLC)"):
     h = 10 + 14 * len(sifs)
     C.g_eq.add(C.d.rect((x0, y0), (w, h), stroke_width=0.5))
-    C.t("H-101 BMS / SIS (SIL-RATED PLC)", x0 + w / 2, y0 + 5, 2.3, "middle", bold=True)
+    C.t(title, x0 + w / 2, y0 + 5, 2.3, "middle", bold=True)
     pos = {}
     for i, sf in enumerate(sifs):
         y = y0 + 15 + i * 14
@@ -1309,6 +1309,569 @@ def sheet_009():
     C.t("= FIC-1034 (SHARED)", 692, 396, 2.0)
     return save(C)
 
+# ============================================================================= SHEET 010
+def sheet_010():
+    C = new_sheet(10, [
+        "Stabiliser C-105 is in LPG service: class C1 (600#), fire-safe valves, area gas detection (F&G).",
+        "Column pressure by hot-vapour bypass PV-1091; reboiler HP steam cut by SIF-110 (XV-1096).",
+        "E-116 kettle: stabilised naphtha overflows weir to E-114; HP condensate pot level LIC-1098.",
+    ])
+    eq_boxes(C, ["C-105", "E-114", "E-116", "A-106", "D-105", "P-115A/B"], w=82)
+    x, w = 300.0, 34.0
+    y0, y1 = 100.0, 400.0
+    ym = {n: 115 + 15 * (n - 1) for n in range(1, 20)}
+    C.column(x, y0, y1, w)
+    col_trays(C, x, w, ym)
+    C.t("C-105", x + w / 2 + 4, 250, 3.2, "start", bold=True)
+    xl, xr = x - w / 2, x + w / 2
+    # feed: P-104 -> E-114 shell -> tray 13
+    hx = C.hx(170, 300)
+    C.t("E-114", 170, 317, 2.6, "middle", bold=True)
+    C.opc(50, 320, "l", "FROM P-104A/B", dref(9))
+    C.line("naph_d", [(50, 320), (hx["sb_far"][0], 320), hx["sb_far"]], lab=0, at=0.4)
+    C.line("stab_feed", [hx["st_near"], (hx["st_near"][0], 270), (250, 270), (250, ym[13] - 4), (xl - 2.5, ym[13] - 4)],
+           lab=1, at=0.45)
+    C.noz(xl, ym[13] - 4, "l", "FEED")
+    ti(C, 230, 255, [(230, 270), (230, 259.6)], svc="Stabiliser feed temperature", line="stab_feed")
+    # overhead -> A-106 -> D-105
+    C.noz(x, y0 - 8.5, "u")
+    a = C.aircooler(400, 68, 34, 8, 2)
+    C.t("A-106", 417, 65, 2.6, "middle", bold=True)
+    C.line("c105_ov", [(x, y0 - 11), (x, 72), a["i"]], lab=1, at=0.5)
+    dx0, dy0 = 480.0, 120.0
+    C.hdrum(dx0, dy0, 80, 25, boot=(545, 10, 14))
+    C.t("D-105", dx0 + 30, dy0 + 14, 2.8, "middle", bold=True)
+    C.line("a106_out", [a["o"], (490, 72), (490, dy0)], lab=0, at=0.5)
+    C.line("c105_hvb", [(360, 72), (360, 100), (505, 100), (505, dy0)], lab=1, at=0.75, side=1)
+    C.dot(360, 72)
+    C.station(380, 100, 425, 100, "PV-1091", "FO", byp=1, tag_pos=(406, 94))
+    ctrl(C, "PIC-1091", 470, 160, 445, 160, tap=[(dx0, 135), (470, 135), (470, 155.4)] if False else
+         [(dx0 + 2, dy0 + 20), (474.6, dy0 + 20), (474.6, 160)], sig=[(465.4, 160), (449.6, 160)],
+         vsig=[(445, 155.4), (445, 85), (402.5, 85), (402.5, 93.2)], fail="FO", line="c105_ov")
+    sis_initiator(C, ["PT-1091B"], 470, 185, "PZHH-1091", "SIF-110", 445, 185, 0, 0,
+                  tap=[(dx0 + 4, dy0 + 23), (dx0 + 4, 185), (474.6, 185)])
+    C.ilk(445, 205, "SIF-110", below=False)
+    C.sig([(445, 190.4), (445, 201)], "e")
+    C.t("TO XV-1096", 451, 210, 2.0)
+    pv = C_.PSV["PSV-1006"]
+    C.psv(530, dy0, "PSV-1006", pv["set_barg"], f"1{pv['orifice']}", up=14, out="r", outlen=14, dest="FLARE",
+          text_side=1)
+    REG.use_line("1006_out", C.sid)
+    C.t(REG.no("1006_out"), 548, dy0 - 23, 2.0)
+    C.line("d105_og", [(555, dy0), (555, 84), (790, 84)], lab=1, at=0.6)
+    C.opc(790, 84, "r", "OFF-GAS TO FG (NNF)", "OSBL")
+    C.gate(555, 95, "v")
+    C.line("d105_sw", [(545, dy0 + 39), (545, 168), (790, 168)], lab=1, at=0.6)
+    C.opc(790, 168, "r", "BOOT WATER TO SWS", "OSBL")
+    C.gate(600, 168, "h", note="NC")
+    lg = free_tag(C, "LG")
+    C.bub(575, 152, lg, "field", svc="D-105 level gauge", r=4.0)
+    C.tap([(559, 140), (566, 140), (566, 152), (571, 152)])
+    # pumps P-115 -> reflux / LPG
+    pp = pump_pair(C, 530, 240, "P-115", "lpg_s", "stab_refl")
+    REG.use_line("lpg_prod", C.sid)
+    C.line("lpg_s", [(497, dy0 + 25), (497, pp["s"][1]), pp["s"]], lab=0, at=0.55, side=-1, arrow=False)
+    yr = 178.0
+    C.pipe([pp["dr"], (590, pp["dr"][1])], arrow=False)
+    C.line("stab_refl", [(590, pp["dr"][1]), (590, yr), (335, yr), (335, ym[1] - 4), (xr + 2.5, ym[1] - 4)],
+           lab=2, at=0.75)
+    C.hop(497, yr, "h")
+    C.noz(xr, ym[1] - 4, "r", "REFLUX")
+    C.orifice(420, yr, "h")
+    REG.inst("FE-1094", C.sid, svc="Stabiliser reflux flow element", line="stab_refl")
+    C.station(355, yr, 400, yr, "FV-1094", "FC", byp=1, tag_pos=(381, yr - 6))
+    ctrl(C, "FIC-1094", 420, yr - 16, 400, yr - 28, tap=[(420, yr - 2.4), (420, yr - 11.4)],
+         sig=[(415.4, yr - 16), (410, yr - 16), (410, yr - 28), (404.6, yr - 28)],
+         vsig=[(395.4, yr - 28), (377.5, yr - 28), (377.5, yr - 10.4)], fail="FC", line="stab_refl")
+    C.t("RATIO TO FEED", 400, yr - 36, 2.0, "middle")
+    C.dot(590, pp["dr"][1])
+    C.line("lpg_prod", [(590, pp["dr"][1]), (790, pp["dr"][1])], lab=0, at=0.85)
+    C.opc(790, pp["dr"][1], "r", "LPG TO TREATING", "OSBL")
+    yl = pp["dr"][1]
+    C.orifice(620, yl, "h")
+    REG.inst("FE-1093", C.sid, svc="LPG product flow element", line="lpg_prod")
+    C.station(640, yl, 685, yl, "FV-1093", "FC", byp=1, tag_pos=(666, yl - 6))
+    ctrl(C, "FIC-1093", 620, yl - 16, 640, yl - 28, tap=[(620, yl - 2.4), (620, yl - 11.4)],
+         sig=[(624.6, yl - 16), (630, yl - 16), (630, yl - 28), (635.4, yl - 28)],
+         vsig=[(644.6, yl - 28), (662.5, yl - 28), (662.5, yl - 10.4)], fail="FC", line="lpg_prod")
+    C.tap([(dx0 + 80, dy0 + 12), (dx0 + 100, dy0 + 12), (dx0 + 100, 145.4)] if False else [(dx0 + 82, dy0 + 15), (612, dy0 + 15)])
+    ctrl(C, "LIC-1092", 617, dy0 + 15, 640, dy0 + 15, line="lpg_s")
+    C.t("SP TO FIC-1093", 646, dy0 + 16, 2.0)
+    for i, xg in enumerate((700, 730)):
+        gd = free_tag(C, "GD")
+        C.bub(xg, 300, gd, "field", sys="F&G", svc=f"Flammable gas detector, LPG pump area P-115 ({i + 1})")
+    C.t("F&G (LPG AREA)", 715, 312, 2.0, "middle")
+    pv = C_.PSV["PSV-1005"]
+    C.psv(x + 10, y0 - 6, "PSV-1005", pv["set_barg"], f"1{pv['orifice']}", up=14, out="r", outlen=14,
+          dest="FLARE", text_side=1)
+    REG.use_line("1005_out", C.sid)
+    C.t(REG.no("1005_out"), x + 14, y0 - 32, 2.0)
+    # TIC-1095 tray 15
+    ctrl(C, "TIC-1095", 350, ym[15], 375, ym[15], tap=[(xr, ym[15]), (345.4, ym[15])], line="stab_btm")
+    C.t("SP CASCADE TO FIC-1096 (RVP)", 381, ym[15] + 1, 2.0)
+    ptag = free_tag(C, "PDI")
+    C.bub(350, ym[5], ptag, "dcs", svc="C-105 column dP")
+    C.tap([(xr, ym[5]), (345.4, ym[5])])
+    # bottoms -> E-116 kettle (left of column)
+    k = C.kettle(220, 455)
+    C.t("E-116", 205, 475, 2.6, "middle", bold=True)
+    C.line("c105_reb_l", [(x, y1 + 8.5), (x, 478), (k["sb"][0], 478), k["sb"]], lab=1, at=0.5, side=1)
+    C.line("c105_reb_v", [k["sv"], (k["sv"][0], ym[19] + 8), (xl - 2.5, ym[19] + 8)], lab=0, at=0.5)
+    C.noz(xl, ym[19] + 8, "l")
+    C.line("stab_btm", [(225, k["sb"][1]), (225, 495), (hx["cb"][0], 495), hx["cb"]], lab=1, at=0.5)
+    C.line("stab_btm2", [hx["ct"], (hx["ct"][0], 245), (50, 245)], lab=1, at=0.6)
+    C.opc(50, 245, "l", "TO C-106 FEED", dref(11), flow="out")
+    C.station(70, 245, 115, 245, "LV-1097", "FC", byp=-1, tag_pos=(96, 239))
+    lt_y = 372.0
+    C.tap([(xl, lt_y), (264.6, lt_y)])
+    ctrl(C, "LIC-1097", 260, lt_y, 235, lt_y, line="stab_btm2", sig=[(255.4, lt_y), (239.6, lt_y)],
+         vsig=[(230.4, lt_y), (130, lt_y), (130, 232), (92.5, 232), (92.5, 238.2)], fail="FC")
+    # HP steam -> FV-1096 -> XV-1096 -> E-116 channel; condensate pot -> LV-1098
+    ys_ = 432.0
+    C.opc(50, ys_, "l", "HP STEAM HEADER", dref(16))
+    C.line("hs_e116", [(50, ys_), (k["ct"][0], ys_), k["ct"]], lab=0, at=0.13)
+    C.hop(hx["cb"][0], ys_, "h")
+    C.orifice(68, ys_, "h")
+    REG.inst("FE-1096", C.sid, svc="HP steam to E-116 flow element", line="hs_e116")
+    C.xv(80, ys_, "h", "XV-1096", "FC", tag_pos=(74, ys_ - 9))
+    REG.inst("XV-1096", C.sid, sys="SIS", sif="SIF-110", fail="FC", svc=C_.SIFS["SIF-110"]["function"])
+    C.station(165, ys_, 200, ys_, "FV-1096", "FC", bypass=False, tag_pos=(186, ys_ - 6))
+    ctrl(C, "FIC-1096", 68, ys_ - 22, 100, ys_ - 22, tap=[(68, ys_ - 2.4), (68, ys_ - 17.4)],
+         vsig=[(104.6, ys_ - 22), (182.5, ys_ - 22), (182.5, ys_ - 10.4)], fail="FC", line="hs_e116")
+    C.t("SP FROM TIC-1095", 100, ys_ - 30, 2.0, "middle")
+    C.line("hc_e116", [k["cb"], (k["cb"][0], 520)], lab=None, arrow=False)
+    C.vdrum(k["cb"][0], 520, 10, 16)
+    C.t("COND. POT", k["cb"][0] + 7, 528, 2.0)
+    C.line("cd_e116", [(k["cb"][0], 545), (k["cb"][0], 552), (50, 552)], lab=1, at=0.35)
+    C.hop(hx["cb"][0], 552, "h") if False else None
+    C.opc(50, 552, "l", "TO CONDENSATE HDR", dref(16), flow="out")
+    C.station(95, 552, 140, 552, "LV-1098", "FC", byp=-1, tag_pos=(121, 546))
+    C.t(REG.no("hc_e116"), k["cb"][0] - 3, 505, 2.0, "end")
+    C.tap([(k["cb"][0] + 5, 528), (k["cb"][0] + 18, 528), (k["cb"][0] + 18, 538)])
+    ctrl(C, "LIC-1098", k["cb"][0] + 18, 538 + 4.6 if False else 542.6, k["cb"][0] + 40, 542.6, line="cd_e116",
+         vsig=[(k["cb"][0] + 40, 547.2), (k["cb"][0] + 40, 541), (117.5, 541), (117.5, 545)], fail="FC")
+    pv = C_.PSV["PSV-1008"]
+    C.psv(239, k["sv"][1], "PSV-1008", pv["set_barg"], f"1{pv['orifice']}", up=30, out="r", outlen=16,
+          dest="FLARE", text_side=1)
+    REG.use_line("1008_out", C.sid)
+    C.t(REG.no("1008_out"), 243, k["sv"][1] - 41, 2.0)
+    return save(C)
+
+
+# ============================================================================= SHEET 011
+def sheet_011():
+    C = new_sheet(11, [
+        "C-106 pressure controlled by flooded condenser (PV-1100 on A-107 outlet) with D-106 balance line.",
+        "E-117 vertical thermosyphon reboiler, MP steam; condensate via steam trap set to condensate header.",
+        "Light naphtha to isomerisation, heavy naphtha to NHT/reformer (A-108 product cooler).",
+    ])
+    eq_boxes(C, ["C-106", "E-117", "A-107", "D-106", "P-116A/B", "P-117A/B", "A-108"], w=72)
+    x, w = 260.0, 46.0
+    y0, y1 = 95.0, 445.0
+    ym = {n: 105 + (n - 1) * 8.9 for n in range(1, 39)}
+    C.column(x, y0, y1, w)
+    col_trays(C, x, w, ym)
+    C.t("C-106", x - w / 2 - 4, 200, 3.2, "end", bold=True)
+    xl, xr = x - w / 2, x + w / 2
+    C.opc(50, ym[21] - 3, "l", "FROM C-105 (LV-1097)", dref(10))
+    C.line("stab_btm2", [(50, ym[21] - 3), (xl - 2.5, ym[21] - 3)], lab=0, at=0.5)
+    C.noz(xl, ym[21] - 3, "l", "FEED")
+    # overhead -> A-107 -> PV-1100 -> D-106
+    C.noz(x, y0 - 11.5, "u")
+    a = C.aircooler(380, 68, 34, 8, 2)
+    C.t("A-107", 397, 65, 2.6, "middle", bold=True)
+    C.line("c106_ov", [(x, y0 - 14), (x, 72), a["i"]], lab=1, at=0.5)
+    dx0, dy0 = 490.0, 125.0
+    C.hdrum(dx0, dy0, 90, 28)
+    C.t("D-106", dx0 + 45, dy0 + 16, 2.8, "middle", bold=True)
+    C.line("a107_out", [a["o"], (505, 72), (505, dy0)], lab=0, at=0.8)
+    C.station(430, 72, 475, 72, "PV-1100", "FO", byp=-1, side=1, tag_pos=(456, 85))
+    C.line("c106_eq", [(330, 72), (330, 105), (560, 105), (560, dy0)], lab=1, at=0.82)
+    C.dot(330, 72)
+    C.gate(540, 105, "h")
+    ctrl(C, "PIC-1100", 610, 112, 610, 92, tap=[(575, dy0), (575, 112), (605.4, 112)], line="c106_ov",
+         vsig=[(605.4, 92), (452.5, 92), (452.5, 78.8)], fail="FO")
+    pv = C_.PSV["PSV-1007"]
+    C.psv(x + 12, y0 - 7, "PSV-1007", pv["set_barg"], f"1{pv['orifice']}", up=14, out="r", outlen=14,
+          dest="FLARE", text_side=1)
+    REG.use_line("1007_out", C.sid)
+    C.t(REG.no("1007_out"), x + 16, y0 - 34, 2.0)
+    # D-106 -> P-116 -> reflux / LN
+    pp = pump_pair(C, 530, 245, "P-116", "ln_s", "split_refl")
+    REG.use_line("ln_prod", C.sid)
+    C.line("ln_s", [(500, dy0 + 28), (500, pp["s"][1]), pp["s"]], lab=0, at=0.55, side=-1, arrow=False)
+    yr = 185.0
+    C.pipe([pp["dr"], (590, pp["dr"][1])], arrow=False)
+    C.line("split_refl", [(590, pp["dr"][1]), (590, yr), (300, yr), (300, ym[1] - 4), (xr + 2.5, ym[1] - 4)],
+           lab=2, at=0.8)
+    C.hop(500, yr, "h")
+    C.noz(xr, ym[1] - 4, "r", "REFLUX")
+    C.orifice(440, yr, "h")
+    REG.inst("FE-1103", C.sid, svc="Splitter reflux flow element", line="split_refl")
+    C.station(370, yr, 415, yr, "FV-1103", "FC", byp=1, tag_pos=(396, yr - 6))
+    ctrl(C, "FIC-1103", 440, yr - 16, 420, yr - 28, tap=[(440, yr - 2.4), (440, yr - 11.4)],
+         sig=[(435.4, yr - 16), (430, yr - 16), (430, yr - 28), (424.6, yr - 28)],
+         vsig=[(415.4, yr - 28), (392.5, yr - 28), (392.5, yr - 10.4)], fail="FC", line="split_refl")
+    C.dot(590, pp["dr"][1])
+    yl = pp["dr"][1]
+    C.line("ln_prod", [(590, yl), (790, yl)], lab=0, at=0.85)
+    C.opc(790, yl, "r", "LT. NAPHTHA TO ISOM", "OSBL")
+    C.orifice(620, yl, "h")
+    REG.inst("FE-1102", C.sid, svc="Light naphtha flow element", line="ln_prod")
+    C.station(640, yl, 685, yl, "FV-1102", "FC", byp=1, tag_pos=(666, yl - 6))
+    ctrl(C, "FIC-1102", 620, yl - 16, 640, yl - 28, tap=[(620, yl - 2.4), (620, yl - 11.4)],
+         sig=[(624.6, yl - 16), (630, yl - 16), (630, yl - 28), (635.4, yl - 28)],
+         vsig=[(644.6, yl - 28), (662.5, yl - 28), (662.5, yl - 10.4)], fail="FC", line="ln_prod")
+    C.tap([(dx0 + 96, dy0 + 14), (615.4, dy0 + 14)])
+    ctrl(C, "LIC-1101", 620, dy0 + 14, 645, dy0 + 14, line="ln_s")
+    C.t("SP TO FIC-1102", 651, dy0 + 15, 2.0)
+    # TIC-1104 tray 30
+    ctrl(C, "TIC-1104", 320, ym[30], 345, ym[30], tap=[(xr, ym[30]), (315.4, ym[30])], line="c106_reb_r")
+    C.t("SP CASCADE TO FIC-1105", 351, ym[30] + 1, 2.0)
+    # thermosyphon E-117 (vertical) left of column
+    ex, ey0, ey1 = 170.0, 330.0, 400.0
+    C.g_eq.add(C.d.rect((ex - 8, ey0), (16, ey1 - ey0)))
+    C.g_eq.add(C.d.rect((ex - 8, ey0 - 7), (16, 7)))
+    C.g_eq.add(C.d.rect((ex - 8, ey1), (16, 7)))
+    C.t("E-117", ex - 11, 365, 2.6, "end", bold=True)
+    C.line("c106_reb_l", [(x, y1 + 11.5), (x, 470), (ex, 470), (ex, ey1 + 7)], lab=1, at=0.5)
+    C.line("c106_reb_r", [(ex, ey0 - 7), (ex, 318), (205, 318), (205, ym[38] + 4), (xl - 2.5, ym[38] + 4)],
+           lab=2, at=0.5, side=1)
+    C.noz(xl, ym[38] + 4, "l")
+    C.opc(50, 340, "l", "MP STEAM HEADER", dref(16))
+    C.line("ms_e117", [(50, 340), (ex - 8, 340)], lab=0, at=0.2)
+    C.orifice(126, 340, "h")
+    REG.inst("FE-1105", C.sid, svc="MP steam to E-117 flow element", line="ms_e117")
+    C.station(80, 340, 118, 340, "FV-1105", "FC", bypass=False, tag_pos=(102, 334))
+    ctrl(C, "FIC-1105", 126, 322, 100, 310, tap=[(126, 337.6), (126, 326.6)],
+         sig=[(121.4, 322), (110, 322), (110, 310), (104.6, 310)],
+         vsig=[(95.4, 310), (99, 310), (99, 330)] if False else [(95.4, 310), (99, 310), (99, 333.2)], fail="FC",
+         line="ms_e117")
+    C.t("SP FROM TIC-1104", 100, 302, 2.0, "middle")
+    C.line("cd_e117", [(ex - 8, 392), (50, 392)], lab=0, at=0.3)
+    C.opc(50, 392, "l", "TO CONDENSATE HDR", dref(16), flow="out")
+    stt = free_tag(C, "ST")
+    C.g_sy.add(C.d.rect((112, 388), (8, 8), fill="white"))
+    C.t("T", 116, 394, 2.2, "middle", bold=True)
+    C.t("STEAM TRAP", 116, 401, 2.0, "middle")
+    # bottoms -> P-117 -> A-108 -> FV-1107
+    pp2 = pump_pair(C, 340, 520, "P-117", "hn_s", "hn_d")
+    C.line("hn_s", [(x + 12, y1 + 8), (x + 12, pp2["s"][1]), pp2["s"]], lab=0, at=0.4, side=1, arrow=False)
+    C.noz(x + 12, y1 + 6, "d")
+    a2 = C.aircooler(420, 486, 34, 8, 2)
+    C.t("A-108", 437, 483, 2.6, "middle", bold=True)
+    C.line("hn_d", [pp2["dr"], (400, pp2["dr"][1]), (400, 490), a2["i"]], lab=None)
+    C.t(REG.no("hn_d"), 397, 500, 2.0, "end")
+    C.line("hn_prod", [a2["o"], (600, 490)], lab=0, at=0.85)
+    C.opc(600, 490, "r", "HVY NAPHTHA TO NHT", "OSBL")
+    C.orifice(565, 490, "h")
+    REG.inst("FE-1107", C.sid, svc="Heavy naphtha flow element", line="hn_prod")
+    C.station(470, 490, 515, 490, "FV-1107", "FC", byp=1, tag_pos=(496, 484))
+    ctrl(C, "FIC-1107", 565, 474, 545, 462, tap=[(565, 487.6), (565, 478.6)],
+         sig=[(560.4, 474), (555, 474), (555, 462), (549.6, 462)],
+         vsig=[(540.4, 462), (492.5, 462), (492.5, 479.6)], fail="FC", line="hn_prod")
+    lt_y = y1 - 8
+    C.tap([(xr, lt_y), (315.4, lt_y)])
+    ctrl(C, "LIC-1106", 320, lt_y, 345, lt_y, line="hn_s")
+    C.t("SP TO FIC-1107", 351, lt_y + 1, 2.0)
+    ti(C, 300, 474, [(x + 12, 474), (295.4, 474)], svc="C-106 bottoms temperature", line="hn_s")
+    return save(C)
+
+# ============================================================================= SHEET 012
+def fg_train(C, y, x0, opc_txt, xvs, vent_key, pv, pic, pic_line, main_key, pilot_key, yp, pil_xv=None):
+    """Fuel gas train: strainer, PI, SSOVs with DBB vent, PV station.  Returns x at end of PV station."""
+    C.opc(50, y, "l", opc_txt, dref(16))
+    C.strainer(x0, y)
+    pt = free_tag(C, "PI")
+    C.bub(x0 + 14, y - 14, pt, "field", svc="Fuel gas supply pressure", line=main_key, r=4.0)
+    C.tap([(x0 + 14, y), (x0 + 14, y - 10)])
+    C.gate(x0 + 26, y, "h")
+    xa, xb = x0 + 42, x0 + 82
+    C.xv(xa, y, "h", xvs[0], "FC", tag_pos=(xa + 3, y - 6))
+    C.xv(xb, y, "h", xvs[1], "FC", tag_pos=(xb + 3, y - 6))
+    vt = free_tag(C, "XV")
+    xm = (xa + xb) / 2
+    C.line(vent_key, [(xm, y), (xm, y + 24), (xm - 30, y + 24)], lab=1, at=0.5, side=1)
+    C.dot(xm, y)
+    C.xv(xm, y + 12, "v", vt, "FO", side=1, tag_pos=(xm + 6, y + 12))
+    C.t("TO FLARE", xm - 32, y + 25, 2.0, "end")
+    C.station(x0 + 105, y, x0 + 150, y, pv, "FC", byp=1, tag_pos=(x0 + 131, y - 6))
+    return vt, xm
+
+
+def sheet_012():
+    C = new_sheet(12, [
+        "Passes shown schematically (convection + radiant in series); 4 identical passes, coil steam per pass.",
+        "Pass flow SIS transmitters FT-200xA/B/C (2oo3) independent of BPCS FT-200x (SIF-201).",
+        "Vacuum off-gas burned in dedicated H-201 burners via flame arrestor (from D-202 / PV-2031).",
+        "Natural draft heater: O2 trim AIC-2008 on stack damper.",
+    ])
+    eq_boxes(C, ["H-201"], w=95)
+    H2 = C_.R["heaters"]["H-201"]
+    n = H2["passes"]
+    X0, X1, Y0, Y1 = 380.0, 580.0, 130.0, 300.0
+    heater_box(C, X0, Y0, X1, Y1, "H-201", cells=1, stack=(530, 70, 550, Y0), burners=H2["burners"])
+    C.g_eq.add(C.d.line((440, Y0), (440, Y1 - 10), stroke_width=0.3, stroke_dasharray="3,1.5"))
+    C.t("CONV.", 410, Y0 + 6, 2.2, "middle")
+    C.t("RADIANT", 510, Y0 + 6, 2.2, "middle")
+    damper(C, 540, 85, "h")
+    C.t("STACK DAMPER", 555, 86, 2.0)
+    ys = [165 + 32 * i for i in range(n)]
+    xm, xo = 82.0, 630.0
+    C.opc(50, 120, "l", "FROM P-112A/B (FV-1083)", dref(6))
+    C.line("ar_d", [(50, 120), (xm, 120), (xm, ys[-1])], lab=0, at=0.5, arrow=False)
+    C.pipe([(xo, ys[-1]), (xo, ys[0])], arrow=False)
+    C.line("vac_transfer", [(xo, ys[0]), (xo, 110), (790, 110)], lab=1, at=0.6)
+    C.reducer(xo, 135, "v", True, note="EXPANDING", note_side=1)
+    C.opc(790, 110, "r", "TO C-201 FLASH ZONE", dref(13))
+    yc = 145.0
+    C.opc(50, yc - 50, "l", "MP STEAM HEADER", dref(16))
+    C.line("ms_coil", [(50, yc - 50), (330, yc - 50), (330, ys[-1] - 6)], lab=0, at=0.15, arrow=False)
+    C.orifice(200, yc - 50, "h")
+    REG.inst("FE-2007", C.sid, svc="H-201 coil steam flow element", line="ms_coil")
+    C.station(220, yc - 50, 265, yc - 50, "FV-2007", "FC", byp=1, tag_pos=(246, yc - 56))
+    ctrl(C, "FIC-2007", 200, yc - 66, 220, yc - 76, tap=[(200, yc - 52.4), (200, yc - 61.4)],
+         sig=[(204.6, yc - 66), (210, yc - 66), (210, yc - 76), (215.4, yc - 76)],
+         vsig=[(224.6, yc - 76), (242.5, yc - 76), (242.5, yc - 60.4)], fail="FC", line="ms_coil")
+    for i, y in enumerate(ys):
+        k = i + 1
+        lp = f"FIC-{2000 + k}"
+        C.dot(xm, y)
+        C.line(f"h201_in{k}", [(xm, y), (X0, y)], lab=0, at=0.84, arrow=False)
+        coil(C, X0 + 6, X1 - 6, y, n=18)
+        C.pipe([(X0, y), (X0 + 6, y)], arrow=False)
+        C.pipe([(X1 - 6, y), (X1, y)], arrow=False)
+        C.line(f"h201_out{k}", [(X1, y), (xo, y)], lab=0, at=0.45, arrow=False)
+        C.dot(xo, y)
+        C.t(f"PASS {k}", X0 + 30, y - 4.2, 2.1, "middle", bold=True)
+        C.orifice(100, y, "h")
+        REG.inst(f"FE-{2000 + k}", C.sid, svc=f"H-201 pass {k} flow element", line=f"h201_in{k}")
+        ctrl(C, lp, 100, y - 13, 122, y - 13, tap=[(100, y - 2.4), (100, y - 8.4)], line=f"h201_in{k}",
+             vsig=[(126.6, y - 13), (153, y - 13), (153, y - 7)], fail="FO")
+        C.station(137, y, 169, y, f"FV-{2000 + k}", "FO", bypass=False, red=False, drain=False,
+                  tag_pos=(157, y - 5.5))
+        tags = [f"FT-{2000 + k}{c}" for c in "ABC"]
+        sis_initiator(C, tags, 192, y - 13, f"FZLL-{2000 + k}", "SIF-201", 216, y - 13, 0, 0,
+                      tap=[(186, y), (186, y - 13), (186.6, y - 13)])
+        C.orifice(186, y, "h")
+        C.sig([(221.4, y - 13), (250, y - 13)], "e")
+        # coil steam injection
+        C.dot(330, y - 6) if k < n else None
+        C.pipe([(330, y - 6), (345, y - 6), (345, y)], util=True)
+        C.check(338, y - 6, "r")
+        C.dot(345, y)
+        ti(C, 600, y - 14, [(600, y), (600, y - 8.6)], svc=f"H-201 pass {k} outlet temperature", line=f"h201_out{k}")
+    C.t("COIL STEAM (EACH PASS, RO + CHECK)", 335, ys[0] - 22, 2.0, "middle")
+    C.sig([(250, ys[0] - 13), (250, ys[-1] + 10)], "e")
+    ctrl(C, "TIC-2005", 670, 130, 695, 130, tap=[(670, 110), (670, 124.6)], line="vac_transfer")
+    C.t("SP CASCADE TO PIC-2006", 701, 131, 2.0)
+    # stack O2
+    C.bub(600, 70, "AT-2008", "field", svc="H-201 flue gas O2 analyser")
+    C.tap([(550, 75), (594.6, 75), (594.6, 70)] if False else [(550, 70), (594.6, 70)])
+    C.bub(625, 70, "AIC-2008", "dcs", svc=C_.LOOPS["AIC-2008"]["service"], loop="AIC-2008")
+    C.sig([(605.4, 70), (619.6, 70)], "e")
+    C.sig([(625, 75.4), (625, 92), (560, 92), (560, 85), (541.8, 85)], "e")
+    REG.inst("AV-2008", C.sid, svc="H-201 stack damper actuator (AIC-2008)", fail="FO")
+    # fuel gas train + pilot + off-gas
+    yf = 400.0
+    vt, xmv = fg_train(C, yf, 80, "FUEL GAS FROM D-103", ("XV-2006A", "XV-2006B"), "fl_h201_vent", "PV-2006",
+                       "PIC-2006", "fg_h201", "fg_h201", None, 0)
+    for t in ("XV-2006A", "XV-2006B"):
+        REG.inst(t, C.sid, sys="SIS", sif="SIF-201", fail="FC", svc="H-201 fuel gas SSOV")
+    REG.inst(vt, C.sid, sys="SIS", sif="SIF-201", fail="FO", svc="H-201 FG double block & bleed vent")
+    C.line("fg_h201", [(50, yf), (420, yf), (420, 335), (X1 - 4, 335)], lab=0, at=0.55, arrow=False)
+    ctrl(C, "PIC-2006", 260, yf - 18, 235, yf - 30, tap=[(260, yf), (260, yf - 13.4)], line="fg_h201",
+         sig=[(255.4, yf - 18), (245, yf - 18), (245, yf - 30), (239.6, yf - 30)],
+         vsig=[(230.4, yf - 30), (207.5, yf - 30), (207.5, yf - 10.8)], fail="FC")
+    C.t("SP FROM TIC-2005", 230, yf - 40, 2.0, "end")
+    sis_initiator(C, ["PT-2009A", "PT-2009B", "PT-2009C"], 300, yf + 18, "PZLL-2009", "SIF-202", 325, yf + 18,
+                  0, 0, tap=[(300, yf), (300, yf + 12.6)], vote="2oo3")
+    C.t("TO SIF-202", 331, yf + 29, 2.0)
+    for i in range(H2["burners"]):
+        bx = X0 + (X1 - X0) * (i + 0.5) / H2["burners"]
+        C.pipe([(bx, 335), (bx, Y1)], arrow=False)
+        C.pipe([(bx + 3, 327), (bx + 3, Y1)], arrow=False, util=True)
+    ypl = 450.0
+    C.opc(50, ypl, "l", "PILOT GAS FROM D-103", dref(16))
+    C.line("fg_h201_pil", [(50, ypl), (405, ypl), (405, 327), (X1 - 1, 327)], lab=0, at=0.5, arrow=False)
+    C.gate(80, ypl, "h")
+    pcv = free_tag(C, "PCV")
+    C.cv(100, ypl, "h", pcv, "", tag_pos=(103, ypl - 6))
+    REG.inst(pcv, C.sid, svc="H-201 pilot gas self-acting regulator")
+    C.t("MAIN GAS", X1 + 2, 336, 2.0)
+    C.t("PILOT GAS", X1 + 2, 328, 2.0)
+    C.bub(500, 355, "BS-2008", "field", svc="H-201 flame scanners (1 per burner)")
+    C.tap([(500, Y1), (500, 350.4)])
+    C.bub(525, 355, "BZLL-2008", "sis", sys="SIS", sif="SIF-202", svc="H-201 flame failure")
+    C.sig([(504.6, 355), (519.6, 355)], "e")
+    C.t("TO SIF-202", 531, 356, 2.0)
+    # off-gas burners
+    C.opc(790, 280, "r", "VAC. OFF-GAS FROM D-202", dref(15), flow="in")
+    C.line("vog", [(790, 280), (X1, 280)], lab=0, at=0.4)
+    C.g_sy.add(C.d.rect((640, 276), (8, 8), fill="white"))
+    C.t("FA", 644, 281.5, 2.0, "middle", bold=True)
+    C.t("FLAME ARRESTOR", 644, 290, 2.0, "middle")
+    C.gate(620, 280, "h")
+    # snuffing
+    C.opc(790, 220, "r", "LP STEAM HEADER", dref(16), flow="in")
+    C.line("ls_snuff_h201", [(790, 220), (X1, 220)], lab=0, at=0.35)
+    C.gate(700, 220, "h", note="SNUFFING")
+    # SIS block
+    pos, h = sif_block(C, 40, 300, 150, ["SIF-201", "SIF-202"], title="H-201 BMS / SIS (SIL-RATED PLC)")
+    yb = 300 + h
+    C.sig([(250, ys[-1] + 10), (250, 290), (115, 290), (115, 300)], "e")
+    C.sig([(80 + 42, yb), (80 + 42, yf - 9.8)], "e")
+    C.sig([(80 + 82, yb), (80 + 82, yf - 9.8)], "e")
+    C.sig([(140, yb), (140, yb + 8), (xmv + 6, yb + 8), (xmv + 6, yf + 4)], "e")
+    return save(C)
+
+
+# ============================================================================= SHEET 013
+def sheet_013():
+    C = new_sheet(13, [
+        "C-201 wet vacuum column: 4 packed beds + 4 stripping trays; flash zone 60 mbar(a), top 20 mbar(a).",
+        "Wash-bed wetting is critical: FIC-2020 minimum-flow alarm and APC constraint (coke prevention).",
+        "Boot temperature limited to 365 C by cooled VR quench (TIC-2026 cascade to FIC-2027).",
+        "Draw-off pumps P-201/202/203 and product routing on " + dref(14) + ".",
+    ])
+    eq_boxes(C, ["C-201", "P-204A/B", "X-104"], w=110)
+    x = 330.0
+    wt, wm, wb = 44.0, 84.0, 48.0
+    C.column(x, 95, 175, wt, top=True, bot=False)
+    swage(C, x, wt, wm, 175, 190)
+    C.column(x, 190, 380, wm, top=False, bot=False)
+    swage(C, x, wm, wb, 380, 395)
+    C.column(x, 395, 470, wb, top=False, bot=True)
+    C.t("C-201", x - wm / 2 - 4, 250, 3.4, "end", bold=True)
+    C.distributor(x, wt, 112)
+    C.bed(x, wt, 117, 160, "BED 1 (LVGO PA)")
+    C.pan(x, wt, 170, None)
+    C.t("LVGO PAN", x + wt / 2 + 3, 167, 2.0)
+    C.distributor(x, wm, 198)
+    C.bed(x, wm, 203, 235, "BED 2 (FRACT.)")
+    C.pan(x, wm, 247, None)
+    C.t("HVGO PAN", x - wm / 2 + 2, 243, 2.0)
+    C.distributor(x, wm, 256)
+    C.bed(x, wm, 261, 295, "BED 3 (HVGO PA)")
+    C.distributor(x, wm, 305)
+    C.bed(x, wm, 310, 330, "BED 4 (WASH)")
+    C.pan(x, wm, 340, None)
+    C.t("SLOP WAX PAN", x - wm / 2 + 2, 336, 2.0)
+    C.t("FLASH ZONE", x, 370, 2.2, "middle", bold=True)
+    col_trays(C, x, wb, {1: 405, 2: 420, 3: 435, 4: 450})
+    xl, xr = x - wm / 2, x + wm / 2
+    xtl, xtr = x - wt / 2, x + wt / 2
+    # transfer line / vapour horn
+    C.opc(50, 360, "l", "FROM H-201", dref(12))
+    C.line("vac_transfer", [(50, 360), (xl - 2.5, 360)], lab=0, at=0.45)
+    C.noz(xl, 360, "l", "N1")
+    C.t("VAPOUR HORN", x, 362, 2.0, "middle")
+    ti(C, 250, 345, [(250, 360), (250, 349.6)], svc="C-201 flash zone temperature", line="vac_transfer")
+    # left side returns
+    for key, y, txt, xx in (("lvgo_ret", 108, "LVGO PA RETURN (FV-2011)", xtl), ("hvgo_ret", 252, "HVGO PA RETURN (FV-2016)", xl),
+                            ("wash_oil", 301, "WASH OIL FROM P-202", xl)):
+        C.opc(50, y, "l", txt, dref(14))
+        C.line(key, [(50, y), (xx - 2.5, y)], lab=0, at=0.5 if key != "wash_oil" else 0.25)
+        C.noz(xx, y, "l")
+    # wash oil FIC-2020 (on this sheet)
+    yw = 301.0
+    C.orifice(200, yw, "h")
+    REG.inst("FE-2020", C.sid, svc="Wash oil flow element", line="wash_oil")
+    C.station(215, yw, 260, yw, "FV-2020", "FC", byp=1, tag_pos=(241, yw - 6))
+    ctrl(C, "FIC-2020", 200, yw - 16, 220, yw - 26, tap=[(200, yw - 2.4), (200, yw - 11.4)],
+         sig=[(204.6, yw - 16), (210, yw - 16), (210, yw - 26), (215.4, yw - 26)],
+         vsig=[(224.6, yw - 26), (237.5, yw - 26), (237.5, yw - 10.4)], fail="FC", line="wash_oil")
+    C.t("FAL (MIN. WETTING)", 226, yw - 33, 2.0)
+    # overhead to ejectors + PSV + PIC + X-104
+    C.noz(x, 86, "u", "N2")
+    C.line("vac_ov", [(x, 83.5), (x, 64), (790, 64)], lab=1, at=0.5)
+    C.opc(790, 64, "r", "TO J-201A/B", dref(15))
+    pv = C_.PSV["PSV-2001"]
+    C.psv(x - 14, 92, "PSV-2001", pv["set_barg"], f"1{pv['orifice']}", up=14, out="l", outlen=16, dest="FLARE",
+          text_side=1)
+    REG.use_line("2001_out", C.sid)
+    C.t(REG.no("2001_out"), x - 30, 70, 2.0, "end")
+    ctrl(C, "PIC-2010", 400, 80, 425, 80, tap=[(x + 12, 90), (x + 12, 80), (395.4, 80)], line="vac_ov")
+    C.t("TO PV-2010 (NCG RECYCLE, " + dref(15) + ")", 431, 81, 2.0)
+    ctrl(C, "TIC-2012", 400, 120, 425, 120, tap=[(xtr, 120), (395.4, 120)], line="vac_ov")
+    C.t("SP CASCADE TO TIC-2013", 431, 121, 2.0)
+    C.package(560, 80, 50, 18, "X-104", ["CORROSION INHIBITOR"])
+    C.line("ch_ci", [(585, 80), (585, 64)], lab=None)
+    C.check(585, 73, "u")
+    C.t(REG.no("ch_ci"), 589, 75, 2.0)
+    pd = free_tag(C, "PDI")
+    C.bub(460, 140, pd, "dcs", svc="C-201 dP top - flash zone")
+    C.tap([(xtr, 140), (455.4, 140)])
+    # draws -> P-201/202/203 (sheet 014)
+    draws = [("lvgo_s", 172, xtr, "LVGO TO P-201A/B", "LIC-2014", "FIC-2015"),
+             ("hvgo_s", 249, xr, "HVGO TO P-202A/B", "LIC-2018", "FIC-2019"),
+             ("slop_s", 342, xr, "SLOP WAX TO P-203A/B", "LIC-2021", "FIC-2022")]
+    for key, y, xx, txt, lic, fic in draws:
+        C.noz(xx, y, "r")
+        C.line(key, [(xx + 2.5, y), (790, y)], lab=0, at=0.75)
+        C.opc(790, y, "r", txt, dref(14))
+        lt_ = "LT-" + lic.split("-")[1]
+        C.tap([(xx, y - 4), (xx + 18, y - 4), (xx + 18, y - 13), (xx + 25.4, y - 13)])
+        ctrl(C, lic, xx + 30, y - 13, xx + 55, y - 13, line=key)
+        C.t(f"SP TO {fic} ({dref(14).split('-')[-1]})", xx + 61, y - 12, 2.0)
+        ti(C, xx + 30, y + 15, [(xx + 30, y), (xx + 30, y + 10.4)], svc=f"{txt.split()[0]} draw temperature",
+           line=key)
+    # stripping steam
+    ys_ = 446.0
+    C.opc(50, ys_, "l", "MP STEAM HEADER", dref(16))
+    C.line("ms_c201", [(50, ys_), (x - wb / 2 - 2.5, ys_)], lab=0, at=0.15)
+    C.noz(x - wb / 2, ys_, "l")
+    C.orifice(140, ys_, "h")
+    REG.inst("FE-2023", C.sid, svc="C-201 stripping steam flow element", line="ms_c201")
+    C.station(160, ys_, 205, ys_, "FV-2023", "FC", byp=1, tag_pos=(186, ys_ - 6))
+    ctrl(C, "FIC-2023", 140, ys_ - 16, 160, ys_ - 26, tap=[(140, ys_ - 2.4), (140, ys_ - 11.4)],
+         sig=[(144.6, ys_ - 16), (150, ys_ - 16), (150, ys_ - 26), (155.4, ys_ - 26)],
+         vsig=[(164.6, ys_ - 26), (182.5, ys_ - 26), (182.5, ys_ - 10.4)], fail="FC", line="ms_c201")
+    # quench
+    yq = 465.0
+    C.opc(50, yq, "l", "VR QUENCH FROM E-201", dref(14))
+    C.line("vr_quench", [(50, yq), (x - wb / 2 - 2.5, yq)], lab=0, at=0.15)
+    C.noz(x - wb / 2, yq, "l")
+    C.orifice(140, yq, "h")
+    REG.inst("FE-2027", C.sid, svc="VR quench flow element", line="vr_quench")
+    C.station(160, yq, 205, yq, "FV-2027", "FC", byp=1, tag_pos=(186, yq + 15))
+    ctrl(C, "FIC-2027", 140, yq + 16, 230, yq + 22, tap=[(140, yq + 2.4), (140, yq + 11.4)],
+         sig=[(144.6, yq + 16), (230, yq + 16), (230, yq + 17.4)],
+         vsig=[(225.4, yq + 22), (215, yq + 22), (215, 455), (182.5, 455), (182.5, yq - 10.4)], fail="FC",
+         line="vr_quench")
+    ctrl(C, "TIC-2026", 250, 480, 275, 480, tap=[(x - wb / 2 + 4, 476), (254.6, 476), (254.6, 480)] if False else
+         [(x - 10, 482), (x - 10, 488), (250, 488), (250, 484.6)], line="vr_s", sig=[(254.6, 480), (270.4, 480)])
+    C.t("MAX 365 C; SP TO FIC-2027", 281, 481, 2.0)
+    # bottoms -> EIV-2041 -> P-204
+    pp = pump_pair(C, 470, 540, "P-204", "vr_s", "vr_pd")
+    C.line("vr_s", [(x, 479), (x, pp["s"][1]), pp["s"]], lab=1, at=0.5, arrow=False)
+    C.xv(x, 505, "v", "EIV-2041", "FC", side=1, tag_pos=(x + 9, 503), kind="ball")
+    REG.inst("EIV-2041", C.sid, sys="SIS", sif="SIF-204", fail="FC", svc=C_.SIFS["SIF-204"]["function"])
+    C.bub(375, 522, "HS-2041", "panel", sys="SIS", sif="SIF-204", svc="EIV-2041 manual close (CCR + field)")
+    C.ilk(375, 502, "SIF-204", below=False)
+    C.sig([(375, 516.6), (375, 506)], "e")
+    C.sig([(371, 502), (x + 7, 502), (x + 7, 505)], "e")
+    REG.inst("BY-2041", C.sid, sys="F&G", sif="SIF-204", svc="Fire confirmation from F&G (P-204 area)")
+    yd = pp["dr"][1]
+    C.line("vr_pd", [pp["dr"], (600, yd), (600, 455), (790, 455)], lab=2, at=0.6)
+    C.opc(790, 455, "r", "VR TO E-111", dref(3))
+    C.line("p204_mf", [(520, yd), (520, 476), (x + wb / 2 + 2.5, 476)] if False else
+           [(530, yd), (530, 474), (x + 18, 474), (x + 18, 471)], lab=1, at=0.6)
+    C.dot(530, yd)
+    C.orifice(470, 474, "h", ro=True)
+    C.gate(490, 474, "h")
+    # level / SIS
+    yl = 425.0
+    C.tap([(x + wb / 2, yl), (x + wb / 2 + 26, yl)] if False else [(x + wb / 2, yl), (395.4, yl)])
+    ctrl(C, "LIC-2024", 400, yl, 425, yl, line="vr_s")
+    C.t("SP TO FIC-2025 (" + dref(14).split('-')[-1] + ")", 431, yl + 1, 2.0)
+    sis_initiator(C, ["LT-2024B"], 400, yl - 25, "LZHH-2024", "SIF-203", 425, yl - 25, 0, 0,
+                  tap=[(x + wb / 2, yl - 20), (390, yl - 20), (390, yl - 25), (394.6, yl - 25)])
+    C.ilk(450, yl - 25, "SIF-203", below=False)
+    C.sig([(430.4, yl - 25), (446, yl - 25)], "e")
+    C.t("TO XV-1083 (" + dref(6) + ")", 445, yl - 34, 2.0)
+    return save(C)
+
 # ============================================================================= build
 def build():
     global C_, REG
@@ -1321,7 +1884,7 @@ def build():
     return pdfs
 
 
-SHEET_FUNCS = [sheet_001, sheet_002, sheet_003, sheet_004, sheet_005, sheet_006, sheet_007, sheet_008, sheet_009]
+SHEET_FUNCS = [sheet_001, sheet_002, sheet_003, sheet_004, sheet_005, sheet_006, sheet_007, sheet_008, sheet_009, sheet_010, sheet_011, sheet_012, sheet_013]
 
 if __name__ == "__main__":
     build()

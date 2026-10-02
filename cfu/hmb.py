@@ -323,7 +323,8 @@ class Model:
                         mw_v=mwv)
         mwl = self.mw(lvgo)
         sections = [
-            sec("Bed 1 - LVGO PA", lvgo.sum() * 0.15, mwl, (T_top + T_lvgo) / 2, P_top + 0.002,
+            sec("Bed 1 - LVGO PA", lvgo.sum(), mwl,  # vapour entering bed 1 bottom (condensed in bed)
+                (T_top + T_lvgo) / 2, P_top + 0.002,
                 pa["LVGO"]["flow"], lvgo),
             sec("Bed 2 - LVGO/HVGO fract.", lvgo.sum() + L_frac, self.mw(lvgo + hvgo), T_hvgo - 30,
                 P_top + 0.35 * (P_fz - P_top), L_frac, hvgo),

@@ -260,7 +260,7 @@ def csd_001():
            2.0, color=GREY)
 
     # ---- BMS/SIS box
-    bx = p.box(25, 392, 140, 92, None, stroke=SIS_RED, sw=0.5, fill="none")
+    bx = p.box(25, 392, 140, 50, None, stroke=SIS_RED, sw=0.5, fill="none")
     p.text("H-101 BMS / SIS (SIL 2 LOGIC SOLVER)", 29, 398, 2.4, bold=True, color=SIS_RED)
     rows = ["SIF-101 Low-low pass flow (2oo3 per pass)",
             "SIF-102 Low-low FG pressure PT-1027 (2oo3)",
@@ -308,7 +308,281 @@ def csd_001():
     return no
 
 
+
+
+# =============================================================================== CSD-002  C-101
+def _pa(p, X1, yr, yd, name, fic, tic, tv, fv, pump, hx, duty_mw, flow_th):
+    """Pumparound module right of column (column right wall X1)."""
+    xp, xf, xh, xo = X1 + 15, X1 + 40, X1 + 75, X1 + 105
+    p.proc([(X1, yd), (X1 + 8, yd), (X1 + 8, yd + 16), (xp - 3.2, yd + 16)], arrow=False)
+    pp = p.pump(xp, yd + 16, pump, label_pos="b")
+    yq = yd + 12.8
+    p.proc([pp["dis"], (xo, yq), (xo, yr), (xh + 4, yr)], arrow=False)
+    h = p.hx(xh, yr, None)
+    p.text(hx, xh, yr + 7.5, 2.1, "middle", bold=True)
+    p.proc([(xh - 4, yr), (X1, yr)], arrow=True)
+    # bypass
+    p.proc([(xh + 20, yr), (xh + 20, yr - 10), (xh - 20, yr - 10), (xh - 20, yr)], arrow=False, w=0.45)
+    t = p.cv(xh, yr - 10, "h", tv, "FO", tag_pos="r")
+    p.dot(xh + 20, yr), p.dot(xh - 20, yr)
+    ti = p.bubble(X1 + 30, yr - 12, tic, "dcs", r=4.6)
+    p.line([(X1 + 30, yr - 7.4), (X1 + 30, yr)], w=0.3)
+    p.sig([ti["e"], (X1 + 45, yr - 12), (X1 + 45, yr - 21), (xh, yr - 21), t["a"]])
+    m = p.bubble(X1 + 17, yr - 12, "MPC-", "apc", r=3.6)
+    p.sig([m["e"], ti["w"]], color=APC_GRN)
+    f = p.cv(xf, yq, "h", fv, "FO", tag_pos="b")
+    fi = p.bubble(xf, yd - 1, fic, "dcs", r=4.6)
+    p.sig([fi["s"], f["a"]])
+    p.line([(xf - 8, yq - 1.5), (xf - 8, yq + 1.5)], w=0.45)
+    p.sig([(xf - 8, yq), (xf - 8, yd - 1), fi["w"]])
+    p.text(f"{name}", xo + 2, yd + 3, 2.3, bold=True)
+    p.text(f"{duty_mw:.1f} MW", xo + 2, yd + 6, 1.9, color=GREY)
+    p.text(f"{flow_th:.0f} t/h", xo + 2, yd + 8.6, 1.9, color=GREY)
+
+
+def _stripper(p, X1, yd, tag, ficd, fvd, lic, ficp, fvp, ficst, fvst, fy, pump, prod, flow, steam, an, an_note,
+              tray):
+    xs = X1 + 155
+    p.proc([(X1, yd), (xs, yd)], arrow=True)
+    p.text(f"TRAY {tray} DRAW", X1 + 2, yd - 1.5, 1.9, color=GREY)
+    fv = p.cv(X1 + 125, yd, "h", fvd, "FO", tag_pos="b")
+    fi = p.bubble(X1 + 125, yd - 13, ficd, "dcs", r=4.6)
+    p.sig([fi["s"], fv["a"]])
+    m = p.bubble(X1 + 111, yd - 13, "MPC-", "apc", r=3.6)
+    p.sig([m["e"], fi["w"]], color=APC_GRN)
+    p.column(xs, yd - 6, 18, 52, None)
+    p.text(tag, xs + 9, yd + 22, 2.4, "middle", bold=True)
+    p.proc([(xs + 9, yd - 6), (xs + 9, yd - 15)], arrow=True, w=0.45)
+    p.text("VAPOUR TO C-101", xs + 11, yd - 12, 1.8, color=GREY)
+    # steam
+    ys = yd + 34
+    p.util([(X1 + 300, ys), (xs + 18, ys)])
+    p.text(f"LP STEAM {steam:.0f} kg/h", X1 + 300, ys - 1.5, 1.8, "end", color=GREY)
+    sv = p.cv(X1 + 205, ys, "h", fvst, "FC", tag_pos="b", size=2.8)
+    sf = p.bubble(X1 + 205, ys - 13, ficst, "dcs", r=4.6)
+    p.sig([sf["s"], sv["a"]])
+    y = p.fy(X1 + 250, ys - 13, "×", fy, tag_pos="r")
+    p.soft([y["w"], sf["e"]])
+    m2 = p.bubble(X1 + 250, ys - 26, "MPC-", "apc", r=3.6)
+    p.sig([m2["s"], y["n"]], color=APC_GRN)
+    # bottoms
+    yb = yd + 58
+    p.proc([(xs + 9, yd + 46), (xs + 9, yb), (xs + 11.8, yb)], arrow=False)
+    pp = p.pump(xs + 15, yb, pump, label_pos="b")
+    yq = yb - 3.2
+    p.proc([pp["dis"], (X1 + 320, yq)], arrow=True)
+    p.text(f"{prod} {flow:.1f} t/h", X1 + 320, yq - 1.5, 2.0, "end", bold=True)
+    pv = p.cv(X1 + 230, yq, "h", fvp, "FC", tag_pos="b")
+    pf = p.bubble(X1 + 230, yq - 13, ficp, "dcs", r=4.6)
+    p.sig([pf["s"], pv["a"]])
+    li = p.bubble(xs - 14, yd + 38, lic, "dcs", r=4.6)
+    p.line([(xs - 9.4, yd + 38), (xs, yd + 38)], w=0.3)
+    p.soft([li["s"], (xs - 14, yb + 12), (X1 + 222, yb + 12), (X1 + 222, yq - 13), pf["w"]])
+    p.soft([pf["e"], (X1 + 250, yq - 13), y["s"]])
+    a = p.bubble(X1 + 275, yq + 9, an, "field", r=4.2)
+    p.line([(X1 + 275, yq), (X1 + 275, yq + 4.8)], w=0.3)
+    p.text(an_note, X1 + 280, yq + 10, 1.8, color=GREY)
+    p.text("-> MPC CV", X1 + 280, yq + 12.4, 1.8, color=APC_GRN)
+
+
+def csd_002():
+    sh, p, no = _sheet(1)
+    R = pr()
+    A = R["atm"]
+    S = streams()
+    _check_tags(["TIC-1030", "FIC-1031", "PIC-1032", "LIC-1033", "FIC-1034", "LIC-1035", "FFIC-1036", "AIC-1037",
+                 "FIC-1040", "TIC-1041", "FIC-1042", "TIC-1043", "FIC-1044", "TIC-1045", "FIC-1050", "LIC-1051",
+                 "FIC-1052", "FIC-1054", "FIC-1060", "LIC-1061", "FIC-1062", "FIC-1064", "FIC-1070", "LIC-1071",
+                 "FIC-1072", "FIC-1074", "FI-1080", "FIC-1081", "LIC-1082", "FIC-1083"])
+    X0, W = 275, 40
+    X1 = X0 + W
+    xc = X0 + W / 2
+    p.column(X0, 60, W, 410, "C-101", None)
+    p.text(f"ATM. COLUMN, {A['tray']['bottom']} TRAYS", xc, 474.5, 2.0, "middle", color=GREY)
+    p.text(f"TOP {A['T_top']:.0f} °C / {A['P_top_barg']:.2f} barg", xc, 477.5, 2.0, "middle", color=GREY)
+    # ------------------------------------------------ overhead
+    p.proc([(xc, 60), (xc, 30), (260, 30)], arrow=True)
+    p.text(f"OH VAPOUR {S['8']['total_kg_h'] / 1000:.0f} t/h", xc + 2, 26, 2.0, color=GREY)
+    p.aircooler(245, 30, 30, "A-101")
+    p.proc([(230, 30), (195, 30), (195, 51)], arrow=False)
+    p.hx(195, 55, "E-115", label_pos="l")
+    p.proc([(195, 59), (195, 95)], arrow=True)
+    p.drum(85, 95, 120, 20, "D-102", f"OH DRUM {A['drum_P_barg']:.2f} barg", boot=(100, 12, 10))
+    pk = p.box(264, 38, 22, 9, None)
+    p.text("X-103", 275, 42, 2.0, "middle", bold=True)
+    p.text("NEUTRALISER", 275, 45.4, 1.5, "middle", color=GREY)
+    p.util([(275, 38), (275, 30)])
+    p.text("FFIC-1036", 275, 50.5, 1.8, "middle", color=GREY)
+    # TIC-1030 -> FIC-1031
+    p.line([(X0, 66), (260, 66)], w=0.3)
+    tic = p.bubble(255, 66, "TIC-1030", "dcs", note=["TOP T", "(NAPHTHA EP)"], note_pos="l")
+    m = p.bubble(255, 50, "MPC-", "apc", r=3.6)
+    p.sig([m["s"], tic["n"]], color=APC_GRN)
+    # reflux
+    pp = p.pump(135, 140, "P-103A/B")
+    p.proc([(125, 115), (125, 140), (131.8, 140)], arrow=False)
+    p.proc([pp["dis"], (265, 136.8), (265, 78), (X0, 78)], arrow=True)
+    p.text(f"REFLUX {A['reflux_kg_h'] / 1000:.0f} t/h", 150, 134.5, 2.0, color=GREY)
+    fv = p.cv(225, 136.8, "h", "FV-1031", "FO", tag_pos="b")
+    fic = p.bubble(225, 121, "FIC-1031", "dcs", r=4.6)
+    p.sig([fic["s"], fv["a"]])
+    p.soft([tic["s"], (255, 112), (225, 112), fic["n"]])
+    # naphtha
+    pp4 = p.pump(175, 185, "P-104A/B")
+    p.proc([(165, 115), (165, 185), (171.8, 185)], arrow=False)
+    p.proc([pp4["dis"], (240, 181.8), (240, 245), (82, 245)], arrow=True)
+    p.offpage(22, 245, "UNSTAB. NAPHTHA TO C-105", "CSD-004", "l", w=60)
+    fv4 = p.cv(215, 181.8, "h", "FV-1034", "FC", tag_pos="b")
+    f4 = p.bubble(215, 166, "FIC-1034", "dcs", r=4.6)
+    p.sig([f4["s"], fv4["a"]])
+    p.line([(205, 105), (215, 105)], w=0.3)
+    l3 = p.bubble(220, 100, "LIC-1033", "dcs", r=4.6, note=["AVERAGING"], note_pos="t")
+    p.soft([l3["e"], (245, 100), (245, 166), f4["e"]])
+    an = p.bubble(205, 210, "AT-1038", "field", r=4.2)
+    p.line([(205, 205.8), (205, 196), (240, 196)], w=0.3)
+    p.text("D86 EP / RVP", 199, 216, 1.8, "end", color=GREY)
+    p.text("-> MPC CV", 199, 218.4, 1.8, "end", color=APC_GRN)
+    # sour water
+    p.proc([(106, 127), (106, 165), (88.2, 165)], arrow=False)
+    p5 = p.pump(85, 165, "P-105A/B", flip=True, label_pos="r")
+    p.proc([p5["dis"], (75, 161.8), (75, 228), (67, 228)], arrow=True)
+    p.offpage(22, 228, "SOUR WATER", "TO SWS", "l", w=45)
+    lv = p.cv(75, 195, "v", "LV-1035", "FC", tag_pos="r")
+    p.line([(100, 121), (60, 121)], w=0.3)
+    l5 = p.bubble(55, 121, "LIC-1035", "dcs", r=4.6, note=["BOOT", "INTERFACE"], note_pos="t")
+    p.sig([l5["s"], (55, 195), lv["a"]])
+    ph = p.bubble(52, 212, "AIC-1037", "dcs", r=4.6, note=["pH 5.5-6.5", "-> FFIC-1036"], note_pos="b")
+    p.line([(56.6, 212), (75, 212)], w=0.3)
+    # pressure split range
+    p.line([(125, 95), (125, 82)], w=0.3)
+    pic = p.bubble(125, 77, "PIC-1032", "dcs", r=4.6)
+    py = p.fy(105, 62, "SPLIT", "PY-1032", tag_pos="t")
+    p.soft([pic["w"], (105, 77), py["s"]])
+    p.proc([(112, 95), (112, 48), (62, 48)], arrow=True, w=0.45)
+    p.offpage(22, 48, "OFF-GAS TO FG / FLARE", None, "l", w=40)
+    pa = p.cv(80, 48, "h", "PV-1032A", "FC", tag_pos="b")
+    p.offpage(22, 68, "FG MAKE-UP", None, "l", w=32)
+    p.proc([(54, 68), (100, 68), (100, 95)], arrow=True, w=0.45)
+    pb = p.cv(64, 68, "h", "PV-1032B", "FC", tag_pos="b")
+    p.sig([(101.5, 62), (90, 62), (90, 36), (80, 36), (80, pa["a"][1])])
+    p.sig([(105, 58.5), (105, 55), (64, 55), (64, pb["a"][1])])
+    # split range graph
+    gx, gy, gw, gh = 135, 20, 34, 22
+    p.line([(gx, gy), (gx, gy + gh), (gx + gw, gy + gh)], w=0.3)
+    p.line([(gx, gy + 2), (gx + gw / 2, gy + gh)], w=0.45)
+    p.line([(gx + gw / 2, gy + gh), (gx + gw, gy + 2)], w=0.45)
+    p.text("B", gx + 3, gy + 6, 2.0, bold=True)
+    p.text("A", gx + gw - 4, gy + 6, 2.0, bold=True)
+    p.text("0      50     100 % PIC OUT", gx, gy + gh + 2.6, 1.7, color=GREY)
+    p.text("% OPEN", gx - 1, gy + 1, 1.7, "end", color=GREY)
+    # ------------------------------------------------ pumparounds
+    pa_ = A["pa"]
+    _pa(p, X1, 75, 97, "TPA", "FIC-1040", "TIC-1041", "TV-1041", "FV-1040", "P-106A/B", "E-101",
+        pa_["TPA"]["duty_kw"] / 1000, pa_["TPA"]["flow"] / 1000)
+    _pa(p, X1, 152, 174, "MPA", "FIC-1042", "TIC-1043", "TV-1043", "FV-1042", "P-107A/B", "E-106A/B",
+        pa_["MPA"]["duty_kw"] / 1000, pa_["MPA"]["flow"] / 1000)
+    _pa(p, X1, 247, 269, "BPA", "FIC-1044", "TIC-1045", "TV-1045", "FV-1044", "P-108A/B", "E-110/E-113",
+        pa_["BPA"]["duty_kw"] / 1000, pa_["BPA"]["flow"] / 1000)
+    # ------------------------------------------------ side strippers
+    st = A["steam"]
+    _stripper(p, X1, 125, "C-102", "FIC-1050", "FV-1050", "LIC-1051", "FIC-1052", "FV-1052", "FIC-1054", "FV-1054",
+              "FFY-1054", "P-109A/B", "KEROSENE", S["16"]["total_kg_h"] / 1000, st["KERO"], "AT-1055",
+              "FLASH / FREEZE", A["tray"]["KERO"])
+    _stripper(p, X1, 215, "C-103", "FIC-1060", "FV-1060", "LIC-1061", "FIC-1062", "FV-1062", "FIC-1064", "FV-1064",
+              "FFY-1064", "P-110A/B", "DIESEL", S["17"]["total_kg_h"] / 1000, st["DIESEL"], "AT-1065",
+              "D86 T95 / CLOUD", A["tray"]["DIESEL"])
+    _stripper(p, X1, 305, "C-104", "FIC-1070", "FV-1070", "LIC-1071", "FIC-1072", "FV-1072", "FIC-1074", "FV-1074",
+              "FFY-1074", "P-111A/B", "AGO", S["18"]["total_kg_h"] / 1000, st["AGO"], "AT-1075",
+              "D86 T95 / COLOUR", A["tray"]["AGO"])
+    # ------------------------------------------------ flash zone, overflash, bottoms
+    p.offpage(110, 390, "TRANSFER LINE FROM H-101", "CSD-001", "r", w=62)
+    p.proc([(110, 390), (X0, 390)], arrow=True)
+    p.text(f"FLASH ZONE {A['T_fz']:.0f} °C / {A['P_fz_barg']:.2f} barg", 115, 387.5, 2.0, color=GREY)
+    p.line([(X0, 352), (260, 352)], w=0.3)
+    of = p.bubble(255, 352, "FI-1080", "dcs", r=4.6,
+                  note=["OVERFLASH (WASH-ZONE LIQUID)", "FAL; MPC CONSTRAINT >= 3 vol %", "OF CHARGE"], note_pos="l")
+    p.line([(X0, 300), (262, 300)], w=0.3)
+    p.line([(X0, 200), (262, 200), (262, 296)], w=0.3)
+    p.bubble(255, 300, "PDI-1084", "dcs", r=4.6, note=["SECTION dP", "(FLOODING CV)"], note_pos="l")
+    # steam
+    p.offpage(110, 440, "MP STEAM (SUPERHEATED)", "H-101 SS COIL", "r", w=62)
+    p.util([(110, 440), (X0, 440)])
+    p.text(f"{st['bottom']:.0f} kg/h", 232, 438, 1.8, color=GREY)
+    sv = p.cv(200, 440, "h", "FV-1081", "FC", tag_pos="b", size=2.8)
+    sf = p.bubble(200, 426, "FIC-1081", "dcs", r=4.6)
+    p.sig([sf["s"], sv["a"]])
+    fy = p.fy(160, 426, "×", "FFY-1081", tag_pos="t")
+    p.soft([fy["e"], sf["w"]])
+    m3 = p.bubble(140, 426, "MPC-", "apc", r=3.6)
+    p.sig([m3["e"], fy["w"]], color=APC_GRN)
+    p.text("10 lb/bbl AR", 152, 434, 1.8, color=GREY)
+    # bottoms
+    p.proc([(xc, 470), (xc, 495), (253.2, 495)], arrow=False)
+    p12 = p.pump(250, 495, "P-112A/B", flip=True, label_pos="b")
+    p.proc([p12["dis"], (95, 491.8)], arrow=True)
+    p.offpage(35, 491.8, "ATM. RESIDUE TO H-201", "CSD-005", "l", w=60)
+    p.text(f"{S['19']['total_kg_h'] / 1000:.0f} t/h, {S['19']['T_C']:.0f} °C", 150, 489.5, 2.0, color=GREY)
+    fv3 = p.cv(200, 491.8, "h", "FV-1083", "FC", tag_pos="b")
+    f3 = p.bubble(200, 478, "FIC-1083", "dcs", r=4.6)
+    p.sig([f3["s"], fv3["a"]])
+    p.line([(X0, 455), (260, 455)], w=0.3)
+    l2 = p.bubble(255, 455, "LIC-1082", "dcs", r=4.6)
+    p.soft([l2["s"], (255, 478), f3["e"]])
+    p.soft([f3["w"], (160, 478), fy["s"]])
+    p.bubble(230, 462, "LT-1082", "sis", r=4.6)
+    p.line([(234.6, 462), (240, 462), (240, 458), (X0, 458)], w=0.3, color=SIS_RED)
+    p.text("B: LZHH -> SIF-108", 224, 470, 1.8, "end", color=SIS_RED)
+    p.text("(TRIP P-101 / XV-1001)", 224, 472.4, 1.8, "end", color=SIS_RED)
+    # ------------------------------------------------ quality CV table
+    tx, ty = 345, 405
+    rows = [("CV (PRODUCT QUALITY)", "MEASUREMENT", "MPC HANDLE (MV)"),
+            ("Naphtha D86 EP", "AT-1038 + inferential (TIC-1030, P)", "TIC-1030 SP"),
+            ("Kerosene flash / freeze", "AT-1055 + inferential", "FIC-1050, FFY-1054"),
+            ("Diesel D86 T95 / cloud", "AT-1065 + inferential", "FIC-1060"),
+            ("AGO D86 T95 / colour", "AT-1075 + inferential", "FIC-1070, COT"),
+            ("Overflash", "FI-1080", "COT, BPA duty"),
+            ("Flooding", "PDI-1084", "PA duties, charge")]
+    cw = [72, 72, 56]
+    p.box(tx, ty, sum(cw), 6 * len(rows), None, fill="none")
+    for i, r in enumerate(rows):
+        yy = ty + 6 * i
+        if i:
+            p.line([(tx, yy), (tx + sum(cw), yy)], w=0.2)
+        xx = tx
+        for j, c in enumerate(r):
+            p.text(c, xx + 1.5, yy + 4.2, 2.0, bold=(i == 0), color=APC_GRN if j == 2 and i else "black")
+            xx += cw[j]
+    xx = tx
+    for c in cw[:-1]:
+        xx += c
+        p.line([(xx, ty), (xx, ty + 6 * len(rows))], w=0.2)
+    p.text("CUT-POINT CONTROL - QUALITY CVs AND MPC HANDLES", tx, ty - 2, 2.4, bold=True)
+    # ------------------------------------------------ notes
+    yb = p.legend_isa(RX, 20, RW)
+    p.narrative(RX, yb + 4, RW, "CONTROL DESCRIPTION", [
+        f"Column pressure: PIC-1032 on D-102 ({A['drum_P_barg']:.2f} barg) split range - PV-1032B fuel-gas make-up "
+        "0-50 % (closing), PV-1032A off-gas 50-100 % (opening); normally no off-gas, condenser A-101 runs at full "
+        "duty (fans auto-variable pitch on TIC trim).",
+        "Top temperature TIC-1030 (naphtha end point) cascades to reflux FIC-1031; SP from MPC on the "
+        "inferred/analysed naphtha D86 EP (AT-1038). Reflux FIC tracks on loss of TIC.",
+        "D-102 HC level LIC-1033 averaging control cascaded to naphtha FIC-1034 (smooth feed to C-105). Boot "
+        "interface LIC-1035 tight to LV-1035; pH AIC-1037 trims neutraliser ratio FFIC-1036.",
+        "Pumparounds: circulation FIC held (operator/MPC), duty set by return temperature TIC-1041/1043/1045 "
+        "via exchanger bypass (crude side kept at full flow); MPC shifts duty TPA <-> MPA <-> BPA for heat "
+        "recovery vs. fractionation (gap/overlap).",
+        "Side draws are the cut-point handles: draw FIC-1050/1060/1070 SP from MPC on kero flash/freeze, "
+        "diesel T95 and AGO quality. Stripper level LIC-10x1 cascades to product FIC-10x2. Stripping "
+        "steam ratio FFY-10x4 to product (lb/bbl) - MPC adjusts the ratio for flash point.",
+        f"Bottoms: LIC-1082 cascades to AR FIC-1083 (also H-201 charge). Stripping steam FIC-1081 ratioed to AR "
+        f"({st['bottom']:.0f} kg/h design).",
+        "Overflash FI-1080 (wash-zone liquid) is a hard MPC constraint (>= 3 vol % of charge) and has a low "
+        "alarm; COT is raised / BPA duty reduced to restore it. Section dP PDI-1084 = flooding CV.",
+        "SIS: LZHH-1082 (SIF-108) stops crude charge (XV-1001, P-101) on column high-high level.",
+    ])
+    sh.save(DIR / f"{no}_C-101-Column-Control")
+    return no
+
+
 def build():
     DIR.mkdir(parents=True, exist_ok=True)
-    out = [csd_001()]
-    return out
+    return [csd_001(), csd_002()]

@@ -72,7 +72,7 @@ DESIGN = dict(
     # light ends
     stab_drum_P=11.5, stab_drum_T=45.0, split_drum_P=1.8, split_drum_T=50.0,
     # heaters
-    h101_eff=0.90, h201_eff=0.88, rad_flux_kW_m2=31.5, rad_fraction=0.65,
+    h101_eff=0.90, h201_eff=0.84, rad_flux_kW_m2=31.5, rad_fraction=0.70,
     desalter_T=135.0, wash_water_lv=0.05,
     min_approach=20.0,
 )

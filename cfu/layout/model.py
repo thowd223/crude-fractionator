@@ -336,7 +336,7 @@ class Layout:
                 f = self.add(t, src, "box", xx, 20.5 + 3.5 * i, GRADE + 0.3, 0, 6.0, 3.0, 4.0,
                              motor_kw=E[src].get("motor_kw"))
                 f["nozzles"].update(inlet=self.local(f, -2.5, 0, 102.5), outlet=self.local(f, 2.5, 0, 103.5))
-        self.drum_v("D-103", 150.0, 24.0)
+        self.drum_v("D-103", 146.0, 22.0)
 
         # ======================= VDU, north-east (x 150-221) ====================================
         v = E["C-201"]
