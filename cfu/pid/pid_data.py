@@ -473,11 +473,12 @@ def build_lines(reg: Registry):
     p204 = c.pump("P-204")
     dP204 = c.pump_desP("P-204", 3.5)
     vr = W("26")
-    L("vr_c1", "P", "200", "E-111", "E-105", "Vacuum residue E-111 outlet to E-105", vr,
+    e201t = tr["E-201"]
+    L("vr_c1", "P", "200", "E-111", "E-201", "Vacuum residue E-111 outlet to E-201", vr,
       rho_hc(p204["rho"], p204["T"], ph["E-111"]["Th_out"]), p204["dP_bar"] - 2.0, ph["E-111"]["Th_out"], "liquid",
       desP=dP204, insul="ST", desT=design_T(ph["E-111"]["Th_in"]))
-    L("vr_c2", "P", "200", "E-105", "E-201", "Vacuum residue E-105 outlet to E-201", vr,
-      rho_hc(p204["rho"], p204["T"], ph["E-105"]["Th_out"]), p204["dP_bar"] - 3.0, ph["E-105"]["Th_out"], "liquid",
+    L("vr_c2", "P", "200", "E-201", "E-105", "Vacuum residue E-201 outlet to E-105", vr,
+      rho_hc(p204["rho"], p204["T"], e201t["T_out"]), p204["dP_bar"] - 3.0, e201t["T_out"], "liquid",
       desP=dP204, insul="ST", desT=design_T(ph["E-111"]["Th_out"]))
 
     # ---- sheet 002: desalters
@@ -896,7 +897,7 @@ def build_lines(reg: Registry):
     Wvr = p204["flow_m3h"] / 1.10 * p204["rho"]
     L("vr_s", "P", A, "C-201 boot", "P-204A/B", "Vacuum residue to P-204 (EIV-2041)", Wvr, p204["rho"], -0.93,
       v["T_bot"], "suction", desP=3.5, desT=c.desT("P-204"), insul="ST")
-    L("vr_quench", "P", A, "E-201 outlet", "C-201 boot", "Cooled VR quench to boot (FV-2027)", Wvr - vr,
+    L("vr_quench", "P", A, "VR rundown (E-105 outlet)", "C-201 boot", "Cooled VR quench to boot (FV-2027)", Wvr - vr,
       s("26")["rho_liq"], s("26")["P_barg"], s("26")["T_C"], "liquid", desP=dP204, desT=c.desT("P-204"), insul="ST")
     L("p204_mf", "P", A, "P-204A/B", "C-201 boot", "P-204 minimum-flow spillback (RO)", 0.3 * p204["flow_m3h"] *
       p204["rho"], p204["rho"], p204["dP_bar"] - 1, v["T_bot"], "liquid", desP=dP204, desT=c.desT("P-204"), insul="ST")
@@ -917,7 +918,7 @@ def build_lines(reg: Registry):
     L("hvgo_prod", "P", A, "A-202", "FCC / hydrocracker (OSBL)", "HVGO product (FV-2019)", W("24"),
       s("24")["rho_liq"], s("24")["P_barg"], s("24")["T_C"], "liquid", desP=dP202, desT=c.desT("A-202"),
       stream="24", insul="ST")
-    L("vr_prod", "P", A, "E-201", "Delayed coker / storage (OSBL)", "Vacuum residue product (FV-2025)", vr,
+    L("vr_prod", "P", A, "E-105", "Delayed coker / storage (OSBL)", "Vacuum residue product (FV-2025)", vr,
       s("26")["rho_liq"], s("26")["P_barg"], s("26")["T_C"], "liquid", desP=dP204, desT=design_T(ph["E-105"]["Th_in"]),
       stream="26", insul="ST")
     e201 = tr["E-201"]

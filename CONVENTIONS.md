@@ -64,6 +64,9 @@ H&MB stream numbers 1-34 (data/streams.json) shown in diamonds on BFD/PFD.
 | U1 | 150# | CS, cement-lined if CW | 1.5 mm | Cooling water, utility water, BFW (300# BFW -> B1) |
 | U2 | 150# | SS304 / galvanised | 0 | Instrument air, nitrogen |
 | V1 | 150# | 5Cr-1/2Mo | 3 mm | Vacuum vapour lines (C-201 OH, transfer line large bore -> B3 for > 400 C) |
+| A3 | 300# | CS, HIC-resistant, PWHT | 6 mm | Wash water / brine / sour water above 150# rating (desalter pressure) |
+| S3 | 300# | CS (A106-B) | 1.5 mm | MP steam 10.3 barg / 250-290 C design (exceeds S1) |
+| F1 | 150# | CS, killed, impact-tested | 3 mm | Flare / relief headers, -29 to 350 C |
 
 ## Instrument tags
 ISA-5.1. `<letters>-<loop>` loop = area digit + 3 digits (1xxx CDU, 2xxx VDU, 9xxx utilities).

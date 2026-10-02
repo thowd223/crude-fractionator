@@ -240,7 +240,7 @@ def build(m: Model) -> dict:
                   op_T=f"H {e['Th_in']:.0f}->{e['Th_out']:.0f} / C {e['Tc_in']:.0f}->{e['Tc_out']:.0f}",
                   shellside="Crude" if not hot_tube else names[e["hot"]],
                   tubeside=names[e["hot"]] if not hot_tube else "Crude",
-                  des_P="30 / 20", des_T=design_T(temax), moc=moc, ca_mm=3 if temax < 260 else 6,
+                  des_P=("45 / 20" if e["train"] == "hot" else "35 / 20"), des_T=design_T(temax), moc=moc, ca_mm=3 if temax < 260 else 6,
                   orient="H", L=7.5, D=1.4 if r["area_per_shell"] > 400 else 1.1, n_shells=r["shells"], **r,
                   **{k: e[k] for k in ("Th_in", "Th_out", "Tc_in", "Tc_out")})
         hx_list.append(hx)
@@ -400,11 +400,12 @@ def build(m: Model) -> dict:
         pump(tag, f"{k.title()} product", a["prod"][k].sum(), a["T_out"][k], rho(a["prod"][k], a["T_out"][k]), 9.0)
     pump("P-112", "Atm. residue / vacuum heater charge", a["prod"]["AR"].sum(), a["T_bot"],
          rho(a["prod"]["AR"], a["T_bot"]), 17.0)
-    pump("P-114", "Desalter wash water", p["wash_water"], 50, 990, 8.0)
+    pump("P-114", "Desalter wash water", p["wash_water"], 50, 990, 14.0)
     pump("P-115", "Stabiliser reflux / LPG", st["reflux"] + st["lpg"].sum(), 45, 530, 8.0)
     pump("P-116", "Splitter reflux / LN", sp["reflux"] + sp["d"].sum(), 50, 640, 7.0)
     pump("P-117", "Heavy naphtha product", sp["b"].sum(), sp["T_bot"], rho(sp["b"], sp["T_bot"]), 6.0)
     pump("P-118", "Desalter mud-wash / recycle", p["wash_water"] * 0.5, 120, 950, 6.0, spare=False)
+    pump("P-119", "Flare KO drum pump-out", 15000, 60, 800, 6.0)
     for tag, k, nm in [("P-201", "LVGO", "LVGO pumparound / product"), ("P-202", "HVGO", "HVGO pumparound / product")]:
         x = v["pa"][k]
         mv = x["comp"] * x["flow"] + v[k.lower()]
@@ -458,6 +459,12 @@ def build(m: Model) -> dict:
         ("PSV-2001", "C-201", "Loss of vacuum / fire (blocked outlet to ejectors)", v["steam"] + 30000, 400, 60, 3.5,
          "Flare"),
         ("PSV-2002", "D-201", "Fire", fire(30, 400)[0], 120, 100, 3.5, "Flare"),
+        ("PSV-1011", "E-113 (steam side)", "Blocked MP steam outlet (max. generation)",
+         m.res["preheat"]["trims"][0]["Q_kw"] / 2000 * 3600, 186, 18, 12.0, "Atmosphere (safe location)"),
+        ("PSV-2003", "E-201 (steam side)", "Blocked LP steam outlet (max. generation)",
+         next(t for t in m.res["preheat"]["trims"] if t["tag"] == "E-201")["Q_kw"] / 2100 * 3600, 148, 18, 5.0,
+         "Atmosphere (safe location)"),
+        ("TSV-typ", "CW sides E-115, E-202..E-204", "Thermal expansion (blocked-in CW)", 50, 60, 18, 7.0, "Grade"),
     ]
     for tagp, prot, case, W, T, MW, Pset, dest in reliefs:
         A, n, L = orifice(W, T, MW, Pset if isinstance(Pset, (int, float)) else 3.5)

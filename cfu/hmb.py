@@ -584,8 +584,8 @@ class Model:
                  phase="V", gas=v["ncg"] + v["air"] + e["slop_oil"], gas_mw=40.0))
         A(Stream("23", "LVGO product", v["lvgo"], 55, 8.0, frm="A-201", to="Hydrocracker"))
         A(Stream("24", "HVGO product", v["hvgo"], 90, 8.0, frm="A-202", to="FCC / Hydrocracker"))
-        A(Stream("25", "Slop wax", v["slop"], 90, 8.0, frm="P-203", to="Slop / FCC"))
-        A(Stream("26", "Vacuum residue", v["vr"], 175, 10.0, frm="E-201", to="Delayed coker / storage"))
+        A(Stream("25", "Slop wax (hot, traced)", v["slop"], v["T_slop"], 8.0, frm="P-203", to="Delayed coker feed (hot)"))
+        A(Stream("26", "Vacuum residue", v["vr"], 175, 10.0, frm="E-105", to="Delayed coker / storage"))
         A(Stream("27", "Ejector sour water", z, 45, 1.5, water=e["sour_water"], frm="D-201", to="SWS (OSBL)", phase="W"))
         A(Stream("28", "Vacuum off-gas (NCG + air)", z, 45, 1.05, frm="D-202", to="H-201 burners", phase="V",
                  gas=v["ncg"] + v["air"], gas_mw=30.0))

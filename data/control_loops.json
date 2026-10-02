@@ -660,7 +660,7 @@
    "tag": "PIC-2010",
    "service": "C-201 top pressure (vacuum)",
    "measured": "C-201 top",
-   "final": "PV-2010 NCG recycle J-203 suction",
+   "final": "PV-2010 off-gas recycle to J-201 suction",
    "notes": "",
    "pfd": true
   },
@@ -924,9 +924,9 @@
   },
   {
    "tag": "SIF-109",
-   "function": "D-102 high-high level -> close FV-1034 upstream, alarm",
-   "initiators": "LT-1033B",
-   "final_elements": "XV-1034",
+   "function": "D-105 low-low level -> close LPG product XV (gas blow-by to LPG treating)",
+   "initiators": "LT-1092B",
+   "final_elements": "XV-1093",
    "sil": "SIL 1"
   },
   {
