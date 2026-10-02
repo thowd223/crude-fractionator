@@ -78,7 +78,7 @@ PSV tags from data/psv.json (PSV-1001...). SIS initiators carry suffix A/B/C.
   rack at west edge x = 0.
 * Substation SS-100: x 10-40, y 5-20 (non-classified). Field auxiliary room / satellite instrument
   house FAR-100: x 45-65, y 5-17. Central control room is OSBL (fibre link).
-* Road around unit: 6 m wide, 3 m inside plot boundary; fire-water ring main OSBL.
+* Road around unit: 6 m wide, 3 m inside plot boundary, except along the south-west where it runs north of SS-100/FAR-100 (y 22-28); fire-water ring main OSBL. Rack tier 1 EL 106.0 gives 5.35 m clear at road crossings (maintenance roads only).
 * Area blocks (guidance): x 0-70 desalting + preheat exchangers; x 70-150 C-101/strippers/OH system
   north of rack; heaters H-101, H-201 in band y 20-50 x 80-185; x 150-230 VDU north of rack;
   light ends (C-105/C-106) north-west, >= 30 m from heaters (LPG spacing).

@@ -4,10 +4,10 @@
   "type": "Column",
   "service": "Atmospheric crude fractionator",
   "area": "CDU",
-  "size": "ID 6.9 m (top/main) / 4.1 m (stripping) x 40.5 m T/T",
+  "size": "ID 6.9 m (top/main) / 4.1 m (stripping) x 36.0 m T/T",
   "D": 6.9,
   "D2": 4.14,
-  "H": 40.5,
+  "H": 36.0,
   "orient": "V",
   "internals": "41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays",
   "op_P": "1.19 / 1.47",
@@ -162,7 +162,7 @@
     "TS_mm": 610
    }
   ],
-  "weight_t": 727.0
+  "weight_t": 646.0
  },
  {
   "tag": "C-102",

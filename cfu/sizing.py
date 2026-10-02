@@ -117,7 +117,7 @@ def build(m: Model) -> dict:
     bot_D = max(bot_D, 0.6 * D_main)
     tray_h = 28 * 0.61 + 9 * 0.76 + 3 * 0.61
     sump = (a["prod"]["AR"].sum() / secs[7]["rho_l"] / 60 * 5) / (math.pi / 4 * bot_D ** 2)  # 5 min
-    H101 = round_up(2.0 + tray_h + 4.0 + 6 * 0.61 + 1.5 + sump + 1.0, 0.5)
+    H101 = round_up(2.0 + tray_h + 4.0 - 0.61 + 1.5 + sump + 1.0, 0.5)  # tray_h spans trays 1-41 incl. stripping; FZ replaces one spacing
     E(dict(tag="C-101", type="Column", service="Atmospheric crude fractionator", area="CDU",
            size=f"ID {D_main:.1f} m (top/main) / {bot_D:.1f} m (stripping) x {H101:.1f} m T/T",
            D=D_main, D2=bot_D, H=H101, orient="V", internals="41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays",
