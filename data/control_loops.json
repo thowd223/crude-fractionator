@@ -1,0 +1,975 @@
+{
+ "loops": [
+  {
+   "tag": "FIC-1001",
+   "service": "Crude charge flow (unit throughput)",
+   "measured": "P-101 discharge",
+   "final": "FV-1001",
+   "notes": "Master; sets heater pass SPs via ratio",
+   "pfd": true
+  },
+  {
+   "tag": "FFIC-1002",
+   "service": "Demulsifier injection ratio to crude",
+   "measured": "X-101",
+   "final": "X-101 stroke",
+   "notes": "Ratio to FIC-1001",
+   "pfd": false
+  },
+  {
+   "tag": "FFIC-1003",
+   "service": "Wash water ratio to crude (5 LV%)",
+   "measured": "P-114 discharge",
+   "final": "FV-1003",
+   "notes": "Ratio to FIC-1001",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1004",
+   "service": "Desalter inlet temperature",
+   "measured": "D-101A inlet",
+   "final": "TV-1004 (E-105 bypass)",
+   "notes": "Limits 125-145 C",
+   "pfd": true
+  },
+  {
+   "tag": "PDIC-1005",
+   "service": "1st-stage mix valve dP",
+   "measured": "Mix valve D-101A",
+   "final": "PDV-1005",
+   "notes": "0.5-1.5 bar",
+   "pfd": true
+  },
+  {
+   "tag": "PDIC-1006",
+   "service": "2nd-stage mix valve dP",
+   "measured": "Mix valve D-101B",
+   "final": "PDV-1006",
+   "notes": "0.5-1.5 bar",
+   "pfd": false
+  },
+  {
+   "tag": "LIC-1007",
+   "service": "D-101A water/oil interface",
+   "measured": "D-101A",
+   "final": "LV-1007 brine",
+   "notes": "Guided-wave radar + profiler",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1008",
+   "service": "D-101B water/oil interface",
+   "measured": "D-101B",
+   "final": "LV-1008 to 1st-stage wash",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-1009",
+   "service": "Desalter pressure (above crude vapour pressure)",
+   "measured": "D-101B outlet",
+   "final": "PV-1009 P-102 suction",
+   "notes": "Backpressure",
+   "pfd": true
+  },
+  {
+   "tag": "FFIC-1010",
+   "service": "Caustic injection ratio",
+   "measured": "X-102",
+   "final": "X-102 stroke",
+   "notes": "Ratio to FIC-1001",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1011",
+   "service": "H-101 pass 1 flow",
+   "measured": "Pass 1 inlet",
+   "final": "FV-1011",
+   "notes": "Pass balancing via TDIC-1019",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1012",
+   "service": "H-101 pass 2 flow",
+   "measured": "Pass 2 inlet",
+   "final": "FV-1012",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1013",
+   "service": "H-101 pass 3 flow",
+   "measured": "Pass 3 inlet",
+   "final": "FV-1013",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1014",
+   "service": "H-101 pass 4 flow",
+   "measured": "Pass 4 inlet",
+   "final": "FV-1014",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1015",
+   "service": "H-101 pass 5 flow",
+   "measured": "Pass 5 inlet",
+   "final": "FV-1015",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1016",
+   "service": "H-101 pass 6 flow",
+   "measured": "Pass 6 inlet",
+   "final": "FV-1016",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1017",
+   "service": "H-101 pass 7 flow",
+   "measured": "Pass 7 inlet",
+   "final": "FV-1017",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1018",
+   "service": "H-101 pass 8 flow",
+   "measured": "Pass 8 inlet",
+   "final": "FV-1018",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "TDIC-1019",
+   "service": "H-101 pass outlet temperature balancing",
+   "measured": "Pass outlets TI-1011..1018",
+   "final": "Biases FIC-1011..1018",
+   "notes": "Total flow held",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1020",
+   "service": "H-101 coil outlet temperature (COT)",
+   "measured": "Combined outlet",
+   "final": "Cascade to PIC-1021",
+   "notes": "Feed-forward from FIC-1001",
+   "pfd": true
+  },
+  {
+   "tag": "PIC-1021",
+   "service": "H-101 fuel gas burner pressure",
+   "measured": "FG to burners",
+   "final": "PV-1021",
+   "notes": "Slave of TIC-1020; low select vs min-fire",
+   "pfd": true
+  },
+  {
+   "tag": "AIC-1022",
+   "service": "H-101 flue gas O2 (excess-air trim)",
+   "measured": "Arch O2/CO analyser",
+   "final": "FD fan inlet vanes",
+   "notes": "Cross-limited with fuel",
+   "pfd": true
+  },
+  {
+   "tag": "PIC-1023",
+   "service": "H-101 arch draft",
+   "measured": "Arch pressure",
+   "final": "ID fan speed / stack damper",
+   "notes": "-2.5 mmH2O",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1024",
+   "service": "Stripping-steam superheat outlet",
+   "measured": "SS coil outlet",
+   "final": "TV-1024 desuperheat",
+   "notes": "350 C",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1025",
+   "service": "H-101 combustion air flow",
+   "measured": "FD fan discharge",
+   "final": "FD inlet vanes",
+   "notes": "Cross-limit with fuel",
+   "pfd": false
+  },
+  {
+   "tag": "TIC-1030",
+   "service": "C-101 top temperature (naphtha end point)",
+   "measured": "C-101 top",
+   "final": "Cascade to FIC-1031",
+   "notes": "APC handle",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1031",
+   "service": "C-101 reflux",
+   "measured": "P-103 discharge",
+   "final": "FV-1031",
+   "notes": "Slave of TIC-1030",
+   "pfd": true
+  },
+  {
+   "tag": "PIC-1032",
+   "service": "OH drum pressure (split range)",
+   "measured": "D-102",
+   "final": "PV-1032A off-gas / PV-1032B FG make-up",
+   "notes": "Split range",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1033",
+   "service": "D-102 hydrocarbon level",
+   "measured": "D-102",
+   "final": "Cascade to FIC-1034",
+   "notes": "Averaging",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1034",
+   "service": "Unstabilised naphtha to C-105",
+   "measured": "P-104 discharge",
+   "final": "FV-1034",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1035",
+   "service": "D-102 boot interface",
+   "measured": "D-102 boot",
+   "final": "LV-1035 sour water",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FFIC-1036",
+   "service": "OH neutraliser ratio / pH",
+   "measured": "X-103",
+   "final": "X-103 stroke",
+   "notes": "pH AIC-1037 trim",
+   "pfd": false
+  },
+  {
+   "tag": "AIC-1037",
+   "service": "OH sour-water pH",
+   "measured": "D-102 boot",
+   "final": "Trims FFIC-1036",
+   "notes": "pH 5.5-6.5",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-1040",
+   "service": "TPA circulation",
+   "measured": "P-106 discharge",
+   "final": "FV-1040",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1041",
+   "service": "TPA return temperature (duty)",
+   "measured": "TPA return",
+   "final": "TV-1041 E-101 bypass",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1042",
+   "service": "MPA circulation",
+   "measured": "P-107 discharge",
+   "final": "FV-1042",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1043",
+   "service": "MPA return temperature",
+   "measured": "MPA return",
+   "final": "TV-1043 E-106 bypass",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1044",
+   "service": "BPA circulation",
+   "measured": "P-108 discharge",
+   "final": "FV-1044",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1045",
+   "service": "BPA return temperature",
+   "measured": "BPA return",
+   "final": "TV-1045 E-113 bypass",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1050",
+   "service": "Kerosene draw to C-102",
+   "measured": "Draw line",
+   "final": "FV-1050",
+   "notes": "Cut point; APC from TI-1053 / flash",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1051",
+   "service": "C-102 bottom level",
+   "measured": "C-102",
+   "final": "Cascade to FIC-1052",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1052",
+   "service": "Kerosene product",
+   "measured": "P-109 discharge",
+   "final": "FV-1052",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1054",
+   "service": "C-102 stripping steam",
+   "measured": "Steam to C-102",
+   "final": "FV-1054",
+   "notes": "Ratio to product (6 lb/bbl)",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1060",
+   "service": "Diesel draw to C-103",
+   "measured": "Draw line",
+   "final": "FV-1060",
+   "notes": "Cut point (T95)",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1061",
+   "service": "C-103 bottom level",
+   "measured": "C-103",
+   "final": "Cascade to FIC-1062",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1062",
+   "service": "Diesel product",
+   "measured": "P-110 discharge",
+   "final": "FV-1062",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1064",
+   "service": "C-103 stripping steam",
+   "measured": "Steam to C-103",
+   "final": "FV-1064",
+   "notes": "Ratio",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1070",
+   "service": "AGO draw to C-104",
+   "measured": "Draw line",
+   "final": "FV-1070",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1071",
+   "service": "C-104 bottom level",
+   "measured": "C-104",
+   "final": "Cascade to FIC-1072",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1072",
+   "service": "AGO product",
+   "measured": "P-111 discharge",
+   "final": "FV-1072",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1074",
+   "service": "C-104 stripping steam",
+   "measured": "Steam to C-104",
+   "final": "FV-1074",
+   "notes": "Ratio",
+   "pfd": true
+  },
+  {
+   "tag": "FI-1080",
+   "service": "Overflash (wash-zone liquid) flow",
+   "measured": "Overflash pan",
+   "final": "-",
+   "notes": "Min overflash alarm; APC constraint",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1081",
+   "service": "C-101 bottom stripping steam",
+   "measured": "Steam to C-101",
+   "final": "FV-1081",
+   "notes": "Ratio to AR (10 lb/bbl)",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1082",
+   "service": "C-101 bottom level",
+   "measured": "C-101 sump",
+   "final": "Cascade to FIC-1083",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1083",
+   "service": "Atm. residue to H-201",
+   "measured": "P-112 discharge",
+   "final": "FV-1083",
+   "notes": "Ratio-splits H-201 passes",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1090",
+   "service": "Stabiliser feed",
+   "measured": "P-104 discharge (via E-114)",
+   "final": "FV-1034 (shared)",
+   "notes": "Same as FIC-1034",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-1091",
+   "service": "C-105 pressure (hot-vapour bypass)",
+   "measured": "D-105",
+   "final": "PV-1091",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1092",
+   "service": "D-105 level",
+   "measured": "D-105",
+   "final": "Cascade to FIC-1093 LPG",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1093",
+   "service": "LPG product",
+   "measured": "P-115 discharge",
+   "final": "FV-1093",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1094",
+   "service": "C-105 reflux",
+   "measured": "P-115 discharge",
+   "final": "FV-1094",
+   "notes": "Ratio to feed",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1095",
+   "service": "C-105 sensitive tray temperature (RVP)",
+   "measured": "Tray 15",
+   "final": "Cascade to FIC-1096",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1096",
+   "service": "HP steam to E-116",
+   "measured": "Steam to E-116",
+   "final": "FV-1096",
+   "notes": "Condensate pot LIC-1098",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1097",
+   "service": "C-105 bottom level",
+   "measured": "C-105",
+   "final": "LV-1097 feed to C-106",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1098",
+   "service": "E-116 condensate pot level",
+   "measured": "Pot",
+   "final": "LV-1098",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-1100",
+   "service": "C-106 / D-106 pressure",
+   "measured": "D-106",
+   "final": "PV-1100 (flooded condenser)",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1101",
+   "service": "D-106 level",
+   "measured": "D-106",
+   "final": "Cascade to FIC-1102 LN",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1102",
+   "service": "Light naphtha product",
+   "measured": "P-116 discharge",
+   "final": "FV-1102",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1103",
+   "service": "C-106 reflux",
+   "measured": "P-116 discharge",
+   "final": "FV-1103",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-1104",
+   "service": "C-106 sensitive tray temperature",
+   "measured": "Tray 30",
+   "final": "Cascade to FIC-1105",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1105",
+   "service": "MP steam to E-117",
+   "measured": "Steam to E-117",
+   "final": "FV-1105",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1106",
+   "service": "C-106 bottom level",
+   "measured": "C-106",
+   "final": "Cascade to FIC-1107 HN",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-1107",
+   "service": "Heavy naphtha product",
+   "measured": "P-117 discharge",
+   "final": "FV-1107",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-1110",
+   "service": "E-113 steam-generator level",
+   "measured": "E-113",
+   "final": "LV-1110 BFW",
+   "notes": "3-element",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-1111",
+   "service": "E-113 MP steam pressure",
+   "measured": "E-113 outlet",
+   "final": "PV-1111",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-2001",
+   "service": "H-201 pass 1 flow",
+   "measured": "Pass 1 inlet",
+   "final": "FV-2001",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2002",
+   "service": "H-201 pass 2 flow",
+   "measured": "Pass 2 inlet",
+   "final": "FV-2002",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-2003",
+   "service": "H-201 pass 3 flow",
+   "measured": "Pass 3 inlet",
+   "final": "FV-2003",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "FIC-2004",
+   "service": "H-201 pass 4 flow",
+   "measured": "Pass 4 inlet",
+   "final": "FV-2004",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "TIC-2005",
+   "service": "H-201 COT",
+   "measured": "Combined outlet",
+   "final": "Cascade to PIC-2006",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "PIC-2006",
+   "service": "H-201 fuel gas pressure",
+   "measured": "FG to burners",
+   "final": "PV-2006",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2007",
+   "service": "H-201 coil (velocity) steam",
+   "measured": "Steam to passes",
+   "final": "FV-2007",
+   "notes": "Per pass FI",
+   "pfd": true
+  },
+  {
+   "tag": "AIC-2008",
+   "service": "H-201 flue gas O2",
+   "measured": "Arch O2",
+   "final": "Stack damper",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-2010",
+   "service": "C-201 top pressure (vacuum)",
+   "measured": "C-201 top",
+   "final": "PV-2010 NCG recycle J-203 suction",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2011",
+   "service": "LVGO PA circulation",
+   "measured": "P-201 discharge",
+   "final": "FV-2011",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-2012",
+   "service": "C-201 top temperature",
+   "measured": "C-201 top",
+   "final": "Cascade to TIC-2013",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-2013",
+   "service": "LVGO PA return temperature",
+   "measured": "LVGO PA return",
+   "final": "A-201 fan pitch / bypass",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-2014",
+   "service": "LVGO draw-pan level",
+   "measured": "C-201 pan",
+   "final": "Cascade to FIC-2015",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2015",
+   "service": "LVGO product",
+   "measured": "P-201 discharge",
+   "final": "FV-2015",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2016",
+   "service": "HVGO PA circulation",
+   "measured": "P-202 discharge",
+   "final": "FV-2016",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-2017",
+   "service": "HVGO PA return temperature",
+   "measured": "HVGO PA return",
+   "final": "TV-2017 E-108 bypass",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-2018",
+   "service": "HVGO draw-pan level",
+   "measured": "C-201 pan",
+   "final": "Cascade to FIC-2019",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2019",
+   "service": "HVGO product",
+   "measured": "P-202 discharge",
+   "final": "FV-2019",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2020",
+   "service": "Wash oil to wash bed (critical, min-flow)",
+   "measured": "Wash spray header",
+   "final": "FV-2020",
+   "notes": "Low-flow alarm & APC constraint",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-2021",
+   "service": "Slop-wax pan level",
+   "measured": "C-201 pan",
+   "final": "Cascade to FIC-2022",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2022",
+   "service": "Slop wax product",
+   "measured": "P-203 discharge",
+   "final": "FV-2022",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2023",
+   "service": "C-201 bottom stripping steam",
+   "measured": "Steam to C-201",
+   "final": "FV-2023",
+   "notes": "Ratio",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-2024",
+   "service": "C-201 bottom level",
+   "measured": "C-201 boot",
+   "final": "Cascade to FIC-2025",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2025",
+   "service": "Vacuum residue product",
+   "measured": "P-204 discharge",
+   "final": "FV-2025",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "TIC-2026",
+   "service": "C-201 bottoms temperature (coking control)",
+   "measured": "C-201 boot",
+   "final": "Cascade to FIC-2027",
+   "notes": "Max 365 C",
+   "pfd": true
+  },
+  {
+   "tag": "FIC-2027",
+   "service": "VR quench flow",
+   "measured": "Quench return",
+   "final": "FV-2027",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-2028",
+   "service": "D-201 hotwell water level",
+   "measured": "D-201",
+   "final": "LV-2028 P-205",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-2029",
+   "service": "D-201 slop oil level",
+   "measured": "D-201",
+   "final": "LV-2029 P-206",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "LIC-2030",
+   "service": "E-201 steam-generator level",
+   "measured": "E-201",
+   "final": "LV-2030 BFW",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-2031",
+   "service": "Vacuum off-gas to H-201",
+   "measured": "D-202",
+   "final": "PV-2031",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-9001",
+   "service": "Fuel gas header pressure",
+   "measured": "D-103",
+   "final": "PV-9001",
+   "notes": "",
+   "pfd": true
+  },
+  {
+   "tag": "LIC-9002",
+   "service": "D-103 liquid level",
+   "measured": "D-103",
+   "final": "LV-9002",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "LIC-9003",
+   "service": "D-104 flare KO drum level",
+   "measured": "D-104",
+   "final": "Pump-out on/off",
+   "notes": "",
+   "pfd": false
+  },
+  {
+   "tag": "PIC-9004",
+   "service": "LP steam header pressure (unit)",
+   "measured": "LP header",
+   "final": "PV-9004 let-down",
+   "notes": "",
+   "pfd": false
+  }
+ ],
+ "sifs": [
+  {
+   "tag": "SIF-101",
+   "function": "H-101 low-low pass flow (any pass) -> trip fuel",
+   "initiators": "FT-1011..1018 (2oo3 each pass)",
+   "final_elements": "XV-1021/1022 FG SSOV, XV-1026 pilot",
+   "sil": "SIL 2"
+  },
+  {
+   "tag": "SIF-102",
+   "function": "H-101 low-low fuel gas pressure -> trip fuel",
+   "initiators": "PT-1027A/B/C 2oo3",
+   "final_elements": "XV-1021/1022",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-103",
+   "function": "H-101 high-high fuel gas pressure -> trip fuel",
+   "initiators": "PT-1027A/B/C 2oo3",
+   "final_elements": "XV-1021/1022",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-104",
+   "function": "H-101 loss of flame (all burners) -> trip fuel",
+   "initiators": "BS-1028 (scanners)",
+   "final_elements": "XV-1021/1022/1026",
+   "sil": "SIL 2"
+  },
+  {
+   "tag": "SIF-105",
+   "function": "H-101 high-high arch pressure / loss of ID fan -> trip",
+   "initiators": "PT-1029A/B/C",
+   "final_elements": "XV-1021/1022",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-106",
+   "function": "H-101 high-high COT -> trip fuel",
+   "initiators": "TT-1020A/B/C 2oo3",
+   "final_elements": "XV-1021/1022",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-107",
+   "function": "D-101A/B low-low interface (grid short) -> trip transformers",
+   "initiators": "LT-1007B / LT-1008B",
+   "final_elements": "Desalter transformer CB",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-108",
+   "function": "C-101 high-high bottom level -> stop P-101 / close FV-1001",
+   "initiators": "LT-1082B",
+   "final_elements": "XV-1001 + P-101 trip",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-109",
+   "function": "D-102 high-high level -> close FV-1034 upstream, alarm",
+   "initiators": "LT-1033B",
+   "final_elements": "XV-1034",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-110",
+   "function": "C-105 high-high pressure -> cut reboiler steam",
+   "initiators": "PT-1091B",
+   "final_elements": "XV-1096",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-201",
+   "function": "H-201 low-low pass flow -> trip fuel",
+   "initiators": "FT-2001..2004",
+   "final_elements": "XV-2006A/B",
+   "sil": "SIL 2"
+  },
+  {
+   "tag": "SIF-202",
+   "function": "H-201 low-low FG pressure / flame failure -> trip",
+   "initiators": "PT-2009A/B/C, BS-2008",
+   "final_elements": "XV-2006A/B",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-203",
+   "function": "C-201 high-high bottom level -> trip FV-1083 / P-112",
+   "initiators": "LT-2024B",
+   "final_elements": "XV-1083",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-204",
+   "function": "Pump P-112/P-204 hot-pump emergency isolation (fire)",
+   "initiators": "Manual HS / fire detection",
+   "final_elements": "EIV-1121/EIV-2041 (ROSOV)",
+   "sil": "SIL 1"
+  },
+  {
+   "tag": "SIF-901",
+   "function": "Unit emergency shutdown (ESD-1, manual)",
+   "initiators": "HS-9000 (CCR + field)",
+   "final_elements": "All unit trip valves, heater trips",
+   "sil": "SIL 2"
+  }
+ ]
+}
