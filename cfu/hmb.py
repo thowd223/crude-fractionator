@@ -101,7 +101,7 @@ class Model:
         crude_m3h = self.vol(crude)
         names = ["NAPH", "KERO", "DIESEL", "AGO", "AR"]
         cuts = [165, 235, 320, 370]
-        fr = self.sigmoid_split(sl.Tb, cuts, [7, 9, 11, 14])
+        fr = self.sigmoid_split(sl.Tb, cuts, [4.5, 6.5, 9, 12])
         prod = {n: crude * fr[i] for i, n in enumerate(names)}
 
         # column geometry: tray 1 = top
