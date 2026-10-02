@@ -13,7 +13,7 @@ from .. import basis
 ROOT = Path(__file__).resolve().parents[2]
 DLV = ROOT / "deliverables"
 OUT = DLV / "06-wrapup" / "portal"
-GH = "https://github.com/thowd223/crude-fractionator/blob/claude/crude-unit-feed/"
+GH = "https://github.com/thowd223/crude-fractionator/blob/main/"
 
 DISC_ORDER = ["Process", "Mechanical", "Plant layout", "Piping", "Instrumentation & control", "Electrical",
               "Project management"]
@@ -273,7 +273,7 @@ footer {{ margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 
         out.append("</div>")
 
     out.append('<h2>Document register</h2><p class="lede">All documents at Rev A, issued for review. The links open the files '
-               'on GitHub, branch claude/crude-unit-feed.</p>')
+               'on GitHub (main branch).</p>')
     for d, items in by_disc.items():
         if not items:
             continue
