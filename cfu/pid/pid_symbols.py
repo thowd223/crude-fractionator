@@ -339,7 +339,7 @@ class Canvas:
 
     # ------------------------------------------------------------------ relief valve
     def psv(self, x, y, tag, set_barg, orifice="", up=14, out="r", outlen=12, dest="FLARE", blocks=True,
-            text_side=None):
+            text_side=None, compact=False):
         """Pressure safety valve.  (x,y) = inlet connection on protected item (inlet rises 'up' mm).
         Body at (x, y-up); outlet horizontal (out='r'/'l') to destination arrow."""
         bx, by = x, y - up
@@ -361,6 +361,11 @@ class Canvas:
         if blocks:
             self.gate(x, y - up * 0.42, "v", note="CSO", note_side=-sgn if text_side is None else -text_side)
             self.gate(bx + sgn * outlen * 0.6, by, "h", note="CSO", note_side=1)
+        if compact:
+            self.t(tag, ox + sgn * 1.5, by + 0.8, 2.0, "start" if sgn > 0 else "end", bold=True)
+            if self.reg:
+                self.reg.inst(tag, self.sid)
+            return
         ts = text_side if text_side is not None else -sgn
         tx = bx + ts * 3.2
         anc = "start" if ts > 0 else "end"

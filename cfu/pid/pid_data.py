@@ -132,12 +132,26 @@ CLASSES = {
                svc="LPG / stabiliser, BFW > 300#", tmax=230, flange="A105 RTJ/RF", valves="Gate/globe A216 WCB, trim 8; ball fire-safe",
                gasket="SPW 316/graphite inner + outer ring", bolting="A193 B7 / A194 2H",
                branch="Weldolet / forged tee", sch="Sch 80 <= 2\", Sch 40 / XS >= 3\""),
+    "A3": dict(rating=300, mat="Carbon steel, HIC-resistant (NACE MR0103), PWHT", grp="1.1", ca=6.0,
+               svc="Wash water / brine / sour water above 150# rating (desalter pressure)", tmax=200,
+               flange="A105N RF, HB <= 200", valves="Gate/globe A216 WCB NACE, trim 316/stellite",
+               gasket="SPW 316L/graphite, inner + outer ring", bolting="A193 B7M / A194 2HM",
+               branch="Weldolet / reinforced tee, PWHT", sch="Sch 80 <= 2\", Sch 40 / XS >= 3\""),
     "S1": dict(rating=150, mat="Carbon steel ASTM A106 Gr.B", grp="1.1", ca=1.5, svc="LP / MP steam, condensate",
                tmax=400, flange="A105 RF", valves="Gate/globe A216 WCB, trim 8", gasket="SPW 304/graphite",
                bolting="A193 B7 / A194 2H", branch="Weldolet / tee", sch="Sch 40 / STD"),
     "S2": dict(rating=600, mat="1.25Cr-1/2Mo ASTM A335 P11", grp="1.9", ca=1.5, svc="HP steam 41 barg / 400 C",
                tmax=450, flange="A182 F11 Cl.2 RF", valves="Gate/globe A217 WC6, trim 8", gasket="SPW 304/graphite",
                bolting="A193 B7 / A194 2H", branch="Weldolet, PWHT", sch="Sch 80"),
+    "S3": dict(rating=300, mat="Carbon steel ASTM A106 Gr.B", grp="1.1", ca=1.5,
+               svc="MP steam 10.3 barg / 250-290 C design (exceeds S1)", tmax=400, flange="A105 RF",
+               valves="Gate/globe A216 WCB, trim 8 (stellite seats)", gasket="SPW 304/graphite, inner ring",
+               bolting="A193 B7 / A194 2H", branch="Weldolet / tee", sch="Sch 40 / STD, Sch 80 <= 1-1/2\""),
+    "F1": dict(rating=150, mat="Carbon steel, killed, impact-tested (A333 Gr.6)", grp="1.1", ca=3.0,
+               svc="Flare / relief headers, -29 to 350 C", tmax=350, flange="A350 LF2 RF",
+               valves="Gate A352 LCC (CSO/CSC per relief philosophy)", gasket="SPW 304/graphite, inner ring",
+               bolting="A320 L7 / A194 4", branch="Lateral 45 deg into header top; reinforced",
+               sch="STD, min. Sch 40 (acoustic fatigue check for large laterals)"),
     "U1": dict(rating=150, mat="Carbon steel (cement-lined for CW >= 12\")", grp="1.1", ca=1.5,
                svc="Cooling water, utility water, LP BFW", tmax=120, flange="A105 RF",
                valves="Butterfly (>= 6\"), gate (<= 4\")", gasket="Non-asbestos fibre", bolting="A193 B7 / A194 2H",
@@ -251,9 +265,13 @@ def select_class(fluid, kind, desP, desT, opT, hint=None):
     if hint:
         return hint
     if fluid in ("SW", "WW"):
-        return "A2" if rating("A2", desT) >= desP else "B1"
-    if fluid in ("LS", "MS", "CD"):
-        return "S1"
+        return "A2" if rating("A2", desT) >= desP else "A3"
+    if fluid == "MS":
+        return "S1" if rating("S1", desT) >= desP else "S3"
+    if fluid in ("LS", "CD"):
+        return "S1" if rating("S1", desT) >= desP else "S3"
+    if fluid == "FL":
+        return "F1"
     if fluid == "HS":
         return "S2"
     if fluid in ("CWS", "CWR"):
@@ -262,7 +280,7 @@ def select_class(fluid, kind, desP, desT, opT, hint=None):
         return "U1" if rating("U1", desT) >= desP and desT <= 120 else ("B1" if rating("B1", desT) >= desP else "C1")
     if fluid in ("IA", "N"):
         return "U2"
-    if fluid in ("FG", "FL", "BD"):
+    if fluid in ("FG", "BD"):
         if opT > 260:
             return "B2"
         return "A1" if rating("A1", desT) >= desP else "B1"
@@ -592,7 +610,11 @@ def build_lines(reg: Registry):
       rho_steam(ms["P_barg"] + 0.7, 188), ms["P_barg"] + 0.7, 188, "steam", desP=c.desP("E-113"),
       desT=c.desT("E-113"))
     L("bd_e113", "BD", A, "E-113", "Blowdown drum (OSBL)", "E-113 continuous blowdown", W113 * 0.02, rho_w(186),
-      ms["P_barg"], 186, "water", desP=c.desP("E-113"), desT=c.desT("E-113"), cls="S1", min_nps=1.0)
+      ms["P_barg"], 186, "water", desP=c.desP("E-113"), desT=c.desT("E-113"), min_nps=1.0)
+
+    p = c.PSV["PSV-1011"]
+    L("psv1011_out", "MS", A, "PSV-1011", "Atmosphere (safe location)", "PSV-1011 discharge (E-113 steam side)",
+      p["load_kg_h"], rho_steam(0.3, p["T"]), 0.3, p["T"], "flare", desP=3.5, desT=design_T(p["T"]))
 
     # ---- sheet 004: H-101 process coils
     H1 = R["heaters"]["H-101"]
@@ -720,7 +742,7 @@ def build_lines(reg: Registry):
       s("10")["P_barg"], s("10")["T_C"], "liquid", desP=c.pump_desP("P-103", c.desP("D-102")), stream="10")
     L("naph_s", "P", A, "D-102", "P-104A/B", "Unstabilised naphtha pump suction", W("11"), s("11")["rho_liq"],
       a["drum_P_barg"], basis.DESIGN["atm_drum_T"], "suction", desP=c.desP("D-102"), cls="A2")
-    L("naph_d", "P", A, "P-104A/B", "E-114", "Unstabilised naphtha to C-105 (FV-1034, XV-1034)", W("11"),
+    L("naph_d", "P", A, "P-104A/B", "E-114", "Unstabilised naphtha to C-105 (FV-1034)", W("11"),
       s("11")["rho_liq"], s("11")["P_barg"], s("11")["T_C"], "liquid",
       desP=c.pump_desP("P-104", c.desP("D-102")), stream="11")
     L("sw_s", "SW", A, "D-102 boot", "P-105A/B", "OH sour water pump suction", W("12"), rho_w(45), a["drum_P_barg"],
@@ -759,7 +781,7 @@ def build_lines(reg: Registry):
       basis.DESIGN["stab_drum_P"] - 1.013, basis.DESIGN["stab_drum_T"], "suction", desP=c.desP("D-105"), cls="C1")
     L("stab_refl", "P", A, "P-115A/B", "C-105 tray 1", "Stabiliser reflux (FV-1094)", st["reflux"],
       s("30")["rho_liq"], P105 + 4, basis.DESIGN["stab_drum_T"], "liquid", desP=dP115, cls="C1")
-    L("lpg_prod", "P", A, "P-115A/B", "LPG treating (OSBL)", "LPG product (FV-1093)", W("30"), s("30")["rho_liq"],
+    L("lpg_prod", "P", A, "P-115A/B", "LPG treating (OSBL)", "LPG product (FV-1093, XV-1093)", W("30"), s("30")["rho_liq"],
       s("30")["P_barg"], s("30")["T_C"], "liquid", desP=dP115, cls="C1", stream="30")
     L("d105_og", "PG", A, "D-105", "Fuel gas (OSBL)", "Stabiliser off-gas, normally no flow", 0.02 * Wov,
       rho_gas(P105 - 0.3, 45, 30), P105 - 0.3, 45, "vapour", desP=c.desP("D-105"), cls="C1", stream="29", min_nps=2)
@@ -888,8 +910,8 @@ def build_lines(reg: Registry):
     p203 = c.pump("P-203")
     L("slop_s", "P", A, "C-201 slop-wax pan", "P-203A/B", "Slop wax draw to pumps", W("25"), p203["rho"], -0.94,
       v["T_slop"], "suction", desP=3.5, desT=c.desT("P-203"), size=None)
-    L("slop_d", "P", A, "P-203A/B", "Slop / FCC (OSBL)", "Slop wax product (FV-2022)", W("25"), p203["rho"],
-      s("25")["P_barg"], v["T_slop"], "liquid", desP=c.pump_desP("P-203", 3.5), desT=c.desT("P-203"), stream="25",
+    L("slop_d", "P", A, "P-203A/B", s("25")["to"] + " (OSBL)", "Slop wax product, hot traced (FV-2022)",
+      W("25"), p203["rho"], s("25")["P_barg"], s("25")["T_C"], "liquid", desP=c.pump_desP("P-203", 3.5), desT=c.desT("P-203"), stream="25",
       insul="ST")
     L("ms_c201", "MS", A, "MP steam header", "C-201 below stripping trays", "C-201 bottom stripping steam (FV-2023)",
       v["steam"], rho_steam(ms["P_barg"], ms["T_C"]), ms["P_barg"], ms["T_C"], "steam", desP=design_P(ms["P_barg"]),
@@ -929,7 +951,11 @@ def build_lines(reg: Registry):
       rho_steam(ls["P_barg"] + 0.5, 150), ls["P_barg"] + 0.5, 150, "steam", desP=c.desP("E-201"),
       desT=design_T(150 + 20))
     L("bd_e201", "BD", A, "E-201", "Blowdown drum (OSBL)", "E-201 continuous blowdown", W201 * 0.02, rho_w(148),
-      ls["P_barg"], 148, "water", desP=c.desP("E-201"), desT=design_T(148), cls="S1", min_nps=1.0)
+      ls["P_barg"], 148, "water", desP=c.desP("E-201"), desT=design_T(148), min_nps=1.0)
+
+    p = c.PSV["PSV-2003"]
+    L("psv2003_out", "LS", A, "PSV-2003", "Atmosphere (safe location)", "PSV-2003 discharge (E-201 steam side)",
+      p["load_kg_h"], rho_steam(0.2, p["T"]), 0.2, p["T"], "flare", desP=3.5, desT=design_T(p["T"]))
 
     # ---- sheet 015: ejectors
     ej = R["ejector"]
@@ -968,7 +994,7 @@ def build_lines(reg: Registry):
       p206["rho"], 0.05, 45, "suction", desP=c.desP("D-201"))
     L("hw_oil_d", "P", A, "P-206A/B", "Slop (OSBL)", "Hotwell slop oil (LV-2029)", max(ej["slop_oil"], 1), p206["rho"],
       0.05 + p206["dP_bar"], 45, "liquid", desP=c.pump_desP("P-206", c.desP("D-201")))
-    L("ncg_recy", "PG", A, "D-202 outlet", "J-203 suction", "NCG recycle for C-201 pressure control (PV-2010)",
+    L("ncg_recy", "PG", A, "D-202 outlet", "J-201 suction", "NCG recycle for C-201 pressure control (PV-2010)",
       ej["offgas"] * 0.5, rho_gas(0.03, 40, 30), 0.03, 40, "fg", desP=3.5, desT=c.desT("D-202"), cls="A2")
     for e in ("E-202", "E-203", "E-204"):
         Wc = c.cw_rate(E[e]["duty_kw"])
@@ -996,8 +1022,13 @@ def build_lines(reg: Registry):
       rho_gas(0.3, pf["T"], pf["MW"]), 0.3, pf["T"], "flare", desP=c.desP("D-104"), desT=c.desT("D-104"))
     L("fl_osbl", "FL", A, "D-104", "Flare (OSBL)", "Unit flare KO drum outlet to main flare", relief,
       rho_gas(0.2, 120, pf["MW"]), 0.2, 120, "flare", desP=c.desP("D-104"), desT=c.desT("D-104"))
-    L("d104_po", "BD", A, "D-104", "Slop (OSBL pump-out)", "Flare KO drum liquid pump-out (LIC-9003)", 30000, 750,
-      0.2 + 4.0, 60, "liquid", desP=10.0, desT=c.desT("D-104"))
+    p119 = c.pump("P-119")
+    W119 = p119["flow_m3h"] / 1.10 * p119["rho"]
+    L("d104_po", "BD", A, "D-104", "P-119A/B", "Flare KO drum liquid to pump-out pumps", W119, p119["rho"],
+      0.2, p119["T"], "suction", desP=c.desP("D-104"), desT=c.desT("D-104"))
+    L("p119_d", "BD", A, "P-119A/B", "Slop (OSBL)", "Flare KO drum pump-out to slop (LIC-9003 start/stop)", W119,
+      p119["rho"], 0.2 + p119["dP_bar"], p119["T"], "liquid", desP=c.pump_desP("P-119", c.desP("D-104")),
+      desT=c.desT("P-119"))
     Whs_tot = Whs
     L("hs_hdr", "HS", A, "HP steam (OSBL)", "Unit HP steam header", "HP steam import", Whs_tot,
       rho_steam(hs["P_barg"], hs["T_C"]), hs["P_barg"], hs["T_C"], "steam", desP=design_P(hs["P_barg"]),
@@ -1060,7 +1091,7 @@ TYPES = {
     "LSH": "Level switch high", "LAH": "Level alarm high",
     "AT": "Analyser transmitter", "AIC": "Analyser indicating controller", "AV": "Analyser control element (damper/vane)",
     "AI": "Analyser indicator", "BS": "Flame scanner", "BZLL": "Flame failure trip function (SIS)",
-    "XV": "On/off shutdown valve", "EIV": "Emergency isolation valve (ROSOV)", "HS": "Hand switch",
+    "XV": "On/off shutdown valve", "LAHH": "Level alarm high-high (DCS)", "TSV": "Thermal safety valve", "EIV": "Emergency isolation valve (ROSOV)", "HS": "Hand switch",
     "XY": "Trip relay output", "ZSO": "Limit switch open", "ZSC": "Limit switch closed", "KV": "Damper actuator",
     "SC": "Speed controller (VSD)", "UZ": "Unit ESD logic (SIS)", "GD": "Gas detector", "AZ": "Analyser trip",
 }
