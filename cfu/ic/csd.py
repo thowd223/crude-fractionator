@@ -504,7 +504,7 @@ def csd_002():
                   note=["OVERFLASH (WASH-ZONE LIQUID)", "FAL; MPC CONSTRAINT >= 3 vol %", "OF CHARGE"], note_pos="l")
     p.line([(X0, 300), (262, 300)], w=0.3)
     p.line([(X0, 200), (262, 200), (262, 296)], w=0.3)
-    p.bubble(255, 300, "PDI-1084", "dcs", r=4.6, note=["SECTION dP", "(FLOODING CV)"], note_pos="l")
+    p.bubble(255, 300, "PDI-1237", "dcs", r=4.6, note=["SECTION dP", "(FLOODING CV)"], note_pos="l")
     # steam
     p.offpage(110, 440, "MP STEAM (SUPERHEATED)", "H-101 SS COIL", "r", w=62)
     p.util([(110, 440), (X0, 440)])
@@ -542,7 +542,7 @@ def csd_002():
             ("Diesel D86 T95 / cloud", "AT-1065 + inferential", "FIC-1060"),
             ("AGO D86 T95 / colour", "AT-1075 + inferential", "FIC-1070, COT"),
             ("Overflash", "FI-1080", "COT, BPA duty"),
-            ("Flooding", "PDI-1084", "PA duties, charge")]
+            ("Flooding", "PDI-1237", "PA duties, charge")]
     cw = [72, 72, 56]
     p.box(tx, ty, sum(cw), 6 * len(rows), None, fill="none")
     for i, r in enumerate(rows):
@@ -577,7 +577,7 @@ def csd_002():
         f"Bottoms: LIC-1082 cascades to AR FIC-1083 (also H-201 charge). Stripping steam FIC-1081 ratioed to AR "
         f"({st['bottom']:.0f} kg/h design).",
         "Overflash FI-1080 (wash-zone liquid) is a hard MPC constraint (>= 3 vol % of charge) and has a low "
-        "alarm; COT is raised / BPA duty reduced to restore it. Section dP PDI-1084 = flooding CV.",
+        "alarm; COT is raised / BPA duty reduced to restore it. Section dP PDI-1237 = flooding CV.",
         "SIS: LZHH-1082 (SIF-108) stops crude charge (XV-1001, P-101) on column high-high level.",
     ])
     sh.save(DIR / f"{no}_C-101-Column-Control")
@@ -719,7 +719,7 @@ def csd_003():
             p.text(f"{tc} (PA DUTY)", x, y3 + 9.6, 1.7, "middle", color=APC_GRN)
         p.text(f"{ex[t]['Tc_out']:.0f} °C", x - 20, y3 - 1.5, 1.7, "middle", color=GREY)
     ti = p.bubble(300, y3 - 14, "TI-1019", "field", r=4.2, note=[f"CIT {P['CIT']:.0f} °C"], note_pos="r") \
-        if False else p.bubble(300, y3 - 14, "TT-1050", "field", r=4.2)
+        if False else p.bubble(300, y3 - 14, "TI-1226", "field", r=4.2)
     p.line([(300, y3), (300, y3 - 9.8)], w=0.3)
     p.text(f"CIT {P['CIT']:.0f} °C -> MPC (FF TO COT)", 306, y3 - 13, 1.9, color=APC_GRN)
     # ---- inset table: preheat temperature controls
@@ -832,6 +832,12 @@ def csd_004():
     p.line([(215, 79), (227.4, 79)], w=0.3)
     l = p.bubble(232, 79, "LIC-1092", "dcs", r=4.6)
     p.soft([l["e"], (250, 79), (250, 88), f["w"]])
+    p.cv(277, 101.8, "h", None, "FC", act="s", sis=True, size=2.6)
+    p.text("XV-1093", 277, 107.5, 1.8, "middle", color=SIS_RED)
+    sb = p.bubble(240, 62, "LT-1092", "sis", r=4.4)
+    p.line([(215, 74), (220, 74), (220, 62), (235.6, 62)], w=0.3, color=SIS_RED)
+    p.text("B: LZLL -> SIF-109", 246, 61, 1.8, color=SIS_RED)
+    p.text("CLOSE XV-1093 (LPG)", 246, 63.4, 1.8, color=SIS_RED)
     a = p.bubble(300, 116, "AT-1099", "field", r=4.2, note=["LPG C5+ (GC)"], note_pos="r")
     p.line([(300, 101.8), (300, 111.8)], w=0.3)
     p.proc([(228, 101.8), (228, 118), (104, 118), (104, 88), (X0 + W, 88)], arrow=True)
@@ -956,7 +962,9 @@ def csd_004():
         "Dual-composition: MPC moves reflux/(L/F) and tray-temperature SPs on GC analysers (AT-1099, AT-1108, "
         "AT-1109) and inferentials; interaction handled by the MPC model (RGA ~ 2-4 for L-V).",
         "Without MPC: single-ended composition control (tray T) with reflux on ratio - operator trims.",
-        "SIF-110: C-105 high-high pressure PZHH-1091 closes reboiler steam XV-1096 (PSV relief load reduction).",
+        "SIF-110: C-105 high-high pressure PZHH-1091 closes reboiler steam XV-1096 (PSV relief load reduction). "
+        "SIF-109: D-105 low-low level LZLL-1092 closes LPG product XV-1093 (prevents gas blow-by to LPG "
+        "treating).",
     ])
     sh.save(DIR / f"{no}_Stabiliser-Splitter-Control")
     return no
@@ -1234,7 +1242,7 @@ def mpc_tables():
         ("CV-06", "AGO D86 T95 / colour", "AT-1075 + inferential", "max", "CDU"),
         ("CV-07", "Kero-diesel / diesel-AGO gap", "inferential (5-95 gap)", "min", "CDU"),
         ("CV-08", "Overflash", "FI-1080 / charge", ">= 3 vol %", "CDU"),
-        ("CV-09", "Section dP (flooding)", "PDI-1084", "max", "CDU"),
+        ("CV-09", "Section dP (flooding)", "PDI-1237", "max", "CDU"),
         ("CV-10", "H-101 firing / tube metal T", "FY-1020B OP, TI skin", "max", "CDU"),
         ("CV-11", "H-101 arch O2 / draft", "AIC-1022, PIC-1023", "range", "CDU"),
         ("CV-12", "Valve positions", "FV-1001/1031, TV bypass, PV-1032A", "5-90 %", "ALL"),
@@ -1251,7 +1259,7 @@ def mpc_tables():
     dv = [
         ("DV-01", "Crude switch / tank change", "Tank-farm signal (OSBL)"),
         ("DV-02", "Crude API / density, salt, BS&W", "AT-1048"),
-        ("DV-03", "Crude inlet T to heater (CIT)", "TT-1050"),
+        ("DV-03", "Crude inlet T to heater (CIT)", "TI-1226"),
         ("DV-04", "Ambient air temperature", "TT-9005 (air coolers)"),
         ("DV-05", "Fuel-gas Wobbe / LHV", "AT-1021 (FG analyser)"),
         ("DV-06", "MP/LP steam header pressure", "PIC-9004"),
