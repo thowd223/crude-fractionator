@@ -1,0 +1,624 @@
+{
+ "crude": {
+  "bpsd": 100000,
+  "kg_h": 567873.5557,
+  "m3h": 662.4458,
+  "api": 33.4,
+  "K": 11.9267
+ },
+ "atm": {
+  "T_fz": 360.7436,
+  "cot": 365.7436,
+  "P_fz_barg": 1.469,
+  "T_top": 133.7783,
+  "T_bot": 348.7436,
+  "P_top_barg": 1.187,
+  "drum_P_barg": 0.687,
+  "T_draw": {
+   "KERO": 219.5077,
+   "DIESEL": 301.5391,
+   "AGO": 342.7436
+  },
+  "T_strip_out": {
+   "KERO": 211.5077,
+   "DIESEL": 293.5391,
+   "AGO": 334.7436
+  },
+  "reflux_kg_h": 101309.8077,
+  "Q_tot_kw": 47584.2663,
+  "Q_cond_kw": 39702.2748,
+  "T_water_dew": 82.9682,
+  "steam": {
+   "bottom": 7637.9501,
+   "KERO": 1476.1537,
+   "DIESEL": 1667.0952,
+   "AGO": 899.3015
+  },
+  "tray": {
+   "top": 1,
+   "TPA_ret": 1,
+   "TPA_draw": 3,
+   "KERO": 10,
+   "MPA_ret": 11,
+   "MPA_draw": 13,
+   "DIESEL": 22,
+   "BPA_ret": 23,
+   "BPA_draw": 25,
+   "AGO": 32,
+   "wash_bot": 35,
+   "bottom": 41
+  },
+  "pa": {
+   "TPA": {
+    "duty_kw": 8089.3253,
+    "T_draw": 152.8293,
+    "T_ret": 82.8293,
+    "flow": 166763.5009,
+    "draw_tray": 3,
+    "ret_tray": 1
+   },
+   "MPA": {
+    "duty_kw": 12847.7519,
+    "T_draw": 240.0156,
+    "T_ret": 160.0156,
+    "flow": 208349.1877,
+    "draw_tray": 13,
+    "ret_tray": 11
+   },
+   "BPA": {
+    "duty_kw": 12371.9092,
+    "T_draw": 313.9004,
+    "T_ret": 223.9004,
+    "flow": 165727.3989,
+    "draw_tray": 25,
+    "ret_tray": 23
+   }
+  },
+  "L_int": {
+   "KERO": 230137.3586,
+   "DIESEL": 217911.8802,
+   "AGO": 209167.852
+  },
+  "sections": [
+   {
+    "name": "Top / TPA",
+    "trays": "1-3",
+    "V_kg_h": 229223.521,
+    "L_kg_h": 268073.3086,
+    "T": 138.7783,
+    "P": 2.2,
+    "rho_v": 5.0247,
+    "rho_l": 611.4241,
+    "mw_v": 78.2253
+   },
+   {
+    "name": "Naphtha-kero fract.",
+    "trays": "4-9",
+    "V_kg_h": 334505.64,
+    "L_kg_h": 206591.9267,
+    "T": 181.4058,
+    "P": 2.24,
+    "rho_v": 5.6068,
+    "rho_l": 650.6295,
+    "mw_v": 94.5986
+   },
+   {
+    "name": "MPA",
+    "trays": "11-13",
+    "V_kg_h": 620010.5281,
+    "L_kg_h": 438486.5464,
+    "T": 233.1796,
+    "P": 2.288,
+    "rho_v": 7.5261,
+    "rho_l": 598.7288,
+    "mw_v": 138.4783
+   },
+   {
+    "name": "Kero-diesel fract.",
+    "trays": "14-21",
+    "V_kg_h": 563776.5633,
+    "L_kg_h": 339093.2987,
+    "T": 267.3593,
+    "P": 2.328,
+    "rho_v": 8.0761,
+    "rho_l": 620.7265,
+    "mw_v": 155.9044
+   },
+   {
+    "name": "BPA",
+    "trays": "23-25",
+    "V_kg_h": 709741.6415,
+    "L_kg_h": 383639.2791,
+    "T": 309.78,
+    "P": 2.384,
+    "rho_v": 9.2362,
+    "rho_l": 577.7428,
+    "mw_v": 187.7749
+   },
+   {
+    "name": "Diesel-AGO fract.",
+    "trays": "26-31",
+    "V_kg_h": 529093.792,
+    "L_kg_h": 274541.4161,
+    "T": 326.2618,
+    "P": 2.416,
+    "rho_v": 9.4929,
+    "rho_l": 609.8689,
+    "mw_v": 195.821
+   },
+   {
+    "name": "Wash zone",
+    "trays": "33-35",
+    "V_kg_h": 339388.1943,
+    "L_kg_h": 34497.9849,
+    "T": 357.7436,
+    "P": 2.482,
+    "rho_v": 6.0269,
+    "rho_l": 635.333,
+    "mw_v": 127.3751
+   },
+   {
+    "name": "Stripping",
+    "trays": "36-41",
+    "V_kg_h": 15345.2241,
+    "L_kg_h": 256909.1325,
+    "T": 353.7436,
+    "P": 2.496,
+    "rho_v": 1.596,
+    "rho_l": 706.1311,
+    "mw_v": 33.3282
+   }
+  ]
+ },
+ "vac": {
+  "T_fz": 386.4357,
+  "cot": 398.4357,
+  "P_fz_mbar": 60.0,
+  "P_top_mbar": 20.0,
+  "T_top": 70.0,
+  "T_bot": 366.4357,
+  "T_lvgo": 223.707,
+  "T_hvgo": 314.9939,
+  "T_slop": 378.4357,
+  "steam": 2789.3364,
+  "Q_tot_kw": 22588.2303,
+  "pa": {
+   "LVGO": {
+    "duty_kw": 9035.2921,
+    "T_draw": 223.707,
+    "T_ret": 55.0,
+    "flow": 82529.7456
+   },
+   "HVGO": {
+    "duty_kw": 13552.9382,
+    "T_draw": 314.9939,
+    "T_ret": 204.9939,
+    "flow": 161454.1211
+   }
+  },
+  "sections": [
+   {
+    "name": "Bed 1 - LVGO PA",
+    "V_kg_h": 53222.79,
+    "L_kg_h": 82529.7456,
+    "T": 146.8535,
+    "P": 0.022,
+    "rho_v": 0.1098,
+    "rho_l": 800.6072,
+    "mw_v": 174.3347
+   },
+   {
+    "name": "Bed 2 - LVGO/HVGO fract.",
+    "V_kg_h": 87186.8617,
+    "L_kg_h": 33964.0717,
+    "T": 284.9939,
+    "P": 0.034,
+    "rho_v": 0.176,
+    "rho_l": 734.4976,
+    "mw_v": 240.2068
+   },
+   {
+    "name": "Bed 3 - HVGO PA",
+    "V_kg_h": 177582.3871,
+    "L_kg_h": 161454.1211,
+    "T": 346.7148,
+    "P": 0.044,
+    "rho_v": 0.2834,
+    "rho_l": 680.4823,
+    "mw_v": 332.0011
+   },
+   {
+    "name": "Bed 4 - Wash",
+    "V_kg_h": 151864.6249,
+    "L_kg_h": 12630.4835,
+    "T": 382.4357,
+    "P": 0.056,
+    "rho_v": 0.3071,
+    "rho_l": 710.6636,
+    "mw_v": 298.908
+   },
+   {
+    "name": "Flash zone",
+    "V_kg_h": 151864.6249,
+    "L_kg_h": 107910.9168,
+    "T": 386.4357,
+    "P": 0.06,
+    "rho_v": 0.327,
+    "rho_l": 740.6595,
+    "mw_v": 298.908
+   },
+   {
+    "name": "Stripping",
+    "V_kg_h": 5031.6726,
+    "L_kg_h": 108263.1741,
+    "T": 371.4357,
+    "P": 0.07,
+    "rho_v": 0.0405,
+    "rho_l": 757.102,
+    "mw_v": 31.0107
+   }
+  ]
+ },
+ "ejector": {
+  "stages": [
+   {
+    "tag": "J-201",
+    "suction_mbar": 20.0,
+    "discharge_mbar": 130,
+    "load_kg_h": 3019.8637,
+    "motive_kg_h": 7851.6456
+   },
+   {
+    "tag": "J-202",
+    "suction_mbar": 120,
+    "discharge_mbar": 350,
+    "load_kg_h": 485.5295,
+    "motive_kg_h": 1073.9531
+   },
+   {
+    "tag": "J-203",
+    "suction_mbar": 330,
+    "discharge_mbar": 1100,
+    "load_kg_h": 172.637,
+    "motive_kg_h": 426.2192
+   }
+  ],
+  "motive_total": 9351.8178,
+  "sour_water": 12141.1542,
+  "offgas": 102.0727,
+  "slop_oil": 128.4546
+ },
+ "stab": {
+  "tag": "C-105",
+  "T_top": 79.157,
+  "T_bot": 202.5997,
+  "alpha_lk": 2.7762,
+  "Nmin": 7.2158,
+  "Rmin": 1.4546,
+  "R": 1.891,
+  "N_theo": 15.2106,
+  "N_actual": 19,
+  "feed_stage": 13,
+  "reflux": 12230.3509,
+  "Q_cond": 2138.5369,
+  "P_top": 11.8,
+  "P_bot": 12.3,
+  "Q_fb": 3378.747,
+  "Q_reb": 10826.0031,
+  "T_feed": 90.7311,
+  "T_feed_in": 45.0,
+  "D": 2.1,
+  "H": 18.0,
+  "sec_top": {
+   "FLV": 0.1384,
+   "C_sb": 0.0738,
+   "u_flood": 0.3407,
+   "Q_v_m3s": 0.2378,
+   "D_calc": 1.1433,
+   "passes": 1
+  },
+  "sec_bot": {
+   "FLV": 1.5539,
+   "C_sb": 0.019,
+   "u_flood": 0.077,
+   "Q_v_m3s": 0.1705,
+   "D_calc": 2.036,
+   "passes": 2
+  }
+ },
+ "split": {
+  "tag": "C-106",
+  "T_top": 84.458,
+  "T_bot": 152.3138,
+  "alpha_lk": 1.4972,
+  "Nmin": 14.5913,
+  "Rmin": 1.6021,
+  "R": 2.0828,
+  "N_theo": 29.4776,
+  "N_actual": 38,
+  "feed_stage": 21,
+  "reflux": 57499.6509,
+  "Q_cond": 9625.5842,
+  "P_top": 2.1,
+  "P_bot": 2.5,
+  "T_feed": 162.5997,
+  "Q_reb": 6832.6588,
+  "D": 3.1,
+  "H": 29.5,
+  "sec_top": {
+   "FLV": 0.0639,
+   "C_sb": 0.0928,
+   "u_flood": 0.9766,
+   "Q_v_m3s": 4.1321,
+   "D_calc": 2.8147,
+   "passes": 2
+  },
+  "sec_bot": {
+   "FLV": 0.2104,
+   "C_sb": 0.0722,
+   "u_flood": 0.6333,
+   "Q_v_m3s": 3.0983,
+   "D_calc": 3.0268,
+   "passes": 2
+  }
+ },
+ "preheat": {
+  "CIT": 274.0244,
+  "T_desalter": 136.3521,
+  "wash_water": 33089.1694,
+  "exch": [
+   {
+    "tag": "E-101",
+    "hot": "TPA",
+    "Q_kw": 8089.3253,
+    "Th_in": 152.8293,
+    "Th_out": 82.8293,
+    "Tc_in": 30.0,
+    "Tc_out": 55.6338,
+    "hot_flow": 166763.5009,
+    "cold_flow": 569858.9058,
+    "train": "cold"
+   },
+   {
+    "tag": "E-102",
+    "hot": "KERO",
+    "Q_kw": 6552.1163,
+    "Th_in": 211.5077,
+    "Th_out": 75.6338,
+    "Tc_in": 55.6338,
+    "Tc_out": 75.462,
+    "hot_flow": 68595.291,
+    "cold_flow": 569858.9058,
+    "train": "cold"
+   },
+   {
+    "tag": "E-103",
+    "hot": "LVGO",
+    "Q_kw": 11449.493,
+    "Th_in": 223.707,
+    "Th_out": 95.462,
+    "Tc_in": 75.462,
+    "Tc_out": 108.391,
+    "hot_flow": 132886.1265,
+    "cold_flow": 569858.9058,
+    "train": "cold"
+   },
+   {
+    "tag": "E-104",
+    "hot": "DIESEL",
+    "Q_kw": 4436.6819,
+    "Th_in": 205.0,
+    "Th_out": 128.391,
+    "Tc_in": 108.391,
+    "Tc_out": 120.6309,
+    "hot_flow": 81612.7827,
+    "cold_flow": 569858.9058,
+    "train": "cold"
+   },
+   {
+    "tag": "E-105",
+    "hot": "VR",
+    "Q_kw": 5842.3823,
+    "Th_in": 255.0,
+    "Th_out": 175.0,
+    "Tc_in": 120.6309,
+    "Tc_out": 136.3521,
+    "hot_flow": 108263.1741,
+    "cold_flow": 569858.9058,
+    "train": "cold"
+   },
+   {
+    "tag": "E-106",
+    "hot": "MPA",
+    "Q_kw": 12847.7519,
+    "Th_in": 240.0156,
+    "Th_out": 160.0156,
+    "Tc_in": 136.3521,
+    "Tc_out": 169.5623,
+    "hot_flow": 208349.1877,
+    "cold_flow": 569197.1225,
+    "train": "hot"
+   },
+   {
+    "tag": "E-107",
+    "hot": "DIESEL",
+    "Q_kw": 5827.3213,
+    "Th_in": 293.5391,
+    "Th_out": 205.0,
+    "Tc_in": 169.5623,
+    "Tc_out": 184.0415,
+    "hot_flow": 81612.7827,
+    "cold_flow": 569197.1225,
+    "train": "hot"
+   },
+   {
+    "tag": "E-108",
+    "hot": "HVGO",
+    "Q_kw": 21141.0069,
+    "Th_in": 314.9939,
+    "Th_out": 204.9939,
+    "Tc_in": 184.0415,
+    "Tc_out": 233.9582,
+    "hot_flow": 251849.6465,
+    "cold_flow": 569197.1225,
+    "train": "hot"
+   },
+   {
+    "tag": "E-109",
+    "hot": "AGO",
+    "Q_kw": 3108.0187,
+    "Th_in": 334.7436,
+    "Th_out": 253.9582,
+    "Tc_in": 233.9582,
+    "Tc_out": 240.9874,
+    "hot_flow": 45846.7034,
+    "cold_flow": 569197.1225,
+    "train": "hot"
+   },
+   {
+    "tag": "E-110",
+    "hot": "BPA",
+    "Q_kw": 7464.4209,
+    "Th_in": 313.9004,
+    "Th_out": 260.9874,
+    "Tc_in": 240.9874,
+    "Tc_out": 257.5794,
+    "hot_flow": 165727.3989,
+    "cold_flow": 569197.1225,
+    "train": "hot"
+   },
+   {
+    "tag": "E-111",
+    "hot": "VR",
+    "Q_kw": 7576.0192,
+    "Th_in": 366.4357,
+    "Th_out": 277.5794,
+    "Tc_in": 257.5794,
+    "Tc_out": 274.0244,
+    "hot_flow": 108263.1741,
+    "cold_flow": 569197.1225,
+    "train": "hot"
+   }
+  ],
+  "trims": [
+   {
+    "tag": "E-113",
+    "hot": "BPA",
+    "type": "MP steam generator",
+    "Q_kw": 4907.4884,
+    "T_in": 260.9874,
+    "T_out": 223.9004,
+    "flow": 165727.3989,
+    "note": ""
+   },
+   {
+    "tag": "A-103",
+    "hot": "KERO",
+    "type": "air cooler",
+    "Q_kw": 1267.0443,
+    "T_in": 75.6338,
+    "T_out": 45.0,
+    "flow": 68595.291,
+    "note": ""
+   },
+   {
+    "tag": "A-104",
+    "hot": "DIESEL",
+    "type": "air cooler",
+    "Q_kw": 3723.5073,
+    "T_in": 128.391,
+    "T_out": 55.0,
+    "flow": 81612.7827,
+    "note": ""
+   },
+   {
+    "tag": "A-105",
+    "hot": "AGO",
+    "type": "air cooler",
+    "Q_kw": 6057.9878,
+    "T_in": 253.9582,
+    "T_out": 60.0,
+    "flow": 45846.7034,
+    "note": ""
+   },
+   {
+    "tag": "A-201",
+    "hot": "LVGO",
+    "type": "air cooler",
+    "Q_kw": 3098.7764,
+    "T_in": 95.462,
+    "T_out": 55.0,
+    "flow": 132886.1265,
+    "note": ""
+   },
+   {
+    "tag": "E-201",
+    "hot": "VR",
+    "type": "LP steam generator",
+    "Q_kw": 1781.3434,
+    "T_in": 277.5794,
+    "T_out": 255.0,
+    "flow": 108263.1741,
+    "note": "between hot-end and cold-end exchangers"
+   },
+   {
+    "tag": "A-202",
+    "hot": "HVGO product",
+    "type": "air cooler",
+    "Q_kw": 6639.9534,
+    "T_in": 204.9939,
+    "T_out": 90.0,
+    "flow": 90395.5254
+   }
+  ]
+ },
+ "heaters": {
+  "H-101": {
+   "tag": "H-101",
+   "Q_proc_kw": 59547.4497,
+   "Q_ss_kw": 1130.7373,
+   "Q_abs_kw": 60678.187,
+   "eff": 0.9,
+   "Q_fired_kw": 67420.2078,
+   "T_in": 274.0244,
+   "T_out": 365.7436,
+   "P_out": 3.382,
+   "vf_out": 0.5334,
+   "flow": 569197.1225,
+   "fuel_kg_h": 5164.101,
+   "radiant_kw": 41683.2148,
+   "conv_kw": 18994.9722,
+   "rad_area": 1323.2767,
+   "rad_tubes": 144,
+   "passes": 8,
+   "mass_flux": 1175.6869,
+   "burners": 16,
+   "cells": 2,
+   "firebox_m3": 898.9361
+  },
+  "H-201": {
+   "tag": "H-201",
+   "Q_proc_kw": 14692.2795,
+   "Q_abs_kw": 14692.2795,
+   "eff": 0.84,
+   "Q_fired_kw": 17490.8089,
+   "T_in": 348.7436,
+   "T_out": 398.4357,
+   "P_out": 0.31,
+   "vf_out": 0.2642,
+   "flow": 258054.8251,
+   "fuel_kg_h": 1339.7215,
+   "radiant_kw": 10284.5956,
+   "conv_kw": 4407.6838,
+   "rad_area": 411.3838,
+   "rad_tubes": 44,
+   "passes": 4,
+   "mass_flux": 1066.0338,
+   "burners": 6,
+   "cells": 1,
+   "firebox_m3": 233.2108
+  }
+ },
+ "warnings": [],
+ "units": "T degC; P_out, P_top, P_bot, P_fz (atm) in bar(a) unless key says barg/mbar; duties kW; flows kg/h"
+}

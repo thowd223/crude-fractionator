@@ -1,0 +1,6288 @@
+{
+ "doc": "CFU-000-PL-PLT-001",
+ "rev": "A",
+ "generated_by": "cfu/layout/model.py",
+ "frame": {
+  "plot_x": 230.0,
+  "plot_y": 150.0,
+  "origin": "SW corner of unit plot",
+  "north": "+y",
+  "grade_el": 100.0,
+  "wind": "prevailing from SSE (157.5 deg)",
+  "units": "m; elevations EL m (grade = EL 100.000)"
+ },
+ "conventions": {
+  "x": "east (m)",
+  "y": "north (m)",
+  "z_base": "EL of underside of body/foundation top (m)",
+  "rotation": "deg CCW from +x of long axis L",
+  "footprint": "L along axis x W across",
+  "shape": "vcyl | hcyl | box | heater",
+  "nozzles": "{name: [x, y, EL]} approx. FEED positions",
+  "bbox": "[xmin, ymin, xmax, ymax] plan extents"
+ },
+ "equipment": [
+  {
+   "tag": "C-101",
+   "parent_tag": "C-101",
+   "type": "Column",
+   "service": "Atmospheric crude fractionator",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 95.0,
+   "y": 98.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 6.9,
+   "W": 6.9,
+   "height": 44.425,
+   "top_el": 144.725,
+   "D": 6.9,
+   "bottom_tl": 106.0,
+   "top_tl": 143.0,
+   "skirt_h": 4.825,
+   "body": [
+    [
+     106.0,
+     115.41,
+     3.5
+    ],
+    [
+     116.91,
+     143.0,
+     6.9
+    ]
+   ],
+   "bbox": [
+    91.55,
+    94.55,
+    98.45,
+    101.45
+   ],
+   "nozzles": {
+    "overhead": [
+     95.0,
+     98.0,
+     144.725
+    ],
+    "bottoms": [
+     95.0,
+     98.0,
+     105.125
+    ],
+    "reflux_return": [
+     93.542,
+     94.873,
+     141.35
+    ],
+    "tpa_return": [
+     96.458,
+     94.873,
+     141.45
+    ],
+    "tpa_draw": [
+     95.0,
+     94.55,
+     139.23
+    ],
+    "kero_draw": [
+     98.242,
+     96.82,
+     134.81
+    ],
+    "kero_vapour_return": [
+     98.398,
+     98.599,
+     135.37
+    ],
+    "diesel_draw": [
+     98.242,
+     96.82,
+     127.04
+    ],
+    "diesel_vapour_return": [
+     98.398,
+     98.599,
+     127.6
+    ],
+    "ago_draw": [
+     98.242,
+     96.82,
+     120.49
+    ],
+    "ago_vapour_return": [
+     98.398,
+     98.599,
+     121.05
+    ],
+    "mpa_draw": [
+     95.0,
+     94.55,
+     132.68
+    ],
+    "mpa_return": [
+     96.458,
+     94.873,
+     134.9
+    ],
+    "bpa_draw": [
+     95.0,
+     94.55,
+     124.91
+    ],
+    "bpa_return": [
+     96.458,
+     94.873,
+     127.13
+    ],
+    "feed": [
+     95.0,
+     94.55,
+     116.61
+    ],
+    "stripping_steam": [
+     96.125,
+     96.659,
+     111.26
+    ]
+   },
+   "cone": [
+    115.41,
+    116.91
+   ],
+   "tray_el": {
+    "1": 141.0,
+    "2": 140.24,
+    "3": 139.48,
+    "4": 138.72,
+    "5": 138.11,
+    "6": 137.5,
+    "7": 136.89,
+    "8": 136.28,
+    "9": 135.67,
+    "10": 135.06,
+    "11": 134.45,
+    "12": 133.69,
+    "13": 132.93,
+    "14": 132.17,
+    "15": 131.56,
+    "16": 130.95,
+    "17": 130.34,
+    "18": 129.73,
+    "19": 129.12,
+    "20": 128.51,
+    "21": 127.9,
+    "22": 127.29,
+    "23": 126.68,
+    "24": 125.92,
+    "25": 125.16,
+    "26": 124.4,
+    "27": 123.79,
+    "28": 123.18,
+    "29": 122.57,
+    "30": 121.96,
+    "31": 121.35,
+    "32": 120.74,
+    "33": 120.13,
+    "34": 119.52,
+    "35": 118.91,
+    "36": 114.91,
+    "37": 114.3,
+    "38": 113.69,
+    "39": 113.08,
+    "40": 112.47,
+    "41": 111.86
+   },
+   "tray_spacing_note": "0.76 m in pumparound sections (trays 1-3, 11-13, 23-25), 0.61 m elsewhere; 4.0 m flash zone",
+   "nozzle_trays": {
+    "top": 1,
+    "TPA_ret": 1,
+    "TPA_draw": 3,
+    "KERO": 10,
+    "MPA_ret": 11,
+    "MPA_draw": 13,
+    "DIESEL": 22,
+    "BPA_ret": 23,
+    "BPA_draw": 25,
+    "AGO": 32,
+    "wash_bot": 35,
+    "bottom": 41
+   }
+  },
+  {
+   "tag": "C-102",
+   "parent_tag": "C-102",
+   "type": "Column",
+   "service": "Kero side stripper",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 106.5,
+   "y": 98.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 1.7,
+   "W": 1.7,
+   "height": 13.325,
+   "top_el": 113.625,
+   "D": 1.7,
+   "bottom_tl": 104.0,
+   "top_tl": 113.2,
+   "skirt_h": 3.275,
+   "body": [
+    [
+     104.0,
+     113.2,
+     1.7
+    ]
+   ],
+   "bbox": [
+    105.65,
+    97.15,
+    107.35,
+    98.85
+   ],
+   "nozzles": {
+    "bottoms": [
+     106.5,
+     98.0,
+     103.575
+    ],
+    "feed": [
+     105.65,
+     98.0,
+     112.3
+    ],
+    "vapour_return": [
+     106.5,
+     98.0,
+     113.625
+    ],
+    "stripping_steam": [
+     106.5,
+     97.15,
+     104.9
+    ]
+   },
+   "draw_from": "C-101 tray 10"
+  },
+  {
+   "tag": "C-103",
+   "parent_tag": "C-103",
+   "type": "Column",
+   "service": "Diesel side stripper",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 112.5,
+   "y": 98.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 1.9,
+   "W": 1.9,
+   "height": 13.375,
+   "top_el": 113.675,
+   "D": 1.9,
+   "bottom_tl": 104.0,
+   "top_tl": 113.2,
+   "skirt_h": 3.225,
+   "body": [
+    [
+     104.0,
+     113.2,
+     1.9
+    ]
+   ],
+   "bbox": [
+    111.55,
+    97.05,
+    113.45,
+    98.95
+   ],
+   "nozzles": {
+    "bottoms": [
+     112.5,
+     98.0,
+     103.525
+    ],
+    "feed": [
+     111.55,
+     98.0,
+     112.3
+    ],
+    "vapour_return": [
+     112.5,
+     98.0,
+     113.675
+    ],
+    "stripping_steam": [
+     112.5,
+     97.05,
+     104.9
+    ]
+   },
+   "draw_from": "C-101 tray 22"
+  },
+  {
+   "tag": "C-104",
+   "parent_tag": "C-104",
+   "type": "Column",
+   "service": "Ago side stripper",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 118.5,
+   "y": 98.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 1.4,
+   "W": 1.4,
+   "height": 13.25,
+   "top_el": 113.55,
+   "D": 1.4,
+   "bottom_tl": 104.0,
+   "top_tl": 113.2,
+   "skirt_h": 3.35,
+   "body": [
+    [
+     104.0,
+     113.2,
+     1.4
+    ]
+   ],
+   "bbox": [
+    117.8,
+    97.3,
+    119.2,
+    98.7
+   ],
+   "nozzles": {
+    "bottoms": [
+     118.5,
+     98.0,
+     103.65
+    ],
+    "feed": [
+     117.8,
+     98.0,
+     112.3
+    ],
+    "vapour_return": [
+     118.5,
+     98.0,
+     113.55
+    ],
+    "stripping_steam": [
+     118.5,
+     97.3,
+     104.9
+    ]
+   },
+   "draw_from": "C-101 tray 32"
+  },
+  {
+   "tag": "D-102",
+   "parent_tag": "D-102",
+   "type": "Drum",
+   "service": "Atm. overhead reflux drum (3-phase)",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 79.0,
+   "y": 90.0,
+   "z_base": 105.0,
+   "rotation": 0,
+   "L": 13.7,
+   "W": 3.4,
+   "height": 3.4,
+   "top_el": 108.4,
+   "D": 3.4,
+   "TT": 12.0,
+   "z_axis": 106.7,
+   "bbox": [
+    72.15,
+    88.3,
+    85.85,
+    91.7
+   ],
+   "nozzles": {
+    "inlet": [
+     74.0,
+     90.0,
+     108.4
+    ],
+    "vapour_outlet": [
+     84.2,
+     90.0,
+     108.4
+    ],
+    "liquid_outlet": [
+     83.5,
+     90.0,
+     105.0
+    ],
+    "water_outlet": [
+     82.5,
+     90.0,
+     102.3
+    ]
+   },
+   "boot": {
+    "D": 1.5,
+    "H": 3.0,
+    "u": 3.5
+   }
+  },
+  {
+   "tag": "E-115A",
+   "parent_tag": "E-115",
+   "type": "Shell & tube",
+   "service": "Atm. overhead trim condenser",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 79.0,
+   "y": 95.5,
+   "z_base": 100.9,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 1.2,
+   "height": 1.2,
+   "top_el": 102.1,
+   "D": 1.2,
+   "channel_end": -1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    75.75,
+    94.9,
+    82.25,
+    96.1
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     76.15,
+     95.5,
+     100.9
+    ],
+    "tube_outlet": [
+     76.15,
+     95.5,
+     102.1
+    ],
+    "shell_inlet": [
+     81.25,
+     95.5,
+     102.1
+    ],
+    "shell_outlet": [
+     77.35,
+     95.5,
+     100.9
+    ]
+   },
+   "z_axis": 101.5
+  },
+  {
+   "tag": "E-115B",
+   "parent_tag": "E-115",
+   "type": "Shell & tube",
+   "service": "Atm. overhead trim condenser",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 79.0,
+   "y": 98.5,
+   "z_base": 100.9,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 1.2,
+   "height": 1.2,
+   "top_el": 102.1,
+   "D": 1.2,
+   "channel_end": -1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    75.75,
+    97.9,
+    82.25,
+    99.1
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     76.15,
+     98.5,
+     100.9
+    ],
+    "tube_outlet": [
+     76.15,
+     98.5,
+     102.1
+    ],
+    "shell_inlet": [
+     81.25,
+     98.5,
+     102.1
+    ],
+    "shell_outlet": [
+     77.35,
+     98.5,
+     100.9
+    ]
+   },
+   "z_axis": 101.5
+  },
+  {
+   "tag": "X-103",
+   "parent_tag": "X-103",
+   "type": "Package",
+   "service": "Neutraliser / filming amine package (atm OH)",
+   "area": "CDU",
+   "shape": "box",
+   "x": 76.0,
+   "y": 104.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 3.0,
+   "W": 2.0,
+   "height": 2.5,
+   "top_el": 102.8,
+   "bbox": [
+    74.5,
+    103.0,
+    77.5,
+    105.0
+   ],
+   "nozzles": {
+    "discharge": [
+     77.5,
+     104.0,
+     101.0
+    ]
+   }
+  },
+  {
+   "tag": "P-103A",
+   "parent_tag": "P-103A/B",
+   "type": "Pump",
+   "service": "Atm. reflux",
+   "area": "CDU",
+   "shape": "box",
+   "x": 72.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 55,
+   "api610": "OH2",
+   "bbox": [
+    71.9,
+    82.0,
+    73.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     72.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     72.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-103B",
+   "parent_tag": "P-103A/B",
+   "type": "Pump",
+   "service": "Atm. reflux",
+   "area": "CDU",
+   "shape": "box",
+   "x": 75.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 55,
+   "api610": "OH2",
+   "bbox": [
+    74.9,
+    82.0,
+    76.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     75.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     75.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-104A",
+   "parent_tag": "P-104A/B",
+   "type": "Pump",
+   "service": "Unstabilised naphtha",
+   "area": "CDU",
+   "shape": "box",
+   "x": 79.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 160,
+   "api610": "OH2",
+   "bbox": [
+    78.4,
+    82.0,
+    79.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     79.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     79.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-104B",
+   "parent_tag": "P-104A/B",
+   "type": "Pump",
+   "service": "Unstabilised naphtha",
+   "area": "CDU",
+   "shape": "box",
+   "x": 82.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 160,
+   "api610": "OH2",
+   "bbox": [
+    81.4,
+    82.0,
+    82.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     82.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     82.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-105A",
+   "parent_tag": "P-105A/B",
+   "type": "Pump",
+   "service": "Overhead sour water",
+   "area": "CDU",
+   "shape": "box",
+   "x": 85.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 5.5,
+   "api610": "OH2",
+   "bbox": [
+    84.9,
+    82.0,
+    86.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     85.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     85.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-105B",
+   "parent_tag": "P-105A/B",
+   "type": "Pump",
+   "service": "Overhead sour water",
+   "area": "CDU",
+   "shape": "box",
+   "x": 88.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 5.5,
+   "api610": "OH2",
+   "bbox": [
+    87.9,
+    82.0,
+    89.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     88.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     88.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-112A",
+   "parent_tag": "P-112A/B",
+   "type": "Pump",
+   "service": "Atm. residue / vacuum heater charge",
+   "area": "CDU",
+   "shape": "box",
+   "x": 92.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 5.0,
+   "W": 2.0,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 315,
+   "api610": "BB2",
+   "bbox": [
+    91.0,
+    81.0,
+    93.0,
+    86.0
+   ],
+   "nozzles": {
+    "suction": [
+     92.0,
+     85.8,
+     100.9
+    ],
+    "discharge": [
+     92.0,
+     85.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-112B",
+   "parent_tag": "P-112A/B",
+   "type": "Pump",
+   "service": "Atm. residue / vacuum heater charge",
+   "area": "CDU",
+   "shape": "box",
+   "x": 95.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 5.0,
+   "W": 2.0,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 315,
+   "api610": "BB2",
+   "bbox": [
+    94.0,
+    81.0,
+    96.0,
+    86.0
+   ],
+   "nozzles": {
+    "suction": [
+     95.0,
+     85.8,
+     100.9
+    ],
+    "discharge": [
+     95.0,
+     85.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-108A",
+   "parent_tag": "P-108A/B",
+   "type": "Pump",
+   "service": "BPA pumparound",
+   "area": "CDU",
+   "shape": "box",
+   "x": 98.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 132,
+   "api610": "BB2",
+   "bbox": [
+    97.9,
+    82.0,
+    99.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     98.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     98.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-108B",
+   "parent_tag": "P-108A/B",
+   "type": "Pump",
+   "service": "BPA pumparound",
+   "area": "CDU",
+   "shape": "box",
+   "x": 101.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 132,
+   "api610": "BB2",
+   "bbox": [
+    100.9,
+    82.0,
+    102.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     101.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     101.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-109A",
+   "parent_tag": "P-109A/B",
+   "type": "Pump",
+   "service": "Kero product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 105.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 55,
+   "api610": "BB2",
+   "bbox": [
+    104.4,
+    82.0,
+    105.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     105.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     105.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-109B",
+   "parent_tag": "P-109A/B",
+   "type": "Pump",
+   "service": "Kero product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 108.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 55,
+   "api610": "BB2",
+   "bbox": [
+    107.4,
+    82.0,
+    108.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     108.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     108.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-110A",
+   "parent_tag": "P-110A/B",
+   "type": "Pump",
+   "service": "Diesel product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 111.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 75,
+   "api610": "BB2",
+   "bbox": [
+    110.9,
+    82.0,
+    112.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     111.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     111.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-110B",
+   "parent_tag": "P-110A/B",
+   "type": "Pump",
+   "service": "Diesel product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 114.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 75,
+   "api610": "BB2",
+   "bbox": [
+    113.9,
+    82.0,
+    115.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     114.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     114.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-111A",
+   "parent_tag": "P-111A/B",
+   "type": "Pump",
+   "service": "Ago product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 118.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 45,
+   "api610": "BB2",
+   "bbox": [
+    117.4,
+    82.0,
+    118.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     118.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     118.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-111B",
+   "parent_tag": "P-111A/B",
+   "type": "Pump",
+   "service": "Ago product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 121.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 45,
+   "api610": "BB2",
+   "bbox": [
+    120.4,
+    82.0,
+    121.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     121.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     121.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-106A",
+   "parent_tag": "P-106A/B",
+   "type": "Pump",
+   "service": "TPA pumparound",
+   "area": "CDU",
+   "shape": "box",
+   "x": 124.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 110,
+   "api610": "OH2",
+   "bbox": [
+    123.9,
+    82.0,
+    125.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     124.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     124.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-106B",
+   "parent_tag": "P-106A/B",
+   "type": "Pump",
+   "service": "TPA pumparound",
+   "area": "CDU",
+   "shape": "box",
+   "x": 127.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 110,
+   "api610": "OH2",
+   "bbox": [
+    126.9,
+    82.0,
+    128.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     127.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     127.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-107A",
+   "parent_tag": "P-107A/B",
+   "type": "Pump",
+   "service": "MPA pumparound",
+   "area": "CDU",
+   "shape": "box",
+   "x": 131.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 160,
+   "api610": "BB2",
+   "bbox": [
+    130.4,
+    82.0,
+    131.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     131.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     131.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-107B",
+   "parent_tag": "P-107A/B",
+   "type": "Pump",
+   "service": "MPA pumparound",
+   "area": "CDU",
+   "shape": "box",
+   "x": 134.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 160,
+   "api610": "BB2",
+   "bbox": [
+    133.4,
+    82.0,
+    134.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     134.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     134.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "C-106",
+   "parent_tag": "C-106",
+   "type": "Column",
+   "service": "Naphtha splitter",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 52.0,
+   "y": 100.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 3.1,
+   "W": 3.1,
+   "height": 35.975,
+   "top_el": 136.275,
+   "D": 3.1,
+   "bottom_tl": 106.0,
+   "top_tl": 135.5,
+   "skirt_h": 4.925,
+   "body": [
+    [
+     106.0,
+     135.5,
+     3.1
+    ]
+   ],
+   "bbox": [
+    50.45,
+    98.45,
+    53.55,
+    101.55
+   ],
+   "nozzles": {
+    "overhead": [
+     52.0,
+     100.0,
+     136.275
+    ],
+    "bottoms": [
+     52.0,
+     100.0,
+     105.225
+    ],
+    "reflux_return": [
+     52.0,
+     98.45,
+     133.85
+    ],
+    "feed": [
+     50.45,
+     100.0,
+     121.0
+    ],
+    "reboiler_return": [
+     52.0,
+     101.55,
+     107.0
+    ],
+    "reboiler_draw": [
+     52.0,
+     101.55,
+     106.2
+    ]
+   },
+   "tray_el": {
+    "1": 133.5,
+    "21": 120.7,
+    "38": 109.73
+   }
+  },
+  {
+   "tag": "C-105",
+   "parent_tag": "C-105",
+   "type": "Column",
+   "service": "Naphtha stabiliser (debutaniser)",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 64.0,
+   "y": 100.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 2.1,
+   "W": 2.1,
+   "height": 22.225,
+   "top_el": 122.525,
+   "D": 2.1,
+   "bottom_tl": 104.0,
+   "top_tl": 122.0,
+   "skirt_h": 3.175,
+   "body": [
+    [
+     104.0,
+     122.0,
+     2.1
+    ]
+   ],
+   "bbox": [
+    62.95,
+    98.95,
+    65.05,
+    101.05
+   ],
+   "nozzles": {
+    "overhead": [
+     64.0,
+     100.0,
+     122.525
+    ],
+    "bottoms": [
+     64.0,
+     100.0,
+     103.475
+    ],
+    "reflux_return": [
+     64.0,
+     98.95,
+     120.35
+    ],
+    "feed": [
+     65.05,
+     100.0,
+     112.38
+    ],
+    "reboiler_return": [
+     64.0,
+     101.05,
+     105.0
+    ],
+    "reboiler_draw": [
+     64.0,
+     101.05,
+     104.2
+    ]
+   },
+   "tray_el": {
+    "1": 120.0,
+    "13": 112.08,
+    "19": 107.82
+   }
+  },
+  {
+   "tag": "D-106",
+   "parent_tag": "D-106",
+   "type": "Drum",
+   "service": "Splitter reflux drum",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 54.0,
+   "y": 90.5,
+   "z_base": 104.5,
+   "rotation": 0,
+   "L": 9.85,
+   "W": 2.7,
+   "height": 2.7,
+   "top_el": 107.2,
+   "D": 2.7,
+   "TT": 8.5,
+   "z_axis": 105.85,
+   "bbox": [
+    49.075,
+    89.15,
+    58.925,
+    91.85
+   ],
+   "nozzles": {
+    "inlet": [
+     50.75,
+     90.5,
+     107.2
+    ],
+    "vapour_outlet": [
+     57.45,
+     90.5,
+     107.2
+    ],
+    "liquid_outlet": [
+     56.75,
+     90.5,
+     104.5
+    ]
+   }
+  },
+  {
+   "tag": "D-105",
+   "parent_tag": "D-105",
+   "type": "Drum",
+   "service": "Stabiliser reflux drum",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 65.5,
+   "y": 90.5,
+   "z_base": 104.0,
+   "rotation": 0,
+   "L": 6.35,
+   "W": 1.7,
+   "height": 1.7,
+   "top_el": 105.7,
+   "D": 1.7,
+   "TT": 5.5,
+   "z_axis": 104.85,
+   "bbox": [
+    62.325,
+    89.65,
+    68.675,
+    91.35
+   ],
+   "nozzles": {
+    "inlet": [
+     63.75,
+     90.5,
+     105.7
+    ],
+    "vapour_outlet": [
+     67.45,
+     90.5,
+     105.7
+    ],
+    "liquid_outlet": [
+     66.75,
+     90.5,
+     104.0
+    ],
+    "water_outlet": [
+     65.75,
+     90.5,
+     102.8
+    ]
+   },
+   "boot": {
+    "D": 0.6,
+    "H": 1.5,
+    "u": 0.25
+   }
+  },
+  {
+   "tag": "E-117",
+   "parent_tag": "E-117",
+   "type": "Shell & tube",
+   "service": "Splitter reboiler (MP steam)",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 52.0,
+   "y": 106.0,
+   "z_base": 106.55,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 107.45,
+   "D": 0.9,
+   "channel_end": -1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    48.75,
+    105.55,
+    55.25,
+    106.45
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     49.15,
+     106.0,
+     106.55
+    ],
+    "tube_outlet": [
+     49.15,
+     106.0,
+     107.45
+    ],
+    "shell_inlet": [
+     54.25,
+     106.0,
+     107.45
+    ],
+    "shell_outlet": [
+     50.35,
+     106.0,
+     106.55
+    ]
+   },
+   "z_axis": 107.0
+  },
+  {
+   "tag": "E-116",
+   "parent_tag": "E-116",
+   "type": "Shell & tube",
+   "service": "Stabiliser reboiler (HP steam)",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 64.0,
+   "y": 105.5,
+   "z_base": 101.05,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 101.95,
+   "D": 0.9,
+   "channel_end": 1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    60.75,
+    105.05,
+    67.25,
+    105.95
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     66.85,
+     105.5,
+     101.05
+    ],
+    "tube_outlet": [
+     66.85,
+     105.5,
+     101.95
+    ],
+    "shell_inlet": [
+     61.75,
+     105.5,
+     101.95
+    ],
+    "shell_outlet": [
+     65.65,
+     105.5,
+     101.05
+    ]
+   },
+   "z_axis": 101.5
+  },
+  {
+   "tag": "E-114",
+   "parent_tag": "E-114",
+   "type": "Shell & tube",
+   "service": "Stabiliser feed / bottoms",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 70.0,
+   "y": 100.0,
+   "z_base": 101.05,
+   "rotation": 90,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 101.95,
+   "D": 0.9,
+   "channel_end": 1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    69.55,
+    96.75,
+    70.45,
+    103.25
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     70.0,
+     102.85,
+     101.05
+    ],
+    "tube_outlet": [
+     70.0,
+     102.85,
+     101.95
+    ],
+    "shell_inlet": [
+     70.0,
+     97.75,
+     101.95
+    ],
+    "shell_outlet": [
+     70.0,
+     101.65,
+     101.05
+    ]
+   },
+   "z_axis": 101.5
+  },
+  {
+   "tag": "P-116A",
+   "parent_tag": "P-116A/B",
+   "type": "Pump",
+   "service": "Splitter reflux / LN",
+   "area": "CDU",
+   "shape": "box",
+   "x": 50.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 55,
+   "api610": "OH2",
+   "bbox": [
+    49.4,
+    82.0,
+    50.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     50.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     50.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-116B",
+   "parent_tag": "P-116A/B",
+   "type": "Pump",
+   "service": "Splitter reflux / LN",
+   "area": "CDU",
+   "shape": "box",
+   "x": 53.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 55,
+   "api610": "OH2",
+   "bbox": [
+    52.4,
+    82.0,
+    53.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     53.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     53.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-117A",
+   "parent_tag": "P-117A/B",
+   "type": "Pump",
+   "service": "Heavy naphtha product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 56.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 45,
+   "api610": "OH2",
+   "bbox": [
+    55.9,
+    82.0,
+    57.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     56.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     56.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-117B",
+   "parent_tag": "P-117A/B",
+   "type": "Pump",
+   "service": "Heavy naphtha product",
+   "area": "CDU",
+   "shape": "box",
+   "x": 59.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 45,
+   "api610": "OH2",
+   "bbox": [
+    58.9,
+    82.0,
+    60.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     59.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     59.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-115A",
+   "parent_tag": "P-115A/B",
+   "type": "Pump",
+   "service": "Stabiliser reflux / LPG",
+   "area": "CDU",
+   "shape": "box",
+   "x": 63.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 18.5,
+   "api610": "OH2",
+   "bbox": [
+    62.4,
+    82.0,
+    63.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     63.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     63.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-115B",
+   "parent_tag": "P-115A/B",
+   "type": "Pump",
+   "service": "Stabiliser reflux / LPG",
+   "area": "CDU",
+   "shape": "box",
+   "x": 66.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 18.5,
+   "api610": "OH2",
+   "bbox": [
+    65.4,
+    82.0,
+    66.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     66.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     66.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "E-106A",
+   "parent_tag": "E-106",
+   "type": "Shell & tube",
+   "service": "Crude / Middle (kero) pumparound",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 12.5,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    11.8,
+    88.25,
+    13.2,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     12.5,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     12.5,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     12.5,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     12.5,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-106B",
+   "parent_tag": "E-106",
+   "type": "Shell & tube",
+   "service": "Crude / Middle (kero) pumparound",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 16.0,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    15.3,
+    88.25,
+    16.7,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     16.0,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     16.0,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     16.0,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     16.0,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-107",
+   "parent_tag": "E-107",
+   "type": "Shell & tube",
+   "service": "Crude / Diesel product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 19.5,
+   "y": 92.0,
+   "z_base": 100.95,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.1,
+   "height": 1.1,
+   "top_el": 102.05,
+   "D": 1.1,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    18.95,
+    88.25,
+    20.05,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     19.5,
+     95.35,
+     100.95
+    ],
+    "tube_outlet": [
+     19.5,
+     95.35,
+     102.05
+    ],
+    "shell_inlet": [
+     19.5,
+     89.25,
+     102.05
+    ],
+    "shell_outlet": [
+     19.5,
+     94.15,
+     100.95
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-108A",
+   "parent_tag": "E-108",
+   "type": "Shell & tube",
+   "service": "Crude / HVGO pumparound/product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 23.0,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    22.3,
+    88.25,
+    23.7,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     23.0,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     23.0,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     23.0,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     23.0,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-108B",
+   "parent_tag": "E-108",
+   "type": "Shell & tube",
+   "service": "Crude / HVGO pumparound/product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 26.5,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    25.8,
+    88.25,
+    27.2,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     26.5,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     26.5,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     26.5,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     26.5,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-108C",
+   "parent_tag": "E-108",
+   "type": "Shell & tube",
+   "service": "Crude / HVGO pumparound/product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 30.0,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    29.3,
+    88.25,
+    30.7,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     30.0,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     30.0,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     30.0,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     30.0,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-108D",
+   "parent_tag": "E-108",
+   "type": "Shell & tube",
+   "service": "Crude / HVGO pumparound/product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 33.5,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    32.8,
+    88.25,
+    34.2,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     33.5,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     33.5,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     33.5,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     33.5,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-109",
+   "parent_tag": "E-109",
+   "type": "Shell & tube",
+   "service": "Crude / AGO product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 37.0,
+   "y": 92.0,
+   "z_base": 100.95,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.1,
+   "height": 1.1,
+   "top_el": 102.05,
+   "D": 1.1,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    36.45,
+    88.25,
+    37.55,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     37.0,
+     95.35,
+     100.95
+    ],
+    "tube_outlet": [
+     37.0,
+     95.35,
+     102.05
+    ],
+    "shell_inlet": [
+     37.0,
+     89.25,
+     102.05
+    ],
+    "shell_outlet": [
+     37.0,
+     94.15,
+     100.95
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-110A",
+   "parent_tag": "E-110",
+   "type": "Shell & tube",
+   "service": "Crude / Bottom (diesel) pumparound",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 40.5,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    39.8,
+    88.25,
+    41.2,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     40.5,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     40.5,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     40.5,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     40.5,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-110B",
+   "parent_tag": "E-110",
+   "type": "Shell & tube",
+   "service": "Crude / Bottom (diesel) pumparound",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 44.0,
+   "y": 92.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": 1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    43.3,
+    88.25,
+    44.7,
+    95.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     44.0,
+     95.35,
+     100.8
+    ],
+    "tube_outlet": [
+     44.0,
+     95.35,
+     102.2
+    ],
+    "shell_inlet": [
+     44.0,
+     89.25,
+     102.2
+    ],
+    "shell_outlet": [
+     44.0,
+     94.15,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-111A",
+   "parent_tag": "E-111",
+   "type": "Shell & tube",
+   "service": "Crude / Vacuum residue",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 12.5,
+   "y": 109.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    11.8,
+    105.25,
+    13.2,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     12.5,
+     105.65,
+     100.8
+    ],
+    "tube_outlet": [
+     12.5,
+     105.65,
+     102.2
+    ],
+    "shell_inlet": [
+     12.5,
+     111.75,
+     102.2
+    ],
+    "shell_outlet": [
+     12.5,
+     106.85,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-111B",
+   "parent_tag": "E-111",
+   "type": "Shell & tube",
+   "service": "Crude / Vacuum residue",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 16.0,
+   "y": 109.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    15.3,
+    105.25,
+    16.7,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     16.0,
+     105.65,
+     100.8
+    ],
+    "tube_outlet": [
+     16.0,
+     105.65,
+     102.2
+    ],
+    "shell_inlet": [
+     16.0,
+     111.75,
+     102.2
+    ],
+    "shell_outlet": [
+     16.0,
+     106.85,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "hot"
+  },
+  {
+   "tag": "E-101",
+   "parent_tag": "E-101",
+   "type": "Shell & tube",
+   "service": "Crude / Top pumparound",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 19.5,
+   "y": 109.0,
+   "z_base": 100.95,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.1,
+   "height": 1.1,
+   "top_el": 102.05,
+   "D": 1.1,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    18.95,
+    105.25,
+    20.05,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     19.5,
+     105.65,
+     100.95
+    ],
+    "tube_outlet": [
+     19.5,
+     105.65,
+     102.05
+    ],
+    "shell_inlet": [
+     19.5,
+     111.75,
+     102.05
+    ],
+    "shell_outlet": [
+     19.5,
+     106.85,
+     100.95
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "cold"
+  },
+  {
+   "tag": "E-102",
+   "parent_tag": "E-102",
+   "type": "Shell & tube",
+   "service": "Crude / Kerosene product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 23.0,
+   "y": 109.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    22.3,
+    105.25,
+    23.7,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     23.0,
+     105.65,
+     100.8
+    ],
+    "tube_outlet": [
+     23.0,
+     105.65,
+     102.2
+    ],
+    "shell_inlet": [
+     23.0,
+     111.75,
+     102.2
+    ],
+    "shell_outlet": [
+     23.0,
+     106.85,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "cold"
+  },
+  {
+   "tag": "E-103A",
+   "parent_tag": "E-103",
+   "type": "Shell & tube",
+   "service": "Crude / LVGO pumparound/product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 26.5,
+   "y": 109.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    25.8,
+    105.25,
+    27.2,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     26.5,
+     105.65,
+     100.8
+    ],
+    "tube_outlet": [
+     26.5,
+     105.65,
+     102.2
+    ],
+    "shell_inlet": [
+     26.5,
+     111.75,
+     102.2
+    ],
+    "shell_outlet": [
+     26.5,
+     106.85,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "cold"
+  },
+  {
+   "tag": "E-103B",
+   "parent_tag": "E-103",
+   "type": "Shell & tube",
+   "service": "Crude / LVGO pumparound/product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 30.0,
+   "y": 109.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    29.3,
+    105.25,
+    30.7,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     30.0,
+     105.65,
+     100.8
+    ],
+    "tube_outlet": [
+     30.0,
+     105.65,
+     102.2
+    ],
+    "shell_inlet": [
+     30.0,
+     111.75,
+     102.2
+    ],
+    "shell_outlet": [
+     30.0,
+     106.85,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "cold"
+  },
+  {
+   "tag": "E-104",
+   "parent_tag": "E-104",
+   "type": "Shell & tube",
+   "service": "Crude / Diesel product",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 33.5,
+   "y": 109.0,
+   "z_base": 100.95,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.1,
+   "height": 1.1,
+   "top_el": 102.05,
+   "D": 1.1,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    32.95,
+    105.25,
+    34.05,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     33.5,
+     105.65,
+     100.95
+    ],
+    "tube_outlet": [
+     33.5,
+     105.65,
+     102.05
+    ],
+    "shell_inlet": [
+     33.5,
+     111.75,
+     102.05
+    ],
+    "shell_outlet": [
+     33.5,
+     106.85,
+     100.95
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "cold"
+  },
+  {
+   "tag": "E-105",
+   "parent_tag": "E-105",
+   "type": "Shell & tube",
+   "service": "Crude / Vacuum residue",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 37.0,
+   "y": 109.0,
+   "z_base": 100.8,
+   "rotation": 90,
+   "L": 7.5,
+   "W": 1.4,
+   "height": 1.4,
+   "top_el": 102.2,
+   "D": 1.4,
+   "channel_end": -1,
+   "bundle_pull": 9.0,
+   "bbox": [
+    36.3,
+    105.25,
+    37.7,
+    112.75
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     37.0,
+     105.65,
+     100.8
+    ],
+    "tube_outlet": [
+     37.0,
+     105.65,
+     102.2
+    ],
+    "shell_inlet": [
+     37.0,
+     111.75,
+     102.2
+    ],
+    "shell_outlet": [
+     37.0,
+     106.85,
+     100.8
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "cold"
+  },
+  {
+   "tag": "E-113",
+   "parent_tag": "E-113",
+   "type": "Shell & tube",
+   "service": "BPA / MP steam generator (kettle)",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 40.5,
+   "y": 109.0,
+   "z_base": 101.05,
+   "rotation": 90,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 101.95,
+   "D": 0.9,
+   "channel_end": -1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    40.05,
+    105.75,
+    40.95,
+    112.25
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     40.5,
+     106.15,
+     101.05
+    ],
+    "tube_outlet": [
+     40.5,
+     106.15,
+     101.95
+    ],
+    "shell_inlet": [
+     40.5,
+     111.25,
+     101.95
+    ],
+    "shell_outlet": [
+     40.5,
+     107.35,
+     101.05
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "steam gen."
+  },
+  {
+   "tag": "E-201",
+   "parent_tag": "E-201",
+   "type": "Shell & tube",
+   "service": "VR / LP steam generator (kettle)",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 44.0,
+   "y": 109.0,
+   "z_base": 101.05,
+   "rotation": 90,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 101.95,
+   "D": 0.9,
+   "channel_end": -1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    43.55,
+    105.75,
+    44.45,
+    112.25
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     44.0,
+     106.15,
+     101.05
+    ],
+    "tube_outlet": [
+     44.0,
+     106.15,
+     101.95
+    ],
+    "shell_inlet": [
+     44.0,
+     111.25,
+     101.95
+    ],
+    "shell_outlet": [
+     44.0,
+     107.35,
+     101.05
+    ]
+   },
+   "z_axis": 101.5,
+   "train": "steam gen."
+  },
+  {
+   "tag": "P-101A",
+   "parent_tag": "P-101A/B",
+   "type": "Pump",
+   "service": "Crude charge",
+   "area": "CDU",
+   "shape": "box",
+   "x": 14.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 5.0,
+   "W": 2.0,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 710,
+   "api610": "BB2",
+   "bbox": [
+    13.0,
+    81.0,
+    15.0,
+    86.0
+   ],
+   "nozzles": {
+    "suction": [
+     14.0,
+     85.8,
+     100.9
+    ],
+    "discharge": [
+     14.0,
+     85.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-101B",
+   "parent_tag": "P-101A/B",
+   "type": "Pump",
+   "service": "Crude charge",
+   "area": "CDU",
+   "shape": "box",
+   "x": 18.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 5.0,
+   "W": 2.0,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 710,
+   "api610": "BB2",
+   "bbox": [
+    17.5,
+    81.0,
+    19.5,
+    86.0
+   ],
+   "nozzles": {
+    "suction": [
+     18.5,
+     85.8,
+     100.9
+    ],
+    "discharge": [
+     18.5,
+     85.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "D-104",
+   "parent_tag": "D-104",
+   "type": "Drum",
+   "service": "Flare knock-out drum (unit)",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 135.0,
+   "y": 128.0,
+   "z_base": 100.6,
+   "rotation": 0,
+   "L": 7.55,
+   "W": 2.1,
+   "height": 2.1,
+   "top_el": 102.7,
+   "D": 2.1,
+   "TT": 6.5,
+   "z_axis": 101.65,
+   "bbox": [
+    131.225,
+    126.95,
+    138.775,
+    129.05
+   ],
+   "nozzles": {
+    "inlet": [
+     132.75,
+     128.0,
+     102.7
+    ],
+    "vapour_outlet": [
+     137.45,
+     128.0,
+     102.7
+    ],
+    "liquid_outlet": [
+     136.75,
+     128.0,
+     100.6
+    ]
+   }
+  },
+  {
+   "tag": "P-119A",
+   "parent_tag": "P-119A/B",
+   "type": "Pump",
+   "service": "Flare KO drum pump-out",
+   "area": "CDU",
+   "shape": "box",
+   "x": 132.0,
+   "y": 122.0,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 7.5,
+   "api610": "OH2",
+   "bbox": [
+    131.4,
+    120.5,
+    132.6,
+    123.5
+   ],
+   "nozzles": {
+    "suction": [
+     132.0,
+     123.3,
+     100.9
+    ],
+    "discharge": [
+     132.0,
+     122.8,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-119B",
+   "parent_tag": "P-119A/B",
+   "type": "Pump",
+   "service": "Flare KO drum pump-out",
+   "area": "CDU",
+   "shape": "box",
+   "x": 135.0,
+   "y": 122.0,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 7.5,
+   "api610": "OH2",
+   "bbox": [
+    134.4,
+    120.5,
+    135.6,
+    123.5
+   ],
+   "nozzles": {
+    "suction": [
+     135.0,
+     123.3,
+     100.9
+    ],
+    "discharge": [
+     135.0,
+     122.8,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "D-101A",
+   "parent_tag": "D-101A",
+   "type": "Desalter",
+   "service": "Electrostatic desalter, 1st stage",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 36.0,
+   "y": 52.0,
+   "z_base": 101.5,
+   "rotation": 0,
+   "L": 31.9,
+   "W": 3.8,
+   "height": 3.8,
+   "top_el": 105.3,
+   "D": 3.8,
+   "TT": 30.0,
+   "z_axis": 103.4,
+   "transformers": 3,
+   "bbox": [
+    20.05,
+    50.1,
+    51.95,
+    53.9
+   ],
+   "nozzles": {
+    "inlet": [
+     34.0,
+     52.0,
+     101.5
+    ],
+    "outlet": [
+     38.0,
+     52.0,
+     105.3
+    ],
+    "brine_outlet": [
+     42.0,
+     52.0,
+     101.5
+    ],
+    "mud_wash": [
+     30.0,
+     52.8,
+     101.6
+    ]
+   }
+  },
+  {
+   "tag": "D-101B",
+   "parent_tag": "D-101B",
+   "type": "Desalter",
+   "service": "Electrostatic desalter, 2nd stage",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 36.0,
+   "y": 42.0,
+   "z_base": 101.5,
+   "rotation": 0,
+   "L": 31.9,
+   "W": 3.8,
+   "height": 3.8,
+   "top_el": 105.3,
+   "D": 3.8,
+   "TT": 30.0,
+   "z_axis": 103.4,
+   "transformers": 3,
+   "bbox": [
+    20.05,
+    40.1,
+    51.95,
+    43.9
+   ],
+   "nozzles": {
+    "inlet": [
+     34.0,
+     42.0,
+     101.5
+    ],
+    "outlet": [
+     38.0,
+     42.0,
+     105.3
+    ],
+    "brine_outlet": [
+     42.0,
+     42.0,
+     101.5
+    ],
+    "mud_wash": [
+     30.0,
+     42.8,
+     101.6
+    ]
+   }
+  },
+  {
+   "tag": "E-118",
+   "parent_tag": "E-118",
+   "type": "Shell & tube",
+   "service": "Desalter wash water / brine",
+   "area": "CDU",
+   "shape": "hcyl",
+   "x": 58.5,
+   "y": 47.0,
+   "z_base": 101.05,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 101.95,
+   "D": 0.9,
+   "channel_end": 1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    55.25,
+    46.55,
+    61.75,
+    47.45
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     61.35,
+     47.0,
+     101.05
+    ],
+    "tube_outlet": [
+     61.35,
+     47.0,
+     101.95
+    ],
+    "shell_inlet": [
+     56.25,
+     47.0,
+     101.95
+    ],
+    "shell_outlet": [
+     60.15,
+     47.0,
+     101.05
+    ]
+   },
+   "z_axis": 101.5
+  },
+  {
+   "tag": "X-101",
+   "parent_tag": "X-101",
+   "type": "Package",
+   "service": "Demulsifier injection package",
+   "area": "CDU",
+   "shape": "box",
+   "x": 58.0,
+   "y": 55.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 3.0,
+   "W": 2.0,
+   "height": 2.5,
+   "top_el": 102.8,
+   "bbox": [
+    56.5,
+    54.0,
+    59.5,
+    56.0
+   ],
+   "nozzles": {
+    "discharge": [
+     59.5,
+     55.0,
+     101.0
+    ]
+   }
+  },
+  {
+   "tag": "X-102",
+   "parent_tag": "X-102",
+   "type": "Package",
+   "service": "Caustic injection package (desalted crude)",
+   "area": "CDU",
+   "shape": "box",
+   "x": 58.0,
+   "y": 59.5,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 3.0,
+   "W": 2.0,
+   "height": 2.5,
+   "top_el": 102.8,
+   "bbox": [
+    56.5,
+    58.5,
+    59.5,
+    60.5
+   ],
+   "nozzles": {
+    "discharge": [
+     59.5,
+     59.5,
+     101.0
+    ]
+   }
+  },
+  {
+   "tag": "P-114A",
+   "parent_tag": "P-114A/B",
+   "type": "Pump",
+   "service": "Desalter wash water",
+   "area": "CDU",
+   "shape": "box",
+   "x": 25.0,
+   "y": 65.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 30,
+   "api610": "OH2",
+   "bbox": [
+    24.4,
+    64.0,
+    25.6,
+    67.0
+   ],
+   "nozzles": {
+    "suction": [
+     25.0,
+     64.2,
+     100.9
+    ],
+    "discharge": [
+     25.0,
+     64.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-114B",
+   "parent_tag": "P-114A/B",
+   "type": "Pump",
+   "service": "Desalter wash water",
+   "area": "CDU",
+   "shape": "box",
+   "x": 28.0,
+   "y": 65.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 30,
+   "api610": "OH2",
+   "bbox": [
+    27.4,
+    64.0,
+    28.6,
+    67.0
+   ],
+   "nozzles": {
+    "suction": [
+     28.0,
+     64.2,
+     100.9
+    ],
+    "discharge": [
+     28.0,
+     64.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-118",
+   "parent_tag": "P-118",
+   "type": "Pump",
+   "service": "Desalter mud-wash / recycle",
+   "area": "CDU",
+   "shape": "box",
+   "x": 31.5,
+   "y": 65.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 7.5,
+   "api610": "OH2",
+   "bbox": [
+    30.9,
+    64.0,
+    32.1,
+    67.0
+   ],
+   "nozzles": {
+    "suction": [
+     31.5,
+     64.2,
+     100.9
+    ],
+    "discharge": [
+     31.5,
+     64.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-102A",
+   "parent_tag": "P-102A/B",
+   "type": "Pump",
+   "service": "Desalted crude booster",
+   "area": "CDU",
+   "shape": "box",
+   "x": 46.0,
+   "y": 65.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 5.0,
+   "W": 2.0,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 710,
+   "api610": "BB2",
+   "bbox": [
+    45.0,
+    63.0,
+    47.0,
+    68.0
+   ],
+   "nozzles": {
+    "suction": [
+     46.0,
+     63.2,
+     100.9
+    ],
+    "discharge": [
+     46.0,
+     63.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-102B",
+   "parent_tag": "P-102A/B",
+   "type": "Pump",
+   "service": "Desalted crude booster",
+   "area": "CDU",
+   "shape": "box",
+   "x": 50.5,
+   "y": 65.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 5.0,
+   "W": 2.0,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 710,
+   "api610": "BB2",
+   "bbox": [
+    49.5,
+    63.0,
+    51.5,
+    68.0
+   ],
+   "nozzles": {
+    "suction": [
+     50.5,
+     63.2,
+     100.9
+    ],
+    "discharge": [
+     50.5,
+     63.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "H-101",
+   "parent_tag": "H-101",
+   "type": "Fired heater",
+   "service": "Atmospheric crude charge heater",
+   "area": "CDU",
+   "shape": "heater",
+   "x": 98.0,
+   "y": 36.0,
+   "z_base": 100.0,
+   "rotation": 0,
+   "L": 21.9,
+   "W": 25.4,
+   "height": 38.0,
+   "top_el": 138.0,
+   "cells": 2,
+   "passes": 8,
+   "burners": 16,
+   "duty_mw": 60.68,
+   "radiant": {
+    "z0": 102.0,
+    "z1": 119.1,
+    "L": 21.9,
+    "W": 25.4
+   },
+   "convection": {
+    "z0": 119.1,
+    "z1": 127.46,
+    "L": 13.14,
+    "W": 5.0
+   },
+   "stack": {
+    "x": 98.0,
+    "y": 36.0,
+    "D": 3.2,
+    "z0": 127.46,
+    "z1": 138.0
+   },
+   "bbox": [
+    87.05,
+    23.3,
+    108.95,
+    48.7
+   ],
+   "nozzles": {
+    "inlet": [
+     103.475,
+     48.7,
+     126.66
+    ],
+    "outlet": [
+     98.0,
+     48.7,
+     103.0
+    ],
+    "fuel_gas": [
+     88.05,
+     48.7,
+     101.0
+    ],
+    "stack_top": [
+     98.0,
+     36.0,
+     138.0
+    ]
+   }
+  },
+  {
+   "tag": "H-201",
+   "parent_tag": "H-201",
+   "type": "Fired heater",
+   "service": "Vacuum heater",
+   "area": "VDU",
+   "shape": "heater",
+   "x": 172.0,
+   "y": 36.0,
+   "z_base": 100.0,
+   "rotation": 0,
+   "L": 21.9,
+   "W": 11.1,
+   "height": 32.0,
+   "top_el": 132.0,
+   "cells": 1,
+   "passes": 4,
+   "burners": 6,
+   "duty_mw": 14.69,
+   "radiant": {
+    "z0": 102.0,
+    "z1": 116.4,
+    "L": 21.9,
+    "W": 11.1
+   },
+   "convection": {
+    "z0": 116.4,
+    "z1": 123.44,
+    "L": 13.14,
+    "W": 5.0
+   },
+   "stack": {
+    "x": 172.0,
+    "y": 36.0,
+    "D": 2.2,
+    "z0": 123.44,
+    "z1": 132.0
+   },
+   "bbox": [
+    161.05,
+    30.45,
+    182.95,
+    41.55
+   ],
+   "nozzles": {
+    "inlet": [
+     177.475,
+     41.55,
+     122.64
+    ],
+    "outlet": [
+     172.0,
+     41.55,
+     103.0
+    ],
+    "fuel_gas": [
+     162.05,
+     41.55,
+     101.0
+    ],
+    "stack_top": [
+     172.0,
+     36.0,
+     132.0
+    ]
+   }
+  },
+  {
+   "tag": "E-120",
+   "parent_tag": "E-120",
+   "type": "Air preheater",
+   "service": "H-101 cast-iron/glass-tube air preheater",
+   "area": "CDU",
+   "shape": "box",
+   "x": 92.0,
+   "y": 22.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 8,
+   "W": 6,
+   "height": 10,
+   "top_el": 110.3,
+   "bbox": [
+    88.0,
+    19.0,
+    96.0,
+    25.0
+   ],
+   "nozzles": {
+    "flue_in": [
+     92.0,
+     25.0,
+     110.0
+    ],
+    "flue_out": [
+     96.0,
+     22.0,
+     101.0
+    ],
+    "air_in": [
+     88.0,
+     22.0,
+     102.0
+    ],
+    "air_out": [
+     92.0,
+     25.0,
+     102.0
+    ]
+   }
+  },
+  {
+   "tag": "K-101A",
+   "parent_tag": "K-101A/B",
+   "type": "Fan",
+   "service": "H-101 forced-draft fan",
+   "area": "CDU",
+   "shape": "box",
+   "x": 102.0,
+   "y": 20.5,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 6.0,
+   "W": 3.0,
+   "height": 4.0,
+   "top_el": 104.3,
+   "motor_kw": 90,
+   "bbox": [
+    99.0,
+    19.0,
+    105.0,
+    22.0
+   ],
+   "nozzles": {
+    "inlet": [
+     99.5,
+     20.5,
+     102.5
+    ],
+    "outlet": [
+     104.5,
+     20.5,
+     103.5
+    ]
+   }
+  },
+  {
+   "tag": "K-101B",
+   "parent_tag": "K-101A/B",
+   "type": "Fan",
+   "service": "H-101 forced-draft fan",
+   "area": "CDU",
+   "shape": "box",
+   "x": 102.0,
+   "y": 24.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 6.0,
+   "W": 3.0,
+   "height": 4.0,
+   "top_el": 104.3,
+   "motor_kw": 90,
+   "bbox": [
+    99.0,
+    22.5,
+    105.0,
+    25.5
+   ],
+   "nozzles": {
+    "inlet": [
+     99.5,
+     24.0,
+     102.5
+    ],
+    "outlet": [
+     104.5,
+     24.0,
+     103.5
+    ]
+   }
+  },
+  {
+   "tag": "K-102A",
+   "parent_tag": "K-102A/B",
+   "type": "Fan",
+   "service": "H-101 induced-draft fan",
+   "area": "CDU",
+   "shape": "box",
+   "x": 109.0,
+   "y": 20.5,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 6.0,
+   "W": 3.0,
+   "height": 4.0,
+   "top_el": 104.3,
+   "motor_kw": 200,
+   "bbox": [
+    106.0,
+    19.0,
+    112.0,
+    22.0
+   ],
+   "nozzles": {
+    "inlet": [
+     106.5,
+     20.5,
+     102.5
+    ],
+    "outlet": [
+     111.5,
+     20.5,
+     103.5
+    ]
+   }
+  },
+  {
+   "tag": "K-102B",
+   "parent_tag": "K-102A/B",
+   "type": "Fan",
+   "service": "H-101 induced-draft fan",
+   "area": "CDU",
+   "shape": "box",
+   "x": 109.0,
+   "y": 24.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 6.0,
+   "W": 3.0,
+   "height": 4.0,
+   "top_el": 104.3,
+   "motor_kw": 200,
+   "bbox": [
+    106.0,
+    22.5,
+    112.0,
+    25.5
+   ],
+   "nozzles": {
+    "inlet": [
+     106.5,
+     24.0,
+     102.5
+    ],
+    "outlet": [
+     111.5,
+     24.0,
+     103.5
+    ]
+   }
+  },
+  {
+   "tag": "D-103",
+   "parent_tag": "D-103",
+   "type": "Drum",
+   "service": "Fuel gas knock-out drum",
+   "area": "CDU",
+   "shape": "vcyl",
+   "x": 146.0,
+   "y": 22.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 0.9,
+   "W": 0.9,
+   "height": 3.95,
+   "top_el": 104.25,
+   "D": 0.9,
+   "bottom_tl": 101.3,
+   "top_tl": 103.8,
+   "body": [
+    [
+     101.3,
+     103.8,
+     0.9
+    ]
+   ],
+   "bbox": [
+    145.55,
+    21.55,
+    146.45,
+    22.45
+   ],
+   "nozzles": {
+    "inlet": [
+     146.45,
+     22.0,
+     102.8
+    ],
+    "vapour_outlet": [
+     146.0,
+     22.0,
+     104.025
+    ],
+    "liquid_outlet": [
+     146.0,
+     22.0,
+     101.075
+    ]
+   }
+  },
+  {
+   "tag": "C-201",
+   "parent_tag": "C-201",
+   "type": "Column",
+   "service": "Vacuum column (wet, packed)",
+   "area": "VDU",
+   "shape": "vcyl",
+   "x": 175.0,
+   "y": 98.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 6.6,
+   "W": 6.6,
+   "height": 46.8,
+   "top_el": 147.1,
+   "D": 6.6,
+   "bottom_tl": 110.0,
+   "top_tl": 146.0,
+   "skirt_h": 8.95,
+   "body": [
+    [
+     110.0,
+     118.025,
+     3.0
+    ],
+    [
+     119.025,
+     137.119,
+     6.6
+    ],
+    [
+     138.719,
+     146.0,
+     4.4
+    ]
+   ],
+   "bbox": [
+    171.7,
+    94.7,
+    178.3,
+    101.3
+   ],
+   "nozzles": {
+    "overhead": [
+     175.0,
+     98.0,
+     147.1
+    ],
+    "bottoms": [
+     175.0,
+     98.0,
+     109.25
+    ],
+    "lvgo_pa_return": [
+     175.0,
+     95.8,
+     143.37
+    ],
+    "lvgo_draw": [
+     175.0,
+     94.7,
+     138.519
+    ],
+    "hvgo_pa_return": [
+     173.871,
+     94.899,
+     133.774
+    ],
+    "hvgo_draw": [
+     176.129,
+     94.899,
+     133.974
+    ],
+    "wash_oil_return": [
+     173.871,
+     94.899,
+     127.713
+    ],
+    "slop_wax_draw": [
+     176.129,
+     94.899,
+     124.176
+    ],
+    "feed": [
+     175.0,
+     94.7,
+     121.05
+    ],
+    "stripping_steam": [
+     175.75,
+     96.701,
+     115.761
+    ],
+    "quench_return": [
+     174.25,
+     96.701,
+     114.561
+    ]
+   },
+   "zones": {
+    "top_head": [
+     142.97,
+     146.0
+    ],
+    "bed1_lvgo_pa": [
+     140.444,
+     142.97
+    ],
+    "lvgo_collector": [
+     137.919,
+     140.444
+    ],
+    "bed2_fract": [
+     135.899,
+     137.919
+    ],
+    "hvgo_collector": [
+     133.374,
+     135.899
+    ],
+    "bed3_hvgo_pa": [
+     129.838,
+     133.374
+    ],
+    "wash_distr": [
+     127.313,
+     129.838
+    ],
+    "bed4_wash": [
+     126.101,
+     127.313
+    ],
+    "slop_collector": [
+     123.576,
+     126.101
+    ],
+    "flash_zone": [
+     118.525,
+     123.576
+    ],
+    "stripping_trays": [
+     116.061,
+     118.525
+    ],
+    "sump": [
+     110.0,
+     116.061
+    ]
+   }
+  },
+  {
+   "tag": "E-204",
+   "parent_tag": "E-204",
+   "type": "Shell & tube",
+   "service": "Ejector aftercondenser",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 97.5,
+   "z_base": 112.4,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 113.3,
+   "D": 0.9,
+   "channel_end": 1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    192.75,
+    97.05,
+    199.25,
+    97.95
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     198.85,
+     97.5,
+     112.4
+    ],
+    "tube_outlet": [
+     198.85,
+     97.5,
+     113.3
+    ],
+    "shell_inlet": [
+     193.75,
+     97.5,
+     113.3
+    ],
+    "shell_outlet": [
+     197.65,
+     97.5,
+     112.4
+    ],
+    "condensate_outlet": [
+     197.65,
+     97.5,
+     112.4
+    ]
+   },
+   "z_axis": 112.85
+  },
+  {
+   "tag": "J-203",
+   "parent_tag": "J-203",
+   "type": "Ejector",
+   "service": "Steam ejector (330 -> 1100 mbar(a))",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 94.0,
+   "z_base": 112.5,
+   "rotation": 0,
+   "L": 4.0,
+   "W": 0.6,
+   "height": 0.6,
+   "top_el": 113.1,
+   "D": 0.6,
+   "arrangement": "2 x 50 % parallel",
+   "z_axis": 112.8,
+   "bbox": [
+    194.0,
+    93.7,
+    198.0,
+    94.3
+   ],
+   "nozzles": {
+    "suction": [
+     194.0,
+     94.0,
+     112.8
+    ],
+    "discharge": [
+     198.0,
+     94.0,
+     112.8
+    ],
+    "motive_steam": [
+     194.4,
+     94.0,
+     113.1
+    ]
+   }
+  },
+  {
+   "tag": "E-203",
+   "parent_tag": "E-203",
+   "type": "Shell & tube",
+   "service": "2nd-stage ejector intercondenser",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 97.5,
+   "z_base": 115.4,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 0.9,
+   "height": 0.9,
+   "top_el": 116.3,
+   "D": 0.9,
+   "channel_end": 1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    192.75,
+    97.05,
+    199.25,
+    97.95
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     198.85,
+     97.5,
+     115.4
+    ],
+    "tube_outlet": [
+     198.85,
+     97.5,
+     116.3
+    ],
+    "shell_inlet": [
+     193.75,
+     97.5,
+     116.3
+    ],
+    "shell_outlet": [
+     197.65,
+     97.5,
+     115.4
+    ],
+    "condensate_outlet": [
+     197.65,
+     97.5,
+     115.4
+    ]
+   },
+   "z_axis": 115.85
+  },
+  {
+   "tag": "J-202",
+   "parent_tag": "J-202",
+   "type": "Ejector",
+   "service": "Steam ejector (120 -> 350 mbar(a))",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 94.0,
+   "z_base": 115.5,
+   "rotation": 0,
+   "L": 4.0,
+   "W": 0.6,
+   "height": 0.6,
+   "top_el": 116.1,
+   "D": 0.6,
+   "arrangement": "2 x 50 % parallel",
+   "z_axis": 115.8,
+   "bbox": [
+    194.0,
+    93.7,
+    198.0,
+    94.3
+   ],
+   "nozzles": {
+    "suction": [
+     194.0,
+     94.0,
+     115.8
+    ],
+    "discharge": [
+     198.0,
+     94.0,
+     115.8
+    ],
+    "motive_steam": [
+     194.4,
+     94.0,
+     116.1
+    ]
+   }
+  },
+  {
+   "tag": "E-202",
+   "parent_tag": "E-202",
+   "type": "Shell & tube",
+   "service": "1st-stage ejector intercondenser",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 97.5,
+   "z_base": 120.4,
+   "rotation": 0,
+   "L": 6.5,
+   "W": 1.2,
+   "height": 1.2,
+   "top_el": 121.6,
+   "D": 1.2,
+   "channel_end": 1,
+   "bundle_pull": 8.0,
+   "bbox": [
+    192.75,
+    96.9,
+    199.25,
+    98.1
+   ],
+   "nozzles": {
+    "tube_inlet": [
+     198.85,
+     97.5,
+     120.4
+    ],
+    "tube_outlet": [
+     198.85,
+     97.5,
+     121.6
+    ],
+    "shell_inlet": [
+     193.75,
+     97.5,
+     121.6
+    ],
+    "shell_outlet": [
+     197.65,
+     97.5,
+     120.4
+    ],
+    "condensate_outlet": [
+     197.65,
+     97.5,
+     120.4
+    ]
+   },
+   "z_axis": 121.0
+  },
+  {
+   "tag": "J-201",
+   "parent_tag": "J-201",
+   "type": "Ejector",
+   "service": "Steam ejector (20 -> 130 mbar(a))",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 94.0,
+   "z_base": 120.5,
+   "rotation": 0,
+   "L": 4.0,
+   "W": 0.6,
+   "height": 0.6,
+   "top_el": 121.1,
+   "D": 0.6,
+   "arrangement": "2 x 50 % parallel",
+   "z_axis": 120.8,
+   "bbox": [
+    194.0,
+    93.7,
+    198.0,
+    94.3
+   ],
+   "nozzles": {
+    "suction": [
+     194.0,
+     94.0,
+     120.8
+    ],
+    "discharge": [
+     198.0,
+     94.0,
+     120.8
+    ],
+    "motive_steam": [
+     194.4,
+     94.0,
+     121.1
+    ]
+   }
+  },
+  {
+   "tag": "D-201",
+   "parent_tag": "D-201",
+   "type": "Drum",
+   "service": "Ejector hotwell / sour water separator",
+   "area": "VDU",
+   "shape": "hcyl",
+   "x": 196.0,
+   "y": 106.0,
+   "z_base": 100.6,
+   "rotation": 0,
+   "L": 6.15,
+   "W": 1.3,
+   "height": 1.3,
+   "top_el": 101.9,
+   "D": 1.3,
+   "TT": 5.5,
+   "z_axis": 101.25,
+   "bbox": [
+    192.925,
+    105.35,
+    199.075,
+    106.65
+   ],
+   "nozzles": {
+    "inlet": [
+     194.25,
+     106.0,
+     101.9
+    ],
+    "vapour_outlet": [
+     197.95,
+     106.0,
+     101.9
+    ],
+    "liquid_outlet": [
+     197.25,
+     106.0,
+     100.6
+    ]
+   },
+   "barometric_legs": "E-202/203/204 condensate legs, seal >= 10.4 m"
+  },
+  {
+   "tag": "D-202",
+   "parent_tag": "D-202",
+   "type": "Drum",
+   "service": "Vacuum off-gas knock-out drum",
+   "area": "VDU",
+   "shape": "vcyl",
+   "x": 203.0,
+   "y": 106.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 0.6,
+   "W": 0.6,
+   "height": 3.3,
+   "top_el": 103.6,
+   "D": 0.6,
+   "bottom_tl": 101.3,
+   "top_tl": 103.3,
+   "body": [
+    [
+     101.3,
+     103.3,
+     0.6
+    ]
+   ],
+   "bbox": [
+    202.7,
+    105.7,
+    203.3,
+    106.3
+   ],
+   "nozzles": {
+    "inlet": [
+     203.3,
+     106.0,
+     102.5
+    ],
+    "vapour_outlet": [
+     203.0,
+     106.0,
+     103.45
+    ],
+    "liquid_outlet": [
+     203.0,
+     106.0,
+     101.15
+    ]
+   }
+  },
+  {
+   "tag": "X-104",
+   "parent_tag": "X-104",
+   "type": "Package",
+   "service": "Corrosion inhibitor package (VDU OH)",
+   "area": "VDU",
+   "shape": "box",
+   "x": 209.0,
+   "y": 106.0,
+   "z_base": 100.3,
+   "rotation": 0,
+   "L": 3.0,
+   "W": 2.0,
+   "height": 2.5,
+   "top_el": 102.8,
+   "bbox": [
+    207.5,
+    105.0,
+    210.5,
+    107.0
+   ],
+   "nozzles": {
+    "discharge": [
+     210.5,
+     106.0,
+     101.0
+    ]
+   }
+  },
+  {
+   "tag": "P-204A",
+   "parent_tag": "P-204A/B",
+   "type": "Pump",
+   "service": "Vacuum residue (incl. quench)",
+   "area": "VDU",
+   "shape": "box",
+   "x": 172.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 132,
+   "api610": "BB2",
+   "bbox": [
+    171.4,
+    82.0,
+    172.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     172.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     172.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-204B",
+   "parent_tag": "P-204A/B",
+   "type": "Pump",
+   "service": "Vacuum residue (incl. quench)",
+   "area": "VDU",
+   "shape": "box",
+   "x": 175.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 132,
+   "api610": "BB2",
+   "bbox": [
+    174.4,
+    82.0,
+    175.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     175.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     175.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-203A",
+   "parent_tag": "P-203A/B",
+   "type": "Pump",
+   "service": "Slop wax",
+   "area": "VDU",
+   "shape": "box",
+   "x": 178.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 5.5,
+   "api610": "BB2",
+   "bbox": [
+    177.9,
+    82.0,
+    179.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     178.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     178.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-203B",
+   "parent_tag": "P-203A/B",
+   "type": "Pump",
+   "service": "Slop wax",
+   "area": "VDU",
+   "shape": "box",
+   "x": 181.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 5.5,
+   "api610": "BB2",
+   "bbox": [
+    180.9,
+    82.0,
+    182.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     181.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     181.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-202A",
+   "parent_tag": "P-202A/B",
+   "type": "Pump",
+   "service": "HVGO pumparound / product",
+   "area": "VDU",
+   "shape": "box",
+   "x": 185.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 200,
+   "api610": "BB2",
+   "bbox": [
+    184.4,
+    82.0,
+    185.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     185.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     185.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-202B",
+   "parent_tag": "P-202A/B",
+   "type": "Pump",
+   "service": "HVGO pumparound / product",
+   "area": "VDU",
+   "shape": "box",
+   "x": 188.0,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 200,
+   "api610": "BB2",
+   "bbox": [
+    187.4,
+    82.0,
+    188.6,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     188.0,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     188.0,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-201A",
+   "parent_tag": "P-201A/B",
+   "type": "Pump",
+   "service": "LVGO pumparound / product",
+   "area": "VDU",
+   "shape": "box",
+   "x": 191.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 110,
+   "api610": "BB2",
+   "bbox": [
+    190.9,
+    82.0,
+    192.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     191.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     191.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-201B",
+   "parent_tag": "P-201A/B",
+   "type": "Pump",
+   "service": "LVGO pumparound / product",
+   "area": "VDU",
+   "shape": "box",
+   "x": 194.5,
+   "y": 83.5,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 110,
+   "api610": "BB2",
+   "bbox": [
+    193.9,
+    82.0,
+    195.1,
+    85.0
+   ],
+   "nozzles": {
+    "suction": [
+     194.5,
+     84.8,
+     100.9
+    ],
+    "discharge": [
+     194.5,
+     84.3,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-205A",
+   "parent_tag": "P-205A/B",
+   "type": "Pump",
+   "service": "Hotwell sour water",
+   "area": "VDU",
+   "shape": "box",
+   "x": 193.0,
+   "y": 111.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 3.7,
+   "api610": "OH2",
+   "bbox": [
+    192.4,
+    110.0,
+    193.6,
+    113.0
+   ],
+   "nozzles": {
+    "suction": [
+     193.0,
+     110.2,
+     100.9
+    ],
+    "discharge": [
+     193.0,
+     110.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-205B",
+   "parent_tag": "P-205A/B",
+   "type": "Pump",
+   "service": "Hotwell sour water",
+   "area": "VDU",
+   "shape": "box",
+   "x": 196.0,
+   "y": 111.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 3.7,
+   "api610": "OH2",
+   "bbox": [
+    195.4,
+    110.0,
+    196.6,
+    113.0
+   ],
+   "nozzles": {
+    "suction": [
+     196.0,
+     110.2,
+     100.9
+    ],
+    "discharge": [
+     196.0,
+     110.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-206A",
+   "parent_tag": "P-206A/B",
+   "type": "Pump",
+   "service": "Hotwell slop oil",
+   "area": "VDU",
+   "shape": "box",
+   "x": 199.5,
+   "y": 111.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 0.75,
+   "api610": "API 674/675 PD",
+   "bbox": [
+    198.9,
+    110.0,
+    200.1,
+    113.0
+   ],
+   "nozzles": {
+    "suction": [
+     199.5,
+     110.2,
+     100.9
+    ],
+    "discharge": [
+     199.5,
+     110.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-206B",
+   "parent_tag": "P-206A/B",
+   "type": "Pump",
+   "service": "Hotwell slop oil",
+   "area": "VDU",
+   "shape": "box",
+   "x": 202.5,
+   "y": 111.5,
+   "z_base": 100.3,
+   "rotation": 270,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 0.75,
+   "api610": "API 674/675 PD",
+   "bbox": [
+    201.9,
+    110.0,
+    203.1,
+    113.0
+   ],
+   "nozzles": {
+    "suction": [
+     202.5,
+     110.2,
+     100.9
+    ],
+    "discharge": [
+     202.5,
+     110.7,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "A-107-B1",
+   "parent_tag": "A-107",
+   "type": "Air cooler",
+   "service": "Splitter overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 45.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 2,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 30,
+   "bbox": [
+    42.0,
+    69.0,
+    48.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     45.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     45.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-107-B2",
+   "parent_tag": "A-107",
+   "type": "Air cooler",
+   "service": "Splitter overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 51.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 2,
+   "bays": 2,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 30,
+   "bbox": [
+    48.0,
+    69.0,
+    54.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     51.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     51.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-106",
+   "parent_tag": "A-106",
+   "type": "Air cooler",
+   "service": "Stabiliser overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 57.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 11,
+   "bbox": [
+    54.0,
+    69.0,
+    60.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     57.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     57.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-108",
+   "parent_tag": "A-108",
+   "type": "Air cooler",
+   "service": "Heavy naphtha product cooler",
+   "area": "CDU",
+   "shape": "box",
+   "x": 63.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 30,
+   "bbox": [
+    60.0,
+    69.0,
+    66.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     63.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     63.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-101-B1",
+   "parent_tag": "A-101",
+   "type": "Air cooler",
+   "service": "Atm. overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 75.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 3,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 55,
+   "bbox": [
+    72.0,
+    69.0,
+    78.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     75.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     75.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-101-B2",
+   "parent_tag": "A-101",
+   "type": "Air cooler",
+   "service": "Atm. overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 81.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 2,
+   "bays": 3,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 55,
+   "bbox": [
+    78.0,
+    69.0,
+    84.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     81.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     81.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-101-B3",
+   "parent_tag": "A-101",
+   "type": "Air cooler",
+   "service": "Atm. overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 87.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 3,
+   "bays": 3,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 55,
+   "bbox": [
+    84.0,
+    69.0,
+    90.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     87.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     87.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-103",
+   "parent_tag": "A-103",
+   "type": "Air cooler",
+   "service": "Kero cooler",
+   "area": "CDU",
+   "shape": "box",
+   "x": 111.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 11,
+   "bbox": [
+    108.0,
+    69.0,
+    114.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     111.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     111.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-104",
+   "parent_tag": "A-104",
+   "type": "Air cooler",
+   "service": "Diesel cooler",
+   "area": "CDU",
+   "shape": "box",
+   "x": 117.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 18.5,
+   "bbox": [
+    114.0,
+    69.0,
+    120.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     117.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     117.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-105",
+   "parent_tag": "A-105",
+   "type": "Air cooler",
+   "service": "Ago cooler",
+   "area": "CDU",
+   "shape": "box",
+   "x": 123.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 30,
+   "bbox": [
+    120.0,
+    69.0,
+    126.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     123.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     123.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-201",
+   "parent_tag": "A-201",
+   "type": "Air cooler",
+   "service": "Lvgo cooler",
+   "area": "VDU",
+   "shape": "box",
+   "x": 159.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 15,
+   "bbox": [
+    156.0,
+    69.0,
+    162.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     159.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     159.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-202",
+   "parent_tag": "A-202",
+   "type": "Air cooler",
+   "service": "Hvgo Product cooler",
+   "area": "VDU",
+   "shape": "box",
+   "x": 165.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 1,
+   "bays": 1,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 37,
+   "bbox": [
+    162.0,
+    69.0,
+    168.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     165.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     165.0,
+     80.8,
+     115.3
+    ]
+   }
+  }
+ ],
+ "structures": {
+  "pipe_rack": {
+   "id": "PR-100",
+   "axis": "E-W",
+   "x0": 0.0,
+   "x1": 216.0,
+   "y0": 70.0,
+   "y1": 80.0,
+   "width": 10.0,
+   "y_centre": 75.0,
+   "bent_spacing": 6.0,
+   "bents_x": [
+    0.0,
+    12.0,
+    18.0,
+    24.0,
+    30.0,
+    36.0,
+    42.0,
+    48.0,
+    54.0,
+    60.0,
+    66.0,
+    72.0,
+    78.0,
+    84.0,
+    90.0,
+    96.0,
+    102.0,
+    108.0,
+    114.0,
+    120.0,
+    126.0,
+    132.0,
+    138.0,
+    144.0,
+    150.0,
+    156.0,
+    162.0,
+    168.0,
+    174.0,
+    180.0,
+    186.0,
+    192.0,
+    198.0,
+    204.0,
+    210.0,
+    216.0
+   ],
+   "road_crossing_span": {
+    "x0": 0.0,
+    "x1": 12.0,
+    "note": "12 m portal span over west perimeter road"
+   },
+   "tiers": [
+    {
+     "level": 1,
+     "el": 106.0,
+     "service": "Hot process lines (B2/B3), crude, residue, pumparounds"
+    },
+    {
+     "level": 2,
+     "el": 108.5,
+     "service": "Product, cold HC, sour water, OSBL product lines"
+    },
+    {
+     "level": 3,
+     "el": 111.0,
+     "service": "Utilities: steam/condensate, CW, FG, N2, IA, flare header"
+    }
+   ],
+   "cable_tray": {
+    "el": 109.75,
+    "side": "south",
+    "bracket": 1.2,
+    "note": "EL/IC trays on cantilever brackets, segregated from hot lines"
+   },
+   "air_cooler_deck": {
+    "el": 115.0,
+    "fan_deck_el": 113.0,
+    "note": "forced-draft air coolers on structure above tier 3"
+   },
+   "beam_depth": 0.5,
+   "column_section": "HE400B",
+   "min_headroom_m": 5.35
+  },
+  "column_platforms": [
+   {
+    "tag": "C-101",
+    "el": 110.36,
+    "r_in": 1.85,
+    "r_out": 3.05,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 119.54,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 123.96,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 126.09,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 131.73,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 133.86,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 138.28,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-101",
+    "el": 142.5,
+    "r_in": 3.55,
+    "r_out": 4.75,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-102",
+    "el": 108.6,
+    "r_in": 0.95,
+    "r_out": 2.15,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-102",
+    "el": 112.7,
+    "r_in": 0.95,
+    "r_out": 2.15,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-103",
+    "el": 108.6,
+    "r_in": 1.05,
+    "r_out": 2.25,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-103",
+    "el": 112.7,
+    "r_in": 1.05,
+    "r_out": 2.25,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-104",
+    "el": 108.6,
+    "r_in": 0.8,
+    "r_out": 2.0,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-104",
+    "el": 112.7,
+    "r_in": 0.8,
+    "r_out": 2.0,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-106",
+    "el": 111.9,
+    "r_in": 1.65,
+    "r_out": 2.85,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-106",
+    "el": 117.8,
+    "r_in": 1.65,
+    "r_out": 2.85,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-106",
+    "el": 123.7,
+    "r_in": 1.65,
+    "r_out": 2.85,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-106",
+    "el": 129.6,
+    "r_in": 1.65,
+    "r_out": 2.85,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-106",
+    "el": 135.0,
+    "r_in": 1.65,
+    "r_out": 2.85,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-105",
+    "el": 110.0,
+    "r_in": 1.15,
+    "r_out": 2.35,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-105",
+    "el": 116.0,
+    "r_in": 1.15,
+    "r_out": 2.35,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-105",
+    "el": 121.5,
+    "r_in": 1.15,
+    "r_out": 2.35,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-201",
+    "el": 115.061,
+    "r_in": 1.6,
+    "r_out": 2.8,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-201",
+    "el": 119.525,
+    "r_in": 3.4,
+    "r_out": 4.6,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-201",
+    "el": 123.576,
+    "r_in": 3.4,
+    "r_out": 4.6,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-201",
+    "el": 133.374,
+    "r_in": 3.4,
+    "r_out": 4.6,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-201",
+    "el": 137.919,
+    "r_in": 2.3,
+    "r_out": 3.5,
+    "arc": [
+     20,
+     250
+    ],
+    "ladder_side_deg": 135
+   },
+   {
+    "tag": "C-201",
+    "el": 145.5,
+    "r_in": 2.3,
+    "r_out": 3.5,
+    "arc": [
+     0,
+     360
+    ],
+    "ladder_side_deg": 135
+   }
+  ],
+  "heater_stacks": [
+   {
+    "tag": "H-101",
+    "x": 98.0,
+    "y": 36.0,
+    "D": 3.2,
+    "z0": 127.46,
+    "z1": 138.0
+   },
+   {
+    "tag": "H-201",
+    "x": 172.0,
+    "y": 36.0,
+    "D": 2.2,
+    "z0": 123.44,
+    "z1": 132.0
+   }
+  ],
+  "ejector_structure": {
+   "id": "ST-201",
+   "x0": 190.0,
+   "y0": 92.0,
+   "x1": 202.0,
+   "y1": 100.0,
+   "levels": [
+    112.0,
+    115.0,
+    120.0
+   ],
+   "top": 124.0
+  },
+  "roads": [
+   {
+    "id": "RD-W",
+    "kind": "perimeter road",
+    "x0": 3,
+    "y0": 22,
+    "x1": 9,
+    "y1": 147
+   },
+   {
+    "id": "RD-N",
+    "kind": "perimeter road",
+    "x0": 3,
+    "y0": 141,
+    "x1": 227,
+    "y1": 147
+   },
+   {
+    "id": "RD-E",
+    "kind": "perimeter road",
+    "x0": 221,
+    "y0": 3,
+    "x1": 227,
+    "y1": 147
+   },
+   {
+    "id": "RD-S",
+    "kind": "perimeter road",
+    "x0": 67,
+    "y0": 3,
+    "x1": 227,
+    "y1": 9
+   },
+   {
+    "id": "RD-SW",
+    "kind": "perimeter road (deviated north of SS-100/FAR-100)",
+    "x0": 3,
+    "y0": 22,
+    "x1": 73,
+    "y1": 28
+   },
+   {
+    "id": "RD-SC",
+    "kind": "perimeter road (connector)",
+    "x0": 67,
+    "y0": 3,
+    "x1": 73,
+    "y1": 28
+   },
+   {
+    "id": "RD-INT",
+    "kind": "internal fire/maintenance access road",
+    "x0": 137,
+    "y0": 9,
+    "x1": 143,
+    "y1": 66
+   }
+  ],
+  "buildings": [
+   {
+    "id": "SS-100",
+    "name": "Unit substation",
+    "x0": 10,
+    "y0": 5,
+    "x1": 40,
+    "y1": 20,
+    "height": 8.0,
+    "classification": "non-classified, pressurised"
+   },
+   {
+    "id": "FAR-100",
+    "name": "Field auxiliary room / satellite instrument house",
+    "x0": 45,
+    "y0": 5,
+    "x1": 65,
+    "y1": 17,
+    "height": 5.0,
+    "classification": "non-classified, pressurised, blast-assessed"
+   }
+  ],
+  "areas": [
+   {
+    "id": "BP-1",
+    "kind": "bundle pull / maintenance aisle",
+    "x0": 9,
+    "y0": 96.2,
+    "x1": 46,
+    "y1": 104.8,
+    "note": "shared pull aisle for preheat shells (bundle 7.5 m), opens to RD-W"
+   },
+   {
+    "id": "LD-1",
+    "kind": "laydown",
+    "x0": 12,
+    "y0": 116,
+    "x1": 44,
+    "y1": 138,
+    "note": "exchanger bundle laydown / cleaning"
+   },
+   {
+    "id": "CR-1",
+    "kind": "crane area",
+    "x0": 46,
+    "y0": 111,
+    "x1": 72,
+    "y1": 138,
+    "note": "C-105/C-106 erection & maintenance crane"
+   },
+   {
+    "id": "CR-2",
+    "kind": "crane area",
+    "x0": 84,
+    "y0": 106,
+    "x1": 112,
+    "y1": 138,
+    "note": "C-101 erection crane (main lift) + tailing crane"
+   },
+   {
+    "id": "LD-2",
+    "kind": "laydown",
+    "x0": 114,
+    "y0": 104,
+    "x1": 150,
+    "y1": 120,
+    "note": "column internals / trays laydown"
+   },
+   {
+    "id": "CR-3",
+    "kind": "crane area",
+    "x0": 158,
+    "y0": 110,
+    "x1": 188,
+    "y1": 138,
+    "note": "C-201 erection & packing replacement"
+   },
+   {
+    "id": "LD-3",
+    "kind": "laydown",
+    "x0": 205,
+    "y0": 116,
+    "x1": 219,
+    "y1": 138,
+    "note": "VDU / ejector maintenance laydown"
+   },
+   {
+    "id": "CR-4",
+    "kind": "crane area",
+    "x0": 86,
+    "y0": 45,
+    "x1": 110,
+    "y1": 62,
+    "note": "H-101 tube / burner maintenance (keep clear: no HC equipment)"
+   },
+   {
+    "id": "CR-5",
+    "kind": "crane area",
+    "x0": 164,
+    "y0": 45,
+    "x1": 180,
+    "y1": 62,
+    "note": "H-201 tube / burner maintenance"
+   },
+   {
+    "id": "LD-4",
+    "kind": "laydown",
+    "x0": 10,
+    "y0": 30,
+    "x1": 19,
+    "y1": 62,
+    "note": "desalter internals / grid laydown"
+   },
+   {
+    "id": "FU-1",
+    "kind": "future / construction laydown",
+    "x0": 186,
+    "y0": 14,
+    "x1": 218,
+    "y1": 64,
+    "note": "construction laydown, future"
+   }
+  ],
+  "escape_routes": [
+   {
+    "id": "ER-1",
+    "pts": [
+     [
+      9,
+      75
+     ],
+     [
+      221,
+      75
+     ]
+    ],
+    "note": "under-rack aisle (6 m clear)"
+   },
+   {
+    "id": "ER-2",
+    "pts": [
+     [
+      46,
+      100.5
+     ],
+     [
+      9,
+      100.5
+     ]
+    ],
+    "note": "exchanger aisle to RD-W"
+   },
+   {
+    "id": "ER-3",
+    "pts": [
+     [
+      47,
+      80
+     ],
+     [
+      47,
+      141
+     ]
+    ]
+   },
+   {
+    "id": "ER-4",
+    "pts": [
+     [
+      90.2,
+      80
+     ],
+     [
+      90.2,
+      106
+     ],
+     [
+      86,
+      141
+     ]
+    ]
+   },
+   {
+    "id": "ER-5",
+    "pts": [
+     [
+      122.75,
+      80
+     ],
+     [
+      122.75,
+      141
+     ]
+    ]
+   },
+   {
+    "id": "ER-6",
+    "pts": [
+     [
+      155,
+      80
+     ],
+     [
+      155,
+      141
+     ]
+    ]
+   },
+   {
+    "id": "ER-7",
+    "pts": [
+     [
+      214,
+      80
+     ],
+     [
+      214,
+      141
+     ]
+    ]
+   },
+   {
+    "id": "ER-8",
+    "pts": [
+     [
+      70,
+      70
+     ],
+     [
+      70,
+      28
+     ]
+    ]
+   },
+   {
+    "id": "ER-9",
+    "pts": [
+     [
+      9,
+      61.5
+     ],
+     [
+      66,
+      61.5
+     ],
+     [
+      70,
+      61.5
+     ]
+    ]
+   },
+   {
+    "id": "ER-10",
+    "pts": [
+     [
+      190,
+      70
+     ],
+     [
+      190,
+      9
+     ]
+    ]
+   },
+   {
+    "id": "ER-11",
+    "pts": [
+     [
+      155,
+      70
+     ],
+     [
+      155,
+      45
+     ],
+     [
+      143,
+      45
+     ]
+    ]
+   },
+   {
+    "id": "ER-12",
+    "pts": [
+     [
+      202,
+      103
+     ],
+     [
+      214,
+      103
+     ]
+    ]
+   }
+  ]
+ },
+ "spacing_checks": [
+  {
+   "rule": "Fired heater to HC process equipment",
+   "basis": "CCPS GAP 2.5.2 typ. 15 m (50 ft)",
+   "required_m": 15.0,
+   "item_a": "H-101",
+   "item_b": "A-101-B3",
+   "actual_m": 20.3,
+   "status": "OK",
+   "p": [
+    88.53,
+    48.7
+   ],
+   "q": [
+    88.53,
+    69.0
+   ]
+  },
+  {
+   "rule": "Fired heater to LPG / light-ends equipment",
+   "basis": "CCPS GAP 2.5.2 typ. 30 m (100 ft)",
+   "required_m": 30.0,
+   "item_a": "H-101",
+   "item_b": "A-106",
+   "actual_m": 33.8,
+   "status": "OK",
+   "p": [
+    87.05,
+    48.7
+   ],
+   "q": [
+    60.0,
+    69.0
+   ]
+  },
+  {
+   "rule": "Fired heater to main pipe rack",
+   "basis": "CCPS GAP 2.5.2 typ. 15 m",
+   "required_m": 15.0,
+   "item_a": "H-101",
+   "item_b": "PR-100 rack",
+   "actual_m": 21.3,
+   "status": "OK",
+   "p": [
+    98.0,
+    48.7
+   ],
+   "q": [
+    98.0,
+    70.0
+   ]
+  },
+  {
+   "rule": "Fired heater to HC pumps",
+   "basis": "CCPS GAP 2.5.2 typ. 15 m",
+   "required_m": 15.0,
+   "item_a": "H-101",
+   "item_b": "P-112A",
+   "actual_m": 32.3,
+   "status": "OK",
+   "p": [
+    92.0,
+    48.7
+   ],
+   "q": [
+    92.0,
+    81.0
+   ]
+  },
+  {
+   "rule": "Fired heater to unit flare KO drum",
+   "basis": "project typ. 30 m",
+   "required_m": 30.0,
+   "item_a": "H-101",
+   "item_b": "D-104",
+   "actual_m": 81.4,
+   "status": "OK",
+   "p": [
+    108.95,
+    48.7
+   ],
+   "q": [
+    131.22,
+    126.95
+   ]
+  },
+  {
+   "rule": "Fired heater to fuel-gas KO drum",
+   "basis": "project typ. 15 m",
+   "required_m": 15.0,
+   "item_a": "H-201",
+   "item_b": "D-103",
+   "actual_m": 16.6,
+   "status": "OK",
+   "p": [
+    161.05,
+    30.45
+   ],
+   "q": [
+    146.45,
+    22.45
+   ]
+  },
+  {
+   "rule": "Pump to vessel / column (edge-edge)",
+   "basis": "CCPS GAP 2.5.2 typ. 3 m",
+   "required_m": 3.0,
+   "item_a": "P-103A",
+   "item_b": "D-102",
+   "actual_m": 3.3,
+   "status": "OK",
+   "p": [
+    72.62,
+    85.0
+   ],
+   "q": [
+    72.62,
+    88.3
+   ]
+  },
+  {
+   "rule": "Column to column (shell-shell)",
+   "basis": "project typ. 3 m (access)",
+   "required_m": 3.0,
+   "item_a": "C-102",
+   "item_b": "C-103",
+   "actual_m": 4.2,
+   "status": "OK",
+   "p": [
+    107.35,
+    98.0
+   ],
+   "q": [
+    111.55,
+    98.0
+   ]
+  },
+  {
+   "rule": "Exchanger to exchanger (at grade)",
+   "basis": "project typ. 1.5 m (access)",
+   "required_m": 1.5,
+   "item_a": "E-115A",
+   "item_b": "E-115B",
+   "actual_m": 1.8,
+   "status": "OK",
+   "p": [
+    79.0,
+    96.1
+   ],
+   "q": [
+    79.0,
+    97.9
+   ]
+  },
+  {
+   "rule": "Substation / FAR to HC equipment",
+   "basis": "project typ. 15 m (API RP 752 siting study to confirm)",
+   "required_m": 15.0,
+   "item_a": "SS-100",
+   "item_b": "D-101B",
+   "actual_m": 20.1,
+   "status": "OK",
+   "p": [
+    30.02,
+    20
+   ],
+   "q": [
+    30.02,
+    40.1
+   ]
+  },
+  {
+   "rule": "Substation / FAR to fired heater",
+   "basis": "project typ. 15 m",
+   "required_m": 15.0,
+   "item_a": "FAR-100",
+   "item_b": "H-101",
+   "actual_m": 22.9,
+   "status": "OK",
+   "p": [
+    65,
+    17
+   ],
+   "q": [
+    87.05,
+    23.3
+   ]
+  },
+  {
+   "rule": "HC pumps not beneath air coolers (plan clearance)",
+   "basis": "CCPS GAP 2.5.2 / API 2510 practice",
+   "required_m": 0.5,
+   "item_a": "P-103A",
+   "item_b": "A-101-B1",
+   "actual_m": 1.0,
+   "status": "OK",
+   "p": [
+    72.55,
+    82.0
+   ],
+   "q": [
+    72.55,
+    81.0
+   ]
+  },
+  {
+   "rule": "Exchanger bundle-pull aisle clear width",
+   "basis": "bundle length + 1.5 m",
+   "required_m": 9.0,
+   "item_a": "BP-1",
+   "item_b": "E-1xx rows",
+   "actual_m": 9.5,
+   "status": "OK",
+   "p": [
+    30,
+    95.75
+   ],
+   "q": [
+    30,
+    105.25
+   ]
+  },
+  {
+   "rule": "Rack headroom over road crossing",
+   "basis": "project typ. >= 5.0 m (mobile crane not permitted)",
+   "required_m": 5.0,
+   "item_a": "PR-100 tier 1",
+   "item_b": "RD-W",
+   "actual_m": 5.35,
+   "status": "OK",
+   "p": [
+    6,
+    75
+   ],
+   "q": [
+    6,
+    75
+   ]
+  },
+  {
+   "rule": "Max travel from equipment to escape route / road",
+   "basis": "project typ. <= 30 m",
+   "required_m": 30.0,
+   "item_a": "H-101",
+   "item_b": "nearest ER/road",
+   "actual_m": 27.3,
+   "status": "OK",
+   "kind": "<=",
+   "p": null,
+   "q": null
+  }
+ ]
+}

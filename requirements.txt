@@ -1,0 +1,11 @@
+numpy
+scipy
+matplotlib
+openpyxl
+pandas
+svgwrite
+cairosvg
+trimesh
+ezdxf
+reportlab
+pypdf
