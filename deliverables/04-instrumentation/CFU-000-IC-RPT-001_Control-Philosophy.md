@@ -407,18 +407,18 @@ The ICS follows the Purdue / ISA-95 model with a process DMZ (CFU-000-IC-BLK-001
 
 | Controller | System | AI | AO | DI | DO | Used | Installed | Spare |
 |---|---|---|---|---|---|---|---|---|
-| CDU-1 | DCS | 66 | 31 | 34 | 35 | 166 | 256 | 54 % |
-| CDU-2 | DCS | 71 | 29 | 67 | 66 | 233 | 328 | 41 % |
-| VDU | DCS | 45 | 22 | 28 | 28 | 123 | 208 | 69 % |
+| CDU-1 | DCS | 72 | 31 | 35 | 35 | 173 | 256 | 48 % |
+| CDU-2 | DCS | 78 | 29 | 67 | 66 | 240 | 328 | 37 % |
+| VDU | DCS | 47 | 22 | 28 | 28 | 125 | 208 | 66 % |
 | SIS-1 | SIS | 6 | 0 | 15 | 16 | 37 | 80 | 116 % |
 | BMS-H101 | BMS | 33 | 0 | 24 | 4 | 61 | 96 | 57 % |
 | BMS-H201 | BMS | 15 | 0 | 12 | 3 | 30 | 80 | 167 % |
-| FGS-1 | F&G | 79 | 0 | 22 | 20 | 121 | 176 | 45 % |
-| TOTAL |  |  |  |  |  | 771 | 1224 | 59 % |
+| FGS-1 | F&G | 134 | 0 | 37 | 22 | 193 | 272 | 41 % |
+| TOTAL |  |  |  |  |  | 859 | 1320 | 54 % |
 
 
 
-Points by source: instrument index: 373; I&C addition (add to index): 17; equipment.json (MCC hardwired interface): 256; C&E CFU-000-IC-CE-001: 8; F&G allowance (mapping study): 117.
+Points by source: instrument index: 461; I&C addition (add to index): 17; equipment.json (MCC hardwired interface): 256; C&E CFU-000-IC-CE-001: 8; F&G allowance (mapping study): 117.
 
 ## 9.2 IEC 62443 zones and conduits
 

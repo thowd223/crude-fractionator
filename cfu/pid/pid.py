@@ -31,6 +31,101 @@ GEN_NOTES = [
 ]
 
 
+# Instruments required by the I&C control philosophy (cfu/ic) - services aligned with the I&C package
+IC_AN = {
+    "AT-1021": "Fuel gas Wobbe index / LHV analyser (calorimeter), FG header",
+    "AT-1038": "Unstabilised naphtha D86 end point / RVP (online analyser)",
+    "AT-1046": "Salt-in-crude analyser, desalted crude",
+    "AT-1047": "BS&W analyser (microwave water-cut), desalted crude",
+    "AT-1048": "Crude API / density, salt, BS&W at charge (crude-switch DV)",
+    "AT-1049": "Oil-in-water analyser, desalter brine",
+    "AT-1055": "Kerosene flash / freeze point (online analyser)",
+    "AT-1065": "Diesel D86 T95 / cloud point (online analyser)",
+    "AT-1075": "AGO D86 T95 / colour (online analyser)",
+    "AT-1099": "LPG C5+ (process GC)",
+    "AT-1108": "Light naphtha C6+ / RVP (process GC)",
+    "AT-1109": "Heavy naphtha IBP / C5- (process GC)",
+    "AT-2032": "Vacuum off-gas H2S analyser (D-202 outlet, H-201 firing / SO2)",
+    "FT-1021": "H-101 fuel gas flow (fuel/air cross-limiting)",
+    "FT-2006": "H-201 fuel gas flow (cross-limiting fuel measurement)",
+    "TT-9005": "Ambient air temperature (APC DV, air coolers)",
+    "XA-9101": "Analyser house AH-101 common trouble / HVAC alarm",
+}
+IC_RNG = {"AT-1021": ("40-55", "MJ/Sm3 (Wobbe)"), "AT-1038": ("100-250", "C (D86 EP)"), "AT-1046": ("0-50", "PTB"),
+          "AT-1047": ("0-2", "vol% BS&W"), "AT-1048": ("20-45", "API"), "AT-1049": ("0-500", "ppmw oil"),
+          "AT-1055": ("0-100", "C (flash)"), "AT-1065": ("250-400", "C (D86 T95)"), "AT-1075": ("300-450", "C (D86 T95)"),
+          "AT-1099": ("0-5", "LV% C5+"), "AT-1108": ("0-10", "LV% C6+"), "AT-1109": ("0-5", "LV% C5-"),
+          "AT-2032": ("0-10", "mol% H2S"), "TT-9005": ("-20-60", "C")}
+# DCS computing blocks used by the control schemes (cfu/ic/csd.py): tag -> (P&ID seq, function)
+IC_SOFT = {
+    "FY-1011A": (4, "Pass flow SP distribution (total / n passes)"), "FY-1011B": (4, "Pass bias summation (TDIC-1019)"),
+    "FY-1020A": (5, "COT demand feed-forward f(x) from charge"), "FY-1020B": (5, "Firing demand summation"),
+    "FY-1021A": (5, "Fuel SP low select (air available)"), "FY-1021C": (5, "Fuel heat release f(x) (Wobbe)"),
+    "FY-1025A": (5, "Air SP high select (fuel heat release)"), "FY-1025B": (5, "Air demand multiplier"),
+    "FY-1025C": (5, "Air/fuel ratio (O2 trim) divider"), "PY-1021A": (5, "Fuel heat demand to burner pressure f(x)"),
+    "PY-1021B": (5, "Minimum-fire high select"), "PY-1032": (9, "D-102 pressure split-range"),
+    "FFY-1054": (8, "C-102 steam / kero ratio"), "FFY-1064": (8, "C-103 steam / diesel ratio"),
+    "FFY-1074": (8, "C-104 steam / AGO ratio"), "FFY-1081": (6, "C-101 steam / AR ratio"),
+    "FFY-1094": (10, "C-105 reflux / feed (L/F) ratio"), "FY-2020": (13, "Wash-oil minimum f(charge) high select"),
+}
+
+
+def add_ic_soft():
+    for t, (sq, fn) in IC_SOFT.items():
+        REG.inst(t, dref(sq), kind="dcs", sys="DCS", svc=fn, note="DCS soft (computing block, not on P&ID)")
+
+
+def add_fg_devices():
+    """Basic F&G device set (index only; F&G layout drawing by others). Locations from data/layout.json."""
+    lay = json.loads((ROOT / "data" / "layout.json").read_text())
+    pos = {e["tag"]: (e["x"], e["y"]) for e in lay["equipment"]}
+
+    def loc(tag):
+        for k in (tag, tag + "A", tag.replace("A/B", "A"), tag.split("/")[0]):
+            if k in pos:
+                return pos[k]
+        return pos.get("D-104", (0, 0)) if tag.startswith("P-119") else (0.0, 0.0)
+
+    ctr = {"1": 1501, "2": 2501, "9": 9501}
+
+    def dev(letters, area, near, svc, dx=0.0, dy=-3.0):
+        n = ctr[area]
+        ctr[area] += 1
+        x, y = loc(near)
+        tag = f"{letters}-{n}"
+        REG.inst(tag, "F&G LAYOUT (BY OTHERS)", kind="field", sys="F&G", svc=svc,
+                 note=f"Loc. x={x + dx:.1f} m, y={y + dy:.1f} m (near {near})")
+        REG.inst_[tag]["sheets"] = ["F&G LAYOUT (BY OTHERS)"]
+
+    pumps = sorted({e["tag"][:5] for e in lay["equipment"] if e["tag"].startswith("P-")}) + ["P-119"]
+    for p in pumps:
+        a = p[2]
+        dev("GD", a if a in "12" else "1", p, f"Flammable gas detector (IR point), pump row {p}A/B")
+    for h in ("H-101", "H-201"):
+        a = h[2]
+        for i, (dx, txt) in enumerate(((-8, "FG train"), (8, "burner manifold"))):
+            dev("GD", a, h, f"Flammable gas detector (catalytic), {h} {txt}", dx=dx, dy=-12)
+    for t in ("C-105", "D-105", "C-106", "D-106", "E-116"):
+        dev("GD", "1", t, f"Flammable gas detector (IR point), LPG / light-ends area at {t}")
+    for i in range(2):
+        dev("GD", "1", "D-102", f"Flammable gas detector (IR point), D-102 overhead drum ({i + 1})", dx=-4 + 8 * i)
+    for t, a, n in (("D-102", "1", 2), ("P-105", "1", 1), ("D-201", "2", 2), ("D-202", "2", 1), ("P-205", "2", 1)):
+        for i in range(n):
+            dev("GD", a, t, f"H2S toxic gas detector (electrochemical), {t}" + (f" ({i + 1})" if n > 1 else ""),
+                dx=-4 + 8 * i)
+    for h, a, n in (("H-101", "1", 4), ("H-201", "2", 2)):
+        for i in range(n):
+            dev("BE", a, h, f"Flame detector (IR3), {h} burner front / FG train ({i + 1})", dx=-10 + 20 * (i % 2),
+                dy=-6 - 6 * (i // 2))
+    for p in ("P-112", "P-204", "P-108", "P-111", "P-202", "P-203", "P-110"):
+        dev("BE", p[2], p, f"Flame detector (IR3), hot pump {p}A/B")
+    for t, a, txt in (("D-101A", "1", "desalting"), ("E-106", "1", "preheat bank"), ("C-101", "1", "C-101 / OH"),
+                      ("H-101", "1", "H-101"), ("C-105", "1", "light ends"), ("P-112", "1", "CDU pump row"),
+                      ("C-201", "2", "VDU"), ("H-201", "2", "H-201"), ("D-201", "2", "ejector / hotwell"),
+                      ("D-104", "9", "flare KO / utilities"), ("D-103", "9", "fuel gas KO")):
+        dev("HS", a, t, f"Manual call point (MCP), {txt} area", dy=4.0)
+
+
 def dref(seq):
     return PD.dwg(seq)
 
@@ -231,6 +326,8 @@ def sheet_001():
     xd = 300 + 10                       # E-101 shell inlet x
     pts = [pp["dr"], (258, yd), (258, yh), (xd, yh), (xd, ye + 6)]
     C.line("p101_d", pts, lab=2, at=0.5, side=-1)
+    C.bub(272, 330, "AT-1048", "field", svc=IC_AN["AT-1048"], line='p101_d')
+    C.tap([(258, 330), (267.4, 330)])
     C.pipe([pp["dl"], pp["dr"]], arrow=False)
     # PSV-1010 on discharge header
     p = C_.PSV["PSV-1010"]
@@ -415,6 +512,10 @@ def sheet_002():
                       vsig=[(614.6, yc - 20), (672, yc - 20), (672, yc - 9.8)], fail="FO", line="crude_d2")
     C.t("FROM PDIC / D-101B", 0, 0, 0.1) if False else None
     ti(C, 582, yc + 22, [(582, yc), (582, yc + 17.4)], svc="Desalted crude temperature", line="crude_d2")
+    C.bub(597, yc + 22, "AT-1046", "field", svc=IC_AN["AT-1046"], line='crude_d2')
+    C.tap([(597, yc), (597, yc + 17.4)])
+    C.bub(611, yc + 22, "AT-1047", "field", svc=IC_AN["AT-1047"], line='crude_d2')
+    C.tap([(611, yc), (611, yc + 17.4)])
     # P-102 discharge
     yd = pp["dr"][1]
     C.line("p102_d", [pp["dr"], (795, yd)], lab=None, arrow=False)
@@ -486,6 +587,8 @@ def sheet_002():
     C.line("brine_3", [hx["cb"], (hx["cb"][0], 385), (50, 385)], lab=1, at=0.5)
     C.opc(50, 385, "l", "TO WWT", "OSBL", flow="out")
     ti(C, 260, 400, [(260, 385), (260, 395.4)], svc="Brine to WWT temperature", line="brine_3")
+    C.bub(225, 400, "AT-1049", "field", svc=IC_AN["AT-1049"], line='brine_3')
+    C.tap([(225, 385), (225, 395.4)])
     # wash water P-114 -> E-118 shell -> FV-1003 -> D-101B mix point
     wp = pump_pair(C, 110, 470, "P-114", "ww_s", "ww_d")
     C.opc(50, wp["s"][1], "l", "WASH WATER (SSW)", "OSBL")
@@ -537,7 +640,7 @@ def sheet_003():
     C.hop(info["E-110"]["h_out"][0], yh, "h")
     C.line("crude_h6", [out, (790, yh)], lab=0, at=0.55)
     C.opc(790, yh, "r", "TO H-101", dref(4))
-    ti(C, 760, yh - 20, [(760, yh), (760, yh - 15.4)], svc="CIT - crude to H-101", line="crude_h6")
+    REG.free("1")      # CIT indication is TI-1226 on H-101 inlet (PID-004); number kept unused
     ptag = free_tag(C, "PI")
     C.bub(740, yh - 20, ptag, "dcs", svc="Crude to H-101 pressure", line="crude_h6")
     C.tap([(740, yh), (740, yh - 15.4)])
@@ -801,7 +904,7 @@ def sheet_005():
                   tap=[(X1, 225), (655.4, 225)], vote="2oo3")
     C.t("TO SIF-105", 691, 232, 2.0)
     ti(C, 660, 105, [(600, 125), (650, 125), (650, 105), (655.4, 105)], svc="H-101 flue gas temperature (bridgewall)")
-    C.bub(560, 368, "BS-1028", "field", svc="H-101 flame scanners (1 per burner, 16 off)")
+    C.bub(560, 368, "BS-1028", "field", sys="BMS", svc="H-101 flame scanners (1 per burner, 16 off)")
     C.tap([(560, Y1 + 15), (560, 363.4)])
     C.bub(585, 368, "BZLL-1028", "sis", sys="SIS", sif="SIF-104", svc="Loss of flame (all burners)")
     C.sig([(564.6, 368), (580.4, 368)], "e")
@@ -810,7 +913,8 @@ def sheet_005():
     C.opc(790, 290, "r", "LP STEAM HEADER", dref(16), flow="in")
     C.line("ls_snuff_h101", [(790, 290), (700, 290), (700, 250), (X1, 250)], lab=0, at=0.5)
     C.pipe([(700, 290), (X1, 290)], util=True)
-    C.gate(760, 290, "h", note="SNUFFING")
+    C.xv(760, 290, "h", "HV-1290", "FC", tag_pos=(763, 284))
+    REG.inst("HV-1290", C.sid, sys="F&G", fail="FC", svc="H-101 snuffing steam valve (remote open from CCR / F&G)")
     C.t("SNUFFING STEAM (CELLS / HEADER BOXES)", 698, 246, 2.0, "end")
     # ---- fuel gas train
     yf = 430.0
@@ -832,7 +936,7 @@ def sheet_005():
     REG.inst(vtag, C.sid, sys="SIS", sif="SIF-101", fail="FO", svc="H-101 FG double block & bleed vent")
     C.t("TO FLARE", 108, yf + 25, 2.0, "end")
     for xx in (1021, 1022):
-        REG.inst(free_tag(C, "ZSC"), C.sid, sys="SIS", svc=f"Closed limit switch on XV-{xx}")
+        free_tag(C, "ZSC")   # limit switches are part of XV-1021/1022 (ZSO/ZSC in XV signal); number unused
     C.station(185, yf, 230, yf, "PV-1021", "FC", byp=1, tag_pos=(211, yf - 6))
     ctrl(C, "PIC-1021", 255, yf - 18, 230, yf - 30, tap=[(255, yf), (255, yf - 13.4)], line="fg_h101_b",
          sig=[(250.4, yf - 18), (240, yf - 18), (240, yf - 30), (234.6, yf - 30)],
@@ -840,6 +944,11 @@ def sheet_005():
     C.t("SP FROM TIC-1020", 225, yf - 40, 2.0, "end")
     C.t(f"({dref(4)})", 225, yf - 37.4, 2.0, "end")
     C.line("fg_h101_b", [(275, yf), (455, yf), (455, 360), (X1 - 4, 360)], lab=0, at=0.55, arrow=False)
+    C.orifice(385, yf, "h")
+    REG.inst("FE-1021", C.sid, svc="H-101 fuel gas flow element", line="fg_h101_b")
+    C.bub(385, yf - 16, "FT-1021", "field", svc=IC_AN["FT-1021"], line='fg_h101_b')
+    C.tap([(385, yf - 2.4), (385, yf - 11.4)])
+    C.t("TO FUEL/AIR CROSS-LIMIT", 391, yf - 15, 2.0)
     sis_initiator(C, ["PT-1027A", "PT-1027B", "PT-1027C"], 300, yf + 18, "PZLL-1027", "SIF-102", 325, yf + 18, 0, 0,
                   tap=[(300, yf), (300, yf + 13.4)], vote="2oo3")
     C.bub(350, yf + 18, "PZHH-1027", "sis", sys="SIS", sif="SIF-103", svc=C_.SIFS["SIF-103"]["function"])
@@ -1200,7 +1309,10 @@ def sheet_008():
         C.t(f"SP FROM LIC-{lp + 1}", x0 + 140, yr - 33, 2.0, "middle")
         ti(C, x0 + 170, yr + 14, [(x0 + 170, yr), (x0 + 170, yr + 9.4)], svc=f"{tag} product rundown temperature",
            line=rk)
-        C.t(f"STREAM {strm}", x0 + 194, yr + 9, 2.0, "middle")
+        C.t(f"STREAM {strm}", x0 + 194, yr + 22, 2.0, "middle")
+        an = {"16": "AT-1055", "17": "AT-1065", "18": "AT-1075"}[strm]
+        C.bub(x0 + 186, yr + 14, an, "field", svc=IC_AN[an], line=rk)
+        C.tap([(x0 + 176, yr), (x0 + 176, yr + 14), (x0 + 181.4, yr + 14)])
     return save(C)
 
 
@@ -1263,6 +1375,8 @@ def sheet_009():
     C.tap([(xr - 3, dy0 + 10), (xr + 10.4, dy0 + 10)])
     ctrl(C, "LIC-1033", xr + 15, dy0 + 10, xr + 40, dy0 + 10, line="naph_s")
     C.t("SP TO FIC-1034 (AVERAGING)", xr + 46, dy0 + 11, 2.0)
+    C.bub(560, 236, "AT-1038", "field", svc=IC_AN["AT-1038"], line="naph_s")
+    C.tap([(560, 250), (560, 240.6)])
     C.bub(xr + 40, dy0 + 32, "LAHH-1033", "dcs", svc="D-102 hydrocarbon level high-high alarm (DCS only)",
           line="naph_s")
     C.sig([(xr + 40, dy0 + 14.6), (xr + 40, dy0 + 26.6)], "d")
@@ -1404,6 +1518,8 @@ def sheet_010():
     C.line("lpg_prod", [(590, pp["dr"][1]), (790, pp["dr"][1])], lab=0, at=0.85)
     C.opc(790, pp["dr"][1], "r", "LPG TO TREATING", "OSBL")
     yl = pp["dr"][1]
+    C.bub(755, yl + 16, "AT-1099", "field", svc=IC_AN["AT-1099"], line='lpg_prod')
+    C.tap([(755, yl), (755, yl + 11.4)])
     C.orifice(620, yl, "h")
     REG.inst("FE-1093", C.sid, svc="LPG product flow element", line="lpg_prod")
     C.station(640, yl, 685, yl, "FV-1093", "FC", byp=1, tag_pos=(666, yl - 6))
@@ -1540,6 +1656,8 @@ def sheet_011():
     yl = pp["dr"][1]
     C.line("ln_prod", [(590, yl), (790, yl)], lab=0, at=0.85)
     C.opc(790, yl, "r", "LT. NAPHTHA TO ISOM", "OSBL")
+    C.bub(720, yl + 16, "AT-1108", "field", svc=IC_AN["AT-1108"], line='ln_prod')
+    C.tap([(720, yl), (720, yl + 11.4)])
     C.orifice(620, yl, "h")
     REG.inst("FE-1102", C.sid, svc="Light naphtha flow element", line="ln_prod")
     C.station(640, yl, 685, yl, "FV-1102", "FC", byp=1, tag_pos=(666, yl - 6))
@@ -1588,6 +1706,8 @@ def sheet_011():
     C.t(REG.no("hn_d"), 397, 500, 2.0, "end")
     C.line("hn_prod", [a2["o"], (600, 490)], lab=0, at=0.85)
     C.opc(600, 490, "r", "HVY NAPHTHA TO NHT", "OSBL")
+    C.bub(588, 506, "AT-1109", "field", svc=IC_AN["AT-1109"], line='hn_prod')
+    C.tap([(588, 490), (588, 501.4)])
     C.orifice(565, 490, "h")
     REG.inst("FE-1107", C.sid, svc="Heavy naphtha flow element", line="hn_prod")
     C.station(470, 490, 515, 490, "FV-1107", "FC", byp=1, tag_pos=(496, 484))
@@ -1704,6 +1824,10 @@ def sheet_012():
         REG.inst(t, C.sid, sys="SIS", sif="SIF-201", fail="FC", svc="H-201 fuel gas SSOV")
     REG.inst(vt, C.sid, sys="SIS", sif="SIF-201", fail="FO", svc="H-201 FG double block & bleed vent")
     C.line("fg_h201", [(50, yf), (420, yf), (420, 335), (X1 - 4, 335)], lab=0, at=0.55, arrow=False)
+    C.orifice(345, yf, "h")
+    REG.inst("FE-2006", C.sid, svc="H-201 fuel gas flow element", line="fg_h201")
+    C.bub(345, yf - 16, "FT-2006", "field", svc=IC_AN["FT-2006"], line='fg_h201')
+    C.tap([(345, yf - 2.4), (345, yf - 11.4)])
     ctrl(C, "PIC-2006", 260, yf - 18, 235, yf - 30, tap=[(260, yf), (260, yf - 13.4)], line="fg_h201",
          sig=[(255.4, yf - 18), (245, yf - 18), (245, yf - 30), (239.6, yf - 30)],
          vsig=[(230.4, yf - 30), (207.5, yf - 30), (207.5, yf - 10.8)], fail="FC")
@@ -1724,7 +1848,7 @@ def sheet_012():
     REG.inst(pcv, C.sid, svc="H-201 pilot gas self-acting regulator")
     C.t("MAIN GAS", X1 + 2, 336, 2.0)
     C.t("PILOT GAS", X1 + 2, 328, 2.0)
-    C.bub(500, 355, "BS-2008", "field", svc="H-201 flame scanners (1 per burner)")
+    C.bub(500, 355, "BS-2008", "field", sys="BMS", svc="H-201 flame scanners (1 per burner)")
     C.tap([(500, Y1), (500, 350.4)])
     C.bub(525, 355, "BZLL-2008", "sis", sys="SIS", sif="SIF-202", svc="H-201 flame failure")
     C.sig([(504.6, 355), (519.6, 355)], "e")
@@ -1739,7 +1863,8 @@ def sheet_012():
     # snuffing
     C.opc(790, 220, "r", "LP STEAM HEADER", dref(16), flow="in")
     C.line("ls_snuff_h201", [(790, 220), (X1, 220)], lab=0, at=0.35)
-    C.gate(700, 220, "h", note="SNUFFING")
+    C.xv(700, 220, "h", "HV-2190", "FC", tag_pos=(703, 214))
+    REG.inst("HV-2190", C.sid, sys="F&G", fail="FC", svc="H-201 snuffing steam valve (remote open from CCR / F&G)")
     # SIS block
     pos, h = sif_block(C, 40, 300, 150, ["SIF-201", "SIF-202"], title="H-201 BMS / SIS (SIL-RATED PLC)")
     yb = 300 + h
@@ -2096,6 +2221,8 @@ def sheet_015():
     C.line("204_v", [(548, 150), (dx - 10, 150)], lab=0, at=0.5)
     C.line("vog", [(dx, 106), (dx, 95), (790, 95)], lab=1, at=0.75)
     C.opc(790, 95, "r", "OFF-GAS TO H-201", dref(12))
+    C.bub(772, 112, "AT-2032", "field", svc=IC_AN["AT-2032"], line='vog')
+    C.tap([(772, 95), (772, 107.4)])
     C.station(705, 95, 750, 95, "PV-2031", "FO", byp=1, side=-1, tag_pos=(731, 89))
     ctrl(C, "PIC-2031", 712, 125, 735, 125, tap=[(dx + 10, 125), (707.4, 125)], line="vog",
          vsig=[(735, 120.4), (735, 112), (727.5, 112), (727.5, 101)], fail="FO")
@@ -2173,6 +2300,11 @@ def sheet_016():
     C.vdrum(220, 95, 22, 40)
     C.t("D-103", 233, 125, 2.6, "start", bold=True)
     C.line("fg_hdr", [(220, 86), (220, 70), (500, 70)], lab=1, at=0.35, arrow=False)
+    C.bub(270, 52, "AT-1021", "field", svc=IC_AN["AT-1021"], line='fg_hdr')
+    C.tap([(270, 70), (270, 56.6)])
+    C.bub(640, 165, "TT-9005", "field", svc=IC_AN["TT-9005"])
+    C.bub(665, 165, "XA-9101", "panel", svc=IC_AN["XA-9101"])
+    C.t("AMBIENT (AIR COOLERS) / ANALYSER HOUSE AH-101 ALARM", 640, 175, 2.0)
     for xb, t, sh in ((300, "H-101 MAIN + PILOTS", 5), (380, "H-201 MAIN + PILOTS", 12), (460, "D-102 MAKE-UP", 9)):
         C.dot(xb, 70)
         C.pipe([(xb, 70), (xb, 85)], util=True)
@@ -2240,7 +2372,10 @@ def sheet_016():
 
 # ============================================================================= SHEET 000 (legend)
 def sheet_000():
-    C = new_sheet(0, ["Legend applies to all P&IDs CFU-xxx-PR-PID-001 to -016."])
+    C = new_sheet(0, ["Legend applies to all P&IDs CFU-xxx-PR-PID-001 to -016.",
+                      "F&G devices (GD gas / H2S, BE flame, HS manual call points) are listed in instrument index "
+                      "CFU-000-IC-IDX-001; F&G layout drawing by others.",
+                      "DCS computing blocks (FY / PY / FFY) per control scheme drawings CFU-xxx-IC-CSD; listed in index."])
     t = C.t
     # column 1: lines & valves
     x, y = 25.0, 30.0
@@ -2430,7 +2565,7 @@ def inst_record(tag, d):
     letters, num = tag.split("-", 1)
     base = re.sub(r"[A-Z]$", "", num)
     loopnum = base.split("-")[0]
-    loop = None if letters in ("PSV", "TSV", "GD") else next((l for l in C_.LOOPS if l.split("-")[1] == loopnum), None)
+    loop = None if letters in ("PSV", "TSV", "GD", "BE") or d.get("sys") == "F&G" and letters == "HS" else next((l for l in C_.LOOPS if l.split("-")[1] == loopnum), None)
     kind = d["kind"]
     if not d.get("line") and loop and REG.inst_.get(loop, {}).get("line"):
         d = dict(d, line=REG.inst_[loop]["line"])
@@ -2445,15 +2580,17 @@ def inst_record(tag, d):
     # signal
     if letters in ("PSV", "TSV", "PCV", "LG", "FE", "ST") or (sys == "Local"):
         sig = "- (local / mechanical)"
-    elif letters in ("XV", "EIV"):
+    elif letters in ("UZ",) or d.get("note", "") and "DCS soft" in (d.get("note") or ""):
+        sig = "-" if letters == "UZ" else "Soft (DCS function block)"
+    elif letters in ("XV", "EIV", "HV"):
         sig = "DO 24 VDC (SOV) + 2 x DI (ZSO/ZSC)"
-    elif letters in ("HS", "BS", "ZSC", "ZSO", "BY"):
+    elif letters in ("HS", "BS", "ZSC", "ZSO", "BY", "XA"):
         sig = "DI 24 VDC"
     elif letters in ("XY", "LY"):
         sig = "DO 24 VDC (interposing relay)"
     elif letters in ("FY", "TY", "PY") or VALVE_LET.match(letters):
         sig = "4-20 mA HART AO (smart positioner)" if VALVE_LET.match(letters) else "4-20 mA AO"
-    elif letters == "GD":
+    elif letters in ("GD", "BE"):
         sig = "4-20 mA (F&G)"
     elif kind in ("dcs", "sis") and not letters.endswith("T") and letters not in ("TI", "PI", "PDI", "FI", "AI"):
         sig = "Soft (DCS function block)" if sys == "DCS" else "Soft (SIS logic)"
@@ -2466,7 +2603,7 @@ def inst_record(tag, d):
     ln = REG.lines.get(d.get("line")) if d.get("line") else None
     m = letters[0] if letters[:2] not in ("PD", "TD", "FF") else letters[:2]
     if VALVE_LET.match(letters) or letters in ("XV", "EIV", "HS", "XY", "LY", "FY", "TY", "PY", "ZSC", "BY",
-                                                 "PCV", "FE", "ST", "UZ"):
+                                                 "PCV", "FE", "ST", "UZ", "FFY", "HV"):
         pass
     elif letters in ("PSV", "TSV"):
         pv = C_.PSV.get(tag) or (C_.PSV.get("TSV-typ") if letters == "TSV" else None)
@@ -2501,15 +2638,22 @@ def inst_record(tag, d):
         if letters == "GD":
             rng, units = "0-100", "% LEL"
     elif letters == "GD":
-        rng, units = "0-100", "% LEL"
+        rng, units = ("0-50", "ppm H2S") if "H2S" in (d.get("svc") or "") else ("0-100", "% LEL")
+    elif letters == "BE":
+        rng, units = "Fire / no fire", "-"
+    elif letters == "XA":
+        rng, units = "Alarm", "-"
     elif m == "B":
         rng, units = "Flame ON/OFF", "-"
+    if tag in IC_RNG:
+        rng, units = IC_RNG[tag]
     sif = d.get("sif")
     svc = d.get("svc") or (C_.LOOPS[loop]["service"] if loop else "")
     return dict(tag=tag, type=PD.inst_type(tag), loop=loop or f"{letters}-{num}", service=svc,
                 pid_sheet=", ".join(d["sheets"]), system=sys, signal=sig, range=rng, units=units,
                 fail_position=d.get("fail") or "", sif=sif or "", sil_ref=C_.SIFS[sif]["sil"] if sif else "",
-                line_no=ln["line_no"] if ln else "", note=d.get("note") or "")
+                line_no=ln["line_no"] if ln else "", note=d.get("note") or "",
+                location=(d.get("note") or "")[5:] if (d.get("note") or "").startswith("Loc. ") else "")
 
 
 def checks():
@@ -2605,11 +2749,12 @@ def export():
     ws = wb.active
     ws.title = "Instrument Index"
     hd = ["Tag", "Type", "Loop", "Service", "P&ID", "System", "Signal", "Range", "Units", "Fail pos.", "SIF",
-          "SIL", "Line No.", "Note"]
+          "SIL", "Line No.", "Location (plot plan)", "Note"]
     rows = [[r["tag"], r["type"], r["loop"], r["service"], r["pid_sheet"], r["system"], r["signal"], r["range"],
-             r["units"], r["fail_position"], r["sif"], r["sil_ref"], r["line_no"], r["note"]] for r in recs]
+             r["units"], r["fail_position"], r["sif"], r["sil_ref"], r["line_no"], r["location"], r["note"]]
+            for r in recs]
     _xl_sheet(ws, "INSTRUMENT INDEX", "CFU-000-IC-IDX-001", hd, rows,
-              [13, 30, 11, 46, 20, 8, 30, 12, 9, 7, 8, 6, 24, 20])
+              [13, 30, 11, 46, 20, 8, 30, 12, 9, 7, 8, 6, 24, 34, 30])
     ws2 = wb.create_sheet("SIF List")
     srows = []
     for sf, d in C_.SIFS.items():
@@ -2682,6 +2827,8 @@ def build():
     for fn in SHEET_FUNCS:
         pdfs.append(fn())
     merge_pdfs(pdfs, OUT / "CFU-000-PR-PID-ALL.pdf")
+    add_ic_soft()
+    add_fg_devices()
     for m in checks():
         print("  P&ID CHECK:", m)
     lines, recs = export()

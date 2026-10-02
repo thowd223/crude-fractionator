@@ -1076,7 +1076,7 @@ FIRST = {"A": "Analysis", "B": "Burner / flame", "E": "Voltage", "F": "Flow", "H
          "W": "Weight", "X": "On/off (unclassified)", "Z": "Position"}
 TYPES = {
     "FT": "Flow transmitter", "FE": "Flow element (orifice)", "FIC": "Flow indicating controller", "FI": "Flow indicator",
-    "FV": "Flow control valve", "FFIC": "Flow ratio controller", "FFY": "Flow ratio relay", "FY": "Flow relay / stroke positioner",
+    "FV": "Flow control valve", "FFIC": "Flow ratio controller", "FFY": "Flow ratio relay", "FY": "Flow relay / computing block",
     "FZLL": "Flow low-low trip function (SIS)", "FO": "Restriction orifice", "FG": "Sight flow glass",
     "PT": "Pressure transmitter", "PI": "Pressure gauge", "PIC": "Pressure indicating controller",
     "PV": "Pressure control valve", "PCV": "Self-acting pressure regulator", "PDT": "Differential pressure transmitter",
@@ -1091,7 +1091,8 @@ TYPES = {
     "LSH": "Level switch high", "LAH": "Level alarm high",
     "AT": "Analyser transmitter", "AIC": "Analyser indicating controller", "AV": "Analyser control element (damper/vane)",
     "AI": "Analyser indicator", "BS": "Flame scanner", "BZLL": "Flame failure trip function (SIS)",
-    "XV": "On/off shutdown valve", "LAHH": "Level alarm high-high (DCS)", "TSV": "Thermal safety valve", "EIV": "Emergency isolation valve (ROSOV)", "HS": "Hand switch",
+    "XV": "On/off shutdown valve", "BE": "Flame detector (F&G)", "HV": "Hand-actuated (remote) on/off valve",
+    "XA": "Common alarm (analyser house)", "FFY": "Ratio computing block (DCS soft)", "LAHH": "Level alarm high-high (DCS)", "TSV": "Thermal safety valve", "EIV": "Emergency isolation valve (ROSOV)", "HS": "Hand switch",
     "XY": "Trip relay output", "ZSO": "Limit switch open", "ZSC": "Limit switch closed", "KV": "Damper actuator",
     "SC": "Speed controller (VSD)", "UZ": "Unit ESD logic (SIS)", "GD": "Gas detector", "AZ": "Analyser trip",
 }

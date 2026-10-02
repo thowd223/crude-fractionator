@@ -13,7 +13,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1001",
@@ -29,7 +30,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1001",
@@ -45,7 +47,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1001",
@@ -61,7 +64,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1001",
@@ -77,7 +81,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-1001",
@@ -93,7 +98,8 @@
   "sif": "SIF-108",
   "sil_ref": "SIL 1",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FFIC-1002",
@@ -109,11 +115,12 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FY-1002",
-  "type": "Flow relay / stroke positioner",
+  "type": "Flow relay / computing block",
   "loop": "FFIC-1002",
   "service": "Demulsifier pump stroke positioner",
   "pid_sheet": "CFU-100-PR-PID-001",
@@ -125,7 +132,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1002",
@@ -141,7 +149,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FFIC-1003",
@@ -157,7 +166,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-028-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1003",
@@ -173,7 +183,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-028-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1003",
@@ -189,7 +200,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-028-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1003",
@@ -205,7 +217,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1004",
@@ -221,7 +234,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1004",
@@ -237,7 +251,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1004",
@@ -253,7 +268,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TV-1004",
@@ -269,7 +285,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDIC-1005",
@@ -285,7 +302,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDT-1005",
@@ -301,7 +319,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDV-1005",
@@ -317,7 +336,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1005",
@@ -333,7 +353,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDIC-1006",
@@ -349,7 +370,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-021-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDT-1006",
@@ -365,7 +387,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-021-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDV-1006",
@@ -381,7 +404,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-021-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1006",
@@ -397,7 +421,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1007",
@@ -413,7 +438,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-030-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1007",
@@ -429,7 +455,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-030-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1007B",
@@ -445,7 +472,8 @@
   "sif": "SIF-107",
   "sil_ref": "SIL 1",
   "line_no": "3\"-WW-100-030-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-1007",
@@ -461,7 +489,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-030-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LZLL-1007",
@@ -477,7 +506,8 @@
   "sif": "SIF-107",
   "sil_ref": "SIL 1",
   "line_no": "3\"-WW-100-030-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1007",
@@ -493,7 +523,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XY-1007",
@@ -509,7 +540,8 @@
   "sif": "SIF-107",
   "sil_ref": "SIL 1",
   "line_no": "3\"-WW-100-030-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1008",
@@ -525,7 +557,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-029-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1008",
@@ -541,7 +574,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-029-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1008B",
@@ -557,7 +591,8 @@
   "sif": "SIF-107",
   "sil_ref": "SIL 1",
   "line_no": "3\"-WW-100-029-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-1008",
@@ -573,7 +608,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-029-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LZLL-1008",
@@ -589,7 +625,8 @@
   "sif": "SIF-107",
   "sil_ref": "SIL 1",
   "line_no": "3\"-WW-100-029-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1008",
@@ -605,7 +642,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XY-1008",
@@ -621,7 +659,8 @@
   "sif": "SIF-107",
   "sil_ref": "SIL 1",
   "line_no": "3\"-WW-100-029-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-1009",
@@ -637,7 +676,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-P-100-022-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1009",
@@ -653,7 +693,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1009",
@@ -669,7 +710,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-P-100-022-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1009",
@@ -685,7 +727,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-P-100-022-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FFIC-1010",
@@ -701,7 +744,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1010",
@@ -717,7 +761,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1011",
@@ -733,7 +778,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1011",
@@ -749,7 +795,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1011",
@@ -765,7 +812,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1011A",
@@ -781,7 +829,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1011B",
@@ -797,7 +846,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1011C",
@@ -813,7 +863,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1011",
@@ -829,7 +880,42 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FY-1011A",
+  "type": "Flow relay / computing block",
+  "loop": "FIC-1011",
+  "service": "Pass flow SP distribution (total / n passes)",
+  "pid_sheet": "CFU-100-PR-PID-004",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-P-100-059-B2-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
+ },
+ {
+  "tag": "FY-1011B",
+  "type": "Flow relay / computing block",
+  "loop": "FIC-1011",
+  "service": "Pass bias summation (TDIC-1019)",
+  "pid_sheet": "CFU-100-PR-PID-004",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-P-100-059-B2-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "FZLL-1011",
@@ -845,7 +931,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-059-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-1011",
@@ -861,7 +948,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1011",
@@ -877,7 +965,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-067-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1012",
@@ -893,7 +982,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1012",
@@ -909,7 +999,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1012",
@@ -925,7 +1016,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1012A",
@@ -941,7 +1033,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1012B",
@@ -957,7 +1050,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1012C",
@@ -973,7 +1067,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1012",
@@ -989,7 +1084,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1012",
@@ -1005,7 +1101,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-060-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1012",
@@ -1021,7 +1118,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-068-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1013",
@@ -1037,7 +1135,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1013",
@@ -1053,7 +1152,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1013",
@@ -1069,7 +1169,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1013A",
@@ -1085,7 +1186,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1013B",
@@ -1101,7 +1203,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1013C",
@@ -1117,7 +1220,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1013",
@@ -1133,7 +1237,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1013",
@@ -1149,7 +1254,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-061-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1013",
@@ -1165,7 +1271,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-069-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1014",
@@ -1181,7 +1288,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1014",
@@ -1197,7 +1305,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1014",
@@ -1213,7 +1322,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1014A",
@@ -1229,7 +1339,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1014B",
@@ -1245,7 +1356,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1014C",
@@ -1261,7 +1373,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1014",
@@ -1277,7 +1390,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1014",
@@ -1293,7 +1407,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-062-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1014",
@@ -1309,7 +1424,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-070-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1015",
@@ -1325,7 +1441,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1015",
@@ -1341,7 +1458,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1015",
@@ -1357,7 +1475,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1015A",
@@ -1373,7 +1492,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1015B",
@@ -1389,7 +1509,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1015C",
@@ -1405,7 +1526,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1015",
@@ -1421,7 +1543,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1015",
@@ -1437,7 +1560,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-063-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1015",
@@ -1453,7 +1577,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-071-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1016",
@@ -1469,7 +1594,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1016",
@@ -1485,7 +1611,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1016",
@@ -1501,7 +1628,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1016A",
@@ -1517,7 +1645,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1016B",
@@ -1533,7 +1662,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1016C",
@@ -1549,7 +1679,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1016",
@@ -1565,7 +1696,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1016",
@@ -1581,7 +1713,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-064-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1016",
@@ -1597,7 +1730,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-072-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1017",
@@ -1613,7 +1747,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1017",
@@ -1629,7 +1764,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1017",
@@ -1645,7 +1781,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1017A",
@@ -1661,7 +1798,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1017B",
@@ -1677,7 +1815,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1017C",
@@ -1693,7 +1832,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1017",
@@ -1709,7 +1849,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1017",
@@ -1725,7 +1866,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-065-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1017",
@@ -1741,7 +1883,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-073-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1018",
@@ -1757,7 +1900,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1018",
@@ -1773,7 +1917,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1018",
@@ -1789,7 +1934,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1018A",
@@ -1805,7 +1951,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1018B",
@@ -1821,7 +1968,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1018C",
@@ -1837,7 +1985,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1018",
@@ -1853,7 +2002,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-1018",
@@ -1869,7 +2019,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-100-066-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1018",
@@ -1885,7 +2036,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-074-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TDIC-1019",
@@ -1901,7 +2053,42 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FY-1020A",
+  "type": "Flow relay / computing block",
+  "loop": "TIC-1020",
+  "service": "COT demand feed-forward f(x) from charge",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "28\"-P-100-075-B3-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
+ },
+ {
+  "tag": "FY-1020B",
+  "type": "Flow relay / computing block",
+  "loop": "TIC-1020",
+  "service": "Firing demand summation",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "28\"-P-100-075-B3-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "TIC-1020",
@@ -1917,7 +2104,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1020",
@@ -1933,7 +2121,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1020A",
@@ -1949,7 +2138,8 @@
   "sif": "SIF-106",
   "sil_ref": "SIL 1",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1020B",
@@ -1965,7 +2155,8 @@
   "sif": "SIF-106",
   "sil_ref": "SIL 1",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1020C",
@@ -1981,7 +2172,8 @@
   "sif": "SIF-106",
   "sil_ref": "SIL 1",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TZHH-1020",
@@ -1997,7 +2189,93 @@
   "sif": "SIF-106",
   "sil_ref": "SIL 1",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1021",
+  "type": "Analyser transmitter",
+  "loop": "PIC-1021",
+  "service": "Fuel gas Wobbe index / LHV analyser (calorimeter), FG header",
+  "pid_sheet": "CFU-900-PR-PID-016",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "40-55",
+  "units": "MJ/Sm3 (Wobbe)",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "8\"-FG-900-002-A1-N",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FE-1021",
+  "type": "Flow element (orifice)",
+  "loop": "PIC-1021",
+  "service": "H-101 fuel gas flow element",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "Local",
+  "signal": "- (local / mechanical)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-FG-100-080-A1-N",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FT-1021",
+  "type": "Flow transmitter",
+  "loop": "PIC-1021",
+  "service": "H-101 fuel gas flow (fuel/air cross-limiting)",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-8000",
+  "units": "kg/h",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-FG-100-080-A1-N",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FY-1021A",
+  "type": "Flow relay / computing block",
+  "loop": "PIC-1021",
+  "service": "Fuel SP low select (air available)",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-FG-100-080-A1-N",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
+ },
+ {
+  "tag": "FY-1021C",
+  "type": "Flow relay / computing block",
+  "loop": "PIC-1021",
+  "service": "Fuel heat release f(x) (Wobbe)",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-FG-100-080-A1-N",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "PIC-1021",
@@ -2013,7 +2291,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-FG-100-080-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1021",
@@ -2029,7 +2308,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-FG-100-080-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1021",
@@ -2045,7 +2325,42 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-FG-100-080-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "PY-1021A",
+  "type": "Pressure relay / VSD signal",
+  "loop": "PIC-1021",
+  "service": "Fuel heat demand to burner pressure f(x)",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-FG-100-080-A1-N",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
+ },
+ {
+  "tag": "PY-1021B",
+  "type": "Pressure relay / VSD signal",
+  "loop": "PIC-1021",
+  "service": "Minimum-fire high select",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-FG-100-080-A1-N",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "XV-1021",
@@ -2061,7 +2376,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "10\"-FG-100-080-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AIC-1022",
@@ -2077,7 +2393,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AT-1022",
@@ -2093,7 +2410,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-1022",
@@ -2109,7 +2427,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-1023",
@@ -2125,7 +2444,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1023",
@@ -2141,7 +2461,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1023",
@@ -2157,7 +2478,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PY-1023",
@@ -2173,7 +2495,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1024",
@@ -2189,7 +2512,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-LS-100-077-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1024",
@@ -2205,7 +2529,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-LS-100-077-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TV-1024",
@@ -2221,7 +2546,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-LS-100-077-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1025",
@@ -2237,7 +2563,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1025",
@@ -2253,7 +2580,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1025",
@@ -2269,7 +2597,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1025",
@@ -2285,7 +2614,59 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FY-1025A",
+  "type": "Flow relay / computing block",
+  "loop": "FIC-1025",
+  "service": "Air SP high select (fuel heat release)",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
+ },
+ {
+  "tag": "FY-1025B",
+  "type": "Flow relay / computing block",
+  "loop": "FIC-1025",
+  "service": "Air demand multiplier",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
+ },
+ {
+  "tag": "FY-1025C",
+  "type": "Flow relay / computing block",
+  "loop": "FIC-1025",
+  "service": "Air/fuel ratio (O2 trim) divider",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "XV-1026",
@@ -2301,7 +2682,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1027A",
@@ -2317,7 +2699,8 @@
   "sif": "SIF-102",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1027B",
@@ -2333,7 +2716,8 @@
   "sif": "SIF-102",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1027C",
@@ -2349,7 +2733,8 @@
   "sif": "SIF-102",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PZHH-1027",
@@ -2365,7 +2750,8 @@
   "sif": "SIF-103",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PZLL-1027",
@@ -2381,7 +2767,8 @@
   "sif": "SIF-102",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "BS-1028",
@@ -2389,7 +2776,7 @@
   "loop": "BS-1028",
   "service": "H-101 flame scanners (1 per burner, 16 off)",
   "pid_sheet": "CFU-100-PR-PID-005",
-  "system": "DCS",
+  "system": "BMS",
   "signal": "DI 24 VDC",
   "range": "Flame ON/OFF",
   "units": "-",
@@ -2397,7 +2784,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "BZLL-1028",
@@ -2413,7 +2801,8 @@
   "sif": "SIF-104",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1029A",
@@ -2429,7 +2818,8 @@
   "sif": "SIF-105",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1029B",
@@ -2445,7 +2835,8 @@
   "sif": "SIF-105",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1029C",
@@ -2461,7 +2852,8 @@
   "sif": "SIF-105",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PZHH-1029",
@@ -2477,7 +2869,8 @@
   "sif": "SIF-105",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1030",
@@ -2493,7 +2886,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "36\"-PG-100-107-A2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1030",
@@ -2509,7 +2903,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "36\"-PG-100-107-A2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1031",
@@ -2525,7 +2920,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-111-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1031",
@@ -2541,7 +2937,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-111-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1031",
@@ -2557,7 +2954,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-111-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1031",
@@ -2573,7 +2971,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-111-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-1032",
@@ -2589,7 +2988,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-PG-100-116-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1032",
@@ -2605,7 +3005,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-PG-100-116-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1032A",
@@ -2621,7 +3022,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-PG-100-116-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "PY-1032",
+  "type": "Pressure relay / VSD signal",
+  "loop": "PIC-1032",
+  "service": "D-102 pressure split-range",
+  "pid_sheet": "CFU-100-PR-PID-009",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-PG-100-116-A2-N",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "LAHH-1033",
@@ -2637,7 +3056,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-112-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1033",
@@ -2653,7 +3073,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-112-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1033",
@@ -2669,7 +3090,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-112-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1034",
@@ -2685,7 +3107,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-113-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1034",
@@ -2701,7 +3124,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-113-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1034",
@@ -2717,7 +3141,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-113-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1034",
@@ -2733,7 +3158,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-113-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1035",
@@ -2749,7 +3175,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-100-115-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1035",
@@ -2765,7 +3192,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-100-115-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-1035",
@@ -2781,7 +3209,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-100-115-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FFIC-1036",
@@ -2797,7 +3226,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AIC-1037",
@@ -2813,7 +3243,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AT-1037",
@@ -2829,7 +3260,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1038",
+  "type": "Analyser transmitter",
+  "loop": "AT-1038",
+  "service": "Unstabilised naphtha D86 end point / RVP (online analyser)",
+  "pid_sheet": "CFU-100-PR-PID-009",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "100-250",
+  "units": "C (D86 EP)",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-P-100-112-A2-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1040",
@@ -2845,7 +3294,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-014-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1040",
@@ -2861,7 +3311,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-014-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1040",
@@ -2877,7 +3328,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-014-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1040",
@@ -2893,7 +3345,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-014-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1041",
@@ -2909,7 +3362,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-015-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1041",
@@ -2925,7 +3379,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-015-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TV-1041",
@@ -2941,7 +3396,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-015-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1042",
@@ -2957,7 +3413,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-044-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1042",
@@ -2973,7 +3430,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-044-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1042",
@@ -2989,7 +3447,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-044-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1042",
@@ -3005,7 +3464,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-044-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1043",
@@ -3021,7 +3481,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-045-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1043",
@@ -3037,7 +3498,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-045-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TV-1043",
@@ -3053,7 +3515,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-045-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1044",
@@ -3069,7 +3532,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-051-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1044",
@@ -3085,7 +3549,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-051-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1044",
@@ -3101,7 +3566,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-051-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1044",
@@ -3117,7 +3583,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-051-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1045",
@@ -3133,7 +3600,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-053-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1045",
@@ -3149,7 +3617,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-053-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TV-1045",
@@ -3165,7 +3634,76 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-053-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1046",
+  "type": "Analyser transmitter",
+  "loop": "AT-1046",
+  "service": "Salt-in-crude analyser, desalted crude",
+  "pid_sheet": "CFU-100-PR-PID-002",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-50",
+  "units": "PTB",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "20\"-P-100-022-B1-H",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1047",
+  "type": "Analyser transmitter",
+  "loop": "AT-1047",
+  "service": "BS&W analyser (microwave water-cut), desalted crude",
+  "pid_sheet": "CFU-100-PR-PID-002",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-2",
+  "units": "vol% BS&W",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "20\"-P-100-022-B1-H",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1048",
+  "type": "Analyser transmitter",
+  "loop": "AT-1048",
+  "service": "Crude API / density, salt, BS&W at charge (crude-switch DV)",
+  "pid_sheet": "CFU-100-PR-PID-001",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "20-45",
+  "units": "API",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "12\"-P-100-002-B1-N",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1049",
+  "type": "Analyser transmitter",
+  "loop": "AT-1049",
+  "service": "Oil-in-water analyser, desalter brine",
+  "pid_sheet": "CFU-100-PR-PID-002",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-500",
+  "units": "ppmw oil",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "3\"-WW-100-032-A3-P",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1050",
@@ -3181,7 +3719,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-092-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1050",
@@ -3197,7 +3736,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-092-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1050",
@@ -3213,7 +3753,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-092-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1050",
@@ -3229,7 +3770,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-092-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1051",
@@ -3245,7 +3787,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-097-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1051",
@@ -3261,7 +3804,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-097-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1052",
@@ -3277,7 +3821,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-103-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1052",
@@ -3293,7 +3838,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-103-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1052",
@@ -3309,7 +3855,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-103-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1052",
@@ -3325,7 +3872,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-103-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1054",
@@ -3341,7 +3889,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-098-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FFY-1054",
+  "type": "Ratio computing block (DCS soft)",
+  "loop": "FIC-1054",
+  "service": "C-102 steam / kero ratio",
+  "pid_sheet": "CFU-100-PR-PID-008",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-LS-100-098-S1-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "FIC-1054",
@@ -3357,7 +3923,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-098-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1054",
@@ -3373,7 +3940,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-098-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1054",
@@ -3389,7 +3957,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-098-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1055",
+  "type": "Analyser transmitter",
+  "loop": "AT-1055",
+  "service": "Kerosene flash / freeze point (online analyser)",
+  "pid_sheet": "CFU-100-PR-PID-008",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-100",
+  "units": "C (flash)",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-P-100-103-A1-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1060",
@@ -3405,7 +3991,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-093-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1060",
@@ -3421,7 +4008,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-093-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1060",
@@ -3437,7 +4025,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-093-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1060",
@@ -3453,7 +4042,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-093-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1061",
@@ -3469,7 +4059,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-099-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1061",
@@ -3485,7 +4076,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-099-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1062",
@@ -3501,7 +4093,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-104-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1062",
@@ -3517,7 +4110,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-104-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1062",
@@ -3533,7 +4127,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-104-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1062",
@@ -3549,7 +4144,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-104-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1064",
@@ -3565,7 +4161,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-100-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FFY-1064",
+  "type": "Ratio computing block (DCS soft)",
+  "loop": "FIC-1064",
+  "service": "C-103 steam / diesel ratio",
+  "pid_sheet": "CFU-100-PR-PID-008",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-LS-100-100-S1-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "FIC-1064",
@@ -3581,7 +4195,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-100-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1064",
@@ -3597,7 +4212,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-100-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1064",
@@ -3613,7 +4229,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-LS-100-100-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1065",
+  "type": "Analyser transmitter",
+  "loop": "AT-1065",
+  "service": "Diesel D86 T95 / cloud point (online analyser)",
+  "pid_sheet": "CFU-100-PR-PID-008",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "250-400",
+  "units": "C (D86 T95)",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-P-100-104-A1-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1070",
@@ -3629,7 +4263,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-089-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1070",
@@ -3645,7 +4280,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-089-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1070",
@@ -3661,7 +4297,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-089-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1070",
@@ -3677,7 +4314,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-089-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1071",
@@ -3693,7 +4331,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-101-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1071",
@@ -3709,7 +4348,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-101-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1072",
@@ -3725,7 +4365,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-105-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1072",
@@ -3741,7 +4382,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-105-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1072",
@@ -3757,7 +4399,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-105-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1072",
@@ -3773,7 +4416,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-105-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1074",
@@ -3789,7 +4433,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-LS-100-102-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FFY-1074",
+  "type": "Ratio computing block (DCS soft)",
+  "loop": "FIC-1074",
+  "service": "C-104 steam / AGO ratio",
+  "pid_sheet": "CFU-100-PR-PID-008",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "4\"-LS-100-102-S1-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "FIC-1074",
@@ -3805,7 +4467,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-LS-100-102-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1074",
@@ -3821,7 +4484,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-LS-100-102-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1074",
@@ -3837,7 +4501,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-LS-100-102-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1075",
+  "type": "Analyser transmitter",
+  "loop": "AT-1075",
+  "service": "AGO D86 T95 / colour (online analyser)",
+  "pid_sheet": "CFU-100-PR-PID-008",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "300-450",
+  "units": "C (D86 T95)",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "4\"-P-100-105-B1-ST",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1080",
@@ -3853,7 +4535,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-090-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FI-1080",
@@ -3869,7 +4552,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1080",
@@ -3885,7 +4569,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-090-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1081",
@@ -3901,7 +4586,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-100-087-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FFY-1081",
+  "type": "Ratio computing block (DCS soft)",
+  "loop": "FIC-1081",
+  "service": "C-101 steam / AR ratio",
+  "pid_sheet": "CFU-100-PR-PID-006",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "10\"-LS-100-087-S1-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "FIC-1081",
@@ -3917,7 +4620,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-100-087-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1081",
@@ -3933,7 +4637,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-100-087-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1081",
@@ -3949,7 +4654,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-100-087-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1082",
@@ -3965,7 +4671,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-084-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1082",
@@ -3981,7 +4688,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-084-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1082B",
@@ -3997,7 +4705,8 @@
   "sif": "SIF-108",
   "sil_ref": "SIL 1",
   "line_no": "14\"-P-100-084-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LZHH-1082",
@@ -4013,7 +4722,8 @@
   "sif": "SIF-108",
   "sil_ref": "SIL 1",
   "line_no": "14\"-P-100-084-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1083",
@@ -4029,7 +4739,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1083",
@@ -4045,7 +4756,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1083",
@@ -4061,7 +4773,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1083",
@@ -4077,7 +4790,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-1083",
@@ -4093,7 +4807,8 @@
   "sif": "SIF-203",
   "sil_ref": "SIL 1",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1090",
@@ -4109,7 +4824,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-1091",
@@ -4125,7 +4841,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-PG-100-123-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1091",
@@ -4141,7 +4858,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-PG-100-123-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1091B",
@@ -4157,7 +4875,8 @@
   "sif": "SIF-110",
   "sil_ref": "SIL 1",
   "line_no": "6\"-PG-100-123-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1091",
@@ -4173,7 +4892,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-PG-100-123-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PZHH-1091",
@@ -4189,7 +4909,8 @@
   "sif": "SIF-110",
   "sil_ref": "SIL 1",
   "line_no": "6\"-PG-100-123-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1092",
@@ -4205,7 +4926,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-126-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1092",
@@ -4221,7 +4943,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-126-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1092B",
@@ -4237,7 +4960,8 @@
   "sif": "SIF-109",
   "sil_ref": "SIL 1",
   "line_no": "6\"-P-100-126-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LZLL-1092",
@@ -4253,7 +4977,8 @@
   "sif": "SIF-109",
   "sil_ref": "SIL 1",
   "line_no": "6\"-P-100-126-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1093",
@@ -4269,7 +4994,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-100-128-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1093",
@@ -4285,7 +5011,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-100-128-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1093",
@@ -4301,7 +5028,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-100-128-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1093",
@@ -4317,7 +5045,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-100-128-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-1093",
@@ -4333,7 +5062,8 @@
   "sif": "SIF-109",
   "sil_ref": "SIL 1",
   "line_no": "2\"-P-100-128-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1094",
@@ -4349,7 +5079,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-127-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FFY-1094",
+  "type": "Ratio computing block (DCS soft)",
+  "loop": "FIC-1094",
+  "service": "C-105 reflux / feed (L/F) ratio",
+  "pid_sheet": "CFU-100-PR-PID-010",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "3\"-P-100-127-C1-N",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "FIC-1094",
@@ -4365,7 +5113,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-127-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1094",
@@ -4381,7 +5130,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-127-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1094",
@@ -4397,7 +5147,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-127-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1095",
@@ -4413,7 +5164,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-133-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1095",
@@ -4429,7 +5181,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-133-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1096",
@@ -4445,7 +5198,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-HS-100-135-S2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1096",
@@ -4461,7 +5215,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-HS-100-135-S2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1096",
@@ -4477,7 +5232,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-HS-100-135-S2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1096",
@@ -4493,7 +5249,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-HS-100-135-S2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-1096",
@@ -4509,7 +5266,8 @@
   "sif": "SIF-110",
   "sil_ref": "SIL 1",
   "line_no": "6\"-HS-100-135-S2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1097",
@@ -4525,7 +5283,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-134-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1097",
@@ -4541,7 +5300,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-134-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-1097",
@@ -4557,7 +5317,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-134-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1098",
@@ -4573,7 +5334,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-CD-100-137-S1-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1098",
@@ -4589,7 +5351,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-CD-100-137-S1-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-1098",
@@ -4605,7 +5368,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-CD-100-137-S1-P",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1099",
+  "type": "Analyser transmitter",
+  "loop": "AT-1099",
+  "service": "LPG C5+ (process GC)",
+  "pid_sheet": "CFU-100-PR-PID-010",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-5",
+  "units": "LV% C5+",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "2\"-P-100-128-C1-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-1100",
@@ -4621,7 +5402,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-PG-100-141-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1100",
@@ -4637,7 +5419,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-PG-100-141-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1100",
@@ -4653,7 +5436,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-PG-100-141-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1101",
@@ -4669,7 +5453,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-144-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1101",
@@ -4685,7 +5470,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-144-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1102",
@@ -4701,7 +5487,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-146-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1102",
@@ -4717,7 +5504,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-146-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1102",
@@ -4733,7 +5521,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-146-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1102",
@@ -4749,7 +5538,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-146-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1103",
@@ -4765,7 +5555,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-145-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1103",
@@ -4781,7 +5572,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-145-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1103",
@@ -4797,7 +5589,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-145-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1103",
@@ -4813,7 +5606,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-145-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-1104",
@@ -4829,7 +5623,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-P-100-148-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-1104",
@@ -4845,7 +5640,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-P-100-148-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1105",
@@ -4861,7 +5657,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-MS-100-152-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1105",
@@ -4877,7 +5674,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-MS-100-152-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1105",
@@ -4893,7 +5691,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-MS-100-152-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1105",
@@ -4909,7 +5708,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-MS-100-152-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1106",
@@ -4925,7 +5725,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-149-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1106",
@@ -4941,7 +5742,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-149-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-1107",
@@ -4957,7 +5759,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-151-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-1107",
@@ -4973,7 +5776,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-151-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-1107",
@@ -4989,7 +5793,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-151-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-1107",
@@ -5005,7 +5810,42 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-151-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1108",
+  "type": "Analyser transmitter",
+  "loop": "AT-1108",
+  "service": "Light naphtha C6+ / RVP (process GC)",
+  "pid_sheet": "CFU-100-PR-PID-011",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-10",
+  "units": "LV% C6+",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "3\"-P-100-146-A1-N",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-1109",
+  "type": "Analyser transmitter",
+  "loop": "AT-1109",
+  "service": "Heavy naphtha IBP / C5- (process GC)",
+  "pid_sheet": "CFU-100-PR-PID-011",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-5",
+  "units": "LV% C5-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "6\"-P-100-151-A1-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-1110",
@@ -5021,7 +5861,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BFW-100-055-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-1110",
@@ -5037,7 +5878,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BFW-100-055-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-1110",
@@ -5053,7 +5895,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BFW-100-055-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-1111",
@@ -5069,7 +5912,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-MS-100-056-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1111",
@@ -5085,7 +5929,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-MS-100-056-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-1111",
@@ -5101,7 +5946,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-MS-100-056-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "BY-1121",
@@ -5117,7 +5963,8 @@
   "sif": "SIF-204",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "EIV-1121",
@@ -5133,7 +5980,8 @@
   "sif": "SIF-204",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "HS-1121",
@@ -5149,7 +5997,8 @@
   "sif": "SIF-204",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1200",
@@ -5165,7 +6014,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1201",
@@ -5181,7 +6031,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-002-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1202",
@@ -5197,7 +6048,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-005-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1203",
@@ -5213,7 +6065,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-006-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1204",
@@ -5229,7 +6082,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-007-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1205",
@@ -5245,7 +6099,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-008-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1206",
@@ -5261,7 +6116,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-009-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1207",
@@ -5277,7 +6133,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-023-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1208",
@@ -5293,7 +6150,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-023-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1209",
@@ -5309,7 +6167,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "20\"-P-100-022-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1210",
@@ -5325,7 +6184,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1211",
@@ -5341,7 +6201,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1212",
@@ -5357,7 +6218,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-032-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1213",
@@ -5373,7 +6235,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-027-A3-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1214",
@@ -5389,7 +6252,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-027-A3-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1215",
@@ -5405,7 +6269,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-028-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1216",
@@ -5421,7 +6286,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-WW-100-034-A3-P",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1217",
@@ -5437,7 +6303,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-037-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1218",
@@ -5453,7 +6320,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-038-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1219",
@@ -5469,7 +6337,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-039-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1220",
@@ -5485,7 +6354,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-040-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1221",
@@ -5501,7 +6371,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-041-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1222",
@@ -5517,23 +6388,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "18\"-P-100-042-B2-H",
-  "note": ""
- },
- {
-  "tag": "TI-1223",
-  "type": "Temperature indicator",
-  "loop": "TI-1223",
-  "service": "CIT - crude to H-101",
-  "pid_sheet": "CFU-100-PR-PID-003",
-  "system": "DCS",
-  "signal": "4-20 mA HART",
-  "range": "0-400",
-  "units": "C",
-  "fail_position": "",
-  "sif": "",
-  "sil_ref": "",
-  "line_no": "18\"-P-100-042-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1224",
@@ -5549,7 +6405,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "18\"-P-100-042-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LG-1225",
@@ -5565,7 +6422,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1226",
@@ -5581,7 +6439,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "18\"-P-100-042-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1227",
@@ -5597,7 +6456,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-LS-100-077-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1228",
@@ -5613,7 +6473,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1229",
@@ -5629,7 +6490,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-FG-100-079-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-1230",
@@ -5645,39 +6507,8 @@
   "sif": "SIF-101",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
- },
- {
-  "tag": "ZSC-1231",
-  "type": "Limit switch closed",
-  "loop": "ZSC-1231",
-  "service": "Closed limit switch on XV-1021",
-  "pid_sheet": "CFU-100-PR-PID-005",
-  "system": "SIS",
-  "signal": "DI 24 VDC",
-  "range": "",
-  "units": "",
-  "fail_position": "",
-  "sif": "",
-  "sil_ref": "",
-  "line_no": "",
-  "note": ""
- },
- {
-  "tag": "ZSC-1232",
-  "type": "Limit switch closed",
-  "loop": "ZSC-1232",
-  "service": "Closed limit switch on XV-1022",
-  "pid_sheet": "CFU-100-PR-PID-005",
-  "system": "SIS",
-  "signal": "DI 24 VDC",
-  "range": "",
-  "units": "",
-  "fail_position": "",
-  "sif": "",
-  "sil_ref": "",
-  "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PCV-1233",
@@ -5693,7 +6524,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1234",
@@ -5709,7 +6541,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "28\"-P-100-075-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1235",
@@ -5725,7 +6558,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-089-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1236",
@@ -5741,7 +6575,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDI-1237",
@@ -5757,7 +6592,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1238",
@@ -5773,7 +6609,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1239",
@@ -5789,7 +6626,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1240",
@@ -5805,7 +6643,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-085-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LG-1241",
@@ -5821,7 +6660,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1242",
@@ -5837,7 +6677,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-084-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-1243",
@@ -5853,7 +6694,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1244",
@@ -5869,7 +6711,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-092-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1245",
@@ -5885,7 +6728,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-093-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1246",
@@ -5901,7 +6745,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-014-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1247",
@@ -5917,7 +6762,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-014-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1248",
@@ -5933,7 +6779,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-013-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1249",
@@ -5949,7 +6796,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-044-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1250",
@@ -5965,7 +6813,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-100-044-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1251",
@@ -5981,7 +6830,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-100-043-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1252",
@@ -5997,7 +6847,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-051-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1253",
@@ -6013,7 +6864,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-051-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1254",
@@ -6029,7 +6881,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-100-050-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1255",
@@ -6045,7 +6898,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1256",
@@ -6061,7 +6915,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-017-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1257",
@@ -6077,7 +6932,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-017-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LG-1258",
@@ -6093,7 +6949,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1259",
@@ -6109,7 +6966,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-103-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1260",
@@ -6125,7 +6983,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1261",
@@ -6141,7 +7000,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-047-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1262",
@@ -6157,7 +7017,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-047-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LG-1263",
@@ -6173,7 +7034,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1264",
@@ -6189,7 +7051,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-104-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1265",
@@ -6205,7 +7068,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1266",
@@ -6221,7 +7085,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-048-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1267",
@@ -6237,7 +7102,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-048-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LG-1268",
@@ -6253,7 +7119,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1269",
@@ -6269,7 +7136,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-105-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1270",
@@ -6285,7 +7153,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "16\"-PG-100-108-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TSV-1271",
@@ -6301,7 +7170,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": "TSV-typ"
+  "note": "TSV-typ",
+  "location": ""
  },
  {
   "tag": "LG-1272",
@@ -6317,7 +7187,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1273",
@@ -6333,7 +7204,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1274",
@@ -6349,7 +7221,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1275",
@@ -6365,7 +7238,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-100-115-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1276",
@@ -6381,7 +7255,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-100-115-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1277",
@@ -6397,7 +7272,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-111-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1278",
@@ -6413,7 +7289,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-111-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1279",
@@ -6429,7 +7306,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-113-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1280",
@@ -6445,7 +7323,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-113-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-1281",
@@ -6461,7 +7340,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-122-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LG-1282",
@@ -6477,7 +7357,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1283",
@@ -6493,7 +7374,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-127-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1284",
@@ -6509,7 +7391,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-100-127-C1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "GD-1285",
@@ -6525,7 +7408,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "GD-1286",
@@ -6541,7 +7425,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDI-1287",
@@ -6557,7 +7442,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1288",
@@ -6573,7 +7459,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-145-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-1289",
@@ -6589,12 +7476,30 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-100-145-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
-  "tag": "PI-1291",
+  "tag": "HV-1290",
+  "type": "Hand-actuated (remote) on/off valve",
+  "loop": "HV-1290",
+  "service": "H-101 snuffing steam valve (remote open from CCR / F&G)",
+  "pid_sheet": "CFU-100-PR-PID-005",
+  "system": "F&G",
+  "signal": "DO 24 VDC (SOV) + 2 x DI (ZSO/ZSC)",
+  "range": "",
+  "units": "",
+  "fail_position": "FC",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "PI-1292",
   "type": "Pressure gauge",
-  "loop": "PI-1291",
+  "loop": "PI-1292",
   "service": "P-117A discharge pressure",
   "pid_sheet": "CFU-100-PR-PID-011",
   "system": "Local",
@@ -6605,12 +7510,13 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-150-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
-  "tag": "PI-1292",
+  "tag": "PI-1293",
   "type": "Pressure gauge",
-  "loop": "PI-1292",
+  "loop": "PI-1293",
   "service": "P-117B discharge pressure",
   "pid_sheet": "CFU-100-PR-PID-011",
   "system": "Local",
@@ -6621,12 +7527,13 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-100-150-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
-  "tag": "TI-1293",
+  "tag": "TI-1294",
   "type": "Temperature indicator",
-  "loop": "TI-1293",
+  "loop": "TI-1294",
   "service": "C-106 bottoms temperature",
   "pid_sheet": "CFU-100-PR-PID-011",
   "system": "DCS",
@@ -6637,7 +7544,756 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-100-149-A1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "GD-1501",
+  "type": "Gas detector",
+  "loop": "GD-1501",
+  "service": "Flammable gas detector (IR point), pump row P-101A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=14.0 m, y=80.5 m (near P-101)",
+  "location": "x=14.0 m, y=80.5 m (near P-101)"
+ },
+ {
+  "tag": "GD-1502",
+  "type": "Gas detector",
+  "loop": "GD-1502",
+  "service": "Flammable gas detector (IR point), pump row P-102A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=46.0 m, y=62.5 m (near P-102)",
+  "location": "x=46.0 m, y=62.5 m (near P-102)"
+ },
+ {
+  "tag": "GD-1503",
+  "type": "Gas detector",
+  "loop": "GD-1503",
+  "service": "Flammable gas detector (IR point), pump row P-103A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=72.5 m, y=80.5 m (near P-103)",
+  "location": "x=72.5 m, y=80.5 m (near P-103)"
+ },
+ {
+  "tag": "GD-1504",
+  "type": "Gas detector",
+  "loop": "GD-1504",
+  "service": "Flammable gas detector (IR point), pump row P-104A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=79.0 m, y=80.5 m (near P-104)",
+  "location": "x=79.0 m, y=80.5 m (near P-104)"
+ },
+ {
+  "tag": "GD-1505",
+  "type": "Gas detector",
+  "loop": "GD-1505",
+  "service": "Flammable gas detector (IR point), pump row P-105A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=85.5 m, y=80.5 m (near P-105)",
+  "location": "x=85.5 m, y=80.5 m (near P-105)"
+ },
+ {
+  "tag": "GD-1506",
+  "type": "Gas detector",
+  "loop": "GD-1506",
+  "service": "Flammable gas detector (IR point), pump row P-106A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=124.5 m, y=80.5 m (near P-106)",
+  "location": "x=124.5 m, y=80.5 m (near P-106)"
+ },
+ {
+  "tag": "GD-1507",
+  "type": "Gas detector",
+  "loop": "GD-1507",
+  "service": "Flammable gas detector (IR point), pump row P-107A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=131.0 m, y=80.5 m (near P-107)",
+  "location": "x=131.0 m, y=80.5 m (near P-107)"
+ },
+ {
+  "tag": "GD-1508",
+  "type": "Gas detector",
+  "loop": "GD-1508",
+  "service": "Flammable gas detector (IR point), pump row P-108A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=98.5 m, y=80.5 m (near P-108)",
+  "location": "x=98.5 m, y=80.5 m (near P-108)"
+ },
+ {
+  "tag": "GD-1509",
+  "type": "Gas detector",
+  "loop": "GD-1509",
+  "service": "Flammable gas detector (IR point), pump row P-109A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=105.0 m, y=80.5 m (near P-109)",
+  "location": "x=105.0 m, y=80.5 m (near P-109)"
+ },
+ {
+  "tag": "GD-1510",
+  "type": "Gas detector",
+  "loop": "GD-1510",
+  "service": "Flammable gas detector (IR point), pump row P-110A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=111.5 m, y=80.5 m (near P-110)",
+  "location": "x=111.5 m, y=80.5 m (near P-110)"
+ },
+ {
+  "tag": "GD-1511",
+  "type": "Gas detector",
+  "loop": "GD-1511",
+  "service": "Flammable gas detector (IR point), pump row P-111A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=118.0 m, y=80.5 m (near P-111)",
+  "location": "x=118.0 m, y=80.5 m (near P-111)"
+ },
+ {
+  "tag": "GD-1512",
+  "type": "Gas detector",
+  "loop": "GD-1512",
+  "service": "Flammable gas detector (IR point), pump row P-112A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=92.0 m, y=80.5 m (near P-112)",
+  "location": "x=92.0 m, y=80.5 m (near P-112)"
+ },
+ {
+  "tag": "GD-1513",
+  "type": "Gas detector",
+  "loop": "GD-1513",
+  "service": "Flammable gas detector (IR point), pump row P-114A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=25.0 m, y=62.5 m (near P-114)",
+  "location": "x=25.0 m, y=62.5 m (near P-114)"
+ },
+ {
+  "tag": "GD-1514",
+  "type": "Gas detector",
+  "loop": "GD-1514",
+  "service": "Flammable gas detector (IR point), pump row P-115A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=63.0 m, y=80.5 m (near P-115)",
+  "location": "x=63.0 m, y=80.5 m (near P-115)"
+ },
+ {
+  "tag": "GD-1515",
+  "type": "Gas detector",
+  "loop": "GD-1515",
+  "service": "Flammable gas detector (IR point), pump row P-116A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=50.0 m, y=80.5 m (near P-116)",
+  "location": "x=50.0 m, y=80.5 m (near P-116)"
+ },
+ {
+  "tag": "GD-1516",
+  "type": "Gas detector",
+  "loop": "GD-1516",
+  "service": "Flammable gas detector (IR point), pump row P-117A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=56.5 m, y=80.5 m (near P-117)",
+  "location": "x=56.5 m, y=80.5 m (near P-117)"
+ },
+ {
+  "tag": "GD-1517",
+  "type": "Gas detector",
+  "loop": "GD-1517",
+  "service": "Flammable gas detector (IR point), pump row P-118A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=31.5 m, y=62.5 m (near P-118)",
+  "location": "x=31.5 m, y=62.5 m (near P-118)"
+ },
+ {
+  "tag": "GD-1518",
+  "type": "Gas detector",
+  "loop": "GD-1518",
+  "service": "Flammable gas detector (IR point), pump row P-119A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=135.0 m, y=125.0 m (near P-119)",
+  "location": "x=135.0 m, y=125.0 m (near P-119)"
+ },
+ {
+  "tag": "GD-1519",
+  "type": "Gas detector",
+  "loop": "GD-1519",
+  "service": "Flammable gas detector (catalytic), H-101 FG train",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=90.0 m, y=24.0 m (near H-101)",
+  "location": "x=90.0 m, y=24.0 m (near H-101)"
+ },
+ {
+  "tag": "GD-1520",
+  "type": "Gas detector",
+  "loop": "GD-1520",
+  "service": "Flammable gas detector (catalytic), H-101 burner manifold",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=106.0 m, y=24.0 m (near H-101)",
+  "location": "x=106.0 m, y=24.0 m (near H-101)"
+ },
+ {
+  "tag": "GD-1521",
+  "type": "Gas detector",
+  "loop": "GD-1521",
+  "service": "Flammable gas detector (IR point), LPG / light-ends area at C-105",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=64.0 m, y=97.0 m (near C-105)",
+  "location": "x=64.0 m, y=97.0 m (near C-105)"
+ },
+ {
+  "tag": "GD-1522",
+  "type": "Gas detector",
+  "loop": "GD-1522",
+  "service": "Flammable gas detector (IR point), LPG / light-ends area at D-105",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=65.5 m, y=87.5 m (near D-105)",
+  "location": "x=65.5 m, y=87.5 m (near D-105)"
+ },
+ {
+  "tag": "GD-1523",
+  "type": "Gas detector",
+  "loop": "GD-1523",
+  "service": "Flammable gas detector (IR point), LPG / light-ends area at C-106",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=52.0 m, y=97.0 m (near C-106)",
+  "location": "x=52.0 m, y=97.0 m (near C-106)"
+ },
+ {
+  "tag": "GD-1524",
+  "type": "Gas detector",
+  "loop": "GD-1524",
+  "service": "Flammable gas detector (IR point), LPG / light-ends area at D-106",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=54.0 m, y=87.5 m (near D-106)",
+  "location": "x=54.0 m, y=87.5 m (near D-106)"
+ },
+ {
+  "tag": "GD-1525",
+  "type": "Gas detector",
+  "loop": "GD-1525",
+  "service": "Flammable gas detector (IR point), LPG / light-ends area at E-116",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=64.0 m, y=102.5 m (near E-116)",
+  "location": "x=64.0 m, y=102.5 m (near E-116)"
+ },
+ {
+  "tag": "GD-1526",
+  "type": "Gas detector",
+  "loop": "GD-1526",
+  "service": "Flammable gas detector (IR point), D-102 overhead drum (1)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=75.0 m, y=87.0 m (near D-102)",
+  "location": "x=75.0 m, y=87.0 m (near D-102)"
+ },
+ {
+  "tag": "GD-1527",
+  "type": "Gas detector",
+  "loop": "GD-1527",
+  "service": "Flammable gas detector (IR point), D-102 overhead drum (2)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=83.0 m, y=87.0 m (near D-102)",
+  "location": "x=83.0 m, y=87.0 m (near D-102)"
+ },
+ {
+  "tag": "GD-1528",
+  "type": "Gas detector",
+  "loop": "GD-1528",
+  "service": "H2S toxic gas detector (electrochemical), D-102 (1)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=75.0 m, y=87.0 m (near D-102)",
+  "location": "x=75.0 m, y=87.0 m (near D-102)"
+ },
+ {
+  "tag": "GD-1529",
+  "type": "Gas detector",
+  "loop": "GD-1529",
+  "service": "H2S toxic gas detector (electrochemical), D-102 (2)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=83.0 m, y=87.0 m (near D-102)",
+  "location": "x=83.0 m, y=87.0 m (near D-102)"
+ },
+ {
+  "tag": "GD-1530",
+  "type": "Gas detector",
+  "loop": "GD-1530",
+  "service": "H2S toxic gas detector (electrochemical), P-105",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=81.5 m, y=80.5 m (near P-105)",
+  "location": "x=81.5 m, y=80.5 m (near P-105)"
+ },
+ {
+  "tag": "BE-1531",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1531",
+  "service": "Flame detector (IR3), H-101 burner front / FG train (1)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=88.0 m, y=30.0 m (near H-101)",
+  "location": "x=88.0 m, y=30.0 m (near H-101)"
+ },
+ {
+  "tag": "BE-1532",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1532",
+  "service": "Flame detector (IR3), H-101 burner front / FG train (2)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=108.0 m, y=30.0 m (near H-101)",
+  "location": "x=108.0 m, y=30.0 m (near H-101)"
+ },
+ {
+  "tag": "BE-1533",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1533",
+  "service": "Flame detector (IR3), H-101 burner front / FG train (3)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=88.0 m, y=24.0 m (near H-101)",
+  "location": "x=88.0 m, y=24.0 m (near H-101)"
+ },
+ {
+  "tag": "BE-1534",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1534",
+  "service": "Flame detector (IR3), H-101 burner front / FG train (4)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=108.0 m, y=24.0 m (near H-101)",
+  "location": "x=108.0 m, y=24.0 m (near H-101)"
+ },
+ {
+  "tag": "BE-1535",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1535",
+  "service": "Flame detector (IR3), hot pump P-112A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=92.0 m, y=80.5 m (near P-112)",
+  "location": "x=92.0 m, y=80.5 m (near P-112)"
+ },
+ {
+  "tag": "BE-1536",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1536",
+  "service": "Flame detector (IR3), hot pump P-108A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=98.5 m, y=80.5 m (near P-108)",
+  "location": "x=98.5 m, y=80.5 m (near P-108)"
+ },
+ {
+  "tag": "BE-1537",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1537",
+  "service": "Flame detector (IR3), hot pump P-111A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=118.0 m, y=80.5 m (near P-111)",
+  "location": "x=118.0 m, y=80.5 m (near P-111)"
+ },
+ {
+  "tag": "BE-1538",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-1538",
+  "service": "Flame detector (IR3), hot pump P-110A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=111.5 m, y=80.5 m (near P-110)",
+  "location": "x=111.5 m, y=80.5 m (near P-110)"
+ },
+ {
+  "tag": "HS-1539",
+  "type": "Hand switch",
+  "loop": "HS-1539",
+  "service": "Manual call point (MCP), desalting area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=36.0 m, y=56.0 m (near D-101A)",
+  "location": "x=36.0 m, y=56.0 m (near D-101A)"
+ },
+ {
+  "tag": "HS-1540",
+  "type": "Hand switch",
+  "loop": "HS-1540",
+  "service": "Manual call point (MCP), preheat bank area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=12.5 m, y=96.0 m (near E-106)",
+  "location": "x=12.5 m, y=96.0 m (near E-106)"
+ },
+ {
+  "tag": "HS-1541",
+  "type": "Hand switch",
+  "loop": "HS-1541",
+  "service": "Manual call point (MCP), C-101 / OH area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=95.0 m, y=102.0 m (near C-101)",
+  "location": "x=95.0 m, y=102.0 m (near C-101)"
+ },
+ {
+  "tag": "HS-1542",
+  "type": "Hand switch",
+  "loop": "HS-1542",
+  "service": "Manual call point (MCP), H-101 area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=98.0 m, y=40.0 m (near H-101)",
+  "location": "x=98.0 m, y=40.0 m (near H-101)"
+ },
+ {
+  "tag": "HS-1543",
+  "type": "Hand switch",
+  "loop": "HS-1543",
+  "service": "Manual call point (MCP), light ends area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=64.0 m, y=104.0 m (near C-105)",
+  "location": "x=64.0 m, y=104.0 m (near C-105)"
+ },
+ {
+  "tag": "HS-1544",
+  "type": "Hand switch",
+  "loop": "HS-1544",
+  "service": "Manual call point (MCP), CDU pump row area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=92.0 m, y=87.5 m (near P-112)",
+  "location": "x=92.0 m, y=87.5 m (near P-112)"
  },
  {
   "tag": "FE-2001",
@@ -6653,7 +8309,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2001",
@@ -6669,7 +8326,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2001",
@@ -6685,7 +8343,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2001A",
@@ -6701,7 +8360,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2001B",
@@ -6717,7 +8377,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2001C",
@@ -6733,7 +8394,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2001",
@@ -6749,7 +8411,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-2001",
@@ -6765,7 +8428,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-009-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-2001",
@@ -6781,7 +8445,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2002",
@@ -6797,7 +8462,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2002",
@@ -6813,7 +8479,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2002",
@@ -6829,7 +8496,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2002A",
@@ -6845,7 +8513,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2002B",
@@ -6861,7 +8530,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2002C",
@@ -6877,7 +8547,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2002",
@@ -6893,7 +8564,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-2002",
@@ -6909,7 +8581,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-010-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-2002",
@@ -6925,7 +8598,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2003",
@@ -6941,7 +8615,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2003",
@@ -6957,7 +8632,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2003",
@@ -6973,7 +8649,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2003A",
@@ -6989,7 +8666,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2003B",
@@ -7005,7 +8683,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2003C",
@@ -7021,7 +8700,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2003",
@@ -7037,7 +8717,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-2003",
@@ -7053,7 +8734,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-011-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PSV-2003",
@@ -7069,7 +8751,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2004",
@@ -7085,7 +8768,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2004",
@@ -7101,7 +8785,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2004",
@@ -7117,7 +8802,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2004A",
@@ -7133,7 +8819,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2004B",
@@ -7149,7 +8836,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2004C",
@@ -7165,7 +8853,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2004",
@@ -7181,7 +8870,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FZLL-2004",
@@ -7197,7 +8887,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "6\"-P-200-012-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-2005",
@@ -7213,7 +8904,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "54\"-P-200-017-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-2005",
@@ -7229,7 +8921,42 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "54\"-P-200-017-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FE-2006",
+  "type": "Flow element (orifice)",
+  "loop": "PIC-2006",
+  "service": "H-201 fuel gas flow element",
+  "pid_sheet": "CFU-200-PR-PID-012",
+  "system": "Local",
+  "signal": "- (local / mechanical)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "4\"-FG-200-019-A1-N",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FT-2006",
+  "type": "Flow transmitter",
+  "loop": "PIC-2006",
+  "service": "H-201 fuel gas flow (cross-limiting fuel measurement)",
+  "pid_sheet": "CFU-200-PR-PID-012",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-2000",
+  "units": "kg/h",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "4\"-FG-200-019-A1-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-2006",
@@ -7245,7 +8972,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-FG-200-019-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-2006",
@@ -7261,7 +8989,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-FG-200-019-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-2006",
@@ -7277,7 +9006,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-FG-200-019-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-2006A",
@@ -7293,7 +9023,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "4\"-FG-200-019-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-2006B",
@@ -7309,7 +9040,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "4\"-FG-200-019-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2007",
@@ -7325,7 +9057,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-MS-200-018-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2007",
@@ -7341,7 +9074,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-MS-200-018-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2007",
@@ -7357,7 +9091,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-MS-200-018-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2007",
@@ -7373,7 +9108,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-MS-200-018-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AIC-2008",
@@ -7389,7 +9125,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AT-2008",
@@ -7405,7 +9142,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "AV-2008",
@@ -7421,7 +9159,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "BS-2008",
@@ -7429,7 +9168,7 @@
   "loop": "AIC-2008",
   "service": "H-201 flame scanners (1 per burner)",
   "pid_sheet": "CFU-200-PR-PID-012",
-  "system": "DCS",
+  "system": "BMS",
   "signal": "DI 24 VDC",
   "range": "Flame ON/OFF",
   "units": "-",
@@ -7437,7 +9176,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "BZLL-2008",
@@ -7453,7 +9193,8 @@
   "sif": "SIF-202",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-2009A",
@@ -7469,7 +9210,8 @@
   "sif": "SIF-202",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-2009B",
@@ -7485,7 +9227,8 @@
   "sif": "SIF-202",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-2009C",
@@ -7501,7 +9244,8 @@
   "sif": "SIF-202",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PZLL-2009",
@@ -7517,7 +9261,8 @@
   "sif": "SIF-202",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-2010",
@@ -7533,7 +9278,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "48\"-PG-200-024-V1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-2010",
@@ -7549,7 +9295,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "48\"-PG-200-024-V1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-2010",
@@ -7565,7 +9312,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "48\"-PG-200-024-V1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2011",
@@ -7581,7 +9329,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2011",
@@ -7597,7 +9346,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2011",
@@ -7613,7 +9363,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2011",
@@ -7629,7 +9380,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-2012",
@@ -7645,7 +9397,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "48\"-PG-200-024-V1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-2012",
@@ -7661,7 +9414,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "48\"-PG-200-024-V1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-2013",
@@ -7677,7 +9431,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-2013",
@@ -7693,7 +9448,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TY-2013",
@@ -7709,7 +9465,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-026-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-2014",
@@ -7725,7 +9482,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-025-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2014",
@@ -7741,7 +9499,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-025-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2015",
@@ -7757,7 +9516,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-200-039-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2015",
@@ -7773,7 +9533,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-200-039-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2015",
@@ -7789,7 +9550,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-200-039-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2015",
@@ -7805,7 +9567,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-200-039-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2016",
@@ -7821,7 +9584,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-028-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2016",
@@ -7837,7 +9601,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-028-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2016",
@@ -7853,7 +9618,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-028-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2016",
@@ -7869,7 +9635,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-028-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-2017",
@@ -7885,7 +9652,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-028-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-2017",
@@ -7901,7 +9669,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-028-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TV-2017",
@@ -7917,7 +9686,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-P-200-006-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-2018",
@@ -7933,7 +9703,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-200-027-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2018",
@@ -7949,7 +9720,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-200-027-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2019",
@@ -7965,7 +9737,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-041-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2019",
@@ -7981,7 +9754,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-041-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2019",
@@ -7997,7 +9771,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-041-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2019",
@@ -8013,7 +9788,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-041-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2020",
@@ -8029,7 +9805,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-029-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2020",
@@ -8045,7 +9822,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-029-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2020",
@@ -8061,7 +9839,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-029-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2020",
@@ -8077,7 +9856,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-029-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "FY-2020",
+  "type": "Flow relay / computing block",
+  "loop": "FIC-2020",
+  "service": "Wash-oil minimum f(charge) high select",
+  "pid_sheet": "CFU-200-PR-PID-013",
+  "system": "DCS",
+  "signal": "Soft (DCS function block)",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "2\"-P-200-029-B2-H",
+  "note": "DCS soft (computing block, not on P&ID)",
+  "location": ""
  },
  {
   "tag": "LIC-2021",
@@ -8093,7 +9890,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-030-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2021",
@@ -8109,7 +9907,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-030-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2022",
@@ -8125,7 +9924,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-031-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2022",
@@ -8141,7 +9941,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-031-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2022",
@@ -8157,7 +9958,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-031-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2022",
@@ -8173,7 +9975,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-031-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2023",
@@ -8189,7 +9992,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-MS-200-032-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2023",
@@ -8205,7 +10009,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-MS-200-032-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2023",
@@ -8221,7 +10026,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-MS-200-032-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2023",
@@ -8237,7 +10043,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-MS-200-032-S3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-2024",
@@ -8253,7 +10060,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-033-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2024",
@@ -8269,7 +10077,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-033-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2024B",
@@ -8285,7 +10094,8 @@
   "sif": "SIF-203",
   "sil_ref": "SIL 1",
   "line_no": "10\"-P-200-033-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LZHH-2024",
@@ -8301,7 +10111,8 @@
   "sif": "SIF-203",
   "sil_ref": "SIL 1",
   "line_no": "10\"-P-200-033-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2025",
@@ -8317,7 +10128,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-042-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2025",
@@ -8333,7 +10145,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-042-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2025",
@@ -8349,7 +10162,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-042-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2025",
@@ -8365,7 +10179,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-042-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TIC-2026",
@@ -8381,7 +10196,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-033-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TT-2026",
@@ -8397,7 +10213,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-033-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FE-2027",
@@ -8413,7 +10230,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-034-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FIC-2027",
@@ -8429,7 +10247,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-034-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FT-2027",
@@ -8445,7 +10264,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-034-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "FV-2027",
@@ -8461,7 +10281,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-034-B1-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-2028",
@@ -8477,7 +10298,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-200-061-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2028",
@@ -8493,7 +10315,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-200-061-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-2028",
@@ -8509,7 +10332,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-200-061-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-2029",
@@ -8525,7 +10349,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-063-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2029",
@@ -8541,7 +10366,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-063-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-2029",
@@ -8557,7 +10383,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-063-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-2030",
@@ -8573,7 +10400,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BFW-200-043-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-2030",
@@ -8589,7 +10417,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BFW-200-043-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-2030",
@@ -8605,7 +10434,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BFW-200-043-C1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-2031",
@@ -8621,7 +10451,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-PG-200-023-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-2031",
@@ -8637,7 +10468,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-PG-200-023-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-2031",
@@ -8653,7 +10485,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-PG-200-023-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "AT-2032",
+  "type": "Analyser transmitter",
+  "loop": "AT-2032",
+  "service": "Vacuum off-gas H2S analyser (D-202 outlet, H-201 firing / SO2)",
+  "pid_sheet": "CFU-200-PR-PID-015",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "0-10",
+  "units": "mol% H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "2\"-PG-200-023-A2-N",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "BY-2041",
@@ -8669,7 +10519,8 @@
   "sif": "SIF-204",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "EIV-2041",
@@ -8685,7 +10536,8 @@
   "sif": "SIF-204",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "HS-2041",
@@ -8701,7 +10553,8 @@
   "sif": "SIF-204",
   "sil_ref": "SIL 1",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2100",
@@ -8717,7 +10570,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-200-013-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2101",
@@ -8733,7 +10587,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-200-014-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2102",
@@ -8749,7 +10604,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-200-015-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2103",
@@ -8765,7 +10621,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "12\"-P-200-016-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2104",
@@ -8781,7 +10638,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-FG-200-019-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "XV-2105",
@@ -8797,7 +10655,8 @@
   "sif": "SIF-201",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PCV-2106",
@@ -8813,7 +10672,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2107",
@@ -8829,7 +10689,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "54\"-P-200-017-B3-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PDI-2108",
@@ -8845,7 +10706,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2109",
@@ -8861,7 +10723,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-025-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2110",
@@ -8877,7 +10740,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "14\"-P-200-027-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2111",
@@ -8893,7 +10757,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-P-200-030-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2112",
@@ -8909,7 +10774,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-008-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2113",
@@ -8925,7 +10791,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-008-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2114",
@@ -8941,7 +10808,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-001-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2115",
@@ -8957,7 +10825,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "6\"-P-200-001-B1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TI-2116",
@@ -8973,7 +10842,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "4\"-P-200-039-B1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2117",
@@ -8989,7 +10859,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-005-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2118",
@@ -9005,7 +10876,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-P-200-005-B2-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2119",
@@ -9021,7 +10893,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-031-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2120",
@@ -9037,7 +10910,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-031-B2-ST",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TSV-2121",
@@ -9053,7 +10927,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": "TSV-typ"
+  "note": "TSV-typ",
+  "location": ""
  },
  {
   "tag": "TI-2122",
@@ -9069,7 +10944,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TSV-2123",
@@ -9085,7 +10961,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": "TSV-typ"
+  "note": "TSV-typ",
+  "location": ""
  },
  {
   "tag": "TI-2124",
@@ -9101,7 +10978,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "TSV-2125",
@@ -9117,7 +10995,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": "TSV-typ"
+  "note": "TSV-typ",
+  "location": ""
  },
  {
   "tag": "TI-2126",
@@ -9133,7 +11012,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2127",
@@ -9149,7 +11029,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-200-061-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2128",
@@ -9165,7 +11046,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-SW-200-061-A2-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2129",
@@ -9181,7 +11063,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-063-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-2130",
@@ -9197,7 +11080,365 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-P-200-063-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "HV-2190",
+  "type": "Hand-actuated (remote) on/off valve",
+  "loop": "HV-2190",
+  "service": "H-201 snuffing steam valve (remote open from CCR / F&G)",
+  "pid_sheet": "CFU-200-PR-PID-012",
+  "system": "F&G",
+  "signal": "DO 24 VDC (SOV) + 2 x DI (ZSO/ZSC)",
+  "range": "",
+  "units": "",
+  "fail_position": "FC",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "GD-2501",
+  "type": "Gas detector",
+  "loop": "GD-2501",
+  "service": "Flammable gas detector (IR point), pump row P-201A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=191.5 m, y=80.5 m (near P-201)",
+  "location": "x=191.5 m, y=80.5 m (near P-201)"
+ },
+ {
+  "tag": "GD-2502",
+  "type": "Gas detector",
+  "loop": "GD-2502",
+  "service": "Flammable gas detector (IR point), pump row P-202A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=185.0 m, y=80.5 m (near P-202)",
+  "location": "x=185.0 m, y=80.5 m (near P-202)"
+ },
+ {
+  "tag": "GD-2503",
+  "type": "Gas detector",
+  "loop": "GD-2503",
+  "service": "Flammable gas detector (IR point), pump row P-203A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=178.5 m, y=80.5 m (near P-203)",
+  "location": "x=178.5 m, y=80.5 m (near P-203)"
+ },
+ {
+  "tag": "GD-2504",
+  "type": "Gas detector",
+  "loop": "GD-2504",
+  "service": "Flammable gas detector (IR point), pump row P-204A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=172.0 m, y=80.5 m (near P-204)",
+  "location": "x=172.0 m, y=80.5 m (near P-204)"
+ },
+ {
+  "tag": "GD-2505",
+  "type": "Gas detector",
+  "loop": "GD-2505",
+  "service": "Flammable gas detector (IR point), pump row P-205A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=193.0 m, y=108.5 m (near P-205)",
+  "location": "x=193.0 m, y=108.5 m (near P-205)"
+ },
+ {
+  "tag": "GD-2506",
+  "type": "Gas detector",
+  "loop": "GD-2506",
+  "service": "Flammable gas detector (IR point), pump row P-206A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=199.5 m, y=108.5 m (near P-206)",
+  "location": "x=199.5 m, y=108.5 m (near P-206)"
+ },
+ {
+  "tag": "GD-2507",
+  "type": "Gas detector",
+  "loop": "GD-2507",
+  "service": "Flammable gas detector (catalytic), H-201 FG train",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=164.0 m, y=24.0 m (near H-201)",
+  "location": "x=164.0 m, y=24.0 m (near H-201)"
+ },
+ {
+  "tag": "GD-2508",
+  "type": "Gas detector",
+  "loop": "GD-2508",
+  "service": "Flammable gas detector (catalytic), H-201 burner manifold",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=180.0 m, y=24.0 m (near H-201)",
+  "location": "x=180.0 m, y=24.0 m (near H-201)"
+ },
+ {
+  "tag": "GD-2509",
+  "type": "Gas detector",
+  "loop": "GD-2509",
+  "service": "H2S toxic gas detector (electrochemical), D-201 (1)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=192.0 m, y=103.0 m (near D-201)",
+  "location": "x=192.0 m, y=103.0 m (near D-201)"
+ },
+ {
+  "tag": "GD-2510",
+  "type": "Gas detector",
+  "loop": "GD-2510",
+  "service": "H2S toxic gas detector (electrochemical), D-201 (2)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=200.0 m, y=103.0 m (near D-201)",
+  "location": "x=200.0 m, y=103.0 m (near D-201)"
+ },
+ {
+  "tag": "GD-2511",
+  "type": "Gas detector",
+  "loop": "GD-2511",
+  "service": "H2S toxic gas detector (electrochemical), D-202",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=199.0 m, y=103.0 m (near D-202)",
+  "location": "x=199.0 m, y=103.0 m (near D-202)"
+ },
+ {
+  "tag": "GD-2512",
+  "type": "Gas detector",
+  "loop": "GD-2512",
+  "service": "H2S toxic gas detector (electrochemical), P-205",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-50",
+  "units": "ppm H2S",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=189.0 m, y=108.5 m (near P-205)",
+  "location": "x=189.0 m, y=108.5 m (near P-205)"
+ },
+ {
+  "tag": "BE-2513",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-2513",
+  "service": "Flame detector (IR3), H-201 burner front / FG train (1)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=162.0 m, y=30.0 m (near H-201)",
+  "location": "x=162.0 m, y=30.0 m (near H-201)"
+ },
+ {
+  "tag": "BE-2514",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-2514",
+  "service": "Flame detector (IR3), H-201 burner front / FG train (2)",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=182.0 m, y=30.0 m (near H-201)",
+  "location": "x=182.0 m, y=30.0 m (near H-201)"
+ },
+ {
+  "tag": "BE-2515",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-2515",
+  "service": "Flame detector (IR3), hot pump P-204A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=172.0 m, y=80.5 m (near P-204)",
+  "location": "x=172.0 m, y=80.5 m (near P-204)"
+ },
+ {
+  "tag": "BE-2516",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-2516",
+  "service": "Flame detector (IR3), hot pump P-202A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=185.0 m, y=80.5 m (near P-202)",
+  "location": "x=185.0 m, y=80.5 m (near P-202)"
+ },
+ {
+  "tag": "BE-2517",
+  "type": "Flame detector (F&G)",
+  "loop": "BE-2517",
+  "service": "Flame detector (IR3), hot pump P-203A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "Fire / no fire",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=178.5 m, y=80.5 m (near P-203)",
+  "location": "x=178.5 m, y=80.5 m (near P-203)"
+ },
+ {
+  "tag": "HS-2518",
+  "type": "Hand switch",
+  "loop": "HS-2518",
+  "service": "Manual call point (MCP), VDU area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=175.0 m, y=102.0 m (near C-201)",
+  "location": "x=175.0 m, y=102.0 m (near C-201)"
+ },
+ {
+  "tag": "HS-2519",
+  "type": "Hand switch",
+  "loop": "HS-2519",
+  "service": "Manual call point (MCP), H-201 area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=172.0 m, y=40.0 m (near H-201)",
+  "location": "x=172.0 m, y=40.0 m (near H-201)"
+ },
+ {
+  "tag": "HS-2520",
+  "type": "Hand switch",
+  "loop": "HS-2520",
+  "service": "Manual call point (MCP), ejector / hotwell area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=196.0 m, y=110.0 m (near D-201)",
+  "location": "x=196.0 m, y=110.0 m (near D-201)"
  },
  {
   "tag": "HS-9000",
@@ -9213,7 +11454,8 @@
   "sif": "SIF-901",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "UZ-9000",
@@ -9222,14 +11464,15 @@
   "service": "Unit ESD-1 logic (SIS)",
   "pid_sheet": "CFU-900-PR-PID-016",
   "system": "SIS",
-  "signal": "4-20 mA HART (SIS AI)",
+  "signal": "-",
   "range": "",
   "units": "",
   "fail_position": "",
   "sif": "SIF-901",
   "sil_ref": "SIL 2",
   "line_no": "",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-9001",
@@ -9245,7 +11488,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-FG-900-002-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-9001",
@@ -9261,7 +11505,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-FG-900-002-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-9001",
@@ -9277,7 +11522,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "8\"-FG-900-002-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-9002",
@@ -9293,7 +11539,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "1\"-BD-900-003-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-9002",
@@ -9309,7 +11556,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "1\"-BD-900-003-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LV-9002",
@@ -9325,7 +11573,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "1\"-BD-900-003-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LIC-9003",
@@ -9341,7 +11590,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-BD-900-006-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LT-9003",
@@ -9357,7 +11607,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-BD-900-006-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "LY-9003",
@@ -9373,7 +11624,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "3\"-BD-900-006-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PIC-9004",
@@ -9389,7 +11641,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-900-010-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PT-9004",
@@ -9405,7 +11658,8 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-900-010-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PV-9004",
@@ -9421,7 +11675,25 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "10\"-LS-900-010-S1-H",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "TT-9005",
+  "type": "Temperature transmitter",
+  "loop": "TT-9005",
+  "service": "Ambient air temperature (APC DV, air coolers)",
+  "pid_sheet": "CFU-900-PR-PID-016",
+  "system": "DCS",
+  "signal": "4-20 mA HART",
+  "range": "-20-60",
+  "units": "C",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "",
+  "location": ""
  },
  {
   "tag": "PI-9100",
@@ -9437,12 +11709,30 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BD-900-007-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
  },
  {
-  "tag": "PI-9101",
+  "tag": "XA-9101",
+  "type": "Common alarm (analyser house)",
+  "loop": "XA-9101",
+  "service": "Analyser house AH-101 common trouble / HVAC alarm",
+  "pid_sheet": "CFU-900-PR-PID-016",
+  "system": "DCS",
+  "signal": "DI 24 VDC",
+  "range": "Alarm",
+  "units": "-",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "PI-9102",
   "type": "Pressure gauge",
-  "loop": "PI-9101",
+  "loop": "PI-9102",
   "service": "P-119B discharge pressure",
   "pid_sheet": "CFU-900-PR-PID-016",
   "system": "Local",
@@ -9453,6 +11743,41 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "2\"-BD-900-007-A1-N",
-  "note": ""
+  "note": "",
+  "location": ""
+ },
+ {
+  "tag": "HS-9501",
+  "type": "Hand switch",
+  "loop": "HS-9501",
+  "service": "Manual call point (MCP), flare KO / utilities area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=135.0 m, y=132.0 m (near D-104)",
+  "location": "x=135.0 m, y=132.0 m (near D-104)"
+ },
+ {
+  "tag": "HS-9502",
+  "type": "Hand switch",
+  "loop": "HS-9502",
+  "service": "Manual call point (MCP), fuel gas KO area",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "DI 24 VDC",
+  "range": "",
+  "units": "",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=146.0 m, y=26.0 m (near D-103)",
+  "location": "x=146.0 m, y=26.0 m (near D-103)"
  }
 ]
