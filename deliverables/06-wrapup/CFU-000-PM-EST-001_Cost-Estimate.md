@@ -10,13 +10,13 @@
 # 2 Summary
 | Item | USD million |
 |---|---|
-| Purchased equipment (2026 USGC) | 56.7 |
-| Installed ISBL (Towler factors) | 167.8 |
+| Purchased equipment (2026 USGC) | 56.8 |
+| Installed ISBL (Towler factors) | 168.0 |
 | Design & engineering (25 %) | 42.0 |
 | Contingency (20 %) | 42.0 |
-| Total installed cost, ISBL | 251.7 |
+| Total installed cost, ISBL | 252.0 |
 
-Specific cost: **2,517 USD per BPSD** of capacity, ISBL. Check this against the owner's own
+Specific cost: **2,520 USD per BPSD** of capacity, ISBL. Check this against the owner's own
 benchmark data for grassroots CDU/VDU units before using it for budgeting. The factored method tends to
 under-estimate large, alloy-heavy refinery units.
 
@@ -28,7 +28,7 @@ under-estimate large, alloy-heavy refinery units.
 | Air cooler | 8.87 | 16% |
 | Shell & tube | 7.17 | 13% |
 | Desalter | 3.83 | 7% |
-| Pump | 3.62 | 6% |
+| Pump | 3.68 | 6% |
 | Package | 0.74 | 1% |
 | Drum | 0.62 | 1% |
 | Ejector | 0.42 | 1% |
@@ -104,11 +104,12 @@ under-estimate large, alloy-heavy refinery units.
 | P-110A/B | Diesel product | 2 x 151 m3/h, 75 kW | 143 |
 | P-111A/B | Ago product | 2 x 84 m3/h, 45 kW | 110 |
 | P-112A/B | Atm. residue / vacuum heater charge | 2 x 398 m3/h, 315 kW | 290 |
-| P-114A/B | Desalter wash water | 2 x 37 m3/h, 18.5 kW | 65 |
+| P-114A/B | Desalter wash water | 2 x 37 m3/h, 30 kW | 76 |
 | P-115A/B | Stabiliser reflux / LPG | 2 x 39 m3/h, 18.5 kW | 66 |
 | P-116A/B | Splitter reflux / LN | 2 x 146 m3/h, 55 kW | 112 |
 | P-117A/B | Heavy naphtha product | 2 x 142 m3/h, 45 kW | 104 |
 | P-118 | Desalter mud-wash / recycle | 1 x 19 m3/h, 7.5 kW | 24 |
+| P-119A/B | Flare KO drum pump-out | 2 x 21 m3/h, 7.5 kW | 49 |
 | P-201A/B | LVGO pumparound / product | 2 x 198 m3/h, 110 kW | 171 |
 | P-202A/B | HVGO pumparound / product | 2 x 391 m3/h, 200 kW | 248 |
 | P-203A/B | Slop wax | 2 x 12 m3/h, 5.5 kW | 55 |

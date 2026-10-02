@@ -1284,24 +1284,25 @@ def csd_006():
            bold=True, color=APC_GRN)
     p.box(40, 56, 140, 26, ["STEADY-STATE OPTIMISER (LP/QP)"], ["economic targets for MVs/CVs every cycle",
                                                                    "objective: max value (products - energy)"],
-          tsize=2.3, lsize=1.9, fill="#EAF4EA")
+          tsize=2.7, lsize=2.3, fill="#EAF4EA")
     p.box(200, 56, 130, 26, ["INFERENTIAL ENGINE"], ["soft sensors (11 models), lab bias update",
-                                                       "(LIMS), analyser validation"], tsize=2.3, lsize=1.9,
+                                                       "(LIMS), analyser validation"], tsize=2.7, lsize=2.3,
           fill="#EAF4EA")
     p.box(350, 56, 120, 26, ["CRUDE-SWITCH LOGIC"], ["model gain scheduling, FF presets",
-                                                      "triggered by DV-01/DV-02"], tsize=2.3, lsize=1.9, fill="#EAF4EA")
+                                                      "triggered by DV-01/DV-02"], tsize=2.7, lsize=2.3, fill="#EAF4EA")
     p.box(490, 56, 120, 26, ["APC HISTORIAN / KPI"], ["service factor, CV limit violations,",
-                                                      "benefits tracking"], tsize=2.3, lsize=1.9, fill="#EAF4EA")
+                                                      "benefits tracking"], tsize=2.7, lsize=2.3, fill="#EAF4EA")
     ctl = [("CDU MPC", "MV-01..MV-12 / CV-01..CV-14", "H-101, C-101, strippers, preheat"),
            ("VDU MPC", "MV-13..MV-18 / CV-15..CV-19", "H-201, C-201, ejectors"),
            ("LIGHT-ENDS MPC", "MV-19..MV-20 / CV-20..CV-21", "C-105 stabiliser, C-106 splitter")]
     xs = [40, 245, 450]
     for (t, a, b), x in zip(ctl, xs):
-        p.box(x, 90, 160, 30, [t], [a, b], tsize=2.6, lsize=2.0, fill="white", stroke=APC_GRN, sw=0.5)
+        p.box(x, 90, 160, 30, [t], [a, b], tsize=3.0, lsize=2.5, fill="white", stroke=APC_GRN, sw=0.5)
         p.line([(x + 80, 82), (x + 80, 90)], w=0.3, arrow=True, color=APC_GRN)
     p.line([(320, 34), (320, 44)], w=0.35, arrow=True)
     # firewall
     p.line([(30, 133), (620, 133)], w=0.8, dash="5,2", color=SIS_RED)
+    p.gs.add(p.d.rect((32, 127.6), (520, 4.6), fill="white", stroke="none"))
     p.text("L3 / L2 FIREWALL - OPC UA (read: PV/OP/mode/limits; write: SP in 'MPC' cascade mode only) - WATCHDOG "
            "HEARTBEAT, SP RATE & MAGNITUDE CLAMPS IN DCS, SHED TO LAST SP ON COMM FAILURE", 34, 131, 1.9, color=SIS_RED)
     # DCS
@@ -1315,7 +1316,7 @@ def csd_006():
            ("VDU CONTROLLER PAIR", ["TIC-2005  PIC-2010  TIC-2012", "TIC-2017  FIC-2020  FIC-2023",
                                     "FIC-2001..2004  TIC-2026"])]
     for (t, ls), x in zip(dcs, xs):
-        p.box(x, 152, 160, 44, [t], ls, tsize=2.4, lsize=2.0, fill="white")
+        p.box(x, 152, 160, 44, [t], ls, tsize=2.8, lsize=2.5, fill="white")
     for x in xs:
         p.line([(x + 60, 120), (x + 60, 152)], w=0.45, color=APC_GRN, arrow=True, dash="2,1")
         p.text("MV SPs", x + 62, 127, 1.9, color=APC_GRN)
@@ -1323,9 +1324,9 @@ def csd_006():
         p.text("PV / CV / limits", x + 112, 127, 1.9)
     # field
     p.box(30, 210, 290, 18, ["L0/L1 FIELD: TRANSMITTERS, CONTROL VALVES"], ["4-20 mA / HART via FAR-100 marshalling"],
-          tsize=2.3, lsize=1.9, fill="#F2F2F2")
+          tsize=2.7, lsize=2.3, fill="#F2F2F2")
     p.box(330, 210, 290, 18, ["ONLINE ANALYSERS (AH-101) & LAB (LIMS)"],
-          ["D86, flash, freeze, GC, RVP, salt, BS&W, O2/CO -> inferential bias"], tsize=2.3, lsize=1.9,
+          ["D86, flash, freeze, GC, RVP, salt, BS&W, O2/CO -> inferential bias"], tsize=2.7, lsize=2.3,
           fill="#F2F2F2")
     p.line([(175, 202), (175, 210)], w=0.35, start_arrow=True, arrow=True)
     p.line([(475, 202), (475, 210)], w=0.35, start_arrow=True, arrow=True)
@@ -1334,13 +1335,13 @@ def csd_006():
     # ---------------- tables
     y0 = 246
     _table(p, 15, y0, [("MV", "DCS TAG (SP)", "DESCRIPTION", "RANGE", "MPC")] + [tuple(r) for r in T["mv"]],
-           [12, 34, 54, 34, 12], "MANIPULATED VARIABLES (MV)", size=1.85, rh=5.3, hl_col=1)
-    _table(p, 170, y0, [("CV", "CONTROLLED VARIABLE", "MEASUREMENT", "TYPE", "MPC")] + [tuple(r) for r in T["cv"]],
-           [12, 52, 56, 22, 12], "CONTROLLED / CONSTRAINT VARIABLES (CV)", size=1.85, rh=5.3)
-    yy = _table(p, 333, y0 + 140, [("DV", "DISTURBANCE", "SOURCE")] + [tuple(r) for r in T["dv"]],
-                [12, 56, 48], "DISTURBANCE VARIABLES (DV)", size=1.85, rh=5.3)
-    _table(p, 333, y0, [("INFERENTIAL (SOFT SENSOR)", "MAIN INPUTS", "BIAS / VALIDATION")] +
-           [tuple(r) for r in T["inf"]], [52, 64, 30][:2] + [30], "INFERENTIAL MODELS", size=1.85, rh=5.3)
+           [13, 40, 62, 36, 13], "MANIPULATED VARIABLES (MV)", size=2.2, rh=6.4, hl_col=1)
+    _table(p, 188, y0, [("CV", "CONTROLLED VARIABLE", "MEASUREMENT", "TYPE", "MPC")] + [tuple(r) for r in T["cv"]],
+           [13, 62, 66, 26, 13], "CONTROLLED / CONSTRAINT VARIABLES (CV)", size=2.2, rh=6.4)
+    yy = _table(p, 375, y0 + 92, [("DV", "DISTURBANCE", "SOURCE")] + [tuple(r) for r in T["dv"]],
+                [13, 70, 60], "DISTURBANCE VARIABLES (DV)", size=2.2, rh=6.4)
+    _table(p, 375, y0, [("INFERENTIAL (SOFT SENSOR)", "MAIN INPUTS", "BIAS / VALIDATION")] +
+           [tuple(r) for r in T["inf"]], [62, 112, 34], "INFERENTIAL MODELS", size=2.2, rh=6.4)
     p.narrative(RX, 20, RW, "APC DESIGN BASIS", [
         "Three DMC-type MPC applications on a redundant L3 APC server (CDU, VDU, light ends) with a common "
         "steady-state LP optimiser; 1-minute execution, prediction horizon ~ 2 x longest settling time "

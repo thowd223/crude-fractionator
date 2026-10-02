@@ -12,10 +12,10 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "deliverables" / "06-wrapup"
 
 NODES = [
-    ("N01", "Crude charge P-101A/B and cold preheat E-101..E-105", "PID-001/002", "130 C, 22 barg"),
-    ("N02", "Desalters D-101A/B incl. wash water and brine", "PID-003", "136 C, 11.5 barg"),
-    ("N03", "Hot preheat E-106..E-111 and P-102A/B", "PID-004", "274 C, 20 barg"),
-    ("N04", "Atmospheric heater H-101 incl. fuel gas, APH, fans", "PID-005", "366 C COT"),
+    ("N01", "Crude charge P-101A/B and cold preheat E-101..E-105", "PID-001", "130 C, 22 barg"),
+    ("N02", "Desalters D-101A/B incl. wash water and brine", "PID-002", "136 C, 11.5 barg"),
+    ("N03", "Hot preheat E-106..E-111 and P-102A/B", "PID-003", "274 C, 20 barg"),
+    ("N04", "Atmospheric heater H-101 incl. fuel gas, APH, fans", "PID-004/005", "366 C COT"),
     ("N05", "C-101 flash zone, wash zone and stripping section, P-112", "PID-006", "361 C, 1.5 barg"),
     ("N06", "C-101 pumparounds TPA/MPA/BPA and side strippers C-102/103/104", "PID-007/008", "150-310 C"),
     ("N07", "C-101 overhead A-101, E-115, D-102, P-103/104/105", "PID-009", "45-135 C, 0.7-1.2 barg"),
@@ -56,6 +56,8 @@ ROWS = [
      "Neutraliser + filming amine (X-103), pH AIC-1037, wash water, Monel top, Ti E-115 tubes, 14 C dew-point margin", "Corrosion monitoring: ER probes + chloride analyser on boot water"),
     ("N08", "More pressure", "Loss of A-106, reboiler overheat, blocked LPG", "Overpressure of C-105 (LPG)", "PIC-1091; SIF-110 cuts HP steam; PSV-1005/1006", ""),
     ("N08", "Leak", "LPG pump seal failure", "Flammable cloud, VCE potential", "Dual seals Plan 53B, gas detection, ROSOV on D-105 outlet, 30 m spacing to heaters", "Consequence modelling of LPG release (QRA input)"),
+    ("N08", "Less level", "LV/FV on LPG product fails open, LIC-1092 fault", "Gas blow-by into LPG treating, overpressure downstream",
+     "LALL-1092; SIF-109 closes XV-1093 (SIL 1)", ""),
     ("N09", "Less temperature (reboiler)", "MP steam loss", "Off-spec LN/HN, no safety consequence", "TAL-1104; quality alarms", ""),
     ("N10", "Less flow / coking", "Loss of coil steam, low pass flow", "Tube coking, hot spots, rupture", "FIC-2007 coil steam, SIF-201", "Online spalling / pigging provision"),
     ("N11", "Air ingress", "Flange leak under vacuum", "Internal fire / explosion in column, loss of vacuum", "O2 analyser on off-gas, leak testing, tightness class, hot-oil temperature limits", "Add O2 analyser AI-2032 on J-201 suction"),
