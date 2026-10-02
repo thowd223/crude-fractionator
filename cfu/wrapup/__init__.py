@@ -62,7 +62,7 @@ def register():
 
 
 def build():
-    from . import estimate, hazop
+    from . import estimate, hazop, portal
     hazop.build()
     estimate.build()
-    register()
+    portal.build()       # also refreshes the register

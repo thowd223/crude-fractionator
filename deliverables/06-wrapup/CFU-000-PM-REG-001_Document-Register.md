@@ -12,8 +12,15 @@
 | CFU-000-EL-SLD-002 | Electrical | (drawing) | A | pdf, svg | 05-electrical/sld |
 | CFU-000-EL-SLD-003 | Electrical | SH1 | A | pdf, svg | 05-electrical/sld |
 | CFU-000-EL-SLD-004 | Electrical | (drawing) | A | pdf, svg | 05-electrical/sld |
+| CFU-000-IC-BLK-001 | Instrumentation & control | ICS Architecture | A | pdf, svg | 04-instrumentation |
+| CFU-000-IC-CAL-001 | Instrumentation & control | Control Valve Sizing | A | xlsx | 04-instrumentation |
+| CFU-000-IC-CE-001 | Instrumentation & control | Cause Effect Matrix | A | pdf, svg, xlsx | 04-instrumentation |
 | CFU-000-IC-CSD-006 | Instrumentation & control | APC MPC Structure | A | pdf, svg | 04-instrumentation/control-scheme |
+| CFU-000-IC-CSD-ALL | Instrumentation & control | Control Scheme Diagrams | A | pdf | 04-instrumentation |
 | CFU-000-IC-IDX-001 | Instrumentation & control | Instrument Index | A | xlsx | 04-instrumentation |
+| CFU-000-IC-IOL-001 | Instrumentation & control | IO List | A | xlsx | 04-instrumentation |
+| CFU-000-IC-RPT-001 | Instrumentation & control | Control Philosophy | A | md, pdf | 04-instrumentation |
+| CFU-000-IC-RPT-002 | Instrumentation & control | SIF List SIL Determination | A | md, pdf | 04-instrumentation |
 | CFU-000-ME-CAL-001 | Mechanical | Mechanical Design Calculations | A | md, pdf | 02-equipment |
 | CFU-000-ME-DS-000 | Mechanical | Equipment Datasheets Combined | A | xlsx | 02-equipment |
 | CFU-000-ME-DS-001 | Mechanical | Columns Datasheets | A | pdf | 02-equipment |
@@ -45,6 +52,10 @@
 | CFU-100-IC-CSD-002 | Instrumentation & control | C 101 Column Control | A | pdf, svg | 04-instrumentation/control-scheme |
 | CFU-100-IC-CSD-003 | Instrumentation & control | Desalting Preheat Control | A | pdf, svg | 04-instrumentation/control-scheme |
 | CFU-100-IC-CSD-004 | Instrumentation & control | Stabiliser Splitter Control | A | pdf, svg | 04-instrumentation/control-scheme |
+| CFU-100-IC-LD-001 | Instrumentation & control | FIC 1031 | A | pdf, svg | 04-instrumentation/loop-diagrams |
+| CFU-100-IC-LD-002 | Instrumentation & control | TIC 1020 PIC 1021 | A | pdf, svg | 04-instrumentation/loop-diagrams |
+| CFU-100-IC-LD-003 | Instrumentation & control | SIF 101 | A | pdf, svg | 04-instrumentation/loop-diagrams |
+| CFU-100-IC-LD-ALL | Instrumentation & control | Loop Diagrams | A | pdf | 04-instrumentation |
 | CFU-100-ME-GA-001 | Mechanical | C 101 Column GA | A | pdf, svg | 02-equipment/ga |
 | CFU-100-ME-GA-002 | Mechanical | Side Strippers GA | A | pdf, svg | 02-equipment/ga |
 | CFU-100-ME-GA-003 | Mechanical | C 105 C 106 GA | A | pdf, svg | 02-equipment/ga |
