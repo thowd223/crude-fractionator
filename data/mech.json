@@ -5,7 +5,7 @@
   "units": "t = tonnes, thickness mm, elevations m above grade (grade = EL 100.000)",
   "note": "FEED estimates; weights +/-15 % (vessels), +/-30 % (heaters/packages)"
  },
- "equipment": {
+ "items": {
   "C-101": {
    "type": "Column",
    "material": "SA-516-70",
@@ -19,8 +19,8 @@
      "section": "Stripping section",
      "ID_mm": 4140.0,
      "z_from_m": 0.0,
-     "z_to_m": 5.52,
-     "t_req_mm": 10.1,
+     "z_to_m": 8.22,
+     "t_req_mm": 10.0,
      "t_ext_mm": null,
      "t_nom_mm": 18,
      "stiffening_rings": null
@@ -28,8 +28,8 @@
     {
      "section": "Swage 30 deg",
      "ID_mm": 6900.0,
-     "z_from_m": 5.52,
-     "z_to_m": 7.91,
+     "z_from_m": 8.22,
+     "z_to_m": 10.61,
      "t_req_mm": 15.8,
      "t_ext_mm": null,
      "t_nom_mm": 18,
@@ -38,7 +38,7 @@
     {
      "section": "Flash zone / rectifying section",
      "ID_mm": 6900.0,
-     "z_from_m": 7.91,
+     "z_from_m": 10.61,
      "z_to_m": 36.0,
      "t_req_mm": 14.1,
      "t_ext_mm": null,
@@ -47,6 +47,7 @@
     }
    ],
    "shell_t_max_mm": 18,
+   "shell_weight_kg": 140326,
    "head_top_t_mm": 16,
    "head_bottom_t_mm": 12,
    "skirt_height_m": 6.5,
@@ -55,36 +56,36 @@
    "BTL_elevation_m": 106.5,
    "top_elevation_m": 144.225,
    "insulation_mm": 125,
-   "weight_fabricated_t": 261.7,
-   "weight_empty_t": 337.4,
-   "weight_operating_t": 423.0,
-   "weight_hydrotest_t": 1554.5,
+   "weight_fabricated_t": 259.3,
+   "weight_empty_t": 334.3,
+   "weight_operating_t": 416.1,
+   "weight_hydrotest_t": 1487.3,
    "weight_breakdown_t": {
-    "shell": 95.5,
+    "shell": 93.1,
     "heads": 8.9,
     "skirt": 15.7,
     "fireproofing": 18.8,
     "nozzles": 8.8,
     "internals": 119.0,
     "clad": 13.9,
-    "platforms": 38.7,
-    "insulation": 18.3,
-    "op_liquid": 85.6
+    "platforms": 38.4,
+    "insulation": 17.7,
+    "op_liquid": 81.8
    },
    "hydrotest_P_top_barg": 5.74,
    "hydrotest_P_bottom_barg": 9.54,
-   "wind_base_shear_kN": 756.0,
-   "wind_base_moment_kNm": 19490.0,
+   "wind_base_shear_kN": 752.0,
+   "wind_base_moment_kNm": 19610.0,
    "wind_basis": "ASCE 7-16, V=150 mph, Exp. C, strength level (ASD = 0.6 x)",
-   "gust_factor": 1.066,
-   "natural_freq_Hz": 1.0,
+   "gust_factor": 1.081,
+   "natural_freq_Hz": 0.95,
    "anchor_bolts": {
     "n": 32,
     "size": "M48",
     "bcd_m": 4.43,
-    "F_kN": 275.0
+    "F_kN": 278.0
    },
-   "volume_m3": 1235.4
+   "volume_m3": 1170.7
   },
   "C-102": {
    "type": "Column",
@@ -107,6 +108,7 @@
     }
    ],
    "shell_t_max_mm": 8,
+   "shell_weight_kg": 8295,
    "head_top_t_mm": 10,
    "head_bottom_t_mm": 10,
    "skirt_height_m": 4.0,
@@ -166,6 +168,7 @@
     }
    ],
    "shell_t_max_mm": 12,
+   "shell_weight_kg": 12729,
    "head_top_t_mm": 12,
    "head_bottom_t_mm": 12,
    "skirt_height_m": 4.5,
@@ -226,6 +229,7 @@
     }
    ],
    "shell_t_max_mm": 10,
+   "shell_weight_kg": 8634,
    "head_top_t_mm": 12,
    "head_bottom_t_mm": 12,
    "skirt_height_m": 3.5,
@@ -286,6 +290,7 @@
     }
    ],
    "shell_t_max_mm": 14,
+   "shell_weight_kg": 21934,
    "head_top_t_mm": 16,
    "head_bottom_t_mm": 16,
    "skirt_height_m": 6.0,
@@ -345,6 +350,7 @@
     }
    ],
    "shell_t_max_mm": 12,
+   "shell_weight_kg": 44233,
    "head_top_t_mm": 12,
    "head_bottom_t_mm": 12,
    "skirt_height_m": 7.5,
@@ -456,6 +462,7 @@
     }
    ],
    "shell_t_max_mm": 25,
+   "shell_weight_kg": 146149,
    "head_top_t_mm": 18,
    "head_bottom_t_mm": 18,
    "skirt_height_m": 6.0,
@@ -465,9 +472,9 @@
    "top_elevation_m": 142.65,
    "insulation_mm": 125,
    "weight_fabricated_t": 244.0,
-   "weight_empty_t": 294.0,
-   "weight_operating_t": 337.1,
-   "weight_hydrotest_t": 1043.4,
+   "weight_empty_t": 294.3,
+   "weight_operating_t": 337.5,
+   "weight_hydrotest_t": 1043.8,
    "weight_breakdown_t": {
     "shell": 111.1,
     "heads": 2.6,
@@ -476,22 +483,22 @@
     "nozzles": 8.8,
     "internals": 97.9,
     "clad": 12.8,
-    "platforms": 24.0,
+    "platforms": 24.4,
     "insulation": 13.2,
     "op_liquid": 43.2
    },
    "hydrotest_P_top_barg": 6.91,
    "hydrotest_P_bottom_barg": 10.58,
-   "wind_base_shear_kN": 650.0,
-   "wind_base_moment_kNm": 15673.0,
+   "wind_base_shear_kN": 649.0,
+   "wind_base_moment_kNm": 15641.0,
    "wind_basis": "ASCE 7-16, V=150 mph, Exp. C, strength level (ASD = 0.6 x)",
-   "gust_factor": 1.223,
-   "natural_freq_Hz": 0.81,
+   "gust_factor": 1.221,
+   "natural_freq_Hz": 0.82,
    "anchor_bolts": {
     "n": 24,
     "size": "M64",
     "bcd_m": 3.3,
-    "F_kN": 409.0
+    "F_kN": 408.0
    },
    "volume_m3": 762.7
   },
@@ -506,6 +513,7 @@
    "ID_mm": 3800.0,
    "TT_m": 30.0,
    "shell_t_mm": 28,
+   "shell_weight_kg": 101036,
    "head_t_mm": 28,
    "shell_t_req_mm": 27.0,
    "hydrotest_P_barg": 22.1,
@@ -529,6 +537,7 @@
    "ID_mm": 3800.0,
    "TT_m": 30.0,
    "shell_t_mm": 28,
+   "shell_weight_kg": 101036,
    "head_t_mm": 28,
    "shell_t_req_mm": 27.0,
    "hydrotest_P_barg": 22.1,
@@ -552,6 +561,7 @@
    "ID_mm": 3400.0,
    "TT_m": 12.0,
    "shell_t_mm": 12,
+   "shell_weight_kg": 18635,
    "head_t_mm": 12,
    "shell_t_req_mm": 11.9,
    "hydrotest_P_barg": 4.55,
@@ -575,6 +585,7 @@
    "ID_mm": 900.0,
    "TT_m": 2.5,
    "shell_t_mm": 8,
+   "shell_weight_kg": 960,
    "head_t_mm": 8,
    "shell_t_req_mm": 6.4,
    "hydrotest_P_barg": 9.1,
@@ -598,6 +609,7 @@
    "ID_mm": 2100.0,
    "TT_m": 6.5,
    "shell_t_mm": 8,
+   "shell_weight_kg": 4194,
    "head_t_mm": 8,
    "shell_t_req_mm": 7.6,
    "hydrotest_P_barg": 4.6,
@@ -621,6 +633,7 @@
    "ID_mm": 1700.0,
    "TT_m": 5.5,
    "shell_t_mm": 16,
+   "shell_weight_kg": 5827,
    "head_t_mm": 16,
    "shell_t_req_mm": 14.2,
    "hydrotest_P_barg": 19.76,
@@ -644,6 +657,7 @@
    "ID_mm": 2700.0,
    "TT_m": 8.5,
    "shell_t_mm": 10,
+   "shell_weight_kg": 8456,
    "head_t_mm": 10,
    "shell_t_req_mm": 8.2,
    "hydrotest_P_barg": 4.55,
@@ -667,6 +681,7 @@
    "ID_mm": 1300.0,
    "TT_m": 5.5,
    "shell_t_mm": 8,
+   "shell_weight_kg": 2238,
    "head_t_mm": 8,
    "shell_t_req_mm": 6.8,
    "hydrotest_P_barg": 4.55,
@@ -690,6 +705,7 @@
    "ID_mm": 600.0,
    "TT_m": 2.0,
    "shell_t_mm": 8,
+   "shell_weight_kg": 641,
    "head_t_mm": 8,
    "shell_t_req_mm": 6.1,
    "hydrotest_P_barg": 4.55,
@@ -946,33 +962,33 @@
   },
   "E-201": {
    "type": "Shell & tube",
-   "size": "1950-6096 AKT",
+   "size": "900-6096 AKT",
    "shells": 1,
-   "shell_ID_mm": 1950,
-   "shell_t_mm": 16,
-   "tubes_per_shell": 1820,
+   "shell_ID_mm": 900,
+   "shell_t_mm": 12,
+   "tubes_per_shell": 236,
    "tube_OD_mm": 19.05,
    "tube_L_mm": 6096,
-   "weight_empty_t_per_shell": 24.2,
-   "weight_operating_t_per_shell": 39.3,
-   "weight_hydrotest_t_per_shell": 46.4,
-   "weight_empty_t": 24.2,
-   "weight_operating_t": 39.3
+   "weight_empty_t_per_shell": 4.9,
+   "weight_operating_t_per_shell": 8.1,
+   "weight_hydrotest_t_per_shell": 9.6,
+   "weight_empty_t": 4.9,
+   "weight_operating_t": 8.1
   },
   "E-114": {
    "type": "Shell & tube",
-   "size": "750-6096 AES",
+   "size": "650-6096 AES",
    "shells": 1,
-   "shell_ID_mm": 750,
+   "shell_ID_mm": 650,
    "shell_t_mm": 10,
-   "tubes_per_shell": 248,
+   "tubes_per_shell": 182,
    "tube_OD_mm": 25.4,
    "tube_L_mm": 6096,
-   "weight_empty_t_per_shell": 6.4,
-   "weight_operating_t_per_shell": 8.6,
-   "weight_hydrotest_t_per_shell": 9.7,
-   "weight_empty_t": 6.4,
-   "weight_operating_t": 8.6
+   "weight_empty_t_per_shell": 5.0,
+   "weight_operating_t_per_shell": 6.7,
+   "weight_hydrotest_t_per_shell": 7.4,
+   "weight_empty_t": 5.0,
+   "weight_operating_t": 6.7
   },
   "E-115": {
    "type": "Shell & tube",
@@ -991,18 +1007,18 @@
   },
   "E-116": {
    "type": "Shell & tube",
-   "size": "1200-6096 BKT",
+   "size": "1300-6096 BKT",
    "shells": 1,
-   "shell_ID_mm": 1200,
+   "shell_ID_mm": 1300,
    "shell_t_mm": 14,
-   "tubes_per_shell": 535,
+   "tubes_per_shell": 680,
    "tube_OD_mm": 19.05,
    "tube_L_mm": 6096,
-   "weight_empty_t_per_shell": 9.5,
-   "weight_operating_t_per_shell": 15.3,
-   "weight_hydrotest_t_per_shell": 18.0,
-   "weight_empty_t": 9.5,
-   "weight_operating_t": 15.3
+   "weight_empty_t_per_shell": 11.2,
+   "weight_operating_t_per_shell": 17.9,
+   "weight_hydrotest_t_per_shell": 21.1,
+   "weight_empty_t": 11.2,
+   "weight_operating_t": 17.9
   },
   "E-117": {
    "type": "Shell & tube",
@@ -1099,9 +1115,9 @@
    "type": "Air cooler",
    "bays": 1,
    "bays_required_6_rows": 1,
-   "rows": 6,
-   "weight_empty_t": 34.2,
-   "weight_operating_t": 35.6
+   "rows": 4,
+   "weight_empty_t": 28.8,
+   "weight_operating_t": 29.8
   },
   "A-105": {
    "type": "Air cooler",
@@ -1193,7 +1209,7 @@
   },
   "P-106A/B": {
    "type": "Pump",
-   "npsha_m": 37.2,
+   "npsha_m": 37.5,
    "npshr_est_m": 8.7,
    "speed_rpm": 3560,
    "weight_t_each": 1.6,
@@ -1201,7 +1217,7 @@
   },
   "P-107A/B": {
    "type": "Pump",
-   "npsha_m": 30.7,
+   "npsha_m": 31.0,
    "npshr_est_m": 4.2,
    "speed_rpm": 1780,
    "weight_t_each": 3.5,
@@ -1209,7 +1225,7 @@
   },
   "P-108A/B": {
    "type": "Pump",
-   "npsha_m": 22.9,
+   "npsha_m": 23.2,
    "npshr_est_m": 3.7,
    "speed_rpm": 1780,
    "weight_t_each": 3.0,
@@ -1241,7 +1257,7 @@
   },
   "P-112A/B": {
    "type": "Pump",
-   "npsha_m": 5.7,
+   "npsha_m": 5.6,
    "npshr_est_m": 4.2,
    "speed_rpm": 1780,
    "weight_t_each": 5.0,
@@ -1289,7 +1305,7 @@
   },
   "P-201A/B": {
    "type": "Pump",
-   "npsha_m": 34.8,
+   "npsha_m": 35.7,
    "npshr_est_m": 2.7,
    "speed_rpm": 1780,
    "weight_t_each": 2.7,
@@ -1305,7 +1321,7 @@
   },
   "P-203A/B": {
    "type": "Pump",
-   "npsha_m": 18.8,
+   "npsha_m": 18.5,
    "npshr_est_m": 1.0,
    "speed_rpm": 3560,
    "weight_t_each": 0.9,

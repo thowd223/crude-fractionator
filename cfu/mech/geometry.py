@@ -335,14 +335,14 @@ def c201():
     Lc1, Lc2 = cone_len(Dt, Dm), cone_len(Dm, Db)
     stack = [("Top space", 0.40, "space"), ("Demister (wire mesh)", 0.15, "demister"), ("", 0.35, "space"),
              ("LVGO PA spray distributor", 0.30, "dist"), ("", 0.30, "space"),
-             ("Bed 1 - LVGO PA (struct. 250Y)", 2.50, "bed"), ("M", 0.90, "mw"), ("LVGO total-draw collector", 0.60, "coll"),
+             ("Bed 1 - LVGO PA (struct. 250Y)", 2.50, "bed"), ("LVGO total-draw collector", 0.60, "coll"), ("M", 0.90, "mw"),
              ("Cone", Lc1, "cone1"),
              ("", 0.30, "space"), ("Bed 2 distributor (LVGO int. reflux)", 0.30, "dist"), ("", 0.20, "space"),
              ("Bed 2 - LVGO/HVGO fract. (struct. 250Y)", 2.50, "bed"), ("M", 0.90, "mw"),
-             ("HVGO total-draw collector", 0.60, "coll"), ("", 0.30, "space"), ("HVGO PA distributor", 0.30, "dist"),
+             ("HVGO total-draw collector", 0.60, "coll"), ("", 0.60, "space"), ("HVGO PA distributor", 0.30, "dist"),
              ("", 0.20, "space"), ("Bed 3 - HVGO PA (struct. 125Y)", 3.50, "bed"), ("M", 0.90, "mw"),
              ("Wash oil distributor (spray)", 0.30, "dist"), ("", 0.15, "space"), ("Bed 4 - Wash (grid)", 1.20, "bed"),
-             ("", 0.30, "space"), ("Slop wax collector", 0.60, "coll"), ("Flash zone / vapour horn", 3.60, "flash"),
+             ("", 0.30, "space"), ("Slop wax collector", 0.60, "coll"), ("Flash zone / vapour horn", 3.30, "flash"),
              ("Cone", Lc2, "cone2"), ("", 0.60, "space")]
     zc = H
     items = []
@@ -404,7 +404,7 @@ def c201():
     noz.append(flow_noz("N6", "HVGO total draw to P-202", hv_tot, 708.0, "liq_draw", find("HVGO total")["z0"] - 0.15,
                         "L", 225))
     noz.append(flow_noz("N7", "HVGO PA return", pa["HVGO"]["flow"], 790.0, "liq_ret", find("HVGO PA dist")["z1"] + 0.15,
-                        "L", 300))
+                        "R", 100))
     noz.append(flow_noz("N8", "Wash oil (HVGO) to bed 4", secs[3]["L_kg_h"], 790.0, "liq_ret",
                         find("Wash oil")["z1"] + 0.15, "R", 60))
     noz.append(flow_noz("N9", "Slop wax draw to P-203", S["25"]["total_kg_h"], 714.0, "liq_draw",

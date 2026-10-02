@@ -360,7 +360,7 @@ class Canvas:
         self.g_sy.add(self.d.polyline(pts, fill="none", stroke_width=0.35))
         if blocks:
             self.gate(x, y - up * 0.42, "v", note="CSO", note_side=-sgn if text_side is None else -text_side)
-            self.gate(bx + sgn * outlen * 0.6, by, "h", note="CSO", note_side=-1)
+            self.gate(bx + sgn * outlen * 0.6, by, "h", note="CSO", note_side=1)
         ts = text_side if text_side is not None else -sgn
         tx = bx + ts * 3.2
         anc = "start" if ts > 0 else "end"
@@ -376,6 +376,8 @@ class Canvas:
     def bub(self, x, y, tag, kind="field", r=4.6, reg=True, svc=None, **kw):
         """Instrument bubble.  kind: field | dcs | sis | panel | plc."""
         letters, num = tag.split("-", 1)
+        if len(letters) >= 4 or len(num) > 4:
+            r = max(r, 5.4)
         if kind in ("dcs", "sis", "plc"):
             self.g_sy.add(self.d.rect((x - r, y - r), (2 * r, 2 * r), fill="white"))
         if kind == "sis":
@@ -388,8 +390,8 @@ class Canvas:
         if kind in ("dcs", "sis", "panel", "plc"):
             lx = r * (0.62 if kind == "sis" else 1.0)
             self.g_sy.add(self.d.line((x - lx, y), (x + lx, y), stroke_width=0.3))
-        fs = 2.2 if len(letters) <= 3 else 1.95
-        fn = 2.0 if len(num) <= 4 else (1.75 if len(num) <= 6 else 1.5)
+        fs = 2.2 if len(letters) <= 3 else 2.0
+        fn = 2.0
         self.t(letters, x, y - 0.75, fs, "middle", bold=True)
         self.t(num, x, y + 2.75, fn, "middle")
         if reg and self.reg:

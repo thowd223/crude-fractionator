@@ -149,4 +149,29 @@ No emergency generator is provided. The unit is supplied by two independent 13.8
 - Allowance loads (lighting, HVAC, heat tracing, MOVs, welding, UPS, CP, analyser house) are FEED estimates and must be replaced by vendor / discipline data.
 - Desalter transformer load factor (0.35) assumed; desalter vendor to confirm grid power.
 - Cable lengths use equipment coordinates from data/layout.json (137 tagged items) with Manhattan routing from SS-100 plus allowances; actual tray/trench routes to be confirmed at detailed design (lengths regenerate automatically when the layout changes).
-- Hazardous-area classification (and Ex motor/cable gland requirements) deferred to a later pass.
+- Hazardous-area classification: CFU-000-EL-HAC-001/002/003 (Section 12); motor Ex protection per location in data/electrical.json (loads[].area_class).
+
+## 12. Hazardous area classification and equipment protection
+
+Classification CFU-000-EL-HAC-001/002 (schedule HAC-003) per API RP 505 / NFPA 70 Art. 505, point-source method, fluid categories per EI 15. Gas group IIA T3 generally, IIB in H2S / fuel-gas / off-gas services. 144 release sources: Atmospheric vent 1, Control-valve station 32, Ejector / condenser flanges 1, Exchanger flanges 25, Header box plugs / flanges 10, Pump seal 42, Sample point 14, Vessel flanges / instruments 19.
+
+| Unclassified item | Clearance to nearest classified area (m) | Nearest source |
+|---|---|---|
+| H-101 | 16.6 | RS-130 Control valves FV-1011, FV-1012, FV-1013, FV-1014, |
+| H-201 | 12.5 | RS-124 Control valves LV-9002 (D-103) |
+| E-120 | 34.1 | RS-130 Control valves FV-1011, FV-1012, FV-1013, FV-1014, |
+| SS-100 | 17.1 | RS-076 D-101B Electrostatic desalter, 2nd stage |
+| FAR-100 | 20.1 | RS-076 D-101B Electrostatic desalter, 2nd stage |
+
+| Equipment | Zone 1 | Zone 2 |
+|---|---|---|
+| LV motors (480 V) | Ex db or Ex eb (tE, stall relay), IIB T3 (Gb) | Ex ec (non-sparking), IIA/IIB T3 (Gc); AEx ec per NEC 505 |
+| MV motors (4.16 kV) | Not located in Zone 1 (relocate) / Ex pxb | Ex ec with stator discharge risk assessment / pre-start purge, IIA T3 |
+| VFD-fed motors | Ex db certified with the drive (converter duty) | Ex ec certified for converter duty; T-class verified with VFD |
+| Instruments | Ex ia / ib (intrinsic safety), Ex db | Ex ia / ic, Ex db, Ex ec |
+| Lighting fittings | Ex db / eb, IIB T3 | Ex ec / nR, IIA T3 (IIB in H2S areas) |
+| Junction boxes / glands | Ex eb boxes; Ex db barrier glands for Ex d | Ex eb / ec boxes and glands |
+| Heat tracing | Ex 60079-30-1, stabilised design <= T3 | Ex 60079-30-1, self-regulating, T3 |
+| Desalter transformers | n/a (Zone 2 only) | Vendor package certified for Zone 2 (Ex o / ec), HV entry to vessel via Ex bushings |
+| Welding / receptacles | Not permitted | Ex de interlocked receptacles; hot-work permit |
+| Buildings SS-100 / FAR-100 | - | Non-classified; pressurised (NFPA 496 / IEC 60079-13), intakes in unclassified area, gas detection |

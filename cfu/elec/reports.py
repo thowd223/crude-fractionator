@@ -533,6 +533,9 @@ def calc_md(ctx):
     a("## 11. Assumptions, holds and issues\n")
     for t_ in issues_list(ctx):
         a("- " + t_)
+    if ctx.get("hac"):
+        a("")
+        a(ctx["hac"]["md"])
     return "\n".join(L)
 
 
@@ -562,7 +565,9 @@ def issues_list(ctx):
          "automatically when the layout changes)." if ctx["loc"].xy else
          "Cable lengths are route estimates from CONVENTIONS.md area blocks; re-run when data/layout.json is issued "
          "(the generator uses layout coordinates automatically when present)."),
-        "Hazardous-area classification (and Ex motor/cable gland requirements) deferred to a later pass.",
+        ("Hazardous-area classification: CFU-000-EL-HAC-001/002/003 (Section 12); motor Ex protection per "
+         "location in data/electrical.json (loads[].area_class)." if ctx.get("hac") else
+         "Hazardous-area classification (and Ex motor/cable gland requirements) deferred to a later pass."),
     ]
     return out + [f"Data note: {w}" for w in ctx["issues"]]
 
@@ -624,7 +629,8 @@ def electrical_json(ctx, qty):
                           input_kW=_r(r["kw"], 2), kVA=_r(r["kva"], 2), duty=r["duty"], pair=r.get("pair"),
                           FLC_A=_r(r.get("I_fl")), mccb_A=r.get("mccb"), cable=c["cable"] if c else None,
                           cable_tag=c["tag"] if c else None, cable_length_m=c["L_m"] if c else None,
-                          ct=r.get("ct"), relays=r.get("relays"), dcs_signals=sig))
+                          ct=r.get("ct"), relays=r.get("relays"), dcs_signals=sig,
+                          area_class=(ctx.get("hac") or {}).get("area", {}).get(r["tag"])))
     nmot = sum(1 for r in rows if r["kind"] == "motor")
     return dict(
         doc=dict(load_list=LDL, calc=CAL, cable_schedule=CBL,
@@ -666,6 +672,11 @@ def electrical_json(ctx, qty):
             cable_m_lv=_r(sum(v for k, v in qty.items() if "0.6/1" in k), 0)),
         cables=[{k: (_r(v, 2) if isinstance(v, float) else v) for k, v in c.items() if k not in ("R_ohm", "X_ohm")}
                 for c in ctx["cbl"]],
+        hazardous_area=(dict(doc=["CFU-000-EL-HAC-001", "CFU-000-EL-HAC-002", "CFU-000-EL-HAC-003"],
+                             basis="API RP 505 / NFPA 70 Art. 505 / EI 15; IIA T3 general, IIB in H2S/FG services",
+                             release_sources=len(ctx["hac"]["src"]),
+                             clearances={c["tag"]: round(c["dist"], 1) for c in ctx["hac"]["clr"]})
+                        if ctx.get("hac") else None),
         issues=issues_list(ctx),
     )
 

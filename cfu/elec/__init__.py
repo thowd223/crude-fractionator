@@ -16,11 +16,13 @@ def compute():
 
 
 def build():
-    from . import common, reports, sld
+    from . import common, hac, reports, sld
     ctx = compute()
     out = common.OUT
     out.mkdir(parents=True, exist_ok=True)
     sld.build_all(ctx, out / "sld")
+    if (common.DATA / "layout.json").exists():
+        ctx["hac"] = hac.build(ctx, out / "hac")
     reports.build_all(ctx, out)
     for w in ctx["issues"]:
         print("  ELEC NOTE:", w)
