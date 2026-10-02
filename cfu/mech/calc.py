@@ -69,8 +69,8 @@ def export(c):
     out = dict(_meta=dict(doc="CFU-000-ME-CAL-001", rev="A", units="t = tonnes, thickness mm, elevations m above "
                                                                    "grade (grade = EL 100.000)",
                           note="FEED estimates; weights +/-15 % (vessels), +/-30 % (heaters/packages)"),
-               equipment={})
-    E = out["equipment"]
+               items={})
+    E = out["items"]
     for t, r in c["columns"].items():
         W = r["W"]
         E[t] = dict(type="Column", material=r["mat"], design_P_barg=r["Pd"], design_T_C=r["Td"], full_vacuum=r["fv"],
@@ -82,6 +82,7 @@ def export(c):
                                                                size_mm=f"{s['ring']['h']}x{s['ring']['b']} flat bar")
                                                           if s.get("ring") else None)) for s in r["segs"]],
                     shell_t_max_mm=max(s["t_nom"] for s in r["segs"]),
+                    shell_weight_kg=round(W["steel"]),
                     head_top_t_mm=r["heads"]["top"]["t_nom"], head_bottom_t_mm=r["heads"]["bottom"]["t_nom"],
                     skirt_height_m=r["skirt_h"], skirt_t_mm=r["skirt"]["t_nom"], skirt_OD_mm=_r(r["skirt"]["D_mm"], 0),
                     BTL_elevation_m=_r(100 + r["skirt_h"], 3),
@@ -102,7 +103,8 @@ def export(c):
         W = r["W"]
         E[t] = dict(type="Desalter" if "101" in t else "Drum", material=r["mat"], orient=r["orient"],
                     design_P_barg=r["Pd"], design_T_C=r["Td"], CA_mm=r["CA"], joint_eff=r["E"], ID_mm=r["D"] * 1000,
-                    TT_m=r["L"], shell_t_mm=r["t_nom"], head_t_mm=r["t_head_nom"], shell_t_req_mm=_r(r["t_req"]),
+                    TT_m=r["L"], shell_t_mm=r["t_nom"],
+                    shell_weight_kg=round(W["shell"] + W["heads"] + W["boot"] + W["supports"] + W["nozzles"]), head_t_mm=r["t_head_nom"], shell_t_req_mm=_r(r["t_req"]),
                     hydrotest_P_barg=_r(r["Pt"], 2), volume_m3=_r(r["Vol"]), insulation_mm=r["ins_mm"],
                     support="saddles" if r["orient"] == "H" else "legs / skirt",
                     bottom_elevation_m=_r(100 + r["BOS_el"], 3),

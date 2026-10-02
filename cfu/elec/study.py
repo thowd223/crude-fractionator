@@ -272,8 +272,8 @@ def ups_dc(ups_rows):
     aging, margin, temp = 1.25, 1.10, 1.0
     ah = I_max * Kt * aging * margin * temp
     ah_sel = C.std_up(ah, [100, 150, 200, 250, 300, 350, 400, 500, 600, 800, 1000])
-    ups = dict(load_kVA=load, design_kVA=fut, rating_kVA=rating, config="2 x 100 % parallel-redundant, each with "
-               "own battery, static bypass and external maintenance bypass", input="480 V 3-ph 60 Hz (from MCC-101A/B)",
+    ups = dict(load_kVA=load, design_kVA=fut, rating_kVA=rating, config="2 x 100 % dual-bus (UPS-101A -> UDB-101A, UPS-101B -> "
+               "UDB-101B), each with own battery, static bypass and external maintenance bypass", input="480 V 3-ph 60 Hz (from MCC-101A/B)",
                output="208Y/120 V 3-ph, 120 V 1-ph distribution, 60 Hz", autonomy_min=30, battery_kW=p_dc,
                cells=cells, v_float=cells * 2.25, v_nom=cells * 2.0, v_end=cells * v_end, I_max_A=I_max, Kt=Kt,
                aging=aging, margin=margin, temp=temp, ah_req=ah, ah_sel=ah_sel,

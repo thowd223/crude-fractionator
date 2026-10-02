@@ -166,8 +166,13 @@ def _walk_xy(obj, out):
                 if isinstance(v, dict) and isinstance(v.get("x"), (int, float)):
                     xy = (float(v["x"]), float(v["y"]))
                     break
+        if xy is None and all(isinstance(obj.get(k), (int, float)) for k in ("x0", "y0", "x1", "y1")):
+            xy = ((obj["x0"] + obj["x1"]) / 2.0, (obj["y0"] + obj["y1"]) / 2.0)
         if isinstance(tag, str) and xy:
             out.setdefault(tag, xy)
+            par = obj.get("parent_tag")
+            if isinstance(par, str) and par != tag:
+                out.setdefault("__parent__", {}).setdefault(par, []).append((tag, xy))
         for k, v in obj.items():
             if isinstance(v, (dict, list)):
                 if isinstance(v, dict) and k not in out and isinstance(k, str) and "-" in k:
@@ -196,6 +201,7 @@ class Locator:
                     self.source = f"data/layout.json ({len(self.xy)} tagged items)"
             except Exception as e:     # noqa: BLE001 - layout is optional input
                 self.source = f"CONVENTIONS.md area blocks (data/layout.json unreadable: {e})"
+        self.parent = self.xy.pop("__parent__", {})
         self.ss = self.xy.get("SS-100", SS_REF)
         self.far = self.xy.get("FAR-100", FAR_REF)
         self.used_layout = set()
@@ -215,6 +221,18 @@ class Locator:
             if c in self.xy:
                 self.used_layout.add(c)
                 return self.xy[c], "layout"
+        # sub-items listed under a parent tag (e.g. air-cooler bays A-101-B1/B2): fan i of n -> its bay
+        for c in cands:
+            if c in self.parent:
+                subs = sorted(self.parent[c])
+                if "-M" in tag and tag.split("-M")[-1].isdigit():
+                    i = int(tag.split("-M")[-1])
+                    n = max(2 * len(subs), i)
+                    tg, xy = subs[min((i - 1) * len(subs) // n, len(subs) - 1)]
+                else:
+                    xy = (sum(p[1][0] for p in subs) / len(subs), sum(p[1][1] for p in subs) / len(subs))
+                self.used_layout.add(c)
+                return xy, "layout"
         key = "-".join(base.split("-")[:2])
         k2 = key[:-1] if key[-1] in "AB" and key[:2] in ("P-", "K-") else key
         area = TAG_AREA.get(key) or TAG_AREA.get(k2)

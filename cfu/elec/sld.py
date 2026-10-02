@@ -606,7 +606,7 @@ def sld_003(ctx, out: Path, s: int):
     fd = mcc_feeders(ctx, s)
     n1 = (len(fd) + 1) // 2
     tiers = [fd[:n1], fd[n1:]]
-    ybs = [96.0, 284.0]
+    ybs = [96.0, 286.0]
     x0, x1 = 64.0, 790.0
     for t, (yb, items) in enumerate(zip(ybs, tiers)):
         sp = (x1 - x0) / max(len(items), 1)
@@ -635,7 +635,7 @@ def sld_003(ctx, out: Path, s: int):
             p.line(bend + 17, yb, bend + 20, yb)
             p.lines([f"52-T3 N.O.", "ACB 5000 A", f"TO MCC-101{other}", f"(SHEET {2 - s} OF 2)"], bend + 10, yb - 15,
                     1.9, anchor="middle", bold_first=True)
-            p.text("BUS CONTINUED ON TIER 2  >>", bend - 2, yb + 4.2, 1.9, "end", italic=True)
+            p.text("BUS CONTINUED ON TIER 2  >>", bend - 3, yb - 2.5, 2.0, "end", italic=True)
         else:
             p.text("<<  BUS CONTINUED FROM TIER 1", bstart, yb - 2.2, 2.0, italic=True)
         for i, (k, r, c) in enumerate(items):
@@ -672,10 +672,11 @@ def sld_003(ctx, out: Path, s: int):
                         f"-> LDB-101{ab}"]
             else:
                 kv = r.get("kva_rated")
-                rating = f"{kv:g} kVA" if kv else f"{r['rated_kw']:g} kW"
+                rating = f"{kv:g} kVA" if kv else f"{r['rated_kw']:.0f} kW" if r["rated_kw"] >= 10 else \
+                    f"{r['rated_kw']:.2g} kW"
                 info = [r["tag"], f"{rating}  {duty}", _short_desc(r), f"MCCB {mccb} A", ""]
             info += [_short_cable(c), f"{c['L_m']:.0f} m, VD {c['vd_run']:.1f} %"]
-            p.lines([x for x in info if x], xf, yy + 4.6, 2.0, lh=2.65, anchor="middle", bold_first=True)
+            p.lines([x for x in info if x], xf, yy + 4.8, 2.15, lh=2.85, anchor="middle", bold_first=True)
     # section summary
     d = R["md"][BLV[s]]
     lv = [r for r in rows if r["bus"] == BLV[s]]
@@ -715,11 +716,11 @@ def sld_004(ctx, out: Path):
     R, ud, urows, cab = ctx["R"], ctx["ud"], ctx["ups_rows"], ctx["cab"]
     U, D = ud["ups"], ud["dc"]
     notes = [
-        "Emergency diesel generator NOT provided. Basis: two independent 13.8 kV feeders from refinery main",
-        "  substation; unit is designed to fail safe on total power loss (SIS de-energise-to-trip, fail-safe",
-        "  valves, heater BMS trip); no machinery needs post-trip power (no lube-oil / seal-oil pumps,",
-        "  API 682 seals, steam ejectors). Essential loads (DCS, SIS/BMS, F&G, PAGA/telecom) on UPS 30 min;",
-        "  escape lighting self-contained 90 min. To be confirmed in HAZOP / refinery power study.",
+        "Emergency diesel generator NOT provided. Basis: two independent 13.8 kV feeders from the refinery main "
+        "substation; the unit fails safe on total power loss (SIS de-energise-to-trip, fail-safe valves, heater "
+        "BMS trip); no machinery needs post-trip power (no lube-oil / seal-oil systems, API 682 seals, steam "
+        "ejectors). Essential loads (DCS, SIS/BMS, F&G, PAGA/telecom) on UPS 30 min; escape lighting "
+        "self-contained 90 min. To be confirmed by HAZOP and the refinery power-system study.",
         f"UPS: {U['config']}; {U['rating_kVA']:g} kVA each; input {U['input']}; output {U['output']}.",
         "Consumers with redundant PSUs fed from both UDBs; single-fed loads via static transfer switch STS-101.",
         f"UPS battery: {U['battery_type']}; {U['cells']} cells, {U['ah_sel']} Ah, {U['autonomy_min']} min at design load.",
@@ -734,144 +735,148 @@ def sld_004(ctx, out: Path):
     sh.dwg.add(gs)
     p = Pen(sh, gs)
     pt = Pen(sh)
-    share = {}
-    for r in urows:
-        share.setdefault(r["tag"].rsplit("-", 1)[0], r)
+    fs, fh = 1.65, 1.9          # virtual font sizes (x 1.42 on paper)
     for s in (0, 1):
         ab = "AB"[s]
         other = "AB"[1 - s]
-        x0 = 60 + s * 280
-        # rectifier input from MCC
-        xr = x0 + 40
-        xb = x0 + 110        # bypass line
-        p.lines([f"FROM MCC-101{ab}", "(SLD-003)", f"MCCB {cab['CBL-UPS-101' + ab]['device'].split()[1]} A"], xr, 22,
-                2.1, anchor="middle", bold_first=True)
-        p.line(xr, 31, xr, 34)
-        y = p.breaker(xr, 34, drawout=False, s=1.0)[1]
-        p.line(xr, y, xr, y + 4)
-        _, y = p.converter(xr, y + 4, "~", "=", w=13, h=13, label=["RECTIFIER /", "CHARGER", "IGBT, 480 V"],
+        x0 = 14 + s * 200
+        xr, xb = x0 + 38, x0 + 100
+        xm = xb + 24
+        p.lines([f"FROM MCC-101{ab}", "(SLD-003)", f"MCCB {cab['CBL-UPS-101' + ab]['device'].split()[1]} A"], xr, 10,
+                fs, anchor="middle", bold_first=True)
+        p.line(xr, 15.5, xr, 18)
+        y = p.breaker(xr, 18, drawout=False, s=0.9)[1]
+        p.line(xr, y, xr, y + 3)
+        _, y = p.converter(xr, y + 3, "~", "=", w=11, h=11, label=["RECTIFIER /", "CHARGER", "IGBT"],
                            label_side="left")
-        yd = y + 10
-        p.line(xr, y, xr, yd + 22)
+        yd = y + 8
+        p.line(xr, y, xr, yd + 19)
         # battery branch
         p.dot(xr, yd)
-        p.line(xr, yd, xr + 22, yd)
-        yb2 = p.breaker(xr + 22, yd, drawout=False, s=0.8, kind="switch")[1]
-        p.text("DC CB", xr + 25, yd + 6, 1.9)
-        p.battery(xr + 22, yb2, [f"BAT-UPS-{ab}", f"{U['cells']} x 2 V VRLA", f"{U['ah_sel']} Ah",
-                                 f"{U['autonomy_min']} min", f"{U['v_nom']:.0f} V DC nom."], s=1.3)
-        _, y = p.converter(xr, yd + 22, "=", "~", w=13, h=13, label=["INVERTER", f"{U['rating_kVA']:g} kVA"],
+        p.line(xr, yd, xr + 20, yd)
+        yb2 = p.breaker(xr + 20, yd, drawout=False, s=0.7, kind="switch")[1]
+        p.text("DC CB", xr + 22.5, yd + 5.5, fs)
+        p.battery(xr + 20, yb2, None, s=1.1)
+        p.lines([f"BAT-UPS-{ab}", f"{U['cells']} x 2 V VRLA", f"{U['ah_sel']} Ah, {U['autonomy_min']} min",
+                 f"{U['v_nom']:.0f} V DC nom."], xr + 25, yb2 + 2.5, fs, bold_first=True)
+        _, y = p.converter(xr, yd + 19, "=", "~", w=11, h=11, label=["INVERTER", f"{U['rating_kVA']:g} kVA"],
                            label_side="left")
-        p.line(xr, y, xr, y + 6)
-        yss = y + 6
-        # static switch
-        p.rect(xr - 7, yss, 34 + (xb - xr - 27), 10)
-        p.text(f"STATIC SWITCH SS-{ab}", (xr + xb) / 2, yss + 6.2, 2.0, "middle", bold=True)
-        # bypass from other MCC through bypass transformer
-        p.lines([f"BYPASS FROM", f"MCC-101{other}"], xb, 22, 2.1, anchor="middle", bold_first=True)
-        p.line(xb, 28, xb, 34)
-        y = p.breaker(xb, 34, drawout=False, s=1.0)[1]
-        _, y = p.transformer(xb, y, r=4.5, h_lead=2, label=[f"BTR-101{ab}", "112.5 kVA", "480-208Y/120 V",
-                                                              "shielded"], label_x=xb + 7)
+        p.line(xr, y, xr, y + 5)
+        yss = y + 5
+        p.rect(xr - 8, yss, (xb - xr) + 16, 8)
+        p.text(f"STATIC SWITCH SS-{ab}", (xr + xb) / 2, yss + 5.2, fh, "middle", bold=True)
+        # bypass from the other MCC through bypass transformer
+        p.lines(["BYPASS FROM", f"MCC-101{other}"], xb, 10, fs, anchor="middle", bold_first=True)
+        p.line(xb, 13, xb, 18)
+        y = p.breaker(xb, 18, drawout=False, s=0.9)[1]
+        _, y = p.transformer(xb, y, r=4.2, h_lead=2.5, label=[f"BTR-101{ab}", "112.5 kVA", "480-208Y/120 V",
+                                                               "shielded"], label_x=xb - 6.5)
         p.line(xb, y, xb, yss)
-        # maintenance bypass
-        xm = xb + 26
-        p.line(xb, 52 + 0, xm, 52)
-        p.dot(xb, 52)
-        p.line(xm, 52, xm, yss + 24)
-        p.breaker(xm, yss + 24, drawout=False, s=0.9, kind="switch")
-        p.lines(["MAINT.", "BYPASS", "(interlocked)"], xm + 3, yss + 18, 1.8)
-        yo = yss + 10
-        p.line(xr + 10, yo, xr + 10, yo + 10)
-        y = p.breaker(xr + 10, yo + 10, drawout=False, s=0.9)[1]
-        yu = y + 14
-        p.line(xr + 10, y, xr + 10, yu)
-        p.line(xm, yss + 24 + 11.7, xm, yu)
+        # maintenance bypass (208 V side of BTR)
+        ytap = y + 4
+        p.line(xb, ytap, xm, ytap)
+        p.dot(xb, ytap)
+        p.line(xm, ytap, xm, yss + 18)
+        p.breaker(xm, yss + 18, drawout=False, s=0.8, kind="switch")
+        p.lines(["MAINT.", "BYPASS", "(key-", "interlocked)"], xm + 3, yss + 12, fs)
+        yo = yss + 8
+        xo = (xr + xb) / 2
+        p.line(xo, yo, xo, yo + 5)
+        y = p.breaker(xo, yo + 5, drawout=False, s=0.8)[1]
+        yu = y + 12
+        p.line(xo, y, xo, yu)
+        p.line(xm, yss + 18 + 10.4, xm, yu)
         p.dot(xm, yu)
-        p.dot(xr + 10, yu)
+        p.dot(xo, yu)
         # UDB
-        ux1, ux2 = x0 - 12, x0 + 205
+        ux1, ux2 = x0 - 6, x0 + 184
         p.bus(ux1, ux2, yu)
-        p.bus_label(ux1, yu, [f"UDB-101{ab}", "208Y/120 V, 60 Hz, 400 A, 10 kA"])
-        feeders = [(k, r) for k, r in share.items()]
-        feeders = [("UPS-" + c, None) for c in ("DCS", "SIS", "FGS", "TEL", "ANZ", "MISC")]
-        for i, (code, _) in enumerate(feeders + [("STS-101", None), ("SPARE", None)]):
-            xf = x0 + 2 + i * 26
+        p.text(f"UDB-101{ab}", ux1, yu - 6.5, 2.1, bold=True)
+        p.text("208Y/120 V, 60 Hz, 225 A, 10 kA", ux1, yu - 2.5, fs)
+        codes = ["DCS", "SIS", "FGS", "TEL", "ANZ", "MISC", "STS-101", "SPARE"]
+        for i, code in enumerate(codes):
+            xf = x0 + 4 + i * 23
+            if abs(xf - xo) < 3 or abs(xf - xm) < 3:
+                xf += 4
             p.dot(xf, yu)
-            y = p.breaker(xf, yu, drawout=False, s=0.8)[1]
-            p.arrow_down(xf, y, 6)
-            if code.startswith("UPS-"):
-                rr = next(r for r in urows if r["tag"] == f"{code}-{ab}")
+            y = p.breaker(xf, yu, drawout=False, s=0.7)[1]
+            p.arrow_down(xf, y, 5)
+            if code in ("DCS", "SIS", "FGS", "TEL", "ANZ", "MISC"):
+                rr = next(r for r in urows if r["tag"] == f"UPS-{code}-{ab}")
                 kva = rr["kva_rated"]
                 amp = kva * 1000 / (1.732 * 208)
-                mcb = C.std_up(amp * 1.25, C.NEC_A)
-                txt = [code[4:] + "-" + ab, f"{kva:g} kVA", f"MCB {mcb} A 3P", "(dual-fed)"]
+                mcb = max(C.std_up(amp * 1.25, C.NEC_A), 20)
+                txt = [f"{code}-{ab}", f"{kva:g} kVA", f"MCB {mcb} A", "3P, dual-fed"]
             elif code == "STS-101":
-                txt = ["STS-101", "single-fed", "loads", f"(A/B)"]
+                txt = ["STS-101", "single-fed", "loads (A/B)"]
             else:
                 txt = ["SPARE", "MCB 60 A"]
-            p.lines(txt, xf, y + 10, 1.85, anchor="middle", bold_first=True)
+            p.lines(txt, xf, y + 8.5, fs, anchor="middle", bold_first=True)
     # ---- DC system
-    x0 = 640
-    p.text("125 V DC SWITCHGEAR CONTROL SUPPLY", x0 + 50, 22, 2.4, "middle", bold=True)
-    yd = 160
+    x0 = 432
+    p.text("125 V DC SWITCHGEAR CONTROL SUPPLY", x0 + 52, 8, 2.1, "middle", bold=True)
+    yd = 112
     for s in (0, 1):
         ab = "AB"[s]
-        xc = x0 + 10 + s * 85
-        p.lines([f"FROM MCC-101{ab}"], xc, 30, 2.0, anchor="middle", bold_first=True)
-        p.line(xc, 31.5, xc, 36)
-        y = p.breaker(xc, 36, drawout=False, s=0.9)[1]
-        p.line(xc, y, xc, y + 4)
-        _, y = p.converter(xc, y + 4, "~", "=", w=12, h=12, label=[f"BC-101{ab}", "125 V DC, 30 A"],
-                           label_side="right" if s == 0 else "left")
+        xc = x0 + 8 + s * 88
+        p.lines([f"FROM MCC-101{ab}"], xc, 14, fs, anchor="middle", bold_first=True)
+        p.line(xc, 15.5, xc, 19)
+        y = p.breaker(xc, 19, drawout=False, s=0.9)[1]
+        p.line(xc, y, xc, y + 3)
+        _, y = p.converter(xc, y + 3, "~", "=", w=11, h=11,
+                           label=[f"BC-101{ab}", "125 V DC", "30 A"], label_side="right" if s == 0 else "left")
         p.line(xc, y, xc, yd)
-        yj = y + 18
+        yj = y + 16
         p.dot(xc, yj)
-        p.line(xc, yj, xc + (18 if s == 0 else -18), yj)
-        xbat = xc + (18 if s == 0 else -18)
-        y2 = p.breaker(xbat, yj, drawout=False, s=0.75, kind="switch")[1]
-        p.battery(xbat, y2, [f"BAT-DC-{ab}", f"60 x 2 V, {D['ah_sel']} Ah"] if s == 0 else None, s=1.2)
-        if s == 1:
-            p.lines([f"BAT-DC-{ab}", f"60 x 2 V, {D['ah_sel']} Ah"], xbat - 5, y2 + 4, 1.9, anchor="end")
+        xbat = xc + (20 if s == 0 else -20)
+        p.line(xc, yj, xbat, yj)
+        y2 = p.breaker(xbat, yj, drawout=False, s=0.7, kind="switch")[1]
+        p.battery(xbat, y2, None, s=1.1)
+        p.lines([f"BAT-DC-{ab}", "60 x 2 V VRLA", f"{D['ah_sel']} Ah"], xbat + (5 if s == 0 else -5), y2 + 3, fs,
+                anchor="start" if s == 0 else "end", bold_first=True)
         p.dot(xc, yd)
-    p.bus(x0 - 5, x0 + 42, yd)
-    p.bus(x0 + 58, x0 + 105, yd)
-    p.line(x0 + 42, yd, x0 + 44, yd, w=1.6)
-    p.breaker(x0 + 44, yd, rot=-90, drawout=False, s=0.9, kind="switch")
-    p.line(x0 + 55.7, yd, x0 + 58, yd, w=1.6)
-    p.text("N.O.", x0 + 50, yd - 3.5, 1.9, "middle", bold=True)
-    p.bus_label(x0 - 5, yd + 26, [])
-    p.text("DCDB-101  125 V DC, 200 A, 10 kA, ungrounded + GF detection", x0 - 5, yd - 7.5, 2.0, bold=True)
+    p.bus(x0 - 6, x0 + 45, yd)
+    p.bus(x0 + 59, x0 + 110, yd)
+    p.line(x0 + 45, yd, x0 + 47, yd, w=1.6)
+    p.breaker(x0 + 47, yd, rot=-90, drawout=False, s=0.8, kind="switch")
+    p.line(x0 + 57.4, yd, x0 + 59, yd, w=1.6)
+    p.text("N.O.", x0 + 52, yd - 4.5, fs, "middle", bold=True)
+    p.text("DCDB-101", x0 - 6, yd - 9, 2.1, bold=True)
+    p.text("125 V DC, 200 A, 10 kA", x0 - 6, yd - 5.5, fs)
     dcf = ["SWG-101A", "SWG-102A", "MCC-101A", "SPARE", "SWG-101B", "SWG-102B", "MCC-101B", "SPARE"]
     for i, t in enumerate(dcf):
-        xf = x0 + 2 + i * 13 + (12 if i >= 4 else 0)
+        xf = x0 - 1 + i * 13 + (10 if i >= 4 else 0)
+        if abs(xf - (x0 + 8)) < 2.5 or abs(xf - (x0 + 96)) < 2.5:
+            xf += 3
         p.dot(xf, yd)
-        y = p.breaker(xf, yd, drawout=False, s=0.7)[1]
-        p.arrow_down(xf, y, 5)
-        p.text(t, xf + 0.7, y + 7, 1.8, rotate=90)
-    # ---- sizing tables
-    y0 = 300
+        y = p.breaker(xf, yd, drawout=False, s=0.6)[1]
+        p.arrow_down(xf, y, 4.5)
+        p.text(t + " ctrl" if t != "SPARE" else t, xf + 0.6, y + 6.5, fs, rotate=90)
+    p.lines(["Ungrounded 125 V DC with ground-fault", "detection (64DC); 2 x 100 % chargers and",
+             "batteries; DCDB sections A/B with N.O. tie"], x0 - 6, yd + 42, fs)
+    # ---- sizing tables (real sheet coordinates)
+    y0 = 318
     urws = [["Connected UPS load (DCS 22, SIS/BMS 14, F&G 6, telecom 8, analysers 6, misc 4)", f"{U['load_kVA']:.0f} kVA"],
             ["Design load incl. 20 % future", f"{U['design_kVA']:.0f} kVA"],
             ["UPS rating (design load <= 80 % of rating)", f"2 x {U['rating_kVA']:g} kVA"],
             ["Battery power at design load (PF 0.9, inverter 94 %)", f"{U['battery_kW']:.1f} kW"],
             [f"Max. discharge current at end voltage {U['v_end']:.0f} V ({U['cells']} x 1.75 V)", f"{U['I_max_A']:.0f} A"],
-            [f"Capacity = I x Kt({U['autonomy_min']} min)={U['Kt']} x aging {U['aging']} x margin {U['margin']}",
+            [f"Capacity = I x Kt {U['Kt']} h (30 min) x aging {U['aging']} x margin {U['margin']}",
              f"{U['ah_req']:.0f} Ah -> {U['ah_sel']} Ah"],
             [f"125 V DC duty: {D['duty']}", f"F = {D['F']:.1f} Ah"],
             ["125 V DC battery incl. aging 1.25, margin 1.10", f"{D['ah_req']:.0f} Ah -> {D['ah_sel']} Ah"]]
-    table(p, 24, y0, [("UPS / DC SIZING (detail in CFU-000-EL-CAL-001)", 150, "l"), ("RESULT", 40, "r")], urws,
-          size=2.3, rh=5.4)
+    table(pt, 24, y0, [("UPS / DC SIZING (detail in CFU-000-EL-CAL-001)", 160, "l"), ("RESULT", 40, "r")], urws,
+          size=2.4, rh=5.8)
     crws = []
-    for code, desc, kva in [(r["tag"].rsplit("-", 1)[0][4:], r["desc"].split(" - feed")[0], r["kva_rated"])
-                            for r in urows if r["tag"].endswith("-A")]:
-        crws.append([code, desc, f"{kva:g}", f"{kva / 2:g} + {kva / 2:g}"])
+    for r in urows:
+        if r["tag"].endswith("-A"):
+            kva = r["kva_rated"]
+            crws.append([r["tag"].split("-")[1], r["desc"].split(" - feed")[0], f"{kva:g}", f"{kva / 2:g} + {kva / 2:g}"])
     crws.append(["TOTAL", "", f"{U['load_kVA']:g}", ""])
-    table(p, 230, y0, [("CODE", 16, "l"), ("UPS CONSUMER", 112, "l"), ("kVA", 14, "r"), ("A + B share", 26, "r")],
-          crws, size=2.3, rh=5.4, bold_last=True)
+    table(pt, 240, y0, [("CODE", 18, "l"), ("UPS CONSUMER", 118, "l"), ("kVA", 15, "r"), ("A + B share", 28, "r")],
+          crws, size=2.4, rh=5.8, bold_last=True)
     sh.save(out / "CFU-000-EL-SLD-004")
     return out / "CFU-000-EL-SLD-004.svg"
-
 
 def build_all(ctx, out: Path):
     out.mkdir(parents=True, exist_ok=True)

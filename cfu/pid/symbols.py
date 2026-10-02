@@ -282,6 +282,73 @@ class Canvas:
         return dict(top=(cx, y_top), bot=(cx, yb), xl=x0, xr=x1, xbl=cx - (w_bot or w) / 2,
                     xbr=cx + (w_bot or w) / 2)
 
+    def column_sections(self, cx, y_top, sections, tr=8.0, tag=None):
+        """Column with several diameters. sections = [(width, y_end), ...] top to bottom; conical
+        transitions of height `tr` start at each section end. Returns wall x per y via 'wall(y)'."""
+        w0, wl = sections[0][0], sections[-1][0]
+        hd0, hdl = w0 * 0.25, wl * 0.25
+        right = [(cx + w0 / 2, y_top + hd0)]
+        prof = []                     # (y_start, y_end, w_start, w_end)
+        y = y_top
+        for i, (w, ye) in enumerate(sections):
+            prof.append((y, ye, w, w))
+            right.append((cx + w / 2, ye))
+            if i + 1 < len(sections):
+                wn = sections[i + 1][0]
+                prof.append((ye, ye + tr, w, wn))
+                right.append((cx + wn / 2, ye + tr))
+                y = ye + tr
+        yb = sections[-1][1]
+        right[-1] = (cx + wl / 2, yb - hdl)
+        d = f"M {cx - w0 / 2} {y_top + hd0} A {w0 / 2} {hd0} 0 0 1 {cx + w0 / 2} {y_top + hd0} "
+        for (x, yy) in right[1:]:
+            d += f"L {x} {yy} "
+        d += f"A {wl / 2} {hdl} 0 0 1 {cx - wl / 2} {yb - hdl} "
+        for (x, yy) in reversed(right[1:-1]):
+            d += f"L {2 * cx - x} {yy} "
+        d += "Z"
+        self._path(d, w=0.55)
+        self.reg(cx - max(s[0] for s in sections) / 2, y_top, cx + max(s[0] for s in sections) / 2, yb,
+                 f"col {tag}")
+
+        def half(yq):
+            for (a, b, wa, wb) in prof:
+                if a <= yq <= b:
+                    return (wa + (wb - wa) * (yq - a) / max(b - a, 1e-6)) / 2
+            return wl / 2
+        return dict(top=(cx, y_top), bot=(cx, yb), xl=lambda yq: cx - half(yq), xr=lambda yq: cx + half(yq))
+
+    def bed(self, cx, w, ya, yb_, lab=None):
+        xa = cx - w / 2
+        self.gs.add(self.d.rect((xa + 0.6, ya), (w - 1.2, yb_ - ya), fill="white", stroke=INK, stroke_width=0.3))
+        n = max(2, int(w / 5))
+        for i in range(n):
+            x1 = xa + 0.6 + (w - 1.2) * i / n
+            x2 = xa + 0.6 + (w - 1.2) * (i + 1) / n
+            self._ln((x1, ya), (x2, yb_), 0.18)
+            self._ln((x2, ya), (x1, yb_), 0.18)
+        if lab:
+            bw = _tw(lab, 2.2) + 2
+            self.gs.add(self.d.rect((cx - bw / 2, (ya + yb_) / 2 - 2.1), (bw, 3.2), fill="white", stroke="none"))
+            self.text(lab, cx, (ya + yb_) / 2 + 0.6, 2.2, "middle", chk=False)
+
+    def pan(self, cx, w, y, side="R"):
+        """Chimney-tray / draw pan."""
+        xa, xb = cx - w / 2, cx + w / 2
+        self._ln((xa, y), (xb, y), 0.45)
+        for f in (0.3, 0.62):
+            x = xa + w * f
+            self.gs.add(self.d.rect((x - 1.2, y - 3.2), (2.4, 3.2), fill="white", stroke=INK, stroke_width=0.25))
+            self._ln((x - 2, y - 4), (x + 2, y - 4), 0.3)
+
+    def spray(self, cx, w, y):
+        xa, xb = cx - w / 2 + 2, cx + w / 2 - 2
+        self._ln((xa, y), (xb, y), 0.35)
+        n = max(3, int(w / 6))
+        for i in range(n):
+            x = xa + (xb - xa) * (i + 0.5) / n
+            self._poly([(x, y), (x - 1, y + 1.6), (x + 1, y + 1.6)], fill="white", w=0.2)
+
     # ---------------------------------------------------------------- vessels
     def hvessel(self, cx, cy, L, D, boot=None, internals=None, tag=None, weir=False):
         """Horizontal drum with elliptical heads. boot = (x_center, width, depth)."""

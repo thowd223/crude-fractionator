@@ -400,8 +400,11 @@ class Model:
         stab = self._fug(naph, nc4, ip, 0.98, 0.97, D["stab_drum_P"] + 0.3, D["stab_drum_T"],
                          D["stab_drum_P"] + 0.8, "C-105")
         # feed preheated against bottoms to 120 C
-        T_feed = 120.0
-        H_f = self.hl(naph, T_feed)
+        # feed preheated against stabiliser bottoms (bottoms cooled to splitter feed T)
+        T_sf = stab["T_bot"] - 40
+        stab["Q_fb"] = self.hl(stab["b"], stab["T_bot"]) - self.hl(stab["b"], T_sf)
+        H_f = self.hl(naph, D["atm_drum_T"]) + stab["Q_fb"]
+        T_feed = self.T_from_hl(naph, H_f, lo=0, hi=300)
         stab["Q_reb"] = self.hl(stab["b"], stab["T_bot"]) + self.hl(stab["d"], D["stab_drum_T"]) + stab["Q_cond"] - H_f
         stab["T_feed"] = T_feed
         # LPG / off-gas split in stabiliser drum
@@ -413,12 +416,10 @@ class Model:
         hk = lk + 1
         spl = self._fug(stab["b"], lk, hk, 0.95, 0.95, D["split_drum_P"] + 0.3, D["split_drum_T"],
                         D["split_drum_P"] + 0.7, "C-106")
-        T_sf = stab["T_bot"] - 40  # after feed/bottoms exchange
         spl["T_feed"] = T_sf
         spl["Q_reb"] = self.hl(spl["b"], spl["T_bot"]) + self.hl(spl["d"], D["split_drum_T"]) + spl["Q_cond"] \
             - self.hl(stab["b"], T_sf)
-        stab["Q_fb"] = self.hl(stab["b"], stab["T_bot"]) - self.hl(stab["b"], T_sf)
-        stab["T_feed_in"] = self.T_from_hl(naph, H_f - stab["Q_fb"], lo=0, hi=300)
+        stab["T_feed_in"] = D["atm_drum_T"]
         self.res["stab"], self.res["split"] = stab, spl
 
     # ======================================================================
@@ -449,6 +450,7 @@ class Model:
                    ("E-111", "VR")]
         dTmin = D["min_approach"]
         exch = []
+        hot_end_out = {}
 
         def run_train(seq, Tc, cold_m, cold_w, train):
             for tag, hname in seq:
@@ -473,7 +475,10 @@ class Model:
                     Q, Tc_out, Th_out = 0.0, Tc, Th_in
                 exch.append(dict(tag=tag, hot=hname, Q_kw=Q, Th_in=Th_in, Th_out=Th_out, Tc_in=Tc, Tc_out=Tc_out,
                                  hot_flow=mh.sum(), cold_flow=cold_m.sum() + cold_w, train=train))
-                state[hname] = Th_out
+                if hname in split and train == "hot":
+                    hot_end_out[hname] = Th_out          # cold-end exchanger owns the final state
+                else:
+                    state[hname] = Th_out
                 Tc = Tc_out
             return Tc
 
@@ -486,17 +491,23 @@ class Model:
         cit = run_train(seq_hot, T_dc, crude, ds_water, "hot")
         # trims: remainder duties to coolers/steam generators
         trims = []
-        trim_map = {"TPA": ("A-102", "air cooler"), "MPA": ("E-112", "LP steam generator"),
+        trim_map = {"TPA": ("E-101", "trim (none)"), "MPA": ("E-106", "trim (none)"),
                     "BPA": ("E-113", "MP steam generator"), "KERO": ("A-103", "air cooler"),
                     "DIESEL": ("A-104", "air cooler"), "AGO": ("A-105", "air cooler"),
-                    "LVGO": ("A-201", "air cooler"), "HVGO": ("E-202", "MP steam generator"),
+                    "LVGO": ("A-201", "air cooler"), "HVGO": ("A-202", "air cooler"),
                     "VR": ("E-201", "LP steam generator")}
         for hname, (mh, Tin, Tt, fixed) in hot.items():
             Tcur = state[hname]
-            if Tcur > Tt + 0.5:
-                Q = self.hl(mh, Tcur) - self.hl(mh, Tt)
+            # hot-end exchanger of a split stream may not reach the split temperature
+            extra = 0.0
+            if hname in hot_end_out and hot_end_out[hname] > split[hname]:
+                extra = self.hl(mh, hot_end_out[hname]) - self.hl(mh, split[hname])
+            if Tcur > Tt + 0.5 or extra > 1:
+                Q = self.hl(mh, Tcur) - self.hl(mh, Tt) + extra
                 tag, typ = trim_map[hname]
-                trims.append(dict(tag=tag, hot=hname, type=typ, Q_kw=Q, T_in=Tcur, T_out=Tt, flow=mh.sum()))
+                T_in, T_out = (hot_end_out[hname], split[hname]) if extra > 1 and Tcur <= Tt + 0.5 else (Tcur, Tt)
+                trims.append(dict(tag=tag, hot=hname, type=typ, Q_kw=Q, T_in=T_in, T_out=T_out, flow=mh.sum(),
+                                  note="between hot-end and cold-end exchangers" if extra > 1 else ""))
         # HVGO net product continues from PA-return temperature to 90 C rundown
         hv = v["hvgo"]
         trims.append(dict(tag="A-202", hot="HVGO product", type="air cooler",
@@ -565,13 +576,13 @@ class Model:
         A(Stream("18", "AGO product", a["prod"]["AGO"], 60, 6.0, frm="A-105", to="DHT / FCC"))
         A(Stream("19", "Atmospheric residue", a["prod"]["AR"], a["T_bot"], 20.0, frm="P-112", to="H-201"))
         A(Stream("20", "Atm stripping steam (total)", z, 350, 4.5, steam=sum(a["steam"].values()), frm="H-101 SS coil",
-                 to="C-101/C-102A-C", phase="V"))
+                 to="C-101/C-102/C-103/C-104", phase="V"))
         A(Stream("21", "Vacuum heater outlet", v["ar"], v["cot"], v["P_fz"] + 0.25, steam=v["st_coil"], frm="H-201",
                  to="C-201", phase="M"))
         A(Stream("22", "Vacuum column overhead", z, v["T_top"], v["P_top"], steam=v["steam"], frm="C-201", to="J-201",
                  phase="V", gas=v["ncg"] + v["air"] + e["slop_oil"], gas_mw=40.0))
         A(Stream("23", "LVGO product", v["lvgo"], 55, 8.0, frm="A-201", to="Hydrocracker"))
-        A(Stream("24", "HVGO product", v["hvgo"], 90, 8.0, frm="E-202", to="FCC / Hydrocracker"))
+        A(Stream("24", "HVGO product", v["hvgo"], 90, 8.0, frm="A-202", to="FCC / Hydrocracker"))
         A(Stream("25", "Slop wax", v["slop"], 90, 8.0, frm="P-203", to="Slop / FCC"))
         A(Stream("26", "Vacuum residue", v["vr"], 175, 10.0, frm="E-201", to="Delayed coker / storage"))
         A(Stream("27", "Ejector sour water", z, 45, 1.5, water=e["sour_water"], frm="D-201", to="SWS (OSBL)", phase="W"))

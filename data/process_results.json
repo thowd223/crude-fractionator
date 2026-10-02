@@ -303,10 +303,10 @@
   "Q_cond": 2138.5369,
   "P_top": 11.8,
   "P_bot": 12.3,
-  "Q_reb": 8505.8129,
-  "T_feed": 120.0,
   "Q_fb": 3378.747,
-  "T_feed_in": 76.8338,
+  "Q_reb": 10826.0031,
+  "T_feed": 90.7311,
+  "T_feed_in": 45.0,
   "D": 2.1,
   "H": 18.0,
   "sec_top": {
@@ -508,7 +508,8 @@
     "Q_kw": 4907.4884,
     "T_in": 260.9874,
     "T_out": 223.9004,
-    "flow": 165727.3989
+    "flow": 165727.3989,
+    "note": ""
    },
    {
     "tag": "A-103",
@@ -517,16 +518,18 @@
     "Q_kw": 1267.0443,
     "T_in": 75.6338,
     "T_out": 45.0,
-    "flow": 68595.291
+    "flow": 68595.291,
+    "note": ""
    },
    {
     "tag": "A-104",
     "hot": "DIESEL",
     "type": "air cooler",
-    "Q_kw": 8160.1891,
-    "T_in": 205.0,
+    "Q_kw": 3723.5073,
+    "T_in": 128.391,
     "T_out": 55.0,
-    "flow": 81612.7827
+    "flow": 81612.7827,
+    "note": ""
    },
    {
     "tag": "A-105",
@@ -535,7 +538,8 @@
     "Q_kw": 6057.9878,
     "T_in": 253.9582,
     "T_out": 60.0,
-    "flow": 45846.7034
+    "flow": 45846.7034,
+    "note": ""
    },
    {
     "tag": "A-201",
@@ -544,16 +548,18 @@
     "Q_kw": 3098.7764,
     "T_in": 95.462,
     "T_out": 55.0,
-    "flow": 132886.1265
+    "flow": 132886.1265,
+    "note": ""
    },
    {
     "tag": "E-201",
     "hot": "VR",
     "type": "LP steam generator",
-    "Q_kw": 7623.7257,
+    "Q_kw": 1781.3434,
     "T_in": 277.5794,
-    "T_out": 175.0,
-    "flow": 108263.1741
+    "T_out": 255.0,
+    "flow": 108263.1741,
+    "note": "between hot-end and cold-end exchangers"
    },
    {
     "tag": "A-202",
@@ -613,5 +619,6 @@
    "firebox_m3": 222.6103
   }
  },
- "warnings": []
+ "warnings": [],
+ "units": "T degC; P_out, P_top, P_bot, P_fz (atm) in bar(a) unless key says barg/mbar; duties kW; flows kg/h"
 }

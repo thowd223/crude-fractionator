@@ -79,7 +79,7 @@ def eq_lines(D, tag):
     """Equipment title strip text: (tag, [service lines], [data lines])."""
     e = D.eq(tag)
     typ = e["type"]
-    svc = e["service"].upper()
+    svc = e["service"].upper().replace("MBAR(A)", "mbar(a)")
     data = []
     if typ == "Column":
         data.append(e["size"].replace(" (top/main)", "").replace(" (stripping)", " strip.")
@@ -697,7 +697,6 @@ def sheet3(D):
         c.sig([b["N"], a])
         con = c.offsheet(15, ydis, "L", *cto)
         c.line([pm["dis"], con["base"]])
-        c.flag(150, ydis - 5.5 if False else ydis + 10, f"{pa[nm]['flow'] / 1000:.0f} t/h", "F") if False else None
         if cfrom:
             con = c.offsheet(15, yr, "R", *cfrom)
             c.line([con["tip"], (xl, yr)])
@@ -796,7 +795,6 @@ def sheet3(D):
         a = c.cv(296, ysn, act="down", tag=None)
         b = p.loop(f"FIC-{fl}", 296, ysn + 13)
         c.sig([b["N"], a])
-        c.text(f"FV-{fl}", 301, ysn + 13.5, 2.2) if False else None
         # bottoms -> pump
         yp = y0 + h + 8
         pm = c.pump(xs_ + 18, yp)
@@ -853,7 +851,6 @@ def sheet4(D):
     c.text("A-101", 108, yoh - 5, 2.6, "middle", bold=True)
     c.text(f"{a101['duty_kw'] / 1000:.1f} MW", 108, yoh + 15.5, 2.2, "middle")
     c.line([con["tip"], ac["W"]])
-    c.flag(84, yoh - 9, fT(A["T_top"]), "T") if False else None
     e115 = D.eq("E-115")
     hx = c.hx(150, yoh, tube="v", shells=int(e115["n_shells"]))
     c.text(disp_tag(D, "E-115"), 157, yoh - 7, 2.6, bold=True)
@@ -873,7 +870,7 @@ def sheet4(D):
     yog, ymk = 125.0, 138.0
     con = c.offsheet(15, yog, "L", "OFF-GAS TO FUEL GAS / FGR", "TO OSBL")
     c.line([d2["top"](167), (167, yog), con["base"]], kind="S")
-    a1 = c.cv(118, yog, tag="PV-1032A", tag_side="above")
+    a1 = c.cv(118, yog, tag="PV-1032A", tag_side="belowleft")
     p.stream("9", 92, yog)
     con = c.offsheet(15, ymk, "R", "FUEL GAS MAKE-UP", "FROM OSBL")
     c.line([con["tip"], (176, ymk), (176, d2["y0"])], kind="U")
@@ -949,16 +946,15 @@ def sheet4(D):
     c.text("D-105", 472, 141, 2.4, "middle", bold=True, chk=False)
     c.line([ac6["E"], (484, yo5), (484, d5["y0"])])
     c.line([(420, yo5), (420, 112), (458, 112), (458, d5["y0"])], kind="S")
-    a = c.cv(438, 112, act="down", tag="PV-1091", tag_side="above")
+    a = c.cv(438, 112, act="down", tag="PV-1091", tag_side="belowleft")
     b = p.loop("PIC-1091", 438, 126)
     c.sig([b["N"], a])
     c.sig([b["E"], (455, 126), (455, d5["y0"] + 1)])
-    c.text("HOT VAPOUR BYPASS", 438, 104, 2.2, "middle")
+    c.text("HOT VAPOUR BYPASS", 438, 109, 2.2, "middle")
     # off-gas 29
     c.line([d5["top"](480), (480, 122), (500, 122)], kind="S")
     con = c.offsheet(500, 122, "R", "OFF-GAS (NNF) TO FG", "TO OSBL")
-    p.stream("29", 492, 122) if False else None
-    p.stream("29", 480, 130 - 0.5) if False else None
+    p.stream("29", 491, 122)
     # P-115 reflux + LPG
     p115 = c.pump(482, 168)
     c.line([d5["bot"](464), (464, 168), p115["suc"]])
@@ -977,16 +973,13 @@ def sheet4(D):
     p.stream("30", 530, yd5)
     con = c.offsheet(540, yd5, "R", "LPG TO TREATING", "TO OSBL")
     c.line([(500, yd5), (540, yd5)])
-    c.flag(525, yd5 + 8, fP(D.S["30"]["P_barg"]), "P") if False else None
     # E-116 reboiler
     kt = c.kettle(447, 352, L=32, D=12)
-    c.text("E-116", kt["x0"] + 2, 343, 2.6, "end", bold=True) if False else None
     c.text("E-116", kt["x1"] + 2, 343, 2.6, bold=True)
     e116 = D.eq("E-116")
     c.text(f"{e116['duty_kw'] / 1000:.1f} MW", kt["x1"] + 2, 347, 2.2)
     c.line([col5["bot"], (cx5, 366), (kt["liq"][0], 366), kt["liq"]])
     c.line([kt["vap"], (kt["vap"][0], 312), (col5["xr"], 312)])
-    c.flag(cx5 + 16, 336, fT(ST["T_bot"]), "T", anchor="start") if False else None
     c.flag(cx5 - 2, 372, fT(ST["T_bot"]), "T", anchor="end")
     hp = ut["hp_steam"]
     xs6 = kt["tin_top"][0]
@@ -1053,7 +1046,6 @@ def sheet4(D):
     c.sig([bl["W"], (d6["x1"], 145)])
     c.sig([bl["S"], bf["N"]])
     p.stream("32", 768, yd6)
-    con = c.offsheet(777, yd6, "R", "LIGHT NAPHTHA", "TO OSBL", ) if False else None
     con = c.offsheet(777, yd6, "R", "LN TO ISOM.", "TO OSBL")
     c.line([(735, yd6), (777, yd6)])
     c.flag(768, yd6 + 9, fT(D.T("32")), "T")
@@ -1086,7 +1078,6 @@ def sheet4(D):
     c.sig([bf["S"], a])
     bl = p.loop("LIC-1106", 590, 385)
     c.sig([bl["E"], (col6["xl"], 385)])
-    c.sig([bl["N"], (590, 372), (630, 372)]) if False else None
     c.sig([bl["S"], (590, 400), (630, 400), (630, yhn - 16), bf["W"]])
     a108 = D.eq("A-108")
     ac8 = c.aircooler(715, yhn, w=26, fans=int(a108["fans"]))
@@ -1103,9 +1094,367 @@ def sheet4(D):
         p.title(tag, x)
     return p.save()
 
+# ============================================================================ SHEET 5
+def sheet5(D):
+    p = PFD(D, "CFU-200-PR-PFD-005", "VACUUM HEATER H-201 & VACUUM COLUMN C-201",
+            ["C-201 is a wet, packed column: 4 beds with chimney-tray draw pans.",
+             "Wash-oil flow FIC-2020 is a critical minimum-flow constraint (wash bed coking).",
+             "VR bottoms temperature limited by quench (TIC-2026 -> FIC-2027); coil steam per pass FI."], 5)
+    c = p.c
+    V = D.R["vac"]
+    h2 = D.R["heaters"]["H-201"]
+    ut = basis.UTILITIES
+    # ---------------- H-201
+    rx0, rx1, ry0, ry1 = 72.0, 172.0, 255.0, 368.0
+    cvx0, cvx1, cvy0, cvy1 = 92.0, 152.0, 182.0, 248.0
+    c.heater_box(rx0, ry0, rx1 - rx0, ry1 - ry0)
+    c._poly([(rx0, ry0), (cvx0, cvy1), (cvx1, cvy1), (rx1, ry0)], w=0.5)
+    c.heater_box(cvx0, cvy0, cvx1 - cvx0, cvy1 - cvy0)
+    c.reg(rx0, cvy1, rx1, ry0, "hood")
+    for xx in (rx0 + 4, rx1 - 4):
+        c.coil_v(xx, ry0 + 6, ry1 - 12, n=12)
+    for yy in range(int(cvy0 + 6), int(cvy1 - 2), 7):
+        c.coil_h(cvx0 + 4, cvx1 - 4, yy, amp=1.2, n=12)
+    c.stack(122, cvy0, 92, wb=12, wt=8)
+    c.text("H-201", 122, ry0 + 28, 3.4, "middle", bold=True, chk=False)
+    c.text(f"{h2['Q_abs_kw'] / 1000:.1f} MW ABS.", 122, ry0 + 34, 2.4, "middle", chk=False)
+    c.text(f"{h2['Q_fired_kw'] / 1000:.1f} MW FIRED", 122, ry0 + 39, 2.2, "middle", chk=False)
+    c.text(f"{h2['passes']} PASSES, {h2['burners']} BURNERS", 122, ry0 + 44, 2.2, "middle", chk=False)
+    nb = int(h2["burners"])
+    for j in range(nb):
+        c.burner(rx0 + 12 + j * (rx1 - rx0 - 24) / (nb - 1), ry1)
+    # AR in + coil steam + passes
+    xh = 70.0
+    yar = 175.0
+    con = c.offsheet(15, yar - 22, "R", "ATM. RESIDUE FROM P-112", "FROM PFD-003")
+    c.line([con["tip"], (xh, yar - 22), (xh, yar)], arrow=False)
+    p.stream("19", con["tip"][0] + 6, yar - 22)
+    npass = int(h2["passes"])
+    yps = [cvy0 + 12 + (cvy1 - cvy0 - 22) * i / (npass - 1) for i in range(npass)]
+    c.line([(xh, yar - 22), (xh, yps[-1])], arrow=False)
+    for i, yy in enumerate(yps):
+        c.line([(xh, yy), (cvx0, yy)], kind="S")
+        a = c.cv(82, yy)
+        if i == 0:
+            b = p.loop("FIC-2001", 82, yy - 13)
+            c.sig([b["S"], a])
+    c.text("FV-2001...2004", xh - 2, yps[-1] + 6, 2.2, "end")
+    mp = ut["mp_steam"]
+    c.line([(xh, 118), (xh, yar - 23)], kind="U")
+    c.text(f"COIL STEAM (MP {mp['P_barg']:g} barg)", xh, 115.5, 2.2, "middle")
+    a = c.cv(xh, 134, orient="v", act="left", tag="FV-2007", tag_side="right")
+    b = p.loop("FIC-2007", xh - 20, 134)
+    c.sig([b["E"], a])
+    # outlets
+    xo = 190.0
+    yo = [ry0 + 14 + 8 * i for i in range(npass)]
+    for yy in yo:
+        c.line([(rx1, yy), (xo, yy)], kind="S", arrow=False)
+    ytl = 330.0
+    col = c.column_sections(380, 86, [(24, 146), (54, 376), (26, 472)], tag="C-201")
+    xl, xr = col["xl"], col["xr"]
+    c.line([(xo, yo[0]), (xo, ytl), (xl(ytl), ytl)])
+    p.stream("21", 225, ytl)
+    c.flag(250, ytl - 6, "COT " + fT(V["cot"]), "T")
+    c.flag(282, ytl - 6, fP(D.S["21"]["P_barg"]), "P")
+    c.flag(320, ytl - 6, "FZ " + fT(V["T_fz"]), "T")
+    c.flag(320, ytl + 6, f"{V['P_fz_mbar']:.0f} mbar(a)", "P")
+    btc = p.loop("TIC-2005", 250, ytl + 15)
+    c.sig([btc["N"], (250, ytl)])
+    # fuel gas / off-gas
+    yfg = 392.0
+    con = c.offsheet(15, yfg, "R", "FUEL GAS FROM D-103", "FROM PFD-002")
+    a = c.cv(70, yfg, tag="PV-2006", tag_side="below")
+    bp = p.loop("PIC-2006", 70, yfg - 14)
+    c.sig([bp["S"], a])
+    c.sig([btc["S"], (250, yfg - 14), bp["E"]])
+    c.line([con["tip"], (rx1 - 12, yfg)], kind="S", arrow=False)
+    for j in range(nb):
+        bx = rx0 + 12 + j * (rx1 - rx0 - 24) / (nb - 1)
+        c.line([(bx, yfg), (bx, ry1)], kind="U", hop=False)
+    p.stream("34", 94, yfg)
+    yog = 408.0
+    con = c.offsheet(15, yog, "R", "VAC. OFF-GAS FROM D-202", "FROM PFD-006")
+    c.line([con["tip"], (rx1 - 4, yog), (rx1 - 4, ry1)], kind="U")
+    p.stream("28", 120, yog)
+    c.text("OFF-GAS BURNER", rx1 - 2, yog + 4.5, 2.2, "end")
+    # ---------------- C-201 internals
+    cx = 380.0
+    c.text("C-201", cx - 30, 92, 3.0, "end", bold=True)
+    c.spray(cx, 24, 96)
+    c.bed(cx, 24, 101, 128, "BED 1")
+    c.pan(cx, 24, 138)
+    c.bed(cx, 54, 162, 192, "BED 2")
+    c.spray(cx, 54, 205)
+    c.bed(cx, 54, 210, 244, "BED 3")
+    c.pan(cx, 54, 256)
+    c.spray(cx, 54, 268)
+    c.bed(cx, 54, 273, 298, "BED 4 (WASH)")
+    c.pan(cx, 54, 310)
+    c.text("FLASH ZONE", cx, 343, 2.2, "middle", chk=False)
+    for k, yy in enumerate((396, 410, 424, 438, 452)):
+        side = k % 2
+        xa, xb = xl(yy), xr(yy)
+        if side:
+            c._ln((xa, yy), (xb - 6, yy), 0.3)
+        else:
+            c._ln((xb, yy), (xa + 6, yy), 0.3)
+    # overhead
+    yoh = 70.0
+    c.line([col["top"], (cx, yoh), (742, yoh)])
+    c.offsheet(742, yoh, "R", "VAC. OVERHEAD TO J-201", "TO PFD-006")
+    p.stream("22", 420, yoh)
+    c.flag(450, yoh - 5.5, fT(V["T_top"]), "T")
+    c.flag(480, yoh - 5.5, f"{V['P_top_mbar']:.0f} mbar(a)", "P")
+    # ---------------- LVGO circuit
+    ypa1, yret1, ydis1, yprod1 = 92.0, 140.0, 162.0, 180.0
+    pm = c.pump(431, 165)
+    c.line([(xr(138), 138), (418, 138), (418, 165), pm["suc"]])
+    c.text("P-201A/B", 431, 174, 2.5, "middle", bold=True)
+    c.flag(408, 143, fT(V["T_lvgo"]), "T", anchor="start")
+    con = c.offsheet(452, pm["dis"][1], "R", "LVGO TO E-103", "TO PFD-001")
+    c.line([pm["dis"], (452, pm["dis"][1])])
+    con = c.offsheet(760, yret1, "L", "LVGO FROM E-103", "FROM PFD-001")
+    a201 = D.eq("A-201")
+    ac = c.aircooler(700, yret1, w=26, fans=int(a201["fans"]))
+    c.text("A-201", 682, yret1 - 5, 2.6, "end", bold=True)
+    c.text(f"{a201['duty_kw'] / 1000:.1f} MW", 700, yret1 + 15.5, 2.2, "middle")
+    c.line([con["tip"], ac["E"]], kind="S")
+    c.line([ac["W"], (640, yret1), (640, ypa1), (xr(ypa1), ypa1)])
+    c.flag(735, yret1 + 6.5, fT(D.TR["A-201"]["T_in"]), "T")
+    c.flag(655, ypa1 - 5, fT(V["pa"]["LVGO"]["T_ret"]), "T")
+    a = c.cv(560, ypa1, tag="FV-2011", tag_side="below")
+    b = p.loop("FIC-2011", 560, ypa1 - 13)
+    c.sig([b["S"], a])
+    c.line([(640, yret1), (640, yprod1), (742, yprod1)])
+    a = c.cv(690, yprod1, act="down", tag="FV-2015", tag_side="belowright")
+    bf = p.loop("FIC-2015", 690, yprod1 + 16)
+    c.sig([bf["N"], a])
+    p.stream("23", 720, yprod1)
+    c.offsheet(742, yprod1, "R", "LVGO TO HYDROCRACKER", "TO OSBL")
+    c.flag(720, yprod1 - 6, fT(D.T("23")), "T")
+    bl = p.loop("LIC-2014", 432, 126)
+    c.sig([bl["W"], (xr(126), 126)])
+    c.sig([bl["E"], (625, 126), (625, yprod1 + 16), bf["W"]])
+    bt2 = p.loop("TIC-2012", 420, 106)
+    c.sig([bt2["W"], (xr(106), 106)])
+    bt3 = p.loop("TIC-2013", 470, 106)
+    c.sig([bt2["E"], bt3["W"]])
+    c.sig([bt3["E"], (722, 106), (722, 150), (ac["x1"] - 6.5 + 1.5, 150)])
+    c.text("TO FAN PITCH", 724, 120, 2.2)
+    # ---------------- HVGO circuit
+    ypa2, yret2, yd2, ydis2, yprod2 = 205.0, 230.0, 256.0, 280.0, 300.0
+    pm = c.pump(436, ydis2 + 2.8)
+    c.line([(xr(yd2), yd2), (424, yd2), (424, ydis2 + 2.8), pm["suc"]])
+    c.text("P-202A/B", 436, ydis2 + 12, 2.5, "middle", bold=True)
+    con = c.offsheet(458, ydis2, "R", "HVGO TO E-108", "TO PFD-002")
+    c.line([pm["dis"], (458, ydis2)])
+    con = c.offsheet(705, yret2, "L", "HVGO FROM E-108", "FROM PFD-002")
+    c.line([con["tip"], (600, yret2), (600, ypa2), (xr(ypa2), ypa2)])
+    c.flag(655, yret2 - 5.5, fT(V["pa"]["HVGO"]["T_ret"]), "T")
+    a = c.cv(540, ypa2, tag="FV-2016", tag_side="below")
+    b = p.loop("FIC-2016", 540, ypa2 - 13)
+    c.sig([b["S"], a])
+    c.line([(600, yret2), (432, yret2), (432, 268), (xr(268), 268)], kind="S")
+    a = c.cv(500, yret2, tag="FV-2020", tag_side="below")
+    b = p.loop("FIC-2020", 500, yret2 - 13)
+    c.sig([b["S"], a])
+    c.text("WASH OIL", 470, yret2 - 2, 2.2, "middle")
+    c.line([(600, yret2), (600, yprod2), (650, yprod2)])
+    a = c.cv(625, yprod2, act="down", tag="FV-2019", tag_side="belowleft")
+    bf = p.loop("FIC-2019", 625, yprod2 + 15)
+    c.sig([bf["N"], a])
+    a202 = D.eq("A-202")
+    ac2 = c.aircooler(675, yprod2, w=26, fans=int(a202["fans"]))
+    c.line([(650, yprod2), ac2["W"]])
+    c.text("A-202", 675, yprod2 - 5, 2.6, "middle", bold=True)
+    c.text(f"{a202['duty_kw'] / 1000:.1f} MW", 692, yprod2 - 5, 2.2)
+    p.stream("24", 708, yprod2)
+    c.flag(708, yprod2 - 6, fT(D.T("24")), "T")
+    con = c.offsheet(720, yprod2, "R", "HVGO TO FCC / HCU", "TO OSBL")
+    c.line([ac2["E"], (720, yprod2)])
+    bl = p.loop("LIC-2018", 446, 244)
+    c.sig([bl["W"], (xr(244), 244)])
+    c.sig([bl["E"], (585, 244), (585, yprod2 + 15), bf["W"]])
+    c.flag(408, yd2 + 6, fT(V["T_hvgo"]), "T", anchor="start")
+    # ---------------- slop wax
+    ysl = 335.0
+    pm = c.pump(436, ysl + 2.8)
+    c.line([(xr(310), 310), (424, 310), (424, ysl + 2.8), pm["suc"]])
+    c.text("P-203A/B", 436, ysl + 12, 2.5, "middle", bold=True)
+    a = c.cv(470, ysl, tag="FV-2022", tag_side="below")
+    bf = p.loop("FIC-2022", 470, ysl - 15)
+    c.sig([bf["S"], a])
+    bl = p.loop("LIC-2021", 448, ysl - 15)
+    c.sig([bl["W"], (xr(ysl - 15), ysl - 15)])
+    c.sig([bl["E"], bf["W"]])
+    p.stream("25", 492, ysl)
+    con = c.offsheet(505, ysl, "R", "SLOP WAX TO SLOP / FCC", "TO OSBL")
+    c.line([pm["dis"], (505, ysl)])
+    c.flag(415, 304, fT(V["T_slop"]), "T", anchor="start")
+    # ---------------- bottoms / VR
+    xbl, xbr = xl(430), xr(430)
+    ysb = 446.0
+    c.line([(440, ysb), (xbr, ysb)], kind="U")
+    c.text("STRIPPING STEAM", 442, ysb + 0.8, 2.2)
+    a = c.cv(420, ysb, tag="FV-2023", tag_side="below")
+    b = p.loop("FIC-2023", 420, ysb - 13)
+    c.sig([b["S"], a])
+    yvr = 497.0
+    pm = c.pump(345, yvr + 2.8, face="L")
+    c.line([col["bot"], (380, yvr + 2.8), pm["suc"]])
+    c.text("P-204A/B", 345, yvr + 12, 2.5, "middle", bold=True)
+    c.flag(392, 478, fT(V["T_bot"]), "T", anchor="start")
+    a = c.cv(300, yvr, act="down", tag="FV-2025", tag_side="belowleft")
+    bf = p.loop("FIC-2025", 300, yvr + 15)
+    c.sig([bf["N"], a])
+    con = c.offsheet(240, yvr, "L", "VAC. RESIDUE TO E-111", "TO PFD-002")
+    c.line([pm["dis"], con["base"]])
+    bl = p.loop("LIC-2024", 405, 466)
+    c.sig([bl["W"], (xbr, 466)])
+    c.sig([bl["S"], (405, yvr + 15), bf["E"]])
+    # E-201 return / quench
+    yre = 455.0
+    con = c.offsheet(290, yre, "L", "VAC. RESIDUE FROM E-105", "FROM PFD-001")
+    kt = c.kettle(232, yre + 15, L=30, D=12)
+    c.text("E-201", kt["x1"] + 2, yre + 22, 2.6, bold=True)
+    e201 = D.eq("E-201")
+    c.text(f"{e201['duty_kw'] / 1000:.1f} MW", kt["x1"] + 2, yre + 26, 2.2)
+    xt = kt["tin_top"][0]
+    c.line([con["tip"], (xt, yre), kt["tin_top"]])
+    yv = 485.0
+    c.line([kt["tout_bot"], (xt, yv), (60, yv)])
+    con = c.offsheet(15, yv, "L", "VR TO COKER / STORAGE", "TO OSBL")
+    c.line([(60, yv), con["base"]])
+    p.stream("26", 80, yv)
+    c.flag(100, yv - 6, fT(D.T("26")), "T")
+    lp = ut["lp_steam"]
+    c.line([kt["vap"], (kt["vap"][0], yre - 8)], kind="U")
+    c.text(f"LP STEAM {lp['P_barg']:g} barg", kt["vap"][0] + 2, yre - 6, 2.2)
+    c.line([(kt["x1"] + 9, yre + 18), (kt["x1"], yre + 18)], kind="U")
+    c.text("BFW", kt["x1"] + 10, yre + 18.8, 2.2)
+    yq = 420.0
+    c.line([(200, yv), (200, yq), (xl(yq), yq)])
+    a = c.cv(290, yq, tag="FV-2027", tag_side="below")
+    b = p.loop("FIC-2027", 290, yq - 14)
+    c.sig([b["S"], a])
+    c.text("VR QUENCH", 230, yq - 2, 2.2, "middle")
+    bt = p.loop("TIC-2026", 340, yq + 16)
+    c.sig([bt["E"], (xl(yq + 16), yq + 16)])
+    c.sig([bt["N"], (340, yq - 14), b["E"]])
+    for tag, x in [("H-201", 122), ("C-201", 380), ("P-201A/B", 431), ("A-201", 700), ("P-202A/B", 470),
+                   ("A-202", 675), ("P-203A/B", 510), ("P-204A/B", 345), ("E-201", 232)]:
+        p.title(tag, x)
+    return p.save()
+
+# ============================================================================ SHEET 6
+def sheet6(D):
+    p = PFD(D, "CFU-200-PR-PFD-006", "VACUUM EJECTOR SYSTEM & HOTWELL",
+            ["Each ejector stage 2 x 50 % parallel units; one shown. Motive MP steam.",
+             "Condensers E-202/203/204 drain via barometric legs (seal) to hotwell D-201.",
+             "C-201 top pressure PIC-2010 (transmitter on C-201 top, PFD-005) recycles off-gas to J-203 suction."], 6)
+    c = p.c
+    EJ = {e["tag"]: e for e in D.R["ejector"]["stages"]}
+    mp = basis.UTILITIES["mp_steam"]
+    yh, yj, ye = 120.0, 150.0, 185.0
+    xj = {"J-201": 140.0, "J-202": 290.0, "J-203": 440.0}
+    xe = {"E-202": 230.0, "E-203": 380.0, "E-204": 530.0}
+    L = 32.0
+    con = c.offsheet(15, yh, "R", f"MP STEAM {mp['P_barg']:g} barg", "FROM UTILITIES")
+    c.line([con["tip"], (xj["J-203"] - 10, yh)], kind="U", arrow=False)
+    c.text("MOTIVE STEAM HEADER", 70, yh - 2, 2.2)
+    js = {}
+    for tag, x0 in xj.items():
+        js[tag] = c.ejector(x0, yj, L=L)
+        c.line([(x0 - 10, yh), (x0 - 10, yj), (x0, yj)], kind="U")
+        e = EJ[tag]
+        c.text(tag, x0 + L / 2, yj - 10, 2.8, "middle", bold=True)
+        c.text(f"MOTIVE {e['motive_kg_h']:,.0f} kg/h", x0 + L / 2, yj - 5.2, 2.2, "middle")
+        c.flag(x0 + L + 9, yj - 6, f"{e['discharge_mbar']:.0f} mbar(a)", "P")
+    # vacuum overhead in
+    con = c.offsheet(15, ye, "R", "VAC. OVERHEAD FROM C-201", "FROM PFD-005")
+    p.stream("22", con["tip"][0] + 10, ye)
+    pk = c.package(78, ye - 30, 22, 11, ["X-104", "CORR. INHIBITOR"])
+    c.line([pk["S"], (89, ye)], kind="U")
+    c.line([con["tip"], (js["J-201"]["suc"][0], ye), js["J-201"]["suc"]])
+    c.flag(110, ye + 7, f"{EJ['J-201']['suction_mbar']:.0f} mbar(a)", "P")
+    c.flag(110, ye + 13, fT(D.T("22")), "T")
+    hxs = {}
+    order = [("J-201", "E-202", "J-202"), ("J-202", "E-203", "J-203"), ("J-203", "E-204", None)]
+    for jt, et, nxt in order:
+        x = xe[et]
+        h = c.hx(x, ye, r=9, tube="h")
+        hxs[et] = h
+        ee = D.eq(et)
+        c.text(et, x + 11, ye - 9, 2.8, bold=True)
+        c.text(f"{ee['duty_kw'] / 1000:.2f} MW", x + 11, ye + 13, 2.2)
+        c.line([js[jt]["dis"], (x, yj), h["N"]])
+        c.line([(x - 22, ye), h["W"]], kind="U")
+        c.text("CW", x - 23, ye + 0.8, 2.2, "end")
+        if nxt:
+            c.line([h["E"], (js[nxt]["suc"][0], ye), js[nxt]["suc"]])
+        c.flag(x + 22, ye + 6, fT(ee["Th_out"]), "T")
+    # off-gas KO drum D-202
+    d202 = c.vvessel(620, ye + 5, 14, 34, tag="D-202", mesh=True)
+    c.text("D-202", 630, ye - 12, 2.8, bold=True)
+    c.line([hxs["E-204"]["E"], (d202["x0"], ye)])
+    yog = 100.0
+    c.line([d202["top"], (620, yog), (690, yog)], kind="S")
+    p.stream("28", 655, yog)
+    c.offsheet(690, yog, "R", "VAC. OFF-GAS TO H-201 BURNERS", "TO PFD-005")
+    c.flag(655, yog - 7, fP(D.S["28"]["P_barg"]), "P")
+    # NCG recycle PV-2010
+    yrc = 132.0
+    xr_ = js["J-203"]["suc"][0]
+    c.line([(620, yrc), (472 + 8, yrc), (480, ye - 10), (xr_, ye - 10)], kind="S")
+    a = c.cv(560, yrc, tag="PV-2010", tag_side="below")
+    b = p.loop("PIC-2010", 560, yrc - 15)
+    c.sig([b["S"], a])
+    c.sig([b["W"], (530, yrc - 15)])
+    c.text("FROM PT ON C-201 TOP", 528, yrc - 15.8, 2.2, "end")
+    c.text("(SEE PFD-005)", 528, yrc - 12.8, 2.2, "end")
+    c.text("NCG RECYCLE", 520, yrc - 2, 2.2, "middle")
+    # hotwell D-201
+    yd = 285.0
+    hw = c.hvessel(382, yd, 326, 22, tag="D-201", weir=True)
+    c.text("D-201", 380, yd + 1, 3.0, "middle", bold=True, chk=False)
+    c.text("HOTWELL", 380, yd + 5.5, 2.2, "middle", chk=False)
+    for et, x in xe.items():
+        c.line([hxs[et]["S"], (x, hw["y0"])], kind="S")
+    c.text("BAROMETRIC LEGS (SEALED IN HOTWELL)", 305, 240, 2.4, "middle")
+    c.line([d202["bot"], (620, yd), (hw["x1"], yd)], kind="S")
+    # sour water
+    yp = 360.0
+    xsw = 300.0
+    pm = c.pump(xsw + 20, yp)
+    c.line([hw["bot"](xsw), (xsw, yp), pm["suc"]], kind="S")
+    c.text("P-205A/B", xsw + 20, yp + 9, 2.5, "middle", bold=True)
+    yd1 = pm["dis"][1]
+    a = c.cv(355, yd1, tag="LV-2028", tag_side="below")
+    b = p.loop("LIC-2028", 270, 318)
+    c.sig([b["N"], (270, hw["y1"])])
+    c.sig([b["E"], (355, 318), a])
+    p.stream("27", 375, yd1)
+    c.flag(375, yd1 - 7, fT(D.T("27")), "T")
+    con = c.offsheet(390, yd1, "R", "EJECTOR SOUR WATER TO SWS", "TO OSBL")
+    c.line([pm["dis"], (390, yd1)], kind="S")
+    # slop oil
+    xso = 490.0
+    pm = c.pump(xso + 20, yp)
+    c.line([hw["bot"](xso), (xso, yp), pm["suc"]], kind="S")
+    c.text("P-206A/B", xso + 20, yp + 9, 2.5, "middle", bold=True)
+    a = c.cv(540, pm["dis"][1], tag="LV-2029", tag_side="below")
+    con = c.offsheet(560, pm["dis"][1], "R", f"SLOP OIL {D.R['ejector']['slop_oil']:.0f} kg/h", "TO OSBL SLOP")
+    c.line([pm["dis"], (560, pm["dis"][1])], kind="S")
+    for tag, x in [("X-104", 89), ("J-201", 156), ("E-202", 230), ("J-202", 306), ("E-203", 380),
+                   ("J-203", 456), ("E-204", 530), ("D-202", 620), ("D-201", 380), ("P-205A/B", 320),
+                   ("P-206A/B", 510)]:
+        p.title(tag, x)
+    return p.save()
+
 
 # ============================================================================ build
-SHEETS = [sheet1, sheet2, sheet3, sheet4]
+SHEETS = [sheet1, sheet2, sheet3, sheet4, sheet5, sheet6]
 
 
 def build():
@@ -1114,6 +1463,13 @@ def build():
     for fn in SHEETS:
         pdfs.append(fn(D))
     merge_pdfs(pdfs, OUT / "CFU-000-PR-PFD-ALL.pdf")
+    if len(SHEETS) == 6:
+        miss_s = sorted(set(D.S) - D.used_streams, key=int)
+        miss_l = sorted(t for t, l in D.L.items() if l.get("pfd") and t not in D.used_loops)
+        if miss_s:
+            print("  WARNING: H&MB streams not shown on any PFD:", ", ".join(miss_s))
+        if miss_l:
+            print("  WARNING: PFD control loops not shown:", ", ".join(miss_l))
     return pdfs
 
 

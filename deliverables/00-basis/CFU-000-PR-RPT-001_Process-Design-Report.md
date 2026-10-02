@@ -112,7 +112,7 @@ overlap of 0 to -20 C (kero/diesel, diesel/AGO).
 | Stripping | 36-41 | 15 | 257 | 354 | 1.60 | 706 | 0.796 | 610 | 0.82 | 2.47 |
 
 
-Selected: ID 6.9 m (top/main) / 4.1 m (stripping) x 40.5 m T/T. Internals: 41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays.
+Selected: ID 6.9 m (top/main) / 4.1 m (stripping) x 36.0 m T/T. Internals: 41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays.
 
 ![C-101 section traffic](figures/c101_loads.png)
 
@@ -153,10 +153,10 @@ Trim duties (heat not recovered to crude):
 |---|---|---|---|---|
 | E-113 | BPA | MP steam generator | 4.91 | 261 -> 224 |
 | A-103 | KERO | air cooler | 1.27 | 76 -> 45 |
-| A-104 | DIESEL | air cooler | 8.16 | 205 -> 55 |
+| A-104 | DIESEL | air cooler | 3.72 | 128 -> 55 |
 | A-105 | AGO | air cooler | 6.06 | 254 -> 60 |
 | A-201 | LVGO | air cooler | 3.10 | 95 -> 55 |
-| E-201 | VR | LP steam generator | 7.62 | 278 -> 175 |
+| E-201 | VR | LP steam generator | 1.78 | 278 -> 255 |
 | A-202 | HVGO product | air cooler | 6.64 | 205 -> 90 |
 
 
@@ -219,7 +219,7 @@ Selected: ID 2.6 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 | Nmin / Rmin / R | 7.2 / 1.45 / 1.89 | 14.6 / 1.60 / 2.08 |
 | Theoretical / actual trays | 15.2 / 19 | 29.5 / 38 |
 | Feed tray (from top) | 13 | 21 |
-| Condenser / reboiler duty, MW | 2.14 / 8.51 | 9.63 / 6.83 |
+| Condenser / reboiler duty, MW | 2.14 / 10.83 | 9.63 / 6.83 |
 | Diameter x height | ID 2.1 m x 18.0 m T/T | ID 3.1 m x 29.5 m T/T |
 
 
@@ -260,7 +260,7 @@ Selected: ID 2.6 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 | PSV-1002 | D-101A | Fire (liquid full) | 50,292 | 15.5 | 1 x M |
 | PSV-1003 | D-101B | Fire (liquid full) | 50,292 | 15.5 | 1 x M |
 | PSV-1004 | D-102 | Fire | 12,890 | 2.4 | 1 x P |
-| PSV-1005 | C-105 | Reflux failure (reboiler duty) | 102,070 | 13.0 | 1 x R |
+| PSV-1005 | C-105 | Reflux failure (reboiler duty) | 129,912 | 13.0 | 1 x R |
 | PSV-1006 | D-105 | Fire | 5,902 | 15.2 | 1 x H |
 | PSV-1007 | C-106 | Reflux failure (reboiler duty) | 76,867 | 3.5 | 1 x T |
 | PSV-1008 | E-116 | Tube rupture (HP steam into naphtha) | 25,000 | 13.0 | 1 x P |

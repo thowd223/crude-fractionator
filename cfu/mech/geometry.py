@@ -83,13 +83,23 @@ def c101():
             TS[i] = s["TS_mm"] / 1000
             passes[i] = s["passes"]
     ntray = 41
-    z = {1: H - 2.0}
+    # stack (top-down): top space, trays 1-35, flash zone (contains 30 deg swage), trays 36-41, bottom sump.
+    # Sizing basis (sizing.py): 2.0 + 40 spacings + FZ 4.0 - 0.61 + 1.5 + sump + 1.0 -> fits by
+    # trimming top space and widening the FZ so the swage clears tray 36 by >= 0.3 m.
+    sp_rect = sum(TS.get(i, 0.61) for i in range(1, 35))
+    sp_strip = sum(TS.get(i, 0.61) for i in range(36, ntray))
+    Lc = cone_len(D1, D2)
+    top, fz = 1.7, max(4.0, 1.6 + Lc + 0.3)
+    bottom = H - top - sp_rect - fz - sp_strip
+    if bottom < 4.4:
+        top = 1.5
+        bottom = H - top - sp_rect - fz - sp_strip
+    z = {1: H - top}
     for i in range(1, 35):
         z[i + 1] = z[i] - TS.get(i, 0.61)
-    cone_top = z[35] - 4.0
-    Lc = cone_len(D1, D2)
+    cone_top = z[35] - 1.6
     cone_bot = cone_top - Lc
-    z[36] = cone_bot - 0.6
+    z[36] = z[35] - fz
     for i in range(36, ntray):
         z[i + 1] = z[i] - TS.get(i, 0.61)
     # fill passes for draw trays (inherit tray above)
@@ -103,7 +113,11 @@ def c101():
     segs = [dict(kind="cyl", D=D2, z0=0.0, z1=cone_bot, name="Stripping section"),
             dict(kind="cone", D0=D2, D1=D1, z0=cone_bot, z1=cone_top, name="Swage 30 deg"),
             dict(kind="cyl", D=D1, z0=cone_top, z1=H, name="Flash zone / rectifying section")]
-    levels = dict(LLL=0.6, NLL=2.0, HLL=3.5, LAHH=4.2)
+    z_steam = z[41] - 0.6
+    z_mwb = z_steam - 0.65
+    lahh = z_mwb - 0.5
+    hll = lahh - 0.4
+    levels = dict(LLL=0.5, NLL=round((0.5 + hll) / 2, 2), HLL=round(hll, 2), LAHH=round(lahh, 2))
     tr = R["tray"]
     pa = R["pa"]
     noz = []
@@ -113,7 +127,7 @@ def c101():
     Ql = s7["liq_act_m3h"] / 3600
     rho_m = s7["total_kg_h"] / 3600 / (Qv + Ql)
     n, v = size_nozzle(Qv + Ql, rho_m, "feed2ph")
-    noz.append(N("N1", "Feed - transfer line from H-101 (tangential, vapour horn)", n, z[35] - 1.7, "R", 90,
+    noz.append(N("N1", "Feed - transfer line from H-101 (tangential, vapour horn)", n, z[35] - 0.95, "R", 90,
                  Q=Qv + Ql, rho=rho_m, crit="feed2ph", v=v))
     s8 = S["8"]
     n, v = size_nozzle(s8["vap_act_m3h"] / 3600, s8["rho_vap"], "vap_out")
@@ -151,7 +165,7 @@ def c101():
     st_kg = R["steam"]["bottom"]
     rs = rho_gas(4.5, 350, 18)
     n, v = size_nozzle(st_kg / 3600 / rs, rs, "steam")
-    noz.append(N("N16", "Stripping steam (from H-101 SS coil)", n, z[41] - 0.6, "R", 60, Q=st_kg / 3600 / rs, rho=rs,
+    noz.append(N("N16", "Stripping steam (from H-101 SS coil)", n, z_steam, "R", 60, Q=st_kg / 3600 / rs, rho=rs,
                  crit="steam", v=v))
     s19 = S["19"]
     noz.append(flow_noz("N17", "Atm. residue to P-112", s19["total_kg_h"], s19["rho_liq"], "suction", -D2 / 4, "B", 0))
@@ -166,8 +180,8 @@ def c101():
     noz.append(N("N21", "Wash-zone overflash / slop connection (spare)", 4, z[35] - 0.15, "L", 200))
     # manways
     mw = []
-    for i, zz in enumerate([z[1] + 1.0, (z[8] + z[9]) / 2, (z[17] + z[18]) / 2, (z[28] + z[29]) / 2, z[35] - 3.1,
-                            (z[38] + z[39]) / 2, z[41] - 1.35]):
+    for i, zz in enumerate([z[1] + min(1.0, top - 0.6), (z[8] + z[9]) / 2, (z[17] + z[18]) / 2, (z[28] + z[29]) / 2,
+                            z[35] - 1.1, (z[38] + z[39]) / 2, z_mwb]):
         mw.append(N(f"M{i + 1}", "Manway 24\" (davit)", 24, zz, "F", 0, kind="MW"))
     noz += mw
     platforms = [round(m["z"] - 1.0, 2) for m in mw] + [H + D1 / 4 + 0.2]
@@ -175,13 +189,14 @@ def c101():
         n_["rating"] = flange_class(Pd + 0.1 * max(0, levels["HLL"] - n_["z"]), Td)
     internals = [dict(kind="draw", z=z[t] - 0.15, D=D1, label=f"Draw sump tray {t}") for t in
                  (tr["TPA_draw"], tr["KERO"], tr["MPA_draw"], tr["DIESEL"], tr["BPA_draw"], tr["AGO"])]
-    internals.append(dict(kind="horn", z0=z[35] - 3.0, z1=z[35] - 0.6, D=D1, label="Feed vapour horn"))
-    internals.append(dict(kind="steam", z=z[41] - 0.6, D=D2, label="Steam sparger"))
+    internals.append(dict(kind="horn", z0=z[35] - 1.55, z1=z[35] - 0.35, D=D1, label="Feed vapour horn"))
+    internals.append(dict(kind="steam", z=z_steam, D=D2, label="Steam sparger"))
     internals.append(dict(kind="vortex", z=0.0, D=D2, label="Vortex breaker"))
     clad = [dict(z0=-D2 / 4, z1=z[10], mat="410S", t=3.0), dict(z0=z[5] - 0.3, z1=H + D1 / 4, mat="Monel 400", t=2.0)]
     return dict(tag="C-101", e=e, H=H, Ds=[D1, D2], D_top=D1, D_bot=D2, segs=segs, trays=trays, levels=levels,
                 nozzles=noz, platforms=platforms, internals=internals, clad=clad, rho_liq=706.0, rho_tray=630.0,
-                Pd=Pd, Td=Td, fv=False, sections=secs, side_vap=side_vap, min_skirt=5.0, bottoms_pump="P-112A/B")
+                Pd=Pd, Td=Td, fv=False, sections=secs, side_vap=side_vap, min_skirt=5.0, bottoms_pump="P-112A/B",
+                top_space=top, fz=fz, cone=(cone_bot, cone_top))
 
 
 def _psv():
@@ -455,3 +470,40 @@ def drums():
 def _eqs():
     from .common import equipment
     return equipment()
+
+
+def desalter():
+    """D-101A/B geometry & nozzles; x = m from left tangent line, z = m above shell bottom."""
+    e, Pd, Td = _common("D-101A")
+    S = streams()
+    D, L = e["D"], e["L"]
+    s2, s5, s4, s3 = S["2"], S["5"], S["4"], S["3"]
+    noz = [
+        flow_noz("N1", "Crude + wash water inlet (to distributor header)", s2["total_kg_h"] + s3["total_kg_h"],
+                 s2["rho_liq"], "liq_ret", L / 2, "B", 270),
+        flow_noz("N2", "Desalted crude outlet (collector header)", s5["total_kg_h"], s5["rho_liq"], "liq_reflux", L / 2,
+                 "T", 0),
+        flow_noz("N3A/B", "Brine outlet (to E-118 / WWT)", s4["total_kg_h"], 960.0, "liq_draw", L * 0.25, "B", 180,
+                 qty=2, minimum=4),
+        N("N4A/B", "Mud-wash inlet (from P-118)", 3, 0.0, "B", 200, qty=2, note="each half"),
+        N("N5A-D", "Sludge drain / mud-wash outlet", 4, 0.0, "B", 160, qty=4),
+        N("N6", "PSV (PSV-1002/1003, 4M6)", 4, D, "T", 0),
+        N("N7", "Vent / N2 purge", 2, D, "T", 0),
+        N("N8A-C", "Transformer entrance bushing", 8, D, "T", 0, qty=3),
+        N("N9A/B", "Interface level (LT / LDT) - capacitance / RF", 2, D * 0.45, "S", 90, qty=2),
+        N("N10A-E", "Try-cocks / interface sample", 1, D * 0.3, "S", 90, qty=5),
+        N("N11", "Drain", 3, 0.0, "B", 180),
+        N("N12", "Steam-out", 2, D * 0.2, "S", 270),
+        N("N13", "Low-level / low-low level switch (LSLL - transformer trip)", 2, D * 0.82, "S", 90),
+        N("M1/M2", "Manway 24\" (one per head)", 24, D / 2, "H", 0, kind="MW", qty=2),
+    ]
+    for n in noz:
+        n["rating"] = flange_class(Pd, Td)
+    xpos = {"N1": L / 2, "N2": L / 2, "N3A/B": L * 0.25, "N4A/B": L * 0.15, "N5A-D": L * 0.1, "N6": L * 0.85,
+            "N7": L * 0.92, "N8A-C": L * 0.33, "N9A/B": L * 0.6, "N10A-E": L * 0.68, "N11": L * 0.75,
+            "N12": L * 0.08, "N13": L * 0.55, "M1/M2": 0.0}
+    for n in noz:
+        n["x"] = xpos[n["mark"]]
+    return dict(tag="D-101A/B", e=e, D=D, L=L, nozzles=noz, Pd=Pd, Td=Td,
+                saddles=[0.2 * L, 0.8 * L], levels=dict(interface_NLL=0.30 * D, interface_HLL=0.40 * D,
+                                                       interface_LLL=0.20 * D, grids=[0.55 * D, 0.62 * D, 0.69 * D]))

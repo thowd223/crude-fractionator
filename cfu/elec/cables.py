@@ -121,7 +121,9 @@ def build(rows, R, loc):
                 L = abs(x - loc.ss[0]) + abs(y - loc.ss[1]) + C.RISER_M
                 L, src = round(L / 5 + 0.4999) * 5.0, "area:" + where
         else:
-            L, src = loc.route(r["tag"] if r["kind"] == "motor" and r["group"] != "Air-cooler fans" else key, extra)
+            L, src = loc.route(r["tag"] if r["kind"] == "motor" else key, extra)
+            if src.startswith("area:") and loc.xy:
+                issues.append(f"{r['tag']}: not found in data/layout.json - area-block location used")
         dol = r["kind"] == "motor" and not r["vfd"]
         if mv:
             dip = mv_start_dip(R, r["bus"], r["rated_kw"], eff, pf, r["kva"] if r["duty"] == "C" else 0) if dol else 0

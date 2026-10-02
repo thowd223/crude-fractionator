@@ -55,11 +55,11 @@
   "tag": "PSV-1005",
   "protects": "C-105",
   "case": "Reflux failure (reboiler duty)",
-  "load_kg_h": 102069.7552,
+  "load_kg_h": 129912.0371,
   "T": 94.157,
   "MW": 54.1823,
   "set_barg": 13.0,
-  "area_mm2": 7175.1715,
+  "area_mm2": 9132.3933,
   "orifice": "R",
   "count": 1,
   "dest": "Flare"

@@ -488,7 +488,7 @@
   "no": "20",
   "name": "Atm stripping steam (total)",
   "frm": "H-101 SS coil",
-  "to": "C-101/C-102A-C",
+  "to": "C-101/C-102/C-103/C-104",
   "T_C": 350,
   "P_barg": 3.49,
   "P_bara": 4.5,
@@ -587,7 +587,7 @@
  {
   "no": "24",
   "name": "HVGO product",
-  "frm": "E-202",
+  "frm": "A-202",
   "to": "FCC / Hydrocracker",
   "T_C": 90,
   "P_barg": 6.99,

@@ -260,6 +260,7 @@ def export_all(m: Model, sz: dict):
                      trims=m.res["preheat"]["trims"]),
         heaters={k: m.res[k] for k in ("H-101", "H-201")},
         warnings=m.warn,
+        units="T degC; P_out, P_top, P_bot, P_fz (atm) in bar(a) unless key says barg/mbar; duties kW; flows kg/h",
     )
     write_json("process_results.json", key)
     hmb_workbook(m, streams, DLV / "00-basis" / "CFU-000-PR-HMB-001_Heat-Material-Balance.xlsx")
