@@ -33,7 +33,7 @@ class Sheet:
                                     profile="full", debug=False)
         self.dwg.add(self.dwg.rect((0, 0), (self.W, self.H), fill="white"))
         self.m = 10 if size in ("A0", "A1", "A2") else 7      # margin
-        self.tb_w, self.tb_h = (180, 62) if size in ("A0", "A1", "A2") else (170, 50)
+        self.tb_w, self.tb_h = (180, 62)
         self.rev = rev or basis.PROJECT["rev"]
         self._frame()
         self._title_block(title1, title2, sheet, scale, discipline)

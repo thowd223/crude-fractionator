@@ -68,6 +68,8 @@ class Pen:
     def __init__(self, sheet: Sheet):
         self.sh = sheet
         self.d = d = sheet.dwg
+        self.gb = d.g()
+        sheet.g.add(self.gb)
         self.gl = d.g(fill="none", stroke=INK, stroke_linejoin="round", stroke_linecap="round")
         self.gs = d.g(fill="white", stroke=INK, stroke_width=0.35, stroke_linejoin="round")
         self.gt = d.g(font_family=FONT, fill=INK, stroke="none")
@@ -420,7 +422,8 @@ class Pen:
         kw = dict(fill=fill, stroke=stroke, stroke_width=sw)
         if dash:
             kw["stroke_dasharray"] = dash
-        (g or self.gs).add(self.d.rect((x, y), (w, h), rx=rx, ry=rx, **kw))
+        g = g or (self.gb if fill not in (None, "none") else self.gs)
+        g.add(self.d.rect((x, y), (w, h), rx=rx, ry=rx, **kw))
         yy = y + tsize + 1.4
         if title:
             if title_fill:

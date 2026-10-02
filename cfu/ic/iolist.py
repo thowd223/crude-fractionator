@@ -35,7 +35,7 @@ BMS_SIFS = {"SIF-101", "SIF-102", "SIF-103", "SIF-104", "SIF-105", "SIF-106", "S
 
 # I&C additions (control philosophy) - not yet in the instrument index; reported upstream
 IC_ADDITIONS = [
-    ("AT-1038", "Analyser transmitter", "Unstabilised naphtha D86 end point / RVP (online)", "C-101", 9, "AI"),
+    ("AT-1038", "Analyser transmitter", "Unstabilised naphtha D86 end point / RVP (online)", "CDU-2", 9, "AI"),
     ("AT-1046", "Analyser transmitter", "Salt-in-crude, desalted crude", "CDU-1", 2, "AI"),
     ("AT-1047", "Analyser transmitter", "BS&W, desalted crude", "CDU-1", 2, "AI"),
     ("AT-1048", "Analyser transmitter", "Crude API / density, salt, BS&W at charge (crude switch DV)", "CDU-1", 1, "AI"),
@@ -50,6 +50,7 @@ IC_ADDITIONS = [
     ("FT-1021", "Flow transmitter", "H-101 fuel gas flow (cross-limiting fuel measurement)", "CDU-1", 5, "AI"),
     ("FT-2006", "Flow transmitter", "H-201 fuel gas flow (cross-limiting fuel measurement)", "VDU", 12, "AI"),
     ("TT-9005", "Temperature transmitter", "Ambient air temperature (APC DV)", "CDU-2", 16, "AI"),
+    ("AT-2032", "Analyser transmitter", "Vacuum off-gas H2S (D-202, to H-201 firing / SO2 emissions)", "VDU", 15, "AI"),
     ("XA-9101", "Analyser house common alarm", "AH-101 analyser house common trouble / HVAC", "CDU-2", 16, "DI"),
 ]
 
@@ -137,7 +138,7 @@ def _controller(system, sheet, eq):
     if system == "BMS":
         return "BMS-H201" if eq.startswith("H-2") or sheet == 12 else "BMS-H101"
     if system == "SIS":
-        return "SIS-VDU" if sheet in (12, 13, 14, 15) else "SIS-CDU"
+        return "SIS-1"
     return "FGS-1"
 
 
@@ -192,7 +193,7 @@ def build_io():
     from .ce import motor_trips
     for t, sif, why in motor_trips():
         sysm = "SIS"
-        ctl = "SIS-VDU" if t.startswith("P-2") else "SIS-CDU"
+        ctl = "SIS-1"
         rows.append(dict(tag=f"XY-{t}", parent=t, type="Motor trip relay (SIS)", service=f"{t} trip ({why})",
                          loop=sif, pid_sheet="", system=sysm, io_type="DO", signal=_sigtxt("DO", sysm, "relay"),
                          equipment=t if t in XY else t[:-1] if t[:-1] in XY else "C-101", controller=ctl,
@@ -297,7 +298,7 @@ def _totals(rows):
         t = tot.setdefault(r["controller"], dict(system=r["system"], AI=0, AO=0, DI=0, DO=0))
         t[r["io_type"]] += 1
     out = OrderedDict()
-    order = ["CDU-1", "CDU-2", "VDU", "SIS-CDU", "SIS-VDU", "BMS-H101", "BMS-H201", "FGS-1"]
+    order = ["CDU-1", "CDU-2", "VDU", "SIS-1", "BMS-H101", "BMS-H201", "FGS-1"]
     for ctl in order + [k for k in tot if k not in order]:
         if ctl not in tot:
             continue
@@ -388,7 +389,7 @@ def write_xlsx(io, path):
         c = ws.cell(1, j, h)
         c.fill, c.font, c.border = hdr, hf, bd
         c.alignment = Alignment(wrap_text=True, vertical="top")
-    order = {"CDU-1": 0, "CDU-2": 1, "VDU": 2, "SIS-CDU": 3, "SIS-VDU": 4, "BMS-H101": 5, "BMS-H201": 6, "FGS-1": 7}
+    order = {"CDU-1": 0, "CDU-2": 1, "VDU": 2, "SIS-1": 3, "BMS-H101": 4, "BMS-H201": 5, "FGS-1": 6}
     pts = sorted(io["points"], key=lambda p: (order.get(p["controller"], 9), p["io_type"], p["io_card"],
                                               p["io_channel"]))
     for i, p in enumerate(pts, 2):
