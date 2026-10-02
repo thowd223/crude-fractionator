@@ -37,7 +37,7 @@ def simplify(pts):
     while i < len(out) - 1:
         a, b, c = out[i - 1], out[i], out[i + 1]
         u, v = b - a, c - b
-        if np.linalg.norm(np.cross(u, v)) < 1e-6 * max(np.linalg.norm(u) * np.linalg.norm(v), 1e-9) and np.dot(u, v) > 0:
+        if np.linalg.norm(np.cross(u, v)) < 1e-6 * max(np.linalg.norm(u) * np.linalg.norm(v), 1e-9):
             out.pop(i)
         else:
             i += 1
@@ -165,13 +165,21 @@ class Route:
 
         children = [c for c in self.branches if c.parent == b.id]
         tee_d = {}
+        olets = []
         for c in children:
-            pt = c.pts[0] if c.start.get("kind") == "tee" else c.pts[-1]
-            d = b.d_of_point(pt)
-            if d is None:
-                self.conflicts.append(f"branch {c.id} tee point not on {b.id}")
-                continue
-            tee_d[c.id] = d
+            for end, conn, pt in (("s", c.start, c.pts[0]), ("e", c.end, c.pts[-1])):
+                if conn.get("kind") != "tee":
+                    continue
+                d = b.d_of_point(pt)
+                if d is None:
+                    self.conflicts.append(f"branch {c.id} tee point not on {b.id}")
+                    continue
+                if conn.get("olet"):
+                    olets.append((c.id, d))
+                else:
+                    tee_d[(c.id, end)] = d
+        for cid, d in olets:
+            add("olet_b", d, d, "W", "W", nps=self._nps_at(b, d), nps_b=self.br(cid).nps, child=cid)
         # end stacks (nozzle-mounted components)
         stacks = {"start": [it for it in self.items if it["branch"] == b.id and it["at"] == "start"],
                   "end": [it for it in self.items if it["branch"] == b.id and it["at"] == "end"]}
@@ -218,7 +226,7 @@ class Route:
                     self._place(E, side, Lb, pos, pos + fl, "flange", "B", "W", nps=nn, nozzle=True)
                     pos += fl
             elif k == "tee":
-                C = specs.tee_C(self._parent_nps(b))
+                C = 0.12 if conn.get("olet") else specs.tee_C(self._parent_nps(b, side))
                 self._place(E, side, Lb, 0.0, C, "tee_out", "W", "W", nps=b.nps, field=True)
             elif k == "header":
                 self._place(E, side, Lb, 0.0, 0.0, "olet", "W", "W", nps=b.nps, field=True, header=conn.get("ref"))
@@ -237,7 +245,7 @@ class Route:
             nps = self._nps_at(b, dv)
             if any(abs(dv - d) < 0.02 for d in tee_d.values()):
                 C = specs.tee_C(nps)
-                cid = [c for c, d in tee_d.items() if abs(dv - d) < 0.02][0]
+                cid = [c[0] for c, d in tee_d.items() if abs(dv - d) < 0.02][0]
                 add("tee", dv - C, dv + C, "W", "W", nps=nps, nps_b=self.br(cid).nps, child=cid, vertex=True)
             else:
                 v1 = b.pts[i] - b.pts[i - 1]
@@ -245,7 +253,7 @@ class Route:
                 ang = math.degrees(math.acos(max(-1, min(1, np.dot(v1, v2) / np.linalg.norm(v1) / np.linalg.norm(v2)))))
                 A = specs.elbow_A(nps) * (1.0 if ang > 60 else math.tan(math.radians(ang / 2)))
                 add("elbow", dv - A, dv + A, "W", "W", nps=nps, angle=round(ang), at_pt=b.pts[i].tolist())
-        for cid, d in tee_d.items():
+        for (cid, _e), d in tee_d.items():
             if any(abs(b.cum[i] - d) < 0.02 for i in range(1, len(b.pts) - 1)):
                 continue
             nps = self._nps_at(b, d)
@@ -256,6 +264,8 @@ class Route:
             if it["branch"] != b.id or it["at"] is not None:
                 continue
             d = it["d"]
+            if d is not None and d < 0:
+                d = Lb + d
             it["_d"] = d
             n = it.get("nps") or self._nps_at(b, d)
             if it["kind"] in ("gate", "globe", "check", "cv"):
@@ -273,8 +283,19 @@ class Route:
                 H = specs.red_H(max(it["nps"], it["nps2"]))
                 add("reducer", d - H / 2, d + H / 2, "W", "W", nps=it["nps"], item=it)
             elif it["kind"] in ("olet_branch",):
-                add("olet_b", d, d, "W", "W", nps=n, item=it)
+                add("olet_b", d, d, "W", "W", nps=n, item=it, nps_b=it.get("nps_b", 1))
         E.sort(key=lambda e: (e["d0"], e["d1"]))
+        # LR elbows that do not fit between each other -> short-radius (1.0D)
+        els = [e for e in E if e["kind"] == "elbow"]
+        for e1, e2 in zip(els, els[1:]):
+            if e2["d0"] < e1["d1"] - 0.005:
+                for e in (e1, e2):
+                    if not e.get("SR"):
+                        c = (e["d0"] + e["d1"]) / 2
+                        h = (e["d1"] - e["d0"]) / 2 / 1.5
+                        e.update(d0=c - h, d1=c + h, SR=True)
+        olb = [e for e in E if e["kind"] == "olet_b"]
+        E = [e for e in E if e["kind"] != "olet_b"]
         # check overlaps
         for e1, e2 in zip(E, E[1:]):
             if e2["d0"] < e1["d1"] - 0.005:
@@ -283,6 +304,8 @@ class Route:
                 e2["d0"] = e1["d1"]
                 if e2["d1"] < e2["d0"]:
                     e2["d1"] = e2["d0"]
+        self._olets = getattr(self, "_olets", {})
+        self._olets[b.id] = olb
         # pipe pieces in the gaps
         out = []
         cur = 0.0
@@ -293,6 +316,8 @@ class Route:
             cur = max(cur, e["d1"])
         if Lb > cur + 0.005:
             out.append(dict(kind="pipe", d0=cur, d1=Lb, left="W", right="W", nps=self._nps_at(b, (cur + Lb) / 2)))
+        for o in olb:      # olets sit on pipe / fittings (zero length on the run)
+            o["on"] = next((e["kind"] for e in out if e["d0"] - 1e-6 <= o["d0"] <= e["d1"] + 1e-6), "pipe")
         for e in out:
             e["branch"] = b.id
         return out
@@ -303,9 +328,9 @@ class Route:
         else:
             E.append(dict(kind=kind, d0=Lb - p1, d1=Lb - p0, left=right, right=left, **a))
 
-    def _parent_nps(self, b):
+    def _parent_nps(self, b, side="start"):
         p = self.br(b.parent)
-        pt = b.pts[0]
+        pt = b.pts[0] if side == "start" else b.pts[-1]
         d = p.d_of_point(pt)
         return self._nps_at(p, d or 0.0)
 
@@ -350,48 +375,51 @@ class Route:
 
     def _split(self, b, g):
         els = self.elements[b.id]
-        parts, cur = [], []
-        start = g[0]["d0"]
+        parts, cur, start = [], [], None
+
+        def best_cut(st, lo, hi):
+            best, x = None, lo
+            while x <= hi + 1e-9:
+                if self._ok(b, st, x):
+                    best = x
+                x += 0.1
+            return best
+
+        def cut(piece, x):
+            l = dict(piece, d1=x, right_fw=True)
+            r = dict(piece, d0=x, field_left=True)
+            idx = els.index(piece)
+            els[idx:idx + 1] = [l, r]
+            return l, r
+
         for e in g:
+            if start is None:
+                start = e["d0"]
             if self._ok(b, start, e["d1"]):
                 cur.append(e)
                 continue
             if e["kind"] == "pipe":
-                lo, hi = e["d0"] + 0.15, e["d1"] - 0.15
-                best = None
-                x = lo
-                while x <= hi:
-                    if self._ok(b, start, x):
-                        best = x
-                    x += 0.1
-                if best is not None and best - e["d0"] >= 0.15:
-                    left = dict(e, d1=best)
-                    right = dict(e, d0=best, field_left=True)
-                    left["right_fw"] = True
-                    idx = els.index(e)
-                    els[idx:idx + 1] = [left, right]
-                    cur.append(left)
+                piece = e
+                x = best_cut(start, e["d0"] + 0.15, e["d1"] - 0.15) if cur else None
+                if x is not None:
+                    l, piece = cut(e, x)
+                    cur.append(l)
                     parts.append(cur)
-                    cur, start = [right], best
-                    # long straight pipe: keep splitting
-                    while not self._ok(b, start, right["d1"]):
-                        best = None
-                        x = start + 0.3
-                        while x <= right["d1"] - 0.15:
-                            if self._ok(b, start, x):
-                                best = x
-                            x += 0.1
-                        if best is None:
-                            break
-                        l2 = dict(right, d1=best, right_fw=True)
-                        r2 = dict(right, d0=best, field_left=True)
-                        idx = els.index(right)
-                        els[idx:idx + 1] = [l2, r2]
-                        cur[-1] = l2
+                else:
+                    if cur:
+                        cur[-1]["right_fw"] = True
                         parts.append(cur)
-                        cur, start, right = [r2], best, r2
-                    continue
-            # split before this fitting (field weld at fitting end)
+                    piece["field_left"] = True
+                cur, start = [], piece["d0"]
+                while not self._ok(b, start, piece["d1"]):
+                    x = best_cut(start, start + 0.3, piece["d1"] - 0.15)
+                    if x is None:
+                        break
+                    l, piece = cut(piece, x)
+                    parts.append([l])
+                    start = piece["d0"]
+                cur = [piece]
+                continue
             if cur:
                 cur[-1]["right_fw"] = True
                 parts.append(cur)
@@ -449,6 +477,17 @@ class Route:
                     pn[sp] = pn.get(sp, 0) + 1
                     self.pieces.append(dict(spool=sp, no=f"{sp}-{pn[sp]}", branch=b.id, nps=e["nps"],
                                             L_mm=round((e["d1"] - e["d0"]) * 1000)))
+        # olet branch welds + fittings
+        for b in self.branches:
+            for o in self._olets.get(b.id, []):
+                wn += 1
+                self.welds.append(dict(no=wn, type="F" if o.get("child") is None else "S", branch=b.id, d=o["d0"],
+                                       nps=o.get("nps_b") or (o.get("item") or {}).get("nps_b", 1), olet=True,
+                                       pt=[round(v, 3) for v in b.point_at(o["d0"]).tolist()], spool=None))
+                it = o.get("item") or {}
+                self.fittings.append(dict(kind="olet", nps=o.get("nps"), nps_b=o.get("nps_b") or it.get("nps_b", 1),
+                                          branch=b.id, d=round(o["d0"], 3), tag=it.get("tag"), note=it.get("note"),
+                                          on=o.get("on")))
         # fittings summary
         for b in self.branches:
             for e in self.elements[b.id]:
@@ -465,6 +504,7 @@ class Route:
                     f.update(tag=e["item"].get("tag"), note=e["item"].get("note"))
                 if k == "elbow":
                     f["angle"] = e.get("angle", 90)
+                    f["SR"] = bool(e.get("SR"))
                 self.fittings.append(f)
 
     # ------------------------------------------------------------------

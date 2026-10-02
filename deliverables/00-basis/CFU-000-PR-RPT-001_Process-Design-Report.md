@@ -239,11 +239,12 @@ Selected: ID 4.4 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 | P-110A/B | Diesel product | 151 | 154 | 56 | 75 | BB2 |
 | P-111A/B | Ago product | 84 | 153 | 32 | 45 | BB2 |
 | P-112A/B | Atm. residue / vacuum heater charge | 398 | 244 | 268 | 315 | BB2 |
-| P-114A/B | Desalter wash water | 37 | 82 | 13 | 18.5 | OH2 |
+| P-114A/B | Desalter wash water | 37 | 144 | 23 | 30 | OH2 |
 | P-115A/B | Stabiliser reflux / LPG | 39 | 154 | 14 | 18.5 | OH2 |
 | P-116A/B | Splitter reflux / LN | 146 | 111 | 43 | 55 | OH2 |
 | P-117A/B | Heavy naphtha product | 142 | 98 | 36 | 45 | OH2 |
 | P-118 | Desalter mud-wash / recycle | 19 | 64 | 5 | 7.5 | OH2 |
+| P-119A/B | Flare KO drum pump-out | 21 | 76 | 6 | 7.5 | OH2 |
 | P-201A/B | LVGO pumparound / product | 198 | 138 | 81 | 110 | BB2 |
 | P-202A/B | HVGO pumparound / product | 391 | 144 | 155 | 200 | BB2 |
 | P-203A/B | Slop wax | 12 | 114 | 5 | 5.5 | BB2 |
@@ -268,6 +269,9 @@ Selected: ID 4.4 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T.
 | PSV-1010 | P-101 disch. | Blocked outlet / thermal | 5,000 | 30.0 | 1 x E |
 | PSV-2001 | C-201 | Loss of vacuum / fire (blocked outlet to ejectors) | 32,789 | 3.5 | 1 x R |
 | PSV-2002 | D-201 | Fire | 6,324 | 3.5 | 1 x K |
+| PSV-1011 | E-113 (steam side) | Blocked MP steam outlet (max. generation) | 8,833 | 12.0 | 1 x L |
+| PSV-2003 | E-201 (steam side) | Blocked LP steam outlet (max. generation) | 3,054 | 5.0 | 1 x K |
+| TSV-typ | CW sides E-115, E-202..E-204 | Thermal expansion (blocked-in CW) | 50 | 7.0 | 1 x D |
 
 
 The global flare load (power failure, cooling failure) is assessed in the flare study. The largest single unit

@@ -31,7 +31,11 @@
 | CFU-000-ME-DS-006 | Mechanical | Pumps Datasheets | A | pdf | 02-equipment |
 | CFU-000-ME-DS-007 | Mechanical | Pressure Relief Valves Datasheets | A | pdf | 02-equipment |
 | CFU-000-ME-LST-001 | Mechanical | Equipment List | A | xlsx | 02-equipment |
+| CFU-000-PI-3DM-002 | Piping | Piping | A | glb | 03-layout-piping/3d |
+| CFU-000-PI-ISO-000 | Piping | Isometric Set | A | pdf | 03-layout-piping/piping |
 | CFU-000-PI-LL-001 | Piping | Line List | A | xlsx | 03-layout-piping |
+| CFU-000-PI-MTO-001 | Piping | Piping MTO | A | xlsx | 03-layout-piping/piping |
+| CFU-000-PI-RPT-001 | Piping | Piping Routing Stress Study | A | md, pdf | 03-layout-piping/piping |
 | CFU-000-PI-SPC-001 | Piping | Piping Class Summary | A | md, xlsx | 03-layout-piping |
 | CFU-000-PL-3DM-001 | Plant layout | render iso NE C101 | A | glb, png | 03-layout-piping/3d |
 | CFU-000-PL-ELV-001 | Plant layout | Section C101 H101 | A | pdf, svg | 03-layout-piping/layout |
@@ -62,6 +66,18 @@
 | CFU-100-ME-GA-005 | Mechanical | H 101 Heater GA | A | pdf, svg | 02-equipment/ga |
 | CFU-100-ME-GA-007 | Mechanical | D 101AB Desalter GA | A | pdf, svg | 02-equipment/ga |
 | CFU-100-ME-GA-008 | Mechanical | AES Exchanger Setting Plan | A | pdf, svg | 02-equipment/ga |
+| CFU-100-PI-ISO-001 | Piping | H 101 Outlet Transfer Line To C 101 | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-002 | Piping | C 101 Overhead Vapour To A 101 | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-003 | Piping | C 101 Bottoms To P 112A B Suction | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-004 | Piping | P 112A B Discharge To H 201 Inlet SH1 | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-005 | Piping | Crude Suction To P 101A B | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-006 | Piping | P 101A B Discharge To E 101 | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-007 | Piping | C 101 Bpa Draw To P 108A B | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-008 | Piping | Bpa Return E 113 To C 101 | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-009 | Piping | C 101 Kero Draw To C 102 Gravity | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-010 | Piping | D 102 To P 103A B Suction | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-011 | Piping | D 102 To P 104A B Suction | A | pdf, svg | 03-layout-piping/piping/iso |
+| CFU-100-PI-ISO-012 | Piping | Hp Steam Header To E 116 | A | pdf, svg | 03-layout-piping/piping/iso |
 | CFU-100-PR-PFD-001 | Process | (drawing) | A | pdf, svg | 01-process/pfd |
 | CFU-100-PR-PFD-002 | Process | (drawing) | A | pdf, svg | 01-process/pfd |
 | CFU-100-PR-PFD-003 | Process | (drawing) | A | pdf, svg | 01-process/pfd |
@@ -80,6 +96,7 @@
 | CFU-200-IC-CSD-005 | Instrumentation & control | VDU Control | A | pdf, svg | 04-instrumentation/control-scheme |
 | CFU-200-ME-GA-004 | Mechanical | C 201 Vacuum Column GA | A | pdf, svg | 02-equipment/ga |
 | CFU-200-ME-GA-006 | Mechanical | H 201 Heater GA | A | pdf, svg | 02-equipment/ga |
+| CFU-200-PI-ISO-001 | Piping | H 201 Outlet Vacuum Transfer Line To C 201 | A | pdf, svg | 03-layout-piping/piping/iso |
 | CFU-200-PR-PFD-005 | Process | (drawing) | A | pdf, svg | 01-process/pfd |
 | CFU-200-PR-PFD-006 | Process | (drawing) | A | pdf, svg | 01-process/pfd |
 | CFU-200-PR-PID-012 | Process | (drawing) | A | pdf, svg | 01-process/pid |

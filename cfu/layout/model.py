@@ -303,6 +303,8 @@ class Layout:
         for i, t in enumerate(_split_tag("P-101A/B")):
             self.pump(t, "P-101A/B", 14.0 + 4.5 * i, PUMP_N_Y)
         self.drum_h("D-104", 135.0, 128.0, 0, GRADE + 0.6)
+        for i, t in enumerate(_split_tag("P-119A/B")):
+            self.pump(t, "P-119A/B", 132.0 + 3.0 * i, 122.0)
 
         # ======================= Desalting, south-west ===========================================
         for tag, yy in [("D-101A", 52.0), ("D-101B", 42.0)]:
@@ -398,9 +400,14 @@ class Layout:
             it["nozzles"]["discharge"] = [it["x"] + 1.5, it["y"], GRADE + 1.0]
 
         # ======================= Air coolers on rack top =========================================
-        for tag, x0 in [("A-107", 48.0), ("A-106", 54.0), ("A-108", 60.0), ("A-101", 72.0), ("A-103", 108.0),
-                        ("A-104", 114.0), ("A-105", 120.0), ("A-201", 156.0), ("A-202", 162.0)]:
-            self.air_cooler(tag, tag, x0, None, int(E[tag].get("bays", 1)))
+        # bays placed contiguously within each group so multi-bay coolers never overlap their neighbours
+        for group_x0, tags in [(42.0, ("A-107", "A-106", "A-108")), (72.0, ("A-101",)),
+                               (108.0, ("A-103", "A-104", "A-105")), (156.0, ("A-201", "A-202"))]:
+            x = group_x0
+            for tag in tags:
+                nb = int(E[tag].get("bays", 1))
+                self.air_cooler(tag, tag, x, None, nb)
+                x += 6.0 * nb
 
         missing = [t for t in E if not any(i["parent_tag"] == t for i in self.items)]
         if missing:

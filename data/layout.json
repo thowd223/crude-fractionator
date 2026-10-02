@@ -2963,6 +2963,78 @@
    }
   },
   {
+   "tag": "P-119A",
+   "parent_tag": "P-119A/B",
+   "type": "Pump",
+   "service": "Flare KO drum pump-out",
+   "area": "CDU",
+   "shape": "box",
+   "x": 132.0,
+   "y": 122.0,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 7.5,
+   "api610": "OH2",
+   "bbox": [
+    131.4,
+    120.5,
+    132.6,
+    123.5
+   ],
+   "nozzles": {
+    "suction": [
+     132.0,
+     123.3,
+     100.9
+    ],
+    "discharge": [
+     132.0,
+     122.8,
+     101.8
+    ]
+   }
+  },
+  {
+   "tag": "P-119B",
+   "parent_tag": "P-119A/B",
+   "type": "Pump",
+   "service": "Flare KO drum pump-out",
+   "area": "CDU",
+   "shape": "box",
+   "x": 135.0,
+   "y": 122.0,
+   "z_base": 100.3,
+   "rotation": 90,
+   "L": 3.0,
+   "W": 1.2,
+   "height": 1.5,
+   "top_el": 101.8,
+   "motor_kw": 7.5,
+   "api610": "OH2",
+   "bbox": [
+    134.4,
+    120.5,
+    135.6,
+    123.5
+   ],
+   "nozzles": {
+    "suction": [
+     135.0,
+     123.3,
+     100.9
+    ],
+    "discharge": [
+     135.0,
+     122.8,
+     101.8
+    ]
+   }
+  },
+  {
    "tag": "D-101A",
    "parent_tag": "D-101A",
    "type": "Desalter",
@@ -3179,7 +3251,7 @@
    "W": 1.2,
    "height": 1.5,
    "top_el": 101.8,
-   "motor_kw": 18.5,
+   "motor_kw": 30,
    "api610": "OH2",
    "bbox": [
     24.4,
@@ -3215,7 +3287,7 @@
    "W": 1.2,
    "height": 1.5,
    "top_el": 101.8,
-   "motor_kw": 18.5,
+   "motor_kw": 30,
    "api610": "OH2",
    "bbox": [
     27.4,
@@ -4706,7 +4778,7 @@
    "service": "Splitter overhead condenser",
    "area": "CDU",
    "shape": "box",
-   "x": 51.0,
+   "x": 45.0,
    "y": 75.0,
    "z_base": 115.0,
    "rotation": 90,
@@ -4715,6 +4787,46 @@
    "height": 2.5,
    "top_el": 117.5,
    "bay": 1,
+   "bays": 2,
+   "fans": 2,
+   "draft": "forced",
+   "fan_deck_el": 113.0,
+   "motor_kw": 30,
+   "bbox": [
+    42.0,
+    69.0,
+    48.0,
+    81.0
+   ],
+   "nozzles": {
+    "inlet": [
+     45.0,
+     80.8,
+     116.6
+    ],
+    "outlet": [
+     45.0,
+     80.8,
+     115.3
+    ]
+   }
+  },
+  {
+   "tag": "A-107-B2",
+   "parent_tag": "A-107",
+   "type": "Air cooler",
+   "service": "Splitter overhead condenser",
+   "area": "CDU",
+   "shape": "box",
+   "x": 51.0,
+   "y": 75.0,
+   "z_base": 115.0,
+   "rotation": 90,
+   "L": 12.0,
+   "W": 6.0,
+   "height": 2.5,
+   "top_el": 117.5,
+   "bay": 2,
    "bays": 2,
    "fans": 2,
    "draft": "forced",
@@ -4734,46 +4846,6 @@
     ],
     "outlet": [
      51.0,
-     80.8,
-     115.3
-    ]
-   }
-  },
-  {
-   "tag": "A-107-B2",
-   "parent_tag": "A-107",
-   "type": "Air cooler",
-   "service": "Splitter overhead condenser",
-   "area": "CDU",
-   "shape": "box",
-   "x": 57.0,
-   "y": 75.0,
-   "z_base": 115.0,
-   "rotation": 90,
-   "L": 12.0,
-   "W": 6.0,
-   "height": 2.5,
-   "top_el": 117.5,
-   "bay": 2,
-   "bays": 2,
-   "fans": 2,
-   "draft": "forced",
-   "fan_deck_el": 113.0,
-   "motor_kw": 30,
-   "bbox": [
-    54.0,
-    69.0,
-    60.0,
-    81.0
-   ],
-   "nozzles": {
-    "inlet": [
-     57.0,
-     80.8,
-     116.6
-    ],
-    "outlet": [
-     57.0,
      80.8,
      115.3
     ]

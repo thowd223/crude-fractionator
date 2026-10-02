@@ -7850,13 +7850,30 @@
   "sif": "",
   "sil_ref": "",
   "line_no": "",
-  "note": "Loc. x=135.0 m, y=125.0 m (near P-119)",
-  "location": "x=135.0 m, y=125.0 m (near P-119)"
+  "note": "Loc. x=132.0 m, y=119.0 m (near P-119)",
+  "location": "x=132.0 m, y=119.0 m (near P-119)"
  },
  {
   "tag": "GD-1519",
   "type": "Gas detector",
   "loop": "GD-1519",
+  "service": "Flammable gas detector (IR point), pump row P-119A/B",
+  "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+  "system": "F&G",
+  "signal": "4-20 mA (F&G)",
+  "range": "0-100",
+  "units": "% LEL",
+  "fail_position": "",
+  "sif": "",
+  "sil_ref": "",
+  "line_no": "",
+  "note": "Loc. x=132.0 m, y=119.0 m (near P-119)",
+  "location": "x=132.0 m, y=119.0 m (near P-119)"
+ },
+ {
+  "tag": "GD-1520",
+  "type": "Gas detector",
+  "loop": "GD-1520",
   "service": "Flammable gas detector (catalytic), H-101 FG train",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7871,9 +7888,9 @@
   "location": "x=90.0 m, y=24.0 m (near H-101)"
  },
  {
-  "tag": "GD-1520",
+  "tag": "GD-1521",
   "type": "Gas detector",
-  "loop": "GD-1520",
+  "loop": "GD-1521",
   "service": "Flammable gas detector (catalytic), H-101 burner manifold",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7888,9 +7905,9 @@
   "location": "x=106.0 m, y=24.0 m (near H-101)"
  },
  {
-  "tag": "GD-1521",
+  "tag": "GD-1522",
   "type": "Gas detector",
-  "loop": "GD-1521",
+  "loop": "GD-1522",
   "service": "Flammable gas detector (IR point), LPG / light-ends area at C-105",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7905,9 +7922,9 @@
   "location": "x=64.0 m, y=97.0 m (near C-105)"
  },
  {
-  "tag": "GD-1522",
+  "tag": "GD-1523",
   "type": "Gas detector",
-  "loop": "GD-1522",
+  "loop": "GD-1523",
   "service": "Flammable gas detector (IR point), LPG / light-ends area at D-105",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7922,9 +7939,9 @@
   "location": "x=65.5 m, y=87.5 m (near D-105)"
  },
  {
-  "tag": "GD-1523",
+  "tag": "GD-1524",
   "type": "Gas detector",
-  "loop": "GD-1523",
+  "loop": "GD-1524",
   "service": "Flammable gas detector (IR point), LPG / light-ends area at C-106",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7939,9 +7956,9 @@
   "location": "x=52.0 m, y=97.0 m (near C-106)"
  },
  {
-  "tag": "GD-1524",
+  "tag": "GD-1525",
   "type": "Gas detector",
-  "loop": "GD-1524",
+  "loop": "GD-1525",
   "service": "Flammable gas detector (IR point), LPG / light-ends area at D-106",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7956,9 +7973,9 @@
   "location": "x=54.0 m, y=87.5 m (near D-106)"
  },
  {
-  "tag": "GD-1525",
+  "tag": "GD-1526",
   "type": "Gas detector",
-  "loop": "GD-1525",
+  "loop": "GD-1526",
   "service": "Flammable gas detector (IR point), LPG / light-ends area at E-116",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7973,9 +7990,9 @@
   "location": "x=64.0 m, y=102.5 m (near E-116)"
  },
  {
-  "tag": "GD-1526",
+  "tag": "GD-1527",
   "type": "Gas detector",
-  "loop": "GD-1526",
+  "loop": "GD-1527",
   "service": "Flammable gas detector (IR point), D-102 overhead drum (1)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -7990,9 +8007,9 @@
   "location": "x=75.0 m, y=87.0 m (near D-102)"
  },
  {
-  "tag": "GD-1527",
+  "tag": "GD-1528",
   "type": "Gas detector",
-  "loop": "GD-1527",
+  "loop": "GD-1528",
   "service": "Flammable gas detector (IR point), D-102 overhead drum (2)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8007,9 +8024,9 @@
   "location": "x=83.0 m, y=87.0 m (near D-102)"
  },
  {
-  "tag": "GD-1528",
+  "tag": "GD-1529",
   "type": "Gas detector",
-  "loop": "GD-1528",
+  "loop": "GD-1529",
   "service": "H2S toxic gas detector (electrochemical), D-102 (1)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8024,9 +8041,9 @@
   "location": "x=75.0 m, y=87.0 m (near D-102)"
  },
  {
-  "tag": "GD-1529",
+  "tag": "GD-1530",
   "type": "Gas detector",
-  "loop": "GD-1529",
+  "loop": "GD-1530",
   "service": "H2S toxic gas detector (electrochemical), D-102 (2)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8041,9 +8058,9 @@
   "location": "x=83.0 m, y=87.0 m (near D-102)"
  },
  {
-  "tag": "GD-1530",
+  "tag": "GD-1531",
   "type": "Gas detector",
-  "loop": "GD-1530",
+  "loop": "GD-1531",
   "service": "H2S toxic gas detector (electrochemical), P-105",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8058,9 +8075,9 @@
   "location": "x=81.5 m, y=80.5 m (near P-105)"
  },
  {
-  "tag": "BE-1531",
+  "tag": "BE-1532",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1531",
+  "loop": "BE-1532",
   "service": "Flame detector (IR3), H-101 burner front / FG train (1)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8075,9 +8092,9 @@
   "location": "x=88.0 m, y=30.0 m (near H-101)"
  },
  {
-  "tag": "BE-1532",
+  "tag": "BE-1533",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1532",
+  "loop": "BE-1533",
   "service": "Flame detector (IR3), H-101 burner front / FG train (2)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8092,9 +8109,9 @@
   "location": "x=108.0 m, y=30.0 m (near H-101)"
  },
  {
-  "tag": "BE-1533",
+  "tag": "BE-1534",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1533",
+  "loop": "BE-1534",
   "service": "Flame detector (IR3), H-101 burner front / FG train (3)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8109,9 +8126,9 @@
   "location": "x=88.0 m, y=24.0 m (near H-101)"
  },
  {
-  "tag": "BE-1534",
+  "tag": "BE-1535",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1534",
+  "loop": "BE-1535",
   "service": "Flame detector (IR3), H-101 burner front / FG train (4)",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8126,9 +8143,9 @@
   "location": "x=108.0 m, y=24.0 m (near H-101)"
  },
  {
-  "tag": "BE-1535",
+  "tag": "BE-1536",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1535",
+  "loop": "BE-1536",
   "service": "Flame detector (IR3), hot pump P-112A/B",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8143,9 +8160,9 @@
   "location": "x=92.0 m, y=80.5 m (near P-112)"
  },
  {
-  "tag": "BE-1536",
+  "tag": "BE-1537",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1536",
+  "loop": "BE-1537",
   "service": "Flame detector (IR3), hot pump P-108A/B",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8160,9 +8177,9 @@
   "location": "x=98.5 m, y=80.5 m (near P-108)"
  },
  {
-  "tag": "BE-1537",
+  "tag": "BE-1538",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1537",
+  "loop": "BE-1538",
   "service": "Flame detector (IR3), hot pump P-111A/B",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8177,9 +8194,9 @@
   "location": "x=118.0 m, y=80.5 m (near P-111)"
  },
  {
-  "tag": "BE-1538",
+  "tag": "BE-1539",
   "type": "Flame detector (F&G)",
-  "loop": "BE-1538",
+  "loop": "BE-1539",
   "service": "Flame detector (IR3), hot pump P-110A/B",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8194,9 +8211,9 @@
   "location": "x=111.5 m, y=80.5 m (near P-110)"
  },
  {
-  "tag": "HS-1539",
+  "tag": "HS-1540",
   "type": "Hand switch",
-  "loop": "HS-1539",
+  "loop": "HS-1540",
   "service": "Manual call point (MCP), desalting area",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8211,9 +8228,9 @@
   "location": "x=36.0 m, y=56.0 m (near D-101A)"
  },
  {
-  "tag": "HS-1540",
+  "tag": "HS-1541",
   "type": "Hand switch",
-  "loop": "HS-1540",
+  "loop": "HS-1541",
   "service": "Manual call point (MCP), preheat bank area",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8228,9 +8245,9 @@
   "location": "x=12.5 m, y=96.0 m (near E-106)"
  },
  {
-  "tag": "HS-1541",
+  "tag": "HS-1542",
   "type": "Hand switch",
-  "loop": "HS-1541",
+  "loop": "HS-1542",
   "service": "Manual call point (MCP), C-101 / OH area",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8245,9 +8262,9 @@
   "location": "x=95.0 m, y=102.0 m (near C-101)"
  },
  {
-  "tag": "HS-1542",
+  "tag": "HS-1543",
   "type": "Hand switch",
-  "loop": "HS-1542",
+  "loop": "HS-1543",
   "service": "Manual call point (MCP), H-101 area",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8262,9 +8279,9 @@
   "location": "x=98.0 m, y=40.0 m (near H-101)"
  },
  {
-  "tag": "HS-1543",
+  "tag": "HS-1544",
   "type": "Hand switch",
-  "loop": "HS-1543",
+  "loop": "HS-1544",
   "service": "Manual call point (MCP), light ends area",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",
@@ -8279,9 +8296,9 @@
   "location": "x=64.0 m, y=104.0 m (near C-105)"
  },
  {
-  "tag": "HS-1544",
+  "tag": "HS-1545",
   "type": "Hand switch",
-  "loop": "HS-1544",
+  "loop": "HS-1545",
   "service": "Manual call point (MCP), CDU pump row area",
   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
   "system": "F&G",

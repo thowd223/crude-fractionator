@@ -51,6 +51,7 @@ def sources(col_elev):
         "P-116": ("D-106 (bubble point)", "vessel", dict(LLL=el["D-106"]["LLL"], P=1.8)),
         "P-117": ("C-106 bottoms", "vessel", dict(LLL=el["C-106"]["LLL"], P=R["split"]["P_bot"])),
         "P-118": ("D-101A/B brine (sub-cooled water at 11.5 barg)", "press", dict(P=12.5, Pv=2.0, est=True)),
+        "P-119": ("D-104 flare KO drum (liquid at bubble point, 0.2 barg)", "press", dict(P=1.25, Pv=1.21, est=True)),
         "P-201": ("C-201 LVGO collector", "vessel", dict(LLL=el["C-201"]["draw"]["LVGO"], P=0.03)),
         "P-202": ("C-201 HVGO collector", "vessel", dict(LLL=el["C-201"]["draw"]["HVGO"], P=0.045)),
         "P-203": ("C-201 slop wax collector", "vessel", dict(LLL=el["C-201"]["draw"]["SLOP"], P=0.058)),

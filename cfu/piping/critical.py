@@ -12,21 +12,30 @@ from .model import Route, key_of
 from .router import V
 
 # iso register: (iso number, line key, short title)
-ISO_SET = [
-    ("CFU-100-PI-ISO-001", "P-100-074", "H-101 OUTLET TRANSFER LINE TO C-101"),
-    ("CFU-100-PI-ISO-002", "PG-100-106", "C-101 OVERHEAD VAPOUR TO A-101"),
-    ("CFU-100-PI-ISO-003", "P-100-083", "C-101 BOTTOMS TO P-112A/B SUCTION"),
-    ("CFU-100-PI-ISO-004", "P-100-084", "P-112A/B DISCHARGE TO H-201 INLET"),
-    ("CFU-200-PI-ISO-001", "P-200-017", "H-201 OUTLET VACUUM TRANSFER LINE TO C-201"),
-    ("CFU-100-PI-ISO-005", "P-100-001", "CRUDE SUCTION TO P-101A/B"),
-    ("CFU-100-PI-ISO-006", "P-100-002", "P-101A/B DISCHARGE TO E-101"),
-    ("CFU-100-PI-ISO-007", "P-100-050", "C-101 BPA DRAW TO P-108A/B"),
-    ("CFU-100-PI-ISO-008", "P-100-053", "BPA RETURN E-113 TO C-101"),
-    ("CFU-100-PI-ISO-009", "P-100-091", "C-101 KERO DRAW TO C-102 (GRAVITY)"),
-    ("CFU-100-PI-ISO-010", "P-100-109", "D-102 TO P-103A/B SUCTION"),
-    ("CFU-100-PI-ISO-011", "P-100-111", "D-102 TO P-104A/B SUCTION"),
-    ("CFU-100-PI-ISO-012", "HS-100-134", "HP STEAM HEADER TO E-116"),
+ISO_SET = [   # (iso number, (from regex, to regex), title) - lines found semantically in lines.json at build time
+    ("CFU-100-PI-ISO-001", (r"^H-101 outlet manifold", r"^C-101"), "H-101 OUTLET TRANSFER LINE TO C-101"),
+    ("CFU-100-PI-ISO-002", (r"^C-101 top", r"^A-101"), "C-101 OVERHEAD VAPOUR TO A-101"),
+    ("CFU-100-PI-ISO-003", (r"^C-101 bottom", r"^P-112"), "C-101 BOTTOMS TO P-112A/B SUCTION"),
+    ("CFU-100-PI-ISO-004", (r"^P-112", r"^H-201 inlet"), "P-112A/B DISCHARGE TO H-201 INLET"),
+    ("CFU-200-PI-ISO-001", (r"^H-201 outlet manifold", r"^C-201"), "H-201 OUTLET VACUUM TRANSFER LINE TO C-201"),
+    ("CFU-100-PI-ISO-005", (r"(TK|OSBL)", r"^P-101"), "CRUDE SUCTION TO P-101A/B"),
+    ("CFU-100-PI-ISO-006", (r"^P-101", r"^E-101"), "P-101A/B DISCHARGE TO E-101"),
+    ("CFU-100-PI-ISO-007", (r"^C-101 tray", r"^P-108"), "C-101 BPA DRAW TO P-108A/B"),
+    ("CFU-100-PI-ISO-008", (r"^E-113", r"^C-101 tray"), "BPA RETURN E-113 TO C-101"),
+    ("CFU-100-PI-ISO-009", (r"^C-101 tray", r"^C-102$"), "C-101 KERO DRAW TO C-102 (GRAVITY)"),
+    ("CFU-100-PI-ISO-010", (r"^D-102", r"^P-103"), "D-102 TO P-103A/B SUCTION"),
+    ("CFU-100-PI-ISO-011", (r"^D-102", r"^P-104"), "D-102 TO P-104A/B SUCTION"),
+    ("CFU-100-PI-ISO-012", (r"^HP steam header", r"^E-116"), "HP STEAM HEADER TO E-116"),
 ]
+ISO_FIND = {k: v for _, v, k in [(a, b, a) for a, b, c in ISO_SET]}
+
+
+def find_line(lines, frm, to, fluid=None):
+    c = [l for l in lines if re.search(frm, l["from"]) and re.search(to, l["to"])
+         and (fluid is None or l["fluid"] == fluid)]
+    if not c:
+        return None
+    return max(c, key=lambda l: l["size_in"])
 
 
 def pump_nozzles(line_nps):
@@ -107,25 +116,29 @@ class Ctx:
         self.R = R
         self.P = R.P
 
-    def route(self, key):
-        line = self.R.line(key)
+    def route(self, iso):
+        frm, to = ISO_FIND[iso]
+        line = find_line(self.P.lines, frm, to)
         if line is None:
+            self.P.issues.append(f"{iso}: no line in lines.json with from~'{frm}' to~'{to}' - iso skipped")
             return None, None
+        key = key_of(line["line_no"])
         r = Route(line, "critical")
+        r.iso = iso
         r.instruments = match_instruments(self.R, line)
         self.R.routes.append(r)
         self.R.critical_keys.append(key)
         return r, line
 
-    def rack(self, route, line, bid, tier, xa, xb, ya_off, yb_off, nps=None, prefer="south", loops=True):
+    def rack(self, route, line, bid, tier, xa, xb, ya_off, yb_off, nps=None, prefer="south", loops=True, above=False):
         R = self.R
         nps = nps or line["size_in"]
         y = R.rack.alloc(tier, xa, xb, nps, line["insul"], line["design_T_C"], line["line_no"], prefer)
         zc = R.P.zc(tier, nps, line["insul"])
-        zx = R.P.zx(tier, nps)
-        legs = [abs(y - ya_off) + (zx - zc), abs(y - yb_off) + (zx - zc)]
+        zx = R.P.zx(tier, nps, line["insul"], above=above)
+        legs = [abs(y - ya_off) + abs(zx - zc), abs(y - yb_off) + abs(zx - zc)]
         lp, anchors, info = R.loops_for_run(route, line, nps, y, zc, xa, xb, legs, tier) if loops else ([], [], {})
-        pts = R.rack_points(xa, xb, y, zc, lp)
+        pts = R.rack_points(xa, xb, y, zc, lp, nps, tier)
         R.rack_run(route, bid, tier, y, zc, xa, xb)
         route.loops.append(dict(branch=bid, tier=tier, y=y, legs=[x for l in lp for x in l[:2]],
                                 H=(lp[0][2] if lp else 0.0), anchors=anchors, info=info))
@@ -133,7 +146,7 @@ class Ctx:
 
 
 # ==============================================================================================
-def heater_outlet_manifold(C, r, line, heater, npass, pitch, y_off, pass_nps, pass_seq0, area):
+def heater_outlet_manifold(C, r, line, heater, npass, pitch, y_off, pass_nps):
     """Symmetrical outlet manifold: header along x on heater north face, pass outlets as branches."""
     P = C.P
     po, pdir = P.noz(heater, "outlet")
@@ -143,26 +156,37 @@ def heater_outlet_manifold(C, r, line, heater, npass, pitch, y_off, pass_nps, pa
     r.add_branch("HDR", line["size_in"], [V(x0 - half, ym, zm), V(x0 + half, ym, zm)],
                  dict(kind="cap", label="WELD CAP"), dict(kind="cap", label="WELD CAP"))
     for k, x in enumerate(xs):
-        ln = f"{area}-{pass_seq0 + k:03d}"
-        pl = C.R.P.by_key.get(f"P-{ln}")
+        pl = find_line(P.lines, rf"^{heater} pass {k + 1}$", rf"^{heater} outlet manifold")
         lab = pl["line_no"] if pl else f"pass {k + 1}"
+        if pl:
+            C.R.critical_keys.append(key_of(pl["line_no"]))
         r.add_branch(f"PASS{k + 1}", pass_nps, [V(x, po[1], zm), V(x, ym, zm)],
                      dict(kind="nozzle", tag=heater, nozzle=f"pass {k + 1} outlet", nps=pass_nps,
                           label=f"{heater} PASS {k + 1} OUTLET", p=[x, po[1], zm], dir=[0, 1, 0]),
                      dict(kind="tee", olet=True), parent="HDR")
         r.branches[-1].line_ref = lab
-    r.add("olet_branch", "HDR", d=0.6, nps_b=1.5, tag="LPD", note="manifold low-point drain (DBB)")
+    r.add("olet_branch", "HDR", d=1.4, nps_b=1.5, tag="LPD", note="manifold low-point drain (DBB)")
     P.assumed.append(f"{heater} pass-outlet stubs assumed on north face at {pitch:.1f} m pitch, EL {zm:.3f} "
                      f"(heater vendor to confirm terminal points)")
     return x0, ym, zm
 
 
+def _pass_nps(P, heater):
+    pl = find_line(P.lines, rf"^{heater} pass 1$", rf"^{heater} outlet manifold")
+    return pl["size_in"] if pl else 8
+
+
+def _pass_list(P, heater):
+    out = [find_line(P.lines, rf"^{heater} pass {k}$", rf"^{heater} outlet manifold") for k in range(1, 13)]
+    return [l["line_no"] for l in out if l]
+
+
 def r_h101_transfer(C):
-    r, line = C.route("P-100-074")
+    r, line = C.route("CFU-100-PI-ISO-001")
     if not r:
         return
     P = C.P
-    x0, ym, zm = heater_outlet_manifold(C, r, line, "H-101", P.eq["H-101"].get("passes", 8), 2.2, 1.5, 8, 66, "100")
+    x0, ym, zm = heater_outlet_manifold(C, r, line, "H-101", P.eq["H-101"].get("passes", 8), 2.2, 1.5, _pass_nps(P, "H-101"))
     fz, fd = P.noz("C-101", "feed")
     nps = line["size_in"]
     zt = P.tiers[3] + 0.95 + specs.od(nps) / 2000.0           # crossing above tier 3
@@ -179,24 +203,27 @@ def r_h101_transfer(C):
                 "Manifold symmetrical about C/L of heater: equal hydraulic length per pass.",
                 "Rack crossing above tier 3 on dedicated transfer-line support beams at bents x=96/102.",
                 "Formal stress analysis mandatory (API 560 terminal loads, C-101 nozzle WRC 537)."]
-    r.cont += [("start", "HDR", "8 PASS OUTLETS 8\"-P-100-066..073-B3-H FROM H-101 (THIS ISO)")]
+    pl = _pass_list(P, "H-101")
+    r.cont += [("start", "HDR", f"{len(pl)} PASS OUTLETS {pl[0] if pl else ''}..{pl[-1][-12:] if pl else ''} (THIS ISO)")]
 
 
 def r_h201_transfer(C):
-    r, line = C.route("P-200-017")
+    r, line = C.route("CFU-200-PI-ISO-001")
     if not r:
         return
     P = C.P
-    x0, ym, zm = heater_outlet_manifold(C, r, line, "H-201", P.eq["H-201"].get("passes", 4), 3.0, 2.0, 12, 13, "200")
+    x0, ym, zm = heater_outlet_manifold(C, r, line, "H-201", P.eq["H-201"].get("passes", 4), 3.0, 2.0, _pass_nps(P, "H-201"))
     fz, fd = P.noz("C-201", "feed")
     nps = line["size_in"]
     slope = 1 / 100.0
     y_t = fz[1] - 6.7
-    Lh = (y_t - ym) + abs(fz[0] - x0) + (fz[1] - y_t)
+    Lh = (y_t - ym) + (fz[1] - y_t) + 0.414 * abs(fz[0] - x0)
     ztop = fz[2] + slope * Lh
-    z1 = ztop - slope * (y_t - ym)
-    z2 = z1 - slope * abs(fz[0] - x0)
-    pts = [V(x0, ym, zm), V(x0, ym, ztop), V(x0, y_t, z1), V(fz[0], y_t, z2), V(*fz)]
+    z2 = fz[2] + slope * (fz[1] - y_t)
+    dx = fz[0] - x0
+    y_j = y_t - abs(dx)                    # 45 deg plan jog (54" elbows too long for a 90/90 offset)
+    z0j = ztop - slope * (y_j - ym)
+    pts = [V(x0, ym, zm), V(x0, ym, ztop), V(x0, y_j, z0j), V(fz[0], y_t, z2), V(*fz)]
     r.add_branch("TL", nps, pts, dict(kind="tee"), nozzle_conn(C.R, "C-201", "feed", nps, "C-201 FLASH ZONE FEED"),
                  parent="HDR")
     r.slope.append(dict(branch="TL", ratio="1:100", note="FALLS TOWARDS C-201"))
@@ -206,11 +233,12 @@ def r_h201_transfer(C):
                 "Large bore 54\" for low velocity / flash-zone pressure; external-pressure (full vacuum) design.",
                 "Crosses rack at high level on transfer-line support structure TLS-201 (independent of rack).",
                 "Formal stress analysis mandatory; spring hangers on riser (heater + column growth)."]
-    r.cont += [("start", "HDR", "4 PASS OUTLETS 12\"-P-200-013..016-B3-H FROM H-201 (THIS ISO)")]
+    pl = _pass_list(P, "H-201")
+    r.cont += [("start", "HDR", f"{len(pl)} PASS OUTLETS {pl[0] if pl else ''}..{pl[-1][-12:] if pl else ''} (THIS ISO)")]
 
 
 def r_c101_overhead(C):
-    r, line = C.route("PG-100-106")
+    r, line = C.route("CFU-100-PI-ISO-002")
     if not r:
         return
     P = C.P
@@ -225,34 +253,34 @@ def r_c101_overhead(C):
     plat_r = max([p["r_out"] for p in P.L["structures"]["column_platforms"] if p["tag"] == "C-101"] + [e["D"] / 2])
     y_drop = e["y"] - plat_r - specs.od(nps) / 2000.0 - 0.75
     s = 1 / 200.0
-    zT1 = 119.6                                   # first tee (bay B2 / header take-off)
-    zH = zT1 - 1.0                                # header EL
-    yH = yb + 1.8
-    z_top = o[2] + 1.3
+    zT1 = 120.2                                   # first tee (bay B2 / header take-off)
+    zH = zT1 - 1.6                                # header EL
+    yH = yb + 2.6
+    z_top = o[2] + 2.0
     run1 = abs(e["x"] - xc)
     run2 = abs(y_drop - yH)
     zA = zT1 + s * (run1 + run2)
     pts = [V(*o), V(o[0], o[1], z_top), V(o[0], y_drop, z_top - s * abs(o[1] - y_drop)), V(o[0], y_drop, zA),
-           V(xc, y_drop, zA - s * run1), V(xc, yH, zT1), V(xc, yb, zT1 - s * 1.8), V(xc, yb, zin)]
+           V(xc, y_drop, zA - s * run1), V(xc, yH, zT1), V(xc, yb, zT1 - s * 2.6), V(xc, yb, zin)]
     r.add_branch("MAIN", nps, pts, nozzle_conn(C.R, "C-101", "overhead", nps, "C-101 OVERHEAD NOZZLE"),
                  dict(kind="nozzle", tag=bays[len(bays) // 2], nozzle="inlet", nps=24,
                       label=f"{bays[len(bays) // 2]} INLET", p=ins[len(ins) // 2].tolist(), dir=[0, 0, 1]))
-    r.add("reducer", "MAIN", d=at(r, "MAIN", [xc, yH - 0.9, zT1 - 0.0045]), nps=nps, nps2=24)
+    r.add("reducer", "MAIN", d=at(r, "MAIN", [xc, yH - 1.3, zT1 - s * 1.3]), nps=nps, nps2=24)
     # west / east halves
     xw, xe = ins[0][0], ins[-1][0]
     r.add_branch("HW", 30, [V(xc, yH, zT1), V(xc, yH, zH), V(xw, yH, zH - s * abs(xc - xw)),
-                            V(xw, yb, zH - s * abs(xc - xw) - s * 1.8), V(xw, yb, zin)],
+                            V(xw, yb, zH - s * abs(xc - xw) - s * 2.6), V(xw, yb, zin)],
                  dict(kind="tee"), dict(kind="nozzle", tag=bays[0], nozzle="inlet", nps=24, label=f"{bays[0]} INLET",
                                         p=ins[0].tolist(), dir=[0, 0, 1]), parent="MAIN")
     r.add("reducer", "HW", d=at(r, "HW", [xc - 1.6, yH, zH - s * 1.6]), nps=30, nps2=24)
-    r.add_branch("HE", 24, [V(xc, yH, zH), V(xe, yH, zH - s * abs(xe - xc)), V(xe, yb, zH - s * abs(xe - xc) - s * 1.8),
+    r.add_branch("HE", 24, [V(xc, yH, zH), V(xe, yH, zH - s * abs(xe - xc)), V(xe, yb, zH - s * abs(xe - xc) - s * 2.6),
                             V(xe, yb, zin)],
                  dict(kind="tee"), dict(kind="nozzle", tag=bays[-1], nozzle="inlet", nps=24, label=f"{bays[-1]} INLET",
                                         p=ins[-1].tolist(), dir=[0, 0, 1]), parent="HW")
     r.slope.append(dict(branch="MAIN", ratio="1:200", note="SELF-DRAINING TO A-101"))
-    for k, seq in enumerate(("117", "118")):
-        l2 = P.by_key.get(f"CH-100-{seq}")
-        r.add("olet_branch", "MAIN", d=2.2 + 1.2 * k, nps_b=1.0, tag=f"X-103 INJ.{k + 1}",
+    inj = [l for l in P.lines if l["from"].startswith("X-103") and "OH" in l["to"]]
+    for k, l2 in enumerate(inj[:2]):
+        r.add("olet_branch", "MAIN", d=4.2 + 1.2 * k, nps_b=1.0, tag=f"X-103 INJ.{k + 1}",
               note=f"injection quill ({l2['line_no'] if l2 else 'CH'})")
     r.notes += ["Line self-draining: continuous fall 1:200 from C-101 to A-101 - no pockets.",
                 "Inlet manifold to A-101 bays symmetrical about bay B2 (hydraulic balance, NH4Cl/HCl corrosion control).",
@@ -273,11 +301,13 @@ def pump_suction(C, r, line, key_pumps, src_pts, src_conn, y_off=2.4, z_h=None, 
     order = [pa, pb] if abs(last[0] - pa[0]) < abs(last[0] - pb[0]) else [pb, pa]
     near, far = order
     tags = {tuple(pa): key_pumps[0], tuple(pb): key_pumps[1]}
-    main = list(src_pts) + [V(near[0], yh, z_h), V(far[0], yh, z_h), V(far[0], yh, far[2]), V(*far)]
+    lo_x, hi_x = sorted((pa[0], pb[0]))
+    xt = last[0] if lo_x + 0.5 < last[0] < hi_x - 0.5 else near[0]
+    main = list(src_pts) + [V(xt, yh, z_h), V(far[0], yh, z_h), V(far[0], yh, far[2]), V(*far)]
     r.add_branch("MAIN", nps, main, src_conn,
                  dict(kind="nozzle", tag=tags[tuple(far)], nozzle="suction", nps=nn,
                       label=f"{tags[tuple(far)]} SUCTION", p=far.tolist(), dir=[0, 1, 0]))
-    r.add_branch("BR", nps, [V(near[0], yh, z_h), V(near[0], yh, near[2]), V(*near)], dict(kind="tee"),
+    r.add_branch("BR", nps, [V(xt, yh, z_h), V(near[0], yh, z_h), V(near[0], yh, near[2]), V(*near)], dict(kind="tee"),
                  dict(kind="nozzle", tag=tags[tuple(near)], nozzle="suction", nps=nn,
                       label=f"{tags[tuple(near)]} SUCTION", p=near.tolist(), dir=[0, 1, 0]), parent="MAIN")
     for bid, pp in (("MAIN", far), ("BR", near)):
@@ -293,7 +323,7 @@ def pump_suction(C, r, line, key_pumps, src_pts, src_conn, y_off=2.4, z_h=None, 
 
 
 def r_c101_bottoms(C):
-    r, line = C.route("P-100-083")
+    r, line = C.route("CFU-100-PI-ISO-003")
     if not r:
         return
     P = C.P
@@ -302,13 +332,12 @@ def r_c101_bottoms(C):
     src = [V(*b), V(b[0], b[1], zh)]
     pump_suction(C, r, line, ("P-112A", "P-112B"), src, nozzle_conn(C.R, "C-101", "bottoms", line["size_in"],
                                                                      "C-101 BOTTOMS NOZZLE"), z_h=zh)
-    r.add("gate", "MAIN", d=at(r, "MAIN", [b[0], b[1], (b[2] + zh) / 2 + 0.2]), note="column isolation (skirt)")
     r.notes += ["Line exits C-101 skirt through 1000 mm access sleeve; hot (390 C) - skirt opening insulated.",
                 "NPSHa per mech. data sheet; suction line kept short (< 15 m developed per pump)."]
 
 
 def r_p112_discharge(C):
-    r, line = C.route("P-100-084")
+    r, line = C.route("CFU-100-PI-ISO-004")
     if not r:
         return
     P = C.P
@@ -316,16 +345,16 @@ def r_p112_discharge(C):
     pa, _ = P.noz("P-112A", "discharge")
     pb, _ = P.noz("P-112B", "discharge")
     hi, hd = P.noz("H-201", "inlet")
-    nn = specs.step(pump_nozzles(P.by_key["P-100-083"]["size_in"]), -1)
-    nn = min(nn, nps)
+    suc = find_line(P.lines, r"^C-101 bottom", r"^P-112")
+    nn = min(specs.step(pump_nozzles(suc["size_in"] if suc else nps), -1), nps)
     zd = 104.0
     xr = pb[0] + 1.6
-    zcv = 101.2
-    y_r = P.ry1 + 0.6
+    zg = 101.2                       # FV station at grade south of rack
     y_h = hi[1] + 2.95
-    y, zc, zx, rk = C.rack(r, line, "MAIN", 1, xr, hi[0], y_r, y_h, prefer="south")
-    pts = [V(*pa), V(pa[0], pa[1], zd), V(xr, pa[1], zd), V(xr, pa[1], zcv), V(xr, y_r, zcv), V(xr, y_r, zx),
-           V(xr, y, zx)] + rk + [V(hi[0], y, zx), V(hi[0], y_h, zx), V(hi[0], y_h, hi[2]), V(*hi)]
+    y_g = P.ry0 - 7.0
+    y, zc, zx, rk = C.rack(r, line, "MAIN", 1, xr, hi[0], pa[1], y_g, prefer="south")
+    pts = [V(*pa), V(pa[0], pa[1], zd), V(xr, pa[1], zd), V(xr, pa[1], zx), V(xr, y, zx)] + rk + \
+          [V(hi[0], y, zx), V(hi[0], y_g, zx), V(hi[0], y_g, zg), V(hi[0], y_h, zg), V(hi[0], y_h, hi[2]), V(*hi)]
     r.add_branch("MAIN", nps, pts, nozzle_conn(C.R, "P-112A", "discharge", nn, "P-112A DISCHARGE"),
                  nozzle_conn(C.R, "H-201", "inlet", nps, "H-201 INLET MANIFOLD"))
     r.add_branch("BR", nps, [V(*pb), V(pb[0], pb[1], zd)],
@@ -333,42 +362,44 @@ def r_p112_discharge(C):
     for bid in ("MAIN", "BR"):
         if nn != nps:
             r.add("reducer", bid, at="start", nps=nn, nps2=nps)
-        r.add("check", bid, at="start", note="disch. check (warm-up bypass 1\")")
+        r.add("check", bid, at="start", note="disch. check (1in warm-up bypass)")
         r.add("gate", bid, at="start", note="disch. block valve")
     ins = r.instruments
-    # min-flow / circulation tee
-    mf = P.by_key.get("P-100-085")
-    y_mf = pa[1] - 0.9
-    r.add_branch("MF", 6, [V(xr, y_mf, zcv), V(xr + 0.9, y_mf, zcv)], dict(kind="tee"),
+    mf = find_line(P.lines, r"^P-112", r"^C-101 bottom")
+    if mf:
+        C.R.critical_keys.append(key_of(mf["line_no"]))
+    xm = pb[0] + 0.75
+    r.add_branch("MF", 6, [V(xm, pa[1], zd), V(xm, pa[1] + 1.0, zd)], dict(kind="tee"),
                  dict(kind="cont", label=f"{mf['line_no'] if mf else '6in min flow'} TO C-101 (MIN. FLOW)"),
                  parent="MAIN")
-    # control station
     fv = tag_of(ins, "FV") or "FV"
     xv = tag_of(ins, "XV")
     fe = tag_of(ins, "FE")
-    yc = (y_mf + y_r) / 2 - 0.15
-    dcv = at(r, "MAIN", [xr, yc, zcv])
-    F = specs.valve_ftf("cv", nps, 300)
-    G = specs.valve_ftf("gate", nps, 300) + 2 * specs.wn_len(nps, 300)
-    r.add("cv", "MAIN", d=dcv, tag=fv, note="flow control")
-    r.add("gate", "MAIN", d=dcv - F / 2 - specs.wn_len(nps, 300) - G / 2 - 0.02, note="CV block")
-    r.add("gate", "MAIN", d=dcv + F / 2 + specs.wn_len(nps, 300) + G / 2 + 0.02, note="CV block")
-    yb1 = yc + (F / 2 + G + 0.35 + specs.tee_C(nps))
-    yb2 = yc - (F / 2 + G + 0.35 + specs.tee_C(nps))
-    r.add_branch("BYP", 6, [V(xr, yb1, zcv), V(xr + 0.8, yb1, zcv), V(xr + 0.8, yb2, zcv), V(xr, yb2, zcv)],
-                 dict(kind="tee"), dict(kind="tee"), parent="MAIN")
+    rating = 300
+    F = specs.valve_ftf("cv", nps, rating)
+    W = specs.wn_len(nps, rating)
+    G = specs.valve_ftf("gate", nps, rating) + 2 * W
+    yc = (y_g + y_h) / 2 - 1.0
+    dcv = at(r, "MAIN", [hi[0], yc, zg])
+    r.add("cv", "MAIN", d=dcv, tag=fv, note="AR flow to H-201")
+    r.add("gate", "MAIN", d=dcv - F / 2 - W - G / 2 - 0.02, note="CV block")
+    r.add("gate", "MAIN", d=dcv + F / 2 + W + G / 2 + 0.02, note="CV block")
+    off = F / 2 + W + G + 0.3 + specs.tee_C(nps)
+    r.add_branch("BYP", 6, [V(hi[0], yc + off, zg), V(hi[0] + 0.9, yc + off, zg), V(hi[0] + 0.9, yc - off, zg),
+                            V(hi[0], yc - off, zg)], dict(kind="tee"), dict(kind="tee"), parent="MAIN")
     r.add("globe", "BYP", d=r.br("BYP").length / 2, note="CV bypass")
     if fe:
-        r.add("fe", "MAIN", d=at(r, "MAIN", [xr, y_r, (zcv + zx) / 2 + 0.6]), tag=fe, note="orifice (vertical up-flow)")
+        r.add("fe", "MAIN", d=at(r, "MAIN", [hi[0], yc + off + 1.6, zg]), tag=fe, note="orifice 20D/5D")
     if xv:
-        r.add("gate", "MAIN", d=at(r, "MAIN", [xr, y_r, (zcv + zx) / 2 - 0.9]), tag=xv, note="SDV (ESD)")
-    r.notes += ["Discharge check + block valves in riser above each pump; FV station at grade for access.",
+        r.add("gate", "MAIN", d=at(r, "MAIN", [hi[0], yc - off - 1.3, zg]), tag=xv, note="SDV (SIF)")
+    r.notes += ["Discharge check + block valves in riser above each pump (accessible from grade).",
                 "Rack run on tier 1 (hot B2) at rack south edge; expansion loops raised +1.0 m.",
-                "Riser at H-201 supported from heater structure with spring hangers."]
+                f"{fv} / FE / XV station at grade (EL {zg:.1f}) north of H-201 for operator access.",
+                "Riser at H-201 supported from heater structure with variable spring hangers."]
 
 
 def r_p101_suction(C):
-    r, line = C.route("P-100-001")
+    r, line = C.route("CFU-100-PI-ISO-005")
     if not r:
         return
     P = C.P
@@ -378,8 +409,8 @@ def r_p101_suction(C):
     xd = (pa[0] + pb[0]) / 2
     yh = pa[1] + 1.5
     tier = P.tier_for(line)
-    y, zc, zx, rk = C.rack(r, line, "MAIN", tier, 0.0, xd, 0.0, yh, prefer="north")
-    zh = 103.6
+    y, zc, zx, rk = C.rack(r, line, "MAIN", tier, 0.0, xd, 0.0, yh, prefer="north", above=True)
+    zh = 104.0
     src = rk + [V(xd, y, zx), V(xd, yh, zx), V(xd, yh, zh)]
     pump_suction(C, r, line, ("P-101A", "P-101B"), src,
                  dict(kind="bl", label="BATTERY LIMIT - FROM CRUDE TANKAGE (OSBL)", p=[0, y, zc]), y_off=1.5, z_h=zh)
@@ -390,7 +421,7 @@ def r_p101_suction(C):
 
 
 def r_p101_discharge(C):
-    r, line = C.route("P-100-002")
+    r, line = C.route("CFU-100-PI-ISO-006")
     if not r:
         return
     P = C.P
@@ -398,7 +429,8 @@ def r_p101_discharge(C):
     pa, _ = P.noz("P-101A", "discharge")
     pb, _ = P.noz("P-101B", "discharge")
     ti, _ = P.noz("E-101", "tube_inlet")
-    nn = min(specs.step(pump_nozzles(P.by_key["P-100-001"]["size_in"]), -1), nps)
+    suc = find_line(P.lines, r"(TK|OSBL)", r"^P-101")
+    nn = min(specs.step(pump_nozzles(suc["size_in"] if suc else nps), -1), nps)
     zd = 104.0
     x1 = pb[0] + 3.5
     zcv = 101.0
@@ -442,7 +474,7 @@ def r_p101_discharge(C):
 
 
 def r_bpa_draw(C):
-    r, line = C.route("P-100-050")
+    r, line = C.route("CFU-100-PI-ISO-007")
     if not r:
         return
     P = C.P
@@ -465,7 +497,7 @@ def r_bpa_draw(C):
 
 
 def r_bpa_return(C):
-    r, line = C.route("P-100-053")
+    r, line = C.route("CFU-100-PI-ISO-008")
     if not r:
         return
     P = C.P
@@ -500,7 +532,7 @@ def r_bpa_return(C):
 
 
 def r_kero_draw(C):
-    r, line = C.route("P-100-091")
+    r, line = C.route("CFU-100-PI-ISO-009")
     if not r:
         return
     P = C.P
@@ -538,7 +570,7 @@ def r_d102_suction(C, key, nozzle, pumps, yoff, zh):
         n = lo.copy()
         n[0] -= 3.0
         P.assumed.append("D-102 second hydrocarbon outlet nozzle assumed 3.0 m west of 'liquid_outlet' "
-                         "(layout.json has one; P&ID has separate reflux/product lines 109/111)")
+                         "(layout.json has one; P&ID has separate D-102 to P-103 and D-102 to P-104 lines)")
         conn = dict(kind="nozzle", tag="D-102", nozzle="liquid_outlet_2 (assumed)", nps=nps,
                     label="D-102 LIQUID OUTLET N2 (ASSUMED)", p=n.tolist(), dir=[0, 0, -1])
     pa, _ = P.noz(pumps[0], "suction")
@@ -550,7 +582,7 @@ def r_d102_suction(C, key, nozzle, pumps, yoff, zh):
 
 
 def r_hp_steam(C):
-    r, line = C.route("HS-100-134")
+    r, line = C.route("CFU-100-PI-ISO-012")
     if not r:
         return
     P = C.P
@@ -592,8 +624,8 @@ def build_all(R):
     r_bpa_draw(C)
     r_bpa_return(C)
     r_kero_draw(C)
-    r_d102_suction(C, "P-100-109", "liquid_outlet_2", ("P-103A", "P-103B"), 2.8, 103.8)
-    r_d102_suction(C, "P-100-111", "liquid_outlet", ("P-104A", "P-104B"), 2.1, 103.0)
+    r_d102_suction(C, "CFU-100-PI-ISO-010", "liquid_outlet_2", ("P-103A", "P-103B"), 2.8, 103.8)
+    r_d102_suction(C, "CFU-100-PI-ISO-011", "liquid_outlet", ("P-104A", "P-104B"), 2.1, 103.0)
     r_hp_steam(C)
     for r in R.routes:
         if r.level == "critical":

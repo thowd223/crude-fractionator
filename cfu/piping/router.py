@@ -32,6 +32,11 @@ def load():
     return lines, layout, instr
 
 
+def rise(nps):
+    """Crossing / loop rise above the tier: room for two LR elbows (min 1.0 m)."""
+    return max(1.0, 2 * specs.elbow_A(nps) + 0.15)
+
+
 def V(x, y, z):
     return np.array([x, y, z], dtype=float)
 
@@ -121,15 +126,34 @@ class Plant:
         c, f, T = line["cls"], line["fluid"], line["design_T_C"]
         if f in ("LS", "MS", "HS", "CD", "BFW", "CWS", "CWR", "FG", "FL", "IA", "N", "BD", "CH"):
             return 3
-        if c in ("B2", "B3") or (f == "P" and T >= 200) or line.get("flow_kg_h", 0) > 4.0e5:
+        if c in ("B2", "B3") or (f == "P" and T >= 260) or line.get("flow_kg_h", 0) > 4.0e5:
             return 1
         return 2
 
     def zc(self, tier, nps, insul):
         return self.tiers[tier] + specs.od(nps) / 2000.0 + (0.1 if insul != "N" else 0.0)
 
-    def zx(self, tier, nps):
-        return self.tiers[tier] + 1.0 + specs.od(nps) / 2000.0
+    def zx(self, tier, nps, insul="H", above=False):
+        """Rack entry/exit elevation: tier 1 lines leave BELOW the tier (no conflict with tier-1 loops),
+        tier 2/3 lines leave ABOVE their tier."""
+        if tier == 1 and not above:
+            zc = self.zc(tier, nps, insul)
+            return zc - max(2 * specs.elbow_A(nps) + 0.15, specs.od(nps) / 1000.0 + 0.65)
+        return self.tiers[tier] + rise(nps) + specs.od(nps) / 2000.0
+
+    def loop_dz(self, tier, nps):
+        if tier == 2:
+            return -rise(nps)
+        if tier == 3:
+            return rise(nps) + 0.7
+        return rise(nps)
+
+    def under_air_cooler(self, x0, x1):
+        for e in self.L["equipment"]:
+            if e["type"] == "Air cooler":
+                if x1 > e["bbox"][0] - 0.5 and x0 < e["bbox"][2] + 0.5:
+                    return True
+        return False
 
 
 class RackAlloc:
@@ -139,6 +163,16 @@ class RackAlloc:
         self.p = plant
         self.occ = {1: [], 2: [], 3: []}
         self.loop_bays = {1: set(), 2: set(), 3: set()}
+        self.owner = []          # (tier, bay, line_no)
+
+    def release(self, line_no):
+        for t in self.occ:
+            self.occ[t] = [o for o in self.occ[t] if o[4] != line_no]
+        for (t, bay, ln) in [o for o in self.owner if o[2] == line_no]:
+            self.loop_bays[t].discard(bay)
+            if t in (1, 2):
+                self.loop_bays[3 - t].discard(bay)
+        self.owner = [o for o in self.owner if o[2] != line_no]
 
     @staticmethod
     def half(nps, insul, T):
@@ -275,12 +309,25 @@ class Router:
             xc = lo + (k + 0.5) * L / n
             bays = [(self.P.bents[i], self.P.bents[i + 1]) for i in range(len(self.P.bents) - 1)
                     if self.P.bents[i] >= lo + 5.9 and self.P.bents[i + 1] <= hi - 5.9]
+            if tier == 3:
+                bays = [b for b in bays if not self.P.under_air_cooler(*b)]
             if not bays:
                 continue
             bays.sort(key=lambda b: abs((b[0] + b[1]) / 2 - xc))
-            pick = next((b for b in bays if b not in self.rack.loop_bays[tier]), bays[0])
+            used = {x for bb in self.rack.loop_bays[tier] for x in bb}
+            pick = next((b for b in bays if b[0] not in used and b[1] not in used), None)
+            k = 0
+            if pick is None:       # nest inside an existing loop bay: narrower and higher
+                def cnt(b):
+                    return sum(1 for (t, bb, _ln) in self.rack.owner
+                               if t in ((1, 2) if tier in (1, 2) else (3,)) and (set(bb) & set(b)))
+                pick = min(bays, key=lambda b: (cnt(b), abs((b[0] + b[1]) / 2 - xc)))
+                k = min(cnt(pick), 2)
             self.rack.loop_bays[tier].add(pick)
-            loops.append((pick[0], pick[1], H, sgn))
+            if tier in (1, 2):
+                self.rack.loop_bays[3 - tier].add(pick)
+            self.rack.owner.append((tier, pick, line["line_no"]))
+            loops.append((pick[0] + 0.9 * k, pick[1] - 0.9 * k, H, sgn, 0.45 * k))
         loops.sort()
         a_pts = [lo] + [(loops[i][1] + loops[i + 1][0]) / 2 for i in range(len(loops) - 1)] + [hi]
         anchors = [self._near_bent(a, inside=(lo, hi)) for a in a_pts]
@@ -295,13 +342,16 @@ class Router:
             bs = [b for b in bs if inside[0] - 1e-6 <= b <= inside[1] + 1e-6] or bs
         return min(bs, key=lambda b: abs(b - x))
 
-    def rack_points(self, xa, xb, y, zc, loops):
+    def rack_points(self, xa, xb, y, zc, loops, nps=None, tier=1):
         """Points along a rack run xa->xb incl. raised loops."""
+        self._nps = nps or 2
+        self._tier = tier
         pts = [V(xa, y, zc)]
-        rng = sorted(loops, key=lambda l: l[0], reverse=xb < xa)
-        for (l0, l1, H, s) in rng:
+        rng = sorted(loops, key=lambda l: l[0], reverse=bool(xb < xa))
+        for (l0, l1, H, s, kz) in rng:
             a, b = (l0, l1) if xb > xa else (l1, l0)
-            zl = zc + 1.0
+            dz = self.P.loop_dz(self._tier, self._nps)
+            zl = zc + dz + (kz if dz > 0 else -kz)
             pts += [V(a, y, zc), V(a, y, zl), V(a, y + s * H, zl), V(b, y + s * H, zl), V(b, y, zl), V(b, y, zc)]
         pts.append(V(xb, y, zc))
         return pts
@@ -418,6 +468,8 @@ class Router:
 
     def stub(self, p, d, nps, length=None):
         s = length if length is not None else max(0.5, 2.5 * specs.od(nps) / 1000.0)
+        if d[2] < -0.5:      # bottom nozzles: keep the elbow above grade
+            s = max(0.3, min(s, p[2] - (GRADE + 0.25 + specs.od(nps) / 2000.0)))
         return p + d * s
 
     # ==============================================================================================

@@ -9056,9 +9056,9 @@
    "mc_pair": 1,
    "mc_length_m": 190,
    "io_card": "FGS-1-AI08",
-   "io_channel": 10,
+   "io_channel": 9,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-19/20"
+   "marsh_terminals": "TB08-17/18"
   },
   {
    "tag": "GD-1507",
@@ -9088,9 +9088,9 @@
    "mc_pair": 2,
    "mc_length_m": 200,
    "io_card": "FGS-1-AI08",
-   "io_channel": 11,
+   "io_channel": 10,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-21/22"
+   "marsh_terminals": "TB08-19/20"
   },
   {
    "tag": "GD-1508",
@@ -9422,34 +9422,66 @@
    "system": "F&G",
    "io_type": "AI",
    "signal": "4-20 mA, 3-wire (F&G)",
-   "equipment": "C-101",
+   "equipment": "P-119A",
    "controller": "FGS-1",
    "sif": "",
    "sil": "",
    "range": "0-100",
    "units": "% LEL",
    "source": "instrument index",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    95.0,
-    98.0
+    132.0,
+    122.0
    ],
-   "jb": "JB-FA-C4",
-   "jb_terminals": "37/38",
-   "multicore": "MC-FA-C4",
-   "mc_pair": 19,
-   "mc_length_m": 170,
-   "io_card": "FGS-1-AI07",
-   "io_channel": 10,
+   "jb": "JB-FA-D5",
+   "jb_terminals": "1/2",
+   "multicore": "MC-FA-D5",
+   "mc_pair": 1,
+   "mc_length_m": 250,
+   "io_card": "FGS-1-AI08",
+   "io_channel": 11,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB07-19/20"
+   "marsh_terminals": "TB08-21/22"
   },
   {
    "tag": "GD-1519",
    "parent": "GD-1519",
    "type": "Gas detector",
-   "service": "Flammable gas detector (catalytic), H-101 FG train",
+   "service": "Flammable gas detector (IR point), pump row P-119A/B",
    "loop": "GD-1519",
+   "pid_sheet": "F&G LAYOUT (BY OTHERS)",
+   "system": "F&G",
+   "io_type": "AI",
+   "signal": "4-20 mA, 3-wire (F&G)",
+   "equipment": "P-119A",
+   "controller": "FGS-1",
+   "sif": "",
+   "sil": "",
+   "range": "0-100",
+   "units": "% LEL",
+   "source": "instrument index",
+   "zone": "D5",
+   "xy": [
+    132.0,
+    122.0
+   ],
+   "jb": "JB-FA-D5",
+   "jb_terminals": "3/4",
+   "multicore": "MC-FA-D5",
+   "mc_pair": 2,
+   "mc_length_m": 250,
+   "io_card": "FGS-1-AI08",
+   "io_channel": 12,
+   "far_cabinet": "FAR-100/FMC-FGS-1-A01",
+   "marsh_terminals": "TB08-23/24"
+  },
+  {
+   "tag": "GD-1520",
+   "parent": "GD-1520",
+   "type": "Gas detector",
+   "service": "Flammable gas detector (catalytic), H-101 FG train",
+   "loop": "GD-1520",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9477,11 +9509,11 @@
    "marsh_terminals": "TB05-9/10"
   },
   {
-   "tag": "GD-1520",
-   "parent": "GD-1520",
+   "tag": "GD-1521",
+   "parent": "GD-1521",
    "type": "Gas detector",
    "service": "Flammable gas detector (catalytic), H-101 burner manifold",
-   "loop": "GD-1520",
+   "loop": "GD-1521",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9509,11 +9541,11 @@
    "marsh_terminals": "TB05-11/12"
   },
   {
-   "tag": "GD-1521",
-   "parent": "GD-1521",
+   "tag": "GD-1522",
+   "parent": "GD-1522",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), LPG / light-ends area at C-105",
-   "loop": "GD-1521",
+   "loop": "GD-1522",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9541,11 +9573,11 @@
    "marsh_terminals": "TB04-9/10"
   },
   {
-   "tag": "GD-1522",
-   "parent": "GD-1522",
+   "tag": "GD-1523",
+   "parent": "GD-1523",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), LPG / light-ends area at D-105",
-   "loop": "GD-1522",
+   "loop": "GD-1523",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9573,11 +9605,11 @@
    "marsh_terminals": "TB04-11/12"
   },
   {
-   "tag": "GD-1523",
-   "parent": "GD-1523",
+   "tag": "GD-1524",
+   "parent": "GD-1524",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), LPG / light-ends area at C-106",
-   "loop": "GD-1523",
+   "loop": "GD-1524",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9605,11 +9637,11 @@
    "marsh_terminals": "TB04-13/14"
   },
   {
-   "tag": "GD-1524",
-   "parent": "GD-1524",
+   "tag": "GD-1525",
+   "parent": "GD-1525",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), LPG / light-ends area at D-106",
-   "loop": "GD-1524",
+   "loop": "GD-1525",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9637,11 +9669,11 @@
    "marsh_terminals": "TB04-15/16"
   },
   {
-   "tag": "GD-1525",
-   "parent": "GD-1525",
+   "tag": "GD-1526",
+   "parent": "GD-1526",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), LPG / light-ends area at E-116",
-   "loop": "GD-1525",
+   "loop": "GD-1526",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9669,11 +9701,11 @@
    "marsh_terminals": "TB04-17/18"
   },
   {
-   "tag": "GD-1526",
-   "parent": "GD-1526",
+   "tag": "GD-1527",
+   "parent": "GD-1527",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), D-102 overhead drum (1)",
-   "loop": "GD-1526",
+   "loop": "GD-1527",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9701,11 +9733,11 @@
    "marsh_terminals": "TB04-19/20"
   },
   {
-   "tag": "GD-1527",
-   "parent": "GD-1527",
+   "tag": "GD-1528",
+   "parent": "GD-1528",
    "type": "Gas detector",
    "service": "Flammable gas detector (IR point), D-102 overhead drum (2)",
-   "loop": "GD-1527",
+   "loop": "GD-1528",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9733,11 +9765,11 @@
    "marsh_terminals": "TB04-21/22"
   },
   {
-   "tag": "GD-1528",
-   "parent": "GD-1528",
+   "tag": "GD-1529",
+   "parent": "GD-1529",
    "type": "Gas detector",
    "service": "H2S toxic gas detector (electrochemical), D-102 (1)",
-   "loop": "GD-1528",
+   "loop": "GD-1529",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9765,11 +9797,11 @@
    "marsh_terminals": "TB04-23/24"
   },
   {
-   "tag": "GD-1529",
-   "parent": "GD-1529",
+   "tag": "GD-1530",
+   "parent": "GD-1530",
    "type": "Gas detector",
    "service": "H2S toxic gas detector (electrochemical), D-102 (2)",
-   "loop": "GD-1529",
+   "loop": "GD-1530",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9797,11 +9829,11 @@
    "marsh_terminals": "TB04-25/26"
   },
   {
-   "tag": "GD-1530",
-   "parent": "GD-1530",
+   "tag": "GD-1531",
+   "parent": "GD-1531",
    "type": "Gas detector",
    "service": "H2S toxic gas detector (electrochemical), P-105",
-   "loop": "GD-1530",
+   "loop": "GD-1531",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9829,11 +9861,11 @@
    "marsh_terminals": "TB06-7/8"
   },
   {
-   "tag": "BE-1531",
-   "parent": "BE-1531",
+   "tag": "BE-1532",
+   "parent": "BE-1532",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), H-101 burner front / FG train (1)",
-   "loop": "BE-1531",
+   "loop": "BE-1532",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9861,11 +9893,11 @@
    "marsh_terminals": "TB05-1/2"
   },
   {
-   "tag": "BE-1532",
-   "parent": "BE-1532",
+   "tag": "BE-1533",
+   "parent": "BE-1533",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), H-101 burner front / FG train (2)",
-   "loop": "BE-1532",
+   "loop": "BE-1533",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9893,11 +9925,11 @@
    "marsh_terminals": "TB05-3/4"
   },
   {
-   "tag": "BE-1533",
-   "parent": "BE-1533",
+   "tag": "BE-1534",
+   "parent": "BE-1534",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), H-101 burner front / FG train (3)",
-   "loop": "BE-1533",
+   "loop": "BE-1534",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9925,11 +9957,11 @@
    "marsh_terminals": "TB05-5/6"
   },
   {
-   "tag": "BE-1534",
-   "parent": "BE-1534",
+   "tag": "BE-1535",
+   "parent": "BE-1535",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), H-101 burner front / FG train (4)",
-   "loop": "BE-1534",
+   "loop": "BE-1535",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9957,11 +9989,11 @@
    "marsh_terminals": "TB05-7/8"
   },
   {
-   "tag": "BE-1535",
-   "parent": "BE-1535",
+   "tag": "BE-1536",
+   "parent": "BE-1536",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), hot pump P-112A/B",
-   "loop": "BE-1535",
+   "loop": "BE-1536",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -9989,11 +10021,11 @@
    "marsh_terminals": "TB05-13/14"
   },
   {
-   "tag": "BE-1536",
-   "parent": "BE-1536",
+   "tag": "BE-1537",
+   "parent": "BE-1537",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), hot pump P-108A/B",
-   "loop": "BE-1536",
+   "loop": "BE-1537",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -10021,11 +10053,11 @@
    "marsh_terminals": "TB05-15/16"
   },
   {
-   "tag": "BE-1537",
-   "parent": "BE-1537",
+   "tag": "BE-1538",
+   "parent": "BE-1538",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), hot pump P-111A/B",
-   "loop": "BE-1537",
+   "loop": "BE-1538",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -10053,11 +10085,11 @@
    "marsh_terminals": "TB05-17/18"
   },
   {
-   "tag": "BE-1538",
-   "parent": "BE-1538",
+   "tag": "BE-1539",
+   "parent": "BE-1539",
    "type": "Flame detector (F&G)",
    "service": "Flame detector (IR3), hot pump P-110A/B",
-   "loop": "BE-1538",
+   "loop": "BE-1539",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "AI",
@@ -10085,11 +10117,11 @@
    "marsh_terminals": "TB05-19/20"
   },
   {
-   "tag": "HS-1539",
-   "parent": "HS-1539",
+   "tag": "HS-1540",
+   "parent": "HS-1540",
    "type": "Hand switch",
    "service": "Manual call point (MCP), desalting area",
-   "loop": "HS-1539",
+   "loop": "HS-1540",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "DI",
@@ -10117,11 +10149,11 @@
    "marsh_terminals": "TB01-7/8"
   },
   {
-   "tag": "HS-1540",
-   "parent": "HS-1540",
+   "tag": "HS-1541",
+   "parent": "HS-1541",
    "type": "Hand switch",
    "service": "Manual call point (MCP), preheat bank area",
-   "loop": "HS-1540",
+   "loop": "HS-1541",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "DI",
@@ -10149,11 +10181,11 @@
    "marsh_terminals": "TB01-15/16"
   },
   {
-   "tag": "HS-1541",
-   "parent": "HS-1541",
+   "tag": "HS-1542",
+   "parent": "HS-1542",
    "type": "Hand switch",
    "service": "Manual call point (MCP), C-101 / OH area",
-   "loop": "HS-1541",
+   "loop": "HS-1542",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "DI",
@@ -10181,11 +10213,11 @@
    "marsh_terminals": "TB01-43/44"
   },
   {
-   "tag": "HS-1542",
-   "parent": "HS-1542",
+   "tag": "HS-1543",
+   "parent": "HS-1543",
    "type": "Hand switch",
    "service": "Manual call point (MCP), H-101 area",
-   "loop": "HS-1542",
+   "loop": "HS-1543",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "DI",
@@ -10213,11 +10245,11 @@
    "marsh_terminals": "TB01-25/26"
   },
   {
-   "tag": "HS-1543",
-   "parent": "HS-1543",
+   "tag": "HS-1544",
+   "parent": "HS-1544",
    "type": "Hand switch",
    "service": "Manual call point (MCP), light ends area",
-   "loop": "HS-1543",
+   "loop": "HS-1544",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "DI",
@@ -10245,11 +10277,11 @@
    "marsh_terminals": "TB01-23/24"
   },
   {
-   "tag": "HS-1544",
-   "parent": "HS-1544",
+   "tag": "HS-1545",
+   "parent": "HS-1545",
    "type": "Hand switch",
    "service": "Manual call point (MCP), CDU pump row area",
-   "loop": "HS-1544",
+   "loop": "HS-1545",
    "pid_sheet": "F&G LAYOUT (BY OTHERS)",
    "system": "F&G",
    "io_type": "DI",
@@ -13728,9 +13760,9 @@
    "mc_pair": 4,
    "mc_length_m": 270,
    "io_card": "FGS-1-AI09",
-   "io_channel": 6,
+   "io_channel": 7,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-11/12"
+   "marsh_terminals": "TB09-13/14"
   },
   {
    "tag": "GD-2502",
@@ -13760,9 +13792,9 @@
    "mc_pair": 5,
    "mc_length_m": 260,
    "io_card": "FGS-1-AI09",
-   "io_channel": 7,
+   "io_channel": 8,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-13/14"
+   "marsh_terminals": "TB09-15/16"
   },
   {
    "tag": "GD-2503",
@@ -13792,9 +13824,9 @@
    "mc_pair": 6,
    "mc_length_m": 260,
    "io_card": "FGS-1-AI09",
-   "io_channel": 8,
+   "io_channel": 9,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-15/16"
+   "marsh_terminals": "TB09-17/18"
   },
   {
    "tag": "GD-2504",
@@ -13824,9 +13856,9 @@
    "mc_pair": 7,
    "mc_length_m": 250,
    "io_card": "FGS-1-AI09",
-   "io_channel": 9,
+   "io_channel": 10,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-17/18"
+   "marsh_terminals": "TB09-19/20"
   },
   {
    "tag": "GD-2505",
@@ -13856,9 +13888,9 @@
    "mc_pair": 16,
    "mc_length_m": 310,
    "io_card": "FGS-1-AI10",
-   "io_channel": 12,
+   "io_channel": 13,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-23/24"
+   "marsh_terminals": "TB10-25/26"
   },
   {
    "tag": "GD-2506",
@@ -13887,10 +13919,10 @@
    "multicore": "MC-FA-E4",
    "mc_pair": 17,
    "mc_length_m": 310,
-   "io_card": "FGS-1-AI10",
-   "io_channel": 13,
+   "io_card": "FGS-1-AI11",
+   "io_channel": 1,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-25/26"
+   "marsh_terminals": "TB11-1/2"
   },
   {
    "tag": "GD-2507",
@@ -13920,9 +13952,9 @@
    "mc_pair": 3,
    "mc_length_m": 190,
    "io_card": "FGS-1-AI09",
-   "io_channel": 1,
+   "io_channel": 2,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-1/2"
+   "marsh_terminals": "TB09-3/4"
   },
   {
    "tag": "GD-2508",
@@ -13952,9 +13984,9 @@
    "mc_pair": 4,
    "mc_length_m": 190,
    "io_card": "FGS-1-AI09",
-   "io_channel": 2,
+   "io_channel": 3,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-3/4"
+   "marsh_terminals": "TB09-5/6"
   },
   {
    "tag": "GD-2509",
@@ -13984,9 +14016,9 @@
    "mc_pair": 18,
    "mc_length_m": 300,
    "io_card": "FGS-1-AI11",
-   "io_channel": 1,
+   "io_channel": 2,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB11-1/2"
+   "marsh_terminals": "TB11-3/4"
   },
   {
    "tag": "GD-2510",
@@ -14016,9 +14048,9 @@
    "mc_pair": 19,
    "mc_length_m": 300,
    "io_card": "FGS-1-AI11",
-   "io_channel": 2,
+   "io_channel": 3,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB11-3/4"
+   "marsh_terminals": "TB11-5/6"
   },
   {
    "tag": "GD-2511",
@@ -14048,9 +14080,9 @@
    "mc_pair": 1,
    "mc_length_m": 310,
    "io_card": "FGS-1-AI11",
-   "io_channel": 4,
+   "io_channel": 5,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB11-7/8"
+   "marsh_terminals": "TB11-9/10"
   },
   {
    "tag": "GD-2512",
@@ -14080,9 +14112,9 @@
    "mc_pair": 20,
    "mc_length_m": 310,
    "io_card": "FGS-1-AI11",
-   "io_channel": 3,
+   "io_channel": 4,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB11-5/6"
+   "marsh_terminals": "TB11-7/8"
   },
   {
    "tag": "BE-2513",
@@ -14112,9 +14144,9 @@
    "mc_pair": 1,
    "mc_length_m": 190,
    "io_card": "FGS-1-AI08",
-   "io_channel": 12,
+   "io_channel": 13,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-23/24"
+   "marsh_terminals": "TB08-25/26"
   },
   {
    "tag": "BE-2514",
@@ -14143,10 +14175,10 @@
    "multicore": "MC-FA-E2",
    "mc_pair": 2,
    "mc_length_m": 190,
-   "io_card": "FGS-1-AI08",
-   "io_channel": 13,
+   "io_card": "FGS-1-AI09",
+   "io_channel": 1,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-25/26"
+   "marsh_terminals": "TB09-1/2"
   },
   {
    "tag": "BE-2515",
@@ -14176,9 +14208,9 @@
    "mc_pair": 1,
    "mc_length_m": 250,
    "io_card": "FGS-1-AI09",
-   "io_channel": 3,
+   "io_channel": 4,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-5/6"
+   "marsh_terminals": "TB09-7/8"
   },
   {
    "tag": "BE-2516",
@@ -14208,9 +14240,9 @@
    "mc_pair": 2,
    "mc_length_m": 260,
    "io_card": "FGS-1-AI09",
-   "io_channel": 4,
+   "io_channel": 5,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-7/8"
+   "marsh_terminals": "TB09-9/10"
   },
   {
    "tag": "BE-2517",
@@ -14240,9 +14272,9 @@
    "mc_pair": 3,
    "mc_length_m": 260,
    "io_card": "FGS-1-AI09",
-   "io_channel": 5,
+   "io_channel": 6,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-9/10"
+   "marsh_terminals": "TB09-11/12"
   },
   {
    "tag": "HS-2518",
@@ -14542,7 +14574,7 @@
    "system": "DCS",
    "io_type": "DO",
    "signal": "24 VDC interposing relay",
-   "equipment": "D-104",
+   "equipment": "P-119A",
    "controller": "CDU-1",
    "sif": "",
    "sil": "",
@@ -14551,18 +14583,18 @@
    "source": "instrument index",
    "zone": "D5",
    "xy": [
-    135.0,
-    128.0
+    132.0,
+    122.0
    ],
    "jb": "JB-DD-D5",
    "jb_terminals": "1/2",
    "multicore": "MC-DD-D5",
    "mc_pair": 1,
-   "mc_length_m": 260,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DO03",
-   "io_channel": 7,
+   "io_channel": 3,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB03-13/14"
+   "marsh_terminals": "TB03-5/6"
   },
   {
    "tag": "PT-9004",
@@ -14688,9 +14720,9 @@
    "mc_pair": 1,
    "mc_length_m": 140,
    "io_card": "CDU-1-DI02",
-   "io_channel": 7,
+   "io_channel": 3,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB02-13/14"
+   "marsh_terminals": "TB02-5/6"
   },
   {
    "tag": "HS-9501",
@@ -21205,20 +21237,20 @@
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    132.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "23/24",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 12,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "9/10",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 5,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DI02",
-   "io_channel": 4,
+   "io_channel": 5,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB02-7/8"
+   "marsh_terminals": "TB02-9/10"
   },
   {
    "tag": "P-119A XA",
@@ -21237,20 +21269,20 @@
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    132.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "21/22",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 11,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "7/8",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 4,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DI02",
-   "io_channel": 3,
+   "io_channel": 4,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB02-5/6"
+   "marsh_terminals": "TB02-7/8"
   },
   {
    "tag": "P-119A HS-START",
@@ -21269,20 +21301,20 @@
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    132.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "17/18",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 9,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "3/4",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 2,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DO03",
-   "io_channel": 3,
+   "io_channel": 4,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB03-5/6"
+   "marsh_terminals": "TB03-7/8"
   },
   {
    "tag": "P-119A HS-STOP",
@@ -21301,20 +21333,20 @@
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    132.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "19/20",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 10,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "5/6",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 3,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DO03",
-   "io_channel": 4,
+   "io_channel": 5,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB03-7/8"
+   "marsh_terminals": "TB03-9/10"
   },
   {
    "tag": "P-119B XL",
@@ -21326,27 +21358,27 @@
    "system": "DCS",
    "io_type": "DI",
    "signal": "24 VDC dry contact / NAMUR",
-   "equipment": "P-119A",
+   "equipment": "P-119B",
    "controller": "CDU-1",
    "sif": "",
    "sil": "",
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    135.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "31/32",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 16,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "17/18",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 9,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DI02",
-   "io_channel": 6,
+   "io_channel": 7,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB02-11/12"
+   "marsh_terminals": "TB02-13/14"
   },
   {
    "tag": "P-119B XA",
@@ -21358,27 +21390,27 @@
    "system": "DCS",
    "io_type": "DI",
    "signal": "24 VDC dry contact / NAMUR",
-   "equipment": "P-119A",
+   "equipment": "P-119B",
    "controller": "CDU-1",
    "sif": "",
    "sil": "",
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    135.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "29/30",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 15,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "15/16",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 8,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DI02",
-   "io_channel": 5,
+   "io_channel": 6,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB02-9/10"
+   "marsh_terminals": "TB02-11/12"
   },
   {
    "tag": "P-119B HS-START",
@@ -21390,27 +21422,27 @@
    "system": "DCS",
    "io_type": "DO",
    "signal": "24 VDC interposing relay",
-   "equipment": "P-119A",
+   "equipment": "P-119B",
    "controller": "CDU-1",
    "sif": "",
    "sil": "",
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    135.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "25/26",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 13,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "11/12",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 6,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DO03",
-   "io_channel": 5,
+   "io_channel": 6,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB03-9/10"
+   "marsh_terminals": "TB03-11/12"
   },
   {
    "tag": "P-119B HS-STOP",
@@ -21422,27 +21454,27 @@
    "system": "DCS",
    "io_type": "DO",
    "signal": "24 VDC interposing relay",
-   "equipment": "P-119A",
+   "equipment": "P-119B",
    "controller": "CDU-1",
    "sif": "",
    "sil": "",
    "range": "",
    "units": "",
    "source": "equipment.json (MCC hardwired interface)",
-   "zone": "C4",
+   "zone": "D5",
    "xy": [
-    100,
-    90
+    135.0,
+    122.0
    ],
-   "jb": "JB-DD-C4",
-   "jb_terminals": "27/28",
-   "multicore": "MC-DD-C4",
-   "mc_pair": 14,
-   "mc_length_m": 170,
+   "jb": "JB-DD-D5",
+   "jb_terminals": "13/14",
+   "multicore": "MC-DD-D5",
+   "mc_pair": 7,
+   "mc_length_m": 250,
    "io_card": "CDU-1-DO03",
-   "io_channel": 6,
+   "io_channel": 7,
    "far_cabinet": "FAR-100/MC-CDU-1-D01",
-   "marsh_terminals": "TB03-11/12"
+   "marsh_terminals": "TB03-13/14"
   },
   {
    "tag": "P-201A XL",
@@ -26208,9 +26240,9 @@
    "mc_pair": 5,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 2,
+   "io_channel": 1,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-3/4"
+   "marsh_terminals": "TB08-1/2"
   },
   {
    "tag": "GD-0502",
@@ -26240,9 +26272,9 @@
    "mc_pair": 6,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 3,
+   "io_channel": 2,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-5/6"
+   "marsh_terminals": "TB08-3/4"
   },
   {
    "tag": "GD-0503",
@@ -26272,9 +26304,9 @@
    "mc_pair": 7,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 4,
+   "io_channel": 3,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-7/8"
+   "marsh_terminals": "TB08-5/6"
   },
   {
    "tag": "GD-0504",
@@ -26304,9 +26336,9 @@
    "mc_pair": 8,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 5,
+   "io_channel": 4,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-9/10"
+   "marsh_terminals": "TB08-7/8"
   },
   {
    "tag": "GD-0505",
@@ -26336,9 +26368,9 @@
    "mc_pair": 9,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 6,
+   "io_channel": 5,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-11/12"
+   "marsh_terminals": "TB08-9/10"
   },
   {
    "tag": "GD-0506",
@@ -26368,9 +26400,9 @@
    "mc_pair": 10,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 7,
+   "io_channel": 6,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-13/14"
+   "marsh_terminals": "TB08-11/12"
   },
   {
    "tag": "GD-0507",
@@ -26400,9 +26432,9 @@
    "mc_pair": 11,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 8,
+   "io_channel": 7,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-15/16"
+   "marsh_terminals": "TB08-13/14"
   },
   {
    "tag": "GD-0508",
@@ -26432,9 +26464,9 @@
    "mc_pair": 12,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI08",
-   "io_channel": 9,
+   "io_channel": 8,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-17/18"
+   "marsh_terminals": "TB08-15/16"
   },
   {
    "tag": "BD-0501",
@@ -26464,9 +26496,9 @@
    "mc_pair": 1,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI07",
-   "io_channel": 11,
+   "io_channel": 10,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB07-21/22"
+   "marsh_terminals": "TB07-19/20"
   },
   {
    "tag": "BD-0502",
@@ -26496,9 +26528,9 @@
    "mc_pair": 2,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI07",
-   "io_channel": 12,
+   "io_channel": 11,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB07-23/24"
+   "marsh_terminals": "TB07-21/22"
   },
   {
    "tag": "BD-0503",
@@ -26528,9 +26560,9 @@
    "mc_pair": 3,
    "mc_length_m": 140,
    "io_card": "FGS-1-AI07",
-   "io_channel": 13,
+   "io_channel": 12,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB07-25/26"
+   "marsh_terminals": "TB07-23/24"
   },
   {
    "tag": "BD-0504",
@@ -26559,10 +26591,10 @@
    "multicore": "MC-FA-D2",
    "mc_pair": 4,
    "mc_length_m": 140,
-   "io_card": "FGS-1-AI08",
-   "io_channel": 1,
+   "io_card": "FGS-1-AI07",
+   "io_channel": 13,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB08-1/2"
+   "marsh_terminals": "TB07-25/26"
   },
   {
    "tag": "HS-0501",
@@ -26848,9 +26880,9 @@
    "mc_pair": 8,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 4,
+   "io_channel": 5,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-7/8"
+   "marsh_terminals": "TB10-9/10"
   },
   {
    "tag": "GD-0602",
@@ -26880,9 +26912,9 @@
    "mc_pair": 9,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 5,
+   "io_channel": 6,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-9/10"
+   "marsh_terminals": "TB10-11/12"
   },
   {
    "tag": "GD-0603",
@@ -26912,9 +26944,9 @@
    "mc_pair": 10,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 6,
+   "io_channel": 7,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-11/12"
+   "marsh_terminals": "TB10-13/14"
   },
   {
    "tag": "GD-0604",
@@ -26944,9 +26976,9 @@
    "mc_pair": 11,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 7,
+   "io_channel": 8,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-13/14"
+   "marsh_terminals": "TB10-15/16"
   },
   {
    "tag": "GD-0605",
@@ -26976,9 +27008,9 @@
    "mc_pair": 12,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 8,
+   "io_channel": 9,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-15/16"
+   "marsh_terminals": "TB10-17/18"
   },
   {
    "tag": "GD-0606",
@@ -27008,9 +27040,9 @@
    "mc_pair": 13,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 9,
+   "io_channel": 10,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-17/18"
+   "marsh_terminals": "TB10-19/20"
   },
   {
    "tag": "GD-0607",
@@ -27040,9 +27072,9 @@
    "mc_pair": 14,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 10,
+   "io_channel": 11,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-19/20"
+   "marsh_terminals": "TB10-21/22"
   },
   {
    "tag": "GD-0608",
@@ -27072,9 +27104,9 @@
    "mc_pair": 15,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 11,
+   "io_channel": 12,
    "far_cabinet": "FAR-100/FMC-FGS-1-A02",
-   "marsh_terminals": "TB10-21/22"
+   "marsh_terminals": "TB10-23/24"
   },
   {
    "tag": "BD-0601",
@@ -27104,9 +27136,9 @@
    "mc_pair": 5,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 1,
+   "io_channel": 2,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB10-1/2"
+   "marsh_terminals": "TB10-3/4"
   },
   {
    "tag": "BD-0602",
@@ -27136,9 +27168,9 @@
    "mc_pair": 6,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 2,
+   "io_channel": 3,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB10-3/4"
+   "marsh_terminals": "TB10-5/6"
   },
   {
    "tag": "BD-0603",
@@ -27168,9 +27200,9 @@
    "mc_pair": 7,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI10",
-   "io_channel": 3,
-   "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB10-5/6"
+   "io_channel": 4,
+   "far_cabinet": "FAR-100/FMC-FGS-1-A02",
+   "marsh_terminals": "TB10-7/8"
   },
   {
    "tag": "HS-0601",
@@ -27392,9 +27424,9 @@
    "mc_pair": 1,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI09",
-   "io_channel": 10,
+   "io_channel": 11,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-19/20"
+   "marsh_terminals": "TB09-21/22"
   },
   {
    "tag": "AT-0602",
@@ -27424,9 +27456,9 @@
    "mc_pair": 2,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI09",
-   "io_channel": 11,
+   "io_channel": 12,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-21/22"
+   "marsh_terminals": "TB09-23/24"
   },
   {
    "tag": "AT-0603",
@@ -27456,9 +27488,9 @@
    "mc_pair": 3,
    "mc_length_m": 280,
    "io_card": "FGS-1-AI09",
-   "io_channel": 12,
+   "io_channel": 13,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-23/24"
+   "marsh_terminals": "TB09-25/26"
   },
   {
    "tag": "AT-0604",
@@ -27487,10 +27519,10 @@
    "multicore": "MC-FA-E4",
    "mc_pair": 4,
    "mc_length_m": 280,
-   "io_card": "FGS-1-AI09",
-   "io_channel": 13,
+   "io_card": "FGS-1-AI10",
+   "io_channel": 1,
    "far_cabinet": "FAR-100/FMC-FGS-1-A01",
-   "marsh_terminals": "TB09-25/26"
+   "marsh_terminals": "TB10-1/2"
   }
  ],
  "totals": {
@@ -27696,11 +27728,11 @@
    "FGS-1": {
     "system": "F&G",
     "AI": {
-     "used": 134,
+     "used": 135,
      "cards": 11,
      "installed": 176,
-     "spare": 42,
-     "spare_pct": 31.3
+     "spare": 41,
+     "spare_pct": 30.4
     },
     "AO": {
      "used": 0,
@@ -27723,7 +27755,7 @@
      "spare": 10,
      "spare_pct": 45.5
     },
-    "used": 193,
+    "used": 194,
     "installed": 272
    }
   },
@@ -27753,20 +27785,20 @@
     "installed": 176
    },
    "F&G": {
-    "AI": 134,
+    "AI": 135,
     "AO": 0,
     "DI": 37,
     "DO": 22,
-    "used": 193,
+    "used": 194,
     "installed": 272
    }
   },
   "grand": {
-   "used": 859,
+   "used": 860,
    "installed": 1320
   },
   "by_source": {
-   "instrument index": 461,
+   "instrument index": 462,
    "I&C addition (add to index)": 17,
    "equipment.json (MCC hardwired interface)": 256,
    "C&E CFU-000-IC-CE-001": 8,

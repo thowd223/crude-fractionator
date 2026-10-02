@@ -413,12 +413,12 @@ The ICS follows the Purdue / ISA-95 model with a process DMZ (CFU-000-IC-BLK-001
 | SIS-1 | SIS | 6 | 0 | 15 | 16 | 37 | 80 | 116 % |
 | BMS-H101 | BMS | 33 | 0 | 24 | 4 | 61 | 96 | 57 % |
 | BMS-H201 | BMS | 15 | 0 | 12 | 3 | 30 | 80 | 167 % |
-| FGS-1 | F&G | 134 | 0 | 37 | 22 | 193 | 272 | 41 % |
-| TOTAL |  |  |  |  |  | 859 | 1320 | 54 % |
+| FGS-1 | F&G | 135 | 0 | 37 | 22 | 194 | 272 | 40 % |
+| TOTAL |  |  |  |  |  | 860 | 1320 | 53 % |
 
 
 
-Points by source: instrument index: 461; I&C addition (add to index): 17; equipment.json (MCC hardwired interface): 256; C&E CFU-000-IC-CE-001: 8; F&G allowance (mapping study): 117.
+Points by source: instrument index: 462; I&C addition (add to index): 17; equipment.json (MCC hardwired interface): 256; C&E CFU-000-IC-CE-001: 8; F&G allowance (mapping study): 117.
 
 ## 9.2 IEC 62443 zones and conduits
 
