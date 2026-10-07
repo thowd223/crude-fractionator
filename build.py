@@ -30,9 +30,9 @@ STAGES = [
     ("reports", "cfu.reports:build"),
     ("bfd", "cfu.drawing.bfd:build"),
     ("pfd", "cfu.pid.pfd:build"),
+    ("layout", "cfu.layout:build"),     # before pid: P&IDs read F&G locations from data/layout.json
     ("pid", "cfu.pid.pid:build"),
     ("mech", "cfu.mech:build"),
-    ("layout", "cfu.layout:build"),
     ("piping", "cfu.piping:build"),
     ("elec", "cfu.elec:build"),
     ("ic", "cfu.ic:build"),

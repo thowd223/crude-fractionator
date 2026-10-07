@@ -1,0 +1,372 @@
+[
+ {
+  "module": "build.py",
+  "data": "control_loops.json",
+  "op": "write"
+ },
+ {
+  "module": "build.py",
+  "data": "equipment.json",
+  "op": "write"
+ },
+ {
+  "module": "build.py",
+  "data": "process_results.json",
+  "op": "write"
+ },
+ {
+  "module": "build.py",
+  "data": "psv.json",
+  "op": "write"
+ },
+ {
+  "module": "build.py",
+  "data": "streams.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/drawing/bfd.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/drawing/bfd.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/elec/__init__.py",
+  "data": "layout.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/elec/hac.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/elec/hac.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/elec/hac.py",
+  "data": "layout.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/elec/loads.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/elec/reports.py",
+  "data": "electrical.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/ic/arch.py",
+  "data": "electrical.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/arch.py",
+  "data": "io_list.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/ce.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/ce.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/ce.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/ce.py",
+  "data": "psv.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/csd.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/csd.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/csd.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/cvsizing.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/cvsizing.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/cvsizing.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/iolist.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/iolist.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/iolist.py",
+  "data": "instruments.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/iolist.py",
+  "data": "io_list.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/ic/iolist.py",
+  "data": "layout.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/loops_ld.py",
+  "data": "io_list.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/report.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/report.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/report.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/ic/report.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/layout/__init__.py",
+  "data": "layout.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/layout/elevations.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/layout/model.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/layout/model.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/calc.py",
+  "data": "mech.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/mech/geometry.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/geometry.py",
+  "data": "psv.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/geometry.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/pumps.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pfd.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pfd.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pfd.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pfd.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pid.py",
+  "data": "instruments.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/pid/pid.py",
+  "data": "layout.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pid.py",
+  "data": "lines.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/pid/pid_data.py",
+  "data": "control_loops.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pid_data.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pid_data.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pid_data.py",
+  "data": "psv.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/pid/pid_data.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/piping/auto.py",
+  "data": "psv.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/piping/export.py",
+  "data": "routing.json",
+  "op": "write"
+ },
+ {
+  "module": "cfu/piping/router.py",
+  "data": "instruments.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/piping/router.py",
+  "data": "layout.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/piping/router.py",
+  "data": "lines.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/piping/stress.py",
+  "data": "mech.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/reports.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/reports.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/estimate.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/estimate.py",
+  "data": "mech.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "electrical.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "instruments.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "io_list.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "lines.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "routing.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/wrapup/portal.py",
+  "data": "streams.json",
+  "op": "read"
+ }
+]

@@ -42,6 +42,8 @@
 | CFU-000-PL-ELV-002 | Plant layout | Section C201 H201 | A | pdf, svg | 03-layout-piping/layout |
 | CFU-000-PL-ELV-003 | Plant layout | Pipe Rack Section | A | pdf, svg | 03-layout-piping/layout |
 | CFU-000-PL-PLT-001 | Plant layout | Plot Plan | A | pdf, svg | 03-layout-piping/layout |
+| CFU-000-PM-DEP-001 | Project management | Design Dependency Map | A | md, pdf, xlsx | 06-wrapup |
+| CFU-000-PM-DEP-002 | Project management | Design Network Diagram | A | pdf, svg | 06-wrapup |
 | CFU-000-PM-EST-001 | Project management | Cost Estimate | A | md, pdf, xlsx | 06-wrapup |
 | CFU-000-PM-REG-001 | Project management | Document Register | A | md, pdf, xlsx | 06-wrapup |
 | CFU-000-PR-BFD-001 | Process | (drawing) | A | pdf, svg | 01-process/bfd |

@@ -12,7 +12,16 @@ python build.py              # all 12 stages, ~45 s
 python build.py process pid  # or selected stages
 ```
 
-Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 102 documents.
+Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 104 documents.
+`deliverables/06-wrapup/portal/dependencies.html` maps the design steps: the order they run in, what each needs from
+upstream, and what it affects downstream.
+
+## Design dependency map
+
+The activity network lives in `cfu/wrapup/activities.py` (45 activities, including the ones still needed before
+construction). `python -m cfu.wrapup.depmap --trace` runs the full build with file access recorded, writes
+`data/dataflow.json`, and checks that every data file a module reads comes from an upstream activity. Run it after
+adding a module or a data file; the report (CFU-000-PM-DEP-001, section 8) lists anything the map does not cover.
 
 ## Design summary
 
@@ -41,7 +50,7 @@ Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 1
 | `03-layout-piping` | Plot plan, 3 sections, 3D model + web viewers, line list (245 lines), piping classes, routing/stress study, 15 isometric sheets, MTO |
 | `04-instrumentation` | Control philosophy & proposed control scheme, 6 control scheme diagrams, ICS architecture, C&E matrix, SIF/SIL (LOPA), control valve sizing, instrument index (694 tags), I/O list, loop diagrams |
 | `05-electrical` | Load list, 4 single-line diagrams, sizing calcs, cable schedule, hazardous area classification |
-| `06-wrapup` | Preliminary HAZOP, cost estimate, document register, portal |
+| `06-wrapup` | Preliminary HAZOP, cost estimate, design dependency map (sequence, inputs, change impact, DSM), document register, portal |
 
 ## Repository layout
 

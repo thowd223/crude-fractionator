@@ -219,6 +219,7 @@ td.no {{ font-family: var(--f-mono); font-size: 12.5px; white-space: nowrap }}
 .fmt:hover {{ background: var(--line); color: var(--sheet) }}
 .cta {{ display: inline-flex; gap: 8px; align-items: center; margin-top: 12px; padding: 9px 14px; border: 1.5px solid var(--ink);
   background: var(--sheet); color: var(--ink); font-weight: 600; text-decoration: none }}
+.ctas {{ display: flex; flex-wrap: wrap; gap: 10px }}
 .cta:hover {{ background: var(--ink); color: var(--sheet) }}
 .issues {{ background: var(--sheet); border: 1px solid var(--rule); padding: 6px 16px }}
 .issues li {{ padding: 4px 0 }}
@@ -233,7 +234,8 @@ footer {{ margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 
     <p>Concept-to-FEED engineering for an Arab Light crude unit: desalting and preheat, atmospheric fractionation with three
     pumparounds, naphtha stabilisation and splitting, wet vacuum distillation and ejectors. Every document below is generated
     from one calculation model, so the drawings, lists and reports agree with each other.</p>
-    <a class="cta" href="viewer.html">Open the 3D model &rarr;</a>
+    <div class="ctas"><a class="cta" href="viewer.html">Open the 3D model &rarr;</a>
+    <a class="cta" href="dependencies.html">Design dependency map &rarr;</a></div>
   </div>
   <div class="cells">
     <div class="cell"><b>DOCUMENT SET</b><span>{len(rows)} documents</span></div>
