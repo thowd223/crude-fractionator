@@ -185,7 +185,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1
 <div id="v-seq" hidden><div class="tw"><table><thead><tr><th>ID</th><th>Activity</th><th>Discipline</th><th>Status</th><th>Needs</th><th class="num">Affects</th></tr></thead><tbody id="seqb"></tbody></table></div></div>
 <div id="v-todo" hidden>
   <div class="tw"><table><thead><tr><th class="num">#</th><th>ID</th><th>Activity</th><th>Status</th><th>Ready?</th><th>Re-opens when done</th></tr></thead><tbody id="todob"></tbody></table></div>
-  <p class="hint">In sequence order. "Ready" means nothing it needs is still not started. Re-opened steps are issued work that must be re-checked.</p>
+  <p class="hint">In sequence order. "Ready" means nothing it needs is still not started. Re-opened steps are issued work that must be re-checked, through downstream links and iteration loops.</p>
 </div>
 
 <article class="insp" id="insp" aria-live="polite"></article>
@@ -323,9 +323,9 @@ function select(id, user) {
   s = ""; let k = 0;
   D.nodes.filter(n => n.status !== "done").forEach(n => {
     const wait = n.after.map(a => a.id).filter(j => N[j].status === "open");
-    const reo = n.down.filter(j => N[j].status !== "open");
+    const reo = n.reopen.filter(j => N[j].status !== "open");
     s += `<tr class="row" data-id="${n.id}"><td class="num">${++k}</td><td class="id">${n.id}</td><td>${esc(n.name)}</td><td>${pill(n.status)}</td>`
-      + `<td><span class="ready ${wait.length ? "n" : "y"}">${wait.length ? "after " + wait.join(", ") : "ready"}</span></td><td>${reo.length} issued steps</td></tr>`;
+      + `<td><span class="ready ${wait.length ? "n" : "y"}">${wait.length ? "after " + wait.join(", ") : "ready"}</span></td><td>${reo.length} issued step${reo.length === 1 ? "" : "s"}</td></tr>`;
   });
   document.getElementById("todob").innerHTML = s;
   document.querySelectorAll("tbody").forEach(b => b.addEventListener("click", ev => {

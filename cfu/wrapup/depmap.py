@@ -49,6 +49,21 @@ class Net:
         self._waves()
         self.up = {i: self._closure(i, self.pred) for i in self.A}
         self.down = {i: self._closure(i, self.succ) for i in self.A}
+        # what a completed activity re-opens: its downstream plus everything its iteration loops reach
+        self.reopen = {}
+        for i in self.A:
+            r = set(self.down[i])
+            grow = True
+            while grow:
+                grow = False
+                for f in self.fb:
+                    # loops of not-started downstream steps fire when those steps finish, not this one
+                    src_ok = f["src"] == i or (f["src"] in r and self.A[f["src"]]["status"] != "open")
+                    if src_ok and f["dst"] not in r:
+                        r |= {f["dst"]} | self.down[f["dst"]]
+                        grow = True
+            r.discard(i)
+            self.reopen[i] = r
         self.seq = sorted(self.A, key=lambda i: (self.wave[i], DISCIPLINES.index(self.A[i]["disc"]), i))
         self.writer = {f: a["id"] for a in ACTIVITIES for f in a["writes"]}
 
@@ -353,7 +368,7 @@ def workbook(net, docs, titles, chk_rows, chk_issues):
     for k, i in enumerate(todo, 1):
         wait = [p for p in net.pred[i] if net.A[p]["status"] == "open"]
         ws.append([k, i, net.A[i]["name"], STATUS[net.A[i]["status"]], "yes" if not wait else "no", ", ".join(wait),
-                   ", ".join(sorted((j for j in net.down[i] if net.A[j]["status"] != "open"), key=net.seq.index)),
+                   ", ".join(sorted((j for j in net.reopen[i] if net.A[j]["status"] != "open"), key=net.seq.index)),
                    net.A[i]["note"]])
     ws = sheet("Code check", ["Module", "Activity", "Reads", "Owner", "Result"], (34, 10, 22, 10, 34))
     for r in chk_rows:
@@ -458,17 +473,17 @@ The activities whose change reaches the most deliverables. Freeze these first.
         md.append(f"| {i} | {net.A[i]['name']} | {len(net.down[i])} | {sum(len(docs[j]) for j in net.down[i])} |\n")
     md.append("""
 # 7 What still needs to be done
-In sequence order. "Ready" means nothing it needs is still not started. "Re-opens" lists the issued activities
-that must be re-checked when it completes.
+In sequence order. "Ready" means nothing it needs is still not started. "Re-opens" counts the issued activities
+that must be re-checked when it completes, through its downstream links and its iteration loops.
 
 | Order | ID | Activity | Status | Ready | Re-opens |
 |---|---|---|---|---|---|
 """)
     for k, i in enumerate((i for i in net.seq if net.A[i]["status"] != "done"), 1):
         wait = [p for p in net.pred[i] if net.A[p]["status"] == "open"]
-        reo = [j for j in sorted(net.down[i], key=net.seq.index) if net.A[j]["status"] != "open"]
+        reo = [j for j in sorted(net.reopen[i], key=net.seq.index) if net.A[j]["status"] != "open"]
         md.append(f"| {k} | {i} | {net.A[i]['name']} | {STATUS[net.A[i]['status']]} | "
-                  f"{'yes' if not wait else 'after ' + ', '.join(wait)} | {len(reo)} issued activities |\n")
+                  f"{'yes' if not wait else 'after ' + ', '.join(wait)} | {len(reo)} issued {'activity' if len(reo) == 1 else 'activities'} |\n")
     md.append(f"""
 The provisional items (assay, H&MB, stress screening, SIL determination) sit at the start of long chains:
 replacing the shortcut process model (PRC-00, PRC-01) re-opens {len(net.down['PRC-01'])} of the
@@ -521,7 +536,8 @@ def page(net, G, docs, titles, chk_rows, chk_issues):
                           writes=a["writes"], note=a["note"],
                           docs=[dict(no=no, t=titles.get(no, ""), href=link.get(no, "")) for no in docs[i]],
                           up=sorted(net.up[i], key=net.seq.index), down=sorted(net.down[i], key=net.seq.index),
-                          succ=sorted(net.succ[i], key=net.seq.index)))
+                          succ=sorted(net.succ[i], key=net.seq.index),
+                          reopen=sorted(net.reopen[i], key=net.seq.index)))
     data = dict(nodes=nodes, edges=G["edges"], lanes=G["lanes"], W=G["W"], H=G["H"], waves=G["waves"],
                 NW=NW, NH=NH, CW=CW, LANE_W=LANE_W, status=STATUS, loops=net.fb,
                 check=dict(n=len(chk_rows), issues=chk_issues,

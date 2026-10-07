@@ -425,21 +425,21 @@ The activities whose change reaches the most deliverables. Freeze these first.
 | ELE-01 | Electrical load list | 7 | 10 |
 
 # 7 What still needs to be done
-In sequence order. "Ready" means nothing it needs is still not started. "Re-opens" lists the issued activities
-that must be re-checked when it completes.
+In sequence order. "Ready" means nothing it needs is still not started. "Re-opens" counts the issued activities
+that must be re-checked when it completes, through its downstream links and its iteration loops.
 
 | Order | ID | Activity | Status | Ready | Re-opens |
 |---|---|---|---|---|---|
 | 1 | PRJ-02 | Crude assay characterisation | Issued, provisional | yes | 31 issued activities |
 | 2 | PRC-00 | Rigorous simulation and model calibration | Not started | yes | 31 issued activities |
 | 3 | PRC-01 | Heat and material balance | Issued, provisional | after PRC-00 | 30 issued activities |
-| 4 | SAF-02 | Global flare load study | Not started | yes | 0 issued activities |
-| 5 | VEN-01 | Vendor enquiries and vendor data | Not started | yes | 0 issued activities |
-| 6 | SAF-04 | Siting study, QRA, F&G mapping | Not started | yes | 0 issued activities |
-| 7 | PIP-03 | Pipe stress and supports (screening) | Issued, provisional | yes | 1 issued activities |
+| 4 | SAF-02 | Global flare load study | Not started | yes | 28 issued activities |
+| 5 | VEN-01 | Vendor enquiries and vendor data | Not started | yes | 28 issued activities |
+| 6 | SAF-04 | Siting study, QRA, F&G mapping | Not started | yes | 28 issued activities |
+| 7 | PIP-03 | Pipe stress and supports (screening) | Issued, provisional | yes | 1 issued activity |
 | 8 | ICS-02 | SIF list and SIL determination (LOPA) | Issued, provisional | yes | 2 issued activities |
 | 9 | ELE-05 | Power system studies and protection | Not started | after VEN-01 | 0 issued activities |
-| 10 | SAF-03 | Formal HAZOP and LOPA workshop | Not started | yes | 0 issued activities |
+| 10 | SAF-03 | Formal HAZOP and LOPA workshop | Not started | yes | 28 issued activities |
 | 11 | PIP-05 | Detailed pipe stress (CAESAR II) | Not started | after VEN-01 | 0 issued activities |
 | 12 | CIV-01 | Geotechnical, civil and structural design | Not started | yes | 0 issued activities |
 | 13 | LAY-03 | 3D model reviews and constructability | Not started | after CIV-01 | 0 issued activities |
