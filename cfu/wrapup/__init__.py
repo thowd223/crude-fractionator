@@ -62,7 +62,8 @@ def register():
 
 
 def build():
-    from . import estimate, hazop, portal
+    from . import depmap, estimate, hazop, portal
     hazop.build()
     estimate.build()
+    depmap.build()       # dependency map (reads data/dataflow.json from the last --trace run)
     portal.build()       # also refreshes the register

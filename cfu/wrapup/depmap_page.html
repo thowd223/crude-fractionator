@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CDU/VDU Design Dependency Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: same drawing-register language as the portal - title-block header, then a swimlane network
+   (disciplines x sequence waves) with an inspector below, plus sequence and to-do tables. */
+:root {
+  --paper: #f6f7f5; --sheet: #ffffff; --ink: #1d2b36; --muted: #5b6b77; --rule: #d3dade;
+  --line: #2f5d7c; --flame: #c8501e; --chip: #e8eef2; --lane: #eef2f4; --dim: .16;
+  --ok: #2e7d4f; --warn: #a86b00; --todo: #7d8a93;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121a20; --sheet: #182229; --ink: #e3e9ed; --muted: #95a6b2; --rule: #2c3a44;
+  --line: #7fb2d6; --flame: #f08a52; --chip: #22313b; --lane: #1c2830; --dim: .2;
+  --ok: #6cc28f; --warn: #e0a83a; --todo: #8d9aa3; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #121a20; --sheet: #182229; --ink: #e3e9ed; --muted: #95a6b2; --rule: #2c3a44;
+  --line: #7fb2d6; --flame: #f08a52; --chip: #22313b; --lane: #1c2830; --dim: .2;
+  --ok: #6cc28f; --warn: #e0a83a; --todo: #8d9aa3; color-scheme: dark }
+* { box-sizing: border-box }
+html, body { margin: 0 }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 48px }
+.wrap { max-width: 1180px; margin: 0 auto }
+a { color: var(--line) }
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--flame); outline-offset: 2px }
+.back { display: inline-block; margin-top: 18px; font-family: var(--f-mono); font-size: 12px; text-decoration: none }
+header.tb { margin-top: 8px; border: 1.5px solid var(--ink); background: var(--sheet); display: grid; grid-template-columns: 1fr auto }
+.tb .main { padding: 18px 22px; min-width: 0 }
+.tb .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.tb h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(32px, 5vw, 50px); line-height: 1.02; margin: 6px 0 8px;
+  text-wrap: balance; letter-spacing: .01em }
+.tb p { margin: 0; max-width: 70ch; color: var(--muted) }
+.tb .cells { border-left: 1.5px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; min-width: 260px }
+.tb .cell { padding: 8px 14px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule) }
+.tb .cell b { display: block; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--muted); font-weight: 500 }
+.tb .cell span { font-family: var(--f-display); font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums }
+.tb .cell.open span { color: var(--flame) }
+@media (max-width: 760px) { header.tb { grid-template-columns: 1fr } .tb .cells { border-left: 0; border-top: 1.5px solid var(--ink); min-width: 0 } }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 22px 0 10px }
+.tabs { display: flex; border: 1.5px solid var(--ink) }
+.tabs button { font: 600 15px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; padding: 9px 14px; border: 0;
+  background: var(--sheet); color: var(--ink); cursor: pointer }
+.tabs button + button { border-left: 1px solid var(--rule) }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--sheet) }
+.zoom { font: 500 12px var(--f-mono); letter-spacing: .04em; padding: 8px 11px; border: 1px solid var(--rule); background: var(--sheet);
+  color: var(--ink); cursor: pointer }
+.zoom[aria-pressed="true"] { border-color: var(--ink); background: var(--chip) }
+.find { display: flex; gap: 6px; align-items: center }
+.find label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.find input { font: 14px var(--f-body); padding: 7px 10px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); width: 15em; max-width: 60vw }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); align-items: center }
+.legend i { display: inline-block; width: 22px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 6px }
+.legend .up i { border-color: var(--line) } .legend .dn i { border-color: var(--flame) } .legend .lp i { border-top: 2px dashed var(--flame) }
+.legend .bx { display: inline-block; width: 14px; height: 10px; vertical-align: middle; margin-right: 6px; border: 1.5px solid var(--ink); background: var(--sheet) }
+.legend .bx.partial { outline: 1px solid var(--ink); outline-offset: -4px }
+.legend .bx.open { border: 1.5px dashed var(--todo); background: var(--chip) }
+
+.netwrap { overflow: auto; border: 1px solid var(--rule); background: var(--sheet); max-height: 72vh; -webkit-overflow-scrolling: touch }
+#net { display: block }
+#net text { font-family: var(--f-body); fill: var(--ink) }
+#net .lane { fill: var(--lane) } #net .lane.alt { fill: var(--sheet) }
+#net .lanelbl { font: 600 14px var(--f-display); letter-spacing: .08em; fill: var(--muted) }
+#net .wavelbl { font: 500 11px var(--f-mono); letter-spacing: .08em; fill: var(--muted) }
+#net .e { fill: none; stroke: var(--muted); stroke-width: 1; opacity: .38 }
+#net .e.loop { stroke: var(--flame); stroke-dasharray: 5 4; opacity: .45 }
+#net .n { cursor: pointer }
+#net .n rect.b { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.4 }
+#net .n.partial rect.in { fill: none; stroke: var(--ink); stroke-width: .7 }
+#net .n.open rect.b { fill: var(--chip); stroke: var(--todo); stroke-dasharray: 4 3 }
+#net .n .id { font: 500 11px var(--f-mono); fill: var(--muted) }
+#net .n.open .id { fill: var(--flame) }
+#net .n .nm { font-size: 12px }
+#net .n:hover rect.b { stroke: var(--flame) }
+#net.sel .n, #net.sel .e { opacity: var(--dim) }
+#net.sel .n.hi { opacity: 1 }
+#net.sel .n.me rect.b { stroke: var(--flame); stroke-width: 3 }
+#net.sel .n.up rect.b { stroke: var(--line); stroke-width: 2.2 }
+#net.sel .n.dn rect.b { stroke: var(--flame); stroke-width: 2.2 }
+#net.sel .e.up { opacity: .95; stroke: var(--line); stroke-width: 1.8 }
+#net.sel .e.dn { opacity: .95; stroke: var(--flame); stroke-width: 1.8 }
+#net.sel .e.loop.hi { opacity: .95; stroke-width: 1.8 }
+.hint { font-size: 12.5px; color: var(--muted); margin: 6px 0 0 }
+
+.insp { margin-top: 18px; background: var(--sheet); border: 1.5px solid var(--ink) }
+.insp .hd { padding: 14px 18px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline }
+.insp .hd .id { font-family: var(--f-mono); font-size: 13px; color: var(--muted) }
+.insp .hd h2 { font-family: var(--f-display); font-size: 28px; font-weight: 600; margin: 0; line-height: 1.1; text-wrap: balance }
+.pill { font-family: var(--f-mono); font-size: 11px; letter-spacing: .04em; padding: 2px 8px; border: 1px solid currentColor; white-space: nowrap }
+.pill.done { color: var(--ok) } .pill.partial { color: var(--warn) } .pill.open { color: var(--flame) }
+.insp .note { padding: 10px 18px 0; margin: 0; color: var(--muted); max-width: 80ch }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) }
+.cols > section { padding: 12px 18px 16px; min-width: 0 }
+.cols > section + section { border-left: 1px solid var(--rule) }
+@media (max-width: 860px) { .cols { grid-template-columns: 1fr } .cols > section + section { border-left: 0; border-top: 1px solid var(--rule) } }
+.cols h3 { font: 500 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px }
+.cols h3 .k { color: var(--ink) }
+.cols h3.up { color: var(--line) } .cols h3.dn { color: var(--flame) }
+.lst { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px }
+.lst li { font-size: 13.5px; line-height: 1.4 }
+.lst button { all: unset; cursor: pointer; font-family: var(--f-mono); font-size: 12px; color: var(--line); text-decoration: underline;
+  text-underline-offset: 2px; margin-right: 6px }
+.lst button:focus-visible { outline: 2px solid var(--flame) }
+.lst .w { color: var(--muted) }
+.chips { display: flex; flex-wrap: wrap; gap: 4px }
+.chips button, .chips a { font-family: var(--f-mono); font-size: 11.5px; padding: 2px 7px; background: var(--chip); color: var(--ink); border: 0;
+  cursor: pointer; text-decoration: none }
+.chips button.dn { box-shadow: inset 2px 0 0 var(--flame) } .chips button.up { box-shadow: inset 2px 0 0 var(--line) }
+.chips button:hover, .chips a:hover { background: var(--ink); color: var(--sheet) }
+.muted { color: var(--muted); font-size: 13px }
+
+h2.sec { font-family: var(--f-display); font-weight: 600; font-size: 26px; letter-spacing: .02em; margin: 40px 0 6px; text-transform: uppercase }
+h2.sec + .lede { margin: 0 0 14px; color: var(--muted); max-width: 72ch }
+.tw { overflow-x: auto; border: 1px solid var(--rule); background: var(--sheet) }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 680px }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top }
+th { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500 }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 12.5px }
+td.id { font-family: var(--f-mono); font-size: 12.5px; white-space: nowrap }
+tr.wv td { background: var(--chip); font: 600 14px var(--f-display); letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px }
+tbody tr.row { cursor: pointer } tbody tr.row:hover td { background: var(--paper) }
+tbody tr.row.cur td { box-shadow: inset 0 -2px 0 var(--flame) }
+.ready { font-family: var(--f-mono); font-size: 11.5px }
+.ready.y { color: var(--ok) } .ready.n { color: var(--muted) }
+.bars { display: grid; gap: 4px }
+.bars .r { display: grid; grid-template-columns: 70px minmax(0, 1fr) 40px; gap: 8px; align-items: center; font-size: 13px }
+.bars .r .t { height: 9px; background: var(--chip) } .bars .r .t i { display: block; height: 100% ; background: var(--flame) }
+.bars .r b { font-family: var(--f-mono); font-size: 12px; font-weight: 500 }
+.bars .r span:last-child { font-family: var(--f-mono); font-size: 12px; text-align: right; font-variant-numeric: tabular-nums }
+.loops { background: var(--sheet); border: 1px solid var(--rule) }
+.check { background: var(--sheet); border: 1px solid var(--rule); padding: 8px 18px }
+.check li { padding: 3px 0; font-size: 13.5px }
+footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 12px }
+@media (prefers-reduced-motion: no-preference) { #net .n rect.b, #net .e { transition: opacity .15s, stroke .15s } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">&larr; Package portal</a>
+<header class="tb">
+  <div class="main">
+    <div class="eyebrow">CFU-000-PM-DEP-001 · 100 kBPSD CDU/VDU · FEED</div>
+    <h1>Design Dependency Map</h1>
+    <p>The engineering steps behind the package, in the order they run. Select a step to see what it needs from
+    upstream, what it feeds, and which deliverables change if it changes. Steps not yet started are shown dashed.</p>
+  </div>
+  <div class="cells">
+    <div class="cell"><b>ACTIVITIES</b><span>{{N_ACT}}</span></div>
+    <div class="cell"><b>WAVES</b><span>{{N_WAVES}}</span></div>
+    <div class="cell"><b>ISSUED</b><span>{{N_DONE}} + {{N_PART}}</span></div>
+    <div class="cell open"><b>NOT STARTED</b><span>{{N_OPEN}}</span></div>
+    <div class="cell"><b>INPUT LINKS</b><span>{{N_LINKS}}</span></div>
+    <div class="cell"><b>LOOPS</b><span>{{N_LOOPS}}</span></div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-net" aria-selected="true" data-v="net">Network</button>
+    <button role="tab" id="tab-seq" aria-selected="false" data-v="seq">Sequence</button>
+    <button role="tab" id="tab-todo" aria-selected="false" data-v="todo">To do</button>
+  </div>
+  <button class="zoom" id="zoom" aria-pressed="false">Fit to width</button>
+  <div class="find"><label for="q">Find</label><input id="q" list="ids" placeholder="e.g. P&amp;ID, HAZOP, PRC-02" autocomplete="off"><datalist id="ids"></datalist></div>
+  <div class="legend">
+    <span class="up"><i></i>needs (upstream)</span><span class="dn"><i></i>affects (downstream)</span><span class="lp"><i></i>iteration loop</span>
+    <span><span class="bx"></span>issued</span><span><span class="bx partial"></span>provisional</span><span><span class="bx open"></span>not started</span>
+  </div>
+</div>
+
+<div id="v-net">
+  <div class="netwrap" id="netwrap"><svg id="net" role="img" aria-label="Design activity network by discipline and sequence wave"></svg></div>
+  <p class="hint">Columns are sequence waves: a step can start when everything it needs has issued. Scroll the diagram sideways on a small screen.</p>
+</div>
+<div id="v-seq" hidden><div class="tw"><table><thead><tr><th>ID</th><th>Activity</th><th>Discipline</th><th>Status</th><th>Needs</th><th class="num">Affects</th></tr></thead><tbody id="seqb"></tbody></table></div></div>
+<div id="v-todo" hidden>
+  <div class="tw"><table><thead><tr><th class="num">#</th><th>ID</th><th>Activity</th><th>Status</th><th>Ready?</th><th>Re-opens when done</th></tr></thead><tbody id="todob"></tbody></table></div>
+  <p class="hint">In sequence order. "Ready" means nothing it needs is still not started. Re-opened steps are issued work that must be re-checked, through downstream links and iteration loops.</p>
+</div>
+
+<article class="insp" id="insp" aria-live="polite"></article>
+
+<h2 class="sec">Biggest change impact</h2>
+<p class="lede">Deliverables that must be revised if each step changes. Freeze the top of this list first.</p>
+<div class="bars" id="impact"></div>
+
+<h2 class="sec">Iteration loops</h2>
+<p class="lede">Later results that revise earlier steps. Each loop is a planned re-issue, not a mistake.</p>
+<div class="tw loops"><table><thead><tr><th>From</th><th>Revises</th><th>What changes</th></tr></thead><tbody id="loopb"></tbody></table></div>
+
+<h2 class="sec">Checked against the build</h2>
+<p class="lede" id="chk-lede"></p>
+<ul class="check" id="chk"></ul>
+
+<footer>Generated by <code>cfu/wrapup/depmap.py</code> from <code>cfu/wrapup/activities.py</code>. Full tables:
+<a href="{{GH}}deliverables/06-wrapup/CFU-000-PM-DEP-001_Design-Dependency-Map.pdf">report (PDF)</a>,
+<a href="{{GH}}deliverables/06-wrapup/CFU-000-PM-DEP-001_Design-Dependency-Map.xlsx">workbook with DSM (XLSX)</a>,
+<a href="{{GH}}deliverables/06-wrapup/CFU-000-PM-DEP-002_Design-Network-Diagram.pdf">network drawing (PDF)</a>.
+Rev {{REV}}. Not reviewed or sealed by a licensed engineer.</footer>
+</div>
+
+<script>
+const D = /*DATA*/null;
+const N = {}; D.nodes.forEach(n => N[n.id] = n);
+const order = D.nodes.map(n => n.id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("net");
+let cur = null;
+
+// ---------------------------------------------------------------- network
+(function draw() {
+  svg.setAttribute("viewBox", `0 0 ${D.W} ${D.H}`);
+  svg.setAttribute("width", D.W); svg.setAttribute("height", D.H);
+  let s = "";
+  D.lanes.forEach((l, k) => {
+    s += `<rect class="lane${k % 2 ? " alt" : ""}" x="0" y="${l.y}" width="${D.W}" height="${l.h}"/>`;
+    s += `<text class="lanelbl" x="12" y="${l.y + 22}">${esc(l.disc.toUpperCase())}</text>`;
+  });
+  for (let w = 1; w <= D.waves; w++) s += `<text class="wavelbl" x="${D.LANE_W + (w - .5) * D.CW}" y="22" text-anchor="middle">WAVE ${w}</text>`;
+  s += `<defs><marker id="ah" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="context-stroke"/></marker></defs>`;
+  D.edges.forEach((e, k) => {
+    s += `<path class="e${e.kind === "loop" ? " loop" : ""}" data-k="${k}" d="${e.d}" marker-end="url(#ah)"><title>${esc(e.src + " → " + e.dst + ": " + e.what)}</title></path>`;
+  });
+  D.nodes.forEach(n => {
+    s += `<g class="n ${n.status}" data-id="${n.id}" transform="translate(${n.x},${n.y})" tabindex="0" role="button" aria-label="${esc(n.id + " " + n.name)}">`;
+    s += `<rect class="b" width="${D.NW}" height="${D.NH}"/>`;
+    if (n.status === "partial") s += `<rect class="in" x="3" y="3" width="${D.NW - 6}" height="${D.NH - 6}"/>`;
+    s += `<text class="id" x="8" y="15">${n.id}</text>`;
+    n.lines.forEach((t, i) => s += `<text class="nm" x="8" y="${30 + i * 13}">${esc(t)}</text>`);
+    s += `</g>`;
+  });
+  svg.innerHTML = s;
+  svg.addEventListener("click", ev => { const g = ev.target.closest(".n"); if (g) select(g.dataset.id, true); });
+  svg.addEventListener("keydown", ev => { const g = ev.target.closest(".n"); if (g && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); select(g.dataset.id, true); } });
+})();
+
+function highlight(id) {
+  const n = N[id], up = new Set(n.up), dn = new Set(n.down);
+  svg.classList.add("sel");
+  svg.querySelectorAll(".n").forEach(g => {
+    const i = g.dataset.id;
+    g.classList.toggle("me", i === id); g.classList.toggle("up", up.has(i)); g.classList.toggle("dn", dn.has(i));
+    g.classList.toggle("hi", i === id || up.has(i) || dn.has(i));
+  });
+  svg.querySelectorAll(".e").forEach(p => {
+    const e = D.edges[+p.dataset.k];
+    const isUp = e.kind === "flow" && up.has(e.src) && (e.dst === id || up.has(e.dst));
+    const isDn = e.kind === "flow" && (e.src === id || dn.has(e.src)) && dn.has(e.dst);
+    p.classList.toggle("up", isUp); p.classList.toggle("dn", isDn);
+    p.classList.toggle("hi", e.kind === "loop" && (e.src === id || e.dst === id));
+  });
+}
+
+// ---------------------------------------------------------------- inspector
+const pill = st => `<span class="pill ${st}">${esc(D.status[st])}</span>`;
+const jump = (id, cls) => `<button class="${cls || ""}" data-go="${id}" title="${esc(N[id].name)}">${id}</button>`;
+function inspector(id) {
+  const n = N[id];
+  const loopsIn = D.loops.filter(l => l.dst === id), loopsOut = D.loops.filter(l => l.src === id);
+  const nd = n.down.reduce((a, j) => a + N[j].docs.length, 0);
+  let h = `<div class="hd"><span class="id">${n.id} · ${esc(n.disc)} · wave ${n.wave}</span><h2>${esc(n.name)}</h2>${pill(n.status)}</div>`;
+  if (n.note) h += `<p class="note">${esc(n.note)}</p>`;
+  h += `<div class="cols"><section><h3 class="up">Needs</h3><ul class="lst">`;
+  h += n.after.length ? n.after.map(a => `<li>${jump(a.id)}<span class="w">${esc(a.what)}</span></li>`).join("") : `<li class="muted">Nothing upstream: a starting point.</li>`;
+  h += `</ul>`;
+  if (n.ext.length) h += `<h3>From outside the design team</h3><ul class="lst">${n.ext.map(e => `<li>${esc(e)}</li>`).join("")}</ul>`;
+  if (loopsIn.length) h += `<h3>Revised later by</h3><ul class="lst">${loopsIn.map(l => `<li>${jump(l.src)}<span class="w">${esc(l.what)}</span></li>`).join("")}</ul>`;
+  h += `<h3 class="up">All upstream <span class="k">(${n.up.length})</span></h3><div class="chips">${n.up.map(j => jump(j, "up")).join("") || '<span class="muted">none</span>'}</div>`;
+  h += `</section><section><h3 class="dn">Feeds directly</h3><ul class="lst">`;
+  h += n.succ.length ? n.succ.map(j => `<li>${jump(j)}<span class="w">${esc(N[j].after.find(a => a.id === id).what)}</span></li>`).join("") : `<li class="muted">Nothing: end of the chain.</li>`;
+  h += `</ul>`;
+  if (loopsOut.length) h += `<h3>Sends revisions back to</h3><ul class="lst">${loopsOut.map(l => `<li>${jump(l.dst)}<span class="w">${esc(l.what)}</span></li>`).join("")}</ul>`;
+  h += `<h3 class="dn">If it changes, re-check <span class="k">(${n.down.length})</span></h3><div class="chips">${n.down.map(j => jump(j, "dn")).join("") || '<span class="muted">nothing downstream</span>'}</div>`;
+  h += `</section><section><h3>Issues</h3>`;
+  h += n.docs.length ? `<div class="chips">${n.docs.map(d => d.href ? `<a href="${d.href}" title="${esc(d.t)}">${d.no}</a>` : `<span class="muted">${d.no}</span>`).join("")}</div>` : `<p class="muted">No deliverable of its own${n.status === "open" ? " yet" : ""}.</p>`;
+  if (n.writes.length) h += `<h3 style="margin-top:12px">Owns data</h3><p class="muted">${n.writes.map(w => "data/" + esc(w)).join(", ")}</p>`;
+  h += `<h3 style="margin-top:12px">Downstream deliverables <span class="k">(${nd})</span></h3>`;
+  const dd = n.down.flatMap(j => N[j].docs);
+  h += dd.length ? `<div class="chips">${dd.map(d => d.href ? `<a href="${d.href}" title="${esc(d.t)}">${d.no}</a>` : `<span class="muted">${d.no}</span>`).join("")}</div>` : `<p class="muted">none</p>`;
+  h += `</section></div>`;
+  const el = document.getElementById("insp");
+  el.innerHTML = h;
+}
+document.getElementById("insp").addEventListener("click", ev => { const b = ev.target.closest("[data-go]"); if (b) select(b.dataset.go, true); });
+
+function centre(id, smooth) {
+  const g = svg.querySelector(`.n[data-id="${id}"]`), w = document.getElementById("netwrap");
+  if (!g || document.getElementById("v-net").hidden) return;
+  const n = N[id], sx = svg.getBoundingClientRect().width / D.W;
+  w.scrollTo({left: Math.max(0, (n.x + D.NW / 2) * sx - w.clientWidth / 2), top: Math.max(0, (n.y + D.NH / 2) * sx - w.clientHeight / 2),
+    behavior: smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto"});
+}
+function select(id, user) {
+  if (!N[id]) return;
+  cur = id;
+  highlight(id); inspector(id);
+  document.querySelectorAll("tr.row").forEach(r => r.classList.toggle("cur", r.dataset.id === id));
+  if (user) {
+    try { history.replaceState(null, "", "#" + id); } catch (e) {}
+    centre(id, true);
+  }
+}
+
+// ---------------------------------------------------------------- tables
+(function tables() {
+  let s = "", w = 0;
+  D.nodes.forEach(n => {
+    if (n.wave !== w) { w = n.wave; s += `<tr class="wv"><td colspan="6">Wave ${w}</td></tr>`; }
+    s += `<tr class="row" data-id="${n.id}"><td class="id">${n.id}</td><td>${esc(n.name)}</td><td>${esc(n.disc)}</td><td>${pill(n.status)}</td><td class="id">${n.after.map(a => a.id).join(", ") || "-"}</td><td class="num">${n.down.length}</td></tr>`;
+  });
+  document.getElementById("seqb").innerHTML = s;
+  s = ""; let k = 0;
+  D.nodes.filter(n => n.status !== "done").forEach(n => {
+    const wait = n.after.map(a => a.id).filter(j => N[j].status === "open");
+    const reo = n.reopen.filter(j => N[j].status !== "open");
+    s += `<tr class="row" data-id="${n.id}"><td class="num">${++k}</td><td class="id">${n.id}</td><td>${esc(n.name)}</td><td>${pill(n.status)}</td>`
+      + `<td><span class="ready ${wait.length ? "n" : "y"}">${wait.length ? "after " + wait.join(", ") : "ready"}</span></td><td>${reo.length} issued step${reo.length === 1 ? "" : "s"}</td></tr>`;
+  });
+  document.getElementById("todob").innerHTML = s;
+  document.querySelectorAll("tbody").forEach(b => b.addEventListener("click", ev => {
+    const r = ev.target.closest("tr.row"); if (r) { select(r.dataset.id, false); document.getElementById("insp").scrollIntoView({behavior: "smooth", block: "nearest"}); }
+  }));
+  document.getElementById("loopb").innerHTML = D.loops.map(l => `<tr><td class="id">${l.src} <span class="muted">${esc(N[l.src].name)}</span></td><td class="id">${l.dst} <span class="muted">${esc(N[l.dst].name)}</span></td><td>${esc(l.what)}</td></tr>`).join("");
+  const imp = D.nodes.map(n => [n, n.down.reduce((a, j) => a + N[j].docs.length, 0)]).sort((a, b) => b[1] - a[1] || order.indexOf(a[0].id) - order.indexOf(b[0].id)).slice(0, 10);
+  const mx = imp[0][1] || 1;
+  document.getElementById("impact").innerHTML = imp.map(([n, v]) => `<div class="r"><b>${n.id}</b><div><div style="font-size:13px">${esc(n.name)}</div><div class="t"><i style="width:${(100 * v / mx).toFixed(1)}%"></i></div></div><span>${v}</span></div>`).join("");
+  const c = D.check;
+  document.getElementById("chk-lede").textContent = `The build was run with file access recorded: ${c.n} reads of shared data files, each compared with this map. ` +
+    (c.issues.length ? `${c.issues.length} need attention.` : "Every read comes from an upstream step or a declared iteration loop.");
+  document.getElementById("chk").innerHTML = c.iters.map(t => `<li>Iteration in the code: ${esc(t)}</li>`).join("") + c.issues.map(t => `<li><b>Issue:</b> ${esc(t)}</li>`).join("");
+  document.getElementById("ids").innerHTML = D.nodes.map(n => `<option value="${n.id} ${esc(n.name)}"></option>`).join("");
+})();
+
+// ---------------------------------------------------------------- tabs, search, deep link
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+  ["net", "seq", "todo"].forEach(v => document.getElementById("v-" + v).hidden = v !== b.dataset.v);
+  try { localStorage.setItem("depmap-view", b.dataset.v); } catch (e) {}
+}));
+document.getElementById("q").addEventListener("change", ev => {
+  const q = ev.target.value.trim().toLowerCase(); if (!q) return;
+  const hit = D.nodes.find(n => q.startsWith(n.id.toLowerCase())) || D.nodes.find(n => (n.id + " " + n.name + " " + n.docs.map(d => d.no).join(" ")).toLowerCase().includes(q));
+  if (hit) select(hit.id, true);
+});
+try { const v = localStorage.getItem("depmap-view"); if (v && v !== "net") document.getElementById("tab-" + v).click(); } catch (e) {}
+const h = (location.hash || "").slice(1).toUpperCase();
+select(N[h] ? h : "PRC-02", false);
+centre(cur, false);
+document.getElementById("zoom").addEventListener("click", ev => {
+  const fit = ev.currentTarget.getAttribute("aria-pressed") !== "true";
+  ev.currentTarget.setAttribute("aria-pressed", fit);
+  ev.currentTarget.textContent = fit ? "Actual size" : "Fit to width";
+  svg.setAttribute("width", fit ? "100%" : D.W); svg.setAttribute("height", fit ? "auto" : D.H);
+  svg.style.height = fit ? "auto" : "";
+  centre(cur, false);
+});
+</script>
+</body>
+</html>
