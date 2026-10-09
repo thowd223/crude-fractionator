@@ -1,6 +1,7 @@
 """Discipline task and information exchange register.
 
     python exchange/build.py            # check data/*.json, write out/ (workbook, page, item catalog)
+    python exchange/build.py --check PIPE   # check only (errors for one discipline), writes nothing
 
 Reads one JSON file per discipline (see SPEC.md), checks every reference, derives the exchanges (one row per
 item sent from its owner task to a task that uses it) and writes:
@@ -252,6 +253,13 @@ def main():
     tasks, items, errs = load()
     e2, warns = check(tasks, items)
     errs += e2
+    if "--check" in sys.argv:       # validation only, no outputs (safe to run concurrently)
+        only = next((a for a in sys.argv[1:] if a in DISC), None)
+        mine = [s for s in errs if not only or s.startswith(only) or f" {only}-" in s]
+        print(f"{len(mine)} errors" + (f" for {only}" if only else ""))
+        for s in mine:
+            print("  ERROR", s)
+        return mine
     ex = exchanges(tasks, items)
     catalog(tasks, items)
     workbook(tasks, items, ex, errs, warns)

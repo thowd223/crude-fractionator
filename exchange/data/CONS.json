@@ -1,0 +1,1375 @@
+{
+  "discipline": "CONS",
+  "tasks": [
+    {
+      "id": "CONS-T010",
+      "name": "Compile constructability input and lessons learned",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "CON-01",
+      "description": "Collects site, contractor and lessons-learned constructability requirements and issues them as design input for layout and engineering.",
+      "produces": [
+        "CONS-I010"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "site conditions: soil, climate, access routes, existing facility constraints, working-hour and labour restrictions",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "preliminary plot plan: unit boundaries, equipment locations, pipe rack runs, access ways",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PROJ",
+          "info": "execution plan and contracting strategy: construction contract split, modular vs stick-built assumptions",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T020",
+      "name": "Prepare site logistics, laydown and temporary facilities plan",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "CON-01",
+      "description": "Lays out laydown, fabrication yards, temporary buildings, haul roads and construction access around the plot.",
+      "produces": [
+        "CONS-I020",
+        "CONS-I025"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "plot plan: plot limits, equipment coordinates, roads, maintenance access and drop zones",
+          "method": "file",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "site grading and drainage plan, permanent roads, soil bearing at laydown areas",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "site access rules, existing underground services, available site area outside battery limits",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "facility siting results: exclusion zones for occupied temporary buildings (blast and fire contours)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T030",
+      "name": "Evaluate modularisation and prefabrication strategy",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "CON-01",
+      "description": "Compares stick-built, pre-assembled rack and skid/module options on cost, schedule, transport limits and site labour.",
+      "produces": [
+        "CONS-I030"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "plot plan and pipe rack layout: rack lengths, levels, areas that can be modularised",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "equipment list with weights, dimensions and package scope (skid vs field-erected)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "schedule targets and estimate basis (labour rates, productivity, location factor)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SCM",
+          "info": "transport route survey: maximum load dimensions and weights to site",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T040",
+      "name": "Prepare heavy lift and crane study",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "CON-01",
+      "description": "Selects cranes, crane pads and lift sequences for heavy and critical lifts and states the space and lifting-lug requirements back to design.",
+      "produces": [
+        "CONS-I040",
+        "CONS-I045"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "equipment erection weights, centre of gravity, dimensions, lifting and tailing lug locations (columns, reactors, exchangers)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "certified GA drawings with shipping and lift weights and lift points",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PIPE",
+          "info": "3D model: setting elevations, obstructions, crane access corridors (via Navisworks)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "foundation locations, soil bearing for crane pads and underground services",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T050",
+      "name": "Define path of construction",
+      "phases": [
+        "FEL3"
+      ],
+      "system": "P6",
+      "activity": "CON-01",
+      "description": "Sets the area-by-area construction sequence from underground through steel, equipment setting, piping, E&I and completions, driven by the commissioning sequence.",
+      "produces": [
+        "CONS-I050"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "preliminary system list and start-up sequence with required ready-for-commissioning dates by system",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "plot plan with areas, rack sections and equipment locations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "project milestones: mechanical completion, start-up dates, contract interfaces",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "heavy lift plan: lift sequence and crane positions that constrain area sequence",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T060",
+      "name": "Define construction work areas (CWAs)",
+      "phases": [
+        "FEL3"
+      ],
+      "system": "iConstruct",
+      "activity": "CON-02",
+      "description": "Divides the plot into CWAs with boundaries and IDs aligned to the path of construction and plot plan areas.",
+      "produces": [
+        "CONS-I060"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "plot plan area / unit boundaries and grid coordinates",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "path of construction: area sequence",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T070",
+      "name": "Define CWPs, boundaries and sequence",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "P6",
+      "activity": "CON-02",
+      "description": "Breaks each CWA into discipline CWPs with scope boundaries, sequence and the dates by which engineering and materials are needed.",
+      "produces": [
+        "CONS-I070",
+        "CONS-I080",
+        "CONS-I090"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "CWA boundaries and path of construction sequence",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "WBS, deliverables register and level 2 schedule (engineering and procurement milestones)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "line list and 3D model area breakdown to size piping CWPs (inch-dia, spools per area)",
+          "method": "file",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "foundation and steel scope by area (quantities, structures list)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "cable and raceway quantities by area",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "instrument index counts by area and type",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T080",
+      "name": "Review 3D model for constructability (30/60/90 % reviews)",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "iConstruct",
+      "activity": "LAY-03",
+      "description": "Reviews the federated model for erection access, rigging, scaffolding, weld access, spool breaks and construction sequence.",
+      "produces": [
+        "CONS-I100"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "S3D piping and equipment model at 30/60/90 % (via Navisworks into iConstruct)",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Tekla structural model: steel, platforms, foundations (via Navisworks)",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "cable tray and major electrical equipment in the S3D model",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "instrument and junction box locations in the S3D model",
+          "method": "integrated",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T090",
+      "name": "Review IFR drawings for constructability",
+      "phases": [
+        "DD"
+      ],
+      "system": "Document Locator",
+      "activity": "LAY-03",
+      "description": "Comments on IFR drawings and specifications for field installability, tolerances, tie-in access and construction sequence.",
+      "produces": [
+        "CONS-I110"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "IFR GA drawings, tie-in list, sample isometrics, hydrotest philosophy",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "IFR foundation and steel drawings, anchor bolt plans",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "IFR cable routing and raceway layouts",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "IFR installation details and hook-ups",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "CONS-T100",
+      "name": "Prepare construction execution plan and estimate input",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "CST-02",
+      "description": "Writes the construction execution strategy and provides direct and indirect field hours, crew sizes and construction equipment for the estimate.",
+      "produces": [
+        "CONS-I120",
+        "CONS-I130"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "estimate basis, WBS and location factors",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "piping MTO by size and class (inch-dia, weld counts)",
+          "method": "file",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "civil and steel quantities (concrete m3, steel tonnes)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "cable and raceway quantities",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "instrument counts and installation quantities",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "equipment list with weights and field-erected scope",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "modularisation decision and heavy lift plan",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T110",
+      "name": "Develop construction schedule by CWP",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "P6",
+      "activity": "CON-01",
+      "description": "Builds the level 3 construction schedule with resource-loaded CWP activities tied to EWP and material delivery dates.",
+      "produces": [
+        "CONS-I140"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "CWP breakdown, sequence and quantities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "integrated level 2 schedule and engineering milestones",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "PO promised delivery dates and expediting forecasts by item",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "COMM",
+          "info": "commissioning sequence and required subsystem turnover dates",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T120",
+      "name": "Align EWPs and procurement packages to CWPs",
+      "phases": [
+        "DD"
+      ],
+      "system": "P6",
+      "activity": "CON-02",
+      "description": "Maps EWPs and purchase orders to CWPs and flags where engineering or material release dates miss the CWP need dates.",
+      "produces": [
+        "CONS-I150"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "deliverables register with EWP assignment and forecast IFC dates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "requisition and PO list with ROS and forecast delivery dates (Purchasing DB extract)",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "CWP need dates for EWPs and materials",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T130",
+      "name": "Build construction model and attach CWP/IWP attributes",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "iConstruct",
+      "activity": "CON-02",
+      "description": "Federates S3D and Tekla models in iConstruct, assigns objects to CWAs, CWPs and IWPs and links Jovix material status.",
+      "produces": [
+        "CONS-I160"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "S3D model export (piping, equipment) with line numbers, spool and iso numbers, via Navisworks",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "CIVL",
+          "info": "Tekla model export with assembly marks and foundation IDs, via Navisworks",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "ELEC",
+          "info": "S3D raceway and electrical equipment objects with tags",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "S3D instrument objects with tags",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "Jovix material status by item code, spool and PO line (received, in laydown, issued)",
+          "method": "integrated",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T140",
+      "name": "Develop installation work packages (IWPs)",
+      "phases": [
+        "CON"
+      ],
+      "system": "iConstruct",
+      "activity": "CON-02",
+      "description": "Creates IWPs in iConstruct for one crew and one to two weeks of work, with scope, drawings, model views, materials and quantities.",
+      "produces": [
+        "CONS-I170"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "construction model with CWP assignment",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "PIPE",
+          "info": "IFC isometrics, spool drawings, support details and tie-in details",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CIVL",
+          "info": "IFC foundation and steel erection drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "ELEC",
+          "info": "IFC cable schedule, termination and raceway drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "IFC hook-ups, installation details, loop and termination drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PROJ",
+          "info": "current IFC document revisions from Document Locator",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T150",
+      "name": "Check IWP material availability against Jovix",
+      "phases": [
+        "CON"
+      ],
+      "system": "iConstruct",
+      "activity": "CON-02",
+      "description": "Checks every IWP bill of materials against Jovix warehouse and laydown status and reports shortages before release.",
+      "produces": [
+        "CONS-I180"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "Jovix status: received, storage location, reserved and issued quantity by item code and spool",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "expediting forecasts for outstanding PO lines",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "IWP bill of materials",
+          "method": "integrated",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T160",
+      "name": "Manage IWP constraints and release IWPs",
+      "phases": [
+        "CON"
+      ],
+      "system": "iConstruct",
+      "activity": "CON-02",
+      "description": "Logs and chases IWP constraints (engineering holds, RFIs, materials, scaffolding, permits) and releases constraint-free IWPs to the field backlog.",
+      "produces": [
+        "CONS-I190",
+        "CONS-I200"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "IWP material shortage report and open RFIs by IWP",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "PIPE",
+          "info": "engineering hold list on isometrics and drawings",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "permit-to-work and isolation approvals for brownfield IWPs",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "subsystem priority and required turnover dates for IWP sequencing",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T170",
+      "name": "Raise and manage RFIs",
+      "phases": [
+        "CON"
+      ],
+      "system": "Procore",
+      "activity": "CON-01",
+      "description": "Raises requests for information against drawings and documents in Procore and tracks responses to closure.",
+      "produces": [
+        "CONS-I210"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "current IFC drawing and document revisions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PIPE",
+          "info": "RFI responses on piping (dimensions, supports, tie-ins)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CIVL",
+          "info": "RFI responses on foundations and steel",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "ELEC",
+          "info": "RFI responses on cable routing and terminations",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "RFI responses on installation and terminations",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T180",
+      "name": "Raise field change requests",
+      "phases": [
+        "CON"
+      ],
+      "system": "Procore",
+      "activity": "CON-01",
+      "description": "Proposes field changes where IFC design cannot be built or a better field solution exists, with cost and schedule impact.",
+      "produces": [
+        "CONS-I220",
+        "CONS-I230"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "RFI responses that change design",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PROJ",
+          "info": "change control procedure and approval thresholds",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "PIPE",
+          "info": "engineering disposition and revised drawings for field changes",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "owner approval of field changes affecting operability or scope",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T190",
+      "name": "Survey, set out and verify foundations",
+      "phases": [
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "CIV-02",
+      "description": "Sets out grid and foundations, checks anchor bolt and embedded item positions and records as-built elevations before steel and equipment setting.",
+      "produces": [
+        "CONS-I240"
+      ],
+      "needs": [
+        {
+          "from": "CIVL",
+          "info": "IFC foundation drawings, anchor bolt plans and setting-out coordinates",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "certified equipment GA drawings: base plate and anchor bolt pattern",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "site survey control points and benchmarks",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T200",
+      "name": "Request and receive materials from the warehouse",
+      "phases": [
+        "CON"
+      ],
+      "system": "Jovix",
+      "activity": "CON-02",
+      "description": "Raises material issue requests for released IWPs and reports shortages, damage and surplus found in the field.",
+      "produces": [
+        "CONS-I250",
+        "CONS-I260"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "released IWP bill of materials",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "Jovix stock and storage location by item code and heat number",
+          "method": "integrated",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T210",
+      "name": "Track installed quantities and progress",
+      "phases": [
+        "CON"
+      ],
+      "system": "iConstruct",
+      "activity": "CON-02",
+      "description": "Records installed quantities and IWP completion daily and rolls progress up to CWP and schedule.",
+      "produces": [
+        "CONS-I270"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "IWP scope and budget quantities",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "PROJ",
+          "info": "progress measurement rules of credit and WBS",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T220",
+      "name": "Track welds and NDE",
+      "phases": [
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PIP-04",
+      "description": "Maintains the weld log with welder IDs, NDE selection and results and repair rates by line and iso.",
+      "produces": [
+        "CONS-I280"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "IFC isometrics with weld numbers, line class, NDE percentage and PWHT requirements",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "material certificates and heat numbers for traceability",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T230",
+      "name": "Prepare and execute pressure test packs",
+      "phases": [
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PIP-04",
+      "description": "Assembles test packs (marked-up P&IDs and isos, test limits, blinds, test pressures) and runs and records hydro/pneumatic tests and reinstatement.",
+      "produces": [
+        "CONS-I290",
+        "CONS-I300"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "test package limits, test medium and test pressure by line (hydrotest list)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PIPE",
+          "info": "IFC isometrics",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PROC",
+          "info": "IFC P&IDs for marking test boundaries",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "weld log complete and NDE accepted for lines in the pack",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "subsystem boundaries so test packs align with subsystems",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "CONS-T240",
+      "name": "Complete construction ITRs (A sheets)",
+      "phases": [
+        "CON"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Completes and signs construction check sheets by tag in Smart Completions as installation is inspected.",
+      "produces": [
+        "CONS-I310"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "ITR assignment by tag and subsystem in Smart Completions",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "installation specifications and hook-up details",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "ELEC",
+          "info": "cable schedule and termination details",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "MECH",
+          "info": "equipment installation and alignment requirements; vendor installation manuals",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T250",
+      "name": "Clear construction punch items",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Works off punch items assigned to construction and records clearance in Smart Completions.",
+      "produces": [
+        "CONS-I320"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "punch list by subsystem with category and action-by",
+          "method": "integrated",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T260",
+      "name": "Prepare as-built redlines",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Procore",
+      "activity": "CON-01",
+      "description": "Marks field deviations on IFC drawings (P&IDs, isometrics, cable routes, foundations) and transmits redlines for as-built drafting.",
+      "produces": [
+        "CONS-I330"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "IFC drawing set from Document Locator",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "approved field changes and RFI responses",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "foundation survey as-built data",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T270",
+      "name": "Walk down and certify mechanical completion by subsystem",
+      "phases": [
+        "CON"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Walks down each subsystem with commissioning and owner, confirms A-ITRs complete and A punch cleared, and issues the MC certificate.",
+      "produces": [
+        "CONS-I340"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "subsystem boundaries and tag-to-subsystem register",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "punch list and ITR status by subsystem",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "pressure test and reinstatement records",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "owner walkdown participation and witness sign-off",
+          "method": "meeting",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "CONS-T280",
+      "name": "Compile construction quality dossier",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Document Locator",
+      "activity": "CON-02",
+      "description": "Collects weld, NDE, test, material traceability, calibration and inspection records per subsystem for the turnover package.",
+      "produces": [
+        "CONS-I350"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "weld log, NDE records, test pack records",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "material certificates and site receiving inspection reports",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "site installation and inspection records from vendor representatives",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "CONS-I010",
+      "name": "Constructability input register",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Constructability requirements and lessons learned: access widths, crane corridors, preferred spool sizes, shop vs field work, sequence constraints, site labour limits.",
+      "owner_task": "CONS-T010"
+    },
+    {
+      "id": "CONS-I020",
+      "name": "Site logistics and laydown plan",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Laydown and fabrication areas, temporary buildings, haul roads, construction gates, parking, temporary utility connection points.",
+      "owner_task": "CONS-T020"
+    },
+    {
+      "id": "CONS-I025",
+      "name": "Temporary facility and utility requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Temporary power demand, construction water, temporary building locations and loads, needed from civil, electrical and owner.",
+      "owner_task": "CONS-T020"
+    },
+    {
+      "id": "CONS-I030",
+      "name": "Modularisation and prefabrication decision",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Selected module/skid/pre-assembled rack scope, module boundaries, maximum module dimensions and weights, shop vs field fabrication split.",
+      "owner_task": "CONS-T030"
+    },
+    {
+      "id": "CONS-I040",
+      "name": "Heavy lift and crane plan",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Heavy lift list (item, weight, radius), crane selection, crane pad locations and loads, lift sequence and dates.",
+      "owner_task": "CONS-T040"
+    },
+    {
+      "id": "CONS-I045",
+      "name": "Lift and setting requirements to design",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Requirements returned to design: lifting and tailing lug type and position, crane pad bearing, keep-clear zones, late-set equipment, leave-outs in steel and piping.",
+      "owner_task": "CONS-T040"
+    },
+    {
+      "id": "CONS-I050",
+      "name": "Path of construction",
+      "system": "P6",
+      "form": "document",
+      "content": "Area sequence and logic from underground to commissioning, with target dates by area and system, used to set engineering and procurement priorities.",
+      "owner_task": "CONS-T050"
+    },
+    {
+      "id": "CONS-I060",
+      "name": "CWA boundaries",
+      "system": "iConstruct",
+      "form": "drawing",
+      "content": "CWA IDs, boundaries on the plot plan grid and area descriptions.",
+      "owner_task": "CONS-T060"
+    },
+    {
+      "id": "CONS-I070",
+      "name": "CWP breakdown and boundaries",
+      "system": "P6",
+      "form": "data",
+      "content": "CWP IDs, discipline, CWA, scope boundaries and budget quantities.",
+      "owner_task": "CONS-T070"
+    },
+    {
+      "id": "CONS-I080",
+      "name": "CWP sequence and EWP need dates",
+      "system": "P6",
+      "form": "data",
+      "content": "CWP start dates and the date each supporting EWP (IFC drawings and data) must be issued; sent to engineering and project controls.",
+      "owner_task": "CONS-T070"
+    },
+    {
+      "id": "CONS-I090",
+      "name": "CWP material required-on-site dates",
+      "system": "P6",
+      "form": "data",
+      "content": "Required-on-site (ROS) dates by CWP for equipment, bulks and fabricated spools and steel; sent to procurement.",
+      "owner_task": "CONS-T070"
+    },
+    {
+      "id": "CONS-I100",
+      "name": "Model review constructability comments",
+      "system": "iConstruct",
+      "form": "data",
+      "content": "Model review comments by object and area: access, rigging, scaffolding, spool breaks, weld access, clashes with temporary works, with action-by discipline.",
+      "owner_task": "CONS-T080"
+    },
+    {
+      "id": "CONS-I110",
+      "name": "Drawing constructability comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comment sheets on IFR drawings and specifications: installability, tolerances, sequence, field welds, tie-in access.",
+      "owner_task": "CONS-T090"
+    },
+    {
+      "id": "CONS-I120",
+      "name": "Construction execution plan",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Construction strategy, contracting split, organisation, work hours, temporary facilities, sequence and AWP approach.",
+      "owner_task": "CONS-T100"
+    },
+    {
+      "id": "CONS-I130",
+      "name": "Construction hours and indirects estimate input",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Direct field hours by discipline and CWA, crew sizes, construction equipment, scaffolding and indirect costs for the estimate.",
+      "owner_task": "CONS-T100"
+    },
+    {
+      "id": "CONS-I140",
+      "name": "Construction schedule by CWP",
+      "system": "P6",
+      "form": "data",
+      "content": "Resource-loaded level 3 CWP and IWP activities with logic links to EWP, material and subsystem turnover dates.",
+      "owner_task": "CONS-T110"
+    },
+    {
+      "id": "CONS-I150",
+      "name": "EWP-CWP alignment and gap report",
+      "system": "P6",
+      "form": "data",
+      "content": "Mapping of EWPs and POs to CWPs with forecast vs need dates and gaps flagged for engineering and procurement.",
+      "owner_task": "CONS-T120"
+    },
+    {
+      "id": "CONS-I160",
+      "name": "Construction model with CWP/IWP attributes",
+      "system": "iConstruct",
+      "form": "model",
+      "content": "Federated model with every object tagged with CWA, CWP, IWP and Jovix material status.",
+      "owner_task": "CONS-T130"
+    },
+    {
+      "id": "CONS-I170",
+      "name": "Installation work package (IWP)",
+      "system": "iConstruct",
+      "form": "document",
+      "content": "IWP scope, model views, drawing list and revisions, bill of materials, quantities, hours, safety and quality requirements.",
+      "owner_task": "CONS-T140"
+    },
+    {
+      "id": "CONS-I180",
+      "name": "IWP material shortage report",
+      "system": "iConstruct",
+      "form": "data",
+      "content": "IWP bill of materials vs Jovix availability: short items by item code, PO line and expected date.",
+      "owner_task": "CONS-T150"
+    },
+    {
+      "id": "CONS-I190",
+      "name": "IWP constraint log",
+      "system": "iConstruct",
+      "form": "data",
+      "content": "Open constraints by IWP: engineering hold, RFI, material, scaffolding, permit, predecessor; with owner and need date.",
+      "owner_task": "CONS-T160"
+    },
+    {
+      "id": "CONS-I200",
+      "name": "Released IWP backlog",
+      "system": "iConstruct",
+      "form": "data",
+      "content": "IWPs released to the field with planned start and crew, and backlog weeks by discipline.",
+      "owner_task": "CONS-T160"
+    },
+    {
+      "id": "CONS-I210",
+      "name": "Request for information (RFI)",
+      "system": "Procore",
+      "form": "document",
+      "content": "Question against a drawing or document revision with location, marked-up extract, required response date and response.",
+      "owner_task": "CONS-T170"
+    },
+    {
+      "id": "CONS-I220",
+      "name": "Field change request",
+      "system": "Procore",
+      "form": "document",
+      "content": "Proposed field change with reason, markups, affected drawings and tags, needing engineering disposition and owner approval.",
+      "owner_task": "CONS-T180"
+    },
+    {
+      "id": "CONS-I230",
+      "name": "Field change cost and schedule impact",
+      "system": "Procore",
+      "form": "data",
+      "content": "Hours, material and schedule impact of each field change, for change control.",
+      "owner_task": "CONS-T180"
+    },
+    {
+      "id": "CONS-I240",
+      "name": "Foundation and setting-out survey record",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "As-built foundation elevations, anchor bolt positions and deviations against IFC, accepted or non-conforming.",
+      "owner_task": "CONS-T190"
+    },
+    {
+      "id": "CONS-I250",
+      "name": "Material issue request",
+      "system": "Jovix",
+      "form": "data",
+      "content": "Pick list by IWP: item code, quantity, heat number, required date.",
+      "owner_task": "CONS-T200"
+    },
+    {
+      "id": "CONS-I260",
+      "name": "Field shortage, overage and damage report",
+      "system": "Jovix",
+      "form": "data",
+      "content": "Shortages, damaged items and surplus found at the work face, by item code and PO line.",
+      "owner_task": "CONS-T200"
+    },
+    {
+      "id": "CONS-I270",
+      "name": "Installed quantities and progress",
+      "system": "iConstruct",
+      "form": "data",
+      "content": "Installed quantities and percent complete by IWP, CWP and CWA, daily and weekly.",
+      "owner_task": "CONS-T210"
+    },
+    {
+      "id": "CONS-I280",
+      "name": "Weld log and NDE register",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Weld numbers by iso, welder ID, NDE type and result, repairs and PWHT records.",
+      "owner_task": "CONS-T220"
+    },
+    {
+      "id": "CONS-I290",
+      "name": "Pressure test pack",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Test limits on P&IDs and isos, line list, test pressure and medium, blinds and vents, punch before test.",
+      "owner_task": "CONS-T230"
+    },
+    {
+      "id": "CONS-I300",
+      "name": "Pressure test and reinstatement record",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Signed test record, gauge calibration, reinstatement checklist and test pack status (tested, reinstated).",
+      "owner_task": "CONS-T230"
+    },
+    {
+      "id": "CONS-I310",
+      "name": "Completed construction ITRs (A sheets)",
+      "system": "Smart Completions",
+      "form": "data",
+      "content": "Signed A-ITR records by tag with status in Smart Completions.",
+      "owner_task": "CONS-T240"
+    },
+    {
+      "id": "CONS-I320",
+      "name": "Construction punch clearance status",
+      "system": "Smart Completions",
+      "form": "data",
+      "content": "Punch items cleared by construction with date and evidence.",
+      "owner_task": "CONS-T250"
+    },
+    {
+      "id": "CONS-I330",
+      "name": "As-built redline markups",
+      "system": "Procore",
+      "form": "drawing",
+      "content": "Redlined P&IDs, isometrics, cable routes, foundation and layout drawings with field deviations, for as-built drafting by engineering.",
+      "owner_task": "CONS-T260"
+    },
+    {
+      "id": "CONS-I340",
+      "name": "Mechanical completion certificate",
+      "system": "Smart Completions",
+      "form": "decision",
+      "content": "Subsystem MC certificate signed by construction, commissioning and owner, with outstanding B punch attached.",
+      "owner_task": "CONS-T270"
+    },
+    {
+      "id": "CONS-I350",
+      "name": "Construction quality dossier",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Per subsystem: weld and NDE records, test records, material traceability, calibration and inspection reports.",
+      "owner_task": "CONS-T280"
+    }
+  ]
+}

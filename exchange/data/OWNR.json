@@ -1,0 +1,881 @@
+{
+  "discipline": "OWNR",
+  "tasks": [
+    {
+      "id": "OWNR-T010",
+      "name": "Define business case, capacity and product slate",
+      "phases": [
+        "FEL1"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-01",
+      "description": "Sets the business objective, nameplate capacity, product slate and economic hurdle rate that frame the project.",
+      "produces": [
+        "OWNR-I010",
+        "OWNR-I020"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "class 5 estimate (CAPEX range), economics model (NPV, IRR) for each capacity/product option",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PROC",
+          "info": "block flow diagram and preliminary yields by configuration option",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T020",
+      "name": "Supply crude assays and feed cases",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-02",
+      "description": "Provides the crude assay library and selects the design, check and turndown crude/blend cases.",
+      "produces": [
+        "OWNR-I030"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "assay characterisation gaps and requested additional assay cuts (TBP, sulfur, metals, acidity)",
+          "method": "manual",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T030",
+      "name": "Supply site and existing facility data",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-03",
+      "description": "Provides site survey control, historic geotechnical data, climatic data and as-built drawings and capacities of existing units, utilities and offsites.",
+      "produces": [
+        "OWNR-I040",
+        "OWNR-I050"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "engineering data request list with need dates",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "CIVL",
+          "info": "survey and geotechnical investigation scope requiring owner site access",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T040",
+      "name": "Issue owner standards and specifications",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-01",
+      "description": "Issues the owner engineering standards, the order of precedence against codes, and the approved vendor list.",
+      "produces": [
+        "OWNR-I060"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "list of project specifications and requested deviations from owner standards",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T050",
+      "name": "Define owner design basis requirements",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "States design life, on-stream factor, turndown, sparing philosophy, overdesign margins, utility conditions and environmental limits for the BOD.",
+      "produces": [
+        "OWNR-I070"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "draft basis of design for owner mark-up",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "SAFE",
+          "info": "environmental basis: emission and effluent limits from regulations",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "business case: capacity and product slate",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T060",
+      "name": "Set risk tolerance criteria",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Issues individual and societal risk criteria, the corporate risk matrix and LOPA target frequencies.",
+      "produces": [
+        "OWNR-I080"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "study basis for HAZID, siting and QRA requesting owner criteria",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T070",
+      "name": "Approve gate decisions",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-01",
+      "description": "Reviews the gate package and approves the select decision, entry to FEED and final investment decision.",
+      "produces": [
+        "OWNR-I090"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "gate review package: estimate class and accuracy, schedule, risk register, execution plan",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "alternatives evaluation and selected configuration with yields and utility demands",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZID and siting results with open risk items",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T080",
+      "name": "Act as permit applicant",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Submits environmental and construction permit applications as operator and passes permit conditions back to the project.",
+      "produces": [
+        "OWNR-I100"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "permit application package: emission inventory, effluent quality, noise, dispersion modelling",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "plot plan and stack heights/locations for the application",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T090",
+      "name": "Review and comment on deliverables",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-04",
+      "description": "Reviews IFR deliverables (P&IDs, datasheets, layouts, specifications) and returns comment sheets through Document Locator.",
+      "produces": [
+        "OWNR-I110"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Document Locator transmittals of IFR deliverables with review due dates",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "IFR P&IDs and process datasheets",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "IFR equipment datasheets and technical bid evaluations needing owner approval",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T100",
+      "name": "Provide operations and maintenance input",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "States operating, sampling, isolation and blinding, drainage, access and maintenance (removal, lifting, cleaning) requirements.",
+      "produces": [
+        "OWNR-I120"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "operating philosophy, PFDs and P&IDs at IFR",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "equipment list and maintenance-relevant features (bundle pulls, internals removal)",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T110",
+      "name": "Specify control and alarm management requirements",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-01",
+      "description": "Gives operator interface, alarm management, DCS/SIS platform and integration with existing plant control requirements.",
+      "produces": [
+        "OWNR-I130"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "ICS architecture and control philosophy draft",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "control narrative for key loops",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T120",
+      "name": "Review the 3D model for operability and maintenance",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "iConstruct",
+      "activity": "LAY-03",
+      "description": "Reviews the federated model with operators and maintainers for access, valve reach, maintenance clearances and escape routes.",
+      "produces": [
+        "OWNR-I140"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "S3D model at 30/60/90 % (via Navisworks), with valve operator and platform access",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Tekla platforms, ladders and stairs (via Navisworks)",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "operations and maintenance requirements used as review checklist",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T130",
+      "name": "Take part in HAZOP and accept actions",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-03",
+      "description": "Provides operations staff for HAZOP and LOPA, and approves action close-outs and residual risk.",
+      "produces": [
+        "OWNR-I150"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "HAZOP/LOPA worksheets, action list and proposed responses",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "P&IDs issued for HAZOP and operating procedures outline",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T140",
+      "name": "Provide tie-in and outage windows",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "P6",
+      "activity": "PRJ-05",
+      "description": "Sets turnaround and outage windows, live-plant constraints and isolation availability for tie-ins.",
+      "produces": [
+        "OWNR-I160"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "tie-in list: location, size, hot-tap vs shutdown, isolation requirements",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "path of construction and tie-in execution sequence",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T150",
+      "name": "Approve changes",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Approves change requests and field changes that alter scope, cost, schedule or operability.",
+      "produces": [
+        "OWNR-I170"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "change request with description, cost and schedule impact",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "field change requests with cost and schedule impact",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T160",
+      "name": "Define spare parts philosophy and approve spares",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Sets the spares philosophy (commissioning, capital, two-year operating) and approves spares from SPIRs.",
+      "produces": [
+        "OWNR-I180",
+        "OWNR-I190"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "SPIRs: part numbers, interchangeability, recommended quantities and prices",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "SPIR collection status and spares purchase options by PO",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T170",
+      "name": "Define CMMS asset data requirements",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Defines asset hierarchy, equipment classes, required attributes, criticality ranking and document links to be delivered at handover.",
+      "produces": [
+        "OWNR-I200"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "information handover specification and document numbering",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "SPF tag classes and attributes available from engineering systems",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T180",
+      "name": "Issue permits to work and isolations",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Issues permits to work, isolations and site access for construction and commissioning work in or near operating plant.",
+      "produces": [
+        "OWNR-I210"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "IWP scope, location, hazards and planned dates for brownfield work",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "isolation points from system boundary P&IDs",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T190",
+      "name": "Write operating procedures and train operators",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Writes normal, start-up, shutdown and emergency procedures and trains the operating crew.",
+      "produces": [
+        "OWNR-I220"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "operating manual, control narrative and operating envelopes",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "alarm and trip set points (C&E)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "vendor operating manuals for packages",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T200",
+      "name": "Witness and accept commissioning tests",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Witnesses MC walkdowns, loop checks, C&E tests and run-in, and signs acceptance.",
+      "produces": [
+        "OWNR-I230"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "test schedule, procedures and ITRs requiring owner witness",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "MC walkdown schedule",
+          "method": "meeting",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T210",
+      "name": "Accept system handover",
+      "phases": [
+        "COM"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Reviews turnover packages and accepts each system with an agreed retained punch list.",
+      "produces": [
+        "OWNR-I240"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "system turnover package, RFSU certificate and punch list",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "PROJ",
+          "info": "as-built drawing and data handover status",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T220",
+      "name": "Load asset register and CMMS",
+      "phases": [
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "CON-02",
+      "description": "Builds the asset register and loads CMMS master data from handover data, and returns gaps to the project.",
+      "produces": [
+        "OWNR-I250",
+        "OWNR-I260"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "data books, IOM manuals, certified datasheets and spare part lists",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PROJ",
+          "info": "tag register and attributes exported from SPF/engineering lists",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "approved operating spares list",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "OWNR-T230",
+      "name": "Accept final documentation",
+      "phases": [
+        "COM"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-03",
+      "description": "Checks final as-built documentation and data books against the handover specification and accepts or rejects them.",
+      "produces": [
+        "OWNR-I270"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "final as-built document set and data books transmitted through Document Locator",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "OWNR-I010",
+      "name": "Business case",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Project objective, nameplate capacity, economic hurdle rate, target start-up date and budget envelope.",
+      "owner_task": "OWNR-T010"
+    },
+    {
+      "id": "OWNR-I020",
+      "name": "Product slate and specifications",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Products with rates, quality specifications (sulfur, flash, distillation end points) and destinations.",
+      "owner_task": "OWNR-T010"
+    },
+    {
+      "id": "OWNR-I030",
+      "name": "Crude assays and feed cases",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Assay data (TBP, API, sulfur, metals, TAN) and design, check and turndown crude cases with rates.",
+      "owner_task": "OWNR-T020"
+    },
+    {
+      "id": "OWNR-I040",
+      "name": "Site conditions data",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Survey control and benchmarks, climatic design data, seismic zone, historic soil data and site access rules.",
+      "owner_task": "OWNR-T030"
+    },
+    {
+      "id": "OWNR-I050",
+      "name": "Existing facility and utility data",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "As-built drawings and available capacity of existing utilities, flare, tankage, interconnecting piping and electrical supply.",
+      "owner_task": "OWNR-T030"
+    },
+    {
+      "id": "OWNR-I060",
+      "name": "Owner standards and approved vendor list",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Owner engineering standards, order of precedence, allowed deviations, and approved vendor list by commodity.",
+      "owner_task": "OWNR-T040"
+    },
+    {
+      "id": "OWNR-I070",
+      "name": "Owner design basis requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Design life, on-stream factor, turndown, sparing, design margins, utility conditions, environmental limits and winterisation.",
+      "owner_task": "OWNR-T050"
+    },
+    {
+      "id": "OWNR-I080",
+      "name": "Risk tolerance criteria",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Risk matrix, individual and societal risk criteria and LOPA target frequencies.",
+      "owner_task": "OWNR-T060"
+    },
+    {
+      "id": "OWNR-I090",
+      "name": "Gate decision",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Approval to proceed, selected option and conditions from each gate review.",
+      "owner_task": "OWNR-T070"
+    },
+    {
+      "id": "OWNR-I100",
+      "name": "Permit approvals and conditions",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Issued permits with limits and conditions (emissions, discharges, noise, construction hours).",
+      "owner_task": "OWNR-T080"
+    },
+    {
+      "id": "OWNR-I110",
+      "name": "Owner comments on deliverables",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Owner comment sheets on IFR deliverables with code (approved, approved with comments, rejected).",
+      "owner_task": "OWNR-T090"
+    },
+    {
+      "id": "OWNR-I120",
+      "name": "Operations and maintenance requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Sampling, isolation and blinding, drains, access, lifting, bundle pull, cleaning and maintenance-free intervals.",
+      "owner_task": "OWNR-T100"
+    },
+    {
+      "id": "OWNR-I130",
+      "name": "Control and alarm management requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "DCS/SIS platform, operator interface standards, alarm philosophy and integration with existing control room.",
+      "owner_task": "OWNR-T110"
+    },
+    {
+      "id": "OWNR-I140",
+      "name": "Owner model review comments",
+      "system": "iConstruct",
+      "form": "data",
+      "content": "Model review comments by object/area on access, valve reach, maintenance clearance and escape, with action-by discipline.",
+      "owner_task": "OWNR-T120"
+    },
+    {
+      "id": "OWNR-I150",
+      "name": "HAZOP action acceptance",
+      "system": "PHA tool",
+      "form": "decision",
+      "content": "Owner approval of HAZOP/LOPA action responses and residual risk.",
+      "owner_task": "OWNR-T130"
+    },
+    {
+      "id": "OWNR-I160",
+      "name": "Tie-in and outage windows",
+      "system": "P6",
+      "form": "data",
+      "content": "Turnaround and outage dates, tie-ins allowed in each window, and live-plant work constraints.",
+      "owner_task": "OWNR-T140"
+    },
+    {
+      "id": "OWNR-I170",
+      "name": "Owner change approval",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Approve/reject decision on change requests and field changes, with conditions.",
+      "owner_task": "OWNR-T150"
+    },
+    {
+      "id": "OWNR-I180",
+      "name": "Spares philosophy",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Commissioning, capital and two-year operating spares policy, criticality rules and interchangeability targets.",
+      "owner_task": "OWNR-T160"
+    },
+    {
+      "id": "OWNR-I190",
+      "name": "Approved operating spares list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Approved operating and capital spares by tag and part number with quantities, for procurement.",
+      "owner_task": "OWNR-T160"
+    },
+    {
+      "id": "OWNR-I200",
+      "name": "CMMS asset data requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Asset hierarchy, equipment classes, required attributes per class, criticality and document link rules.",
+      "owner_task": "OWNR-T170"
+    },
+    {
+      "id": "OWNR-I210",
+      "name": "Permit to work and isolation authorisation",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Issued permits to work, isolation certificates and site access for a work scope and date.",
+      "owner_task": "OWNR-T180"
+    },
+    {
+      "id": "OWNR-I220",
+      "name": "Operating procedures",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Normal, start-up, shutdown and emergency operating procedures by system.",
+      "owner_task": "OWNR-T190"
+    },
+    {
+      "id": "OWNR-I230",
+      "name": "Owner test witness acceptance",
+      "system": "Smart Completions",
+      "form": "decision",
+      "content": "Owner signatures on witnessed walkdowns, loop checks, C&E tests and run-in.",
+      "owner_task": "OWNR-T200"
+    },
+    {
+      "id": "OWNR-I240",
+      "name": "Handover acceptance",
+      "system": "Smart Completions",
+      "form": "decision",
+      "content": "Owner acceptance of a system with the agreed retained punch list and open-item dates.",
+      "owner_task": "OWNR-T210"
+    },
+    {
+      "id": "OWNR-I250",
+      "name": "CMMS master data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Asset register loaded: functional locations, equipment records, attributes, BOMs and maintenance plans.",
+      "owner_task": "OWNR-T220"
+    },
+    {
+      "id": "OWNR-I260",
+      "name": "CMMS data gap list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Missing or inconsistent asset data by tag and attribute, returned to the project for correction.",
+      "owner_task": "OWNR-T220"
+    },
+    {
+      "id": "OWNR-I270",
+      "name": "Final documentation acceptance and deficiency list",
+      "system": "Document Locator",
+      "form": "decision",
+      "content": "Acceptance of as-built documents and data books, or deficiency list by document.",
+      "owner_task": "OWNR-T230"
+    }
+  ]
+}
