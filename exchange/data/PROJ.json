@@ -1,0 +1,1437 @@
+{
+  "discipline": "PROJ",
+  "tasks": [
+    {
+      "id": "PROJ-T010",
+      "name": "Prepare the project execution plan",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Write and update the execution plan: scope, organisation, phase plan, work split, gate criteria and key procedures.",
+      "produces": [
+        "PROJ-I010"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Business case, capacity, product slate, target start-up date, funding gates and owner organisation and approval roles",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "Owner project standards and procedures list (document, cost, schedule, HSE reporting requirements)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "Construction strategy: direct hire vs subcontract, modularisation intent, site access and workforce assumptions",
+          "method": "meeting",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T020",
+      "name": "Develop the contracting and procurement strategy",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Define contract packages, procurement packages, split of owner-furnished and contractor-furnished items and the long-lead strategy.",
+      "produces": [
+        "PROJ-I020"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Preliminary equipment list with equipment types, counts and package boundaries",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Long-lead and critical equipment identification (heaters, columns, compressors, large exchangers) with indicative lead times",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "SCM",
+          "info": "Market lead times, vendor capacity and approved vendor coverage per commodity",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "Construction contract packages (civil, mechanical, E&I) and module/pre-assembly split",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T030",
+      "name": "Set up the WBS, cost codes and P6 project structure",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "P6",
+      "activity": "PRJ-05",
+      "description": "Build the work breakdown structure, area and unit codes, cost codes and P6 calendars and activity codes used by all disciplines.",
+      "produces": [
+        "PROJ-I030"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Plot plan areas and unit boundaries for area codes",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "Construction work area (CWA) breakdown for AWP",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "Owner cost reporting structure and AFE/capital codes",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T040",
+      "name": "Set up document numbering and the Document Locator project",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-03",
+      "description": "Issue the numbering procedure, document type and discipline codes, folder structure, workflows and distribution matrix in Document Locator.",
+      "produces": [
+        "PROJ-I040",
+        "PROJ-I050"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Owner document numbering standard, revision conventions and required metadata for handover",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "WBS area and unit codes (PROJ-T030)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T050",
+      "name": "Compile and maintain the deliverables register",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-03",
+      "description": "Collect each discipline's deliverables list, assign document numbers and keep the register with planned and actual issue dates and revisions.",
+      "produces": [
+        "PROJ-I060",
+        "PROJ-I070"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Process deliverables list: titles, document types, quantity of sheets, planned IFR/IFD/IFC dates",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Safety study deliverables list with planned workshop and report dates",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Mechanical deliverables list: datasheets, calculations, requisitions per equipment item",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping deliverables list including isometric counts by area and drawing types",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Civil/structural deliverables list: foundations, steel, buildings drawings per area",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Instrumentation deliverables list: index, datasheets, loops, C&E, layouts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "Electrical deliverables list: SLDs, studies, cable schedule, layouts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Document numbering procedure and codes (PROJ-T040)",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T060",
+      "name": "Prepare the Class 5 estimate",
+      "phases": [
+        "FEL1"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-04",
+      "description": "Build the capacity-factored or curve-based order-of-magnitude estimate for the business case.",
+      "produces": [
+        "PROJ-I090"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Capacity, product slate, site location and economic assumptions (escalation, currency)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PROC",
+          "info": "Block flow diagram with unit capacities and configuration option",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PROJ",
+          "info": "Historical cost data and capacity factors from reference projects",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T070",
+      "name": "Issue estimate quantity requests to disciplines",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "CST-01",
+      "description": "Send each discipline the quantity take-off template, basis and due dates for the estimate.",
+      "produces": [
+        "PROJ-I080"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Estimate basis: estimate class, accuracy, codes and cut-off date (PROJ-T030)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T080",
+      "name": "Prepare the Class 4 estimate",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "CST-01",
+      "description": "Equipment-factored estimate from the equipment list, budget quotes and factored bulks.",
+      "produces": [
+        "PROJ-I100"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Equipment list with type, size, design P/T, material and duty for each item",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Equipment weights and material class for pricing; budget pricing requests issued",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "VEND",
+          "info": "Budget quotations for major equipment: price, delivery, scope inclusions",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PIPE",
+          "info": "Factored piping quantities by area (tonnage or length by size range)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "CIVL",
+          "info": "Site preparation, earthwork and foundation allowances; building sizes",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "ELEC",
+          "info": "Electrical load summary and main equipment (transformers, switchgear) count",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "INST",
+          "info": "Instrument count by type and control system I/O estimate",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "CONS",
+          "info": "Labour rates, productivity factors and indirects",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T090",
+      "name": "Prepare the Class 3 estimate",
+      "phases": [
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "CST-02",
+      "description": "Semi-detailed estimate from vendor quotes and discipline MTOs priced with unit rates.",
+      "produces": [
+        "PROJ-I110"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "Firm or budget bid prices for major equipment and packages from bid tabulations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping MTO by commodity code and size: pipe length, fittings, valves, supports, estimated weld count",
+          "method": "file",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Concrete volumes, piling counts, structural steel tonnage, building areas",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "Cable lengths by type, raceway quantities, electrical equipment list",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Instrument index counts by type, cable quantities, control system I/O count",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "Construction labour hours, indirects, temporary facilities and heavy lift costs",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire protection systems and environmental mitigation scope",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T100",
+      "name": "Prepare the control estimate and budget",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "CST-03",
+      "description": "Re-base the approved estimate into the control budget by WBS and cost code for cost tracking.",
+      "produces": [
+        "PROJ-I120"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Approved Class 3 estimate and gate approval (PROJ-T090, PROJ-T170)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "Committed PO values by package from award",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "Approved AFE value and contingency release rules",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T110",
+      "name": "Build and baseline the integrated schedule in P6",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "P6",
+      "activity": "PRJ-05",
+      "description": "Build the level 2/3 schedule linking engineering, procurement, construction and commissioning and set the baseline.",
+      "produces": [
+        "PROJ-I130",
+        "PROJ-I140",
+        "PROJ-I150"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Deliverables register with document numbers and types (PROJ-T050)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Procurement schedule per MR: RFQ, bid, award, vendor data and delivery durations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "Path of construction, CWP sequence and durations",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "COMM",
+          "info": "System completion and startup sequence with priority systems",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Vendor data needs: which vendor data gates which engineering deliverables",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T120",
+      "name": "Integrate procurement and vendor dates into the schedule",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "P6",
+      "activity": "PRJ-05",
+      "description": "Update P6 with PO award dates, vendor drawing return dates and forecast delivery dates from the Purchasing DB.",
+      "produces": [
+        "PROJ-I160"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "PO award dates and contractual delivery dates per PO line",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "Expediting forecast delivery and ex-works dates per PO line",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Vendor print status: due and received dates for vendor drawings per VDRL item",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T130",
+      "name": "Measure engineering progress",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "P6",
+      "activity": "PRJ-05",
+      "description": "Collect deliverable progress by rules of credit, compute earned value and update P6.",
+      "produces": [
+        "PROJ-I170"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Deliverables register with actual issue dates and revision status (PROJ-T050)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Percent complete per process deliverable against step rules",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "Model progress and isometric counts issued vs planned",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Datasheet and requisition progress",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Instrument datasheet and loop diagram completion counts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "Electrical deliverable completion counts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Foundation and steel drawing completion counts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Safety study completion and action close-out counts",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T140",
+      "name": "Update the schedule and analyse the critical path",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "P6",
+      "activity": "PRJ-05",
+      "description": "Statusing, critical path and float analysis, look-ahead and recovery proposals.",
+      "produces": [
+        "PROJ-I180"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Engineering progress and earned value (PROJ-T130)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "Procurement and vendor forecast dates (PROJ-T120)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "Construction progress: installed quantities by CWP and look-ahead",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "COMM",
+          "info": "ITR completion and system turnover progress",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T150",
+      "name": "Track cost and forecast at completion",
+      "phases": [
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "CST-03",
+      "description": "Track commitments, actuals and forecasts against the control budget and issue the cost report.",
+      "produces": [
+        "PROJ-I190"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "Committed cost per PO and PO amendment with cost codes",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "Actual invoices paid from owner finance system",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "Field labour hours and subcontract progress claims",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "Approved change orders and trends (PROJ-T160)",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T160",
+      "name": "Run change control: trends and change notices",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Log trends raised by any discipline, estimate cost and schedule impact, and take change notices to approval.",
+      "produces": [
+        "PROJ-I200",
+        "PROJ-I210"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Scope or design basis changes with description and affected deliverables",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Equipment changes and vendor price/schedule impacts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "Rework estimates (isometrics, model) from design changes",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "Field changes and RFIs with cost and schedule impact",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Vendor change order prices and delivery impact",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Owner-requested scope changes and change approvals",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T170",
+      "name": "Prepare gate review packages and record gate decisions",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Document Locator",
+      "activity": "SEL-01",
+      "description": "Assemble the deliverables, estimate, schedule and risk for each gate and record the owner's decision.",
+      "produces": [
+        "PROJ-I220",
+        "PROJ-I230"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Design basis, PFDs, H&MB and process design report at gate maturity",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZID/HAZOP reports, siting study and open safety actions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "Estimate of current class, schedule and risk register (PROJ-T080/T090, T110, T180)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Gate criteria and decision",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T180",
+      "name": "Maintain the risk register and contingency analysis",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Run risk workshops, maintain the register and run cost and schedule risk analysis to set contingency.",
+      "produces": [
+        "PROJ-I240",
+        "PROJ-I250"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Technical risks: feed variability, technology, design basis uncertainty",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "HSE and permitting risks and their schedule exposure",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "SCM",
+          "info": "Supply chain risks: lead time, single source, logistics and tariff risk",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "Construction risks: weather, productivity, labour availability",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Estimate and schedule (PROJ-T090, PROJ-T110)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T190",
+      "name": "Run interface management",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Keep the interface register between disciplines, contractors, vendors and owner and chase interface agreements to closure.",
+      "produces": [
+        "PROJ-I260",
+        "PROJ-I270"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Tie-in list and battery-limit interface points with existing facilities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Existing facility data and owner interface contacts; operating constraints at tie-ins",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "Package battery-limit interface data (nozzles, terminal points, utilities)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "Contractor interface points between construction packages",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T200",
+      "name": "Issue documents by transmittal",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-03",
+      "description": "Check issued documents for numbering and metadata and transmit them to owner, vendors and construction per the distribution matrix.",
+      "produces": [
+        "PROJ-I280"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Documents released for issue with revision and issue purpose",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Documents released for issue with revision and issue purpose",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "Isometrics and drawings released for issue with revision and issue purpose",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Documents released for issue with revision and issue purpose",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "Documents released for issue with revision and issue purpose",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Documents released for issue with revision and issue purpose",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Distribution matrix (PROJ-T040)",
+          "method": "integrated",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T210",
+      "name": "Run review cycles and consolidate comments",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-03",
+      "description": "Route documents for owner and inter-discipline review, collect and consolidate comments and return them with review status.",
+      "produces": [
+        "PROJ-I290",
+        "PROJ-I300"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Owner review comments and approval code per document",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Safety review comments on P&IDs, layouts and specifications",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "CONS",
+          "info": "Constructability review comments",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Transmittals issued with review due dates (PROJ-T200)",
+          "method": "integrated",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T220",
+      "name": "Maintain the hold list",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-03",
+      "description": "Track holds on drawings and documents with their cause, owner and target release date.",
+      "produces": [
+        "PROJ-I310"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Holds on isometrics and layouts with reason (vendor data, stress, HAZOP)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Holds on foundation drawings awaiting certified vendor loads",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Vendor data outstanding that holds downstream drawings",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Holds on loops and datasheets awaiting vendor data",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SCM",
+          "info": "Vendor print status: overdue vendor documents",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T230",
+      "name": "Track IFC issue and PE seal status",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-04",
+      "description": "Confirm each document is checked, approved and sealed before IFC release and record the seal status.",
+      "produces": [
+        "PROJ-I320"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Engineer of record approval and seal for IFC documents",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "CIVL",
+          "info": "Sealed foundation and structural drawings",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "ELEC",
+          "info": "Sealed electrical drawings",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "PROJ",
+          "info": "Hold list status cleared (PROJ-T220)",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T240",
+      "name": "Prepare monthly progress reports",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Compile progress, cost, schedule, change, risk, procurement and HSE status into the owner report.",
+      "produces": [
+        "PROJ-I330"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "Schedule update, cost report, change and risk registers (PROJ-T140, T150, T160, T180)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Procurement status report: MRs, POs placed, expediting exceptions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "Construction progress and HSE statistics",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "COMM",
+          "info": "Completions progress: ITRs, punch, systems turned over",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T250",
+      "name": "Load construction progress into P6",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "P6",
+      "activity": "CON-02",
+      "description": "Load installed quantities and CWP/IWP completion from the field into P6 for earned value.",
+      "produces": [
+        "PROJ-I340"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "Installed quantities by CWP/IWP and commodity from field progress tracking",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Material availability status per IWP from Jovix",
+          "method": "integrated",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROJ-T260",
+      "name": "Compile the final records and close out",
+      "phases": [
+        "COM"
+      ],
+      "system": "Document Locator",
+      "activity": "PRJ-03",
+      "description": "Assemble as-built documents, vendor data books and the final records index for handover to the owner and close the project.",
+      "produces": [
+        "PROJ-I350",
+        "PROJ-I360"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "As-built redlines incorporated and as-built drawing list",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "Final MDR/data books per PO",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "Turnover packages and handover certificates",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "PO close-out status and spare parts handover",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "Handover acceptance and records format requirements",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "PROJ-I010",
+      "name": "Project execution plan",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Scope, organisation, phase plan, work split, gate criteria, key procedures, reporting requirements.",
+      "owner_task": "PROJ-T010"
+    },
+    {
+      "id": "PROJ-I020",
+      "name": "Contracting and procurement strategy",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Contract packages, procurement packages, owner/contractor-furnished split, long-lead items to commit early, approved commercial terms.",
+      "owner_task": "PROJ-T020"
+    },
+    {
+      "id": "PROJ-I030",
+      "name": "WBS, area codes and cost codes",
+      "system": "P6",
+      "form": "data",
+      "content": "WBS levels, area and unit codes, cost codes, P6 activity codes and calendars.",
+      "owner_task": "PROJ-T030"
+    },
+    {
+      "id": "PROJ-I040",
+      "name": "Document numbering procedure and codes",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Numbering format, discipline, document type and area codes, revision and issue-purpose conventions, required metadata.",
+      "owner_task": "PROJ-T040"
+    },
+    {
+      "id": "PROJ-I050",
+      "name": "Document Locator structure and distribution matrix",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Folder structure, review workflows, distribution matrix by document type and recipient (owner, vendor, construction).",
+      "owner_task": "PROJ-T040"
+    },
+    {
+      "id": "PROJ-I060",
+      "name": "Deliverables register",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Document number, title, discipline, type, planned and actual IFR/IFD/IFC dates, current revision and status.",
+      "owner_task": "PROJ-T050"
+    },
+    {
+      "id": "PROJ-I070",
+      "name": "Assigned document numbers",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Document numbers reserved for each discipline's new deliverables, including vendor document numbers per PO.",
+      "owner_task": "PROJ-T050"
+    },
+    {
+      "id": "PROJ-I080",
+      "name": "Estimate quantity request",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Quantity take-off template per discipline, estimate class, basis, code of accounts and due date.",
+      "owner_task": "PROJ-T070"
+    },
+    {
+      "id": "PROJ-I090",
+      "name": "Class 5 estimate",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Order-of-magnitude capital cost by unit, accuracy range, basis and exclusions.",
+      "owner_task": "PROJ-T060"
+    },
+    {
+      "id": "PROJ-I100",
+      "name": "Class 4 estimate",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Equipment-factored cost by area and code of accounts, contingency, basis of estimate.",
+      "owner_task": "PROJ-T080"
+    },
+    {
+      "id": "PROJ-I110",
+      "name": "Class 3 estimate",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Detailed cost by WBS and commodity, unit rates, labour hours, indirects, contingency, basis of estimate.",
+      "owner_task": "PROJ-T090"
+    },
+    {
+      "id": "PROJ-I120",
+      "name": "Control budget",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Budget by WBS and cost code, contingency and management reserve.",
+      "owner_task": "PROJ-T100"
+    },
+    {
+      "id": "PROJ-I130",
+      "name": "Baseline integrated schedule",
+      "system": "P6",
+      "form": "data",
+      "content": "Level 2/3 activities, logic, durations and baseline dates for engineering, procurement, construction and commissioning.",
+      "owner_task": "PROJ-T110"
+    },
+    {
+      "id": "PROJ-I140",
+      "name": "Deliverable schedule dates",
+      "system": "P6",
+      "form": "data",
+      "content": "Planned IFR/IFD/IFC dates per deliverable sent to each discipline lead.",
+      "owner_task": "PROJ-T110"
+    },
+    {
+      "id": "PROJ-I150",
+      "name": "Required-on-site and need dates per MR",
+      "system": "P6",
+      "form": "data",
+      "content": "Required-on-site (ROS) date per MR and equipment tag, MR issue need date, PO award need date.",
+      "owner_task": "PROJ-T110"
+    },
+    {
+      "id": "PROJ-I160",
+      "name": "Procurement and vendor dates in P6",
+      "system": "P6",
+      "form": "data",
+      "content": "PO award, vendor data return and forecast delivery dates linked to engineering and construction activities.",
+      "owner_task": "PROJ-T120"
+    },
+    {
+      "id": "PROJ-I170",
+      "name": "Engineering progress and earned value",
+      "system": "P6",
+      "form": "data",
+      "content": "Percent complete per deliverable and discipline, earned hours, SPI/CPI.",
+      "owner_task": "PROJ-T130"
+    },
+    {
+      "id": "PROJ-I180",
+      "name": "Schedule update and critical path report",
+      "system": "P6",
+      "form": "document",
+      "content": "Updated dates, critical and near-critical paths, float, look-ahead and recovery actions.",
+      "owner_task": "PROJ-T140"
+    },
+    {
+      "id": "PROJ-I190",
+      "name": "Cost report and forecast",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Budget, commitments, actuals, estimate to complete and forecast at completion by WBS.",
+      "owner_task": "PROJ-T150"
+    },
+    {
+      "id": "PROJ-I200",
+      "name": "Trend register",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Trend number, description, originator, rough cost and schedule impact, status.",
+      "owner_task": "PROJ-T160"
+    },
+    {
+      "id": "PROJ-I210",
+      "name": "Approved change notice",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Change number, scope description, affected deliverables and POs, approved cost and schedule adjustment.",
+      "owner_task": "PROJ-T160"
+    },
+    {
+      "id": "PROJ-I220",
+      "name": "Gate review package",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Deliverables, estimate, schedule, risk and readiness checklist for the gate.",
+      "owner_task": "PROJ-T170"
+    },
+    {
+      "id": "PROJ-I230",
+      "name": "Gate decision",
+      "system": "Document Locator",
+      "form": "decision",
+      "content": "Owner decision to proceed, recycle or stop, with conditions and actions.",
+      "owner_task": "PROJ-T170"
+    },
+    {
+      "id": "PROJ-I240",
+      "name": "Risk register",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Risk ID, description, owner, probability, impact, mitigation and status.",
+      "owner_task": "PROJ-T180"
+    },
+    {
+      "id": "PROJ-I250",
+      "name": "Contingency analysis result",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "P50/P90 cost and schedule results, recommended contingency and drivers.",
+      "owner_task": "PROJ-T180"
+    },
+    {
+      "id": "PROJ-I260",
+      "name": "Interface register",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Interface ID, parties, description, required date, status and agreement reference.",
+      "owner_task": "PROJ-T190"
+    },
+    {
+      "id": "PROJ-I270",
+      "name": "Interface query and agreement",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Request for interface data and the agreed response (terminal point, design values, responsibility).",
+      "owner_task": "PROJ-T190"
+    },
+    {
+      "id": "PROJ-I280",
+      "name": "Transmittal",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Transmittal number, recipient, documents and revisions, issue purpose, review due date.",
+      "owner_task": "PROJ-T200"
+    },
+    {
+      "id": "PROJ-I290",
+      "name": "Consolidated comment sheet",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comments from all reviewers per document with commenter, reply and close-out.",
+      "owner_task": "PROJ-T210"
+    },
+    {
+      "id": "PROJ-I300",
+      "name": "Document review status",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Review code per document revision (approved, approved with comments, rejected) and return date.",
+      "owner_task": "PROJ-T210"
+    },
+    {
+      "id": "PROJ-I310",
+      "name": "Hold list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Hold number, document, cause, responsible party, required information and target release date.",
+      "owner_task": "PROJ-T220"
+    },
+    {
+      "id": "PROJ-I320",
+      "name": "IFC release and seal record",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Document, revision, checker, approver, seal holder and IFC release date.",
+      "owner_task": "PROJ-T230"
+    },
+    {
+      "id": "PROJ-I330",
+      "name": "Monthly progress report",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Progress, cost, schedule, changes, risks, procurement and HSE status for the owner.",
+      "owner_task": "PROJ-T240"
+    },
+    {
+      "id": "PROJ-I340",
+      "name": "Construction progress in P6",
+      "system": "P6",
+      "form": "data",
+      "content": "Installed quantities and percent complete per CWP/IWP, earned hours.",
+      "owner_task": "PROJ-T250"
+    },
+    {
+      "id": "PROJ-I350",
+      "name": "Final records index",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Final as-built document list, vendor data books and turnover records with locations for owner handover.",
+      "owner_task": "PROJ-T260"
+    },
+    {
+      "id": "PROJ-I360",
+      "name": "Project close-out report",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Final cost, schedule, lessons learned and open items at close.",
+      "owner_task": "PROJ-T260"
+    }
+  ]
+}
