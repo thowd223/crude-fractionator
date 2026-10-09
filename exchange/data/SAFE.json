@@ -14,22 +14,40 @@
       "produces": [
         "SAFE-I010"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "Candidate site locations, existing facility permits (Title V, NPDES), existing emission caps and netting history",
+          "item": "OWNR-I050",
+          "use": "existing permits, emission caps and netting history, existing source baseline",
           "method": "review",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "Site survey and topography, floodplain and wetland delineation, drainage outfalls",
+          "item": "OWNR-I100",
+          "use": "existing permit limits and conditions (Title V, NPDES)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I040",
+          "use": "candidate site location and access rules",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I010",
+          "use": "per site topography, flood elevation and relocation needs; wetland/floodplain screening",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "PROJ",
-          "info": "Project schedule milestones driving permit lead times",
+          "item": "CIVL-I040",
+          "use": "existing ground levels, outfalls, existing roads and buildings",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "PROJ-I130",
+          "use": "permit-related milestones and construction start date",
           "method": "review",
           "level": 1
         }
@@ -48,28 +66,46 @@
       "produces": [
         "SAFE-I015"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Block flow options with major inventories, fluid compositions (H2S, light ends), operating P/T per option",
+          "item": "PROC-I040",
+          "use": "block flow options with major streams and capacities",
           "method": "review",
           "level": 1
         },
         {
-          "from": "PROC",
-          "info": "Preliminary utility and fuel demand per option (fired duty, flare, steam)",
+          "item": "PROC-I060",
+          "use": "per option H&MB, major equipment duties and inventories",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "PROC-I030",
+          "use": "per option fuel, power demand and CO2 estimate",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "Business case, capacity, product slate and corporate risk tolerance",
+          "item": "OWNR-I010",
+          "use": "capacity and project objective",
           "method": "review",
           "level": 1
         },
         {
-          "from": "SAFE",
-          "info": "Environmental constraints register",
+          "item": "OWNR-I020",
+          "use": "product slate",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "OWNR-I080",
+          "use": "corporate risk matrix and tolerance",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I010",
+          "use": "attainment status, receptors and permit triggers",
           "method": "manual",
           "level": 1
         }
@@ -89,28 +125,40 @@
         "SAFE-I020",
         "SAFE-I022"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Block flow diagram and preliminary PFDs with major equipment, fluids, inventories",
+          "item": "PROC-I040",
+          "use": "blocks, main streams and capacities",
           "method": "review",
           "level": 1
         },
         {
-          "from": "PIPE",
-          "info": "Preliminary plot plan with equipment blocks, buildings, neighbours and access",
+          "item": "PROC-I120",
+          "use": "major equipment, fluids and main control loops",
           "method": "review",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "Operations input, site incident history, owner HAZID guideword set and risk matrix",
+          "item": "PIPE-I010",
+          "use": "block footprints, flare location, tank farm, roads and neighbours",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "OWNR-I080",
+          "use": "owner risk matrix for ranking",
           "method": "meeting",
           "level": 1
         },
         {
-          "from": "SAFE",
-          "info": "Environmental constraints register",
+          "item": "OWNR-I120",
+          "use": "operations and maintenance requirements and input",
+          "method": "meeting",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I010",
+          "use": "environmental aspects and constraints for ENVID",
           "method": "review",
           "level": 1
         }
@@ -128,22 +176,34 @@
       "produces": [
         "SAFE-I030"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "Geotechnical desk study, seismic zone, flood elevation, access roads for candidate sites",
+          "item": "CIVL-I010",
+          "use": "topography, flood elevation, access routes per candidate site",
           "method": "review",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "Candidate sites, land boundaries, neighbouring facilities and population",
+          "item": "CIVL-I030",
+          "use": "seismic parameters, wind and flood level",
           "method": "review",
           "level": 1
         },
         {
-          "from": "SAFE",
-          "info": "Environmental constraints register and option screening ranking",
+          "item": "OWNR-I040",
+          "use": "candidate site data, climatic data and access rules",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I010",
+          "use": "receptors and permit constraints per site",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I015",
+          "use": "option SHE ranking",
           "method": "manual",
           "level": 1
         }
@@ -162,28 +222,40 @@
       "produces": [
         "SAFE-I035"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Stream compositions, phase, operating P/T and H2S/benzene content from H&MB",
+          "item": "PROC-I110",
+          "use": "stream composition, phase, P, T, H2S and benzene content",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "Equipment holdup volumes and operating inventories",
+          "item": "PROC-I285",
+          "use": "composition, inventory, flash point, MW and toxic content per isolatable section",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "Chemical and catalyst list for packages (amines, caustic, inhibitors) with SDS",
+          "item": "PROC-I140",
+          "use": "vessel and column liquid levels and dimensions for holdup inventories",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROC-I275",
+          "use": "chemicals and catalysts with hazard class and first-fill/storage quantities",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "Crude assay sulfur, H2S and mercaptan content and product specifications",
+          "item": "OWNR-I030",
+          "use": "crude sulfur content and assay data for H2S/mercaptan potential",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I020",
+          "use": "product specifications",
           "method": "manual",
           "level": 2
         }
@@ -202,22 +274,40 @@
       "produces": [
         "SAFE-I040"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "Owner SHE standards, risk matrix, individual/societal risk criteria, building occupancy rules",
+          "item": "OWNR-I060",
+          "use": "owner SHE standards and order of precedence",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "Design basis memorandum structure, codes and standards list",
+          "item": "OWNR-I080",
+          "use": "risk matrix, individual/societal risk criteria",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "HAZID actions list and environmental constraints register",
+          "item": "OWNR-I070",
+          "use": "environmental limits",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I010",
+          "use": "codes and standards and design basis structure in execution plan",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I022",
+          "use": "HAZID actions affecting design basis",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I010",
+          "use": "environmental limits and permit triggers",
           "method": "manual",
           "level": 1
         }
@@ -236,22 +326,28 @@
       "produces": [
         "SAFE-I045"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "SHE design basis",
+          "item": "SAFE-I040",
+          "use": "codes, design fire loads, F&G targets, fire water basis",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "Owner fire protection standards, insurer (FM/property) requirements, local fire department capabilities",
+          "item": "OWNR-I060",
+          "use": "owner fire protection and insurer standards",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "Control and safety system architecture concept (F&G in SIS or separate)",
+          "item": "OWNR-I050",
+          "use": "existing fire water system capacity",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "INST-I010",
+          "use": "DCS/SIS/F&G split and F&G system concept",
           "method": "review",
           "level": 1
         }
@@ -269,28 +365,40 @@
       "produces": [
         "SAFE-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Representative release streams: composition, P/T, flow and inventory per isolatable section",
+          "item": "PROC-I285",
+          "use": "release streams: composition, P, T, phase, inventory per isolatable section",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "PIPE",
-          "info": "Preliminary plot plan with equipment and building coordinates",
+          "item": "PIPE-I010",
+          "use": "block layout options",
           "method": "review",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "Site meteorological data (wind rose, stability, temperature, humidity)",
+          "item": "PIPE-I040",
+          "use": "equipment and building locations to grid",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "OWNR-I040",
+          "use": "climatic design data (wind, temperature, humidity)",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "SAFE",
-          "info": "Hazardous materials inventory and properties",
+          "item": "CIVL-I030",
+          "use": "wind speed and ambient design data",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I035",
+          "use": "flammability and toxicity properties",
           "method": "manual",
           "level": 2
         }
@@ -311,28 +419,52 @@
         "SAFE-I060",
         "SAFE-I062"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Fired duties, fuel gas composition, flare purge/pilot and continuous flaring rates, vent streams",
+          "item": "PROC-I280",
+          "use": "CO2/NOx/SOx/VOC per point source, flare and vent streams; fugitive emissions basis and component service counts",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "Heater burner NOx/CO guarantees, tank types, sizes, seals and throughputs",
+          "item": "PROC-I177",
+          "use": "fired duty, fuel composition and emission limits",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "Component counts by stream service for fugitives (from P&IDs/line list)",
+          "item": "PROC-I271",
+          "use": "fuel gas balance and flare purge/pilot use",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "Annual operating hours, throughput and existing source baseline",
+          "item": "MECH-I110",
+          "use": "burner type, NOx guarantee, stack height",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I150",
+          "use": "tank roof type, seals, size",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROC-I171",
+          "use": "tank throughput, vapour pressure and breathing data",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I010",
+          "use": "annual throughput and operating basis",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I050",
+          "use": "existing source baseline",
           "method": "review",
           "level": 2
         }
@@ -352,23 +484,35 @@
         "SAFE-I070",
         "SAFE-I072"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "Emissions inventory and emission control requirements",
+          "item": "SAFE-I060",
+          "use": "PTE per source and stack parameters",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Plot plan with stack coordinates and building dimensions for downwash",
+          "item": "SAFE-I062",
+          "use": "BACT/NSPS/NESHAP requirements",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Permit strategy approval, signatory and agency pre-application meeting outcomes",
-          "method": "meeting",
+          "item": "PIPE-I040",
+          "use": "building and stack locations for downwash",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I050",
+          "use": "stack coordinates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I110",
+          "use": "stack height",
+          "method": "manual",
           "level": 3
         }
       ]
@@ -387,22 +531,34 @@
         "SAFE-I080",
         "SAFE-I082"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Wastewater streams: flow, temperature, oil, sulfide, phenol, ammonia content",
+          "item": "PROC-I280",
+          "use": "wastewater flow, composition, temperature and solid/liquid waste",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "Drainage areas, impervious areas, outfalls, stormwater pond sizing",
+          "item": "CIVL-I110",
+          "use": "drainage areas and sewer outfalls",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "Tank list with capacities and oil-filled equipment volumes",
+          "item": "CIVL-I115",
+          "use": "runoff volumes, first flush, discharge points",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I150",
+          "use": "tank capacities",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I080",
+          "use": "oil-filled equipment and capacities",
           "method": "manual",
           "level": 2
         }
@@ -421,28 +577,46 @@
       "produces": [
         "SAFE-I090"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "PFDs and preliminary P&IDs (rev A) with control and relief concept",
+          "item": "PROC-I120",
+          "use": "PFDs with control loops",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "Heat and material balance with design and operating cases",
+          "item": "PROC-I200",
+          "use": "IFR P&IDs with relief and trip loops",
           "method": "review",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "Control philosophy and preliminary SIS scope",
+          "item": "PROC-I110",
+          "use": "stream data per case",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "HAZID actions list",
+          "item": "PROC-I111",
+          "use": "design and operating case list",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I010",
+          "use": "preliminary SIS scope",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROC-I230",
+          "use": "control philosophy",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I022",
+          "use": "open HAZID actions",
           "method": "review",
           "level": 2
         }
@@ -463,34 +637,46 @@
         "SAFE-I102",
         "SAFE-I104"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "Plot plan and 3D model congestion data (equipment density, confinement) per process area",
+          "item": "PIPE-I180",
+          "use": "congestion and confinement (equipment, piping density) per area",
           "method": "file",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "Building list with occupancy, construction type, dimensions and location",
+          "item": "PIPE-I040",
+          "use": "equipment and building coordinates",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I290",
+          "use": "building plans, construction type and dimensions",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "Release scenarios: composition, P/T, inventory, isolation sections",
+          "item": "PROC-I285",
+          "use": "release scenarios: composition, P, T, inventory per isolatable section",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Building occupancy hours and personnel counts, site meteorology",
+          "item": "OWNR-I040",
+          "use": "site meteorology",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "Hazardous materials inventory and SHE design basis",
+          "item": "SAFE-I035",
+          "use": "material properties",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I040",
+          "use": "siting criteria and design frequency",
           "method": "manual",
           "level": 3
         }
@@ -509,16 +695,28 @@
       "produces": [
         "SAFE-I110"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "Building HVAC concept: air intake locations, air change rates, pressurization",
+          "item": "CIVL-I300",
+          "use": "air change rates and pressurization",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "Toxic dispersion results from consequence modelling and siting study",
+          "item": "CIVL-I306",
+          "use": "intake gas detection, damper closure and HVAC trips",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I050",
+          "use": "toxic dispersion distances",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I102",
+          "use": "occupied building locations and siting decisions",
           "method": "manual",
           "level": 3
         }
@@ -538,34 +736,58 @@
         "SAFE-I120",
         "SAFE-I122"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Isolatable sections with inventory, composition and P/T; ESD/EDP response times",
+          "item": "PROC-I285",
+          "use": "isolatable section inventory, composition, P, T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Equipment and parts counts for leak frequencies (flanges, valves, instruments) from the 3D model or P&IDs",
+          "item": "PROC-I261",
+          "use": "depressuring time to target pressure",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I080",
+          "use": "ESD valve stroke time and failure position",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I180",
+          "use": "flange, valve and instrument counts per section for leak frequency",
           "method": "file",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "F&G detection and ESD isolation reliability and response time",
+          "item": "INST-I201",
+          "use": "detector locations and voting",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "Population data on and off site, ignition sources, risk tolerance criteria approval",
+          "item": "INST-I220",
+          "use": "SIF response times",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I080",
+          "use": "individual and societal risk criteria",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Siting study consequence results and SHE design basis",
+          "item": "SAFE-I100",
+          "use": "siting consequence results",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I040",
+          "use": "risk criteria method",
           "method": "manual",
           "level": 3
         }
@@ -584,22 +806,22 @@
       "produces": [
         "SAFE-I130"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Flare loads per governing scenario: relief rate, MW, temperature, LHV, H2S",
+          "item": "PROC-I250",
+          "use": "relief rate, MW, T and composition per governing scenario",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Flare stack height, tip type and location from flare hydraulics",
-          "method": "manual",
+          "item": "PROC-I260",
+          "use": "flare tip loads per scenario",
+          "method": "integrated",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Plot plan with flare location, access roads and equipment near flare",
+          "item": "PIPE-I040",
+          "use": "flare location, access roads and nearby equipment",
           "method": "review",
           "level": 3
         }
@@ -618,16 +840,34 @@
       "produces": [
         "SAFE-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Relief load summary, PSV scenario list and depressuring calculations",
+          "item": "PROC-I250",
+          "use": "relief scenarios and loads per device",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Fire zones and HAZOP recommendations for overpressure",
+          "item": "PROC-I261",
+          "use": "depressuring per segment and time to target",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I251",
+          "use": "PSV relieving conditions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I200",
+          "use": "fire zones",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I152",
+          "use": "overpressure HAZOP recommendations",
           "method": "manual",
           "level": 3
         }
@@ -647,35 +887,65 @@
         "SAFE-I150",
         "SAFE-I152"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "IFH P&IDs (rev 0 for HAZOP) with node markups, H&MB, operating philosophy and cause-and-effect draft",
+          "item": "PROC-I201",
+          "use": "HAZOP-ready P&IDs frozen revision",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Alarm and trip setpoints, SIS preliminary C&E, control narratives",
+          "item": "PROC-I240",
+          "use": "operating philosophy",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "Equipment datasheets with design P/T and vendor package P&IDs",
+          "item": "PROC-I235",
+          "use": "trip schedule",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "PSV list with set pressures and governing cases",
+          "item": "PROC-I110",
+          "use": "H&MB stream data",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Operations and maintenance representatives, previous PHA of similar units",
-          "method": "meeting",
+          "item": "INST-I250",
+          "use": "alarm set points and priorities",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I240",
+          "use": "preliminary SIS C&E",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I170",
+          "use": "control narratives",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I170",
+          "use": "design P/T and MAWP",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I100",
+          "use": "vendor package P&IDs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I251",
+          "use": "PSV set pressures and governing cases",
+          "method": "review",
           "level": 3
         }
       ]
@@ -694,28 +964,28 @@
         "SAFE-I160",
         "SAFE-I162"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "HAZOP worksheets with consequence severity and causes",
+          "item": "SAFE-I150",
+          "use": "scenarios, causes and severity",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Initiating event frequencies basis, process safety time and trip setpoints",
+          "item": "PROC-I235",
+          "use": "process safety time, trip set points and final elements",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Proposed SIF definitions: sensors, logic, final elements, preliminary SIF list",
+          "item": "INST-I210",
+          "use": "SIF definitions with initiators, voting and final elements",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "LOPA tolerance targets and IPL credit rules",
+          "item": "OWNR-I080",
+          "use": "LOPA target frequencies and IPL credit rules",
           "method": "review",
           "level": 3
         }
@@ -735,34 +1005,40 @@
       "produces": [
         "SAFE-I170"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Action responses with revised P&IDs, calcs or justification",
+          "item": "PROC-I300",
+          "use": "process action responses",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Action responses for alarm, trip and SIF changes",
+          "item": "PROC-I301",
+          "use": "P&ID changes from HAZOP",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "Action responses for design pressure, material and package changes",
+          "item": "INST-I055",
+          "use": "I&C action responses",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Action responses for layout and valve location changes",
+          "item": "MECH-I260",
+          "use": "mechanical action responses",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Acceptance of action closure and risk-accepted items",
+          "item": "PIPE-I370",
+          "use": "piping action responses",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I150",
+          "use": "owner acceptance of responses and residual risk",
           "method": "review",
           "level": 3
         }
@@ -782,28 +1058,34 @@
         "SAFE-I180",
         "SAFE-I182"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "3D model (equipment, structures, piping) of each process area for coverage obstruction",
+          "item": "PIPE-I180",
+          "use": "3D model geometry for obstruction",
           "method": "file",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Fire protection and F&G philosophy, consequence release sizes",
+          "item": "SAFE-I045",
+          "use": "coverage targets and detector types",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification drawings for detector zone ratings",
+          "item": "SAFE-I050",
+          "use": "release sizes and hazard extents",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I070",
+          "use": "area classification for detector Ex rating",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Gas compositions and H2S concentrations by area",
+          "item": "PROC-I285",
+          "use": "gas composition and H2S content per area",
           "method": "manual",
           "level": 3
         }
@@ -823,28 +1105,40 @@
         "SAFE-I190",
         "SAFE-I192"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "Plot plan with fire zones, tank dikes and equipment dimensions",
+          "item": "PIPE-I040",
+          "use": "fire zones, dikes and equipment positions",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "Tank diameters, roof types and vessel surface areas for cooling and foam",
+          "item": "MECH-I150",
+          "use": "tank diameter and roof type",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Fire protection philosophy and fire zones",
+          "item": "MECH-I170",
+          "use": "vessel dimensions for cooling area",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Existing fire water system capacity and fire department pumper capability",
+          "item": "SAFE-I045",
+          "use": "fire water design basis",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I200",
+          "use": "fire zones",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I050",
+          "use": "existing fire water capacity",
           "method": "review",
           "level": 2
         }
@@ -864,28 +1158,46 @@
         "SAFE-I200",
         "SAFE-I202"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "Plot plan and 3D model with equipment and pipe rack elevations",
+          "item": "PIPE-I040",
+          "use": "equipment layout",
           "method": "file",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "Structural steel layout: pipe racks, equipment structures, skirts and supports",
+          "item": "PIPE-I180",
+          "use": "equipment and rack elevations",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I130",
+          "use": "rack and structure configuration",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Emergency isolation and depressuring valve list and critical cable routes",
+          "item": "CIVL-I230",
+          "use": "steel members and supports",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I080",
+          "use": "ESD valve fire-proofing need and locations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Consequence modelling fire extents",
+          "item": "INST-I321",
+          "use": "instrument cable routes",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I050",
+          "use": "fire extents",
           "method": "manual",
           "level": 3
         }
@@ -904,16 +1216,28 @@
       "produces": [
         "SAFE-I210"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Inventories and pump/compressor suction sources from P&IDs",
+          "item": "PROC-I201",
+          "use": "pump/compressor suction sources and isolation points",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Fire zones and QRA recommendations",
+          "item": "PROC-I285",
+          "use": "inventories per section",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I200",
+          "use": "fire zones",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I122",
+          "use": "QRA isolation recommendations",
           "method": "manual",
           "level": 3
         }
@@ -932,22 +1256,46 @@
       "produces": [
         "SAFE-I220"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "Fire protection philosophy, fire water demand and F&G zones",
+          "item": "SAFE-I045",
+          "use": "fixed system philosophy",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "Equipment and tank data for system design (surface area, roof type, rim seal)",
+          "item": "SAFE-I190",
+          "use": "fire water demand and pressure",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "Building list and room functions for clean agent and sprinkler systems",
+          "item": "SAFE-I182",
+          "use": "F&G zones and deluge actions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I150",
+          "use": "tank roof type, rim seal and diameter",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I170",
+          "use": "vessel surface area data",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I290",
+          "use": "room functions and fire ratings",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I270",
+          "use": "electrical and I&C room layouts for clean agent",
           "method": "review",
           "level": 3
         }
@@ -966,16 +1314,28 @@
       "produces": [
         "SAFE-I230"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "Plot plan and 3D platforms, ladders and stairs",
+          "item": "PIPE-I040",
+          "use": "plot plan",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Hazardous materials inventory (corrosives, toxics) and consequence contours",
+          "item": "PIPE-I060",
+          "use": "platforms, stairs and access",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I035",
+          "use": "corrosive and toxic materials",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I050",
+          "use": "hazard contours",
           "method": "manual",
           "level": 3
         }
@@ -995,28 +1355,46 @@
         "SAFE-I240",
         "SAFE-I242"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "Equipment list and vendor sound power/pressure data",
+          "item": "MECH-I080",
+          "use": "equipment list",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Control valve and PSV/flare noise sources",
+          "item": "MECH-I190",
+          "use": "air cooler fan noise",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Plot plan with equipment coordinates",
+          "item": "VEND-I020",
+          "use": "vendor quoted sound pressure levels",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Environmental constraints register (property line noise limits)",
+          "item": "INST-I070",
+          "use": "control valve noise dB(A)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I250",
+          "use": "PSV and flare noise source rates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I050",
+          "use": "equipment coordinates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I010",
+          "use": "property line noise limits",
           "method": "manual",
           "level": 2
         }
@@ -1036,16 +1414,34 @@
       "produces": [
         "SAFE-I250"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "3D model at 30/60/90% review status and plot plan revision",
+          "item": "PIPE-I340",
+          "use": "model review package and checklists",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Siting decisions, safety equipment layout and fire water layout",
+          "item": "PIPE-I180",
+          "use": "routed model",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I102",
+          "use": "building siting",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I230",
+          "use": "safety equipment layout",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I192",
+          "use": "hydrant and monitor layout",
           "method": "review",
           "level": 3
         }
@@ -1064,16 +1460,22 @@
       "produces": [
         "SAFE-I255"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification drawings and source schedule",
+          "item": "ELEC-I070",
+          "use": "HAC drawings",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Hazardous materials inventory with gas group and T-class",
+          "item": "ELEC-I060",
+          "use": "release source list",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I035",
+          "use": "gas group and T-class",
           "method": "manual",
           "level": 3
         }
@@ -1091,22 +1493,46 @@
       "produces": [
         "SAFE-I260"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Cause and effect matrices for SIS and F&G",
+          "item": "INST-I240",
+          "use": "process shutdown C&E",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "SIL verification calculations and SRS (PFDavg, proof test interval, architecture)",
+          "item": "INST-I241",
+          "use": "F&G C&E",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "LOPA SIL targets and F&G executive actions",
+          "item": "INST-I230",
+          "use": "PFDavg, RRF, HFT per SIF",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I220",
+          "use": "SRS",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I231",
+          "use": "proof test intervals",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I160",
+          "use": "SIL targets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I182",
+          "use": "F&G executive actions",
           "method": "manual",
           "level": 3
         }
@@ -1125,16 +1551,28 @@
       "produces": [
         "SAFE-I270"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "Technical bid tabulations and vendor proposals for packages, heaters and tanks",
+          "item": "MECH-I380",
+          "use": "TBE compliance matrix",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "Vendor certified data: noise data, emission guarantees, package P&IDs and safety devices",
+          "item": "VEND-I020",
+          "use": "technical quotations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "certified noise and safety device data",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I100",
+          "use": "package P&IDs",
           "method": "review",
           "level": 3
         }
@@ -1153,22 +1591,40 @@
       "produces": [
         "SAFE-I280"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "Certified package P&IDs, control narratives and trip schedules",
+          "item": "VEND-I100",
+          "use": "package P&IDs",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "List of P&ID changes since formal HAZOP with change descriptions",
+          "item": "VEND-I110",
+          "use": "package control and shutdown narrative",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Package interface C&E and trip settings",
+          "item": "PROC-I345",
+          "use": "changes needing HAZOP re-review",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I340",
+          "use": "IFD P&IDs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I272",
+          "use": "package interface signals",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I240",
+          "use": "package trips in C&E",
           "method": "review",
           "level": 3
         }
@@ -1188,34 +1644,88 @@
       "produces": [
         "SAFE-I290"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Final P&IDs, H&MB, safe upper/lower limits, relief system design basis",
+          "item": "PROC-I385",
+          "use": "as-built P&IDs",
           "method": "review",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "Equipment design codes and datasheets (as-built)",
+          "item": "PROC-I350",
+          "use": "operating limits",
           "method": "review",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "SIS SRS, SIL verification, C&E and alarm setpoints",
+          "item": "PROC-I250",
+          "use": "relief design basis",
           "method": "review",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification and electrical classification drawings",
+          "item": "MECH-I590",
+          "use": "as-built equipment data",
           "method": "review",
           "level": 4
         },
         {
-          "from": "SAFE",
-          "info": "HAZOP, LOPA, siting, QRA reports and action close-out records",
+          "item": "INST-I220",
+          "use": "SRS",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I230",
+          "use": "SIL verification",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I240",
+          "use": "C&E",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I250",
+          "use": "alarm set points",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I070",
+          "use": "HAC drawings",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I150",
+          "use": "HAZOP report",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I160",
+          "use": "LOPA",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I100",
+          "use": "siting results",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I120",
+          "use": "QRA",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I170",
+          "use": "close-out records",
           "method": "manual",
           "level": 4
         }
@@ -1234,22 +1744,22 @@
       "produces": [
         "SAFE-I300"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "Hazardous materials inventory with RMP threshold quantities",
+          "item": "SAFE-I035",
+          "use": "RMP threshold check",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Off-site public and environmental receptors, five-year accident history, emergency response program",
-          "method": "review",
+          "item": "PROC-I285",
+          "use": "maximum inventories per section",
+          "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Maximum vessel inventories and passive mitigation (dikes)",
+          "item": "CIVL-I120",
+          "use": "dike capacities as passive mitigation",
           "method": "manual",
           "level": 3
         }
@@ -1269,17 +1779,29 @@
       "produces": [
         "SAFE-I310"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "Consequence results, siting decisions, F&G zones and safety equipment layout",
+          "item": "SAFE-I050",
+          "use": "hazard zones",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Site emergency organization, mutual aid and local responders",
-          "method": "meeting",
+          "item": "SAFE-I102",
+          "use": "building siting",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I182",
+          "use": "F&G zones",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I230",
+          "use": "muster and escape routes",
+          "method": "manual",
           "level": 3
         }
       ]
@@ -1296,16 +1818,40 @@
       "produces": [
         "SAFE-I320"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "Permit conditions register and stormwater permit data",
+          "item": "SAFE-I072",
+          "use": "permit conditions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "Path of construction, laydown, temporary facilities and construction schedule",
+          "item": "SAFE-I080",
+          "use": "SWPPP basis",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I100",
+          "use": "issued permit conditions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I050",
+          "use": "path of construction",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CONS-I020",
+          "use": "laydown and temporary buildings",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CONS-I025",
+          "use": "temporary facilities",
           "method": "review",
           "level": 3
         }
@@ -1325,22 +1871,34 @@
       "produces": [
         "SAFE-I330"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "Field change requests and RFIs with markups",
+          "item": "CONS-I220",
+          "use": "field change requests",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "Change notices and MOC requests",
+          "item": "CONS-I210",
+          "use": "RFIs",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Process impact assessment of the change",
+          "item": "PROJ-I210",
+          "use": "approved change notices",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I345",
+          "use": "process change impact",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I370",
+          "use": "need for MOC/HAZOP review",
           "method": "review",
           "level": 3
         }
@@ -1359,34 +1917,52 @@
         "SAFE-I340",
         "SAFE-I342"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "System turnover status, ITR completion and outstanding punch A items",
+          "item": "COMM-I150",
+          "use": "category A punch",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "SAFE",
-          "info": "Action close-out records and MOC decisions",
+          "item": "COMM-I160",
+          "use": "subsystem turnover status",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I170",
+          "use": "open actions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "SIS and F&G functional test records (SAT) and bypass list",
+          "item": "SAFE-I330",
+          "use": "MOC decisions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I430",
+          "use": "SIS validation and SAT records",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "Operating procedures, training records and emergency response readiness",
+          "item": "COMM-I200",
+          "use": "C&E and SIF function test records",
           "method": "review",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "As-built redlines for P&IDs and safety-critical equipment",
+          "item": "OWNR-I220",
+          "use": "operating and emergency procedures",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "CONS-I330",
+          "use": "as-built redlines",
           "method": "review",
           "level": 4
         }
@@ -1404,28 +1980,34 @@
       "produces": [
         "SAFE-I350"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "Permit conditions register and emission control requirements",
+          "item": "SAFE-I072",
+          "use": "notification and testing conditions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "CEMS and analyzer tags and commissioning status",
+          "item": "SAFE-I062",
+          "use": "CEMS and LDAR requirements",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I160",
+          "use": "CEMS/analyzer tags and scope",
           "method": "review",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "Startup schedule and system startup dates",
+          "item": "COMM-I050",
+          "use": "system startup dates",
           "method": "review",
           "level": 4
         },
         {
-          "from": "PROC",
-          "info": "As-built P&IDs and line list for LDAR component tagging",
+          "item": "PROC-I385",
+          "use": "as-built P&IDs and line data for LDAR tagging",
           "method": "file",
           "level": 4
         }
@@ -1443,16 +2025,52 @@
       "produces": [
         "SAFE-I360"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "As-built drawings and model for buildings, detectors and fire protection",
+          "item": "CONS-I330",
+          "use": "redlines",
           "method": "review",
           "level": 4
         },
         {
-          "from": "SAFE",
-          "info": "Final study reports and MOC decisions",
+          "item": "CIVL-I380",
+          "use": "as-built buildings",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I440",
+          "use": "as-built detector and F&G locations",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I570",
+          "use": "as-built model",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I100",
+          "use": "siting",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I180",
+          "use": "F&G mapping",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I120",
+          "use": "QRA",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I330",
+          "use": "MOC decisions",
           "method": "manual",
           "level": 4
         }
@@ -1891,6 +2509,85 @@
       "form": "document",
       "content": "Final revisions of siting study, F&G mapping, QRA, fire water and fireproofing studies; to OWNR via handover.",
       "owner_task": "SAFE-T360"
+    }
+  ],
+  "gaps": [
+    {
+      "task": "SAFE-T020",
+      "from": "OWNR",
+      "info": "Site and corporate incident history and owner HAZID guideword set",
+      "method": "meeting",
+      "level": 1
+    },
+    {
+      "task": "SAFE-T030",
+      "from": "OWNR",
+      "info": "Neighbouring facilities, land boundaries and offsite population around candidate sites",
+      "method": "review",
+      "level": 1
+    },
+    {
+      "task": "SAFE-T045",
+      "from": "OWNR",
+      "info": "Local fire department and mutual aid capabilities and insurer (property) requirements",
+      "method": "meeting",
+      "level": 2
+    },
+    {
+      "task": "SAFE-T070",
+      "from": "OWNR",
+      "info": "Permit strategy approval, responsible official signatory and agency pre-application meeting outcomes",
+      "method": "meeting",
+      "level": 3
+    },
+    {
+      "task": "SAFE-T100",
+      "from": "OWNR",
+      "info": "Building occupancy hours and personnel counts per building (permanent and portable)",
+      "method": "review",
+      "level": 2
+    },
+    {
+      "task": "SAFE-T120",
+      "from": "OWNR",
+      "info": "Onsite and offsite population distribution and ignition source data for QRA",
+      "method": "review",
+      "level": 3
+    },
+    {
+      "task": "SAFE-T130",
+      "from": "PROC",
+      "info": "Flare stack height, tip type and diameter, and flare location basis",
+      "method": "manual",
+      "level": 3
+    },
+    {
+      "task": "SAFE-T150",
+      "from": "OWNR",
+      "info": "Operations and maintenance attendees and previous PHAs of similar units",
+      "method": "meeting",
+      "level": 3
+    },
+    {
+      "task": "SAFE-T300",
+      "from": "OWNR",
+      "info": "Offsite public and environmental receptors, five-year accident history and emergency response program for RMP",
+      "method": "review",
+      "level": 3
+    },
+    {
+      "task": "SAFE-T310",
+      "from": "OWNR",
+      "info": "Site emergency organization, mutual aid agreements and local responder resources",
+      "method": "meeting",
+      "level": 3
+    },
+    {
+      "task": "SAFE-T340",
+      "from": "OWNR",
+      "info": "Operator training records and emergency response readiness confirmation",
+      "method": "review",
+      "level": 4
     }
   ]
 }

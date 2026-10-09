@@ -14,22 +14,40 @@
         "MECH-I010",
         "MECH-I020"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "block flow diagram and option list: unit capacities, main equipment counts per option",
+          "item": "PROC-I040",
+          "use": "options, unit capacities and main blocks per option",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "PROC",
-          "info": "preliminary equipment duties: duty, flow, design T/P class",
+          "item": "PROC-I050",
+          "use": "equipment type, count, key size parameter and material class per option",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "business case capacity and product slate, preferred technology/standards",
+          "item": "PROC-I030",
+          "use": "major heater/exchanger duties, column count and power demand per option",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "OWNR-I010",
+          "use": "nameplate capacity and budget envelope",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "OWNR-I020",
+          "use": "product slate driving column and tank count",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "OWNR-I060",
+          "use": "preferred standards and vendors for equipment type selection",
           "method": "review",
           "level": 1
         }
@@ -47,28 +65,46 @@
       "produces": [
         "MECH-I030"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "owner engineering standards, preferred vendors, sparing and reliability requirements, design life",
+          "item": "OWNR-I060",
+          "use": "owner engineering standards and approved vendor list",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "process design basis: feed/product, turndown, design margin philosophy, utility conditions",
+          "item": "OWNR-I070",
+          "use": "design life, sparing, design margins, winterisation",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I010",
+          "use": "turndown, design margin philosophy, design cases",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "site meteorological and seismic data: wind speed, seismic zone, ambient min/max temperature",
+          "item": "PROC-I090",
+          "use": "utility supply conditions (CW, steam, air) for equipment design",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "environmental limits affecting equipment: noise limits, fugitive emission requirements",
+          "item": "CIVL-I030",
+          "use": "basic wind speed, seismic parameters, ambient min/max design temperatures",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I240",
+          "use": "maximum sound pressure level at 1 m per equipment type",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I062",
+          "use": "fugitive emission/LDAR and tank seal requirements affecting equipment standards",
           "method": "manual",
           "level": 2
         }
@@ -87,28 +123,28 @@
       "produces": [
         "MECH-I040"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "fluid composition and corrosive species: H2S, CO2, chlorides, naphthenic acid (TAN), water, sulfur, per stream and equipment",
+          "item": "PROC-I112",
+          "use": "H2S, CO2, chlorides, naphthenic acid, free water, sulfur species and operating T/P per circuit",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "design and operating T/P per equipment, minimum design metal temperature cases",
+          "item": "PROC-I130",
+          "use": "design P/T, MDMT, steam-out and vacuum conditions per equipment",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "piping material classes for consistency of material families at equipment nozzles",
+          "item": "PIPE-I110",
+          "use": "material families and corrosion allowance per piping class at equipment nozzles",
           "method": "review",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "mechanical design basis: corrosion allowance rules, design life",
+          "item": "MECH-I030",
+          "use": "corrosion allowance rules and design life",
           "method": "manual",
           "level": 3
         }
@@ -127,28 +163,34 @@
       "produces": [
         "MECH-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "pump and compressor process duties: flow, head/differential pressure, NPSHA, fluid properties, operating cases",
+          "item": "PROC-I150",
+          "use": "rated/normal/min flow, differential head, NPSHa, fluid properties, sparing and driver preference per machine",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "utility balance: steam availability and levels for turbine drivers",
+          "item": "PROC-I271",
+          "use": "steam balance: availability and levels for turbine drivers",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "available voltage levels and motor size limits by voltage, VFD policy",
+          "item": "PROC-I090",
+          "use": "steam header conditions (P, T) for turbine drivers",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I010",
+          "use": "system voltages, motor voltage by kW range, VFD policy",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "mechanical design basis: sparing philosophy",
+          "item": "MECH-I030",
+          "use": "sparing philosophy and driver preferences",
           "method": "manual",
           "level": 3
         }
@@ -168,28 +210,28 @@
         "MECH-I060",
         "MECH-I070"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "process datasheets (preliminary): duty, flows, design T/P, fluids",
+          "item": "PROC-I160",
+          "use": "service, type, duty, operating and design P/T, size, MoC recommendation per tag",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "SCM",
-          "info": "bidders list and enquiry procedure for budget quotations",
+          "item": "SCM-I030",
+          "use": "approved bidders per commodity for budget enquiries",
           "method": "review",
           "level": 2
         },
         {
-          "from": "VEND",
-          "info": "budget quotations: price, weight, delivery, outline dimensions",
+          "item": "VEND-I010",
+          "use": "budget price, delivery, weight and main dimensions",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "estimate basis and class (Class 4/3) and required equipment cost format",
+          "item": "PROJ-I080",
+          "use": "estimate class, basis, code of accounts and due date for equipment pricing",
           "method": "review",
           "level": 2
         }
@@ -209,22 +251,64 @@
       "produces": [
         "MECH-I080"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "equipment tag list and services from PFD/P&ID",
+          "item": "PROC-I160",
+          "use": "equipment tag, service, type, duty, design P/T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "sparing and driver list, datasheet attributes, weights",
+          "item": "MECH-I050",
+          "use": "running/spare, driver type and power",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "PO number, vendor name, award date per tag",
+          "item": "MECH-I170",
+          "use": "vessel size, design data, material, weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I180",
+          "use": "exchanger type, area, weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I190",
+          "use": "air cooler bays, fan power, weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I200",
+          "use": "pump rated duty and driver kW",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I210",
+          "use": "compressor type and driver kW",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I310",
+          "use": "empty/operating weights per tag",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SCM-I130",
+          "use": "PO number, vendor, award date",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SCM-I140",
+          "use": "tag-to-PO line mapping",
           "method": "manual",
           "level": 3
         }
@@ -243,22 +327,34 @@
       "produces": [
         "MECH-I090"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "process datasheet: duty, flows, inlet/outlet T, allowable pressure drop, fluid properties (from HYSYS), fouling factors",
+          "item": "PROC-I175",
+          "use": "duty, fluid allocation, flows, in/out T, properties, fouling, allowable dP, design P/T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "materials selection: tube and shell materials",
+          "item": "PROC-I155",
+          "use": "process EDR case as starting point: TEMA type, area, passes, fouling",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I040",
+          "use": "tube and shell materials and corrosion allowance",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "plot space and maximum tube length / bundle pull limits",
+          "item": "PIPE-I040",
+          "use": "plot space available at exchanger locations",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I030",
+          "use": "maximum tube length, bundle pull and spacing rules",
           "method": "meeting",
           "level": 2
         }
@@ -277,28 +373,34 @@
       "produces": [
         "MECH-I100"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "process datasheet: duty, flows, T in/out, allowable pressure drop, fluid properties, fouling",
+          "item": "PROC-I176",
+          "use": "duty, flows, properties, design air temperature, fan control, winterisation, allowable dP",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "design dry-bulb air temperature (summer/winter), elevation",
+          "item": "PROC-I155",
+          "use": "process EDR air-cooler bays and fan basis",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "noise limits at equipment and boundary",
+          "item": "CIVL-I030",
+          "use": "summer and winter design dry-bulb temperature, elevation",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I240",
+          "use": "noise limit per air-cooler fan",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "pipe rack top space available for air coolers",
+          "item": "PIPE-I070",
+          "use": "rack routes, widths and bay spacing available for air coolers on the rack top",
           "method": "meeting",
           "level": 2
         }
@@ -318,28 +420,34 @@
         "MECH-I110",
         "MECH-I120"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "fired heater process datasheet: absorbed duty, coil flow/T/P, allowable pressure drop, fouling, fuel composition and LHV",
+          "item": "PROC-I177",
+          "use": "absorbed duty per case, coil in/out conditions, allowable flux and film temperature, fuel composition, turndown",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "emissions limits (NOx, CO, SOx), stack dispersion requirements",
+          "item": "SAFE-I062",
+          "use": "low-NOx burner/SCR and CEMS requirements",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "noise limits",
+          "item": "SAFE-I060",
+          "use": "NOx/CO/SOx limits per source, stack height and diameter",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I240",
+          "use": "heater and burner noise limits",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "control system and BMS philosophy (DCS/SIS split)",
+          "item": "INST-I010",
+          "use": "DCS/SIS split and packaged control approach for BMS",
           "method": "review",
           "level": 2
         }
@@ -358,28 +466,34 @@
       "produces": [
         "MECH-I130"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "vessel/column process datasheet: diameter, T/T height, design P/T, liquid levels, nozzles list, internals type",
+          "item": "PROC-I170",
+          "use": "ID, T/T, liquid levels, nozzle schedule, internals type, design/operating conditions",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "wind speed, seismic coefficients, site class",
+          "item": "PROC-I130",
+          "use": "design P/T, MDMT, vacuum and steam-out conditions",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "materials selection and corrosion allowance",
+          "item": "CIVL-I030",
+          "use": "basic wind speed and exposure, seismic parameters",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "mechanical design basis: codes and margins",
+          "item": "MECH-I040",
+          "use": "materials and corrosion allowance per component",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I030",
+          "use": "codes and design margins",
           "method": "manual",
           "level": 3
         }
@@ -398,22 +512,22 @@
       "produces": [
         "MECH-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "tray/packing hydraulic loadings per section: vapour and liquid flows, densities, turndown, foaming factor",
+          "item": "PROC-I140",
+          "use": "tray loading per section, flood margin, internals type and count",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "internals vendor hydraulic rating and layout (tray drawings)",
+          "item": "VEND-I020",
+          "use": "internals vendor hydraulic rating, tray layout and completed datasheets",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vessel mechanical design: shell ID, ring elevations",
+          "item": "MECH-I130",
+          "use": "shell ID and support ring elevations",
           "method": "manual",
           "level": 3
         }
@@ -433,28 +547,34 @@
         "MECH-I150",
         "MECH-I160"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "tank process data: working capacity, product, vapour pressure, filling/emptying rates, blanketing",
+          "item": "PROC-I171",
+          "use": "working/gross capacity, fill/draw rates, vapour pressure, blanketing, heating",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "geotechnical report: bearing capacity, predicted settlement",
+          "item": "CIVL-I060",
+          "use": "allowable bearing pressure, predicted settlement",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "fire protection requirements for tanks (foam, cooling rings) and emission control requirements",
+          "item": "SAFE-I220",
+          "use": "foam and cooling ring requirements for tanks",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "wind and seismic site parameters",
+          "item": "SAFE-I062",
+          "use": "tank seal type and vapour control requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "wind and seismic parameters",
           "method": "manual",
           "level": 3
         }
@@ -473,28 +593,28 @@
       "produces": [
         "MECH-I170"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "vessel process datasheet: dimensions, design P/T, operating cases, nozzles",
+          "item": "PROC-I170",
+          "use": "sketch, dimensions, design and operating conditions, nozzle duties",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vessel calculations: thickness, weights",
+          "item": "MECH-I130",
+          "use": "thicknesses, MAWP and weights",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "nozzle orientation requirements and platform/ladder locations from layout",
+          "item": "PIPE-I100",
+          "use": "nozzle orientations, elevations, platform, ladder and davit locations",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "instrument connections on vessels: level bridles, TI/PI connections, sizes and ratings",
+          "item": "INST-I115",
+          "use": "instrument connection type, size, rating, bridle arrangement on vessels",
           "method": "manual",
           "level": 2
         }
@@ -514,22 +634,28 @@
         "MECH-I180",
         "MECH-I190"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "shell-and-tube and air cooler thermal designs",
+          "item": "MECH-I090",
+          "use": "TEMA type, geometry, area, pressure drops",
           "method": "file",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "materials selection",
+          "item": "MECH-I100",
+          "use": "bays, bundles, fans, fan power",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "MECH-I040",
+          "use": "materials and corrosion allowance",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument connections and fan vibration switch requirements",
+          "item": "INST-I115",
+          "use": "instrument connections on exchangers and air-cooler vibration switch connections",
           "method": "manual",
           "level": 2
         }
@@ -549,28 +675,34 @@
         "MECH-I200",
         "MECH-I210"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "pump and compressor process datasheets: operating cases, fluid properties, NPSHA, gas composition, MW, k, Z",
+          "item": "PROC-I180",
+          "use": "pump operating cases, flows, head, NPSHa, fluid properties, solids",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "sparing and driver selection",
+          "item": "PROC-I181",
+          "use": "gas composition per case, inlet/outlet P/T, MW, k, Z, surge/turndown, control method",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "motor specification: voltage, enclosure, area classification, efficiency class",
+          "item": "MECH-I050",
+          "use": "running/spare and driver type per machine",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "hazardous area classification at equipment location",
+          "item": "ELEC-I012",
+          "use": "motor voltage by size, enclosure, efficiency and electrical requirements for driven equipment",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I072",
+          "use": "Class/Division or Zone, gas group, T-code at equipment location",
           "method": "review",
           "level": 3
         }
@@ -590,28 +722,46 @@
         "MECH-I220",
         "MECH-I230"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "package process duties and P&ID (package boundary)",
+          "item": "PROC-I185",
+          "use": "package duty, battery-limit P/T/flows, utility availability, guarantees",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "control system interface philosophy: vendor PLC, serial link vs hardwired, SIS interface",
+          "item": "PROC-I200",
+          "use": "package boundaries shown on IFR P&IDs",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I270",
+          "use": "package PLC requirements, interface signals, communications, SIS/F&G interfaces",
           "method": "review",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "power supply interface: voltages, MCC supply, vendor panels",
+          "item": "INST-I010",
+          "use": "DCS/SIS/F&G split and packaged unit control approach",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "package-specific safety requirements (F&G, isolation, emissions)",
+          "item": "ELEC-I012",
+          "use": "power supply voltages and electrical requirements for vendor panels and motors",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I045",
+          "use": "F&G and fixed fire protection philosophy for packages",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I062",
+          "use": "emission control requirements per source for packages",
           "method": "review",
           "level": 3
         }
@@ -630,22 +780,40 @@
       "produces": [
         "MECH-I240"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "pumped fluid properties: vapour pressure, solids, toxicity, flash point",
+          "item": "PROC-I180",
+          "use": "sealing considerations, solids, vapour pressure",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "emission and toxic service requirements (dual seals)",
+          "item": "PROC-I285",
+          "use": "toxic content (H2S), flash point and fluid category",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I062",
+          "use": "LDAR and fugitive emission requirements driving dual seals",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "pump and compressor datasheets",
+          "item": "SAFE-I035",
+          "use": "toxicity (IDLH/ERPG) and flammability of pumped fluids",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I200",
+          "use": "pump type, speed and seal chamber data",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I210",
+          "use": "compressor seal and lube system scope",
           "method": "manual",
           "level": 3
         }
@@ -665,22 +833,40 @@
         "MECH-I250",
         "MECH-I260"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "P&IDs issued for review/HAZOP",
+          "item": "PROC-I200",
+          "use": "IFR P&IDs for mechanical markup",
           "method": "review",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "seal plans and package specifications",
+          "item": "PROC-I201",
+          "use": "HAZOP-ready P&IDs for mechanical review",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "MECH-I240",
+          "use": "seal plans and auxiliary system scope to show on P&IDs",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "HAZOP and LOPA action register with mechanical actions",
+          "item": "MECH-I220",
+          "use": "package battery limits and scope",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I152",
+          "use": "HAZOP recommendations assigned to mechanical",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I162",
+          "use": "mechanical IPLs (check valves, PSVs) requiring independence and testing",
           "method": "manual",
           "level": 3
         }
@@ -700,22 +886,34 @@
         "MECH-I270",
         "MECH-I280"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "piping layout and routing study: preferred nozzle orientations, platform levels",
+          "item": "PIPE-I100",
+          "use": "requested nozzle angles, elevations, platform and ladder locations",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "vessel datasheets and calculations",
+          "item": "PIPE-I090",
+          "use": "critical line routing requiring nozzle relocation",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "MECH-I170",
+          "use": "nozzle schedule, sizes, ratings",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument nozzle locations and access requirements",
+          "item": "MECH-I130",
+          "use": "shell thickness and nozzle reinforcement basis for allowable loads",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I115",
+          "use": "instrument nozzle orientation and elevation/level range",
           "method": "manual",
           "level": 2
         }
@@ -736,16 +934,34 @@
         "MECH-I290",
         "MECH-I300"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "exchanger thermal designs, vessel calculations, budget quote outlines",
+          "item": "MECH-I090",
+          "use": "shell diameter, tube length, bundle pull length",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "plot plan for equipment placement constraints",
+          "item": "MECH-I100",
+          "use": "bay dimensions and plot area",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I130",
+          "use": "vessel dimensions and support type",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I070",
+          "use": "outline dimensions from budget quotes",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I040",
+          "use": "equipment locations and access/maintenance areas",
           "method": "review",
           "level": 2
         }
@@ -764,16 +980,40 @@
       "produces": [
         "MECH-I310"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "vessel calculations, exchanger datasheets, rotating equipment datasheets",
+          "item": "MECH-I130",
+          "use": "empty/operating/test weights, wind and seismic moments",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "foundation load format and load combinations required",
+          "item": "MECH-I180",
+          "use": "exchanger empty/full weights and bundle weight",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I190",
+          "use": "air cooler weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I200",
+          "use": "pump and driver weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I210",
+          "use": "compressor weights and dynamic data",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I020",
+          "use": "load cases and combinations, required load data format",
           "method": "meeting",
           "level": 2
         }
@@ -792,22 +1032,28 @@
       "produces": [
         "MECH-I320"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "heavy lift plan and crane selection: dressed lift strategy, lift sequence",
+          "item": "CONS-I040",
+          "use": "heavy lift list, crane selection, lift sequence",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "VEND",
-          "info": "certified weights and CoG from fabricator",
+          "item": "CONS-I045",
+          "use": "lifting and tailing lug type and position, dressed lift requirements",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "VEND-I140",
+          "use": "certified weights and centre of gravity",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "vessel calculations: weights",
+          "item": "MECH-I130",
+          "use": "calculated empty and dressed weights",
           "method": "manual",
           "level": 3
         }
@@ -826,16 +1072,34 @@
       "produces": [
         "MECH-I330"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "rotating equipment datasheets and driver selection",
+          "item": "MECH-I200",
+          "use": "pump rated power and speed",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "standard motor ratings and voltage thresholds",
+          "item": "MECH-I210",
+          "use": "compressor rated power and speed",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I050",
+          "use": "driver type and VFD requirement",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I010",
+          "use": "motor voltage by kW range",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I232",
+          "use": "maximum DOL motor size per bus, motors needing soft starter/VFD",
           "method": "manual",
           "level": 3
         }
@@ -854,28 +1118,28 @@
       "produces": [
         "MECH-I340"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "owner standards and specifications",
+          "item": "OWNR-I060",
+          "use": "owner engineering standards and order of precedence",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "mechanical design basis",
+          "item": "MECH-I030",
+          "use": "codes, margins, corrosion allowance rules",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "painting and insulation specifications",
+          "item": "PIPE-I150",
+          "use": "painting and insulation systems and PWHT/NDE rules for interface",
           "method": "review",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "motor and electrical equipment specifications for vendor-supplied motors",
+          "item": "ELEC-I012",
+          "use": "electrical requirements section for driven-equipment specifications",
           "method": "review",
           "level": 3
         }
@@ -895,34 +1159,106 @@
         "MECH-I350",
         "MECH-I360"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "datasheets, specifications, package scope",
+          "item": "MECH-I170",
+          "use": "vessel datasheets",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument datasheets and specifications for vendor-supplied instruments",
+          "item": "MECH-I180",
+          "use": "exchanger datasheets",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "motor and electrical datasheets for vendor scope",
+          "item": "MECH-I190",
+          "use": "air cooler datasheets",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "requisition numbering, document numbering and VDRL template",
+          "item": "MECH-I200",
+          "use": "pump datasheets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I210",
+          "use": "compressor datasheets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I110",
+          "use": "fired heater datasheet",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I140",
+          "use": "internals datasheets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I150",
+          "use": "tank datasheets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I220",
+          "use": "package scope of supply",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I340",
+          "use": "technical specifications",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I270",
+          "use": "I&C scope and requirements for packages",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I110",
+          "use": "instrument datasheets for vendor-supplied instruments",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I012",
+          "use": "motor and electrical requirements for vendor scope",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I040",
+          "use": "document and requisition numbering",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "commercial terms, bidders list and inspection level (criticality rating)",
+          "item": "PROJ-I070",
+          "use": "reserved document and vendor document numbers",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I030",
+          "use": "bidders list per requisition",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I010",
+          "use": "procurement packages, sourcing route and RFQ dates",
           "method": "review",
           "level": 3
         }
@@ -941,16 +1277,28 @@
       "produces": [
         "MECH-I370"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SCM",
-          "info": "received bids (technical part) distributed per bidder",
+          "item": "SCM-I090",
+          "use": "technical part of each bid and TBE due date",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "technical proposals: datasheets, performance curves, deviations list",
+          "item": "VEND-I020",
+          "use": "completed datasheets, performance, outline drawings",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I040",
+          "use": "technical deviations and exceptions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I050",
+          "use": "responses to technical queries",
           "method": "review",
           "level": 3
         }
@@ -969,28 +1317,34 @@
       "produces": [
         "MECH-I380"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "bidder technical query log",
+          "item": "MECH-I370",
+          "use": "agreed clarifications and open deviations per bidder",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "final technical proposals: performance, power, weights, utilities",
+          "item": "VEND-I050",
+          "use": "revised offers",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "review of vendor motor and electrical offers",
+          "item": "VEND-I020",
+          "use": "performance, power, weights and utilities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I200",
+          "use": "comments on vendor motor voltage, enclosure, starting and VFD compatibility",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "review of vendor instrument and control offers",
+          "item": "INST-I271",
+          "use": "comments on package instrument lists and control offers",
           "method": "review",
           "level": 3
         }
@@ -1009,16 +1363,28 @@
       "produces": [
         "MECH-I390"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "technical bid evaluation and agreed clarifications",
+          "item": "MECH-I380",
+          "use": "selected bidder and accepted deviations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "commercial evaluation and award recommendation",
+          "item": "MECH-I370",
+          "use": "agreed clarifications to incorporate",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SCM-I100",
+          "use": "commercial ranking",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I110",
+          "use": "recommended vendor",
           "method": "review",
           "level": 3
         }
@@ -1036,22 +1402,34 @@
       "produces": [
         "MECH-I400"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SCM",
-          "info": "purchase order and expediting contacts",
+          "item": "SCM-I120",
+          "use": "PO scope, VDRL and delivery",
           "method": "review",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "vendor document schedule and fabrication schedule",
+          "item": "SCM-I130",
+          "use": "PO number, vendor, buyer and expeditor",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "VEND-I060",
+          "use": "vendor document numbers and planned submission dates",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "piping interface data needed from vendor: nozzle loads, preliminary GA",
+          "item": "VEND-I160",
+          "use": "fabrication milestones and ex-works date",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I390",
+          "use": "piping holds awaiting vendor data (nozzle loads, preliminary GA)",
           "method": "meeting",
           "level": 3
         }
@@ -1070,40 +1448,82 @@
       "produces": [
         "MECH-I410"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "vendor drawings and data (GA, calculations, P&IDs, wiring, performance curves)",
+          "item": "VEND-I070",
+          "use": "dimensions, nozzles, weights, lifting points",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "piping comments on vendor GA and nozzle data",
+          "item": "VEND-I080",
+          "use": "anchor bolts, static and dynamic loads",
           "method": "review",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "civil comments on foundation and anchor bolt data",
+          "item": "VEND-I090",
+          "use": "thicknesses, MAWP, allowable nozzle loads",
           "method": "review",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "I&C comments on vendor instrumentation and control",
+          "item": "VEND-I100",
+          "use": "package P&IDs",
           "method": "review",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "electrical comments on motors and vendor electrical",
+          "item": "VEND-I120",
+          "use": "motor ratings and electrical loads",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "process comments on vendor performance and P&IDs",
+          "item": "VEND-I130",
+          "use": "vendor instrument list and datasheets",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I380",
+          "use": "piping comments on nozzle orientation, connections and clips",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I320",
+          "use": "anchor bolt confirmation and load acceptance comments",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I271",
+          "use": "comments on package P&IDs, instrument lists and panels",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I150",
+          "use": "comments on vendor instrument data",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I200",
+          "use": "motor data review comments",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I190",
+          "use": "comments on vendor electrical drawings",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROC-I310",
+          "use": "process review code and comments on vendor performance and P&IDs",
           "method": "review",
           "level": 2
         }
@@ -1124,16 +1544,28 @@
         "MECH-I440",
         "MECH-I450"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "certified vendor drawings and data",
+          "item": "VEND-I140",
+          "use": "certified GA, foundation, electrical and instrument data",
           "method": "review",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "vendor document comment sheets (status code)",
+          "item": "VEND-I110",
+          "use": "package I/O list and control narrative",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "VEND-I130",
+          "use": "vendor instrument list and datasheets",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "MECH-I410",
+          "use": "review code confirming certified status",
           "method": "manual",
           "level": 4
         }
@@ -1151,22 +1583,28 @@
       "produces": [
         "MECH-I460"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "requisition hold list",
+          "item": "MECH-I360",
+          "use": "open holds per requisition",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "updated process data closing holds",
+          "item": "PROC-I320",
+          "use": "process data values confirmed and hold releases",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "final nozzle orientation and piping loads closing holds",
+          "item": "PIPE-I100",
+          "use": "final nozzle orientations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I250",
+          "use": "final piping nozzle loads",
           "method": "manual",
           "level": 3
         }
@@ -1184,22 +1622,22 @@
       "produces": [
         "MECH-I470"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "CAESAR II nozzle load results per equipment nozzle",
+          "item": "PIPE-I250",
+          "use": "forces and moments per nozzle and load case",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "vendor confirmation of increased nozzle loads",
+          "item": "VEND-I090",
+          "use": "vendor allowable or increased nozzle loads",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "allowable nozzle loads",
+          "item": "MECH-I280",
+          "use": "allowable forces and moments per nozzle",
           "method": "manual",
           "level": 3
         }
@@ -1217,16 +1655,22 @@
       "produces": [
         "MECH-I480"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "lateral and torsional analysis reports, API 618 pulsation study",
+          "item": "VEND-I090",
+          "use": "lateral and torsional analysis and pulsation study reports (vendor calculations)",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "piping isometrics and supports around reciprocating machinery for pulsation study",
+          "item": "PIPE-I240",
+          "use": "CAESAR II models and supports around reciprocating machinery",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I400",
+          "use": "piping geometry for acoustic model",
           "method": "file",
           "level": 3
         }
@@ -1244,16 +1688,16 @@
       "produces": [
         "MECH-I490"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "vendor inspection and test plans and test procedures",
+          "item": "VEND-I150",
+          "use": "inspection activities, acceptance criteria, hold and witness points",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "inspection level and third-party inspection scope",
+          "item": "SCM-I210",
+          "use": "inspection level and assigned inspector per PO",
           "method": "review",
           "level": 3
         }
@@ -1271,22 +1715,28 @@
       "produces": [
         "MECH-I500"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "test procedures and test schedule notification",
+          "item": "VEND-I190",
+          "use": "test due date and location",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "inspection notification and inspector coordination",
+          "item": "VEND-I150",
+          "use": "test procedures and acceptance criteria",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I210",
+          "use": "assigned inspector and agreed witness points",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "approved ITPs",
+          "item": "MECH-I490",
+          "use": "witness and hold points to attend",
           "method": "review",
           "level": 4
         }
@@ -1304,16 +1754,16 @@
       "produces": [
         "MECH-I510"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "spare parts interchangeability records (SPIR)",
+          "item": "VEND-I260",
+          "use": "part numbers, recommended quantities, lead times per tag",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "owner spares policy and existing stock",
+          "item": "OWNR-I180",
+          "use": "spares policy, criticality and interchangeability targets",
           "method": "review",
           "level": 3
         }
@@ -1332,10 +1782,28 @@
       "produces": [
         "MECH-I520"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "manufacturer's data books, IOM manuals, certificates",
+          "item": "VEND-I240",
+          "use": "certified drawings, calcs, MTRs, weld maps, NDE and test records",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "VEND-I250",
+          "use": "IOM manuals",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "VEND-I180",
+          "use": "hydrotest, NDE, PMI and performance certificates",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "VEND-I170",
+          "use": "material test reports",
           "method": "review",
           "level": 4
         }
@@ -1354,16 +1822,22 @@
       "produces": [
         "MECH-I530"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "vendor preservation and storage instructions",
+          "item": "VEND-I290",
+          "use": "storage conditions and preservation frequencies per item",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "SCM",
-          "info": "site storage facilities and material receipt plan",
+          "item": "SCM-I240",
+          "use": "logistics and receipt plan",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I290",
+          "use": "site storage locations and preservation records",
           "method": "review",
           "level": 3
         }
@@ -1382,16 +1856,28 @@
       "produces": [
         "MECH-I540"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "3D model review (30/60/90%) and clash reports",
+          "item": "PIPE-I340",
+          "use": "review model and checklists by area",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "equipment footprints and maintenance envelopes",
+          "item": "PIPE-I360",
+          "use": "clashes involving equipment",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I350",
+          "use": "review actions assigned to mechanical",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "item": "MECH-I300",
+          "use": "maintenance and removal envelopes to verify",
           "method": "review",
           "level": 3
         }
@@ -1410,16 +1896,22 @@
       "produces": [
         "MECH-I550"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "RFIs and field change requests on equipment",
+          "item": "CONS-I210",
+          "use": "RFI question and markup on equipment",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "vendor recommendations for field repairs",
+          "item": "CONS-I220",
+          "use": "proposed field change on equipment",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I270",
+          "use": "vendor findings and recommended repairs",
           "method": "review",
           "level": 3
         }
@@ -1438,22 +1930,40 @@
       "produces": [
         "MECH-I560"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "installation schedule and path of construction",
+          "item": "CONS-I050",
+          "use": "area sequence and target dates",
           "method": "review",
           "level": 3
         },
         {
-          "from": "COMM",
-          "info": "commissioning sequence and system start-up dates",
+          "item": "CONS-I140",
+          "use": "installation activities and dates per CWP/IWP",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "PO site service provisions and rates",
+          "item": "COMM-I050",
+          "use": "subsystem sequence and turnover dates",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "COMM-I120",
+          "use": "vendor representative scope and call-off dates per package",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I340",
+          "use": "vendor site service requests and PO reference",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "SCM-I120",
+          "use": "PO site service provisions and rates",
           "method": "review",
           "level": 4
         }
@@ -1473,22 +1983,34 @@
         "MECH-I570",
         "MECH-I580"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "system boundaries and ITR form templates",
+          "item": "COMM-I040",
+          "use": "system and subsystem boundaries",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "vendor installation and run-in instructions (IOM)",
+          "item": "COMM-I060",
+          "use": "ITR forms and tag-type mapping",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I250",
+          "use": "installation and run-in instructions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "installation records and alignment records",
+          "item": "CONS-I310",
+          "use": "completed A-ITRs including alignment and installation checks",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "CONS-I240",
+          "use": "foundation and anchor bolt survey for equipment setting",
           "method": "review",
           "level": 4
         }
@@ -1506,22 +2028,34 @@
       "produces": [
         "MECH-I590"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "certified final data and nameplate data",
+          "item": "VEND-I230",
+          "use": "serial number, nameplate rating, MAWP, as-built weights",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "as-built redlines affecting equipment (field modifications)",
+          "item": "VEND-I140",
+          "use": "final certified data",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "asset register / CMMS data template",
+          "item": "CONS-I330",
+          "use": "field deviations affecting equipment",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I200",
+          "use": "asset classes and required attributes",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I260",
+          "use": "missing or inconsistent equipment data returned for correction",
           "method": "review",
           "level": 4
         }
@@ -2001,5 +2535,6 @@
       "content": "Final certified attributes per tag (vendor, model, serial, design data, materials, weights) for asset register and maintenance system.",
       "owner_task": "MECH-T440"
     }
-  ]
+  ],
+  "gaps": []
 }
