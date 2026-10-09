@@ -41,8 +41,12 @@ METHOD_NOTE = {
 }
 
 
+GAPS = []   # needs an author could not match to any item: {"task", "from", "info", ...}
+
+
 def load():
     tasks, items, errs = {}, {}, []
+    GAPS.clear()
     for p in sorted(DATA.glob("*.json")):
         try:
             d = json.loads(p.read_text())
@@ -58,6 +62,8 @@ def load():
             if t["id"] in tasks:
                 errs.append(f"duplicate task {t['id']}")
             tasks[t["id"]] = t
+        for g in d.get("gaps", []):
+            GAPS.append(dict(g, by=code))
         for i in d.get("items", []):
             i["disc"] = code
             if i["id"] in items:
@@ -119,6 +125,13 @@ def check(tasks, items):
             errs.append(f"{i['id']}: owner task {o['id']} is in another discipline")
         elif i["id"] not in o.get("produces", []):
             errs.append(f"{i['id']}: owner {o['id']} does not list it in produces")
+    for g in GAPS:
+        if g.get("task") not in tasks:
+            errs.append(f"gap on unknown task {g.get('task')}")
+        warns.append(f"{g.get('task')} needs from {g.get('from')}: {g.get('info')} (no item yet)")
+    for t in tasks.values():
+        if t.get("needs"):
+            warns.append(f"{t['id']}: {len(t['needs'])} needs not yet linked to items")
     used = {c["item"] for t in tasks.values() for c in t.get("consumes", [])}
     for i in items.values():
         if i["id"] not in used:
