@@ -1,0 +1,2454 @@
+{
+  "discipline": "PROC",
+  "tasks": [
+    {
+      "id": "PROC-T010",
+      "name": "Prepare process design basis",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Compile feed, product, capacity, on-stream factor, ambient and battery-limit conditions into the process design basis.",
+      "produces": [
+        "PROC-I010",
+        "PROC-I015"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "capacity, on-stream factor, feed slate, product slate and product specifications",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "owner process standards and design philosophies (sparing, design margins)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "site meteorological data: ambient max/min/design dry and wet bulb temperatures, elevation",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "project design basis (BOD) framework and units of measure",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T020",
+      "name": "Characterise feed and set up assay in simulation",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "HYSYS",
+      "activity": "PRJ-02",
+      "description": "Build the feed characterisation (assay cuts, pseudo-components, contaminants) and blend cases in the simulation.",
+      "produces": [
+        "PROC-I020"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "crude/feed assays: TBP/distillation curves, density, sulfur, metals, salts, naphthenic acid (TAN), light-ends analysis",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "feed blend cases and design/check feeds",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "process design basis feed slate and design cases (PROC-I010)",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T030",
+      "name": "Run screening simulations of configuration options",
+      "phases": [
+        "FEL1"
+      ],
+      "system": "HYSYS",
+      "activity": "FEL-02",
+      "description": "Simulate candidate configurations at screening level to estimate yields, key duties and utility demand.",
+      "produces": [
+        "PROC-I030"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "feed characterisation and property package (PROC-I020)",
+          "method": "integrated",
+          "level": 1
+        },
+        {
+          "from": "PROC",
+          "info": "process design basis capacity and product specs (PROC-I010)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "candidate configurations and business case constraints",
+          "method": "meeting",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "PROC-T040",
+      "name": "Prepare block flow diagrams",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-05",
+      "description": "Draw block flow diagrams per option showing units, main streams and overall balances.",
+      "produces": [
+        "PROC-I040"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "screening case results: unit blocks and overall stream flows (PROC-I030)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "existing site units and offsite interfaces (brownfield tie points)",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "PROC-T050",
+      "name": "Prepare screening equipment list with key sizes",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-02",
+      "description": "List major equipment per option with order-of-magnitude sizes for factored estimating.",
+      "produces": [
+        "PROC-I050"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "screening case duties and flows (PROC-I030)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "MECH",
+          "info": "typical equipment sizing rules and cost curves for factored estimates",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "PROC-T060",
+      "name": "Develop and simulate FEL2 alternatives",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "HYSYS",
+      "activity": "SEL-01",
+      "description": "Simulate the shortlisted alternatives including heat integration and design/turndown cases.",
+      "produces": [
+        "PROC-I060"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "feed characterisation (PROC-I020)",
+          "method": "integrated",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "block flow diagrams per option (PROC-I040)",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "shortlisted alternatives and evaluation criteria",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "VEND",
+          "info": "licensor/technology yield and performance data for proprietary sections",
+          "method": "manual",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "PROC-T070",
+      "name": "Evaluate technology and licensor process offers",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-02",
+      "description": "Compare licensor/technology offers on yields, utilities, catalyst, guarantees and process risk.",
+      "produces": [
+        "PROC-I070"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "licensor proposals: yields, utilities, catalyst and chemical consumption, guarantees, references",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SCM",
+          "info": "licensor bid tabulation and commercial terms",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "alternative case balances for normalisation (PROC-I060)",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T080",
+      "name": "Prepare process input to select decision",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-01",
+      "description": "Rank alternatives on process merit and document the recommended configuration.",
+      "produces": [
+        "PROC-I080"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "alternative case balances (PROC-I060) and technology evaluation (PROC-I070)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Class 4/5 cost and schedule per alternative",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZID and inherent safety ranking per alternative",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "economic evaluation criteria and weighting",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T090",
+      "name": "Define utility and offsite basis",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-03",
+      "description": "Define utility systems, supply conditions and offsite tankage/interconnection requirements.",
+      "produces": [
+        "PROC-I090"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "existing utility capacities and conditions (steam levels, CW, air, N2, fuel gas, power)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "alternative utility demand (PROC-I060)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "available grid power and supply voltage levels",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "environmental limits on effluents, emissions and water use",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T095",
+      "name": "Define process layout requirements",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "LAY-01",
+      "description": "Set process requirements on layout: elevations for gravity flow and NPSH, adjacency, segregation and access for operation.",
+      "produces": [
+        "PROC-I095"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "preliminary plot plan and equipment arrangement",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "selected configuration and PFDs (PROC-I080, PROC-I120)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "spacing and separation requirements from siting study",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T100",
+      "name": "Build and calibrate rigorous simulation",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "HYSYS",
+      "activity": "PRC-00",
+      "description": "Build the rigorous unit model with column internals, exchangers and recycles, and calibrate to licensor or plant data.",
+      "produces": [
+        "PROC-I100"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "selected configuration (PROC-I080) and feed characterisation (PROC-I020)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "plant test-run data or reference unit data for calibration (brownfield)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "licensor process design package: heat and material balance, operating conditions",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T110",
+      "name": "Prepare heat and material balance",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "HYSYS",
+      "activity": "PRC-01",
+      "description": "Extract and issue stream data per design case from the simulation.",
+      "produces": [
+        "PROC-I110",
+        "PROC-I111",
+        "PROC-I112"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "calibrated simulation for all design cases (PROC-I100)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "approval of design and check cases",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T120",
+      "name": "Prepare process flow diagrams",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-06",
+      "description": "Draw PFDs with equipment, main control loops and stream numbers tied to the stream table.",
+      "produces": [
+        "PROC-I120"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data and stream numbering (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "control philosophy main loops (PROC-I230)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "equipment numbering procedure / tag format",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T130",
+      "name": "Set design pressures and temperatures",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-02",
+      "description": "Build the pressure profile and set design and minimum design pressure/temperature per equipment and line system.",
+      "produces": [
+        "PROC-I130"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data operating P/T per case (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "rotating equipment shut-off head (PROC-I150) and relief settings (PROC-I250)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "pump and compressor shut-off pressures from vendor curves",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "design margin and MDMT philosophy",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T140",
+      "name": "Size vessels and columns",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "HYSYS",
+      "activity": "PRC-02",
+      "description": "Size separators, drums and columns: diameter, height, nozzles, internals and hydraulics.",
+      "produces": [
+        "PROC-I140"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data and design cases (PROC-I110, PROC-I111)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "tray/packing vendor hydraulic ratings",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "design pressure/temperature basis (PROC-I130)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T150",
+      "name": "Define rotating equipment process duties",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-02",
+      "description": "Calculate pump and compressor duties, differential head, NPSHa and operating range.",
+      "produces": [
+        "PROC-I150"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data: flow, density, viscosity, vapour pressure (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "suction and discharge line lengths and fittings from layout",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "process layout elevations (PROC-I095)",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T155",
+      "name": "Design heat exchangers thermally",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Aspen EDR",
+      "activity": "PRC-02",
+      "description": "Run thermal design/rating of shell-and-tube exchangers and air coolers from the simulation duties.",
+      "produces": [
+        "PROC-I155"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data and exchanger duties per case (PROC-I110)",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "fouling factors and allowable pressure drops from design basis (PROC-I010)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "TEMA type, tube length/diameter preferences and plot constraints",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "plot space and bundle pull area for exchangers",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T160",
+      "name": "Prepare equipment list process data",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-02",
+      "description": "Issue the process data columns of the equipment list (duty, size, design conditions).",
+      "produces": [
+        "PROC-I160"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "sizing results for vessels, exchangers, rotating equipment (PROC-I140, PROC-I150, PROC-I155)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "design P/T basis (PROC-I130)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "mechanical equipment list with tags and equipment types",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T170",
+      "name": "Prepare static equipment process datasheets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Prepare process datasheets for vessels, columns, drums and tanks.",
+      "produces": [
+        "PROC-I170",
+        "PROC-I171"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "vessel/column sizing (PROC-I140) and design P/T (PROC-I130)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "corrosion-relevant process data (PROC-I112)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "fire case and tank emission requirements",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T175",
+      "name": "Prepare heat transfer equipment process datasheets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Prepare process datasheets for shell-and-tube exchangers, air coolers, plate exchangers and fired heaters.",
+      "produces": [
+        "PROC-I175",
+        "PROC-I176",
+        "PROC-I177"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "EDR thermal design (PROC-I155)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "stream data for heater duty and fuel (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "NOx/CO emission limits for fired equipment",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T180",
+      "name": "Prepare rotating equipment process datasheets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Prepare process datasheets for pumps, compressors and blowers.",
+      "produces": [
+        "PROC-I180",
+        "PROC-I181"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "rotating equipment process duties (PROC-I150)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "corrosion-relevant process data (PROC-I112)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T185",
+      "name": "Prepare package process specifications",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Specify process duty and battery limits for packaged units (e.g. chemical injection, nitrogen, air, water treatment).",
+      "produces": [
+        "PROC-I185"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "battery-limit and utility conditions (PROC-I015, PROC-I090)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "chemical consumption (PROC-I275)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "package scope split and requisition structure",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T190",
+      "name": "Size lines and run hydraulics",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-02",
+      "description": "Size process and utility lines and check pressure drop, velocity, two-phase regime and erosion.",
+      "produces": [
+        "PROC-I190"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "piping class pipe schedules and internal diameters",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "routed line lengths and fittings from 3D model for critical lines",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T200",
+      "name": "Develop P&IDs (process content)",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "SPID",
+      "activity": "PRC-08",
+      "description": "Draw P&IDs in SPID with equipment, lines, valves, instruments and control from PFDs and sizing.",
+      "produces": [
+        "PROC-I200",
+        "PROC-I201"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "PFDs and equipment process duties (PROC-I120, PROC-I160)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "line sizing results (PROC-I190)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "control philosophy and trip schedule (PROC-I230, PROC-I235)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "piping classes and valve symbols / specialty items",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "instrument tag format and typical instrument symbols",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "vendor package P&ID boundaries and nozzle arrangements",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "P&ID legend and drafting standards",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T210",
+      "name": "Prepare line list process data",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SPID",
+      "activity": "PRC-08",
+      "description": "Enter line process data against P&ID lines for the line list.",
+      "produces": [
+        "PROC-I210"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data per line (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "design P/T basis (PROC-I130) and line sizing (PROC-I190)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "P&ID line numbers (PROC-I200)",
+          "method": "integrated",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T220",
+      "name": "Prepare instrument process data",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-08",
+      "description": "Provide process conditions for each instrument and control valve tag for instrument sizing and datasheets.",
+      "produces": [
+        "PROC-I220"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data at instrument location (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "P&ID instrument tags (PROC-I200)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "instrument index tags and data-request templates from SI",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T230",
+      "name": "Prepare control philosophy and control narratives",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-04",
+      "description": "Define the control strategy and write control narratives per unit section.",
+      "produces": [
+        "PROC-I230",
+        "PROC-I231"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "P&IDs and operating cases (PROC-I200, PROC-I111)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "control system architecture and advanced control capability",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "operations input on control preferences and alarm philosophy",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T235",
+      "name": "Define trips, interlocks and process input to SIF",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-04",
+      "description": "List trips and permissives with initiators, actions and set points as process input to C&E and LOPA.",
+      "produces": [
+        "PROC-I235"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "HAZOP-ready P&IDs and control philosophy (PROC-I201, PROC-I230)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZOP recommendations and LOPA SIF requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "design P/T and relief settings (PROC-I130, PROC-I250)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T240",
+      "name": "Prepare operating philosophy",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-04",
+      "description": "Define operating modes, sparing, turndown, start-up/shutdown and maintenance isolation philosophy.",
+      "produces": [
+        "PROC-I240"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "operations staffing, maintenance and shutdown interval philosophy",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "design and operating cases (PROC-I111)",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T250",
+      "name": "Calculate relief loads and size relief devices",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Flare / relief tool",
+      "activity": "PRC-03",
+      "description": "Identify relief scenarios per device, calculate loads and size PSVs and rupture discs.",
+      "produces": [
+        "PROC-I250",
+        "PROC-I251"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "HAZOP-ready P&IDs and design P/T (PROC-I201, PROC-I130)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "stream data and simulation for relieving conditions (PROC-I100)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "vessel wetted areas, volumes and insulation for fire case",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "inlet and outlet line routing lengths for PSV inlet loss and built-up back pressure",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "certified exchanger/pump/compressor data for tube rupture and blocked outlet cases",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROC-T260",
+      "name": "Run flare and blowdown hydraulics",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Flare / relief tool",
+      "activity": "SAF-02",
+      "description": "Model the flare network for governing scenarios and run depressuring/blowdown studies.",
+      "produces": [
+        "PROC-I260",
+        "PROC-I261"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "relief load summary and coincident scenarios (PROC-I250)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "flare header isometrics/routing lengths and fittings",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "global flare load scenarios and radiation limits",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "vessel volumes and metal masses for depressuring",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T270",
+      "name": "Prepare utility balances and consumption lists",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-03",
+      "description": "Compile utility consumption per consumer and balance each utility system for normal and peak cases.",
+      "produces": [
+        "PROC-I270",
+        "PROC-I271"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data and equipment duties (PROC-I110, PROC-I160)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "electrical load list for power summary cross-check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "vendor-stated utility consumptions for packages (seal flush, cooling, purge, power)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "utility and offsite basis (PROC-I090)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T275",
+      "name": "Prepare chemical and catalyst consumption list",
+      "phases": [
+        "FEL3",
+        "DD",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-01",
+      "description": "List chemicals, catalysts and adsorbents with consumption, first fill and storage needs.",
+      "produces": [
+        "PROC-I275"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "licensor/chemical vendor dosing rates and catalyst volumes",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "stream data for dosing basis (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T280",
+      "name": "Prepare effluent and emissions summary",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Summarise liquid effluents, air emissions and wastes for environmental studies and permitting.",
+      "produces": [
+        "PROC-I280"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data for effluent/vent streams (PROC-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "fired heater fuel and duties (PROC-I177)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "permit limits and reporting format",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T285",
+      "name": "Prepare process input to safety studies",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Provide fluid and inventory data for hazardous area classification, consequence modelling and QRA.",
+      "produces": [
+        "PROC-I285"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "stream data and equipment inventories (PROC-I110, PROC-I140)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "isolatable segment definition and release scenarios",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "PROC-T290",
+      "name": "Prepare process description and design report",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-07",
+      "description": "Write the process description and process design report summarising basis, cases and design decisions.",
+      "produces": [
+        "PROC-I290"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "design basis, H&MB, PFDs, equipment duties (PROC-I010, PROC-I110, PROC-I120, PROC-I160)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZID/HAZOP key outcomes affecting process design",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T300",
+      "name": "Participate in HAZOP and close process actions",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-03",
+      "description": "Present P&IDs at HAZOP/LOPA, then respond to and close process-owned actions.",
+      "produces": [
+        "PROC-I300",
+        "PROC-I301"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "HAZOP worksheets and recommendations assigned to process",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "LOPA results and required SIL per SIF",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "HAZOP-ready P&IDs (PROC-I201)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T305",
+      "name": "Process input to technical bid evaluations",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Check vendor offers against process datasheets and state process acceptability.",
+      "produces": [
+        "PROC-I305"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "bid packages and technical clarification register",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "vendor proposals: performance curves, guaranteed duties, utility consumption, deviations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "technical bid tabulation template and evaluation criteria",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T310",
+      "name": "Review vendor data against process duties",
+      "phases": [
+        "DD"
+      ],
+      "system": "Document Locator",
+      "activity": "VEN-01",
+      "description": "Review vendor drawings and data for process compliance and return comments.",
+      "produces": [
+        "PROC-I310"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "vendor drawings and data: performance curves, rating sheets, P&IDs of packages, control narratives",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "vendor document review routing and status codes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "process datasheets (PROC-I170 to PROC-I185)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T315",
+      "name": "Reconcile simulation with certified vendor data",
+      "phases": [
+        "DD"
+      ],
+      "system": "HYSYS",
+      "activity": "PRC-00",
+      "description": "Rerun the model with certified equipment performance and update the H&MB and affected process data.",
+      "produces": [
+        "PROC-I315"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "certified pump curves and NPSHr from vendor data",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "MECH",
+          "info": "certified exchanger rating sheets and fired heater performance",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "MECH",
+          "info": "certified compressor performance maps and settle-out data",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "final tray/packing hydraulic ratings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PROC",
+          "info": "calibrated simulation (PROC-I100)",
+          "method": "integrated",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T320",
+      "name": "Respond to technical queries and holds",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-08",
+      "description": "Answer process technical queries from other disciplines and vendors and release process holds.",
+      "produces": [
+        "PROC-I320"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "technical queries on datasheets and vendor deviations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "queries on instrument process data and set points",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "queries on line routing requirements, slopes and specialty items",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "hold list and interface register entries assigned to process",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T325",
+      "name": "Review instrument and control valve sizing",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-04",
+      "description": "Review control valve, flow element and PSV sizing outputs against process data and controllability.",
+      "produces": [
+        "PROC-I325"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "control valve sizing results: Cv, trim, noise, rangeability",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "flow element sizing and instrument datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "PSV vendor-selected orifice and datasheets (if I&C owned)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T330",
+      "name": "Review 3D model and isometrics for process requirements",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "S3D",
+      "activity": "LAY-03",
+      "description": "Check model and critical isometrics for slopes, pockets, symmetry, elevations and process access.",
+      "produces": [
+        "PROC-I330"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "3D model review sessions and critical-line isometrics",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "process layout requirements and critical-line flags (PROC-I095, PROC-I190)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T335",
+      "name": "Define tie-in process conditions",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-08",
+      "description": "Specify process conditions and isolation requirements at each tie-in to existing facilities.",
+      "produces": [
+        "PROC-I335"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "tie-in list with locations and line numbers",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "existing line process conditions and shutdown windows",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T340",
+      "name": "Update P&IDs to IFD and IFC",
+      "phases": [
+        "DD"
+      ],
+      "system": "SPID",
+      "activity": "PRC-08",
+      "description": "Incorporate HAZOP markups, vendor data and discipline comments and issue P&IDs IFD then IFC.",
+      "produces": [
+        "PROC-I340",
+        "PROC-I341"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "HAZOP P&ID markups (PROC-I301) and as-designed H&MB (PROC-I315)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "certified vendor package P&IDs and nozzle data",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "instrument tag and loop updates from SI (correlated by hand)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "P&ID-to-model consistency report via SPF",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "LOPA/SIL outcomes and HAZOP close-out status",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "P&ID review comments",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T345",
+      "name": "Assess process impact of changes",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-05",
+      "description": "Assess process impact of change requests and deviations and state required design updates.",
+      "produces": [
+        "PROC-I345"
+      ],
+      "needs": [
+        {
+          "from": "PROJ",
+          "info": "change requests and deviation notices",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "scope changes and operations requests",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T350",
+      "name": "Prepare operating manual process input",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-07",
+      "description": "Write process sections of the operating manual: description, limits, control and safeguarding.",
+      "produces": [
+        "PROC-I350"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "IFC P&IDs, control narratives, trip schedule (PROC-I341, PROC-I231, PROC-I235)",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "vendor operating and maintenance manuals for packages",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "operating manual template and operations review",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T355",
+      "name": "Prepare process input to systemization",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "SPID",
+      "activity": "CON-02",
+      "description": "Mark process systems and subsystems on P&IDs for systemization and commissioning sequence.",
+      "produces": [
+        "PROC-I355"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "systemization rules and system numbering",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "IFC P&IDs (PROC-I341)",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROC-T360",
+      "name": "Prepare commissioning process requirements",
+      "phases": [
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-07",
+      "description": "Define flushing, drying, purging, leak test media, catalyst loading and initial fill requirements per system.",
+      "produces": [
+        "PROC-I360"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "commissioning plan and system list",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "vendor pre-commissioning and catalyst loading requirements",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "PROC",
+          "info": "chemical and catalyst first-fill quantities (PROC-I275)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T365",
+      "name": "Prepare start-up, shutdown and emergency procedures",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-07",
+      "description": "Write initial start-up, normal start-up/shutdown and emergency shutdown procedures.",
+      "produces": [
+        "PROC-I365"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "operating manual process input (PROC-I350)",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "cause and effect matrix and DCS/SIS configuration (trip and permissive logic)",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "commissioning sequence and system handover dates",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "operations procedure format and review",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T370",
+      "name": "Respond to field RFIs and review field changes",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Procore",
+      "activity": "CON-01",
+      "description": "Answer process-related RFIs and assess field changes for process impact.",
+      "produces": [
+        "PROC-I370"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "RFIs and field change requests with markups",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CONS",
+          "info": "field-routed small-bore and drain/vent changes",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "PROC-T375",
+      "name": "Support commissioning and start-up",
+      "phases": [
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-00",
+      "description": "Provide process engineers at site to support commissioning, troubleshoot and tune the unit to design.",
+      "produces": [
+        "PROC-I375"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "commissioning punch items and test records with process deficiencies",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "start-up plant data (DCS historian)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "loop tuning status and alarm settings",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROC-T380",
+      "name": "Prepare and run performance test",
+      "phases": [
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-01",
+      "description": "Define the performance/guarantee test procedure, run the test and evaluate results against guarantees.",
+      "produces": [
+        "PROC-I380"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "contract guarantees and acceptance criteria",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "licensor test procedure and guarantee correction curves",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "plant data and lab analyses during test run",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "PROC-T385",
+      "name": "Incorporate as-built redlines into P&IDs",
+      "phases": [
+        "COM"
+      ],
+      "system": "SPID",
+      "activity": "PRC-08",
+      "description": "Update P&IDs and line process data to as-built from field redlines and commissioning changes.",
+      "produces": [
+        "PROC-I385"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "as-built redline P&IDs",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "commissioning changes and set point changes",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "PROC",
+          "info": "IFC P&IDs (PROC-I341)",
+          "method": "integrated",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "PROC-I010",
+      "name": "Process design basis",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Capacity, turndown, on-stream factor, feed and product specifications, design margins, ambient design conditions, sparing philosophy, design cases.",
+      "owner_task": "PROC-T010"
+    },
+    {
+      "id": "PROC-I015",
+      "name": "Battery-limit conditions",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per battery-limit stream: pressure, temperature, flow range, composition at import/export points (feeds, products, utilities, flare, effluents).",
+      "owner_task": "PROC-T010"
+    },
+    {
+      "id": "PROC-I020",
+      "name": "Feed characterisation basis",
+      "system": "HYSYS",
+      "form": "model",
+      "content": "Pseudo-component set, assay cuts and properties, blend cases, property package selection, contaminant distribution basis.",
+      "owner_task": "PROC-T020"
+    },
+    {
+      "id": "PROC-I030",
+      "name": "Screening case results",
+      "system": "HYSYS",
+      "form": "data",
+      "content": "Per option: product yields and qualities, major heater/exchanger duties, column count, power and fuel demand, CO2 estimate.",
+      "owner_task": "PROC-T030"
+    },
+    {
+      "id": "PROC-I040",
+      "name": "Block flow diagrams",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Unit blocks, main feed/product/intermediate streams, overall material balance and capacities per option.",
+      "owner_task": "PROC-T040"
+    },
+    {
+      "id": "PROC-I050",
+      "name": "Screening equipment list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Equipment type, count, key size parameter (duty, diameter, flow, power), material class per option for Class 5 estimate.",
+      "owner_task": "PROC-T050"
+    },
+    {
+      "id": "PROC-I060",
+      "name": "Alternative case balances",
+      "system": "HYSYS",
+      "form": "data",
+      "content": "Per alternative: overall H&MB, product yields, heat integration (pinch/target), utility demand, major equipment duties.",
+      "owner_task": "PROC-T060"
+    },
+    {
+      "id": "PROC-I070",
+      "name": "Technology evaluation (process)",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Normalised licensor comparison: yields, utilities, catalyst life, guarantee basis, maturity and process risks, recommendation.",
+      "owner_task": "PROC-T070"
+    },
+    {
+      "id": "PROC-I080",
+      "name": "Selected process configuration",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Agreed configuration, unit capacities, technology choice, key design cases and reasons for selection.",
+      "owner_task": "PROC-T080"
+    },
+    {
+      "id": "PROC-I090",
+      "name": "Utility and offsite basis",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Utility supply/return conditions (P, T, quality) per system, availability, tankage days, interconnecting lines, flare system basis.",
+      "owner_task": "PROC-T090"
+    },
+    {
+      "id": "PROC-I095",
+      "name": "Process layout requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Minimum elevations (NPSHa, thermosiphon, gravity drain), close-coupling, slope/no-pocket lines, equipment adjacency and operating access needs.",
+      "owner_task": "PROC-T095"
+    },
+    {
+      "id": "PROC-I100",
+      "name": "Calibrated simulation model",
+      "system": "HYSYS",
+      "form": "model",
+      "content": "Rigorous HYSYS case per design case (summer/winter, max/min throughput, start-of-run/end-of-run), calibration notes.",
+      "owner_task": "PROC-T100"
+    },
+    {
+      "id": "PROC-I110",
+      "name": "Stream data",
+      "system": "HYSYS",
+      "form": "data",
+      "content": "Per stream and case: flow (mass, molar, std vol), P, T, vapour fraction, composition, density, viscosity, MW, Cp, thermal conductivity, surface tension.",
+      "owner_task": "PROC-T110"
+    },
+    {
+      "id": "PROC-I111",
+      "name": "Design and operating case list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Design, check, turndown, start-up and upset cases with defining conditions and which equipment each governs.",
+      "owner_task": "PROC-T110"
+    },
+    {
+      "id": "PROC-I112",
+      "name": "Corrosion-relevant process data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per circuit: H2S, CO2, chlorides, ammonia, free water, naphthenic acid, sulfur species, oxygen, operating T/P for corrosion and material selection.",
+      "owner_task": "PROC-T110"
+    },
+    {
+      "id": "PROC-I120",
+      "name": "Process flow diagrams",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Major equipment with tags and duties, main lines with stream numbers, main control loops, stream table extract, utility interfaces.",
+      "owner_task": "PROC-T120"
+    },
+    {
+      "id": "PROC-I130",
+      "name": "Design pressure and temperature basis",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per system/equipment: max/min operating and design pressure, design and minimum design metal temperature, steam-out and vacuum conditions, settle-out pressure.",
+      "owner_task": "PROC-T130"
+    },
+    {
+      "id": "PROC-I140",
+      "name": "Vessel and column process sizing",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "ID, T/T, liquid levels (LL/LLL/NLL/HLL/HHLL), residence times, nozzle duties, internals type and count, tray loading and flood margin.",
+      "owner_task": "PROC-T140"
+    },
+    {
+      "id": "PROC-I150",
+      "name": "Rotating equipment process duties",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per pump/compressor: rated/normal/min flow, suction/discharge P, differential head, NPSHa, fluid properties, sparing, driver preference, operating cases.",
+      "owner_task": "PROC-T150"
+    },
+    {
+      "id": "PROC-I155",
+      "name": "Exchanger thermal design",
+      "system": "Aspen EDR",
+      "form": "model",
+      "content": "EDR thermal design per exchanger: TEMA type, area, shells, passes, fouling, allowable/calculated dP, velocities, vibration check, air-cooler bays/fans.",
+      "owner_task": "PROC-T155"
+    },
+    {
+      "id": "PROC-I160",
+      "name": "Equipment process duties",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per equipment tag: service, type, duty/capacity, operating and design P/T, size, MoC recommendation, insulation, sparing.",
+      "owner_task": "PROC-T160"
+    },
+    {
+      "id": "PROC-I170",
+      "name": "Vessel and column process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Sketch, ID/T-T, levels, nozzle schedule with duties, internals, design/operating conditions, corrosion allowance basis, fluid data.",
+      "owner_task": "PROC-T170"
+    },
+    {
+      "id": "PROC-I171",
+      "name": "Tank process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Working/gross capacity, fill/draw rates, vapour pressure, breathing/emission data, blanketing, heating, mixer duty, levels.",
+      "owner_task": "PROC-T170"
+    },
+    {
+      "id": "PROC-I175",
+      "name": "Shell-and-tube and plate exchanger process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "TEMA datasheet process part: duty, fluid allocation, flows, in/out T, properties, fouling, allowable dP, design P/T.",
+      "owner_task": "PROC-T175"
+    },
+    {
+      "id": "PROC-I176",
+      "name": "Air cooler process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Duty, process flows and properties, design air temperature, fan control requirement, winterisation, allowable dP.",
+      "owner_task": "PROC-T175"
+    },
+    {
+      "id": "PROC-I177",
+      "name": "Fired heater process datasheet",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Absorbed duty per case, coil inlet/outlet conditions, vaporisation, allowable flux and film temperature, fuel composition, emission limits, turndown.",
+      "owner_task": "PROC-T175"
+    },
+    {
+      "id": "PROC-I180",
+      "name": "Pump process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Rated/normal/min flow, suction/discharge P, head, NPSHa, fluid properties, solids, operating cases, sealing considerations.",
+      "owner_task": "PROC-T180"
+    },
+    {
+      "id": "PROC-I181",
+      "name": "Compressor process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Gas composition per case, inlet/outlet P/T, flows, MW, k, Z, surge/turndown, settle-out pressure, control method.",
+      "owner_task": "PROC-T180"
+    },
+    {
+      "id": "PROC-I185",
+      "name": "Package process specifications",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per package: duty, feed and product specs, battery-limit P/T/flows, utility availability, turndown, process guarantees required.",
+      "owner_task": "PROC-T185"
+    },
+    {
+      "id": "PROC-I190",
+      "name": "Line sizing results",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per line: size, velocity, dP/100 m, rho-v2, two-phase flow regime, governing case, critical-line flags (slope, no pocket, two-phase).",
+      "owner_task": "PROC-T190"
+    },
+    {
+      "id": "PROC-I200",
+      "name": "P&IDs issued for review",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "IFR P&IDs: equipment, lines with sizes/spec breaks, valves, instruments, control and trip loops, notes and holds.",
+      "owner_task": "PROC-T200"
+    },
+    {
+      "id": "PROC-I201",
+      "name": "HAZOP-ready P&IDs",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "P&IDs issued for HAZOP with all relief, interlocks, set points, design P/T and holds listed, frozen revision for workshop.",
+      "owner_task": "PROC-T200"
+    },
+    {
+      "id": "PROC-I210",
+      "name": "Line process data",
+      "system": "SPID",
+      "form": "data",
+      "content": "Per line: from/to, fluid code, phase, flow, operating/design P/T, test pressure basis, insulation and tracing requirement, critical-line flags.",
+      "owner_task": "PROC-T210"
+    },
+    {
+      "id": "PROC-I220",
+      "name": "Instrument process data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per tag: fluid, phase, min/normal/max flow, P, T, density, viscosity, MW, vapour pressure, CV allowable dP and shut-off dP, level ranges, set points.",
+      "owner_task": "PROC-T220"
+    },
+    {
+      "id": "PROC-I230",
+      "name": "Control philosophy",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Control strategy for throughput, quality, pressure and inventory; manual vs automatic; APC scope; alarm philosophy input.",
+      "owner_task": "PROC-T230"
+    },
+    {
+      "id": "PROC-I231",
+      "name": "Control narratives",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per loop group: measured/controlled variables, cascades, overrides, split-range, ratio and sequence logic, set points.",
+      "owner_task": "PROC-T230"
+    },
+    {
+      "id": "PROC-I235",
+      "name": "Trip and interlock schedule",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per trip: initiator tag, set point, voting preference, final elements and action, reset type, process safety time, bypass needs.",
+      "owner_task": "PROC-T235"
+    },
+    {
+      "id": "PROC-I240",
+      "name": "Operating philosophy",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Operating modes, turndown, sparing, run length, start-up/shutdown approach, isolation and blinding philosophy, sampling.",
+      "owner_task": "PROC-T240"
+    },
+    {
+      "id": "PROC-I250",
+      "name": "Relief load summary",
+      "system": "Flare / relief tool",
+      "form": "data",
+      "content": "Per device: governing scenario, relief load, fluid composition, MW, T, Z, k, set and back pressure, coincident loads by scenario.",
+      "owner_task": "PROC-T250"
+    },
+    {
+      "id": "PROC-I251",
+      "name": "PSV process datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per PSV: set pressure, relieving rate, relieving conditions, fluid properties, required area and orifice letter, back pressure, discharge destination.",
+      "owner_task": "PROC-T250"
+    },
+    {
+      "id": "PROC-I260",
+      "name": "Flare network hydraulic results",
+      "system": "Flare / relief tool",
+      "form": "data",
+      "content": "Header and sub-header sizes, back pressure at each device, Mach and rho-v2, KO drum and flare tip loads per scenario.",
+      "owner_task": "PROC-T260"
+    },
+    {
+      "id": "PROC-I261",
+      "name": "Depressuring study results",
+      "system": "Flare / relief tool",
+      "form": "document",
+      "content": "Per segment: inventory, restriction orifice size, peak rate, minimum metal temperature, time to target pressure.",
+      "owner_task": "PROC-T260"
+    },
+    {
+      "id": "PROC-I270",
+      "name": "Utility consumption list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per consumer: steam by level, cooling water, instrument/plant air, nitrogen, fuel gas, BFW, condensate return, power estimate; normal/peak/intermittent.",
+      "owner_task": "PROC-T270"
+    },
+    {
+      "id": "PROC-I271",
+      "name": "Utility system balances",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Steam/condensate, CW, air, N2 and fuel gas balances per case with generator/user sizing requirements.",
+      "owner_task": "PROC-T270"
+    },
+    {
+      "id": "PROC-I275",
+      "name": "Chemical and catalyst consumption list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per chemical/catalyst: service, dosing point, normal/max rate, first fill quantity, storage days, hazard class, replacement frequency.",
+      "owner_task": "PROC-T275"
+    },
+    {
+      "id": "PROC-I280",
+      "name": "Effluent and emissions data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per source: flow, composition, temperature, frequency; CO2/NOx/SOx/VOC per point source and fugitive basis; solid/liquid waste quantities.",
+      "owner_task": "PROC-T280"
+    },
+    {
+      "id": "PROC-I285",
+      "name": "Release source and fluid data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per isolatable section or release source: composition, P, T, phase, inventory, flash point, MW, toxic content (H2S), fluid category for HAC.",
+      "owner_task": "PROC-T285"
+    },
+    {
+      "id": "PROC-I290",
+      "name": "Process description and design report",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Process description by section, design cases, key design decisions, deviations from basis, open items and assumptions.",
+      "owner_task": "PROC-T290"
+    },
+    {
+      "id": "PROC-I300",
+      "name": "HAZOP action responses (process)",
+      "system": "PHA tool",
+      "form": "decision",
+      "content": "Per action: response, design change made, P&ID reference, closure evidence, status.",
+      "owner_task": "PROC-T300"
+    },
+    {
+      "id": "PROC-I301",
+      "name": "P&ID markups from HAZOP",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "Clouded P&ID changes agreed in HAZOP/LOPA (new instruments, valves, relief, trips) for incorporation.",
+      "owner_task": "PROC-T300"
+    },
+    {
+      "id": "PROC-I305",
+      "name": "Process technical bid evaluation input",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per bidder: compliance with process duties, deviations, clarification questions, utility and performance comparison, acceptability.",
+      "owner_task": "PROC-T305"
+    },
+    {
+      "id": "PROC-I310",
+      "name": "Process comments on vendor data",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Commented vendor documents with process review code, deviations, required changes and holds.",
+      "owner_task": "PROC-T310"
+    },
+    {
+      "id": "PROC-I315",
+      "name": "As-designed H&MB (vendor reconciled)",
+      "system": "HYSYS",
+      "form": "data",
+      "content": "Final stream data and duties reflecting certified equipment, list of changed values affecting line list, instruments and relief.",
+      "owner_task": "PROC-T315"
+    },
+    {
+      "id": "PROC-I320",
+      "name": "Process TQ responses and hold releases",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Per query/hold: answer, data value confirmed or revised, affected documents, release date.",
+      "owner_task": "PROC-T320"
+    },
+    {
+      "id": "PROC-I325",
+      "name": "Process comments on instrument datasheets",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comments on CV/FE/PSV/level instrument datasheets: data mismatches, rangeability, fail position, shut-off class.",
+      "owner_task": "PROC-T325"
+    },
+    {
+      "id": "PROC-I330",
+      "name": "Process 3D model review comments",
+      "system": "S3D",
+      "form": "document",
+      "content": "Model review comments: slope/pocket violations, NPSH elevations, two-phase symmetry, PSV location, sample/drain access.",
+      "owner_task": "PROC-T330"
+    },
+    {
+      "id": "PROC-I335",
+      "name": "Tie-in process conditions",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per tie-in: fluid, operating/design P/T, flow, hot-tap feasibility from process view, isolation and purging requirement, shutdown dependency.",
+      "owner_task": "PROC-T335"
+    },
+    {
+      "id": "PROC-I340",
+      "name": "P&IDs issued for design",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "IFD P&IDs with HAZOP changes incorporated and remaining holds listed.",
+      "owner_task": "PROC-T340"
+    },
+    {
+      "id": "PROC-I341",
+      "name": "P&IDs issued for construction",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "IFC P&IDs, holds cleared, vendor data incorporated, approved for construction.",
+      "owner_task": "PROC-T340"
+    },
+    {
+      "id": "PROC-I345",
+      "name": "Process change impact assessment",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per change: affected streams, equipment, lines, relief and safety, rework estimate, need for HAZOP re-review.",
+      "owner_task": "PROC-T345"
+    },
+    {
+      "id": "PROC-I350",
+      "name": "Operating manual process input",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Process description, operating limits and integrity operating windows, control and trip descriptions, sampling plan, troubleshooting guidance.",
+      "owner_task": "PROC-T350"
+    },
+    {
+      "id": "PROC-I355",
+      "name": "Process system boundary markups",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "P&IDs coloured by process system/subsystem with boundaries, isolation points and commissioning sequence preference.",
+      "owner_task": "PROC-T355"
+    },
+    {
+      "id": "PROC-I360",
+      "name": "Process commissioning requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per system: cleaning/flushing method, drying and dew point, inerting and oxygen limits, run-in fluids, catalyst/chemical loading, first-fill list.",
+      "owner_task": "PROC-T360"
+    },
+    {
+      "id": "PROC-I365",
+      "name": "Start-up and shutdown procedures",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Step-by-step initial and normal start-up, normal and emergency shutdown, with checkpoints, set points and hold points.",
+      "owner_task": "PROC-T365"
+    },
+    {
+      "id": "PROC-I370",
+      "name": "Process RFI responses and field change dispositions",
+      "system": "Procore",
+      "form": "decision",
+      "content": "Per RFI/field change: process answer, accept/reject, P&ID impact, need for MOC/HAZOP review.",
+      "owner_task": "PROC-T370"
+    },
+    {
+      "id": "PROC-I375",
+      "name": "Commissioning process punch and troubleshooting log",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Process deficiencies found at commissioning, root cause, recommended change, set point adjustments, status.",
+      "owner_task": "PROC-T375"
+    },
+    {
+      "id": "PROC-I380",
+      "name": "Performance test procedure and report",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Test conditions, measurements, sampling plan, correction methods, results vs guarantees, acceptance recommendation.",
+      "owner_task": "PROC-T380"
+    },
+    {
+      "id": "PROC-I385",
+      "name": "As-built P&IDs",
+      "system": "SPID",
+      "form": "drawing",
+      "content": "As-built P&IDs and line process data reflecting field changes and commissioning modifications for handover.",
+      "owner_task": "PROC-T385"
+    }
+  ]
+}

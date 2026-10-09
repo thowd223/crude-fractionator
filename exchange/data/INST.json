@@ -1,0 +1,2053 @@
+{
+  "discipline": "INST",
+  "tasks": [
+    {
+      "id": "INST-T010",
+      "name": "Define preliminary control and safety concept",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-01",
+      "description": "Sets the early automation concept (DCS/SIS/F&G split, level of automation, control room location, remote operation) for screening and estimating.",
+      "produces": [
+        "INST-I010"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Operating and automation philosophy preferences, manning, remote operation, approved vendor and standards list",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PROC",
+          "info": "Block flow diagram and configuration options with main unit operations",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PROJ",
+          "info": "Design basis outline and FEL deliverable list",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "INST-T020",
+      "name": "Prepare factored instrument count and I&C estimate input",
+      "phases": [
+        "FEL1",
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-04",
+      "description": "Estimates instrument counts, I/O, control valves, analyzers and system cabinets from PFDs or P&IDs to feed the cost estimate.",
+      "produces": [
+        "INST-I020"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "PFDs / preliminary P&IDs: equipment count, control loops, streams with analyzers",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "INST",
+          "info": "Preliminary control and safety system concept (INST-I010)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PROJ",
+          "info": "Estimate basis, class, cut-off date and WBS/CBS structure",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PIPE",
+          "info": "Plot plan area sizes for cable and JB factors",
+          "method": "manual",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "INST-T030",
+      "name": "Develop ICS architecture and control/rack room requirements",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-07",
+      "description": "Develops the ICS network architecture and defines control room, rack room and field equipment room requirements including cabinet layouts and heat loads.",
+      "produces": [
+        "INST-I030",
+        "INST-I031"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Preliminary control and safety system concept (INST-I010)",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "Cyber security requirements, site network standards, interfaces to existing plant DCS and historian",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Control building and rack room layout, floor space, raised floor/cable entry, HVAC capability",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "UPS location and distribution boards serving control system rooms",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "I/O counts per system (INST-I261) for cabinet counts",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Packaged equipment list with control system type (PLC, local panel) and communication interfaces",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "INST-T040",
+      "name": "Write I&C design basis and general instrument specifications",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Writes the I&C design basis, instrument selection guide and general specifications for field instruments, installation and wiring.",
+      "produces": [
+        "INST-I040"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Owner standards, preferred vendors, spares philosophy, electrical/instrument codes",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Project design basis and applicable codes, units of measure",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification approach and protection concepts (Ex d / Ex i)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Site ambient conditions, fire and gas detection philosophy",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping material classes and connection standards for instrument process connections",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "INST-T045",
+      "name": "Review P&IDs for instrumentation and controls",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "SPID",
+      "activity": "PRC-08",
+      "description": "Reviews and marks up P&IDs for instrument types, tagging, control and interlock representation, valve failure positions and instrument connections.",
+      "produces": [
+        "INST-I045"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "P&IDs (process content) at IFR/IFD with loops, interlocks, valve fail positions",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "Control and operating philosophy",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZOP actions affecting instruments and interlocks",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T050",
+      "name": "Build and maintain the instrument index in SI",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "SI",
+      "activity": "PRC-08",
+      "description": "Creates instrument tags and loops in SI from the P&IDs and keeps the index aligned with each P&ID revision.",
+      "produces": [
+        "INST-I050"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "P&ID instrument tags, loop numbers, service, line or equipment, P&ID number (SPID and SI not linked: tags re-created by hand)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Line list: line number, size, spec for instrument location",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Equipment list: equipment numbers and services",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Package scope split: which instruments are vendor supplied",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "I&C P&ID markups (INST-I045) to confirm tagging",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "INST-T055",
+      "name": "Close out HAZOP and LOPA actions on I&C design",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-03",
+      "description": "Responds to HAZOP and LOPA actions assigned to I&C (added transmitters, alarms, trips, SIF changes) and updates the design.",
+      "produces": [
+        "INST-I055"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "HAZOP and LOPA action register with actions assigned to I&C",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Revised P&IDs reflecting accepted actions",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T060",
+      "name": "Enter instrument process data",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "PRC-08",
+      "description": "Enters process conditions for each instrument into SI process data sheets from process datasheets and the HYSYS stream summary.",
+      "produces": [
+        "INST-I060"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "HYSYS stream data: flow min/norm/max, P, T, density, viscosity, MW, Cp/Cv, Z, vapour pressure (no link: copied by hand)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Instrument process datasheets / process data requests: ranges, set points, alarm and trip settings",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Line list: design P/T, fluid, phase",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping material classes: line rating and material for instrument wetted parts",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T070",
+      "name": "Size control valves",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-04",
+      "description": "Sizes control valves for all cases, checks noise, cavitation and flashing, and selects body size, trim, rating and actuator.",
+      "produces": [
+        "INST-I070",
+        "INST-I071",
+        "INST-I072"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument process data in SI (INST-I060)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Control valve allowable pressure drop and flow cases from hydraulic calcs",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Line size and pipe class at the valve, reducer arrangement",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Noise limits for the plant",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "INST-T080",
+      "name": "Size on/off and emergency shutdown valves and actuators",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-04",
+      "description": "Sizes on/off, ESD and blowdown valves and specifies actuators, stroke times, failure positions and leak classes.",
+      "produces": [
+        "INST-I080"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument process data in SI (INST-I060)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Required closing/opening times, fail positions, blowdown orifice and depressuring requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire-safe and emergency isolation valve requirements from fire protection study",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "SRS (INST-I220) for SIF final element requirements",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T090",
+      "name": "Calculate flow elements and thermowells",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-04",
+      "description": "Sizes orifice plates and other flow elements and checks thermowell wake frequency.",
+      "produces": [
+        "INST-I090",
+        "INST-I091"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument process data in SI (INST-I060)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Line size, schedule and internal diameter",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T100",
+      "name": "Prepare relief valve datasheets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "PRC-03",
+      "description": "Prepares PSV datasheets from the process relief cases and selects orifice, body size and rating.",
+      "produces": [
+        "INST-I100"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Relief load summary: governing case, relieving rate, set pressure, back pressure, fluid properties (copied by hand)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Flare/relief header hydraulics: built-up back pressure and inlet loss checks",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Inlet/outlet piping class and rating",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T110",
+      "name": "Prepare instrument datasheets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "PRO-01",
+      "description": "Prepares SI datasheets for transmitters, switches, gauges, flow meters, level instruments and valves ready for requisition.",
+      "produces": [
+        "INST-I110"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument process data in SI (INST-I060)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Control valve and on/off valve sizing (INST-I070, INST-I080)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "I&C design basis and specs (INST-I040)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification drawings: zone, gas group, temperature class at instrument location",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping material class: wetted part material, flange rating, facing",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T115",
+      "name": "Define instrument connections on equipment and lines",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-09",
+      "description": "Defines instrument nozzles and connections on vessels, columns, tanks and lines (level bridles, thermowells, pressure tappings).",
+      "produces": [
+        "INST-I115"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "Vessel and column datasheets and GA drawings: nozzle schedule, elevations, internals",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "Normal/high/low liquid levels and interface levels",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping branch connection standards",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T130",
+      "name": "Prepare instrument material requisitions",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Purchasing DB",
+      "activity": "PRO-01",
+      "description": "Compiles material requisitions for instrument packages (control valves, on/off valves, PSVs, transmitters, flow, analyzers, F&G devices, bulks).",
+      "produces": [
+        "INST-I130"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument datasheets (INST-I110) and relief valve datasheets (INST-I100)",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Requisition template, commercial terms and bidders list",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "Vendor document requirements (VDRL) and procurement schedule",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T140",
+      "name": "Evaluate instrument bids technically",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Evaluates vendor technical offers against the requisition and issues the technical bid evaluation.",
+      "produces": [
+        "INST-I140"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "Technical offers: deviations, model codes, sizing confirmation, delivery",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Bid package and clarification log",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T150",
+      "name": "Review instrument vendor data",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Document Locator",
+      "activity": "VEN-01",
+      "description": "Reviews vendor drawings and data for instruments and valves and loads certified data into SI.",
+      "produces": [
+        "INST-I150",
+        "INST-I151"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "Vendor drawings and data: dimensional drawings, sizing confirmation, wiring, certificates",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "PO and expediting status for vendor document due dates",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T160",
+      "name": "Specify analyzers and analyzer shelters",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-01",
+      "description": "Specifies process and environmental analyzers, sample systems and analyzer shelters.",
+      "produces": [
+        "INST-I160",
+        "INST-I161"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Analyzer requirements: stream, components, ranges, response time, sample conditions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Emissions monitoring (CEMS) requirements from permits",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Sample point locations and plot space",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "INST-T170",
+      "name": "Write control narratives and functional design specifications",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-01",
+      "description": "Turns the process control philosophy into control narratives and functional logic for complex loops, sequences and permissives.",
+      "produces": [
+        "INST-I170"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Control and operating philosophy, control loop descriptions, start-up/shutdown sequences",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "Rotating equipment and package control requirements (anti-surge, permissives)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T180",
+      "name": "Prepare DCS specification",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-07",
+      "description": "Writes the DCS functional and hardware specification for the main automation contractor.",
+      "produces": [
+        "INST-I180"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "ICS architecture (INST-I030)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "I/O counts per system (INST-I261)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Owner DCS standards, graphics standards, cyber security requirements",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T190",
+      "name": "Prepare SIS specification",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-07",
+      "description": "Writes the SIS hardware and software specification consistent with the SRS.",
+      "produces": [
+        "INST-I190"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Safety requirements specification (INST-I220)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "I/O counts per system (INST-I261)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "SIL determination results: number of SIFs and SIL targets",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T200",
+      "name": "Specify fire and gas system and device list",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "SAF-04",
+      "description": "Specifies the F&G system and builds the F&G detector and device list from the F&G mapping study.",
+      "produces": [
+        "INST-I200",
+        "INST-I201"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "F&G mapping study: detector types, coverage, locations, voting",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire and gas philosophy and fire zones",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification for detector Ex rating",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "Building layouts for building smoke/heat detection",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T210",
+      "name": "Define SIFs and input to SIL determination",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "PHA tool",
+      "activity": "ICS-02",
+      "description": "Defines SIF initiators, logic and final elements and provides instrument reliability input to the LOPA/SIL determination.",
+      "produces": [
+        "INST-I210"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Interlock and trip list with trip settings and actions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "LOPA scenarios and required risk reduction",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T220",
+      "name": "Write safety requirements specification",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-08",
+      "description": "Writes the SRS for each SIF covering safe state, response time, trip points, bypasses and proof test requirements.",
+      "produces": [
+        "INST-I220"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "SIF list (INST-I210)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "SIL determination report with SIL targets and assumptions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Process safety time, trip settings",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T230",
+      "name": "Verify SIL achievement",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-08",
+      "description": "Calculates PFDavg and architectural constraints for each SIF using selected device data and sets proof test intervals.",
+      "produces": [
+        "INST-I230",
+        "INST-I231"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "SRS (INST-I220)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "Device failure rate data / SIL certificates (FMEDA) for transmitters, logic solver, valves",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Plant turnaround interval and maintenance constraints",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T240",
+      "name": "Prepare cause and effect charts",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-03",
+      "description": "Prepares the process shutdown and F&G cause and effect charts.",
+      "produces": [
+        "INST-I240",
+        "INST-I241"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Interlock and shutdown philosophy and trip list",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "SIF list (INST-I210)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "F&G philosophy: fire zones, voting, executive actions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Motor and electrical trip interfaces (MCC trip points)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T250",
+      "name": "Rationalize alarms and build master alarm database",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-01",
+      "description": "Runs alarm rationalization and records alarm set points, priorities and consequences.",
+      "produces": [
+        "INST-I250"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Alarm set points and operating envelopes",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Alarm philosophy and operator input",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Instrument index (INST-I050)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T260",
+      "name": "Develop I/O list and assign I/O",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-05",
+      "description": "Builds the I/O list per system, assigns I/O to cabinets and cards and issues I/O counts to system vendors.",
+      "produces": [
+        "INST-I260",
+        "INST-I261"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument index (INST-I050)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Motor control signals per drive: start/stop/run/trip, hardwired vs serial (SPEL not linked)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "Package interface signal list",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T270",
+      "name": "Integrate vendor package controls",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "VEN-01",
+      "description": "Defines package I&C requirements for mechanical requisitions and reviews package control data and interfaces.",
+      "produces": [
+        "INST-I270",
+        "INST-I271",
+        "INST-I272"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "Package requisitions and vendor data: P&IDs, instrument lists, PLC/panel data",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "Package instrument list, control narratives, communication maps (Modbus/Ethernet)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T280",
+      "name": "Compile instrument utility loads",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ELE-01",
+      "description": "Compiles instrument power, UPS, instrument air and heat tracing requirements.",
+      "produces": [
+        "INST-I280",
+        "INST-I281",
+        "INST-I282"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument index (INST-I050) and system cabinet data (INST-I031)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "Analyzer and system power consumption data",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T290",
+      "name": "Prepare instrument location plans and JB locations",
+      "phases": [
+        "DD"
+      ],
+      "system": "S3D",
+      "activity": "ICS-09",
+      "description": "Places instruments and JBs in the 3D model, prepares location plans and comments in model reviews.",
+      "produces": [
+        "INST-I290",
+        "INST-I291",
+        "INST-I292"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Routed piping 3D model and plot plan",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "Structural model: platforms, supports",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Cable tray routing and hazardous area classification drawings",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T300",
+      "name": "Prepare hook-up drawings and assign typicals",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-09",
+      "description": "Prepares process, pneumatic and electrical installation hook-ups with bills of material and assigns each instrument tag to a hook-up typical.",
+      "produces": [
+        "INST-I300"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument index and datasheets: instrument type, process connection, mounting (INST-I050, INST-I110)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Piping material class: root valve type, branch size and rating at instrument take-offs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Process conditions needing special hook-ups (sour, hydrogen, steam, cryogenic, viscous) from line list",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Instrument heat tracing requirements (INST-I281)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T310",
+      "name": "Design instrument wiring, marshalling and terminations",
+      "phases": [
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-06",
+      "description": "Designs field JB wiring, marshalling and system cabinet terminations and cable block diagrams in SI.",
+      "produces": [
+        "INST-I310"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "I/O list with cabinet/card/channel assignment (INST-I260)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "JB locations and sizes (INST-I291)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "System vendor cabinet arrangement, marshalling terminal numbering, IS barrier/isolator types",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "MCC interposing relay and terminal designations for motor signals (SPEL not linked)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T320",
+      "name": "Prepare instrument cable schedule and tray loading",
+      "phases": [
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ELE-04",
+      "description": "Prepares the instrument cable schedule with lengths from the routed model and gives cable counts per route to electrical for tray sizing.",
+      "produces": [
+        "INST-I320",
+        "INST-I321"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Wiring and termination diagrams (INST-I310)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Cable tray and trench layout with route segments and segregation rules",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "3D model distances for cable length take-off",
+          "method": "file",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T330",
+      "name": "Generate loop diagrams",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "SI",
+      "activity": "ICS-06",
+      "description": "Generates loop diagrams in SI from field device through JB and marshalling to system channel.",
+      "produces": [
+        "INST-I330"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Wiring diagrams and cable schedule (INST-I310, INST-I320)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "System vendor final I/O assignment and terminal numbers after FAT",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "Certified instrument wiring data from vendor review (INST-I151)",
+          "method": "integrated",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "INST-T340",
+      "name": "Prepare instrument bulk MTO",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-09",
+      "description": "Calculates bulk quantities (cable, tubing, fittings, JBs, glands, supports, cable tray branches) for purchase and site issue.",
+      "produces": [
+        "INST-I340"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Hook-up bills of material and assignments (INST-I300)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Instrument cable schedule (INST-I320) and JB list (INST-I291)",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "Stock codes and surplus allowances",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T350",
+      "name": "Design telecom, CCTV and security systems",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-07",
+      "description": "Designs PA/GA, CCTV, plant LAN/WAN, radio and access control systems and places devices.",
+      "produces": [
+        "INST-I350",
+        "INST-I351"
+      ],
+      "needs": [
+        {
+          "from": "CIVL",
+          "info": "Building layouts and fence/gate locations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Security assessment, alarm audibility and PA/GA zoning from F&G and emergency response",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Site telecom standards and connection to existing networks",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification for field device Ex rating",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T380",
+      "name": "Prepare system configuration data for vendors",
+      "phases": [
+        "DD"
+      ],
+      "system": "SI",
+      "activity": "ICS-07",
+      "description": "Exports tag, range, alarm and I/O data from SI and the alarm database to the DCS/SIS/F&G vendors for configuration.",
+      "produces": [
+        "INST-I380"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Instrument index, process data and I/O list (INST-I050, INST-I060, INST-I260)",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Master alarm database (INST-I250)",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Control narratives and C&E (INST-I170, INST-I240, INST-I241)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "P&IDs IFC for graphics",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "INST-T390",
+      "name": "Review configuration and witness system FAT",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "DCS / SIS config",
+      "activity": "ICS-07",
+      "description": "Reviews graphics and logic configuration and witnesses DCS, SIS and F&G factory acceptance tests.",
+      "produces": [
+        "INST-I390"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "FAT procedures, configured system, graphics and logic printouts",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "C&E charts and control narratives (INST-I240, INST-I241, INST-I170)",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "Operations attendance and graphics acceptance",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "INST-T400",
+      "name": "Answer construction RFIs and issue I&C field changes",
+      "phases": [
+        "CON"
+      ],
+      "system": "Procore",
+      "activity": "CON-01",
+      "description": "Answers I&C RFIs and technical queries from site and issues field change instructions.",
+      "produces": [
+        "INST-I400"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "RFIs with field markups on location plans, hook-ups, cable routes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "Late vendor data changes affecting installation",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "INST-T410",
+      "name": "Prepare instrument tag register for completions",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "CON-02",
+      "description": "Exports the instrument, cable and JB register with system/subsystem assignment for loading into Smart Completions.",
+      "produces": [
+        "INST-I410"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "System and subsystem boundaries (systemization) with marked-up P&IDs",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Instrument index, cable schedule, JB list (INST-I050, INST-I320, INST-I291)",
+          "method": "file",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "INST-T420",
+      "name": "Support loop checks and resolve I&C punch",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Supports calibration and loop checks and gives engineering responses to I&C punch items.",
+      "produces": [
+        "INST-I420"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "Loop check records, calibration ITRs and punch items",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Loop diagrams IFC (INST-I330)",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "INST-T430",
+      "name": "Support SAT, SIS validation and integrated testing",
+      "phases": [
+        "COM"
+      ],
+      "system": "DCS / SIS config",
+      "activity": "CON-02",
+      "description": "Supports site acceptance tests, SIS functional validation against the SRS and integrated C&E tests.",
+      "produces": [
+        "INST-I430"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "SAT and integrated test procedures, commissioning sequence",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "SRS and proof test procedures (INST-I220, INST-I231)",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "INST-T440",
+      "name": "Prepare as-built I&C database and drawings",
+      "phases": [
+        "COM"
+      ],
+      "system": "SI",
+      "activity": "PRJ-04",
+      "description": "Incorporates as-built redlines and final vendor data into SI and I&C drawings for handover.",
+      "produces": [
+        "INST-I440"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "As-built redlines on loop, wiring, location and hook-up drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "Final certified data books and calibration certificates",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "Closed punch and field changes",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "INST-I010",
+      "name": "Preliminary control and safety system concept",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "DCS/SIS/F&G split, level of automation, central vs local control room, fieldbus or conventional I/O, packaged unit control approach, basis for estimate.",
+      "owner_task": "INST-T010"
+    },
+    {
+      "id": "INST-I020",
+      "name": "I&C quantities and estimate input",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Instrument counts by type, I/O counts by system, control valve and on/off valve counts by size class, analyzer count, cabinet count, bulk factors (cable m per I/O, JBs), allowances.",
+      "owner_task": "INST-T020"
+    },
+    {
+      "id": "INST-I030",
+      "name": "ICS architecture diagram",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "DCS, SIS, F&G, PLCs, historian, engineering stations, network switches, firewalls, serial/Ethernet links to packages, redundancy, time sync, remote I/O locations.",
+      "owner_task": "INST-T030"
+    },
+    {
+      "id": "INST-I031",
+      "name": "Control and rack room space, cabinet layout and heat loads",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Cabinet count and footprint, consoles, cable entry, cabinet heat dissipation (kW) for HVAC, floor loading, clean power needs per room.",
+      "owner_task": "INST-T030"
+    },
+    {
+      "id": "INST-I040",
+      "name": "I&C design basis and general instrument specifications",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Instrument selection rules, signal standards (4-20 mA/HART, fieldbus), Ex protection, enclosure ratings, process connection standards, tubing/cable specs, color coding, approved vendor list.",
+      "owner_task": "INST-T040"
+    },
+    {
+      "id": "INST-I045",
+      "name": "I&C P&ID markups",
+      "system": "SPID",
+      "form": "document",
+      "content": "Instrument tag numbers, instrument types and symbols, signal lines, interlock and SIS boundaries, fail positions, instrument connection sizes, comments for PROC to incorporate.",
+      "owner_task": "INST-T045"
+    },
+    {
+      "id": "INST-I050",
+      "name": "Instrument index",
+      "system": "SI",
+      "form": "data",
+      "content": "Tag, instrument type, service, loop, P&ID, line/equipment number, I/O type, system (DCS/SIS/F&G/package), supply scope, status and revision.",
+      "owner_task": "INST-T050"
+    },
+    {
+      "id": "INST-I055",
+      "name": "I&C HAZOP/LOPA action responses",
+      "system": "PHA tool",
+      "form": "document",
+      "content": "Action number, response, design change made (tags added/changed, alarm/trip settings), evidence and closure request.",
+      "owner_task": "INST-T055"
+    },
+    {
+      "id": "INST-I060",
+      "name": "Instrument process data in SI",
+      "system": "SI",
+      "form": "data",
+      "content": "Per tag: fluid, phase, operating and design P/T, flow cases, density, viscosity, MW, range, alarm and trip points, line size and class.",
+      "owner_task": "INST-T060"
+    },
+    {
+      "id": "INST-I070",
+      "name": "Control valve sizing calculations",
+      "system": "SI",
+      "form": "document",
+      "content": "Cv per case, % opening, noise dB(A), cavitation/flashing check, trim type, actuator sizing, shut-off class.",
+      "owner_task": "INST-T070"
+    },
+    {
+      "id": "INST-I071",
+      "name": "Control valve sizes and ratings for P&ID",
+      "system": "SI",
+      "form": "data",
+      "content": "Body size, ANSI rating, reducer sizes, Cv selected, fail action and leak class for PROC to show on P&IDs and in hydraulics.",
+      "owner_task": "INST-T070"
+    },
+    {
+      "id": "INST-I072",
+      "name": "Preliminary in-line valve dimensions and weights",
+      "system": "SI",
+      "form": "data",
+      "content": "Face-to-face, end connection, estimated weight, actuator height and orientation envelope for control and on/off valves for piping layout.",
+      "owner_task": "INST-T070"
+    },
+    {
+      "id": "INST-I080",
+      "name": "On/off and ESD valve sizing and actuator data",
+      "system": "SI",
+      "form": "data",
+      "content": "Valve type, size, rating, shut-off class, stroke time, failure position, actuator torque/thrust, air supply, fire-proofing, partial stroke testing.",
+      "owner_task": "INST-T080"
+    },
+    {
+      "id": "INST-I090",
+      "name": "Flow element and thermowell calculations",
+      "system": "SI",
+      "form": "document",
+      "content": "Beta ratio, bore, differential, permanent pressure loss, uncertainty; thermowell wake frequency results and lengths.",
+      "owner_task": "INST-T090"
+    },
+    {
+      "id": "INST-I091",
+      "name": "Flow element sizes and straight-run requirements",
+      "system": "SI",
+      "form": "data",
+      "content": "Flow element type, size, rating, flange taps, required upstream/downstream straight lengths and permanent pressure loss for PIPE layout and PROC hydraulics.",
+      "owner_task": "INST-T090"
+    },
+    {
+      "id": "INST-I100",
+      "name": "Relief valve datasheets",
+      "system": "SI",
+      "form": "document",
+      "content": "Tag, set pressure, relieving rate, required/selected orifice, inlet/outlet size and rating, body/trim material, bellows/pilot, back pressure.",
+      "owner_task": "INST-T100"
+    },
+    {
+      "id": "INST-I110",
+      "name": "Instrument datasheets for requisition",
+      "system": "SI",
+      "form": "document",
+      "content": "Per tag specification: process data, range, materials, process connection, Ex rating, enclosure, signal, accessories.",
+      "owner_task": "INST-T110"
+    },
+    {
+      "id": "INST-I115",
+      "name": "Instrument connection requirements on equipment and piping",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per instrument: connection type, size, rating, orientation, elevation/level range, bridle arrangement; for MECH nozzle schedule and PIPE branch tables.",
+      "owner_task": "INST-T115"
+    },
+    {
+      "id": "INST-I130",
+      "name": "Instrument material requisitions",
+      "system": "Purchasing DB",
+      "form": "document",
+      "content": "MR per instrument package: technical scope, datasheets, quantities, spares, VDRL, inspection and test requirements.",
+      "owner_task": "INST-T130"
+    },
+    {
+      "id": "INST-I140",
+      "name": "Instrument technical bid evaluations",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Compliance table, technical clarifications, deviations accepted, technically acceptable bidders, recommended vendor.",
+      "owner_task": "INST-T140"
+    },
+    {
+      "id": "INST-I150",
+      "name": "Instrument vendor data comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Return code (1-4) and comments on vendor drawings, sizing, materials, certificates.",
+      "owner_task": "INST-T150"
+    },
+    {
+      "id": "INST-I151",
+      "name": "Certified in-line instrument dimensions and weights",
+      "system": "SI",
+      "form": "data",
+      "content": "Certified face-to-face, end connections, weights, actuator envelopes, centre of gravity for control valves, on/off valves, flow meters and PSVs for PIPE model and stress.",
+      "owner_task": "INST-T150"
+    },
+    {
+      "id": "INST-I160",
+      "name": "Analyzer datasheets and system specification",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Analyzer type, components, ranges, sample conditioning, calibration gases, shelter scope.",
+      "owner_task": "INST-T160"
+    },
+    {
+      "id": "INST-I161",
+      "name": "Analyzer shelter utility and space requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Shelter size, weight, location, power and UPS, HVAC, instrument air, sample return and vent connections, calibration gas storage.",
+      "owner_task": "INST-T160"
+    },
+    {
+      "id": "INST-I170",
+      "name": "Control narratives and functional logic",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Loop-by-loop control descriptions, cascade/ratio/split-range logic, sequences, permissives, overrides for DCS configuration.",
+      "owner_task": "INST-T170"
+    },
+    {
+      "id": "INST-I180",
+      "name": "DCS specification",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Hardware, software, redundancy, I/O counts with spare, graphics, historian, cyber security, FAT/SAT requirements.",
+      "owner_task": "INST-T180"
+    },
+    {
+      "id": "INST-I190",
+      "name": "SIS specification",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Certified logic solver, SIL capability, redundancy, I/O counts, bypass/override management, sequence of events, interface to DCS.",
+      "owner_task": "INST-T190"
+    },
+    {
+      "id": "INST-I200",
+      "name": "F&G system specification",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "F&G logic solver, voting, alarm annunciation, interfaces to fire water, HVAC shutdown, PA/GA.",
+      "owner_task": "INST-T200"
+    },
+    {
+      "id": "INST-I201",
+      "name": "F&G device list and locations",
+      "system": "SI",
+      "form": "data",
+      "content": "Detector tag, type, fire zone, coordinates/elevation, voting group, Ex rating, I/O type.",
+      "owner_task": "INST-T200"
+    },
+    {
+      "id": "INST-I210",
+      "name": "SIF list with initiators and final elements",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "SIF number, initiator tags, voting, logic, final element tags, safe state, response time, target SIL.",
+      "owner_task": "INST-T210"
+    },
+    {
+      "id": "INST-I220",
+      "name": "Safety requirements specification",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per SIF: description, safe state, SIL, response time, trip set points, demand mode, bypass rules, reset, proof test interval, spurious trip rate target.",
+      "owner_task": "INST-T220"
+    },
+    {
+      "id": "INST-I230",
+      "name": "SIL verification report",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "PFDavg, RRF, HFT and SFF per SIF, assumptions, compliance with target SIL.",
+      "owner_task": "INST-T230"
+    },
+    {
+      "id": "INST-I231",
+      "name": "Proof test intervals and procedures",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Proof test interval, coverage and test steps per SIF for operations and commissioning.",
+      "owner_task": "INST-T230"
+    },
+    {
+      "id": "INST-I240",
+      "name": "Process shutdown cause and effect",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Causes (tags, set points) versus effects (valves, motors, alarms) with shutdown levels and SIF references.",
+      "owner_task": "INST-T240"
+    },
+    {
+      "id": "INST-I241",
+      "name": "F&G cause and effect",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Detector voting by fire zone versus executive actions (ESD, deluge, HVAC, PA/GA, isolation).",
+      "owner_task": "INST-T240"
+    },
+    {
+      "id": "INST-I250",
+      "name": "Master alarm database",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Tag, alarm type, set point, priority, cause, consequence, operator action, response time.",
+      "owner_task": "INST-T250"
+    },
+    {
+      "id": "INST-I260",
+      "name": "I/O list",
+      "system": "SI",
+      "form": "data",
+      "content": "Tag, signal type, system, cabinet, card, channel, IS/non-IS, SIL, spare.",
+      "owner_task": "INST-T260"
+    },
+    {
+      "id": "INST-I261",
+      "name": "I/O counts and typicals for system vendors",
+      "system": "SI",
+      "form": "data",
+      "content": "I/O count per system and type, redundancy, spare percentage, typical circuits for DCS/SIS/F&G vendors.",
+      "owner_task": "INST-T260"
+    },
+    {
+      "id": "INST-I270",
+      "name": "Package instrumentation and control requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "I&C scope for packages: instrument standards, PLC requirements, interface signals, communications, F&G and SIS interfaces.",
+      "owner_task": "INST-T270"
+    },
+    {
+      "id": "INST-I271",
+      "name": "Package control vendor data comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comments on package P&IDs, instrument lists, panel drawings and communication maps.",
+      "owner_task": "INST-T270"
+    },
+    {
+      "id": "INST-I272",
+      "name": "Package interface signal list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Hardwired and serial signals between packages and DCS/SIS/F&G: tag, register, type, direction.",
+      "owner_task": "INST-T270"
+    },
+    {
+      "id": "INST-I280",
+      "name": "Instrument power and UPS load list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Consumer, voltage, kW/kVA, UPS or normal supply, redundancy, location for ELEC load list and UPS sizing (keyed into SPEL by hand).",
+      "owner_task": "INST-T280"
+    },
+    {
+      "id": "INST-I281",
+      "name": "Instrument winterization and heat tracing requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Instrument tags, impulse lines and analyzer sample lines needing tracing, maintain temperature, enclosure heating.",
+      "owner_task": "INST-T280"
+    },
+    {
+      "id": "INST-I282",
+      "name": "Instrument air consumers",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Instrument air users and steady/peak consumption for PROC utility balance and MECH air package sizing.",
+      "owner_task": "INST-T280"
+    },
+    {
+      "id": "INST-I290",
+      "name": "Instrument location plans",
+      "system": "S3D",
+      "form": "drawing",
+      "content": "Plan views with instrument and JB locations and elevations, tray routing.",
+      "owner_task": "INST-T290"
+    },
+    {
+      "id": "INST-I291",
+      "name": "Junction box locations and sizes",
+      "system": "S3D",
+      "form": "data",
+      "content": "JB tag, coordinates, size, IS/non-IS, cables served.",
+      "owner_task": "INST-T290"
+    },
+    {
+      "id": "INST-I292",
+      "name": "3D model review comments for I&C",
+      "system": "S3D",
+      "form": "document",
+      "content": "Instrument access, valve orientation, clearance and maintainability comments.",
+      "owner_task": "INST-T290"
+    },
+    {
+      "id": "INST-I300",
+      "name": "Hook-up drawings and tag assignments",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Process, pneumatic and electrical hook-up typicals with bill of materials (tubing, fittings, manifolds, supports) and tag-to-hook-up assignment list.",
+      "owner_task": "INST-T300"
+    },
+    {
+      "id": "INST-I310",
+      "name": "Wiring, marshalling and termination diagrams",
+      "system": "SI",
+      "form": "drawing",
+      "content": "JB and marshalling cabinet termination diagrams, multicore/single-pair allocation, cable block diagrams, IS/non-IS segregation.",
+      "owner_task": "INST-T310"
+    },
+    {
+      "id": "INST-I320",
+      "name": "Instrument cable schedule",
+      "system": "SI",
+      "form": "data",
+      "content": "Cable tag, type, cores/pairs, size, from/to (device, JB, cabinet), route segments, length, gland type; for construction pulling and MTO.",
+      "owner_task": "INST-T320"
+    },
+    {
+      "id": "INST-I321",
+      "name": "Instrument cable routing and tray loading requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Instrument cable count, overall diameter and weight per tray segment, IS/signal segregation, for ELEC raceway sizing.",
+      "owner_task": "INST-T320"
+    },
+    {
+      "id": "INST-I330",
+      "name": "Loop diagrams",
+      "system": "SI",
+      "form": "drawing",
+      "content": "Loop from field device to system channel: terminals, cables, JBs, power, IS parameters, ranges, set points; used for loop checks.",
+      "owner_task": "INST-T330"
+    },
+    {
+      "id": "INST-I340",
+      "name": "Instrument bulk MTO",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Quantities and specs of cable by type, tubing, fittings, manifolds, JBs, glands, supports, with surplus, for requisition and Jovix material control.",
+      "owner_task": "INST-T340"
+    },
+    {
+      "id": "INST-I350",
+      "name": "Telecom system design",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "PA/GA, CCTV, LAN/WAN, radio and access control specifications, block diagrams and requisition data.",
+      "owner_task": "INST-T350"
+    },
+    {
+      "id": "INST-I351",
+      "name": "Telecom device list, locations and power",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Speaker, beacon, camera, access point and reader tags with locations, mounting, power/UPS load and cabling needs.",
+      "owner_task": "INST-T350"
+    },
+    {
+      "id": "INST-I380",
+      "name": "System configuration database",
+      "system": "SI",
+      "form": "data",
+      "content": "Tag, description, range, units, alarm limits and priorities, I/O assignment, control module typical, for DCS/SIS/F&G configuration (spreadsheet export to vendor tools).",
+      "owner_task": "INST-T380"
+    },
+    {
+      "id": "INST-I390",
+      "name": "FAT report and punch list",
+      "system": "DCS / SIS config",
+      "form": "document",
+      "content": "FAT test record, punch items by category, configuration changes required, release for shipment.",
+      "owner_task": "INST-T390"
+    },
+    {
+      "id": "INST-I400",
+      "name": "I&C RFI responses and field changes",
+      "system": "Procore",
+      "form": "document",
+      "content": "RFI answers, field change instructions with revised hook-up, routing or termination details.",
+      "owner_task": "INST-T400"
+    },
+    {
+      "id": "INST-I410",
+      "name": "Instrument tag register for completions",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Instrument, cable, JB and loop tags with type, system, subsystem, ITR form type, for spreadsheet load into Smart Completions.",
+      "owner_task": "INST-T410"
+    },
+    {
+      "id": "INST-I420",
+      "name": "I&C punch and loop check resolutions",
+      "system": "Smart Completions",
+      "form": "document",
+      "content": "Engineering responses to loop check failures and punch items, range/set point corrections.",
+      "owner_task": "INST-T420"
+    },
+    {
+      "id": "INST-I430",
+      "name": "SAT and SIS validation records and as-configured database",
+      "system": "DCS / SIS config",
+      "form": "document",
+      "content": "SAT results, SIF validation records, final as-configured database backup and change log.",
+      "owner_task": "INST-T430"
+    },
+    {
+      "id": "INST-I440",
+      "name": "As-built I&C database and drawings",
+      "system": "SI",
+      "form": "data",
+      "content": "As-built instrument index, datasheets, loops, wiring and location drawings for owner handover.",
+      "owner_task": "INST-T440"
+    }
+  ]
+}
