@@ -1,0 +1,2005 @@
+{
+  "discipline": "MECH",
+  "tasks": [
+    {
+      "id": "MECH-T010",
+      "name": "Prepare mechanical input to FEL 1 equipment list and configuration screening",
+      "phases": [
+        "FEL1"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-02",
+      "description": "Assigns equipment types, rough sizes, materials and weights to the block-level equipment list for each configuration option.",
+      "produces": [
+        "MECH-I010",
+        "MECH-I020"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "block flow diagram and option list: unit capacities, main equipment counts per option",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PROC",
+          "info": "preliminary equipment duties: duty, flow, design T/P class",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "business case capacity and product slate, preferred technology/standards",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "MECH-T020",
+      "name": "Develop mechanical design basis",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Defines codes, design margins, corrosion allowances, sparing, driver and equipment standardisation rules for mechanical design.",
+      "produces": [
+        "MECH-I030"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "owner engineering standards, preferred vendors, sparing and reliability requirements, design life",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "process design basis: feed/product, turndown, design margin philosophy, utility conditions",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "site meteorological and seismic data: wind speed, seismic zone, ambient min/max temperature",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "environmental limits affecting equipment: noise limits, fugitive emission requirements",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T030",
+      "name": "Select equipment materials and corrosion allowances",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-01",
+      "description": "Selects base and cladding materials, corrosion allowances and PWHT/hardness requirements for each equipment item.",
+      "produces": [
+        "MECH-I040"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "fluid composition and corrosive species: H2S, CO2, chlorides, naphthenic acid (TAN), water, sulfur, per stream and equipment",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "design and operating T/P per equipment, minimum design metal temperature cases",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "piping material classes for consistency of material families at equipment nozzles",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "mechanical design basis: corrosion allowance rules, design life",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T040",
+      "name": "Define rotating equipment sparing and driver selection",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Sets the installed spare, driver type (motor, steam turbine, engine) and speed control for each rotating machine.",
+      "produces": [
+        "MECH-I050"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "pump and compressor process duties: flow, head/differential pressure, NPSHA, fluid properties, operating cases",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "utility balance: steam availability and levels for turbine drivers",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "available voltage levels and motor size limits by voltage, VFD policy",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "mechanical design basis: sparing philosophy",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T050",
+      "name": "Obtain budget quotations and equipment cost data",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "VEN-01",
+      "description": "Issues budget enquiries for major and long-lead equipment and compiles equipment cost, weight and delivery data for estimates.",
+      "produces": [
+        "MECH-I060",
+        "MECH-I070"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "process datasheets (preliminary): duty, flows, design T/P, fluids",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "SCM",
+          "info": "bidders list and enquiry procedure for budget quotations",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "VEND",
+          "info": "budget quotations: price, weight, delivery, outline dimensions",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "estimate basis and class (Class 4/3) and required equipment cost format",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T060",
+      "name": "Maintain mechanical equipment list",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Keeps the master mechanical attributes for every equipment tag current through design and procurement.",
+      "produces": [
+        "MECH-I080"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "equipment tag list and services from PFD/P&ID",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "sparing and driver list, datasheet attributes, weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "PO number, vendor name, award date per tag",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T070",
+      "name": "Perform shell-and-tube exchanger thermal and hydraulic design",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Aspen EDR",
+      "activity": "PRC-02",
+      "description": "Rates or designs shell-and-tube exchangers to fix TEMA type, geometry, area and pressure drops.",
+      "produces": [
+        "MECH-I090"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "process datasheet: duty, flows, inlet/outlet T, allowable pressure drop, fluid properties (from HYSYS), fouling factors",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "materials selection: tube and shell materials",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "plot space and maximum tube length / bundle pull limits",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T080",
+      "name": "Perform air-cooled exchanger thermal design",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Aspen EDR",
+      "activity": "PRC-02",
+      "description": "Sizes air coolers for bays, bundles, fans and fan power at design ambient conditions.",
+      "produces": [
+        "MECH-I100"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "process datasheet: duty, flows, T in/out, allowable pressure drop, fluid properties, fouling",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "design dry-bulb air temperature (summer/winter), elevation",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "noise limits at equipment and boundary",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "pipe rack top space available for air coolers",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T090",
+      "name": "Design and specify fired heaters",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Defines fired heater configuration, coil, burners, stack and combustion air system and prepares the API 560 datasheet.",
+      "produces": [
+        "MECH-I110",
+        "MECH-I120"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "fired heater process datasheet: absorbed duty, coil flow/T/P, allowable pressure drop, fouling, fuel composition and LHV",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "emissions limits (NOx, CO, SOx), stack dispersion requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "noise limits",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "control system and BMS philosophy (DCS/SIS split)",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T100",
+      "name": "Perform vessel and column mechanical design calculations",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Mechanical calc tool",
+      "activity": "MEC-01",
+      "description": "Calculates wall thicknesses, heads, nozzle reinforcement, skirt/saddle, wind and seismic loads and weights for pressure vessels and columns.",
+      "produces": [
+        "MECH-I130"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "vessel/column process datasheet: diameter, T/T height, design P/T, liquid levels, nozzles list, internals type",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "wind speed, seismic coefficients, site class",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "materials selection and corrosion allowance",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "mechanical design basis: codes and margins",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T110",
+      "name": "Specify column and vessel internals",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Prepares tray, packing, distributor, demister and other internals specifications and support ring/manway requirements.",
+      "produces": [
+        "MECH-I140"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "tray/packing hydraulic loadings per section: vapour and liquid flows, densities, turndown, foaming factor",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "internals vendor hydraulic rating and layout (tray drawings)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "vessel mechanical design: shell ID, ring elevations",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T120",
+      "name": "Design storage tanks",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Mechanical calc tool",
+      "activity": "MEC-01",
+      "description": "Designs atmospheric and low-pressure storage tanks for shell courses, roof, seals, venting and foundation loads.",
+      "produces": [
+        "MECH-I150",
+        "MECH-I160"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "tank process data: working capacity, product, vapour pressure, filling/emptying rates, blanketing",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "geotechnical report: bearing capacity, predicted settlement",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "fire protection requirements for tanks (foam, cooling rings) and emission control requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "wind and seismic site parameters",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T130",
+      "name": "Prepare mechanical datasheets for vessels and columns",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Issues mechanical datasheets with sketches for pressure vessels, drums and columns.",
+      "produces": [
+        "MECH-I170"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "vessel process datasheet: dimensions, design P/T, operating cases, nozzles",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "vessel calculations: thickness, weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "nozzle orientation requirements and platform/ladder locations from layout",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "instrument connections on vessels: level bridles, TI/PI connections, sizes and ratings",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T140",
+      "name": "Prepare mechanical datasheets for exchangers",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Issues TEMA shell-and-tube and API 661 air-cooled exchanger datasheets from thermal designs.",
+      "produces": [
+        "MECH-I180",
+        "MECH-I190"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "shell-and-tube and air cooler thermal designs",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "materials selection",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "instrument connections and fan vibration switch requirements",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T150",
+      "name": "Prepare rotating equipment datasheets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Issues API datasheets for pumps, compressors, blowers and their drivers.",
+      "produces": [
+        "MECH-I200",
+        "MECH-I210"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "pump and compressor process datasheets: operating cases, fluid properties, NPSHA, gas composition, MW, k, Z",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "sparing and driver selection",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "motor specification: voltage, enclosure, area classification, efficiency class",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "hazardous area classification at equipment location",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T160",
+      "name": "Prepare package specifications and scope split",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Defines scope of supply, battery limits, utility demands and interface requirements for packaged units.",
+      "produces": [
+        "MECH-I220",
+        "MECH-I230"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "package process duties and P&ID (package boundary)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "control system interface philosophy: vendor PLC, serial link vs hardwired, SIS interface",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "power supply interface: voltages, MCC supply, vendor panels",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "package-specific safety requirements (F&G, isolation, emissions)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T170",
+      "name": "Select seal, flush and lube oil systems",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Selects API 682 seal plans and API 614 lube/seal oil systems and defines their piping and instrumentation for P&IDs.",
+      "produces": [
+        "MECH-I240"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "pumped fluid properties: vapour pressure, solids, toxicity, flash point",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "emission and toxic service requirements (dual seals)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "pump and compressor datasheets",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T180",
+      "name": "Provide mechanical input to P&IDs and HAZOP",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "SPID",
+      "activity": "PRC-08",
+      "description": "Marks up P&IDs with equipment vents, drains, seal and lube systems and package boundaries, and closes mechanical HAZOP actions.",
+      "produces": [
+        "MECH-I250",
+        "MECH-I260"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "P&IDs issued for review/HAZOP",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "seal plans and package specifications",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZOP and LOPA action register with mechanical actions",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T190",
+      "name": "Prepare nozzle orientations and allowable nozzle loads",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-03",
+      "description": "Develops nozzle orientation drawings with layout and issues allowable nozzle loads for piping stress.",
+      "produces": [
+        "MECH-I270",
+        "MECH-I280"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "piping layout and routing study: preferred nozzle orientations, platform levels",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "vessel datasheets and calculations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "instrument nozzle locations and access requirements",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T200",
+      "name": "Prepare equipment outline drawings, footprints and maintenance envelopes",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-03",
+      "description": "Produces equipment outline dimensions, footprints and maintenance and removal envelopes for layout and modelling.",
+      "produces": [
+        "MECH-I290",
+        "MECH-I300"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "exchanger thermal designs, vessel calculations, budget quote outlines",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "plot plan for equipment placement constraints",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T210",
+      "name": "Compile equipment weights and foundation loads",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-01",
+      "description": "Issues equipment weights and foundation loading data to civil and structural for foundations and structures.",
+      "produces": [
+        "MECH-I310"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "vessel calculations, exchanger datasheets, rotating equipment datasheets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "foundation load format and load combinations required",
+          "method": "meeting",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T220",
+      "name": "Prepare equipment lifting data",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-01",
+      "description": "Defines lifting weights, centres of gravity and lifting lug/trunnion design for heavy and critical lifts.",
+      "produces": [
+        "MECH-I320"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "heavy lift plan and crane selection: dressed lift strategy, lift sequence",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "VEND",
+          "info": "certified weights and CoG from fabricator",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "MECH",
+          "info": "vessel calculations: weights",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T230",
+      "name": "Issue motor and driver electrical data",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ELE-01",
+      "description": "Provides rated motor power, voltage, starting method and VFD requirements per driven machine to electrical.",
+      "produces": [
+        "MECH-I330"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "rotating equipment datasheets and driver selection",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "standard motor ratings and voltage thresholds",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T240",
+      "name": "Prepare mechanical technical specifications",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Writes project specifications for pressure vessels, exchangers, tanks, heaters, pumps, compressors and packages, including inspection and NDE requirements.",
+      "produces": [
+        "MECH-I340"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "owner standards and specifications",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "mechanical design basis",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "painting and insulation specifications",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "motor and electrical equipment specifications for vendor-supplied motors",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T250",
+      "name": "Prepare requisition technical packages for bid",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Assembles datasheets, specifications, VDRL and scope into requisitions for enquiry and records open holds.",
+      "produces": [
+        "MECH-I350",
+        "MECH-I360"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "datasheets, specifications, package scope",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "instrument datasheets and specifications for vendor-supplied instruments",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "motor and electrical datasheets for vendor scope",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "requisition numbering, document numbering and VDRL template",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "commercial terms, bidders list and inspection level (criticality rating)",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T260",
+      "name": "Issue technical queries and clarifications to bidders",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Reviews bids for technical compliance and issues technical queries and resolves deviations with bidders.",
+      "produces": [
+        "MECH-I370"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "received bids (technical part) distributed per bidder",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "technical proposals: datasheets, performance curves, deviations list",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T270",
+      "name": "Prepare technical bid evaluations",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Evaluates bids against the requisition and recommends technically acceptable bidders.",
+      "produces": [
+        "MECH-I380"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "bidder technical query log",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "final technical proposals: performance, power, weights, utilities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "review of vendor motor and electrical offers",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "review of vendor instrument and control offers",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T280",
+      "name": "Prepare requisitions for purchase",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Conforms the requisition to the selected bidder's clarified offer for placement of the purchase order.",
+      "produces": [
+        "MECH-I390"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "technical bid evaluation and agreed clarifications",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "commercial evaluation and award recommendation",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T290",
+      "name": "Hold vendor kick-off meetings",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "VEN-01",
+      "description": "Confirms scope, data schedule, interfaces and open holds with the vendor after purchase order award.",
+      "produces": [
+        "MECH-I400"
+      ],
+      "needs": [
+        {
+          "from": "SCM",
+          "info": "purchase order and expediting contacts",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "VEND",
+          "info": "vendor document schedule and fabrication schedule",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "piping interface data needed from vendor: nozzle loads, preliminary GA",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T300",
+      "name": "Review vendor drawings and data",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Document Locator",
+      "activity": "VEN-01",
+      "description": "Reviews and coordinates interdisciplinary comments on vendor drawings, calculations and documents and returns coded comments.",
+      "produces": [
+        "MECH-I410"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "vendor drawings and data (GA, calculations, P&IDs, wiring, performance curves)",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PIPE",
+          "info": "piping comments on vendor GA and nozzle data",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "civil comments on foundation and anchor bolt data",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "I&C comments on vendor instrumentation and control",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "ELEC",
+          "info": "electrical comments on motors and vendor electrical",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "process comments on vendor performance and P&IDs",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "MECH-T310",
+      "name": "Release certified vendor data to other disciplines",
+      "phases": [
+        "DD"
+      ],
+      "system": "Document Locator",
+      "activity": "VEN-01",
+      "description": "Releases certified vendor data to piping, civil, electrical and I&C for final design once vendor documents are certified.",
+      "produces": [
+        "MECH-I420",
+        "MECH-I430",
+        "MECH-I440",
+        "MECH-I450"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "certified vendor drawings and data",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "MECH",
+          "info": "vendor document comment sheets (status code)",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "MECH-T320",
+      "name": "Close requisition holds",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Tracks and closes holds on requisitions and vendor data as design data matures.",
+      "produces": [
+        "MECH-I460"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "requisition hold list",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "updated process data closing holds",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "final nozzle orientation and piping loads closing holds",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T330",
+      "name": "Check piping loads against equipment nozzle allowables",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PIP-05",
+      "description": "Checks calculated piping loads against vendor or code allowables and agrees acceptance or vendor confirmation.",
+      "produces": [
+        "MECH-I470"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "CAESAR II nozzle load results per equipment nozzle",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "vendor confirmation of increased nozzle loads",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "allowable nozzle loads",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T340",
+      "name": "Review rotordynamic, torsional and pulsation studies",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-01",
+      "description": "Reviews vendor lateral, torsional and acoustic/pulsation studies for compressors and critical pumps.",
+      "produces": [
+        "MECH-I480"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "lateral and torsional analysis reports, API 618 pulsation study",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "piping isometrics and supports around reciprocating machinery for pulsation study",
+          "method": "file",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T350",
+      "name": "Review and approve inspection and test plans",
+      "phases": [
+        "DD"
+      ],
+      "system": "Document Locator",
+      "activity": "VEN-01",
+      "description": "Reviews vendor ITPs and sets witness and hold points and test requirements.",
+      "produces": [
+        "MECH-I490"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "vendor inspection and test plans and test procedures",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "inspection level and third-party inspection scope",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T360",
+      "name": "Witness shop tests and factory acceptance tests",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "VEN-01",
+      "description": "Witnesses performance tests, mechanical run tests, hydrotests and FATs and releases equipment for shipment.",
+      "produces": [
+        "MECH-I500"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "test procedures and test schedule notification",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "inspection notification and inspector coordination",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "approved ITPs",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "MECH-T370",
+      "name": "Review spare parts recommendations",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "VEN-01",
+      "description": "Reviews vendor spare parts interchangeability records for commissioning, start-up and operating spares.",
+      "produces": [
+        "MECH-I510"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "spare parts interchangeability records (SPIR)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "owner spares policy and existing stock",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T380",
+      "name": "Review manufacturer's data books",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Document Locator",
+      "activity": "VEN-01",
+      "description": "Reviews final vendor data books, certificates, code stamps and manuals for completeness.",
+      "produces": [
+        "MECH-I520"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "manufacturer's data books, IOM manuals, certificates",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "MECH-T390",
+      "name": "Define equipment preservation and storage requirements",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "MEC-02",
+      "description": "Specifies site storage and preservation requirements for mechanical equipment from receipt to commissioning.",
+      "produces": [
+        "MECH-I530"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "vendor preservation and storage instructions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "SCM",
+          "info": "site storage facilities and material receipt plan",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T400",
+      "name": "Review 3D model for equipment access and maintenance",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "S3D",
+      "activity": "LAY-03",
+      "description": "Checks equipment placement, nozzle connections, access and removal envelopes in 3D model reviews.",
+      "produces": [
+        "MECH-I540"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "3D model review (30/60/90%) and clash reports",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "equipment footprints and maintenance envelopes",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T410",
+      "name": "Respond to field RFIs and equipment issues",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Procore",
+      "activity": "CON-01",
+      "description": "Answers construction RFIs, non-conformances and field changes involving mechanical equipment.",
+      "produces": [
+        "MECH-I550"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "RFIs and field change requests on equipment",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "vendor recommendations for field repairs",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "MECH-T420",
+      "name": "Coordinate vendor site representatives",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "VEN-01",
+      "description": "Plans and coordinates vendor specialist attendance for installation, alignment, internals and start-up.",
+      "produces": [
+        "MECH-I560"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "installation schedule and path of construction",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "COMM",
+          "info": "commissioning sequence and system start-up dates",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SCM",
+          "info": "PO site service provisions and rates",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "MECH-T430",
+      "name": "Provide mechanical completion and pre-commissioning input",
+      "phases": [
+        "CON",
+        "COM"
+      ],
+      "system": "Smart Completions",
+      "activity": "CON-02",
+      "description": "Defines equipment check sheets, internals box-up, alignment and run-in requirements and supports MC walkdowns and punch.",
+      "produces": [
+        "MECH-I570",
+        "MECH-I580"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "system boundaries and ITR form templates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "vendor installation and run-in instructions (IOM)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "installation records and alignment records",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "MECH-T440",
+      "name": "Issue as-built equipment data for handover",
+      "phases": [
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-04",
+      "description": "Updates equipment datasheets and the equipment register to as-built and certified data for owner handover.",
+      "produces": [
+        "MECH-I590"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "certified final data and nameplate data",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "as-built redlines affecting equipment (field modifications)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "asset register / CMMS data template",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "MECH-I010",
+      "name": "FEL 1 equipment type and size list (mechanical attributes)",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Equipment tag/service, type, approximate size and duty class, base material, rough empty weight per option.",
+      "owner_task": "MECH-T010"
+    },
+    {
+      "id": "MECH-I020",
+      "name": "FEL 1 equipment cost factors",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Factored equipment costs and weight factors per equipment type for the Class 5 estimate and screening.",
+      "owner_task": "MECH-T010"
+    },
+    {
+      "id": "MECH-I030",
+      "name": "Mechanical design basis",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Applicable codes (ASME VIII, TEMA, API 650/610/617/661/560), design margins on P/T, corrosion allowance rules, sparing philosophy, driver preferences, wind/seismic criteria, units and standard sizes.",
+      "owner_task": "MECH-T020"
+    },
+    {
+      "id": "MECH-I040",
+      "name": "Equipment materials selection and corrosion allowances",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per equipment/component: base material, cladding/lining, corrosion allowance, PWHT, NACE/sour service, impact test (MDMT) requirements.",
+      "owner_task": "MECH-T030"
+    },
+    {
+      "id": "MECH-I050",
+      "name": "Rotating equipment sparing and driver selection list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per machine: number running/spare, driver type, fixed or variable speed (VFD), estimated absorbed and rated power, voltage class.",
+      "owner_task": "MECH-T040"
+    },
+    {
+      "id": "MECH-I060",
+      "name": "Budget enquiry package",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Short-form datasheets and scope for budget pricing of major equipment and packages.",
+      "owner_task": "MECH-T050"
+    },
+    {
+      "id": "MECH-I070",
+      "name": "Equipment cost, weight and delivery data for estimate",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per tag: budget price or factored cost, weight, delivery lead time, long-lead flag, source (quote or factored).",
+      "owner_task": "MECH-T050"
+    },
+    {
+      "id": "MECH-I080",
+      "name": "Mechanical equipment list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per tag: service, type, size/rating, design P/T, material, empty/operating weight, driver power, PO number, vendor, status.",
+      "owner_task": "MECH-T060"
+    },
+    {
+      "id": "MECH-I090",
+      "name": "Shell-and-tube exchanger thermal design",
+      "system": "Aspen EDR",
+      "form": "model",
+      "content": "TEMA type, shells in series/parallel, shell diameter, tube length/count/layout, area, overdesign, allowable vs calculated pressure drops, vibration check.",
+      "owner_task": "MECH-T070"
+    },
+    {
+      "id": "MECH-I100",
+      "name": "Air-cooled exchanger thermal design",
+      "system": "Aspen EDR",
+      "form": "model",
+      "content": "Bays, bundles per bay, tube rows/length, fins, plot area, fans per bay, fan power, louvres, winterisation, noise per fan.",
+      "owner_task": "MECH-T080"
+    },
+    {
+      "id": "MECH-I110",
+      "name": "Fired heater datasheet and specification",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Duty, coil passes and material, flux rates, burner type/number, fuel gas/oil conditions, stack height, efficiency, NOx, air preheat, draft.",
+      "owner_task": "MECH-T090"
+    },
+    {
+      "id": "MECH-I120",
+      "name": "Fired heater burner management and combustion control requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "BMS functions, flame scanners, pilot/main fuel trips, draft and O2 control points, purge sequence and instrument requirements for I&C.",
+      "owner_task": "MECH-T090"
+    },
+    {
+      "id": "MECH-I130",
+      "name": "Vessel and column mechanical design calculations",
+      "system": "Mechanical calc tool",
+      "form": "model",
+      "content": "Shell/head thickness, nozzle reinforcement, skirt/saddle design, wind and seismic moments, empty/operating/test weights, MAWP, hydrotest pressure.",
+      "owner_task": "MECH-T100"
+    },
+    {
+      "id": "MECH-I140",
+      "name": "Column and vessel internals datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Tray type/spacing/passes, packing type and bed heights, distributors, demisters, vortex breakers, support rings and clips, manway sizes, materials.",
+      "owner_task": "MECH-T110"
+    },
+    {
+      "id": "MECH-I150",
+      "name": "Storage tank datasheets and calculations",
+      "system": "Mechanical calc tool",
+      "form": "document",
+      "content": "Diameter/height, shell course thicknesses, roof type (fixed/floating), seals, annular plate, venting capacity, nozzles, appurtenances, heating coils.",
+      "owner_task": "MECH-T120"
+    },
+    {
+      "id": "MECH-I160",
+      "name": "Tank foundation loads and settlement criteria",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Shell and bottom loads (empty/operating/hydrotest), wind/seismic overturning, anchorage, allowable differential and edge settlement, ringwall requirements.",
+      "owner_task": "MECH-T120"
+    },
+    {
+      "id": "MECH-I170",
+      "name": "Vessel and column mechanical datasheets",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Sketch, nozzle schedule with size/rating/facing, design P/T, MAWP, materials, CA, PWHT, insulation, internals reference, weights, NDE extent.",
+      "owner_task": "MECH-T130"
+    },
+    {
+      "id": "MECH-I180",
+      "name": "Shell-and-tube exchanger datasheets (TEMA)",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "TEMA type, thermal results, design P/T both sides, materials, CA, nozzle sizes/ratings, weights empty/full/bundle, setting plan.",
+      "owner_task": "MECH-T140"
+    },
+    {
+      "id": "MECH-I190",
+      "name": "Air-cooled exchanger datasheets (API 661)",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Thermal results, header type, tube/fin materials, fans and drivers, louvres, structure, walkways, weights, noise.",
+      "owner_task": "MECH-T140"
+    },
+    {
+      "id": "MECH-I200",
+      "name": "Pump datasheets (API 610 / ASME)",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Rated flow/head, NPSHA, fluid properties, pump type (OH/BB/VS), seal and flush plan, materials class, driver, baseplate, nozzle sizes/ratings.",
+      "owner_task": "MECH-T150"
+    },
+    {
+      "id": "MECH-I210",
+      "name": "Compressor and blower datasheets (API 617/618/672/673)",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Operating cases, gas composition, suction/discharge conditions, type, driver, lube/seal oil system, control (anti-surge/capacity), materials.",
+      "owner_task": "MECH-T150"
+    },
+    {
+      "id": "MECH-I220",
+      "name": "Package specifications and scope-of-supply split",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Package function, scope of supply, terminal points, design data, controls philosophy (vendor PLC vs DCS), skid limits, required documentation.",
+      "owner_task": "MECH-T160"
+    },
+    {
+      "id": "MECH-I230",
+      "name": "Equipment and package utility consumption data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Cooling water, steam, instrument/plant air, nitrogen, seal flush, lube oil, fuel gas demands per tag (normal/peak).",
+      "owner_task": "MECH-T160"
+    },
+    {
+      "id": "MECH-I240",
+      "name": "Seal plans and auxiliary system requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per machine: API 682 seal arrangement and plan, barrier/buffer fluid, seal pot instruments, lube oil console scope, coolers, alarms/trips for P&ID development.",
+      "owner_task": "MECH-T170"
+    },
+    {
+      "id": "MECH-I250",
+      "name": "Mechanical P&ID markups",
+      "system": "Document Locator",
+      "form": "drawing",
+      "content": "Seal plans, auxiliary piping, vent/drain nozzles, package battery limits, minimum flow/warm-up lines, equipment trim details.",
+      "owner_task": "MECH-T180"
+    },
+    {
+      "id": "MECH-I260",
+      "name": "Mechanical HAZOP action responses",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Responses and closure evidence for HAZOP/LOPA actions assigned to mechanical (design pressure changes, seal upgrades, trips).",
+      "owner_task": "MECH-T180"
+    },
+    {
+      "id": "MECH-I270",
+      "name": "Nozzle orientation drawings (engineering)",
+      "system": "Document Locator",
+      "form": "drawing",
+      "content": "Nozzle angles, elevations, projections, platform clips, davits, ladder and manway positions for vessels and columns.",
+      "owner_task": "MECH-T190"
+    },
+    {
+      "id": "MECH-I280",
+      "name": "Allowable nozzle loads",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per nozzle: allowable forces and moments (API 610/617/661, NEMA SM23, WRC 107/297 basis) for stress analysis.",
+      "owner_task": "MECH-T190"
+    },
+    {
+      "id": "MECH-I290",
+      "name": "Equipment outline drawings (preliminary GA)",
+      "system": "Document Locator",
+      "form": "drawing",
+      "content": "Overall dimensions, nozzle positions, support type and location, skirt/saddle details for model placement.",
+      "owner_task": "MECH-T200"
+    },
+    {
+      "id": "MECH-I300",
+      "name": "Equipment footprints and maintenance envelopes",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Footprint, height, bundle pull length, rotor/internals removal space, crane access, laydown and handling areas per tag.",
+      "owner_task": "MECH-T200"
+    },
+    {
+      "id": "MECH-I310",
+      "name": "Equipment weights and foundation load data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per tag: empty, operating and test weights, wind and seismic shear and moment, bundle pull force, dynamic loads (unbalanced forces, frequencies), anchor bolt circle and number.",
+      "owner_task": "MECH-T210"
+    },
+    {
+      "id": "MECH-I320",
+      "name": "Equipment lifting data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Lift weight, CoG, lifting lug/trunnion locations and capacities, tailing lug, dressed vs undressed lift, shipping dimensions.",
+      "owner_task": "MECH-T220"
+    },
+    {
+      "id": "MECH-I330",
+      "name": "Motor and driver electrical data",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per tag: absorbed and rated power, motor rating, voltage, speed, starting method and starting limitations, VFD, space heater, duty (continuous/intermittent), load factor.",
+      "owner_task": "MECH-T230"
+    },
+    {
+      "id": "MECH-I340",
+      "name": "Mechanical technical specifications",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Project supplements to ASME/TEMA/API codes, fabrication, NDE, PWHT, painting/insulation interface, testing, documentation and nameplate requirements.",
+      "owner_task": "MECH-T240"
+    },
+    {
+      "id": "MECH-I350",
+      "name": "Requisition technical package for bid",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Requisition with scope, datasheets, specifications, VDRL, spare parts and inspection requirements, list of attachments.",
+      "owner_task": "MECH-T250"
+    },
+    {
+      "id": "MECH-I360",
+      "name": "Requisition hold list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per requisition: open holds (design data pending, source discipline, expected date) at issue for bid and purchase.",
+      "owner_task": "MECH-T250"
+    },
+    {
+      "id": "MECH-I370",
+      "name": "Bidder technical query log and clarifications",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per bidder: technical queries, deviations/exceptions, responses and agreed clarifications.",
+      "owner_task": "MECH-T260"
+    },
+    {
+      "id": "MECH-I380",
+      "name": "Technical bid evaluation and recommendation",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Compliance matrix per bidder, efficiency/power and utility evaluation, deviations accepted, technically acceptable bidders, preferred bidder.",
+      "owner_task": "MECH-T270"
+    },
+    {
+      "id": "MECH-I390",
+      "name": "Requisition for purchase (conformed technical package)",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Updated datasheets and scope incorporating agreed clarifications, selected options, VDRL and remaining holds.",
+      "owner_task": "MECH-T280"
+    },
+    {
+      "id": "MECH-I400",
+      "name": "Vendor kick-off meeting minutes",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Agreed VDRL and data due dates, scope clarifications, interface data needed from vendor and project, hold resolution plan.",
+      "owner_task": "MECH-T290"
+    },
+    {
+      "id": "MECH-I410",
+      "name": "Vendor document comment sheets (coded returns)",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Consolidated comments from all disciplines with review code (approved, approved with comments, rejected) per vendor document revision.",
+      "owner_task": "MECH-T300"
+    },
+    {
+      "id": "MECH-I420",
+      "name": "Certified equipment GA and nozzle data",
+      "system": "Document Locator",
+      "form": "drawing",
+      "content": "Certified dimensions, nozzle locations/sizes/ratings, support details for model update and piping final design.",
+      "owner_task": "MECH-T310"
+    },
+    {
+      "id": "MECH-I430",
+      "name": "Certified foundation loads and anchor bolt data",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Certified loads, anchor bolt sizes and pattern, baseplate/skid details, dynamic data.",
+      "owner_task": "MECH-T310"
+    },
+    {
+      "id": "MECH-I440",
+      "name": "Certified vendor electrical data",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Certified motor datasheets, vendor panel power loads, heater/tracing loads, vendor wiring and cable entry details.",
+      "owner_task": "MECH-T310"
+    },
+    {
+      "id": "MECH-I450",
+      "name": "Vendor instrument lists and package I/O",
+      "system": "Document Locator",
+      "form": "data",
+      "content": "Vendor instrument index, package I/O list, serial link maps, cause and effect for package, control narratives.",
+      "owner_task": "MECH-T310"
+    },
+    {
+      "id": "MECH-I460",
+      "name": "Hold list status update",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Hold status per requisition and vendor document, closure date, data received from source discipline.",
+      "owner_task": "MECH-T320"
+    },
+    {
+      "id": "MECH-I470",
+      "name": "Nozzle load acceptance and exceedance resolutions",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Per nozzle: calculated vs allowable loads, acceptance, vendor-confirmed exceedances, required piping changes.",
+      "owner_task": "MECH-T330"
+    },
+    {
+      "id": "MECH-I480",
+      "name": "Rotordynamic and pulsation study acceptance",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Accepted separation margins, required pulsation dampers/orifices, piping support requirements resulting from studies.",
+      "owner_task": "MECH-T340"
+    },
+    {
+      "id": "MECH-I490",
+      "name": "Approved inspection and test plans",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Inspection activities, acceptance criteria, witness/hold/review points, performance and mechanical run tests, hydrotest pressures.",
+      "owner_task": "MECH-T350"
+    },
+    {
+      "id": "MECH-I500",
+      "name": "Shop test witness reports and release notes",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Test results vs guarantees, punch items from FAT, release for shipment recommendation.",
+      "owner_task": "MECH-T360"
+    },
+    {
+      "id": "MECH-I510",
+      "name": "Reviewed spare parts list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Commissioning/start-up, two-year operating and capital spares per tag with quantities and interchangeability.",
+      "owner_task": "MECH-T370"
+    },
+    {
+      "id": "MECH-I520",
+      "name": "Manufacturer's data book acceptance",
+      "system": "Document Locator",
+      "form": "decision",
+      "content": "Accepted MDR with material certificates, NDE, PWHT, hydrotest records, U-stamp/nameplate, IOM manuals.",
+      "owner_task": "MECH-T380"
+    },
+    {
+      "id": "MECH-I530",
+      "name": "Equipment preservation requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per tag: storage class (indoor/outdoor), nitrogen blanketing, shaft rotation intervals, desiccants, inspection frequency.",
+      "owner_task": "MECH-T390"
+    },
+    {
+      "id": "MECH-I540",
+      "name": "Equipment model review comments",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Comments on equipment access, bundle/rotor removal clearances, platforms, lifting access, nozzle connection discrepancies.",
+      "owner_task": "MECH-T400"
+    },
+    {
+      "id": "MECH-I550",
+      "name": "Mechanical RFI responses and field change dispositions",
+      "system": "Procore",
+      "form": "decision",
+      "content": "Technical disposition of RFIs, damage, NCRs and field modifications on equipment, with markups where needed.",
+      "owner_task": "MECH-T410"
+    },
+    {
+      "id": "MECH-I560",
+      "name": "Vendor site service schedule and reports",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Vendor attendance needed per tag and activity (installation, alignment, first fill, start-up), dates, service reports.",
+      "owner_task": "MECH-T420"
+    },
+    {
+      "id": "MECH-I570",
+      "name": "Mechanical equipment ITR and check requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per equipment type: installation checks, alignment tolerances, internals inspection/box-up, lube flush, solo/run-in test criteria for ITR forms.",
+      "owner_task": "MECH-T430"
+    },
+    {
+      "id": "MECH-I580",
+      "name": "Mechanical punch items and MC acceptance",
+      "system": "Smart Completions",
+      "form": "decision",
+      "content": "Mechanical punch items raised in walkdowns, category, and engineering acceptance of mechanical completion.",
+      "owner_task": "MECH-T430"
+    },
+    {
+      "id": "MECH-I590",
+      "name": "As-built equipment datasheets and equipment register",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Final certified attributes per tag (vendor, model, serial, design data, materials, weights) for asset register and maintenance system.",
+      "owner_task": "MECH-T440"
+    }
+  ]
+}

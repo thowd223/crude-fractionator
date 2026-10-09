@@ -1,0 +1,1896 @@
+{
+  "discipline": "SAFE",
+  "tasks": [
+    {
+      "id": "SAFE-T010",
+      "name": "Compile environmental baseline and site constraints",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Collect air attainment status, receiving waters, wetlands, endangered species, zoning, nearby receptors and existing permit limits for candidate sites.",
+      "produces": [
+        "SAFE-I010"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Candidate site locations, existing facility permits (Title V, NPDES), existing emission caps and netting history",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Site survey and topography, floodplain and wetland delineation, drainage outfalls",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PROJ",
+          "info": "Project schedule milestones driving permit lead times",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T015",
+      "name": "Screen configuration options for inherent safety and environmental impact",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-02",
+      "description": "Rank configuration and site options for inventory, toxic exposure, offsite consequence, emissions and permit risk.",
+      "produces": [
+        "SAFE-I015"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Block flow options with major inventories, fluid compositions (H2S, light ends), operating P/T per option",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PROC",
+          "info": "Preliminary utility and fuel demand per option (fired duty, flare, steam)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "Business case, capacity, product slate and corporate risk tolerance",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "SAFE",
+          "info": "Environmental constraints register",
+          "method": "manual",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T020",
+      "name": "Facilitate concept HAZID and ENVID",
+      "phases": [
+        "FEL1",
+        "FEL2"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-01",
+      "description": "Run HAZID/ENVID workshops on the selected concept and record hazards, safeguards and actions.",
+      "produces": [
+        "SAFE-I020",
+        "SAFE-I022"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Block flow diagram and preliminary PFDs with major equipment, fluids, inventories",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "PIPE",
+          "info": "Preliminary plot plan with equipment blocks, buildings, neighbours and access",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "Operations input, site incident history, owner HAZID guideword set and risk matrix",
+          "method": "meeting",
+          "level": 1
+        },
+        {
+          "from": "SAFE",
+          "info": "Environmental constraints register",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T030",
+      "name": "Provide safety and environmental input to site selection",
+      "phases": [
+        "FEL1"
+      ],
+      "system": "Excel / Word",
+      "activity": "FEL-03",
+      "description": "Evaluate candidate sites for separation from public receptors, flood/seismic exposure, permit difficulty and emergency access.",
+      "produces": [
+        "SAFE-I030"
+      ],
+      "needs": [
+        {
+          "from": "CIVL",
+          "info": "Geotechnical desk study, seismic zone, flood elevation, access roads for candidate sites",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "Candidate sites, land boundaries, neighbouring facilities and population",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "SAFE",
+          "info": "Environmental constraints register and option screening ranking",
+          "method": "manual",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T035",
+      "name": "Compile hazardous materials inventory and properties",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "List hazardous materials, inventories and flammability/toxicity properties by process area for studies, HAC and PSI.",
+      "produces": [
+        "SAFE-I035"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Stream compositions, phase, operating P/T and H2S/benzene content from H&MB",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "Equipment holdup volumes and operating inventories",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Chemical and catalyst list for packages (amines, caustic, inhibitors) with SDS",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "Crude assay sulfur, H2S and mercaptan content and product specifications",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T040",
+      "name": "Prepare SHE design basis and risk criteria",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRJ-01",
+      "description": "Define applicable codes (OSHA PSM, EPA RMP, API 752/753/2218, NFPA), risk tolerance criteria, design accidental loads and study scope.",
+      "produces": [
+        "SAFE-I040"
+      ],
+      "needs": [
+        {
+          "from": "OWNR",
+          "info": "Owner SHE standards, risk matrix, individual/societal risk criteria, building occupancy rules",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROJ",
+          "info": "Design basis memorandum structure, codes and standards list",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZID actions list and environmental constraints register",
+          "method": "manual",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T045",
+      "name": "Prepare fire protection and F&G philosophy",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Set the strategy for active and passive fire protection, fire water, F&G detection, voting and executive actions.",
+      "produces": [
+        "SAFE-I045"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "SHE design basis",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "Owner fire protection standards, insurer (FM/property) requirements, local fire department capabilities",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Control and safety system architecture concept (F&G in SIS or separate)",
+          "method": "review",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T050",
+      "name": "Run preliminary consequence modelling for layout spacing",
+      "phases": [
+        "FEL2"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Model representative fire, explosion and toxic releases to set spacing, building locations and sterile zones on the plot plan.",
+      "produces": [
+        "SAFE-I050"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Representative release streams: composition, P/T, flow and inventory per isolatable section",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "PIPE",
+          "info": "Preliminary plot plan with equipment and building coordinates",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "from": "OWNR",
+          "info": "Site meteorological data (wind rose, stability, temperature, humidity)",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "from": "SAFE",
+          "info": "Hazardous materials inventory and properties",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T060",
+      "name": "Develop emissions inventory",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Calculate potential-to-emit for each source (heaters, flares, tanks, fugitives, loading, cooling towers) to establish permit applicability.",
+      "produces": [
+        "SAFE-I060",
+        "SAFE-I062"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Fired duties, fuel gas composition, flare purge/pilot and continuous flaring rates, vent streams",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Heater burner NOx/CO guarantees, tank types, sizes, seals and throughputs",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "Component counts by stream service for fugitives (from P&IDs/line list)",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "Annual operating hours, throughput and existing source baseline",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T070",
+      "name": "Prepare air permit application",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Compile air construction permit (NSR/PSD or minor) application with dispersion modelling and BACT analysis.",
+      "produces": [
+        "SAFE-I070",
+        "SAFE-I072"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "Emissions inventory and emission control requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Plot plan with stack coordinates and building dimensions for downwash",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Permit strategy approval, signatory and agency pre-application meeting outcomes",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T080",
+      "name": "Prepare water, stormwater and spill permit data",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Prepare NPDES/pretreatment data, construction and industrial stormwater basis, and SPCC containment requirements.",
+      "produces": [
+        "SAFE-I080",
+        "SAFE-I082"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Wastewater streams: flow, temperature, oil, sulfide, phenol, ammonia content",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "CIVL",
+          "info": "Drainage areas, impervious areas, outfalls, stormwater pond sizing",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "MECH",
+          "info": "Tank list with capacities and oil-filled equipment volumes",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T090",
+      "name": "Facilitate preliminary (coarse) HAZOP",
+      "phases": [
+        "FEL2",
+        "FEL3"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-01",
+      "description": "Run a coarse HAZOP on PFDs and preliminary P&IDs to find major design changes before FEED freeze.",
+      "produces": [
+        "SAFE-I090"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "PFDs and preliminary P&IDs (rev A) with control and relief concept",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "Heat and material balance with design and operating cases",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "INST",
+          "info": "Control philosophy and preliminary SIS scope",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZID actions list",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T100",
+      "name": "Perform facility siting study (API RP 752/753)",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Assess explosion, fire and toxic hazards to occupied permanent and portable buildings and set building design loads.",
+      "produces": [
+        "SAFE-I100",
+        "SAFE-I102",
+        "SAFE-I104"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Plot plan and 3D model congestion data (equipment density, confinement) per process area",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "Building list with occupancy, construction type, dimensions and location",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "Release scenarios: composition, P/T, inventory, isolation sections",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Building occupancy hours and personnel counts, site meteorology",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Hazardous materials inventory and SHE design basis",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T110",
+      "name": "Assess toxic gas ingress and shelter-in-place",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Evaluate toxic and smoke ingress to occupied buildings and set HVAC shutdown, gas detection at intakes and shelter-in-place requirements.",
+      "produces": [
+        "SAFE-I110"
+      ],
+      "needs": [
+        {
+          "from": "CIVL",
+          "info": "Building HVAC concept: air intake locations, air change rates, pressurization",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "SAFE",
+          "info": "Toxic dispersion results from consequence modelling and siting study",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T120",
+      "name": "Perform quantitative risk assessment",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Calculate individual and societal risk from leak frequencies and consequences and compare to criteria.",
+      "produces": [
+        "SAFE-I120",
+        "SAFE-I122"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Isolatable sections with inventory, composition and P/T; ESD/EDP response times",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Equipment and parts counts for leak frequencies (flanges, valves, instruments) from the 3D model or P&IDs",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "F&G detection and ESD isolation reliability and response time",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "Population data on and off site, ignition sources, risk tolerance criteria approval",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Siting study consequence results and SHE design basis",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T130",
+      "name": "Check flare radiation, noise and dispersion",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Flare / relief tool",
+      "activity": "SAF-02",
+      "description": "Verify flare stack height and sterile radius for radiation, flame-out dispersion and noise against personnel and equipment limits.",
+      "produces": [
+        "SAFE-I130"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Flare loads per governing scenario: relief rate, MW, temperature, LHV, H2S",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Flare stack height, tip type and location from flare hydraulics",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Plot plan with flare location, access roads and equipment near flare",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T140",
+      "name": "Review relief and depressuring scenarios",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRC-03",
+      "description": "Check that relief and blowdown scenarios cover HAZOP causes and fire zones and comment on the relief study.",
+      "produces": [
+        "SAFE-I140"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Relief load summary, PSV scenario list and depressuring calculations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire zones and HAZOP recommendations for overpressure",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T150",
+      "name": "Facilitate formal HAZOP",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-03",
+      "description": "Organize, facilitate and record the node-by-node HAZOP of IFH P&IDs with all disciplines and operations.",
+      "produces": [
+        "SAFE-I150",
+        "SAFE-I152"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "IFH P&IDs (rev 0 for HAZOP) with node markups, H&MB, operating philosophy and cause-and-effect draft",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Alarm and trip setpoints, SIS preliminary C&E, control narratives",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "Equipment datasheets with design P/T and vendor package P&IDs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "PSV list with set pressures and governing cases",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Operations and maintenance representatives, previous PHA of similar units",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T160",
+      "name": "Run LOPA and set SIL targets",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "PHA tool",
+      "activity": "ICS-02",
+      "description": "Analyse HAZOP high-consequence scenarios with LOPA, credit IPLs and assign required SIL to each SIF.",
+      "produces": [
+        "SAFE-I160",
+        "SAFE-I162"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "HAZOP worksheets with consequence severity and causes",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Initiating event frequencies basis, process safety time and trip setpoints",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Proposed SIF definitions: sensors, logic, final elements, preliminary SIF list",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "LOPA tolerance targets and IPL credit rules",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T170",
+      "name": "Track and close out PHA and study actions",
+      "phases": [
+        "FEL3",
+        "DD",
+        "CON"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-03",
+      "description": "Track HAZID, HAZOP, LOPA, siting and QRA actions to closure with documented discipline responses.",
+      "produces": [
+        "SAFE-I170"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Action responses with revised P&IDs, calcs or justification",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Action responses for alarm, trip and SIF changes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "Action responses for design pressure, material and package changes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Action responses for layout and valve location changes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Acceptance of action closure and risk-accepted items",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T180",
+      "name": "Perform fire and gas detector mapping",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Place flame, gas, H2S and heat detectors and verify geographic/scenario coverage against targets.",
+      "produces": [
+        "SAFE-I180",
+        "SAFE-I182"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "3D model (equipment, structures, piping) of each process area for coverage obstruction",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire protection and F&G philosophy, consequence release sizes",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification drawings for detector zone ratings",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Gas compositions and H2S concentrations by area",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T190",
+      "name": "Calculate fire water demand",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Size fire water demand for the largest credible fire scenario and set pump capacity, storage and network requirements.",
+      "produces": [
+        "SAFE-I190",
+        "SAFE-I192"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Plot plan with fire zones, tank dikes and equipment dimensions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "Tank diameters, roof types and vessel surface areas for cooling and foam",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire protection philosophy and fire zones",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Existing fire water system capacity and fire department pumper capability",
+          "method": "review",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T200",
+      "name": "Define fire scenario envelopes and fireproofing zones",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Define fire-potential envelopes (API 2218) and list structures, supports, cables and valves requiring fireproofing.",
+      "produces": [
+        "SAFE-I200",
+        "SAFE-I202"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Plot plan and 3D model with equipment and pipe rack elevations",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "Structural steel layout: pipe racks, equipment structures, skirts and supports",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Emergency isolation and depressuring valve list and critical cable routes",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Consequence modelling fire extents",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T210",
+      "name": "Specify emergency isolation valve requirements",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Identify where remotely operated emergency isolation valves are needed and set fire-safe and closure requirements.",
+      "produces": [
+        "SAFE-I210"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Inventories and pump/compressor suction sources from P&IDs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Fire zones and QRA recommendations",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T220",
+      "name": "Specify fixed fire protection systems",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Define deluge, water spray, foam, clean agent and portable extinguisher requirements by area per NFPA.",
+      "produces": [
+        "SAFE-I220"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "Fire protection philosophy, fire water demand and F&G zones",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "MECH",
+          "info": "Equipment and tank data for system design (surface area, roof type, rim seal)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "CIVL",
+          "info": "Building list and room functions for clean agent and sprinkler systems",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T230",
+      "name": "Lay out safety equipment and escape routes",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "LAY-01",
+      "description": "Locate safety showers, eyewashes, escape routes, muster points, windsocks and second means of egress.",
+      "produces": [
+        "SAFE-I230"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "Plot plan and 3D platforms, ladders and stairs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Hazardous materials inventory (corrosives, toxics) and consequence contours",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T240",
+      "name": "Perform noise study",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Set equipment noise limits and model plant and fence-line noise against occupational and community limits.",
+      "produces": [
+        "SAFE-I240",
+        "SAFE-I242"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "Equipment list and vendor sound power/pressure data",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Control valve and PSV/flare noise sources",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "Plot plan with equipment coordinates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Environmental constraints register (property line noise limits)",
+          "method": "manual",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T250",
+      "name": "Review plot plan and 3D model for safety",
+      "phases": [
+        "FEL2",
+        "FEL3",
+        "DD"
+      ],
+      "system": "S3D",
+      "activity": "LAY-03",
+      "description": "Participate in model reviews checking spacing, escape, access for firefighting, safety equipment and siting conformance.",
+      "produces": [
+        "SAFE-I250"
+      ],
+      "needs": [
+        {
+          "from": "PIPE",
+          "info": "3D model at 30/60/90% review status and plot plan revision",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Siting decisions, safety equipment layout and fire water layout",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T255",
+      "name": "Review hazardous area classification",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ELE-02",
+      "description": "Check hazardous area classification against release sources, gas groups and ventilation assumptions.",
+      "produces": [
+        "SAFE-I255"
+      ],
+      "needs": [
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification drawings and source schedule",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "Hazardous materials inventory with gas group and T-class",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T260",
+      "name": "Review cause and effect and SIL verification",
+      "phases": [
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "ICS-08",
+      "description": "Check C&E charts and SIL verification against LOPA targets, F&G executive actions and HAZOP recommendations.",
+      "produces": [
+        "SAFE-I260"
+      ],
+      "needs": [
+        {
+          "from": "INST",
+          "info": "Cause and effect matrices for SIS and F&G",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "SIL verification calculations and SRS (PFDavg, proof test interval, architecture)",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "SAFE",
+          "info": "LOPA SIL targets and F&G executive actions",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T270",
+      "name": "Review vendor packages and bids for SHE compliance",
+      "phases": [
+        "FEL3",
+        "DD"
+      ],
+      "system": "Excel / Word",
+      "activity": "PRO-01",
+      "description": "Review technical bids and vendor data for noise, emissions guarantees, fire-safe valves, safety devices and package HAZOP needs.",
+      "produces": [
+        "SAFE-I270"
+      ],
+      "needs": [
+        {
+          "from": "MECH",
+          "info": "Technical bid tabulations and vendor proposals for packages, heaters and tanks",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "VEND",
+          "info": "Vendor certified data: noise data, emission guarantees, package P&IDs and safety devices",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T280",
+      "name": "Facilitate vendor package and design change HAZOPs",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "PHA tool",
+      "activity": "SAF-03",
+      "description": "Run HAZOPs on vendor package P&IDs and HAZOP revalidation of design changes since the main HAZOP.",
+      "produces": [
+        "SAFE-I280"
+      ],
+      "needs": [
+        {
+          "from": "VEND",
+          "info": "Certified package P&IDs, control narratives and trip schedules",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "List of P&ID changes since formal HAZOP with change descriptions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "INST",
+          "info": "Package interface C&E and trip settings",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T290",
+      "name": "Compile process safety information for PSM",
+      "phases": [
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Document Locator",
+      "activity": "SAF-03",
+      "description": "Assemble OSHA 1910.119 process safety information and PHA records for handover to the owner PSM program.",
+      "produces": [
+        "SAFE-I290"
+      ],
+      "needs": [
+        {
+          "from": "PROC",
+          "info": "Final P&IDs, H&MB, safe upper/lower limits, relief system design basis",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "MECH",
+          "info": "Equipment design codes and datasheets (as-built)",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "SIS SRS, SIL verification, C&E and alarm setpoints",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "ELEC",
+          "info": "Hazardous area classification and electrical classification drawings",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "SAFE",
+          "info": "HAZOP, LOPA, siting, QRA reports and action close-out records",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T300",
+      "name": "Prepare RMP hazard assessment and registration data",
+      "phases": [
+        "DD",
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Model worst-case and alternative release scenarios and prepare EPA RMP registration and program data.",
+      "produces": [
+        "SAFE-I300"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "Hazardous materials inventory with RMP threshold quantities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Off-site public and environmental receptors, five-year accident history, emergency response program",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Maximum vessel inventories and passive mitigation (dikes)",
+          "method": "manual",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T310",
+      "name": "Provide emergency response planning input",
+      "phases": [
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Provide scenarios, zones, alarms, muster and fire response resources for the owner emergency response plan.",
+      "produces": [
+        "SAFE-I310"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "Consequence results, siting decisions, F&G zones and safety equipment layout",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "Site emergency organization, mutual aid and local responders",
+          "method": "meeting",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T320",
+      "name": "Prepare construction environmental compliance plan",
+      "phases": [
+        "CON"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Translate permit conditions into construction requirements for stormwater, dust, waste, spill and notifications.",
+      "produces": [
+        "SAFE-I320"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "Permit conditions register and stormwater permit data",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "Path of construction, laydown, temporary facilities and construction schedule",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T330",
+      "name": "Perform MOC safety reviews of field and design changes",
+      "phases": [
+        "DD",
+        "CON",
+        "COM"
+      ],
+      "system": "Procore",
+      "activity": "SAF-03",
+      "description": "Screen field changes and RFIs for process safety impact and decide whether HAZOP revalidation, siting or PSI updates are needed.",
+      "produces": [
+        "SAFE-I330"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "Field change requests and RFIs with markups",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "Change notices and MOC requests",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "Process impact assessment of the change",
+          "method": "review",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T340",
+      "name": "Lead pre-startup safety review (PSSR)",
+      "phases": [
+        "COM"
+      ],
+      "system": "Smart Completions",
+      "activity": "SAF-03",
+      "description": "Verify construction matches design, PHA actions are closed, procedures and training are in place and systems are safe to start.",
+      "produces": [
+        "SAFE-I340",
+        "SAFE-I342"
+      ],
+      "needs": [
+        {
+          "from": "COMM",
+          "info": "System turnover status, ITR completion and outstanding punch A items",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "from": "SAFE",
+          "info": "Action close-out records and MOC decisions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "SIS and F&G functional test records (SAT) and bypass list",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "OWNR",
+          "info": "Operating procedures, training records and emergency response readiness",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "CONS",
+          "info": "As-built redlines for P&IDs and safety-critical equipment",
+          "method": "review",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T350",
+      "name": "Set up environmental startup compliance",
+      "phases": [
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "SEL-04",
+      "description": "Prepare startup notifications, initial performance tests, CEMS certification and LDAR component inventory.",
+      "produces": [
+        "SAFE-I350"
+      ],
+      "needs": [
+        {
+          "from": "SAFE",
+          "info": "Permit conditions register and emission control requirements",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "from": "INST",
+          "info": "CEMS and analyzer tags and commissioning status",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "COMM",
+          "info": "Startup schedule and system startup dates",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "PROC",
+          "info": "As-built P&IDs and line list for LDAR component tagging",
+          "method": "file",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "SAFE-T360",
+      "name": "Update safety studies to as-built and hand over",
+      "phases": [
+        "COM"
+      ],
+      "system": "Excel / Word",
+      "activity": "SAF-04",
+      "description": "Revise siting, F&G mapping, QRA and fire protection studies to as-built condition for the owner PSM records.",
+      "produces": [
+        "SAFE-I360"
+      ],
+      "needs": [
+        {
+          "from": "CONS",
+          "info": "As-built drawings and model for buildings, detectors and fire protection",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "from": "SAFE",
+          "info": "Final study reports and MOC decisions",
+          "method": "manual",
+          "level": 4
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "SAFE-I010",
+      "name": "Environmental constraints register",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Attainment status and PSD/NSR applicability triggers, receiving water limits, wetland and habitat constraints, nearby receptors and fence-line distances, noise limits at property line, permit lead times.",
+      "owner_task": "SAFE-T010"
+    },
+    {
+      "id": "SAFE-I015",
+      "name": "Option SHE screening ranking",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Per option: inherent safety score, toxic/flammable inventory, worst-case offsite distance, emissions estimate and permitting pathway (minor vs major source), recommended option and risks.",
+      "owner_task": "SAFE-T015"
+    },
+    {
+      "id": "SAFE-I020",
+      "name": "HAZID / ENVID register",
+      "system": "PHA tool",
+      "form": "document",
+      "content": "Hazards by area and node, causes, consequences, existing safeguards, risk ranking against owner matrix, environmental aspects.",
+      "owner_task": "SAFE-T020"
+    },
+    {
+      "id": "SAFE-I022",
+      "name": "HAZID actions list",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "Action number, description, responsible discipline, due phase, priority; used to steer layout, philosophy and design basis.",
+      "owner_task": "SAFE-T020"
+    },
+    {
+      "id": "SAFE-I030",
+      "name": "Site selection SHE assessment",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Per site: distance to public receptors, preliminary worst-case hazard zones, flood/wind exposure, permit complexity score, emergency services access; recommended site.",
+      "owner_task": "SAFE-T030"
+    },
+    {
+      "id": "SAFE-I035",
+      "name": "Hazardous materials inventory and properties",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Material, area, inventory (kg), flash point, LFL/UFL, autoignition temperature, gas group/T-class, IDLH/ERPG/AEGL, RMP threshold quantity check, OSHA PSM threshold check.",
+      "owner_task": "SAFE-T035"
+    },
+    {
+      "id": "SAFE-I040",
+      "name": "SHE design basis",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Codes and regulations, risk tolerance criteria, design blast and fire loads method, toxic thresholds, F&G performance targets, fire water design basis, noise limits, emission targets and study schedule.",
+      "owner_task": "SAFE-T040"
+    },
+    {
+      "id": "SAFE-I045",
+      "name": "Fire protection and F&G philosophy",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Fire water source and redundancy, fixed system types per hazard, fireproofing criteria (API 2218), detector types, coverage targets, voting (2ooN), executive actions, alarm and beacon philosophy.",
+      "owner_task": "SAFE-T045"
+    },
+    {
+      "id": "SAFE-I050",
+      "name": "Preliminary hazard distances and spacing comments",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Jet/pool fire radiation distances, flash fire extents, overpressure contours, toxic distances, recommended equipment spacing changes, building locations and sterile areas; marked-up plot plan.",
+      "owner_task": "SAFE-T050"
+    },
+    {
+      "id": "SAFE-I060",
+      "name": "Emissions inventory",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per source: tag, pollutant (NOx, CO, VOC, SO2, PM, HAPs, GHG CO2e), emission factor basis, hourly and annual PTE, stack parameters (height, diameter, temperature, velocity, location).",
+      "owner_task": "SAFE-T060"
+    },
+    {
+      "id": "SAFE-I062",
+      "name": "Emission control requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "BACT/LAER and NSPS/NESHAP requirements by source: low-NOx burner or SCR, CEMS, tank seal type and vapour control, LDAR program, flare monitoring (40 CFR 63 CC) requirements to PROC, MECH and INST.",
+      "owner_task": "SAFE-T060"
+    },
+    {
+      "id": "SAFE-I070",
+      "name": "Air permit application package",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Application forms, emission calculations, dispersion modelling results, BACT analysis, regulatory applicability review, submitted to the agency.",
+      "owner_task": "SAFE-T070"
+    },
+    {
+      "id": "SAFE-I072",
+      "name": "Permit conditions register",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Each permit condition: source, limit, monitoring/recordkeeping requirement, design impact, construction/startup notification deadline, responsible party.",
+      "owner_task": "SAFE-T070"
+    },
+    {
+      "id": "SAFE-I080",
+      "name": "Wastewater and stormwater permit data",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Effluent characterization, outfall data, NOI and SWPPP basis, pretreatment limits, monitoring points.",
+      "owner_task": "SAFE-T080"
+    },
+    {
+      "id": "SAFE-I082",
+      "name": "Secondary containment and spill control requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "SPCC-covered containers, required containment volumes (110% plus rainfall), dike and curb locations, contaminated firewater runoff containment, oil/water separator basis; to CIVL.",
+      "owner_task": "SAFE-T080"
+    },
+    {
+      "id": "SAFE-I090",
+      "name": "Preliminary HAZOP actions",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Actions requiring design change (overpressure scenarios, isolation, materials, layout), responsible discipline, priority.",
+      "owner_task": "SAFE-T090"
+    },
+    {
+      "id": "SAFE-I100",
+      "name": "Building blast loads",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Per building: side-on peak overpressure, impulse, duration and reflected loads by wall, design frequency basis; to CIVL for blast-resistant design.",
+      "owner_task": "SAFE-T100"
+    },
+    {
+      "id": "SAFE-I102",
+      "name": "Building siting decisions and occupancy restrictions",
+      "system": "Excel / Word",
+      "form": "decision",
+      "content": "Building acceptability per API 752, relocation or hardening required, occupancy limits, control room and lab location agreement.",
+      "owner_task": "SAFE-T100"
+    },
+    {
+      "id": "SAFE-I104",
+      "name": "Portable building siting restrictions",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Exclusion zones for trailers per API 753 for construction, turnaround and commissioning; allowed locations and construction requirements.",
+      "owner_task": "SAFE-T100"
+    },
+    {
+      "id": "SAFE-I110",
+      "name": "Building toxic ingress and HVAC shutdown requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Required H2S/flammable detectors at HVAC intakes, damper closure times, building tightness, shelter-in-place capability, CO2/SCBA provisions; to CIVL (HVAC) and INST.",
+      "owner_task": "SAFE-T110"
+    },
+    {
+      "id": "SAFE-I120",
+      "name": "QRA results",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Individual risk contours, location-specific risk, F-N curve, PLL, risk ranking of contributors, comparison to criteria.",
+      "owner_task": "SAFE-T120"
+    },
+    {
+      "id": "SAFE-I122",
+      "name": "QRA risk reduction recommendations",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Recommended measures (isolation valves, detection, spacing, inventory reduction) with risk benefit, owner discipline and status.",
+      "owner_task": "SAFE-T120"
+    },
+    {
+      "id": "SAFE-I130",
+      "name": "Flare radiation and sterile zone results",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Radiation contours at grade (1.58, 4.73, 6.31, 9.46 kW/m2), sterile zone radius, dispersion of unignited release and H2S, noise at boundary; required stack height changes.",
+      "owner_task": "SAFE-T130"
+    },
+    {
+      "id": "SAFE-I140",
+      "name": "Relief study review comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comments on missing scenarios, fire-case wetted areas versus fire zones, depressuring target times (API 521), and credited safeguards.",
+      "owner_task": "SAFE-T140"
+    },
+    {
+      "id": "SAFE-I150",
+      "name": "HAZOP worksheets and report",
+      "system": "PHA tool",
+      "form": "document",
+      "content": "Nodes, design intent, deviations, causes, consequences, safeguards, severity/likelihood ranking, attendance and P&ID revision basis.",
+      "owner_task": "SAFE-T150"
+    },
+    {
+      "id": "SAFE-I152",
+      "name": "HAZOP recommendations register",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "Recommendation number, P&ID and node, description, responsible discipline and person, priority, due date, LOPA referral flag.",
+      "owner_task": "SAFE-T150"
+    },
+    {
+      "id": "SAFE-I160",
+      "name": "LOPA scenarios and SIL targets",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "Per scenario: initiating event and frequency, enabling conditions, IPLs credited with PFD, mitigated frequency, gap; per SIF: tag, required SIL/RRF, process safety time, safe state; to INST for SRS.",
+      "owner_task": "SAFE-T160"
+    },
+    {
+      "id": "SAFE-I162",
+      "name": "Non-SIF IPL and safeguard requirements",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "Credited BPCS loops, alarms with operator response time, PSVs, check valves and mechanical IPLs requiring independence, testing and management as safety-critical.",
+      "owner_task": "SAFE-T160"
+    },
+    {
+      "id": "SAFE-I170",
+      "name": "Action close-out records",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "Per action: response, evidence document number and revision, verification by SAFE, owner acceptance, closure date; open items carried to PSSR.",
+      "owner_task": "SAFE-T170"
+    },
+    {
+      "id": "SAFE-I180",
+      "name": "F&G detector layout and coverage",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Detector tag, type, location coordinates, elevation, orientation, coverage maps and achieved coverage per zone; to INST for F&G system design and PIPE/INST for installation.",
+      "owner_task": "SAFE-T180"
+    },
+    {
+      "id": "SAFE-I182",
+      "name": "F&G zones and executive action requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "F&G zone list, detector voting per zone, alarm and executive actions (ESD, deluge release, HVAC trip, beacons), to INST for F&G C&E.",
+      "owner_task": "SAFE-T180"
+    },
+    {
+      "id": "SAFE-I190",
+      "name": "Fire water demand and pump duty",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Design scenario, deluge/monitor/hydrant/foam flows, total demand, required residual pressure, duration and storage volume; to MECH for fire pump datasheets and PROC utility balance.",
+      "owner_task": "SAFE-T190"
+    },
+    {
+      "id": "SAFE-I192",
+      "name": "Fire water network, hydrant and monitor layout requirements",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Ring main sizing basis, hydrant and monitor locations and spacing, isolation valve sectioning, hose reel and foam connection locations; to PIPE/CIVL.",
+      "owner_task": "SAFE-T190"
+    },
+    {
+      "id": "SAFE-I200",
+      "name": "Fire zones and fireproofing envelopes",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Fire-scenario envelope boundaries in plan and elevation, fire zone numbers for relief fire case and deluge.",
+      "owner_task": "SAFE-T200"
+    },
+    {
+      "id": "SAFE-I202",
+      "name": "Fireproofing requirements list",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Steel members, skirts, vessel supports, cable trays and actuators needing fireproofing, rating (hours), test standard (UL 1709), extent; to CIVL, ELEC, INST.",
+      "owner_task": "SAFE-T200"
+    },
+    {
+      "id": "SAFE-I210",
+      "name": "Emergency isolation valve requirements",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "EIV/ROEIV location, initiating causes, closure time, fire-safe test (API 607), fireproofing of actuator and cable, operation point outside fire zone; to PROC and INST.",
+      "owner_task": "SAFE-T210"
+    },
+    {
+      "id": "SAFE-I220",
+      "name": "Fixed fire protection system requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "System type and coverage per area (NFPA 11/13/15/2001), design density, deluge valve locations and activation logic, extinguisher schedule; to MECH (package requisition) and INST.",
+      "owner_task": "SAFE-T220"
+    },
+    {
+      "id": "SAFE-I230",
+      "name": "Safety equipment and escape route layout",
+      "system": "Excel / Word",
+      "form": "drawing",
+      "content": "Locations of safety showers/eyewashes (with utility needs), escape routes, muster points, windsocks, alarm beacons and horns; to PIPE, CIVL and ELEC.",
+      "owner_task": "SAFE-T230"
+    },
+    {
+      "id": "SAFE-I240",
+      "name": "Equipment noise limits",
+      "system": "Excel / Word",
+      "form": "data",
+      "content": "Maximum sound pressure level at 1 m per equipment type and tag for datasheets and requisitions; to MECH and INST.",
+      "owner_task": "SAFE-T240"
+    },
+    {
+      "id": "SAFE-I242",
+      "name": "Noise study results and mitigation",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Noise contours, fence-line levels, hearing protection zones, required mitigation (silencers, enclosures, acoustic insulation).",
+      "owner_task": "SAFE-T240"
+    },
+    {
+      "id": "SAFE-I250",
+      "name": "Safety model review comments",
+      "system": "S3D",
+      "form": "document",
+      "content": "Model review comments on spacing (API 2510/NFPA 30), escape and access, firefighting access, valve operability in fire zones; tracked to closure.",
+      "owner_task": "SAFE-T250"
+    },
+    {
+      "id": "SAFE-I255",
+      "name": "Hazardous area classification review comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comments on missing sources, classification extents, gas group/T-class.",
+      "owner_task": "SAFE-T255"
+    },
+    {
+      "id": "SAFE-I260",
+      "name": "C&E and SIL verification review comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Comments where achieved SIL is below target, missing trips or executive actions, proof test intervals inconsistent with LOPA.",
+      "owner_task": "SAFE-T260"
+    },
+    {
+      "id": "SAFE-I270",
+      "name": "Vendor SHE review comments",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "Technical bid and vendor document comments: noise exceedances, emission guarantee gaps, missing safety devices, package HAZOP requirements.",
+      "owner_task": "SAFE-T270"
+    },
+    {
+      "id": "SAFE-I280",
+      "name": "Package and revalidation HAZOP actions",
+      "system": "PHA tool",
+      "form": "data",
+      "content": "Recommendations from package HAZOPs and change revalidation sessions with responsible discipline and priority.",
+      "owner_task": "SAFE-T280"
+    },
+    {
+      "id": "SAFE-I290",
+      "name": "PSM process safety information package",
+      "system": "Document Locator",
+      "form": "document",
+      "content": "PSI index: chemical hazards, technology information, equipment information, PHA reports and close-out, safe operating limits; to OWNR.",
+      "owner_task": "SAFE-T290"
+    },
+    {
+      "id": "SAFE-I300",
+      "name": "RMP offsite consequence and registration data",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Worst-case and alternative release scenarios, endpoint distances, residential population and environmental receptors affected, program level, registration data for EPA submission by OWNR.",
+      "owner_task": "SAFE-T300"
+    },
+    {
+      "id": "SAFE-I310",
+      "name": "Emergency response planning data",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Credible emergency scenarios, hazard zones, alarm tones, muster and evacuation routes, firefighting resources and pre-fire plan data.",
+      "owner_task": "SAFE-T310"
+    },
+    {
+      "id": "SAFE-I320",
+      "name": "Construction environmental compliance requirements",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "SWPPP BMPs, inspection frequencies, dust and waste controls, construction start notifications, temporary facility siting per API 753; to CONS.",
+      "owner_task": "SAFE-T320"
+    },
+    {
+      "id": "SAFE-I330",
+      "name": "MOC safety review decisions",
+      "system": "Procore",
+      "form": "decision",
+      "content": "Per change: safety impact classification, required reviews (HAZOP, LOPA, siting, F&G), PSI documents to update, approval or rejection.",
+      "owner_task": "SAFE-T330"
+    },
+    {
+      "id": "SAFE-I340",
+      "name": "PSSR checklist and findings",
+      "system": "Smart Completions",
+      "form": "data",
+      "content": "Per system: checklist items, findings, pre-startup and post-startup actions, responsible party, status.",
+      "owner_task": "SAFE-T340"
+    },
+    {
+      "id": "SAFE-I342",
+      "name": "PSSR sign-off",
+      "system": "Smart Completions",
+      "form": "decision",
+      "content": "Approval to introduce hydrocarbons per system, with conditions and authorizing signatures.",
+      "owner_task": "SAFE-T340"
+    },
+    {
+      "id": "SAFE-I350",
+      "name": "Startup environmental compliance records",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Agency notifications, stack test protocols, CEMS certification plan, LDAR component inventory and monitoring schedule; to OWNR.",
+      "owner_task": "SAFE-T350"
+    },
+    {
+      "id": "SAFE-I360",
+      "name": "As-built safety studies",
+      "system": "Excel / Word",
+      "form": "document",
+      "content": "Final revisions of siting study, F&G mapping, QRA, fire water and fireproofing studies; to OWNR via handover.",
+      "owner_task": "SAFE-T360"
+    }
+  ]
+}
