@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Discipline Interface Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper: #f6f7f5; --sheet: #ffffff; --ink: #1d2b36; --muted: #5b6b77; --rule: #d3dade;
+  --line: #2f5d7c; --flame: #c8501e; --chip: #e8eef2; --ok: #2e7d4f;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121a20; --sheet: #182229; --ink: #e3e9ed; --muted: #95a6b2; --rule: #2c3a44;
+  --line: #7fb2d6; --flame: #f08a52; --chip: #22313b; --ok: #6cc28f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #121a20; --sheet: #182229; --ink: #e3e9ed; --muted: #95a6b2; --rule: #2c3a44;
+  --line: #7fb2d6; --flame: #f08a52; --chip: #22313b; --ok: #6cc28f; color-scheme: dark }
+* { box-sizing: border-box }
+html, body { margin: 0 }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 48px }
+.wrap { max-width: 1240px; margin: 0 auto }
+a { color: var(--line) }
+button:focus-visible, [tabindex]:focus-visible, select:focus-visible { outline: 2px solid var(--flame); outline-offset: 2px }
+header.tb { margin-top: 18px; border: 1.5px solid var(--ink); background: var(--sheet); display: grid; grid-template-columns: 1fr auto }
+.tb .main { padding: 18px 22px; min-width: 0 }
+.tb .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.tb h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(32px, 5vw, 50px); line-height: 1.02; margin: 6px 0 8px; text-wrap: balance }
+.tb p { margin: 0; max-width: 74ch; color: var(--muted) }
+.tb .cells { border-left: 1.5px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; min-width: 270px }
+.tb .cell { padding: 8px 14px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule) }
+.tb .cell b { display: block; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--muted); font-weight: 500 }
+.tb .cell span { font-family: var(--f-display); font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums }
+.tb .cell.hot span { color: var(--flame) }
+@media (max-width: 760px) { header.tb { grid-template-columns: 1fr } .tb .cells { border-left: 0; border-top: 1.5px solid var(--ink); min-width: 0 } }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 22px 0 12px }
+.tabs { display: flex; flex-wrap: wrap; border: 1.5px solid var(--ink) }
+.tabs button { font: 600 15px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; padding: 9px 14px; border: 0;
+  background: var(--sheet); color: var(--ink); cursor: pointer }
+.tabs button + button { border-left: 1px solid var(--rule) }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--sheet) }
+.ctl { display: flex; gap: 6px; align-items: center; flex-wrap: wrap }
+.ctl label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.ctl select { font: 14px var(--f-body); padding: 6px 8px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink) }
+.pills { display: flex; gap: 4px; flex-wrap: wrap }
+.pills button { font: 500 12px var(--f-mono); padding: 5px 9px; border: 1px solid var(--rule); background: var(--sheet); color: var(--muted); cursor: pointer }
+.pills button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); background: var(--chip) }
+.pills button.manual[aria-pressed="true"] { border-color: var(--flame); color: var(--flame) }
+.lede { margin: 0 0 12px; color: var(--muted); max-width: 80ch; font-size: 14px }
+
+.mxw { overflow: auto; border: 1px solid var(--rule); background: var(--sheet); max-height: 74vh }
+table.mx { border-collapse: separate; border-spacing: 0; font-size: 12px }
+table.mx th, table.mx td { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule) }
+table.mx thead th { position: sticky; top: 0; background: var(--sheet); z-index: 2; font: 500 11px var(--f-mono); color: var(--muted);
+  padding: 6px 4px; vertical-align: bottom; height: 120px }
+table.mx thead th span { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; display: inline-block }
+table.mx tbody th { position: sticky; left: 0; background: var(--sheet); z-index: 1; text-align: left; font: 500 12px var(--f-mono);
+  padding: 4px 10px; white-space: nowrap; color: var(--ink) }
+table.mx thead th:first-child { left: 0; z-index: 3; text-align: left; vertical-align: bottom; font-size: 10.5px }
+table.mx td { width: 44px; min-width: 44px; height: 32px; text-align: center; font: 500 12px var(--f-mono); cursor: pointer; position: relative;
+  font-variant-numeric: tabular-nums }
+table.mx td.z { cursor: default; color: transparent }
+table.mx td.diag { background: repeating-linear-gradient(45deg, transparent 0 4px, var(--chip) 4px 5px) }
+table.mx td .m { position: absolute; right: 2px; top: 1px; font-size: 9.5px; color: var(--flame); font-weight: 600 }
+table.mx td.sel { outline: 2.5px solid var(--ink); outline-offset: -2px }
+table.mx td:not(.z):hover { outline: 1.5px solid var(--flame); outline-offset: -2px }
+.h1 { background: color-mix(in srgb, var(--line) 12%, var(--sheet)) }
+.h2 { background: color-mix(in srgb, var(--line) 28%, var(--sheet)) }
+.h3 { background: color-mix(in srgb, var(--line) 48%, var(--sheet)) }
+.h4 { background: color-mix(in srgb, var(--line) 72%, var(--sheet)); color: var(--sheet) }
+.h5 { background: var(--line); color: var(--sheet) }
+.hint { font-size: 12.5px; color: var(--muted); margin: 6px 0 0 }
+
+.panel { margin-top: 18px; background: var(--sheet); border: 1.5px solid var(--ink) }
+.panel .hd { padding: 12px 18px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline }
+.panel .hd h2 { font-family: var(--f-display); font-size: 26px; font-weight: 600; margin: 0; line-height: 1.1 }
+.panel .hd .sub { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted) }
+.panel .empty { padding: 16px 18px; margin: 0; color: var(--muted) }
+.tw { overflow-x: auto }
+table.ls { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 760px }
+table.ls th, table.ls td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top }
+table.ls th { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500 }
+table.ls td.id { font-family: var(--f-mono); font-size: 12px; white-space: nowrap }
+table.ls tr.grp td { background: var(--chip); font: 600 14px var(--f-display); letter-spacing: .06em; text-transform: uppercase; padding: 5px 10px }
+.lnk { all: unset; cursor: pointer; color: var(--line); text-decoration: underline; text-underline-offset: 2px }
+.lnk:focus-visible { outline: 2px solid var(--flame) }
+.use { color: var(--muted); font-size: 13px }
+.meth { font: 500 11px var(--f-mono); padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; color: var(--muted) }
+.meth.manual { color: var(--flame) } .meth.integrated { color: var(--ok) } .meth.file { color: var(--line) }
+.sys { font: 11.5px var(--f-mono); color: var(--muted); white-space: nowrap }
+.lv { font: 500 11px var(--f-mono); color: var(--muted); white-space: nowrap }
+
+.tk { display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); gap: 16px; align-items: start }
+@media (max-width: 860px) { .tk { grid-template-columns: 1fr } }
+.tlist { background: var(--sheet); border: 1px solid var(--rule); max-height: 74vh; overflow: auto }
+.tlist button { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 78px 1fr auto; gap: 8px; width: 100%; padding: 7px 12px;
+  border-bottom: 1px solid var(--rule); cursor: pointer; font-size: 13.5px; line-height: 1.35 }
+.tlist button:hover { background: var(--paper) }
+.tlist button[aria-current="true"] { background: var(--chip); box-shadow: inset 3px 0 0 var(--flame) }
+.tlist button span:first-child { font: 12px var(--f-mono); color: var(--muted) }
+.tlist button span:last-child { font: 11px var(--f-mono); color: var(--muted); white-space: nowrap }
+.tk .panel { margin-top: 0 }
+.desc { padding: 10px 18px 0; margin: 0; color: var(--muted); max-width: 80ch }
+.sect { padding: 12px 18px 4px }
+.sect h3 { font: 500 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px }
+.dchips { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px }
+.dchips button { font: 500 12px var(--f-mono); padding: 5px 9px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); cursor: pointer }
+.dchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); border-color: var(--ink) }
+.bars { display: grid; gap: 5px; background: var(--sheet); border: 1px solid var(--rule); padding: 12px 16px }
+.bars .r { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr) 60px; gap: 10px; align-items: center; font-size: 13px; cursor: pointer }
+.bars .r:hover b { text-decoration: underline }
+.bars .r b { font-weight: 500; font-family: var(--f-mono); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.bars .r .t { height: 10px; background: var(--chip) } .bars .r .t i { display: block; height: 100%; background: var(--flame) }
+.bars .r span:last-child { font-family: var(--f-mono); font-size: 12px; text-align: right }
+@media (max-width: 640px) { .bars .r { grid-template-columns: 1fr 60px } .bars .r .t { display: none } }
+footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 12px }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="tb">
+  <div class="main">
+    <div class="eyebrow">Onshore process plant · FEL 1 to handover</div>
+    <h1>Discipline Interface Register</h1>
+    <p>Every detailed task each discipline does, the information it produces, and every exchange of that information
+    between disciplines and between systems. Each exchange records what is used, the maturity it needs, and how it
+    moves today. Manual hand-offs (read and re-entered by hand) are shown in orange.</p>
+  </div>
+  <div class="cells">
+    <div class="cell"><b>TASKS</b><span id="n-t"></span></div>
+    <div class="cell"><b>INFORMATION ITEMS</b><span id="n-i"></span></div>
+    <div class="cell"><b>EXCHANGES</b><span id="n-e"></span></div>
+    <div class="cell hot"><b>RE-ENTERED BY HAND</b><span id="n-m"></span></div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="tabs" role="tablist">
+    <button role="tab" data-v="disc" aria-selected="true">Disciplines</button>
+    <button role="tab" data-v="sys" aria-selected="false">Systems</button>
+    <button role="tab" data-v="task" aria-selected="false">Tasks</button>
+    <button role="tab" data-v="man" aria-selected="false">Manual hand-offs</button>
+  </div>
+  <div class="ctl"><label for="ph">Phase</label><select id="ph"></select></div>
+  <div class="ctl"><label>How it moves</label><div class="pills" id="mf"></div></div>
+</div>
+
+<section id="v-disc">
+  <p class="lede">Rows send, columns receive. Each cell counts the exchanges between two disciplines; the small orange
+  figure is how many are re-entered by hand. Select a cell to list them.</p>
+  <div class="mxw"><table class="mx" id="mx-disc"></table></div>
+</section>
+<section id="v-sys" hidden>
+  <p class="lede">The same exchanges by system: where each item lives and the system the receiving task works in.
+  The diagonal is information that stays inside one system. Orange figures are hand re-entry between systems,
+  the first candidates for an integration.</p>
+  <div class="mxw"><table class="mx" id="mx-sys"></table></div>
+</section>
+<section id="v-task" hidden>
+  <div class="dchips" id="dch"></div>
+  <div class="tk"><div class="tlist" id="tl"></div><article class="panel" id="tp"></article></div>
+</section>
+<section id="v-man" hidden>
+  <p class="lede">System pairs ranked by how many exchanges are re-entered by hand. Select a pair to list the items.</p>
+  <div class="bars" id="mb"></div>
+</section>
+
+<article class="panel" id="lp"><p class="empty">Select a matrix cell to list its exchanges.</p></article>
+
+<footer>Generated by <code>exchange/build.py</code> from <code>exchange/data/*.json</code> (specification in
+<code>exchange/SPEC.md</code>). Full tables in <code>exchange/out/Task-and-Interface-Register.xlsx</code>.
+Methods: <span id="mn"></span>. Levels: 1 concept, 2 preliminary, 3 defined, 4 final. "Today" methods are typical
+for the systems listed and should be confirmed project by project.</footer>
+</div>
+
+<script>
+const D = /*DATA*/null;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const DC = Object.keys(D.disc), M = D.methods;
+const EX = D.E.map(([it, to, use, m, lv]) => {
+  const I = D.I[it], fr = I.o;
+  return {it, fr, to, use, m: M[m], lv, fd: I.d, td: D.T[to].d, fs: I.s, ts: D.T[to].s, ph: D.T[to].p};
+});
+let st = {v: "disc", ph: "", mset: new Set(M), sel: null, disc: "PROC", task: null};
+try { const s = JSON.parse(localStorage.getItem("ifreg") || "{}"); Object.assign(st, {v: s.v || st.v, disc: s.disc || st.disc, task: s.task || null}); } catch (e) {}
+const save = () => { try { localStorage.setItem("ifreg", JSON.stringify({v: st.v, disc: st.disc, task: st.task})); } catch (e) {} };
+const vis = () => EX.filter(e => st.mset.has(e.m) && (!st.ph || e.ph.includes(st.ph)));
+const heat = (n, max) => !n ? "" : "h" + Math.min(5, 1 + Math.floor(4.999 * Math.log(1 + n) / Math.log(1 + max)));
+const tname = id => `${id} ${D.T[id].n}`;
+const meth = m => `<span class="meth ${m}" title="${esc(D.mnote[m])}">${m}</span>`;
+
+document.getElementById("n-t").textContent = Object.keys(D.T).length;
+document.getElementById("n-i").textContent = Object.keys(D.I).length;
+document.getElementById("n-e").textContent = EX.length;
+document.getElementById("n-m").textContent = EX.filter(e => e.m === "manual" && e.fs !== e.ts).length;
+document.getElementById("mn").innerHTML = M.map(m => `${m}: ${esc(D.mnote[m])}`).join("; ");
+document.getElementById("ph").innerHTML = `<option value="">All phases</option>` + D.phases.map(p => `<option>${p}</option>`).join("");
+document.getElementById("mf").innerHTML = M.map(m => `<button class="${m}" data-m="${m}" aria-pressed="true">${m}</button>`).join("");
+
+function matrix(id, keys, fk, tk, label) {
+  const ex = vis(), c = {}, cm = {};
+  ex.forEach(e => { const k = e[fk] + "|" + e[tk]; c[k] = (c[k] || 0) + 1; if (e.m === "manual") cm[k] = (cm[k] || 0) + 1; });
+  const used = keys.filter(k => ex.some(e => e[fk] === k || e[tk] === k));
+  const max = Math.max(1, ...Object.values(c));
+  let h = `<thead><tr><th>${label}</th>` + used.map(k => `<th title="${esc(D.disc[k] || k)}"><span>${esc(k)}</span></th>`).join("") + "</tr></thead><tbody>";
+  used.forEach(a => {
+    h += `<tr><th title="${esc(D.disc[a] || a)}">${esc(a)}</th>`;
+    used.forEach(b => {
+      const k = a + "|" + b, n = c[k] || 0, sel = st.sel && st.sel.k === k && st.sel.f === fk ? " sel" : "";
+      h += n ? `<td class="${heat(n, max)}${a === b ? " diag" : ""}${sel}" data-k="${esc(k)}" data-f="${fk}" data-t="${tk}" tabindex="0" title="${esc(a)} → ${esc(b)}: ${n}">${n}${cm[k] ? `<span class="m">${cm[k]}</span>` : ""}</td>`
+             : `<td class="z${a === b ? " diag" : ""}"></td>`;
+    });
+    h += "</tr>";
+  });
+  document.getElementById(id).innerHTML = h + "</tbody>";
+}
+
+function list(rows, title, sub) {
+  const el = document.getElementById("lp");
+  if (!rows) { el.innerHTML = `<p class="empty">Select a matrix cell to list its exchanges.</p>`; return; }
+  rows.sort((a, b) => (a.m !== "manual") - (b.m !== "manual") || a.it.localeCompare(b.it));
+  el.innerHTML = `<div class="hd"><h2>${esc(title)}</h2><span class="sub">${esc(sub)} · ${rows.length} exchanges</span></div>
+  <div class="tw"><table class="ls"><thead><tr><th>Information</th><th>From</th><th>To</th><th>What is used</th><th>How</th><th>Needs</th></tr></thead><tbody>` +
+  rows.map(e => `<tr><td><span class="id">${e.it}</span> ${esc(D.I[e.it].n)}</td>
+    <td><button class="lnk" data-task="${e.fr}">${esc(tname(e.fr))}</button><br><span class="sys">${esc(e.fs)}</span></td>
+    <td><button class="lnk" data-task="${e.to}">${esc(tname(e.to))}</button><br><span class="sys">${esc(e.ts)}</span></td>
+    <td class="use">${esc(e.use)}</td><td>${meth(e.m)}</td><td class="lv">level ${e.lv}</td></tr>`).join("") + "</tbody></table></div>";
+}
+
+function tasks() {
+  document.getElementById("dch").innerHTML = DC.filter(c => D.order.some(t => D.T[t].d === c)).map(c =>
+    `<button data-d="${c}" aria-pressed="${c === st.disc}" title="${esc(D.disc[c])}">${c}</button>`).join("");
+  const ts = D.order.filter(t => D.T[t].d === st.disc && (!st.ph || D.T[t].p.includes(st.ph)));
+  if (!st.task || D.T[st.task].d !== st.disc) st.task = ts[0] || null;
+  document.getElementById("tl").innerHTML = ts.map(t => `<button data-task="${t}" aria-current="${t === st.task}"><span>${t}</span><span>${esc(D.T[t].n)}</span><span>${esc(D.T[t].s)}</span></button>`).join("")
+    || `<p class="empty">No tasks in this phase.</p>`;
+  const el = document.getElementById("tp"), t = st.task;
+  if (!t) { el.innerHTML = ""; return; }
+  const T = D.T[t], ex = vis();
+  const ins = ex.filter(e => e.to === t), outs = ex.filter(e => e.fr === t);
+  const made = Object.keys(D.I).filter(i => D.I[i].o === t);
+  el.innerHTML = `<div class="hd"><span class="sub">${t} · ${esc(D.disc[T.d])} · ${esc(T.s)} · ${T.p.join(", ")} · activity ${esc(T.a)}</span><h2>${esc(T.n)}</h2></div>
+    ${T.x ? `<p class="desc">${esc(T.x)}</p>` : ""}
+    <div class="sect"><h3>Receives (${ins.length})</h3></div>
+    <div class="tw"><table class="ls"><thead><tr><th>Information</th><th>From</th><th>What is used</th><th>How</th><th>Needs</th></tr></thead><tbody>` +
+    (ins.map(e => `<tr><td><span class="id">${e.it}</span> ${esc(D.I[e.it].n)}</td><td><button class="lnk" data-task="${e.fr}">${esc(tname(e.fr))}</button><br><span class="sys">${esc(e.fd)} · ${esc(e.fs)}</span></td>
+      <td class="use">${esc(e.use)}</td><td>${meth(e.m)}</td><td class="lv">level ${e.lv}</td></tr>`).join("") || `<tr><td colspan="5" class="use">No inputs with the current filters.</td></tr>`) +
+    `</tbody></table></div><div class="sect"><h3>Produces (${made.length}) and sends (${outs.length})</h3></div>
+    <div class="tw"><table class="ls"><thead><tr><th>Information</th><th>To</th><th>What is used</th><th>How</th><th>Needs</th></tr></thead><tbody>` +
+    made.map(i => {
+      const r = outs.filter(e => e.it === i);
+      return `<tr class="grp"><td colspan="5">${i} ${esc(D.I[i].n)} <span class="sys">· ${esc(D.I[i].f)} in ${esc(D.I[i].s)}</span></td></tr>` +
+        (r.map(e => `<tr><td class="use">${esc(D.I[i].c)}</td><td><button class="lnk" data-task="${e.to}">${esc(tname(e.to))}</button><br><span class="sys">${esc(e.td)} · ${esc(e.ts)}</span></td>
+          <td class="use">${esc(e.use)}</td><td>${meth(e.m)}</td><td class="lv">level ${e.lv}</td></tr>`).join("") || `<tr><td colspan="5" class="use">${esc(D.I[i].c)} — not used by any task with the current filters.</td></tr>`);
+    }).join("") + "</tbody></table></div>";
+}
+
+function manual() {
+  const c = {};
+  vis().filter(e => e.m === "manual" && e.fs !== e.ts).forEach(e => { const k = e.fs + "|" + e.ts; c[k] = (c[k] || 0) + 1; });
+  const rows = Object.entries(c).sort((a, b) => b[1] - a[1]), max = rows.length ? rows[0][1] : 1;
+  document.getElementById("mb").innerHTML = rows.map(([k, n]) => `<div class="r" data-k="${esc(k)}" tabindex="0"><b>${esc(k.replace("|", " → "))}</b><div class="t"><i style="width:${100 * n / max}%"></i></div><span>${n}</span></div>`).join("")
+    || `<p class="empty">No manual hand-offs with the current filters.</p>`;
+}
+
+function render() {
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.v === st.v));
+  ["disc", "sys", "task", "man"].forEach(v => document.getElementById("v-" + v).hidden = v !== st.v);
+  document.getElementById("lp").hidden = st.v === "task";
+  if (st.v === "disc") matrix("mx-disc", DC, "fd", "td", "FROM \\ TO");
+  if (st.v === "sys") matrix("mx-sys", D.systems, "fs", "ts", "FROM \\ TO");
+  if (st.v === "task") tasks();
+  if (st.v === "man") manual();
+  if (st.sel) {
+    const [a, b] = st.sel.k.split("|");
+    const rows = vis().filter(e => e[st.sel.f] === a && e[st.sel.t] === b && (!st.sel.man || (e.m === "manual")));
+    list(rows, `${a} → ${b}`, st.sel.man ? "re-entered by hand" : (st.sel.f === "fd" ? `${D.disc[a]} to ${D.disc[b]}` : "by system"));
+  } else list(null);
+  save();
+}
+
+document.addEventListener("click", e => {
+  const tb = e.target.closest(".tabs button"); if (tb) { st.v = tb.dataset.v; st.sel = null; render(); return; }
+  const td = e.target.closest("table.mx td[data-k]"); if (td) { st.sel = {k: td.dataset.k, f: td.dataset.f, t: td.dataset.t}; render(); document.getElementById("lp").scrollIntoView({behavior: "smooth", block: "start"}); return; }
+  const br = e.target.closest(".bars .r"); if (br) { st.sel = {k: br.dataset.k, f: "fs", t: "ts", man: true}; render(); document.getElementById("lp").scrollIntoView({behavior: "smooth", block: "start"}); return; }
+  const tk = e.target.closest("[data-task]"); if (tk) { st.task = tk.dataset.task; st.disc = D.T[st.task].d; st.v = "task"; st.sel = null; render(); window.scrollTo({top: document.querySelector(".bar").offsetTop - 8, behavior: "smooth"}); return; }
+  const dc = e.target.closest("#dch button"); if (dc) { st.disc = dc.dataset.d; st.task = null; render(); return; }
+  const mb = e.target.closest("#mf button"); if (mb) { const m = mb.dataset.m; st.mset.has(m) ? st.mset.delete(m) : st.mset.add(m); mb.setAttribute("aria-pressed", st.mset.has(m)); render(); }
+});
+document.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.matches("td[data-k], .bars .r")) { e.preventDefault(); e.target.click(); } });
+document.getElementById("ph").onchange = e => { st.ph = e.target.value; render(); };
+render();
+</script>
+</body>
+</html>
