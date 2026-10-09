@@ -14,22 +14,28 @@
       "produces": [
         "INST-I010"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "Operating and automation philosophy preferences, manning, remote operation, approved vendor and standards list",
+          "item": "OWNR-I130",
+          "use": "DCS/SIS platform preference, integration with existing control room, operator interface standards; approved system vendors and owner automation standards",
           "method": "review",
           "level": 1
         },
         {
-          "from": "PROC",
-          "info": "Block flow diagram and configuration options with main unit operations",
+          "item": "OWNR-I060",
+          "use": "DCS/SIS platform preference, integration with existing control room, operator interface standards; approved system vendors and owner automation standards",
           "method": "review",
           "level": 1
         },
         {
-          "from": "PROJ",
-          "info": "Design basis outline and FEL deliverable list",
+          "item": "PROC-I040",
+          "use": "unit blocks and main streams per option to size the automation scope",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "PROJ-I010",
+          "use": "phase plan, FEL deliverable list and work split for I&C concept",
           "method": "review",
           "level": 1
         }
@@ -49,28 +55,40 @@
       "produces": [
         "INST-I020"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "PFDs / preliminary P&IDs: equipment count, control loops, streams with analyzers",
+          "item": "PROC-I120",
+          "use": "equipment count, main control loops, streams needing analyzers; preliminary instrument counts from P&IDs where available",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "INST",
-          "info": "Preliminary control and safety system concept (INST-I010)",
+          "item": "PROC-I200",
+          "use": "equipment count, main control loops, streams needing analyzers; preliminary instrument counts from P&IDs where available",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "PROJ",
-          "info": "Estimate basis, class, cut-off date and WBS/CBS structure",
+          "item": "INST-I010",
+          "use": "DCS/SIS/F&G split, conventional vs fieldbus I/O, package control approach for pricing",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "PROJ-I080",
+          "use": "estimate class, quantity template, code of accounts, WBS/area codes and due date",
           "method": "review",
           "level": 1
         },
         {
-          "from": "PIPE",
-          "info": "Plot plan area sizes for cable and JB factors",
+          "item": "PROJ-I030",
+          "use": "estimate class, quantity template, code of accounts, WBS/area codes and due date",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "PIPE-I010",
+          "use": "block footprints and interconnecting run lengths for cable, tray and JB factors",
           "method": "manual",
           "level": 1
         }
@@ -91,40 +109,46 @@
         "INST-I030",
         "INST-I031"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Preliminary control and safety system concept (INST-I010)",
+          "item": "INST-I010",
+          "use": "system split, control room concept, remote I/O approach",
           "method": "review",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "Cyber security requirements, site network standards, interfaces to existing plant DCS and historian",
+          "item": "OWNR-I130",
+          "use": "DCS/SIS platform, operator interface standards, integration with existing control room and historian",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "Control building and rack room layout, floor space, raised floor/cable entry, HVAC capability",
+          "item": "CIVL-I270",
+          "use": "control/rack room dimensions, false floor and cable entry, room HVAC capacity and design conditions",
           "method": "review",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "UPS location and distribution boards serving control system rooms",
+          "item": "CIVL-I300",
+          "use": "control/rack room dimensions, false floor and cable entry, room HVAC capacity and design conditions",
           "method": "review",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "I/O counts per system (INST-I261) for cabinet counts",
+          "item": "ELEC-I040",
+          "use": "UPS location and distribution feeding control system rooms",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I261",
+          "use": "I/O counts per system for cabinet counts",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "Packaged equipment list with control system type (PLC, local panel) and communication interfaces",
+          "item": "MECH-I220",
+          "use": "packaged equipment controls philosophy (vendor PLC vs DCS) and communication interfaces",
           "method": "manual",
           "level": 2
         }
@@ -143,34 +167,52 @@
       "produces": [
         "INST-I040"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "Owner standards, preferred vendors, spares philosophy, electrical/instrument codes",
+          "item": "OWNR-I060",
+          "use": "owner instrument standards, order of precedence, approved vendor list; spares philosophy for specifications",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "Project design basis and applicable codes, units of measure",
+          "item": "OWNR-I180",
+          "use": "owner instrument standards, order of precedence, approved vendor list; spares philosophy for specifications",
           "method": "review",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification approach and protection concepts (Ex d / Ex i)",
+          "item": "PROJ-I010",
+          "use": "project codes, key procedures and units convention for the I&C basis",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "Site ambient conditions, fire and gas detection philosophy",
+          "item": "ELEC-I010",
+          "use": "enclosure and codes basis; area classification method (Class/Division or Zone), gas group and T-code by area for Ex protection concept",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "Piping material classes and connection standards for instrument process connections",
+          "item": "ELEC-I072",
+          "use": "enclosure and codes basis; area classification method (Class/Division or Zone), gas group and T-code by area for Ex protection concept",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I045",
+          "use": "detector types and F&G philosophy; ambient design temperatures, humidity and wind for instrument selection",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "detector types and F&G philosophy; ambient design temperatures, humidity and wind for instrument selection",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I110",
+          "use": "piping class ratings, flange facings and branch connections for instrument process connection standards",
           "method": "review",
           "level": 2
         }
@@ -190,22 +232,40 @@
       "produces": [
         "INST-I045"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "P&IDs (process content) at IFR/IFD with loops, interlocks, valve fail positions",
+          "item": "PROC-I200",
+          "use": "instruments, control and trip loops, valve fail positions, set points, holds on IFR/HAZOP/IFD P&IDs",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "Control and operating philosophy",
+          "item": "PROC-I201",
+          "use": "instruments, control and trip loops, valve fail positions, set points, holds on IFR/HAZOP/IFD P&IDs",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "HAZOP actions affecting instruments and interlocks",
+          "item": "PROC-I340",
+          "use": "instruments, control and trip loops, valve fail positions, set points, holds on IFR/HAZOP/IFD P&IDs",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROC-I230",
+          "use": "control strategy and operating modes to check loop representation",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROC-I240",
+          "use": "control strategy and operating modes to check loop representation",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I152",
+          "use": "HAZOP recommendations adding or changing instruments, alarms and interlocks",
           "method": "review",
           "level": 3
         }
@@ -225,34 +285,40 @@
       "produces": [
         "INST-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "P&ID instrument tags, loop numbers, service, line or equipment, P&ID number (SPID and SI not linked: tags re-created by hand)",
+          "item": "PROC-I340",
+          "use": "instrument tags, loop numbers, service, line/equipment, P&ID number; re-created by hand in SI (SPID and SI not linked)",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Line list: line number, size, spec for instrument location",
+          "item": "PROC-I200",
+          "use": "instrument tags, loop numbers, service, line/equipment, P&ID number; re-created by hand in SI (SPID and SI not linked)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I210",
+          "use": "line number, from/to and service for instrument line reference",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "Equipment list: equipment numbers and services",
+          "item": "MECH-I080",
+          "use": "equipment numbers and services for instruments on equipment",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "Package scope split: which instruments are vendor supplied",
+          "item": "MECH-I220",
+          "use": "package scope of supply: which instruments are vendor supplied",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "I&C P&ID markups (INST-I045) to confirm tagging",
+          "item": "INST-I045",
+          "use": "confirmed instrument tagging and types",
           "method": "review",
           "level": 2
         }
@@ -271,16 +337,28 @@
       "produces": [
         "INST-I055"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "HAZOP and LOPA action register with actions assigned to I&C",
+          "item": "SAFE-I152",
+          "use": "HAZOP recommendations and LOPA SIF/IPL actions assigned to I&C, with priority and due date",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Revised P&IDs reflecting accepted actions",
+          "item": "SAFE-I160",
+          "use": "HAZOP recommendations and LOPA SIF/IPL actions assigned to I&C, with priority and due date",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I301",
+          "use": "clouded P&ID changes from HAZOP and the IFD P&IDs that incorporate them",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I340",
+          "use": "clouded P&ID changes from HAZOP and the IFD P&IDs that incorporate them",
           "method": "review",
           "level": 3
         }
@@ -299,28 +377,34 @@
       "produces": [
         "INST-I060"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "HYSYS stream data: flow min/norm/max, P, T, density, viscosity, MW, Cp/Cv, Z, vapour pressure (no link: copied by hand)",
+          "item": "PROC-I110",
+          "use": "per stream and case: flow, P, T, density, viscosity, MW, Cp/Cv, Z, vapour fraction (HYSYS not linked to SI: copied by hand)",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Instrument process datasheets / process data requests: ranges, set points, alarm and trip settings",
+          "item": "PROC-I220",
+          "use": "per tag: min/normal/max flow, ranges, level ranges, set points, alarm/trip settings, CV allowable dP",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Line list: design P/T, fluid, phase",
+          "item": "PROC-I210",
+          "use": "per line: fluid code, phase, operating/design P/T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Piping material classes: line rating and material for instrument wetted parts",
+          "item": "PIPE-I160",
+          "use": "piping class per line; rating and materials of the class for instrument wetted parts and flange rating",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I110",
+          "use": "piping class per line; rating and materials of the class for instrument wetted parts and flange rating",
           "method": "manual",
           "level": 3
         }
@@ -341,28 +425,34 @@
         "INST-I071",
         "INST-I072"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument process data in SI (INST-I060)",
+          "item": "INST-I060",
+          "use": "flow cases, P, T, fluid properties per CV",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Control valve allowable pressure drop and flow cases from hydraulic calcs",
+          "item": "PROC-I220",
+          "use": "CV allowable dP, shut-off dP and flow cases",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Line size and pipe class at the valve, reducer arrangement",
+          "item": "PIPE-I160",
+          "use": "line size and piping class at the valve; reducer arrangement as routed",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Noise limits for the plant",
+          "item": "PIPE-I180",
+          "use": "line size and piping class at the valve; reducer arrangement as routed",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I240",
+          "use": "maximum sound pressure level at 1 m for control valves",
           "method": "review",
           "level": 2
         }
@@ -381,28 +471,40 @@
       "produces": [
         "INST-I080"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument process data in SI (INST-I060)",
+          "item": "INST-I060",
+          "use": "process conditions per on/off valve",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Required closing/opening times, fail positions, blowdown orifice and depressuring requirements",
+          "item": "PROC-I235",
+          "use": "final element action, fail position, required closure time; blowdown restriction orifice size and depressuring time targets",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Fire-safe and emergency isolation valve requirements from fire protection study",
+          "item": "PROC-I261",
+          "use": "final element action, fail position, required closure time; blowdown restriction orifice size and depressuring time targets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I210",
+          "use": "EIV locations, closure time, fire-safe test (API 607); actuator and cable fireproofing rating",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "SRS (INST-I220) for SIF final element requirements",
+          "item": "SAFE-I202",
+          "use": "EIV locations, closure time, fire-safe test (API 607); actuator and cable fireproofing rating",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I220",
+          "use": "SIF final element requirements: response time, safe state, partial stroke testing",
           "method": "review",
           "level": 3
         }
@@ -422,16 +524,22 @@
         "INST-I090",
         "INST-I091"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument process data in SI (INST-I060)",
+          "item": "INST-I060",
+          "use": "flow cases and fluid properties per flow element and thermowell",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Line size, schedule and internal diameter",
+          "item": "PIPE-I160",
+          "use": "line class and size; wall thickness/schedule by size for internal diameter",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I110",
+          "use": "line class and size; wall thickness/schedule by size for internal diameter",
           "method": "manual",
           "level": 3
         }
@@ -450,22 +558,28 @@
       "produces": [
         "INST-I100"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Relief load summary: governing case, relieving rate, set pressure, back pressure, fluid properties (copied by hand)",
+          "item": "PROC-I250",
+          "use": "governing case, relieving rate, set and back pressure, fluid MW/T/Z/k, required area and orifice letter (copied by hand)",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Flare/relief header hydraulics: built-up back pressure and inlet loss checks",
+          "item": "PROC-I251",
+          "use": "governing case, relieving rate, set and back pressure, fluid MW/T/Z/k, required area and orifice letter (copied by hand)",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Inlet/outlet piping class and rating",
+          "item": "PROC-I260",
+          "use": "built-up back pressure at each device",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I160",
+          "use": "inlet/outlet line class and rating",
           "method": "manual",
           "level": 3
         }
@@ -484,34 +598,46 @@
       "produces": [
         "INST-I110"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument process data in SI (INST-I060)",
+          "item": "INST-I060",
+          "use": "process data per tag",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Control valve and on/off valve sizing (INST-I070, INST-I080)",
+          "item": "INST-I070",
+          "use": "CV size, trim, actuator, noise results",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "I&C design basis and specs (INST-I040)",
+          "item": "INST-I080",
+          "use": "on/off valve size, actuator, stroke time, failure position",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "INST-I040",
+          "use": "instrument selection rules and general specifications",
           "method": "review",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification drawings: zone, gas group, temperature class at instrument location",
+          "item": "ELEC-I070",
+          "use": "Class/Division or Zone, gas group, T-code at instrument location",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Piping material class: wetted part material, flange rating, facing",
+          "item": "ELEC-I072",
+          "use": "Class/Division or Zone, gas group, T-code at instrument location",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I110",
+          "use": "wetted part material, flange rating and facing per class",
           "method": "manual",
           "level": 3
         }
@@ -530,22 +656,28 @@
       "produces": [
         "INST-I115"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "Vessel and column datasheets and GA drawings: nozzle schedule, elevations, internals",
+          "item": "MECH-I170",
+          "use": "nozzle schedule with sizes/ratings, nozzle elevations and orientations, internals interference",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "Normal/high/low liquid levels and interface levels",
+          "item": "MECH-I270",
+          "use": "nozzle schedule with sizes/ratings, nozzle elevations and orientations, internals interference",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROC-I140",
+          "use": "LL/LLL/NLL/HLL/HHLL and interface levels for level instrument ranges and bridle elevations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Piping branch connection standards",
+          "item": "PIPE-I110",
+          "use": "branch table and branch connection types for instrument take-offs",
           "method": "review",
           "level": 3
         }
@@ -564,22 +696,34 @@
       "produces": [
         "INST-I130"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument datasheets (INST-I110) and relief valve datasheets (INST-I100)",
+          "item": "INST-I110",
+          "use": "instrument and PSV datasheets attached to each MR",
           "method": "file",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "Requisition template, commercial terms and bidders list",
+          "item": "INST-I100",
+          "use": "instrument and PSV datasheets attached to each MR",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "SCM-I030",
+          "use": "bidders per MR, sourcing route and procurement package split",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "Vendor document requirements (VDRL) and procurement schedule",
+          "item": "SCM-I010",
+          "use": "bidders per MR, sourcing route and procurement package split",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I150",
+          "use": "MR issue need date and ROS per instrument package",
           "method": "review",
           "level": 3
         }
@@ -598,16 +742,34 @@
       "produces": [
         "INST-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "Technical offers: deviations, model codes, sizing confirmation, delivery",
+          "item": "VEND-I020",
+          "use": "completed datasheets, model codes, sizing confirmation, deviations and clarification responses",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "Bid package and clarification log",
+          "item": "VEND-I040",
+          "use": "completed datasheets, model codes, sizing confirmation, deviations and clarification responses",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I050",
+          "use": "completed datasheets, model codes, sizing confirmation, deviations and clarification responses",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I090",
+          "use": "unpriced technical offers with TBE due date; bid bulletins and MR changes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I080",
+          "use": "unpriced technical offers with TBE due date; bid bulletins and MR changes",
           "method": "review",
           "level": 3
         }
@@ -627,16 +789,34 @@
         "INST-I150",
         "INST-I151"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "Vendor drawings and data: dimensional drawings, sizing confirmation, wiring, certificates",
+          "item": "SCM-I180",
+          "use": "vendor drawings and data routed for review: dimensional drawings, sizing confirmation, wiring, certificates; certified data",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "PO and expediting status for vendor document due dates",
+          "item": "VEND-I130",
+          "use": "vendor drawings and data routed for review: dimensional drawings, sizing confirmation, wiring, certificates; certified data",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "vendor drawings and data routed for review: dimensional drawings, sizing confirmation, wiring, certificates; certified data",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I170",
+          "use": "vendor document due/received dates and PO milestone status",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I200",
+          "use": "vendor document due/received dates and PO milestone status",
           "method": "review",
           "level": 3
         }
@@ -656,22 +836,28 @@
         "INST-I160",
         "INST-I161"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Analyzer requirements: stream, components, ranges, response time, sample conditions",
+          "item": "PROC-I110",
+          "use": "stream composition, P and T at sample points for sample conditioning",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Emissions monitoring (CEMS) requirements from permits",
+          "item": "SAFE-I062",
+          "use": "CEMS and flare monitoring requirements; permit monitoring conditions",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Sample point locations and plot space",
+          "item": "SAFE-I072",
+          "use": "CEMS and flare monitoring requirements; permit monitoring conditions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I040",
+          "use": "analyzer shelter location and plot space",
           "method": "review",
           "level": 2
         }
@@ -690,16 +876,46 @@
       "produces": [
         "INST-I170"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Control and operating philosophy, control loop descriptions, start-up/shutdown sequences",
+          "item": "PROC-I230",
+          "use": "control strategy, process control narratives, operating modes, start-up/shutdown sequences and set points",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "Rotating equipment and package control requirements (anti-surge, permissives)",
+          "item": "PROC-I231",
+          "use": "control strategy, process control narratives, operating modes, start-up/shutdown sequences and set points",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I240",
+          "use": "control strategy, process control narratives, operating modes, start-up/shutdown sequences and set points",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I365",
+          "use": "control strategy, process control narratives, operating modes, start-up/shutdown sequences and set points",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I120",
+          "use": "BMS and combustion control points; compressor anti-surge/capacity control; seal system alarms and trips",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I210",
+          "use": "BMS and combustion control points; compressor anti-surge/capacity control; seal system alarms and trips",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I240",
+          "use": "BMS and combustion control points; compressor anti-surge/capacity control; seal system alarms and trips",
           "method": "review",
           "level": 3
         }
@@ -718,22 +934,22 @@
       "produces": [
         "INST-I180"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "ICS architecture (INST-I030)",
+          "item": "INST-I030",
+          "use": "system architecture, redundancy, network",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "I/O counts per system (INST-I261)",
+          "item": "INST-I261",
+          "use": "I/O counts per type for DCS sizing",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Owner DCS standards, graphics standards, cyber security requirements",
+          "item": "OWNR-I130",
+          "use": "DCS platform, operator interface and graphics standards",
           "method": "review",
           "level": 3
         }
@@ -752,22 +968,22 @@
       "produces": [
         "INST-I190"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Safety requirements specification (INST-I220)",
+          "item": "INST-I220",
+          "use": "SIF functions, SIL, response time, bypass rules",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "I/O counts per system (INST-I261)",
+          "item": "INST-I261",
+          "use": "SIS I/O counts",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "SIL determination results: number of SIFs and SIL targets",
+          "item": "SAFE-I160",
+          "use": "number of SIFs and SIL targets",
           "method": "review",
           "level": 3
         }
@@ -787,28 +1003,58 @@
         "INST-I200",
         "INST-I201"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "F&G mapping study: detector types, coverage, locations, voting",
+          "item": "SAFE-I180",
+          "use": "detector tag, type, coordinates, elevation, orientation, coverage per zone",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Fire and gas philosophy and fire zones",
+          "item": "SAFE-I045",
+          "use": "F&G philosophy, zones, voting, executive actions, deluge activation logic, HVAC intake detection and damper closure",
           "method": "review",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification for detector Ex rating",
+          "item": "SAFE-I182",
+          "use": "F&G philosophy, zones, voting, executive actions, deluge activation logic, HVAC intake detection and damper closure",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I220",
+          "use": "F&G philosophy, zones, voting, executive actions, deluge activation logic, HVAC intake detection and damper closure",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I110",
+          "use": "F&G philosophy, zones, voting, executive actions, deluge activation logic, HVAC intake detection and damper closure",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I072",
+          "use": "Class/Division or Zone, gas group, T-code for detector Ex rating",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "Building layouts for building smoke/heat detection",
+          "item": "ELEC-I070",
+          "use": "Class/Division or Zone, gas group, T-code for detector Ex rating",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I270",
+          "use": "room layouts for building smoke/heat detection; HVAC trip and damper signals to F&G",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I306",
+          "use": "room layouts for building smoke/heat detection; HVAC trip and damper signals to F&G",
           "method": "review",
           "level": 3
         }
@@ -827,16 +1073,16 @@
       "produces": [
         "INST-I210"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Interlock and trip list with trip settings and actions",
+          "item": "PROC-I235",
+          "use": "initiator tags, set points, voting preference, final elements, process safety time",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "LOPA scenarios and required risk reduction",
+          "item": "SAFE-I160",
+          "use": "LOPA scenarios, required RRF/SIL per SIF",
           "method": "meeting",
           "level": 3
         }
@@ -855,22 +1101,22 @@
       "produces": [
         "INST-I220"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "SIF list (INST-I210)",
+          "item": "INST-I210",
+          "use": "SIF initiators, logic and final elements",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "SIL determination report with SIL targets and assumptions",
+          "item": "SAFE-I160",
+          "use": "required SIL/RRF, safe state, process safety time, LOPA assumptions",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Process safety time, trip settings",
+          "item": "PROC-I235",
+          "use": "trip set points, reset type, bypass needs, process safety time",
           "method": "manual",
           "level": 3
         }
@@ -889,22 +1135,28 @@
         "INST-I230",
         "INST-I231"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "SRS (INST-I220)",
+          "item": "INST-I220",
+          "use": "SIL targets, architecture, proof test assumptions",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "Device failure rate data / SIL certificates (FMEDA) for transmitters, logic solver, valves",
+          "item": "VEND-I140",
+          "use": "certified device failure rate data, FMEDA and SIL certificates",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Plant turnaround interval and maintenance constraints",
+          "item": "OWNR-I160",
+          "use": "turnaround interval for proof test intervals; maintenance constraints",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I120",
+          "use": "turnaround interval for proof test intervals; maintenance constraints",
           "method": "review",
           "level": 3
         }
@@ -924,28 +1176,40 @@
         "INST-I240",
         "INST-I241"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Interlock and shutdown philosophy and trip list",
+          "item": "PROC-I235",
+          "use": "trip initiators, set points, final elements and actions; shutdown philosophy and levels",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "SIF list (INST-I210)",
+          "item": "PROC-I240",
+          "use": "trip initiators, set points, final elements and actions; shutdown philosophy and levels",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "F&G philosophy: fire zones, voting, executive actions",
+          "item": "INST-I210",
+          "use": "SIF references for C&E lines",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I182",
+          "use": "F&G zones, voting and executive actions",
           "method": "review",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Motor and electrical trip interfaces (MCC trip points)",
+          "item": "ELEC-I340",
+          "use": "motor trip/SIS trip signals and MCC interlock schematics",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I350",
+          "use": "motor trip/SIS trip signals and MCC interlock schematics",
           "method": "review",
           "level": 3
         }
@@ -963,22 +1227,28 @@
       "produces": [
         "INST-I250"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "Alarm set points and operating envelopes",
+          "item": "PROC-I220",
+          "use": "alarm set points; operating limits and integrity operating windows",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Alarm philosophy and operator input",
+          "item": "PROC-I350",
+          "use": "alarm set points; operating limits and integrity operating windows",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Instrument index (INST-I050)",
+          "item": "OWNR-I130",
+          "use": "alarm philosophy and operator interface standards",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "item": "INST-I050",
+          "use": "tag list for the alarm database",
           "method": "manual",
           "level": 3
         }
@@ -998,22 +1268,22 @@
         "INST-I260",
         "INST-I261"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument index (INST-I050)",
+          "item": "INST-I050",
+          "use": "tags, I/O type, system",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Motor control signals per drive: start/stop/run/trip, hardwired vs serial (SPEL not linked)",
+          "item": "ELEC-I340",
+          "use": "per motor: run/trip/start/stop/SIS trip signals, hardwired vs serial (SPEL not linked: keyed in by hand)",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "Package interface signal list",
+          "item": "MECH-I450",
+          "use": "package I/O list and serial link maps",
           "method": "manual",
           "level": 3
         }
@@ -1034,16 +1304,40 @@
         "INST-I271",
         "INST-I272"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "Package requisitions and vendor data: P&IDs, instrument lists, PLC/panel data",
+          "item": "MECH-I350",
+          "use": "package requisitions, vendor instrument index and package I/O, controls philosophy and scope split",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "Package instrument list, control narratives, communication maps (Modbus/Ethernet)",
+          "item": "MECH-I450",
+          "use": "package requisitions, vendor instrument index and package I/O, controls philosophy and scope split",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I220",
+          "use": "package requisitions, vendor instrument index and package I/O, controls philosophy and scope split",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I100",
+          "use": "package P&IDs, I/O list and control narrative with protocol, package instrument list and datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I110",
+          "use": "package P&IDs, I/O list and control narrative with protocol, package instrument list and datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I130",
+          "use": "package P&IDs, I/O list and control narrative with protocol, package instrument list and datasheets",
           "method": "review",
           "level": 3
         }
@@ -1064,16 +1358,28 @@
         "INST-I281",
         "INST-I282"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument index (INST-I050) and system cabinet data (INST-I031)",
+          "item": "INST-I050",
+          "use": "instrument consumers by type and location",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "Analyzer and system power consumption data",
+          "item": "INST-I031",
+          "use": "cabinet power and clean power needs per room",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I120",
+          "use": "analyzer, system and panel power consumption",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I020",
+          "use": "analyzer, system and panel power consumption",
           "method": "review",
           "level": 3
         }
@@ -1093,22 +1399,40 @@
         "INST-I291",
         "INST-I292"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "Routed piping 3D model and plot plan",
+          "item": "PIPE-I180",
+          "use": "routed lines, plot plan, in-line instrument positions with orientation and access",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "Structural model: platforms, supports",
+          "item": "PIPE-I040",
+          "use": "routed lines, plot plan, in-line instrument positions with orientation and access",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I200",
+          "use": "routed lines, plot plan, in-line instrument positions with orientation and access",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I235",
+          "use": "platforms and structural members for instrument and JB supports",
           "method": "file",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Cable tray routing and hazardous area classification drawings",
+          "item": "ELEC-I330",
+          "use": "cable tray routes and levels; hazardous area boundaries for JB location",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I070",
+          "use": "cable tray routes and levels; hazardous area boundaries for JB location",
           "method": "review",
           "level": 3
         }
@@ -1126,28 +1450,40 @@
       "produces": [
         "INST-I300"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument index and datasheets: instrument type, process connection, mounting (INST-I050, INST-I110)",
+          "item": "INST-I050",
+          "use": "tag list and instrument types",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "Piping material class: root valve type, branch size and rating at instrument take-offs",
+          "item": "INST-I110",
+          "use": "process connection and mounting per tag",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I110",
+          "use": "root valve type, branch size and rating",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "Process conditions needing special hook-ups (sour, hydrogen, steam, cryogenic, viscous) from line list",
+          "item": "PROC-I210",
+          "use": "service flags (steam, viscous, cryogenic) and sour/H2S, hydrogen content needing special hook-ups",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Instrument heat tracing requirements (INST-I281)",
+          "item": "PROC-I112",
+          "use": "service flags (steam, viscous, cryogenic) and sour/H2S, hydrogen content needing special hook-ups",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I281",
+          "use": "impulse lines needing tracing",
           "method": "review",
           "level": 3
         }
@@ -1165,28 +1501,34 @@
       "produces": [
         "INST-I310"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "I/O list with cabinet/card/channel assignment (INST-I260)",
+          "item": "INST-I260",
+          "use": "cabinet/card/channel assignments",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "JB locations and sizes (INST-I291)",
+          "item": "INST-I291",
+          "use": "JB tags and sizes",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "System vendor cabinet arrangement, marshalling terminal numbering, IS barrier/isolator types",
+          "item": "VEND-I140",
+          "use": "system cabinet arrangement, marshalling terminal numbering, barrier types",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "MCC interposing relay and terminal designations for motor signals (SPEL not linked)",
+          "item": "ELEC-I350",
+          "use": "MCC interposing relay terminals and signal list (SPEL not linked)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I340",
+          "use": "MCC interposing relay terminals and signal list (SPEL not linked)",
           "method": "manual",
           "level": 3
         }
@@ -1205,22 +1547,22 @@
         "INST-I320",
         "INST-I321"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Wiring and termination diagrams (INST-I310)",
+          "item": "INST-I310",
+          "use": "cable allocation from wiring diagrams",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "Cable tray and trench layout with route segments and segregation rules",
+          "item": "ELEC-I330",
+          "use": "tray and trench route segments and segregation",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "3D model distances for cable length take-off",
+          "item": "PIPE-I180",
+          "use": "model distances for cable lengths",
           "method": "file",
           "level": 3
         }
@@ -1239,22 +1581,28 @@
       "produces": [
         "INST-I330"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Wiring diagrams and cable schedule (INST-I310, INST-I320)",
+          "item": "INST-I310",
+          "use": "terminations",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "System vendor final I/O assignment and terminal numbers after FAT",
+          "item": "INST-I320",
+          "use": "cable tags",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "VEND-I280",
+          "use": "final I/O assignment and terminal numbers after FAT",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "Certified instrument wiring data from vendor review (INST-I151)",
+          "item": "INST-I151",
+          "use": "certified instrument wiring data",
           "method": "integrated",
           "level": 4
         }
@@ -1273,22 +1621,28 @@
       "produces": [
         "INST-I340"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Hook-up bills of material and assignments (INST-I300)",
+          "item": "INST-I300",
+          "use": "hook-up bills of material and tag assignments",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Instrument cable schedule (INST-I320) and JB list (INST-I291)",
+          "item": "INST-I320",
+          "use": "cable lengths by type; JB list",
           "method": "file",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "Stock codes and surplus allowances",
+          "item": "INST-I291",
+          "use": "cable lengths by type; JB list",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "SCM-I060",
+          "use": "commodity codes and surplus allowances for bulk MR lines",
           "method": "review",
           "level": 3
         }
@@ -1308,28 +1662,52 @@
         "INST-I350",
         "INST-I351"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "Building layouts and fence/gate locations",
+          "item": "CIVL-I270",
+          "use": "building room layouts; fence and gate locations for access control and CCTV",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "Security assessment, alarm audibility and PA/GA zoning from F&G and emergency response",
+          "item": "CIVL-I140",
+          "use": "building room layouts; fence and gate locations for access control and CCTV",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "Site telecom standards and connection to existing networks",
+          "item": "SAFE-I310",
+          "use": "alarm tones, muster and evacuation; beacon and horn locations; alarm and beacon philosophy for PA/GA zoning",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I230",
+          "use": "alarm tones, muster and evacuation; beacon and horn locations; alarm and beacon philosophy for PA/GA zoning",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I045",
+          "use": "alarm tones, muster and evacuation; beacon and horn locations; alarm and beacon philosophy for PA/GA zoning",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I050",
+          "use": "existing site networks and telecom standards for connection",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "Hazardous area classification for field device Ex rating",
+          "item": "OWNR-I060",
+          "use": "existing site networks and telecom standards for connection",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I072",
+          "use": "area classification for telecom device Ex rating",
           "method": "manual",
           "level": 3
         }
@@ -1347,28 +1725,52 @@
       "produces": [
         "INST-I380"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "Instrument index, process data and I/O list (INST-I050, INST-I060, INST-I260)",
+          "item": "INST-I050",
+          "use": "tags and descriptions",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Master alarm database (INST-I250)",
+          "item": "INST-I060",
+          "use": "ranges and units",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "INST-I260",
+          "use": "I/O assignment",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "INST-I250",
+          "use": "alarm limits and priorities",
           "method": "file",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Control narratives and C&E (INST-I170, INST-I240, INST-I241)",
+          "item": "INST-I170",
+          "use": "control logic, shutdown and F&G logic for configuration",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "P&IDs IFC for graphics",
+          "item": "INST-I240",
+          "use": "control logic, shutdown and F&G logic for configuration",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I241",
+          "use": "control logic, shutdown and F&G logic for configuration",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I341",
+          "use": "IFC P&IDs for graphics",
           "method": "review",
           "level": 4
         }
@@ -1387,22 +1789,46 @@
       "produces": [
         "INST-I390"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "FAT procedures, configured system, graphics and logic printouts",
+          "item": "VEND-I280",
+          "use": "configured database, logic, graphics, FAT punch; FAT procedures and hold points",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "C&E charts and control narratives (INST-I240, INST-I241, INST-I170)",
+          "item": "VEND-I150",
+          "use": "configured database, logic, graphics, FAT punch; FAT procedures and hold points",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I240",
+          "use": "C&E and narratives to test against",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "Operations attendance and graphics acceptance",
+          "item": "INST-I241",
+          "use": "C&E and narratives to test against",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I170",
+          "use": "C&E and narratives to test against",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I130",
+          "use": "operator graphics standards and owner acceptance comments at FAT",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I110",
+          "use": "operator graphics standards and owner acceptance comments at FAT",
           "method": "meeting",
           "level": 3
         }
@@ -1420,16 +1846,22 @@
       "produces": [
         "INST-I400"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "RFIs with field markups on location plans, hook-ups, cable routes",
+          "item": "CONS-I210",
+          "use": "RFIs and field change requests with markups on I&C drawings",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "Late vendor data changes affecting installation",
+          "item": "CONS-I220",
+          "use": "RFIs and field change requests with markups on I&C drawings",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "late certified data changes affecting installation",
           "method": "review",
           "level": 4
         }
@@ -1448,16 +1880,40 @@
       "produces": [
         "INST-I410"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "System and subsystem boundaries (systemization) with marked-up P&IDs",
+          "item": "COMM-I040",
+          "use": "system/subsystem numbers and boundaries; tag-to-subsystem register format",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Instrument index, cable schedule, JB list (INST-I050, INST-I320, INST-I291)",
+          "item": "COMM-I030",
+          "use": "system/subsystem numbers and boundaries; tag-to-subsystem register format",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "COMM-I070",
+          "use": "system/subsystem numbers and boundaries; tag-to-subsystem register format",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I050",
+          "use": "instrument, cable and JB tags",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "item": "INST-I320",
+          "use": "instrument, cable and JB tags",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "item": "INST-I291",
+          "use": "instrument, cable and JB tags",
           "method": "file",
           "level": 4
         }
@@ -1476,16 +1932,28 @@
       "produces": [
         "INST-I420"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "Loop check records, calibration ITRs and punch items",
+          "item": "COMM-I180",
+          "use": "loop check results, loop/configuration defects and I&C punch items",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "Loop diagrams IFC (INST-I330)",
+          "item": "COMM-I190",
+          "use": "loop check results, loop/configuration defects and I&C punch items",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "COMM-I150",
+          "use": "loop check results, loop/configuration defects and I&C punch items",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I330",
+          "use": "IFC loop diagrams",
           "method": "review",
           "level": 4
         }
@@ -1503,16 +1971,28 @@
       "produces": [
         "INST-I430"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "SAT and integrated test procedures, commissioning sequence",
+          "item": "COMM-I100",
+          "use": "C&E/SIF test procedures and commissioning sequence",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "SRS and proof test procedures (INST-I220, INST-I231)",
+          "item": "COMM-I050",
+          "use": "C&E/SIF test procedures and commissioning sequence",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I220",
+          "use": "SRS and proof test steps for validation",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I231",
+          "use": "SRS and proof test steps for validation",
           "method": "review",
           "level": 4
         }
@@ -1530,22 +2010,34 @@
       "produces": [
         "INST-I440"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "As-built redlines on loop, wiring, location and hook-up drawings",
+          "item": "CONS-I330",
+          "use": "redlines on loop, wiring, location and hook-up drawings",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "Final certified data books and calibration certificates",
+          "item": "VEND-I240",
+          "use": "final data books and calibration/test certificates",
           "method": "review",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "Closed punch and field changes",
+          "item": "VEND-I180",
+          "use": "final data books and calibration/test certificates",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "COMM-I150",
+          "use": "closed punch and approved field changes",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "CONS-I220",
+          "use": "closed punch and approved field changes",
           "method": "review",
           "level": 4
         }
@@ -2048,6 +2540,29 @@
       "form": "data",
       "content": "As-built instrument index, datasheets, loops, wiring and location drawings for owner handover.",
       "owner_task": "INST-T440"
+    }
+  ],
+  "gaps": [
+    {
+      "task": "INST-T130",
+      "from": "PROJ",
+      "info": "Standard vendor document requirements (VDRL template) for instrument MRs",
+      "method": "review",
+      "level": 3
+    },
+    {
+      "task": "INST-T160",
+      "from": "PROC",
+      "info": "Analyzer requirements list: stream, components to measure, ranges, response time",
+      "method": "manual",
+      "level": 3
+    },
+    {
+      "task": "INST-T350",
+      "from": "SAFE",
+      "info": "Security vulnerability assessment defining CCTV coverage and access control requirements",
+      "method": "review",
+      "level": 3
     }
   ]
 }

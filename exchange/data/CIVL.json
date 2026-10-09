@@ -13,22 +13,40 @@
       "produces": [
         "CIVL-I010"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "candidate site boundaries, existing facility drawings, available survey and soil data, land constraints",
+          "item": "OWNR-I040",
+          "use": "historic soil data, climatic and seismic data, survey control and site access rules per candidate site",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "PROC",
-          "info": "block flow diagram and approximate unit footprint and major equipment count",
+          "item": "OWNR-I050",
+          "use": "existing facilities, underground and utilities on or next to each candidate site",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "PROC-I040",
+          "use": "unit blocks and capacities to judge footprint",
           "method": "review",
           "level": 1
         },
         {
-          "from": "SAFE",
-          "info": "preliminary siting constraints: flood, separation distances, environmental sensitivities",
+          "item": "PIPE-I010",
+          "use": "block footprints, rack corridor, tank farm and approximate area per option",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I030",
+          "use": "flood/wind exposure, separation to receptors and emergency access per site",
+          "method": "meeting",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I010",
+          "use": "wetland, habitat and receiving-water constraints affecting earthworks and drainage",
           "method": "meeting",
           "level": 1
         }
@@ -48,22 +66,40 @@
         "CIVL-I020",
         "CIVL-I030"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "owner civil/structural standards, design life, local codes, climatic and seismic data, building occupancy requirements",
+          "item": "OWNR-I060",
+          "use": "owner civil/structural standards and order of precedence",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "project design basis (BOD) structure, units, coordinate system and plant north",
+          "item": "OWNR-I070",
+          "use": "design life, winterisation and environmental limits",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I040",
+          "use": "climatic design data, seismic zone, survey control and coordinate system",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROC-I010",
+          "use": "ambient design conditions and design cases to align civil environmental data",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "blast design philosophy (target overpressure categories), fireproofing philosophy",
+          "item": "SAFE-I040",
+          "use": "design blast and fire load method, codes and regulations",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "SAFE-I045",
+          "use": "fireproofing criteria (API 2218) for structural design criteria",
           "method": "review",
           "level": 1
         }
@@ -82,16 +118,22 @@
       "produces": [
         "CIVL-I040"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "existing plant grid, benchmarks, existing underground records and as-built drawings",
+          "item": "OWNR-I040",
+          "use": "existing survey control and benchmarks",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "preliminary plot plan: plot limits and tie-in areas to be surveyed",
+          "item": "OWNR-I050",
+          "use": "as-built drawings of existing underground services and facilities",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I040",
+          "use": "plot limits, battery limits and tie-in areas to survey",
           "method": "review",
           "level": 1
         }
@@ -110,22 +152,28 @@
       "produces": [
         "CIVL-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan with locations of heavy equipment, columns, tanks and rack corridors",
+          "item": "PIPE-I040",
+          "use": "locations of heavy equipment, columns, tanks and rack corridors for borehole placement",
           "method": "review",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "approximate operating and test weights of columns, tanks and heavy equipment",
+          "item": "MECH-I080",
+          "use": "approximate empty/operating weights of columns, tanks and heavy equipment",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "CIVL",
-          "info": "topographic survey and plant grid (CIVL-I040)",
+          "item": "MECH-I070",
+          "use": "per-tag weight estimates to set borehole depths",
+          "method": "manual",
+          "level": 1
+        },
+        {
+          "item": "CIVL-I040",
+          "use": "plant grid and ground levels for borehole coordinates",
           "method": "manual",
           "level": 2
         }
@@ -145,16 +193,10 @@
         "CIVL-I060",
         "CIVL-I065"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "geotechnical factual and interpretive report: soil profiles, bearing capacity, pile capacities, settlement, groundwater, soil chemistry",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "CIVL",
-          "info": "geotechnical investigation scope (CIVL-I050)",
+          "item": "CIVL-I050",
+          "use": "planned borehole/CPT locations and tests to check coverage of the report",
           "method": "review",
           "level": 3
         }
@@ -175,28 +217,64 @@
       "produces": [
         "CIVL-I070"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan and equipment list with dimensions; rack lengths and widths",
+          "item": "PIPE-I040",
+          "use": "equipment, rack, road and building areas for take-off",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "equipment weights and dimensions",
+          "item": "PIPE-I070",
+          "use": "rack routes, widths, bay spacing and tiers for steel and foundation quantities",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "foundation type by area (CIVL-I065) and preliminary rack/structure configuration (CIVL-I130)",
+          "item": "PIPE-I020",
+          "use": "FEL1 rack length per option",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "estimate basis, WBS and quantity format",
+          "item": "MECH-I010",
+          "use": "FEL1 equipment sizes and rough empty weights",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I070",
+          "use": "per-tag weights for foundation quantities",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I300",
+          "use": "equipment footprints for foundation sizes",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I065",
+          "use": "foundation type (shallow/piled) by area",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I130",
+          "use": "rack and structure steel tonnage per area",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I080",
+          "use": "estimate class, quantity template, code of accounts and due date",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I030",
+          "use": "WBS, area and cost codes for quantity breakdown",
           "method": "review",
           "level": 2
         }
@@ -216,22 +294,40 @@
       "produces": [
         "CIVL-I080"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan revision: equipment, rack, building, road and tank locations",
+          "item": "PIPE-I040",
+          "use": "equipment, rack, building, road and tank locations per revision",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "facility siting study results: building locations vs blast and fire zones",
+          "item": "PIPE-I010",
+          "use": "FEL1 block arrangement options",
           "method": "review",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "site environmental data and topographic survey (CIVL-I030, CIVL-I040)",
+          "item": "SAFE-I050",
+          "use": "overpressure contours, recommended spacing and building locations",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I102",
+          "use": "building acceptability and relocation decisions",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "flood level and rainfall for drainage fall comments",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I040",
+          "use": "existing ground levels and existing features",
           "method": "manual",
           "level": 2
         }
@@ -251,34 +347,52 @@
         "CIVL-I130",
         "CIVL-I135"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "rack routing, number of lines per tier, largest line sizes, tier elevations, structure layouts and platform levels",
+          "item": "PIPE-I070",
+          "use": "rack routes, widths, bay spacing, tier elevations, line allocation and future space",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "cable tray width and tier on rack",
-          "method": "meeting",
-          "level": 1
-        },
-        {
-          "from": "INST",
-          "info": "instrument tray width and tier on rack",
-          "method": "meeting",
-          "level": 1
-        },
-        {
-          "from": "MECH",
-          "info": "air cooler locations and weights on rack",
+          "item": "PIPE-I080",
+          "use": "uniform pipe load per tier and concentrated anchor/guide loads",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "structural design criteria (CIVL-I020)",
+          "item": "PIPE-I060",
+          "use": "structure placeholders and platform levels in the layout model",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I330",
+          "use": "cable tray widths and rack levels reserved",
+          "method": "meeting",
+          "level": 1
+        },
+        {
+          "item": "INST-I321",
+          "use": "instrument tray segments, cable weight and segregation on rack",
+          "method": "meeting",
+          "level": 1
+        },
+        {
+          "item": "MECH-I100",
+          "use": "air cooler bays, plot area and fans to place on rack",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "MECH-I190",
+          "use": "air cooler structure and weights",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I020",
+          "use": "rack load allowances, deflection limits and load combinations",
           "method": "manual",
           "level": 2
         }
@@ -297,22 +411,34 @@
       "produces": [
         "CIVL-I090"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "topographic survey (CIVL-I040), foundation design parameters (CIVL-I060)",
+          "item": "CIVL-I040",
+          "use": "existing ground levels for cut/fill",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "laydown areas, temporary facilities and construction access requirements",
+          "item": "CIVL-I060",
+          "use": "soil parameters for compaction and soil improvement",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CONS-I020",
+          "use": "laydown areas, temporary buildings and haul roads to grade",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "demolition and relocation scope of existing facilities",
+          "item": "CONS-I025",
+          "use": "temporary building locations and loads",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I050",
+          "use": "existing facilities within the plot to demolish or relocate",
           "method": "review",
           "level": 2
         }
@@ -332,22 +458,40 @@
         "CIVL-I100",
         "CIVL-I105"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan and equipment locations; pump and equipment elevation needs (NPSH-driven elevations)",
+          "item": "PIPE-I040",
+          "use": "equipment, paving and road layout",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "flood level and spill containment area requirements",
+          "item": "PIPE-I050",
+          "use": "foundation top/grade elevation needs per equipment tag",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I095",
+          "use": "minimum elevations for NPSHa, thermosiphon and gravity drains",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I082",
+          "use": "curbed and contained areas, containment volumes, dike and curb locations",
           "method": "review",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "topographic survey (CIVL-I040), rainfall data (CIVL-I030)",
+          "item": "CIVL-I040",
+          "use": "existing ground levels",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "rainfall intensity and flood level for falls and HPFG",
           "method": "manual",
           "level": 3
         }
@@ -367,28 +511,58 @@
         "CIVL-I110",
         "CIVL-I115"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "drain philosophy and process drain flows to oily water and closed drain systems; drain hub locations",
+          "item": "PROC-I280",
+          "use": "effluent and drain flows, composition and frequency per source",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "firewater design flow and duration for runoff, environmental discharge limits",
+          "item": "PROC-I340",
+          "use": "drain connections to oily water and closed drain systems on IFD P&IDs",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "drain hub, funnel and sump locations from 3D model",
+          "item": "SAFE-I190",
+          "use": "firewater design flows and duration for runoff sizing",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I080",
+          "use": "outfall data, pretreatment limits and monitoring points",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I082",
+          "use": "contaminated firewater runoff containment and oil/water separator basis",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I180",
+          "use": "drain hub, funnel and sump locations in the routed model",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "grading plan (CIVL-I100), rainfall intensity (CIVL-I030)",
+          "item": "PIPE-I330",
+          "use": "underground line routes, inverts, catch basins and tie points",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I100",
+          "use": "finished grades and area falls",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "rainfall intensity-duration-frequency",
           "method": "manual",
           "level": 3
         }
@@ -407,22 +581,34 @@
       "produces": [
         "CIVL-I120"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "tank diameters, heights and maximum capacities",
+          "item": "MECH-I150",
+          "use": "tank diameters, heights and capacities",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "containment and remote impounding requirements, fire protection of dikes",
+          "item": "SAFE-I082",
+          "use": "required containment volumes (110% plus rainfall), dike locations, remote impounding",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "tank farm layout and dike penetrations",
+          "item": "SAFE-I220",
+          "use": "foam and fixed fire protection coverage for diked areas",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I040",
+          "use": "tank farm layout",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I320",
+          "use": "pipe penetrations and sleeves through dike walls",
           "method": "review",
           "level": 3
         }
@@ -441,28 +627,52 @@
       "produces": [
         "CIVL-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan, maintenance access and crane locations for equipment removal",
+          "item": "PIPE-I040",
+          "use": "roads, equipment and maintenance areas on the plot plan",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "emergency access and escape route requirements, firewater vehicle routes",
+          "item": "MECH-I300",
+          "use": "bundle pull, removal space and crane access per tag",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "heavy lift crane positions, ground bearing needs and haul routes",
+          "item": "SAFE-I230",
+          "use": "escape routes, muster points and emergency access",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I192",
+          "use": "hydrant and monitor locations to keep accessible by fire vehicles",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CONS-I040",
+          "use": "crane positions, crane pad loads and lift sequence",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "security and fencing standards",
+          "item": "CONS-I020",
+          "use": "haul roads and construction gates",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "CONS-I045",
+          "use": "crane pad bearing and keep-clear zones",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I060",
+          "use": "security and fencing standards",
           "method": "review",
           "level": 2
         }
@@ -482,40 +692,58 @@
         "CIVL-I150",
         "CIVL-I155"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "firewater ring main routing, sizes, hydrant and monitor locations",
+          "item": "SAFE-I192",
+          "use": "ring main routing basis, hydrant and monitor locations, isolation valve sectioning",
           "method": "file",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "underground piping routes, sizes and depths from S3D",
+          "item": "PIPE-I330",
+          "use": "underground piping routes, sizes, inverts and cover depths",
           "method": "file",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "duct bank and direct-buried cable routes, grounding grid layout",
+          "item": "ELEC-I334",
+          "use": "duct bank routes, sections, manholes and depths",
           "method": "file",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument duct bank routes and underground junction pits",
+          "item": "ELEC-I272",
+          "use": "ground grid routing and ground wells",
           "method": "file",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "cathodic protection anode bed locations",
+          "item": "INST-I290",
+          "use": "instrument cable routes and junction box locations for underground crossings",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I310",
+          "use": "anode bed, test station and CP cable routing locations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "sewer layout (CIVL-I110), foundation plans (CIVL-I190), pile layout (CIVL-I200)",
+          "item": "CIVL-I110",
+          "use": "sewer routes and inverts",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I190",
+          "use": "foundation outlines and depths",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I200",
+          "use": "pile locations",
           "method": "manual",
           "level": 3
         }
@@ -534,28 +762,52 @@
       "produces": [
         "CIVL-I160"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "empty, operating and hydrotest weights, wind and seismic base shear and moment, nozzle-load summary, bundle pull force, thermal growth, saddle fixed/sliding",
+          "item": "MECH-I310",
+          "use": "empty/operating/test weights, wind and seismic shear and moment, bundle pull force, anchor bolt circle",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "certified GA drawings: base ring/saddle dimensions, anchor bolt number, size, circle, projection and sleeve needs",
+          "item": "MECH-I130",
+          "use": "skirt/saddle design, wind and seismic moments, hydrotest weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I080",
+          "use": "anchor bolt layout, base ring/saddle dimensions, static loads",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "equipment location, orientation and elevations (S3D), pipe support loads landing on foundations",
+          "item": "MECH-I430",
+          "use": "certified foundation loads and anchor bolt sizes and pattern",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I050",
+          "use": "equipment coordinates, orientation and foundation top elevation",
           "method": "file",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "foundation design parameters (CIVL-I060), structural design criteria (CIVL-I020)",
+          "item": "PIPE-I260",
+          "use": "pipe support loads landing on equipment foundations",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I060",
+          "use": "bearing pressure, subgrade modulus and pile capacities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I020",
+          "use": "load combinations and stability criteria",
           "method": "manual",
           "level": 3
         }
@@ -574,22 +826,40 @@
         "CIVL-I165",
         "CIVL-I166"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "machine weights, rotor weights, operating speeds, unbalanced forces, baseplate drawing and anchor bolt layout, grouting requirements",
+          "item": "VEND-I080",
+          "use": "machine and rotor weights, unbalanced forces, baseplate and anchor bolt layout",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "foundation design requirements in datasheets (mass ratio, frequency separation, grout type)",
+          "item": "MECH-I430",
+          "use": "certified dynamic data and grouting requirements",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "MECH-I200",
+          "use": "pump type, driver and baseplate requirements",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "dynamic soil properties (CIVL-I060)",
+          "item": "MECH-I210",
+          "use": "compressor/blower type, speeds and foundation requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I310",
+          "use": "dynamic loads (unbalanced forces, operating frequencies)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I060",
+          "use": "dynamic soil properties",
           "method": "manual",
           "level": 3
         }
@@ -608,22 +878,28 @@
       "produces": [
         "CIVL-I170"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "tank diameter, height, shell and product weights, hydrotest weight, bottom slope, anchor chairs",
+          "item": "MECH-I160",
+          "use": "shell and bottom loads, hydrotest load, overturning, anchorage, allowable settlement",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "tank vendor anchor and shell loads, settlement tolerances",
+          "item": "MECH-I150",
+          "use": "tank diameter, height, roof type and annular plate",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I080",
+          "use": "tank vendor anchor and shell loads",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CIVL",
-          "info": "foundation design parameters and settlement predictions (CIVL-I060)",
+          "item": "CIVL-I060",
+          "use": "settlement predictions and bearing capacity",
           "method": "manual",
           "level": 3
         }
@@ -643,16 +919,52 @@
         "CIVL-I200",
         "CIVL-I205"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "foundation loads from foundation calculations (CIVL-I160, CIVL-I165, CIVL-I170, CIVL-I210), pile capacities (CIVL-I060)",
+          "item": "CIVL-I160",
+          "use": "static equipment foundation loads",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "piling sequence and early works priority",
+          "item": "CIVL-I165",
+          "use": "rotating equipment foundation loads",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I170",
+          "use": "tank foundation loads",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I210",
+          "use": "rack column base reactions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I220",
+          "use": "structure base reactions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I060",
+          "use": "pile axial and lateral capacities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CONS-I050",
+          "use": "area sequence for piling and early works",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "CONS-I080",
+          "use": "CWP start dates for early piling package",
           "method": "meeting",
           "level": 2
         }
@@ -671,22 +983,58 @@
         "CIVL-I190",
         "CIVL-I195"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "foundation calculations (CIVL-I160, CIVL-I165, CIVL-I170), grading elevations (CIVL-I100), embedment schedule (CIVL-I250)",
+          "item": "CIVL-I160",
+          "use": "footing and pedestal sizes, reinforcement",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "certified anchor bolt templates and baseplate drawings",
+          "item": "CIVL-I165",
+          "use": "block sizes and anchor bolt details",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I170",
+          "use": "ringwall dimensions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I100",
+          "use": "finished grade and top-of-concrete reference",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I250",
+          "use": "embedments, sleeves and stub-ups to show on foundation drawings",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "certified anchor bolt templates and baseplate drawings",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "equipment coordinates and elevations, pipe support foundation locations",
+          "item": "MECH-I430",
+          "use": "certified anchor bolt sizes and pattern",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I050",
+          "use": "equipment coordinates and elevations",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I300",
+          "use": "pipe support foundation locations and types",
           "method": "file",
           "level": 3
         }
@@ -705,34 +1053,58 @@
       "produces": [
         "CIVL-I210"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "pipe weights per tier, anchor and guide locations and loads from CAESAR II, friction and thermal loads, large-bore concentrated loads",
+          "item": "PIPE-I080",
+          "use": "pipe weights per tier and future allowance",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "cable tray routes, widths and loaded weights on rack",
+          "item": "PIPE-I260",
+          "use": "CAESAR II anchor, guide and friction loads per support tag",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument tray routes and weights on rack",
+          "item": "ELEC-I332",
+          "use": "tray loads per rack level (kg/m) and support locations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "air cooler operating weights, support locations and vibration data",
+          "item": "INST-I321",
+          "use": "instrument cable weight per tray segment",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "rack configuration and load allowances (CIVL-I130, CIVL-I135), design criteria (CIVL-I020)",
+          "item": "MECH-I190",
+          "use": "air cooler weights, structure and support locations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I310",
+          "use": "air cooler operating weights and dynamic loads",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I130",
+          "use": "rack configuration",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I135",
+          "use": "load allowances",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I020",
+          "use": "load combinations and deflection limits",
           "method": "manual",
           "level": 3
         }
@@ -751,34 +1123,64 @@
       "produces": [
         "CIVL-I220"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "structure layouts, platform and access levels, pipe support locations and loads on structures",
+          "item": "PIPE-I060",
+          "use": "structure layouts and access levels",
           "method": "file",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "equipment weights on structures, lifting beam and davit capacities, vessel platform clip locations",
+          "item": "PIPE-I320",
+          "use": "platform and ladder locations for valve and instrument access",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I260",
+          "use": "pipe support loads on structures",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "MECH-I310",
+          "use": "equipment weights on structures",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "equipment and tray loads on structures",
+          "item": "MECH-I270",
+          "use": "platform clip, davit and ladder positions on vessels",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "blast loads on open structures where required, escape route requirements",
+          "item": "ELEC-I332",
+          "use": "tray loads on structures",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I362",
+          "use": "electrical equipment weights and anchorage on structures",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I050",
+          "use": "overpressure contours for open structures",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "design criteria (CIVL-I020)",
+          "item": "SAFE-I230",
+          "use": "escape route requirements",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I020",
+          "use": "load combinations and drift limits",
           "method": "manual",
           "level": 3
         }
@@ -800,22 +1202,40 @@
         "CIVL-I235",
         "CIVL-I236"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "member sizes and geometry (CIVL-I210, CIVL-I220), foundation plans (CIVL-I190)",
+          "item": "CIVL-I210",
+          "use": "rack member sizes and geometry",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "S3D piping and equipment reference model for clash checking and support steel",
+          "item": "CIVL-I220",
+          "use": "structure member sizes and geometry",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I190",
+          "use": "foundation geometry for concrete modelling",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I180",
+          "use": "S3D routed piping and equipment as reference model for clash checks",
           "method": "file",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "pipe support secondary steel requests (locations, loads, dummy legs, trunnions)",
+          "item": "PIPE-I300",
+          "use": "pipe support model for steel attachment points",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I310",
+          "use": "secondary steel, stub columns, dummy legs and attachment points with loads",
           "method": "manual",
           "level": 3
         }
@@ -834,11 +1254,23 @@
         "CIVL-I240",
         "CIVL-I245"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "Tekla model (CIVL-I230), design reactions (CIVL-I210, CIVL-I220)",
+          "item": "CIVL-I230",
+          "use": "members, marks and connections for GA and erection drawings",
           "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I210",
+          "use": "rack connection forces",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I220",
+          "use": "structure connection forces",
+          "method": "manual",
           "level": 3
         }
       ]
@@ -856,10 +1288,10 @@
       "produces": [
         "CIVL-I248"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "Tekla model (CIVL-I230)",
+          "item": "CIVL-I230",
+          "use": "member profiles, grades, coatings, lengths and weights",
           "method": "integrated",
           "level": 3
         }
@@ -877,28 +1309,58 @@
       "produces": [
         "CIVL-I250"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "ELEC",
-          "info": "conduit stub-up locations, cable trench and floor opening requests, grounding pigtails in foundations",
+          "item": "ELEC-I362",
+          "use": "conduit stub-ups and embeds for transformers, switchgear and E-houses",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "conduit stub-ups and cable entries in foundations and buildings",
+          "item": "ELEC-I272",
+          "use": "grounding embeds and pigtails in foundations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "pipe sleeves through foundations, walls and dikes; embedded plates for supports",
+          "item": "ELEC-I360",
+          "use": "conduit drops and cable trench locations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "firewater line penetrations and deluge valve pit requirements",
+          "item": "INST-I290",
+          "use": "instrument and JB locations needing conduit stub-ups",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I031",
+          "use": "cable entries in control and rack rooms",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I320",
+          "use": "sleeves and wall openings with sizes, trench and culvert crossings",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I310",
+          "use": "embedded plates and support attachment points",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I192",
+          "use": "firewater line penetrations",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I220",
+          "use": "deluge valve locations needing pits or housings",
           "method": "manual",
           "level": 3
         }
@@ -916,22 +1378,28 @@
       "produces": [
         "CIVL-I260"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "fire scenario envelopes / fire zones and required fire rating duration",
+          "item": "SAFE-I200",
+          "use": "fire-scenario envelopes in plan and elevation",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vessel skirts and supports needing fireproofing",
+          "item": "SAFE-I202",
+          "use": "members, skirts and supports needing fireproofing, rating hours and test standard",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I130",
+          "use": "skirt and saddle geometry for fireproofing extent",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "Tekla model (CIVL-I230)",
+          "item": "CIVL-I230",
+          "use": "member list within fire envelopes",
           "method": "integrated",
           "level": 3
         }
@@ -951,28 +1419,46 @@
       "produces": [
         "CIVL-I270"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "ELEC",
-          "info": "switchgear, MCC, transformer and UPS footprints, clearances, cable entry and cellar/false floor needs",
+          "item": "ELEC-I080",
+          "use": "substation footprint, equipment arrangement, cable vault, clearances, doors, transformer pads",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "DCS/SIS cabinet, marshalling and console count and footprints, rack room and operator room needs",
+          "item": "ELEC-I360",
+          "use": "substation room layouts",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "staffing, occupancy, room programme and building standards",
+          "item": "ELEC-I084",
+          "use": "stick-built vs E-house decision",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "INST-I031",
+          "use": "cabinet and console count and footprint, cable entry, floor loading",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I060",
+          "use": "owner building standards",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "building siting and occupancy category from facility siting study",
+          "item": "OWNR-I130",
+          "use": "control room integration and operator interface requirements",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I102",
+          "use": "building acceptability and occupancy restrictions",
           "method": "review",
           "level": 2
         }
@@ -991,22 +1477,40 @@
       "produces": [
         "CIVL-I280"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "blast overpressure and impulse/duration per building from the siting study, fire and toxic requirements",
+          "item": "SAFE-I100",
+          "use": "side-on and reflected overpressure, impulse and duration per building",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "heavy equipment loads (transformers, switchgear) on floors",
+          "item": "SAFE-I102",
+          "use": "required hardening per building",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "building layouts (CIVL-I270), design criteria (CIVL-I020)",
+          "item": "ELEC-I080",
+          "use": "floor loads and equipment weights, blast rating",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I192",
+          "use": "certified switchgear and transformer weights",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I270",
+          "use": "building layouts",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I020",
+          "use": "design criteria",
           "method": "manual",
           "level": 3
         }
@@ -1024,22 +1528,34 @@
       "produces": [
         "CIVL-I290"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "building layouts (CIVL-I270), structural design (CIVL-I280)",
+          "item": "CIVL-I270",
+          "use": "room layouts",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "building lighting and small power layout coordination",
+          "item": "CIVL-I280",
+          "use": "wall/roof construction and blast doors",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I290",
+          "use": "fixture and receptacle locations in buildings",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "fire separation, escape and fire detection/suppression in buildings",
+          "item": "SAFE-I220",
+          "use": "fixed fire suppression and detection per building",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I230",
+          "use": "escape routes and exits",
           "method": "review",
           "level": 3
         }
@@ -1061,34 +1577,58 @@
         "CIVL-I306",
         "CIVL-I307"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "ELEC",
-          "info": "heat dissipation of switchgear, MCC, VFD, UPS and transformers per room",
+          "item": "ELEC-I082",
+          "use": "heat dissipation per room, battery room ventilation, pressurisation needs",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "heat dissipation of DCS/SIS cabinets, servers and consoles per room",
+          "item": "INST-I031",
+          "use": "cabinet heat dissipation (kW) per room",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "hazardous area classification at building locations and air intakes",
+          "item": "INST-I161",
+          "use": "analyzer shelter HVAC requirements",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I070",
+          "use": "classified area boundaries around buildings and air intakes",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "toxic/flammable gas ingress requirements, air intake gas detection and shutdown philosophy",
+          "item": "ELEC-I072",
+          "use": "Class/Division, gas group and T-code for HVAC equipment",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "site HVAC design temperatures (CIVL-I030), building layouts (CIVL-I270)",
+          "item": "SAFE-I110",
+          "use": "H2S/flammable detectors at intakes, damper closure times, building tightness",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I182",
+          "use": "HVAC trip executive actions per F&G zone",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "HVAC ambient design temperatures",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I270",
+          "use": "room layouts and volumes",
           "method": "manual",
           "level": 3
         }
@@ -1107,22 +1647,64 @@
       "produces": [
         "CIVL-I310"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SCM",
-          "info": "bid packages and commercial requisition templates, bidder list and bid clarifications",
+          "item": "SCM-I070",
+          "use": "commercial terms, instructions to bidders, VDRL",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "technical bids: fabricator capacity, building and HVAC offers, piling methods",
+          "item": "SCM-I030",
+          "use": "approved bidders per MR",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SCM-I080",
+          "use": "bid questions and answers issued",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SCM-I090",
+          "use": "unpriced technical offers for evaluation",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "steel MTO (CIVL-I248), HVAC datasheets (CIVL-I307), pile schedule (CIVL-I200)",
+          "item": "VEND-I020",
+          "use": "compliance, datasheets, fabricator capacity and piling method",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I050",
+          "use": "clarification responses",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I248",
+          "use": "steel tonnage by profile and grade for fabrication requisition",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I307",
+          "use": "HVAC datasheets",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I200",
+          "use": "pile quantities and types",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I050",
+          "use": "geotechnical contractor scope",
           "method": "manual",
           "level": 3
         }
@@ -1141,16 +1723,34 @@
       "produces": [
         "CIVL-I320"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "certified equipment GA/load drawings, steel fabricator shop drawings and connection calcs, building and HVAC vendor drawings",
+          "item": "VEND-I070",
+          "use": "dimensions, weights, terminal points",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vendor document routing and status codes",
+          "item": "VEND-I080",
+          "use": "anchor bolt layout and loads to check against foundation design",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "certified GA and foundation data",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I210",
+          "use": "steel shop drawings, piece marks and erection drawings",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I180",
+          "use": "vendor documents routed for civil review with return date",
           "method": "review",
           "level": 3
         }
@@ -1169,22 +1769,34 @@
       "produces": [
         "CIVL-I330"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "S3D model and clash report for steel vs pipe/equipment",
+          "item": "PIPE-I340",
+          "use": "Navisworks review model and checklists",
           "method": "file",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "constructability and access comments from model reviews",
+          "item": "PIPE-I360",
+          "use": "clashes involving steel and foundations",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I350",
+          "use": "model review actions assigned to civil",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "CONS-I100",
+          "use": "constructability comments on steel, foundations and access",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "operations and maintenance access comments",
+          "item": "OWNR-I140",
+          "use": "access and maintenance comments with civil actions",
           "method": "meeting",
           "level": 3
         }
@@ -1203,16 +1815,40 @@
       "produces": [
         "CIVL-I340"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "path of construction, CWA boundaries and heavy lift plan",
+          "item": "CONS-I050",
+          "use": "area sequence from underground to steel",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "schedule milestones and early-works dates in P6",
+          "item": "CONS-I060",
+          "use": "CWA boundaries",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "CONS-I040",
+          "use": "heavy lift plan affecting steel leave-outs and erection sequence",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "CONS-I070",
+          "use": "CWP IDs and boundaries",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I130",
+          "use": "early-works and milestone dates",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I140",
+          "use": "planned IFC dates for civil deliverables",
           "method": "review",
           "level": 3
         }
@@ -1230,16 +1866,58 @@
       "produces": [
         "CIVL-I350"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "all civil/structural drawings and calculations at check stage",
+          "item": "CIVL-I150",
+          "use": "underground composite for check",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "deliverables register and IFC dates",
+          "item": "CIVL-I190",
+          "use": "foundation plans for check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I195",
+          "use": "anchor bolt layouts for check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I200",
+          "use": "pile layout for check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I240",
+          "use": "steel GA drawings for check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I260",
+          "use": "fireproofing schedule for check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I290",
+          "use": "architectural drawings for check",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I060",
+          "use": "deliverables to issue IFC and current revisions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I140",
+          "use": "planned IFC dates",
           "method": "review",
           "level": 3
         }
@@ -1258,16 +1936,34 @@
         "CIVL-I360",
         "CIVL-I365"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "RFIs, field change requests, pile driving/test records, concrete test results",
+          "item": "CONS-I210",
+          "use": "RFI question, location and marked-up extract",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "fabricator NCRs and deviation requests",
+          "item": "CONS-I220",
+          "use": "proposed field change and affected drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I240",
+          "use": "as-built foundation elevations and anchor bolt deviations",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I350",
+          "use": "pile records and concrete test results in the quality dossier",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SCM-I220",
+          "use": "fabricator non-conformances from shop inspection",
           "method": "review",
           "level": 4
         }
@@ -1286,16 +1982,16 @@
       "produces": [
         "CIVL-I370"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "survey settlement readings at monitoring points during filling and holding",
-          "method": "manual",
+          "item": "MECH-I160",
+          "use": "allowable differential and edge settlement",
+          "method": "review",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "tank hydrotest filling schedule and acceptance limits",
+          "item": "MECH-I490",
+          "use": "hydrotest pressures and test hold points",
           "method": "review",
           "level": 4
         }
@@ -1314,16 +2010,28 @@
       "produces": [
         "CIVL-I380"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "as-built redlines, as-built survey of foundations, underground and anchor bolts",
+          "item": "CONS-I330",
+          "use": "redlined foundation, underground and layout drawings",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CIVL",
-          "info": "RFI responses and field changes (CIVL-I360)",
+          "item": "CONS-I240",
+          "use": "as-built foundation elevations and anchor bolt positions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CIVL-I360",
+          "use": "approved RFI and field change revisions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CIVL-I365",
+          "use": "non-conformance repairs affecting as-built",
           "method": "manual",
           "level": 4
         }
@@ -1762,6 +2470,29 @@
       "form": "drawing",
       "content": "As-built foundation, underground, steel and building drawings and updated Tekla model for owner handover.",
       "owner_task": "CIVL-T380"
+    }
+  ],
+  "gaps": [
+    {
+      "task": "CIVL-T050",
+      "from": "VEND",
+      "info": "Geotechnical factual and interpretive report (soil profiles, bearing and pile capacities, settlement, groundwater, soil chemistry) from the geotechnical contractor; no VEND item exists",
+      "method": "manual",
+      "level": 3
+    },
+    {
+      "task": "CIVL-T270",
+      "from": "OWNR",
+      "info": "Building room programme: staffing, occupancy numbers and required rooms (offices, lab, welfare) for the control building",
+      "method": "review",
+      "level": 2
+    },
+    {
+      "task": "CIVL-T370",
+      "from": "CONS",
+      "info": "Settlement monitoring survey readings at tank/foundation monitoring points during hydrotest filling and holding",
+      "method": "manual",
+      "level": 4
     }
   ]
 }
