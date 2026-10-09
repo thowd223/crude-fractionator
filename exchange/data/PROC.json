@@ -80,15 +80,18 @@
     },
     {
       "id": "PROC-T030",
-      "name": "Run screening simulations of configuration options",
+      "name": "Run screening simulations and prepare BFDs and screening equipment list",
       "phases": [
-        "FEL1"
+        "FEL1",
+        "FEL2"
       ],
       "system": "HYSYS",
       "activity": "FEL-02",
-      "description": "Simulate candidate configurations at screening level to estimate yields, key duties and utility demand.",
+      "description": "Simulate candidate configurations at screening level and issue block flow diagrams and a sized major-equipment list per option.",
       "produces": [
-        "PROC-I030"
+        "PROC-I030",
+        "PROC-I040",
+        "PROC-I050"
       ],
       "needs": [
         {
@@ -108,55 +111,11 @@
           "info": "candidate configurations and business case constraints",
           "method": "meeting",
           "level": 1
-        }
-      ]
-    },
-    {
-      "id": "PROC-T040",
-      "name": "Prepare block flow diagrams",
-      "phases": [
-        "FEL1",
-        "FEL2"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-05",
-      "description": "Draw block flow diagrams per option showing units, main streams and overall balances.",
-      "produces": [
-        "PROC-I040"
-      ],
-      "needs": [
-        {
-          "from": "PROC",
-          "info": "screening case results: unit blocks and overall stream flows (PROC-I030)",
-          "method": "manual",
-          "level": 1
         },
         {
           "from": "OWNR",
           "info": "existing site units and offsite interfaces (brownfield tie points)",
           "method": "review",
-          "level": 1
-        }
-      ]
-    },
-    {
-      "id": "PROC-T050",
-      "name": "Prepare screening equipment list with key sizes",
-      "phases": [
-        "FEL1",
-        "FEL2"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-02",
-      "description": "List major equipment per option with order-of-magnitude sizes for factored estimating.",
-      "produces": [
-        "PROC-I050"
-      ],
-      "needs": [
-        {
-          "from": "PROC",
-          "info": "screening case duties and flows (PROC-I030)",
-          "method": "manual",
           "level": 1
         },
         {
@@ -867,16 +826,17 @@
     },
     {
       "id": "PROC-T210",
-      "name": "Prepare line list process data",
+      "name": "Prepare line list and tie-in process data",
       "phases": [
         "FEL3",
         "DD"
       ],
       "system": "SPID",
       "activity": "PRC-08",
-      "description": "Enter line process data against P&ID lines for the line list.",
+      "description": "Enter line process data against P&ID lines for the line list and specify process conditions at each tie-in.",
       "produces": [
-        "PROC-I210"
+        "PROC-I210",
+        "PROC-I335"
       ],
       "needs": [
         {
@@ -895,6 +855,18 @@
           "from": "PROC",
           "info": "P&ID line numbers (PROC-I200)",
           "method": "integrated",
+          "level": 3
+        },
+        {
+          "from": "PIPE",
+          "info": "tie-in list with locations and line numbers",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "existing line process conditions and shutdown windows",
+          "method": "review",
           "level": 3
         }
       ]
@@ -935,7 +907,7 @@
     },
     {
       "id": "PROC-T230",
-      "name": "Prepare control philosophy and control narratives",
+      "name": "Prepare control and operating philosophy and control narratives",
       "phases": [
         "FEL2",
         "FEL3",
@@ -943,10 +915,11 @@
       ],
       "system": "Excel / Word",
       "activity": "PRC-04",
-      "description": "Define the control strategy and write control narratives per unit section.",
+      "description": "Define operating modes, sparing and turndown, the control strategy, and write control narratives per unit section.",
       "produces": [
         "PROC-I230",
-        "PROC-I231"
+        "PROC-I231",
+        "PROC-I240"
       ],
       "needs": [
         {
@@ -965,6 +938,18 @@
           "from": "OWNR",
           "info": "operations input on control preferences and alarm philosophy",
           "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "OWNR",
+          "info": "operations staffing, maintenance and shutdown interval philosophy",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "from": "PROC",
+          "info": "design and operating cases (PROC-I111)",
+          "method": "review",
           "level": 2
         }
       ]
@@ -1000,34 +985,6 @@
           "info": "design P/T and relief settings (PROC-I130, PROC-I250)",
           "method": "manual",
           "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PROC-T240",
-      "name": "Prepare operating philosophy",
-      "phases": [
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-04",
-      "description": "Define operating modes, sparing, turndown, start-up/shutdown and maintenance isolation philosophy.",
-      "produces": [
-        "PROC-I240"
-      ],
-      "needs": [
-        {
-          "from": "OWNR",
-          "info": "operations staffing, maintenance and shutdown interval philosophy",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "from": "PROC",
-          "info": "design and operating cases (PROC-I111)",
-          "method": "review",
-          "level": 2
         }
       ]
     },
@@ -1121,18 +1078,20 @@
     },
     {
       "id": "PROC-T270",
-      "name": "Prepare utility balances and consumption lists",
+      "name": "Prepare utility, chemical and catalyst consumption lists and balances",
       "phases": [
         "FEL2",
         "FEL3",
-        "DD"
+        "DD",
+        "COM"
       ],
       "system": "Excel / Word",
       "activity": "SEL-03",
-      "description": "Compile utility consumption per consumer and balance each utility system for normal and peak cases.",
+      "description": "Compile utility, chemical and catalyst consumption per consumer and balance each utility system for normal and peak cases.",
       "produces": [
         "PROC-I270",
-        "PROC-I271"
+        "PROC-I271",
+        "PROC-I275"
       ],
       "needs": [
         {
@@ -1158,24 +1117,7 @@
           "info": "utility and offsite basis (PROC-I090)",
           "method": "review",
           "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PROC-T275",
-      "name": "Prepare chemical and catalyst consumption list",
-      "phases": [
-        "FEL3",
-        "DD",
-        "COM"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-01",
-      "description": "List chemicals, catalysts and adsorbents with consumption, first fill and storage needs.",
-      "produces": [
-        "PROC-I275"
-      ],
-      "needs": [
+        },
         {
           "from": "VEND",
           "info": "licensor/chemical vendor dosing rates and catalyst volumes",
@@ -1192,7 +1134,7 @@
     },
     {
       "id": "PROC-T280",
-      "name": "Prepare effluent and emissions summary",
+      "name": "Prepare process input to environmental and safety studies",
       "phases": [
         "FEL2",
         "FEL3",
@@ -1200,9 +1142,10 @@
       ],
       "system": "Excel / Word",
       "activity": "SEL-04",
-      "description": "Summarise liquid effluents, air emissions and wastes for environmental studies and permitting.",
+      "description": "Summarise effluents and emissions, and provide release-source fluid and inventory data for HAC, consequence modelling and QRA.",
       "produces": [
-        "PROC-I280"
+        "PROC-I280",
+        "PROC-I285"
       ],
       "needs": [
         {
@@ -1222,24 +1165,7 @@
           "info": "permit limits and reporting format",
           "method": "review",
           "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PROC-T285",
-      "name": "Prepare process input to safety studies",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "SAF-04",
-      "description": "Provide fluid and inventory data for hazardous area classification, consequence modelling and QRA.",
-      "produces": [
-        "PROC-I285"
-      ],
-      "needs": [
+        },
         {
           "from": "PROC",
           "info": "stream data and equipment inventories (PROC-I110, PROC-I140)",
@@ -1431,16 +1357,18 @@
     },
     {
       "id": "PROC-T320",
-      "name": "Respond to technical queries and holds",
+      "name": "Respond to technical queries, holds and change requests",
       "phases": [
         "FEL3",
-        "DD"
+        "DD",
+        "CON"
       ],
       "system": "Excel / Word",
       "activity": "PRC-08",
-      "description": "Answer process technical queries from other disciplines and vendors and release process holds.",
+      "description": "Answer process technical queries, release process holds and assess the process impact of change requests and deviations.",
       "produces": [
-        "PROC-I320"
+        "PROC-I320",
+        "PROC-I345"
       ],
       "needs": [
         {
@@ -1464,6 +1392,18 @@
         {
           "from": "PROJ",
           "info": "hold list and interface register entries assigned to process",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROJ",
+          "info": "change requests and deviation notices",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "OWNR",
+          "info": "scope changes and operations requests",
           "method": "review",
           "level": 3
         }
@@ -1532,34 +1472,6 @@
       ]
     },
     {
-      "id": "PROC-T335",
-      "name": "Define tie-in process conditions",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-08",
-      "description": "Specify process conditions and isolation requirements at each tie-in to existing facilities.",
-      "produces": [
-        "PROC-I335"
-      ],
-      "needs": [
-        {
-          "from": "PIPE",
-          "info": "tie-in list with locations and line numbers",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "OWNR",
-          "info": "existing line process conditions and shutdown windows",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
       "id": "PROC-T340",
       "name": "Update P&IDs to IFD and IFC",
       "phases": [
@@ -1612,35 +1524,6 @@
       ]
     },
     {
-      "id": "PROC-T345",
-      "name": "Assess process impact of changes",
-      "phases": [
-        "FEL3",
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRJ-05",
-      "description": "Assess process impact of change requests and deviations and state required design updates.",
-      "produces": [
-        "PROC-I345"
-      ],
-      "needs": [
-        {
-          "from": "PROJ",
-          "info": "change requests and deviation notices",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "OWNR",
-          "info": "scope changes and operations requests",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
       "id": "PROC-T350",
       "name": "Prepare operating manual process input",
       "phases": [
@@ -1675,36 +1558,8 @@
       ]
     },
     {
-      "id": "PROC-T355",
-      "name": "Prepare process input to systemization",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "SPID",
-      "activity": "CON-02",
-      "description": "Mark process systems and subsystems on P&IDs for systemization and commissioning sequence.",
-      "produces": [
-        "PROC-I355"
-      ],
-      "needs": [
-        {
-          "from": "COMM",
-          "info": "systemization rules and system numbering",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "PROC",
-          "info": "IFC P&IDs (PROC-I341)",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
       "id": "PROC-T360",
-      "name": "Prepare commissioning process requirements",
+      "name": "Prepare process input to systemization and commissioning",
       "phases": [
         "DD",
         "CON",
@@ -1712,9 +1567,10 @@
       ],
       "system": "Excel / Word",
       "activity": "PRC-07",
-      "description": "Define flushing, drying, purging, leak test media, catalyst loading and initial fill requirements per system.",
+      "description": "Mark process systems on P&IDs and define flushing, drying, purging, catalyst loading and initial fill requirements per system.",
       "produces": [
-        "PROC-I360"
+        "PROC-I360",
+        "PROC-I355"
       ],
       "needs": [
         {
@@ -1734,6 +1590,18 @@
           "info": "chemical and catalyst first-fill quantities (PROC-I275)",
           "method": "manual",
           "level": 3
+        },
+        {
+          "from": "COMM",
+          "info": "systemization rules and system numbering",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "from": "PROC",
+          "info": "IFC P&IDs (PROC-I341)",
+          "method": "review",
+          "level": 4
         }
       ]
     },
@@ -1807,15 +1675,16 @@
     },
     {
       "id": "PROC-T375",
-      "name": "Support commissioning and start-up",
+      "name": "Support commissioning, start-up and performance test",
       "phases": [
         "COM"
       ],
       "system": "Excel / Word",
       "activity": "PRC-00",
-      "description": "Provide process engineers at site to support commissioning, troubleshoot and tune the unit to design.",
+      "description": "Support commissioning and start-up at site, then define, run and evaluate the performance/guarantee test.",
       "produces": [
-        "PROC-I375"
+        "PROC-I375",
+        "PROC-I380"
       ],
       "needs": [
         {
@@ -1835,22 +1704,7 @@
           "info": "loop tuning status and alarm settings",
           "method": "review",
           "level": 4
-        }
-      ]
-    },
-    {
-      "id": "PROC-T380",
-      "name": "Prepare and run performance test",
-      "phases": [
-        "COM"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-01",
-      "description": "Define the performance/guarantee test procedure, run the test and evaluate results against guarantees.",
-      "produces": [
-        "PROC-I380"
-      ],
-      "needs": [
+        },
         {
           "from": "OWNR",
           "info": "contract guarantees and acceptance criteria",
@@ -1944,7 +1798,7 @@
       "system": "Excel / Word",
       "form": "drawing",
       "content": "Unit blocks, main feed/product/intermediate streams, overall material balance and capacities per option.",
-      "owner_task": "PROC-T040"
+      "owner_task": "PROC-T030"
     },
     {
       "id": "PROC-I050",
@@ -1952,7 +1806,7 @@
       "system": "Excel / Word",
       "form": "data",
       "content": "Equipment type, count, key size parameter (duty, diameter, flow, power), material class per option for Class 5 estimate.",
-      "owner_task": "PROC-T050"
+      "owner_task": "PROC-T030"
     },
     {
       "id": "PROC-I060",
@@ -2208,7 +2062,7 @@
       "system": "Excel / Word",
       "form": "document",
       "content": "Operating modes, turndown, sparing, run length, start-up/shutdown approach, isolation and blinding philosophy, sampling.",
-      "owner_task": "PROC-T240"
+      "owner_task": "PROC-T230"
     },
     {
       "id": "PROC-I250",
@@ -2264,7 +2118,7 @@
       "system": "Excel / Word",
       "form": "data",
       "content": "Per chemical/catalyst: service, dosing point, normal/max rate, first fill quantity, storage days, hazard class, replacement frequency.",
-      "owner_task": "PROC-T275"
+      "owner_task": "PROC-T270"
     },
     {
       "id": "PROC-I280",
@@ -2280,7 +2134,7 @@
       "system": "Excel / Word",
       "form": "data",
       "content": "Per isolatable section or release source: composition, P, T, phase, inventory, flash point, MW, toxic content (H2S), fluid category for HAC.",
-      "owner_task": "PROC-T285"
+      "owner_task": "PROC-T280"
     },
     {
       "id": "PROC-I290",
@@ -2360,7 +2214,7 @@
       "system": "Excel / Word",
       "form": "data",
       "content": "Per tie-in: fluid, operating/design P/T, flow, hot-tap feasibility from process view, isolation and purging requirement, shutdown dependency.",
-      "owner_task": "PROC-T335"
+      "owner_task": "PROC-T210"
     },
     {
       "id": "PROC-I340",
@@ -2384,7 +2238,7 @@
       "system": "Excel / Word",
       "form": "document",
       "content": "Per change: affected streams, equipment, lines, relief and safety, rework estimate, need for HAZOP re-review.",
-      "owner_task": "PROC-T345"
+      "owner_task": "PROC-T320"
     },
     {
       "id": "PROC-I350",
@@ -2400,7 +2254,7 @@
       "system": "SPID",
       "form": "drawing",
       "content": "P&IDs coloured by process system/subsystem with boundaries, isolation points and commissioning sequence preference.",
-      "owner_task": "PROC-T355"
+      "owner_task": "PROC-T360"
     },
     {
       "id": "PROC-I360",
@@ -2440,7 +2294,7 @@
       "system": "Excel / Word",
       "form": "document",
       "content": "Test conditions, measurements, sampling plan, correction methods, results vs guarantees, acceptance recommendation.",
-      "owner_task": "PROC-T380"
+      "owner_task": "PROC-T375"
     },
     {
       "id": "PROC-I385",
