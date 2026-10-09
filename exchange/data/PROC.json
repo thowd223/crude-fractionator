@@ -16,28 +16,46 @@
         "PROC-I010",
         "PROC-I015"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "capacity, on-stream factor, feed slate, product slate and product specifications",
+          "item": "OWNR-I010",
+          "use": "nameplate capacity and project objective",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "owner process standards and design philosophies (sparing, design margins)",
+          "item": "OWNR-I020",
+          "use": "product slate, rates and product quality specifications",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I070",
+          "use": "on-stream factor, turndown; sparing philosophy, design margins, utility conditions, winterisation",
           "method": "review",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "site meteorological data: ambient max/min/design dry and wet bulb temperatures, elevation",
+          "item": "OWNR-I060",
+          "use": "owner process engineering standards",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I030",
+          "use": "design ambient dry/wet bulb temperatures, rainfall, frost data",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "project design basis (BOD) framework and units of measure",
+          "item": "OWNR-I040",
+          "use": "climatic design data and site elevation",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I010",
+          "use": "phase plan and design basis scope/structure",
           "method": "review",
           "level": 2
         }
@@ -57,22 +75,16 @@
       "produces": [
         "PROC-I020"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "crude/feed assays: TBP/distillation curves, density, sulfur, metals, salts, naphthenic acid (TAN), light-ends analysis",
+          "item": "OWNR-I030",
+          "use": "TBP/distillation curves, API, sulfur, metals, TAN per assay; design, check and turndown crude cases with rates",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "feed blend cases and design/check feeds",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "PROC",
-          "info": "process design basis feed slate and design cases (PROC-I010)",
+          "item": "PROC-I010",
+          "use": "feed slate and design cases",
           "method": "manual",
           "level": 2
         }
@@ -93,34 +105,40 @@
         "PROC-I040",
         "PROC-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "feed characterisation and property package (PROC-I020)",
+          "item": "PROC-I020",
+          "use": "pseudo-components, assay cuts and property package",
           "method": "integrated",
           "level": 1
         },
         {
-          "from": "PROC",
-          "info": "process design basis capacity and product specs (PROC-I010)",
+          "item": "PROC-I010",
+          "use": "capacity and product specifications",
           "method": "manual",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "candidate configurations and business case constraints",
+          "item": "OWNR-I010",
+          "use": "candidate configurations, capacity and budget constraints",
           "method": "meeting",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "existing site units and offsite interfaces (brownfield tie points)",
+          "item": "OWNR-I050",
+          "use": "existing units, utilities, flare, tankage and interconnecting tie points",
           "method": "review",
           "level": 1
         },
         {
-          "from": "MECH",
-          "info": "typical equipment sizing rules and cost curves for factored estimates",
+          "item": "MECH-I020",
+          "use": "factored equipment costs and weight factors per equipment type",
+          "method": "review",
+          "level": 1
+        },
+        {
+          "item": "MECH-I010",
+          "use": "equipment type and size class per option",
           "method": "review",
           "level": 1
         }
@@ -138,30 +156,24 @@
       "produces": [
         "PROC-I060"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "feed characterisation (PROC-I020)",
+          "item": "PROC-I020",
+          "use": "feed characterisation",
           "method": "integrated",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "block flow diagrams per option (PROC-I040)",
+          "item": "PROC-I040",
+          "use": "unit blocks and main streams per option",
           "method": "review",
           "level": 1
         },
         {
-          "from": "OWNR",
-          "info": "shortlisted alternatives and evaluation criteria",
+          "item": "OWNR-I090",
+          "use": "shortlisted options and gate conditions from FEL1 gate",
           "method": "meeting",
           "level": 2
-        },
-        {
-          "from": "VEND",
-          "info": "licensor/technology yield and performance data for proprietary sections",
-          "method": "manual",
-          "level": 1
         }
       ]
     },
@@ -177,22 +189,16 @@
       "produces": [
         "PROC-I070"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "licensor proposals: yields, utilities, catalyst and chemical consumption, guarantees, references",
+          "item": "SCM-I100",
+          "use": "normalised price, delivery and commercial ranking per licensor",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SCM",
-          "info": "licensor bid tabulation and commercial terms",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "PROC",
-          "info": "alternative case balances for normalisation (PROC-I060)",
+          "item": "PROC-I060",
+          "use": "alternative case balances for normalising licensor yields and utilities",
           "method": "manual",
           "level": 2
         }
@@ -210,28 +216,46 @@
       "produces": [
         "PROC-I080"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "alternative case balances (PROC-I060) and technology evaluation (PROC-I070)",
+          "item": "PROC-I060",
+          "use": "yields, utilities and duties per alternative",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "Class 4/5 cost and schedule per alternative",
+          "item": "PROC-I070",
+          "use": "licensor ranking and process risks",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "HAZID and inherent safety ranking per alternative",
+          "item": "PROJ-I090",
+          "use": "order-of-magnitude capital cost per alternative",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I100",
+          "use": "equipment-factored cost per alternative",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I015",
+          "use": "inherent safety score, inventory, offsite distance and emissions per option",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "economic evaluation criteria and weighting",
+          "item": "SAFE-I020",
+          "use": "HAZID hazards and risk ranking per option",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I010",
+          "use": "economic hurdle rate and evaluation basis",
           "method": "meeting",
           "level": 2
         }
@@ -250,28 +274,34 @@
       "produces": [
         "PROC-I090"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "existing utility capacities and conditions (steam levels, CW, air, N2, fuel gas, power)",
+          "item": "OWNR-I050",
+          "use": "available capacity and conditions of existing steam, CW, air, N2, fuel gas and flare systems",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "alternative utility demand (PROC-I060)",
+          "item": "PROC-I060",
+          "use": "utility demand per alternative",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "available grid power and supply voltage levels",
+          "item": "ELEC-I030",
+          "use": "point of interconnection, service voltage and available capacity",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "environmental limits on effluents, emissions and water use",
+          "item": "SAFE-I010",
+          "use": "receiving water limits and air attainment constraints",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I070",
+          "use": "environmental limits",
           "method": "review",
           "level": 2
         }
@@ -290,22 +320,28 @@
       "produces": [
         "PROC-I095"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "preliminary plot plan and equipment arrangement",
+          "item": "PIPE-I040",
+          "use": "equipment locations, rack corridors and grade elevations",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "selected configuration and PFDs (PROC-I080, PROC-I120)",
+          "item": "PROC-I080",
+          "use": "selected configuration",
           "method": "review",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "spacing and separation requirements from siting study",
+          "item": "PROC-I120",
+          "use": "equipment and main lines",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I050",
+          "use": "recommended equipment spacing and hazard distances",
           "method": "review",
           "level": 2
         }
@@ -325,22 +361,22 @@
       "produces": [
         "PROC-I100"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "selected configuration (PROC-I080) and feed characterisation (PROC-I020)",
+          "item": "PROC-I080",
+          "use": "selected configuration and design cases",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "plant test-run data or reference unit data for calibration (brownfield)",
-          "method": "manual",
+          "item": "PROC-I020",
+          "use": "feed characterisation and property package",
+          "method": "integrated",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "licensor process design package: heat and material balance, operating conditions",
+          "item": "OWNR-I050",
+          "use": "existing unit operating data for calibration (brownfield)",
           "method": "manual",
           "level": 3
         }
@@ -362,16 +398,16 @@
         "PROC-I111",
         "PROC-I112"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "calibrated simulation for all design cases (PROC-I100)",
+          "item": "PROC-I100",
+          "use": "converged rigorous cases for all design cases",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "approval of design and check cases",
+          "item": "OWNR-I110",
+          "use": "owner approval codes and comments on design and check case list",
           "method": "review",
           "level": 3
         }
@@ -391,22 +427,22 @@
       "produces": [
         "PROC-I120"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data and stream numbering (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "stream numbers, flows, P and T for stream table",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "control philosophy main loops (PROC-I230)",
+          "item": "PROC-I230",
+          "use": "main control loops to show",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "equipment numbering procedure / tag format",
+          "item": "PROJ-I040",
+          "use": "equipment and document tag/numbering format",
           "method": "review",
           "level": 3
         }
@@ -425,28 +461,46 @@
       "produces": [
         "PROC-I130"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data operating P/T per case (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "max/min operating P and T per case",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "rotating equipment shut-off head (PROC-I150) and relief settings (PROC-I250)",
+          "item": "PROC-I150",
+          "use": "pump/compressor shut-off head basis",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "pump and compressor shut-off pressures from vendor curves",
+          "item": "PROC-I250",
+          "use": "PSV set pressures",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "VEND-I020",
+          "use": "quoted shut-off head and maximum discharge pressure from performance curves",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "design margin and MDMT philosophy",
+          "item": "VEND-I140",
+          "use": "certified shut-off pressure from certified performance data",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I070",
+          "use": "design margins",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I030",
+          "use": "design margins on P/T and MDMT rules",
           "method": "review",
           "level": 3
         }
@@ -466,22 +520,28 @@
       "produces": [
         "PROC-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data and design cases (PROC-I110, PROC-I111)",
+          "item": "PROC-I110",
+          "use": "vapour/liquid loads and properties",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "tray/packing vendor hydraulic ratings",
+          "item": "PROC-I111",
+          "use": "governing case per column/vessel",
+          "method": "integrated",
+          "level": 3
+        },
+        {
+          "item": "MECH-I140",
+          "use": "tray/packing type, spacing, passes and vendor hydraulic rating results",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "design pressure/temperature basis (PROC-I130)",
+          "item": "PROC-I130",
+          "use": "design P/T",
           "method": "manual",
           "level": 3
         }
@@ -501,22 +561,28 @@
       "produces": [
         "PROC-I150"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data: flow, density, viscosity, vapour pressure (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "flow, density, viscosity, vapour pressure",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "suction and discharge line lengths and fittings from layout",
+          "item": "PIPE-I210",
+          "use": "suction/discharge equivalent lengths, fittings and elevation changes",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "process layout elevations (PROC-I095)",
+          "item": "PIPE-I050",
+          "use": "equipment elevations for static head",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROC-I095",
+          "use": "minimum elevations for NPSHa",
           "method": "review",
           "level": 2
         }
@@ -535,28 +601,34 @@
       "produces": [
         "PROC-I155"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data and exchanger duties per case (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "stream properties and exchanger duties per case",
           "method": "file",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "fouling factors and allowable pressure drops from design basis (PROC-I010)",
+          "item": "PROC-I010",
+          "use": "fouling factors and allowable pressure drops",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "TEMA type, tube length/diameter preferences and plot constraints",
+          "item": "MECH-I030",
+          "use": "TEMA and tube preferences in mechanical design basis",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "plot space and bundle pull area for exchangers",
+          "item": "PIPE-I040",
+          "use": "available plot space for exchangers",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "MECH-I300",
+          "use": "bundle pull length and maintenance envelope",
           "method": "review",
           "level": 2
         }
@@ -576,22 +648,34 @@
       "produces": [
         "PROC-I160"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "sizing results for vessels, exchangers, rotating equipment (PROC-I140, PROC-I150, PROC-I155)",
+          "item": "PROC-I140",
+          "use": "vessel/column sizes",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "design P/T basis (PROC-I130)",
+          "item": "PROC-I150",
+          "use": "rotating duties",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "mechanical equipment list with tags and equipment types",
+          "item": "PROC-I155",
+          "use": "exchanger area and duty",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I130",
+          "use": "design P/T per equipment",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I080",
+          "use": "equipment tags, types and mechanical attributes",
           "method": "manual",
           "level": 2
         }
@@ -611,22 +695,34 @@
         "PROC-I170",
         "PROC-I171"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "vessel/column sizing (PROC-I140) and design P/T (PROC-I130)",
+          "item": "PROC-I140",
+          "use": "ID, T/T, levels, nozzle duties",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "corrosion-relevant process data (PROC-I112)",
+          "item": "PROC-I130",
+          "use": "design P/T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "fire case and tank emission requirements",
+          "item": "PROC-I112",
+          "use": "corrosive species and free water per circuit",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I062",
+          "use": "tank seal type and vapour control requirements",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I200",
+          "use": "fire zones for fire-case nozzle/venting basis",
           "method": "review",
           "level": 2
         }
@@ -647,22 +743,22 @@
         "PROC-I176",
         "PROC-I177"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "EDR thermal design (PROC-I155)",
+          "item": "PROC-I155",
+          "use": "EDR thermal results per exchanger and air cooler",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "stream data for heater duty and fuel (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "heater duty, coil conditions and fuel composition",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "NOx/CO emission limits for fired equipment",
+          "item": "SAFE-I062",
+          "use": "low-NOx burner/SCR and CEMS requirements per fired source",
           "method": "review",
           "level": 3
         }
@@ -682,16 +778,16 @@
         "PROC-I180",
         "PROC-I181"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "rotating equipment process duties (PROC-I150)",
+          "item": "PROC-I150",
+          "use": "rated/normal/min flow, head, NPSHa, operating cases",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "corrosion-relevant process data (PROC-I112)",
+          "item": "PROC-I112",
+          "use": "corrosive species and solids for materials and sealing",
           "method": "manual",
           "level": 3
         }
@@ -710,22 +806,28 @@
       "produces": [
         "PROC-I185"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "battery-limit and utility conditions (PROC-I015, PROC-I090)",
+          "item": "PROC-I015",
+          "use": "battery-limit P/T/flows",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "chemical consumption (PROC-I275)",
+          "item": "PROC-I090",
+          "use": "utility supply conditions",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I275",
+          "use": "chemical consumption and dosing rates",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "package scope split and requisition structure",
+          "item": "MECH-I220",
+          "use": "package scope of supply and terminal points",
           "method": "review",
           "level": 2
         }
@@ -744,22 +846,22 @@
       "produces": [
         "PROC-I190"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "flow, density, viscosity, phase per line",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "piping class pipe schedules and internal diameters",
+          "item": "PIPE-I110",
+          "use": "wall thickness/schedule by size per class for internal diameters",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "routed line lengths and fittings from 3D model for critical lines",
+          "item": "PIPE-I210",
+          "use": "equivalent lengths, fittings, elevation changes and pockets per routed line",
           "method": "manual",
           "level": 3
         }
@@ -779,46 +881,76 @@
         "PROC-I200",
         "PROC-I201"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "PFDs and equipment process duties (PROC-I120, PROC-I160)",
+          "item": "PROC-I120",
+          "use": "equipment, main lines and loops",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "line sizing results (PROC-I190)",
+          "item": "PROC-I160",
+          "use": "equipment tags and duties",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "control philosophy and trip schedule (PROC-I230, PROC-I235)",
+          "item": "PROC-I190",
+          "use": "line sizes",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I230",
+          "use": "control loops",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "piping classes and valve symbols / specialty items",
+          "item": "PROC-I235",
+          "use": "trips and interlocks",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I110",
+          "use": "class breaks and P-T limits",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument tag format and typical instrument symbols",
+          "item": "PIPE-I140",
+          "use": "specialty item tags and types",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vendor package P&ID boundaries and nozzle arrangements",
+          "item": "INST-I045",
+          "use": "instrument tags, symbols, signal lines and fail positions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I071",
+          "use": "control valve sizes, ratings and reducers",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I220",
+          "use": "package battery limits and terminal points",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "P&ID legend and drafting standards",
+          "item": "VEND-I100",
+          "use": "vendor package P&ID scheme and battery-limit points",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I060",
+          "use": "P&ID legend and drafting standards",
           "method": "review",
           "level": 3
         }
@@ -838,34 +970,46 @@
         "PROC-I210",
         "PROC-I335"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data per line (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "flow, phase and operating P/T per line",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "design P/T basis (PROC-I130) and line sizing (PROC-I190)",
+          "item": "PROC-I130",
+          "use": "design P/T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "P&ID line numbers (PROC-I200)",
+          "item": "PROC-I190",
+          "use": "line size and critical-line flags",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I200",
+          "use": "line numbers, from/to",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "tie-in list with locations and line numbers",
+          "item": "PIPE-I470",
+          "use": "tie-in numbers, existing/new line numbers, size, class, type",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "existing line process conditions and shutdown windows",
+          "item": "OWNR-I050",
+          "use": "existing line process conditions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I160",
+          "use": "outage windows per tie-in",
           "method": "review",
           "level": 3
         }
@@ -884,22 +1028,28 @@
       "produces": [
         "PROC-I220"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data at instrument location (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "fluid properties at instrument location",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "P&ID instrument tags (PROC-I200)",
+          "item": "PROC-I200",
+          "use": "instrument tags and locations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "instrument index tags and data-request templates from SI",
+          "item": "INST-I050",
+          "use": "tag, type, service, loop and line/equipment number",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "INST-I060",
+          "use": "SI process data fields to be filled per tag",
           "method": "manual",
           "level": 3
         }
@@ -921,35 +1071,41 @@
         "PROC-I231",
         "PROC-I240"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "P&IDs and operating cases (PROC-I200, PROC-I111)",
+          "item": "PROC-I200",
+          "use": "loops and equipment on P&IDs",
           "method": "review",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "control system architecture and advanced control capability",
+          "item": "PROC-I111",
+          "use": "operating and turndown cases; design and operating cases",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "operations input on control preferences and alarm philosophy",
+          "item": "INST-I010",
+          "use": "DCS/SIS split and level of automation",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I030",
+          "use": "APC/historian capability in architecture",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I130",
+          "use": "alarm philosophy and operator interface standards",
           "method": "meeting",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "operations staffing, maintenance and shutdown interval philosophy",
+          "item": "OWNR-I120",
+          "use": "sampling, isolation/blinding and maintenance intervals",
           "method": "meeting",
-          "level": 2
-        },
-        {
-          "from": "PROC",
-          "info": "design and operating cases (PROC-I111)",
-          "method": "review",
           "level": 2
         }
       ]
@@ -967,22 +1123,40 @@
       "produces": [
         "PROC-I235"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "HAZOP-ready P&IDs and control philosophy (PROC-I201, PROC-I230)",
+          "item": "PROC-I201",
+          "use": "P&ID trip loops",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "HAZOP recommendations and LOPA SIF requirements",
+          "item": "PROC-I230",
+          "use": "control and safeguarding philosophy",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I152",
+          "use": "HAZOP recommendations for new trips/interlocks",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "design P/T and relief settings (PROC-I130, PROC-I250)",
+          "item": "SAFE-I160",
+          "use": "SIF requirements and target SIL per scenario",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I130",
+          "use": "design P/T for trip settings",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I250",
+          "use": "PSV set pressures",
           "method": "manual",
           "level": 3
         }
@@ -1002,34 +1176,46 @@
         "PROC-I250",
         "PROC-I251"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "HAZOP-ready P&IDs and design P/T (PROC-I201, PROC-I130)",
+          "item": "PROC-I201",
+          "use": "relief devices and overpressure sources",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "stream data and simulation for relieving conditions (PROC-I100)",
+          "item": "PROC-I130",
+          "use": "design pressures",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I100",
+          "use": "relieving-condition flash and properties",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vessel wetted areas, volumes and insulation for fire case",
+          "item": "MECH-I170",
+          "use": "vessel dimensions, liquid levels and insulation for wetted area",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "inlet and outlet line routing lengths for PSV inlet loss and built-up back pressure",
+          "item": "SAFE-I200",
+          "use": "fire zone boundaries for fire-case grouping",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "certified exchanger/pump/compressor data for tube rupture and blocked outlet cases",
+          "item": "PIPE-I210",
+          "use": "PSV inlet/outlet routing and tailpipe lengths",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "certified exchanger design pressures, pump/compressor shut-off data",
           "method": "manual",
           "level": 4
         }
@@ -1049,28 +1235,40 @@
         "PROC-I260",
         "PROC-I261"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "relief load summary and coincident scenarios (PROC-I250)",
+          "item": "PROC-I250",
+          "use": "relief loads and coincident scenarios",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "flare header isometrics/routing lengths and fittings",
+          "item": "PIPE-I210",
+          "use": "flare header equivalent lengths and fittings",
           "method": "file",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "global flare load scenarios and radiation limits",
+          "item": "SAFE-I130",
+          "use": "radiation limits and sterile zone",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vessel volumes and metal masses for depressuring",
+          "item": "SAFE-I040",
+          "use": "depressuring and flare design criteria",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I130",
+          "use": "empty weights/metal masses",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "MECH-I170",
+          "use": "vessel volumes, materials and thickness",
           "method": "manual",
           "level": 3
         }
@@ -1093,41 +1291,47 @@
         "PROC-I271",
         "PROC-I275"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data and equipment duties (PROC-I110, PROC-I160)",
+          "item": "PROC-I110",
+          "use": "stream duties; flows at dosing points",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "electrical load list for power summary cross-check",
+          "item": "PROC-I160",
+          "use": "equipment duties",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I092",
+          "use": "total electrical demand and kWh/yr",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "vendor-stated utility consumptions for packages (seal flush, cooling, purge, power)",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROC",
-          "info": "utility and offsite basis (PROC-I090)",
+          "item": "ELEC-I090",
+          "use": "motor loads per tag",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "licensor/chemical vendor dosing rates and catalyst volumes",
+          "item": "MECH-I230",
+          "use": "package and equipment utility demands per tag",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "stream data for dosing basis (PROC-I110)",
+          "item": "INST-I282",
+          "use": "instrument air consumers and consumption",
           "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I090",
+          "use": "utility supply conditions",
+          "method": "review",
           "level": 3
         }
       ]
@@ -1147,34 +1351,46 @@
         "PROC-I280",
         "PROC-I285"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "stream data for effluent/vent streams (PROC-I110)",
+          "item": "PROC-I110",
+          "use": "effluent and vent stream flows and compositions; composition, P, T",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "fired heater fuel and duties (PROC-I177)",
+          "item": "PROC-I177",
+          "use": "fired duty and fuel",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "permit limits and reporting format",
+          "item": "SAFE-I072",
+          "use": "permit conditions and limits",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "stream data and equipment inventories (PROC-I110, PROC-I140)",
+          "item": "SAFE-I060",
+          "use": "emission inventory format per source",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROC-I140",
+          "use": "liquid hold-up for inventories",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "isolatable segment definition and release scenarios",
+          "item": "SAFE-I035",
+          "use": "hazardous materials and inventory basis",
+          "method": "meeting",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I060",
+          "use": "release source list requiring fluid data",
           "method": "meeting",
           "level": 2
         }
@@ -1193,16 +1409,40 @@
       "produces": [
         "PROC-I290"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "design basis, H&MB, PFDs, equipment duties (PROC-I010, PROC-I110, PROC-I120, PROC-I160)",
+          "item": "PROC-I010",
+          "use": "design basis",
           "method": "review",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "HAZID/HAZOP key outcomes affecting process design",
+          "item": "PROC-I110",
+          "use": "H&MB",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I120",
+          "use": "PFDs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I160",
+          "use": "equipment duties",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I020",
+          "use": "HAZID outcomes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I090",
+          "use": "preliminary HAZOP actions affecting process design",
           "method": "review",
           "level": 3
         }
@@ -1222,22 +1462,34 @@
         "PROC-I300",
         "PROC-I301"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SAFE",
-          "info": "HAZOP worksheets and recommendations assigned to process",
+          "item": "SAFE-I150",
+          "use": "HAZOP nodes, deviations and safeguards",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "LOPA results and required SIL per SIF",
+          "item": "SAFE-I152",
+          "use": "recommendations assigned to process",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SAFE-I160",
+          "use": "LOPA scenarios and SIL targets",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "HAZOP-ready P&IDs (PROC-I201)",
+          "item": "SAFE-I162",
+          "use": "credited non-SIF IPLs",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I201",
+          "use": "HAZOP P&IDs",
           "method": "review",
           "level": 3
         }
@@ -1256,22 +1508,34 @@
       "produces": [
         "PROC-I305"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SCM",
-          "info": "bid packages and technical clarification register",
+          "item": "SCM-I090",
+          "use": "unpriced technical offers",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "vendor proposals: performance curves, guaranteed duties, utility consumption, deviations",
+          "item": "MECH-I370",
+          "use": "technical queries and clarifications per bidder",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "technical bid tabulation template and evaluation criteria",
+          "item": "VEND-I020",
+          "use": "performance curves, guaranteed duties, utilities",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I040",
+          "use": "technical deviations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I380",
+          "use": "compliance matrix and evaluation criteria",
           "method": "review",
           "level": 3
         }
@@ -1289,22 +1553,64 @@
       "produces": [
         "PROC-I310"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "vendor drawings and data: performance curves, rating sheets, P&IDs of packages, control narratives",
+          "item": "VEND-I020",
+          "use": "performance data as confirmed",
           "method": "review",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "vendor document review routing and status codes",
+          "item": "VEND-I100",
+          "use": "package P&IDs",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "process datasheets (PROC-I170 to PROC-I185)",
+          "item": "VEND-I110",
+          "use": "package control narrative",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "SCM-I180",
+          "use": "vendor documents routed for review with return date",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "MECH-I410",
+          "use": "consolidated comment sheet and status codes",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I170",
+          "use": "vessel/column datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I175",
+          "use": "exchanger datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I180",
+          "use": "pump datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I181",
+          "use": "compressor datasheets",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I185",
+          "use": "package specifications",
           "method": "review",
           "level": 3
         }
@@ -1322,34 +1628,34 @@
       "produces": [
         "PROC-I315"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "certified pump curves and NPSHr from vendor data",
+          "item": "VEND-I140",
+          "use": "certified pump performance curves and NPSHr; certified exchanger rating sheets and fired heater performance; certified compressor performance maps and settle-out data",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "certified exchanger rating sheets and fired heater performance",
+          "item": "MECH-I500",
+          "use": "shop test performance results vs guarantees",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "certified compressor performance maps and settle-out data",
+          "item": "MECH-I590",
+          "use": "final certified design data per tag",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "final tray/packing hydraulic ratings",
+          "item": "MECH-I140",
+          "use": "final tray/packing type and hydraulic ratings",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PROC",
-          "info": "calibrated simulation (PROC-I100)",
+          "item": "PROC-I100",
+          "use": "calibrated model",
           "method": "integrated",
           "level": 3
         }
@@ -1370,40 +1676,58 @@
         "PROC-I320",
         "PROC-I345"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "technical queries on datasheets and vendor deviations",
+          "item": "MECH-I360",
+          "use": "requisition holds pending process data",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "queries on instrument process data and set points",
+          "item": "MECH-I370",
+          "use": "technical queries and vendor deviations",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "queries on line routing requirements, slopes and specialty items",
+          "item": "INST-I060",
+          "use": "instrument process data queries and set points",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "hold list and interface register entries assigned to process",
+          "item": "PIPE-I390",
+          "use": "piping holds pending process data (slopes, SP items)",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I310",
+          "use": "holds assigned to process",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "change requests and deviation notices",
+          "item": "PROJ-I270",
+          "use": "interface queries",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "scope changes and operations requests",
+          "item": "PROJ-I210",
+          "use": "approved change scope and affected deliverables",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I200",
+          "use": "trend descriptions",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "OWNR-I170",
+          "use": "owner change approvals and operations requests",
           "method": "review",
           "level": 3
         }
@@ -1422,22 +1746,28 @@
       "produces": [
         "PROC-I325"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "control valve sizing results: Cv, trim, noise, rangeability",
+          "item": "INST-I070",
+          "use": "Cv, % opening, noise, cavitation, trim",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "flow element sizing and instrument datasheets",
+          "item": "INST-I090",
+          "use": "flow element bore, dP and permanent loss",
           "method": "review",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "PSV vendor-selected orifice and datasheets (if I&C owned)",
+          "item": "INST-I110",
+          "use": "instrument datasheets process data and ranges",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "INST-I100",
+          "use": "PSV set pressure, rate and selected orifice",
           "method": "review",
           "level": 3
         }
@@ -1456,16 +1786,28 @@
       "produces": [
         "PROC-I330"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "3D model review sessions and critical-line isometrics",
+          "item": "PIPE-I340",
+          "use": "Navisworks review model and checklists",
           "method": "meeting",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "process layout requirements and critical-line flags (PROC-I095, PROC-I190)",
+          "item": "PIPE-I400",
+          "use": "critical-line isometrics (slopes, pockets)",
+          "method": "meeting",
+          "level": 3
+        },
+        {
+          "item": "PROC-I095",
+          "use": "layout requirements",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "PROC-I190",
+          "use": "critical-line flags",
           "method": "review",
           "level": 3
         }
@@ -1484,40 +1826,64 @@
         "PROC-I340",
         "PROC-I341"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "HAZOP P&ID markups (PROC-I301) and as-designed H&MB (PROC-I315)",
+          "item": "PROC-I301",
+          "use": "HAZOP markups",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "certified vendor package P&IDs and nozzle data",
+          "item": "PROC-I315",
+          "use": "reconciled H&MB values",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "VEND-I140",
+          "use": "certified package P&IDs and nozzle data",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "instrument tag and loop updates from SI (correlated by hand)",
+          "item": "MECH-I250",
+          "use": "mechanical P&ID markups (seal plans, vents, drains)",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I045",
+          "use": "instrument tag updates",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "P&ID-to-model consistency report via SPF",
+          "item": "INST-I050",
+          "use": "instrument index",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PIPE-I190",
+          "use": "P&ID-to-model mismatches",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "SAFE",
-          "info": "LOPA/SIL outcomes and HAZOP close-out status",
+          "item": "SAFE-I170",
+          "use": "HAZOP/LOPA action close-out status",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "P&ID review comments",
+          "item": "INST-I210",
+          "use": "SIF list and boundaries",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I110",
+          "use": "owner P&ID comments",
           "method": "review",
           "level": 3
         }
@@ -1536,22 +1902,34 @@
       "produces": [
         "PROC-I350"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "IFC P&IDs, control narratives, trip schedule (PROC-I341, PROC-I231, PROC-I235)",
+          "item": "PROC-I341",
+          "use": "IFC P&IDs",
           "method": "review",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "vendor operating and maintenance manuals for packages",
+          "item": "PROC-I231",
+          "use": "control narratives",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "operating manual template and operations review",
+          "item": "PROC-I235",
+          "use": "trip schedule",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "VEND-I250",
+          "use": "package operating instructions",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I220",
+          "use": "owner operating procedure format and review",
           "method": "review",
           "level": 3
         }
@@ -1572,34 +1950,40 @@
         "PROC-I360",
         "PROC-I355"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "commissioning plan and system list",
+          "item": "COMM-I010",
+          "use": "completions and commissioning plan",
           "method": "review",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "vendor pre-commissioning and catalyst loading requirements",
+          "item": "COMM-I020",
+          "use": "system list and start-up order",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "VEND-I250",
+          "use": "vendor pre-commissioning, catalyst loading and first-fill instructions",
           "method": "review",
           "level": 4
         },
         {
-          "from": "PROC",
-          "info": "chemical and catalyst first-fill quantities (PROC-I275)",
+          "item": "PROC-I275",
+          "use": "first-fill quantities",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "COMM",
-          "info": "systemization rules and system numbering",
+          "item": "COMM-I040",
+          "use": "system and subsystem numbering and boundaries",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "IFC P&IDs (PROC-I341)",
+          "item": "PROC-I341",
+          "use": "IFC P&IDs",
           "method": "review",
           "level": 4
         }
@@ -1618,28 +2002,34 @@
       "produces": [
         "PROC-I365"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "operating manual process input (PROC-I350)",
+          "item": "PROC-I350",
+          "use": "operating manual process input",
           "method": "review",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "cause and effect matrix and DCS/SIS configuration (trip and permissive logic)",
+          "item": "INST-I240",
+          "use": "cause and effect",
           "method": "review",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "commissioning sequence and system handover dates",
+          "item": "VEND-I280",
+          "use": "configured DCS/SIS logic and permissives",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "COMM-I050",
+          "use": "commissioning sequence and turnover dates",
           "method": "review",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "operations procedure format and review",
+          "item": "OWNR-I220",
+          "use": "procedure format and owner review",
           "method": "review",
           "level": 3
         }
@@ -1658,17 +2048,17 @@
       "produces": [
         "PROC-I370"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "RFIs and field change requests with markups",
+          "item": "CONS-I210",
+          "use": "RFIs with markups",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "field-routed small-bore and drain/vent changes",
-          "method": "review",
+          "item": "CONS-I220",
+          "use": "field change requests; field-routed small-bore, drain and vent changes",
+          "method": "manual",
           "level": 3
         }
       ]
@@ -1686,40 +2076,34 @@
         "PROC-I375",
         "PROC-I380"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "commissioning punch items and test records with process deficiencies",
+          "item": "COMM-I240",
+          "use": "commissioning technical queries",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "start-up plant data (DCS historian)",
+          "item": "COMM-I150",
+          "use": "process punch items",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "loop tuning status and alarm settings",
+          "item": "COMM-I190",
+          "use": "loop and configuration defects",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "contract guarantees and acceptance criteria",
+          "item": "INST-I250",
+          "use": "alarm settings",
           "method": "review",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "licensor test procedure and guarantee correction curves",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "from": "OWNR",
-          "info": "plant data and lab analyses during test run",
+          "item": "COMM-I280",
+          "use": "measured yields, product quality and utilities",
           "method": "manual",
           "level": 4
         }
@@ -1737,22 +2121,28 @@
       "produces": [
         "PROC-I385"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "as-built redline P&IDs",
+          "item": "CONS-I330",
+          "use": "as-built redline P&IDs",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "commissioning changes and set point changes",
+          "item": "COMM-I240",
+          "use": "commissioning modifications",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PROC",
-          "info": "IFC P&IDs (PROC-I341)",
+          "item": "INST-I420",
+          "use": "range/set point corrections",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "PROC-I341",
+          "use": "IFC P&IDs",
           "method": "integrated",
           "level": 4
         }
@@ -2303,6 +2693,57 @@
       "form": "drawing",
       "content": "As-built P&IDs and line process data reflecting field changes and commissioning modifications for handover.",
       "owner_task": "PROC-T385"
+    }
+  ],
+  "gaps": [
+    {
+      "task": "PROC-T060",
+      "from": "VEND",
+      "info": "Licensor/technology yield and performance data for proprietary sections (no licensor process data item in catalog)",
+      "method": "manual",
+      "level": 1
+    },
+    {
+      "task": "PROC-T070",
+      "from": "VEND",
+      "info": "Licensor proposals: yields, utilities, catalyst/chemical consumption, guarantees (no licensor offer item; VEND-I020 is equipment quotation)",
+      "method": "review",
+      "level": 2
+    },
+    {
+      "task": "PROC-T100",
+      "from": "VEND",
+      "info": "Licensor process design package: H&MB and operating conditions",
+      "method": "manual",
+      "level": 3
+    },
+    {
+      "task": "PROC-T270",
+      "from": "VEND",
+      "info": "Licensor/chemical vendor dosing rates and catalyst volumes",
+      "method": "manual",
+      "level": 3
+    },
+    {
+      "task": "PROC-T375",
+      "from": "OWNR",
+      "info": "Start-up plant operating data (DCS historian) during commissioning",
+      "method": "manual",
+      "level": 3
+    },
+    {
+      "task": "PROC-T375",
+      "from": "OWNR",
+      "info": "Contract performance guarantees and acceptance criteria",
+      "method": "review",
+      "level": 4
+    },
+    {
+      "task": "PROC-T375",
+      "from": "VEND",
+      "info": "Licensor performance test procedure and guarantee correction curves",
+      "method": "review",
+      "level": 4
     }
   ]
 }
