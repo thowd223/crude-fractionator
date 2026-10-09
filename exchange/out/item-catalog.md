@@ -33,6 +33,19 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | OWNR-I250 | CMMS master data | Excel / Word | data | Asset register loaded: functional locations, equipment records, attributes, BOMs and maintenance plans. |
 | OWNR-I260 | CMMS data gap list | Excel / Word | data | Missing or inconsistent asset data by tag and attribute, returned to the project for correction. |
 | OWNR-I270 | Final documentation acceptance and deficiency list | Document Locator | decision | Acceptance of as-built documents and data books, or deficiency list by document. |
+| OWNR-I280 | Building programme and occupancy | Excel / Word | document | Rooms required per building, staffing, occupancy hours and personnel counts (permanent and portable). |
+| OWNR-I281 | Handover requirements and acceptance criteria | Excel / Word | document | Owner handover requirements, operating organisation and system acceptance criteria. |
+| OWNR-I282 | Contract performance guarantees | Excel / Word | document | Guaranteed capacity, yields, utilities and the acceptance criteria for the performance test. |
+| OWNR-I283 | Plant historian start-up data | Excel / Word | data | Operating data from the DCS historian during start-up and the performance test. |
+| OWNR-I284 | Owner cost structure and AFE codes | Excel / Word | data | Owner cost reporting structure, AFE and capital codes and mapping to the project code of accounts. |
+| OWNR-I285 | Invoices paid and back-charges | Excel / Word | data | Invoices paid by PO and cost code, final invoice and back-charge status per PO. |
+| OWNR-I286 | Incident history and previous PHAs | Excel / Word | document | Site and corporate incident history, five-year accident history, previous PHAs of similar units, HAZID guidewords and nominated attendees. |
+| OWNR-I287 | Surroundings, population and receptors | Excel / Word | data | Neighbouring facilities, land boundaries, onsite and offsite population, ignition sources and public and environmental receptors. |
+| OWNR-I288 | Emergency response organisation | Excel / Word | document | Site emergency organisation, fire department and mutual aid capability, responder resources and insurer requirements. |
+| OWNR-I289 | Permit strategy approval | Excel / Word | decision | Approved permit strategy, responsible official signatory and agency pre-application outcomes. |
+| OWNR-I290 | Operator training and emergency readiness record | Excel / Word | document | Operator training records and emergency response readiness confirmation for the PSSR. |
+| OWNR-I291 | Owner award approval | Excel / Word | decision | Approval of purchase awards above delegated authority. |
+| OWNR-I292 | Owner witness point selection | Excel / Word | decision | Owner witness and hold points selected per PO and ITP. |
 
 ## PROJ Project and controls
 
@@ -74,6 +87,10 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | PROJ-I340 | Construction progress in P6 | P6 | data | Installed quantities and percent complete per CWP/IWP, earned hours. |
 | PROJ-I350 | Final records index | Document Locator | data | Final as-built document list, vendor data books and turnover records with locations for owner handover. |
 | PROJ-I360 | Project close-out report | Excel / Word | document | Final cost, schedule, lessons learned and open items at close. |
+| PROJ-I370 | VDRL template by requisition type | Excel / Word | document | Standard vendor document requirements per requisition type. |
+| PROJ-I371 | Project specification and code list | Document Locator | document | Project specifications, code editions, order of precedence and requested deviations from owner standards. |
+| PROJ-I372 | Engineering data handover specification | Excel / Word | document | SPF tag classes and attributes available from engineering systems for handover. |
+| PROJ-I373 | Bulk surplus and allowance policy | Excel / Word | document | Surplus allowance percent by commodity and size. |
 
 ## PROC Process
 
@@ -147,6 +164,11 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | PROC-I375 | Commissioning process punch and troubleshooting log | Excel / Word | data | Process deficiencies found at commissioning, root cause, recommended change, set point adjustments, status. |
 | PROC-I380 | Performance test procedure and report | Excel / Word | document | Test conditions, measurements, sampling plan, correction methods, results vs guarantees, acceptance recommendation. |
 | PROC-I385 | As-built P&IDs | SPID | drawing | As-built P&IDs and line process data reflecting field changes and commissioning modifications for handover. |
+| PROC-I390 | Analyzer requirements | Excel / Word | data | Analyzer stream, components to measure, ranges and response time. |
+| PROC-I391 | Assay data gaps and requested cuts | Excel / Word | data | Missing assay data and additional cuts requested (TBP, sulfur, metals, acidity). |
+| PROC-I392 | Flare stack basis | Flare / relief tool | data | Flare stack height, tip type and diameter, and location basis. |
+| PROC-I901 | Process deliverables list | Excel / Word | data | Process deliverables with type, sheet count and planned IFR/IFD/IFC dates. |
+| PROC-I902 | Process progress measurement | Excel / Word | data | Percent complete per process deliverable by rules of credit. |
 
 ## SAFE Process safety and environmental
 
@@ -206,6 +228,7 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | SAFE-I342 | PSSR sign-off | Smart Completions | decision | Approval to introduce hydrocarbons per system, with conditions and authorizing signatures. |
 | SAFE-I350 | Startup environmental compliance records | Excel / Word | document | Agency notifications, stack test protocols, CEMS certification plan, LDAR component inventory and monitoring schedule; to OWNR. |
 | SAFE-I360 | As-built safety studies | Excel / Word | document | Final revisions of siting study, F&G mapping, QRA, fire water and fireproofing studies; to OWNR via handover. |
+| SAFE-I370 | Security vulnerability assessment | Excel / Word | document | Security risks, required CCTV coverage and access control. |
 
 ## MECH Mechanical
 
@@ -270,6 +293,11 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | MECH-I570 | Mechanical equipment ITR and check requirements | Excel / Word | data | Per equipment type: installation checks, alignment tolerances, internals inspection/box-up, lube flush, solo/run-in test criteria for ITR forms. |
 | MECH-I580 | Mechanical punch items and MC acceptance | Smart Completions | decision | Mechanical punch items raised in walkdowns, category, and engineering acceptance of mechanical completion. |
 | MECH-I590 | As-built equipment datasheets and equipment register | Excel / Word | data | Final certified attributes per tag (vendor, model, serial, design data, materials, weights) for asset register and maintenance system. |
+| MECH-I600 | Equipment thermal growth and nozzle flexibility | Excel / Word | data | Thermal growth and nozzle displacements per equipment nozzle and nozzle flexibility data for stress analysis. |
+| MECH-I601 | Technically acceptable bidders | Excel / Word | data | Technical acceptability of proposed bidders per equipment type. |
+| MECH-I901 | Mechanical deliverables list | Excel / Word | data | Datasheets, calculations and requisitions per equipment item with planned dates. |
+| MECH-I902 | Mechanical progress measurement | Excel / Word | data | Datasheet and requisition percent complete by rules of credit. |
+| MECH-I904 | Mechanical change impact | Excel / Word | data | Equipment affected by a trend or change, with vendor price and schedule impact. |
 
 ## PIPE Piping
 
@@ -332,6 +360,9 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | PIPE-I550 | Piping material shortage and surplus list | Excel / Word | data | Per ident: required, received, issued, shortage, surplus, supplementary requisition reference. |
 | PIPE-I560 | As-built isometrics | Document Locator | drawing | As-built isometrics with final routing, welds and supports, issued for handover. |
 | PIPE-I570 | As-built piping model | S3D | model | S3D model updated to as-built for operations handover. |
+| PIPE-I901 | Piping deliverables list | Excel / Word | data | Drawing types and isometric counts by area with planned dates. |
+| PIPE-I902 | Piping progress measurement | Excel / Word | data | Model completion and isometrics issued against plan by area. |
+| PIPE-I904 | Piping change impact | Excel / Word | data | Isometric and model rework estimate (hours, quantities) per trend or change. |
 
 ## CIVL Civil and structural
 
@@ -391,6 +422,10 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | CIVL-I365 | Civil non-conformance dispositions | Procore | decision | Accept, repair or reject disposition for concrete strength, anchor bolt misplacement, pile capacity and steel fit-up NCRs. |
 | CIVL-I370 | Settlement evaluation and acceptance | Document Locator | decision | Measured vs predicted settlement, acceptance or hold on filling, remedial actions. |
 | CIVL-I380 | As-built civil and structural drawings and model | Document Locator | drawing | As-built foundation, underground, steel and building drawings and updated Tekla model for owner handover. |
+| CIVL-I390 | Geotechnical and soil corrosivity report | Document Locator | document | Geotechnical contractor's factual and interpretive report: soil profiles, bearing and pile capacities, settlement, groundwater, soil resistivity (Wenner) and chemistry (pH, chlorides). |
+| CIVL-I901 | Civil deliverables list | Excel / Word | data | Foundation, steel, building and site drawings with planned dates. |
+| CIVL-I902 | Civil progress measurement | Excel / Word | data | Foundation and steel drawing completion counts against plan. |
+| CIVL-I903 | Civil holds | Excel / Word | data | Foundation drawings on hold awaiting certified vendor loads, with cause. |
 
 ## INST Instrumentation and control
 
@@ -458,6 +493,10 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | INST-I420 | I&C punch and loop check resolutions | Smart Completions | document | Engineering responses to loop check failures and punch items, range/set point corrections. |
 | INST-I430 | SAT and SIS validation records and as-configured database | DCS / SIS config | document | SAT results, SIF validation records, final as-configured database backup and change log. |
 | INST-I440 | As-built I&C database and drawings | SI | data | As-built instrument index, datasheets, loops, wiring and location drawings for owner handover. |
+| INST-I450 | Electrical communication FAT setup | Excel / Word | document | DCS/ECMS emulator or test rig and communication map for the integrated switchgear/MCC communication test. |
+| INST-I901 | Instrumentation deliverables list | Excel / Word | data | Index, datasheets, loops, C&E and layouts with planned dates. |
+| INST-I902 | Instrumentation progress measurement | Excel / Word | data | Datasheet and loop diagram completion counts against plan. |
+| INST-I903 | Instrumentation holds | Excel / Word | data | Loops and datasheets on hold awaiting vendor or other discipline data, with cause. |
 
 ## ELEC Electrical
 
@@ -526,6 +565,9 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | ELEC-I422 | Electrical tag and cable lists for completions | Smart Completions | data | Equipment, cable and circuit tag lists with system assignment, loaded by spreadsheet into Smart Completions for ITRs. |
 | ELEC-I430 | Energization readiness sign-off | Smart Completions | decision | Engineering sign-off that settings are applied, labels installed, tests accepted, ready to energize. |
 | ELEC-I440 | As-built electrical records | Document Locator | document | As-built SPEL database, ETAP model, one-lines, cable schedule and layouts for handover to owner. |
+| ELEC-I450 | Electrical acceptable manufacturers | Excel / Word | data | Acceptable manufacturers per electrical equipment type. |
+| ELEC-I901 | Electrical deliverables list | Excel / Word | data | SLDs, studies, cable schedule and layouts with planned dates. |
+| ELEC-I902 | Electrical progress measurement | Excel / Word | data | Electrical deliverable completion counts against plan. |
 
 ## SCM Procurement and materials
 
@@ -604,6 +646,12 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | VEND-I290 | Preservation and storage instructions | Excel / Word | document | Storage conditions and preservation activities and frequencies per item. |
 | VEND-I300 | Weld maps and NDE records | Excel / Word | document | Weld map, WPS/PQR references, welder IDs and NDE results. |
 | VEND-I310 | Manufacturing progress report | Excel / Word | data | Milestone actuals, sub-order status, percent complete, forecast ex-works date and delays. |
+| VEND-I320 | Fabricator spool shop drawings | Document Locator | drawing | Spool shop drawings for review against IFC isometrics. |
+| VEND-I321 | Licensor process proposal | Excel / Word | document | Licensor yields, utilities, catalyst and chemical consumption, and guarantees. |
+| VEND-I322 | Licensor process design package | Document Locator | document | Licensor H&MB, operating conditions, dosing rates and catalyst volumes, performance test procedure and correction curves. |
+| VEND-I323 | Bidder questions | Excel / Word | data | Technical and commercial questions raised by bidders during the bid period. |
+| VEND-I324 | Change-order quotation | Excel / Word | document | Price and delivery impact of a post-award change. |
+| VEND-I325 | OS&D response | Excel / Word | document | Vendor replacement, repair or credit proposal for an OS&D report. |
 
 ## CONS Construction
 
@@ -646,6 +694,10 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | CONS-I330 | As-built redline markups | Procore | drawing | Redlined P&IDs, isometrics, cable routes, foundation and layout drawings with field deviations, for as-built drafting by engineering. |
 | CONS-I340 | Mechanical completion certificate | Smart Completions | decision | Subsystem MC certificate signed by construction, commissioning and owner, with outstanding B punch attached. |
 | CONS-I350 | Construction quality dossier | Document Locator | document | Per subsystem: weld and NDE records, test records, material traceability, calibration and inspection reports. |
+| CONS-I360 | Settlement monitoring readings | Excel / Word | data | Survey readings at tank and foundation monitoring points during hydrotest filling and holding. |
+| CONS-I361 | Tie-in field verification survey | Excel / Word | data | Measured dimensions, wall thickness, condition and photos of existing tie-in points. |
+| CONS-I362 | Field labour hours and subcontractor claims | Excel / Word | data | Direct hours spent and subcontractor progress claims by cost code. |
+| CONS-I363 | Construction HSE statistics | Excel / Word | data | Hours worked, incidents and rates for the period. |
 
 ## COMM Completions and commissioning
 

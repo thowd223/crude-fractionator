@@ -121,7 +121,10 @@ Rules:
 - `form`: one of `data` (rows or attributes in a system or list), `document` (report, specification, datasheet),
   `drawing`, `model` (3D or calculation model), `decision` (an agreed basis, approval or resolution).
 - Each item has exactly one owner task in the same discipline, and that task lists it in `produces`.
-- `consumes` (filled in the second pass) references any discipline's items by ID.
+- `consumes` references any discipline's items by ID.
+- Information a task needs that no item carries yet goes in a top-level `gaps` array of the file
+  (`{"task", "from", "info", "method", "level"}`) until the owning discipline adds the item. The build lists
+  open gaps, unused items and tasks without inputs as warnings.
   - `use`: what the consuming task takes from the item, specific enough to check (attributes, values).
   - `method` today: `integrated` (system-to-system, live or by publish/retrieve), `file` (export/import of a
     file), `manual` (read the document or list and re-enter by hand), `review` (read and comment or approve,

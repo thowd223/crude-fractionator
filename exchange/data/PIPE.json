@@ -1,2611 +1,2684 @@
 {
-  "discipline": "PIPE",
-  "tasks": [
+ "discipline": "PIPE",
+ "tasks": [
+  {
+   "id": "PIPE-T005",
+   "name": "Plan, measure and report discipline deliverables",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRJ-03",
+   "description": "Keep the discipline deliverables list, measure progress by rules of credit, and report holds and change impacts to project controls.",
+   "produces": [
+    "PIPE-I901",
+    "PIPE-I902",
+    "PIPE-I904"
+   ],
+   "consumes": [
     {
-      "id": "PIPE-T010",
-      "name": "Prepare block plot plan options",
-      "phases": [
-        "FEL1"
-      ],
-      "system": "Excel / Word",
-      "activity": "FEL-02",
-      "description": "Lays out alternative block plot arrangements for the unit, offsites and tankage on the candidate site for configuration screening.",
-      "produces": [
-        "PIPE-I010"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I040",
-          "use": "process blocks, main streams, capacities and tankage/utility blocks per option",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "OWNR-I040",
-          "use": "site boundary, survey benchmarks, prevailing wind and site access rules",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "OWNR-I050",
-          "use": "existing facility layout, existing interconnecting piping and utility tie points",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner layout and spacing standards",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "SAFE-I030",
-          "use": "preliminary worst-case hazard zones and receptor distances per site",
-          "method": "review",
-          "level": 1
-        },
-        {
-          "item": "SAFE-I050",
-          "use": "recommended block spacing, sterile areas and building locations",
-          "method": "review",
-          "level": 1
-        },
-        {
-          "item": "CIVL-I010",
-          "use": "topography, flood elevation and access routes per candidate site",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "CIVL-I040",
-          "use": "existing ground levels, plant grid, existing roads and underground services",
-          "method": "manual",
-          "level": 1
-        }
-      ]
+     "item": "PROJ-I060",
+     "use": "deliverable numbers, titles and register status",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "PIPE-T020",
-      "name": "Estimate piping quantities for FEL1 estimate",
-      "phases": [
-        "FEL1"
-      ],
-      "system": "Excel / Word",
-      "activity": "FEL-04",
-      "description": "Factors piping tonnage, bulk quantities and interconnecting run lengths per option for the Class 5 estimate.",
-      "produces": [
-        "PIPE-I020"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I010",
-          "use": "block footprints, rack corridor length and interconnecting run lengths per option",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "PROC-I050",
-          "use": "equipment type, count, key size and material class per option",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "PROJ-I080",
-          "use": "quantity take-off template, estimate class, code of accounts and due date",
-          "method": "manual",
-          "level": 1
-        }
-      ]
+     "item": "PROJ-I140",
+     "use": "planned IFR/IFD/IFC dates per deliverable",
+     "method": "manual",
+     "level": 2
     },
     {
-      "id": "PIPE-T030",
-      "name": "Write piping layout design basis",
-      "phases": [
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRJ-01",
-      "description": "Sets the layout, spacing, access, maintenance, rack and model rules (elevations, clearances, valve access, naming) for the project.",
-      "produces": [
-        "PIPE-I030"
-      ],
-      "consumes": [
-        {
-          "item": "OWNR-I060",
-          "use": "owner piping and layout standards, order of precedence",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "OWNR-I120",
-          "use": "operating access, isolation, drains, bundle pull and lifting requirements",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I040",
-          "use": "spacing codes, fire-fighting access and design fire basis",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I050",
-          "use": "recommended equipment spacing and sterile areas",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "OWNR-I070",
-          "use": "design life, units, winterisation and site design margins",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "OWNR-I040",
-          "use": "climatic design data and seismic zone",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "CONS-I010",
-          "use": "access widths, crane corridors and module transport limits",
-          "method": "meeting",
-          "level": 1
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T040",
-      "name": "Develop plot plan and equipment layout",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "LAY-01",
-      "description": "Develops the selected plot plan with equipment locations, rack corridors, roads and maintenance areas and issues it for review and HAZOP.",
-      "produces": [
-        "PIPE-I040",
-        "PIPE-I050"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I160",
-          "use": "equipment tag, type, size and operating/design P/T",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I200",
-          "use": "equipment interconnections from IFR P&IDs",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "PROC-I095",
-          "use": "minimum elevations for NPSH, thermosiphon and gravity drain, close-coupling and adjacency",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I290",
-          "use": "overall dimensions, support type and location",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I300",
-          "use": "footprint, height, bundle pull, internals removal and crane access envelopes",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I080",
-          "use": "equipment tag list with size and operating weight",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I050",
-          "use": "hazard distances, spacing changes and marked-up plot plan",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I102",
-          "use": "building acceptability, relocation and occupancy restrictions",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I130",
-          "use": "flare sterile zone radius and radiation contours at grade",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I040",
-          "use": "plant coordinate system, benchmarks, existing ground levels and grid",
-          "method": "file",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I030",
-          "use": "spacing tables, access and maintenance rules",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I080",
-          "use": "substation and electrical building footprint and clearances",
-          "method": "meeting",
-          "level": 1
-        },
-        {
-          "item": "INST-I031",
-          "use": "control and rack room footprint and cabinet space",
-          "method": "meeting",
-          "level": 1
-        },
-        {
-          "item": "CIVL-I080",
-          "use": "road widths, drainage falls, dike footprints and foundation interference markups",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T050",
-      "name": "Build 3D layout model",
-      "phases": [
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "S3D",
-      "activity": "LAY-02",
-      "description": "Builds the early S3D model with equipment envelopes, structures, rack and access space for layout reviews.",
-      "produces": [
-        "PIPE-I060"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I040",
-          "use": "equipment locations, rack corridors and roads",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I050",
-          "use": "equipment coordinates, elevations and orientation",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "MECH-I290",
-          "use": "outline dimensions, skirt/saddle heights and nozzle positions",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I170",
-          "use": "preliminary nozzle schedule sizes and ratings",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I130",
-          "use": "rack widths, bent spacing, tier elevations and structure frame sizes",
-          "method": "manual",
-          "level": 1
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T060",
-      "name": "Lay out pipe racks and assign tiers",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "LAY-02",
-      "description": "Sizes main pipe rack widths and tiers, allocates lines and cable tray space, and estimates rack loads for civil.",
-      "produces": [
-        "PIPE-I070",
-        "PIPE-I080"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I210",
-          "use": "line number, from/to, fluid, design P/T and insulation for rack lines",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I190",
-          "use": "line sizes for rack lines",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I200",
-          "use": "from/to of interconnecting lines",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "electrical tray widths and rack levels reserved",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "item": "INST-I321",
-          "use": "instrument cable count and tray loading per segment",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "rack corridors and road crossings",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I135",
-          "use": "uniform tier load and anchor/guide load limits assumed by civil",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T070",
-      "name": "Study critical line routing",
-      "phases": [
-        "FEL3"
-      ],
-      "system": "S3D",
-      "activity": "PIP-02",
-      "description": "Routes large-bore, alloy, two-phase, transfer and pump suction lines in the model to confirm layout and early stress feasibility.",
-      "produces": [
-        "PIPE-I090"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I095",
-          "use": "slope, no-pocket, gravity, NPSH and symmetrical routing requirements",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I190",
-          "use": "critical-line flags, two-phase flow regime and line sizes",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I200",
-          "use": "IFR P&IDs for routed systems",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "MECH-I170",
-          "use": "nozzle schedule sizes, ratings and duties on columns and vessels",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I290",
-          "use": "preliminary nozzle positions on heaters, pumps and exchangers",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T080",
-      "name": "Request equipment nozzle orientations and elevations",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "LAY-01",
-      "description": "Defines required nozzle orientations, elevations, platform and davit positions from routing and returns them to mechanical and vendors.",
-      "produces": [
-        "PIPE-I100"
-      ],
-      "consumes": [
-        {
-          "item": "MECH-I290",
-          "use": "nozzle positions and support details",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "MECH-I170",
-          "use": "nozzle schedule",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "MECH-I270",
-          "use": "engineering nozzle angles, elevations, platform clips and davits to comment",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "VEND-I070",
-          "use": "package, pump, compressor and exchanger nozzle sizes and orientations",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I090",
-          "use": "critical line routing and required nozzle positions",
-          "method": "integrated",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T090",
-      "name": "Develop piping material classes",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-01",
-      "description": "Writes piping classes by service with pressure-temperature ratings, components, branch tables and wall thickness calculations.",
-      "produces": [
-        "PIPE-I110"
-      ],
-      "consumes": [
-        {
-          "item": "MECH-I040",
-          "use": "base material, corrosion allowance, sour/NACE, PWHT and impact test per circuit",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I130",
-          "use": "max design P/T and MDMT per system",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I210",
-          "use": "fluid code and design P/T per line group",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner piping material standards and approved vendors",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T100",
-      "name": "Build S3D piping specification catalogue",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-01",
-      "description": "Loads piping classes, commodity codes and valve codes into the S3D catalogue for routing, isometrics and MTO.",
-      "produces": [
-        "PIPE-I120"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I110",
-          "use": "class rules, components by size, wall thickness, branch tables, valve codes",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "VEND-I020",
-          "use": "valve and component outline dimensions and weights from preferred vendor offers",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T110",
-      "name": "Prepare valve specifications and datasheets",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-01",
-      "description": "Writes valve datasheets by valve code covering type, rating, materials, trim, end connection and testing.",
-      "produces": [
-        "PIPE-I130"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I110",
-          "use": "valve codes per class with rating and materials",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I240",
-          "use": "isolation and blinding philosophy, tight shut-off and special service needs",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "INST-I080",
-          "use": "actuated on/off valve type, size, rating, shut-off class and fire-proofing",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T120",
-      "name": "Prepare specialty item list and datasheets",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-01",
-      "description": "Lists and specifies special piping items (strainers, spectacle blinds, hoses, sight glasses, expansion joints, steam traps).",
-      "produces": [
-        "PIPE-I140"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I340",
-          "use": "SP item tags, sizes, line numbers and service on IFD P&IDs",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PROC-I210",
-          "use": "flow, operating/design P/T and fluid per SP item line",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I110",
-          "use": "class rating and materials for SP items",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T130",
-      "name": "Prepare piping fabrication, erection and inspection specifications",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-01",
-      "description": "Specifies fabrication, welding, NDE extent, PWHT, testing, cleaning and painting requirements for shop and field piping.",
-      "produces": [
-        "PIPE-I150"
-      ],
-      "consumes": [
-        {
-          "item": "OWNR-I060",
-          "use": "owner welding, NDE, painting and insulation standards",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "MECH-I040",
-          "use": "PWHT, hardness, sour service and impact test requirements",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CONS-I030",
-          "use": "shop versus field fabrication split and module scope",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "item": "CONS-I010",
-          "use": "preferred spool sizes and shop vs field work preferences",
-          "method": "meeting",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T140",
-      "name": "Add piping data to the line list",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRC-08",
-      "description": "Adds piping class, test pressure and medium, NDE category, PWHT, paint and insulation systems to each line in the line list.",
-      "produces": [
-        "PIPE-I160"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I210",
-          "use": "line number, fluid, operating/design P/T, test pressure basis, insulation and tracing requirement",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I110",
-          "use": "class assignment by service and P/T",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I150",
-          "use": "NDE category, PWHT and test rules",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T150",
-      "name": "Prepare FEL3 piping MTO for the estimate",
-      "phases": [
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "S3D",
-      "activity": "CST-02",
-      "description": "Combines model-based quantities for routed areas with factored quantities for the rest into a bulk piping MTO for the estimate and early buys.",
-      "produces": [
-        "PIPE-I170"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I090",
-          "use": "model quantities in routed areas",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I060",
-          "use": "rack and corridor lengths for factored areas",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I110",
-          "use": "class components and materials for pricing",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I190",
-          "use": "line sizes",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I210",
-          "use": "line count per P&ID and fluid",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROJ-I080",
-          "use": "estimate class, basis, growth and allowance and code of accounts",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T160",
-      "name": "Route piping in the 3D model",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-02",
-      "description": "Routes all lines to the P&IDs in S3D using the piping catalogue, placing valves, SP items and in-line instruments.",
-      "produces": [
-        "PIPE-I180"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I340",
-          "use": "IFD P&IDs: line numbers, sizes, specs, valves, SP items, in-line instrument tags",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PROC-I210",
-          "use": "design P/T, fluid, insulation and critical-line flags",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I170",
-          "use": "nozzle size, rating, facing and location",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I420",
-          "use": "certified nozzle locations, sizes and ratings for final routing",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I140",
-          "use": "certified package GA and terminal point nozzle data",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "CIVL-I235",
-          "use": "steel and concrete geometry, platforms and rack steel as S3D reference",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "INST-I072",
-          "use": "control and on/off valve face-to-face, weights and actuator envelopes",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I091",
-          "use": "flow element sizes and upstream/downstream straight runs",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I151",
-          "use": "certified face-to-face and weights for model update",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "tray and conduit routes, elevations and reserved rack levels",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I120",
-          "use": "spec rules, commodity codes and dimensional tables",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T170",
-      "name": "Check model against P&IDs",
-      "phases": [
-        "DD"
-      ],
-      "system": "SPF",
-      "activity": "PIP-02",
-      "description": "Runs the SPID to S3D correlation through SPF and resolves differences in line numbers, sizes, specs and components.",
-      "produces": [
-        "PIPE-I190"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I340",
-          "use": "P&ID lines, valves, SP items and instruments published from SPID",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PROC-I210",
-          "use": "line number, size and spec attributes for correlation",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I180",
-          "use": "modelled lines and components",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T180",
-      "name": "Position in-line instruments and instrument access",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "ICS-09",
-      "description": "Places in-line and line-mounted instruments with straight runs, orientation and access, and issues positions to I&C.",
-      "produces": [
-        "PIPE-I200"
-      ],
-      "consumes": [
-        {
-          "item": "INST-I050",
-          "use": "tag, type, line number and P&ID",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I091",
-          "use": "straight-run requirements",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I115",
-          "use": "connection type, size, orientation and elevation",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I180",
-          "use": "routed lines for instrument placement",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T190",
-      "name": "Issue as-routed line data for hydraulic checks",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PRC-03",
-      "description": "Extracts as-routed lengths, fittings and elevations for PSV inlet/outlet, pump suction and two-phase lines to process for hydraulic verification.",
-      "produces": [
-        "PIPE-I210"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I190",
-          "use": "critical lines requiring hydraulic verification (gravity, two-phase, pump suction)",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I251",
-          "use": "PSV tags, inlet/outlet sizes and allowable back pressure for inlet loss and tailpipe checks",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I180",
-          "use": "as-routed geometry",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T200",
-      "name": "Prepare stress-critical line list",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-03",
-      "description": "Categorises lines for stress analysis by size, temperature, service and connected equipment.",
-      "produces": [
-        "PIPE-I220"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I130",
-          "use": "design and minimum design temperatures, steam-out and vacuum conditions",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I111",
-          "use": "upset and start-up cases governing temperatures",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I210",
-          "use": "operating and design temperature per line",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I160",
-          "use": "class, size and insulation per line",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I080",
-          "use": "equipment type: rotating, air coolers, heaters",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T210",
-      "name": "Perform screening stress analysis",
-      "phases": [
-        "FEL3"
-      ],
-      "system": "CAESAR II",
-      "activity": "PIP-03",
-      "description": "Runs simplified and screening analyses on critical lines to confirm loops, layout and anchor concepts.",
-      "produces": [
-        "PIPE-I230"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I090",
-          "use": "critical line geometry exported to CAESAR II",
-          "method": "file",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I220",
-          "use": "lines and load cases to screen",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I280",
-          "use": "preliminary allowable forces and moments per nozzle",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T220",
-      "name": "Perform detailed stress analysis in CAESAR II",
-      "phases": [
-        "DD"
-      ],
-      "system": "CAESAR II",
-      "activity": "PIP-05",
-      "description": "Analyses stress-critical lines exported from S3D for sustained, thermal, occasional and test cases and sets supports.",
-      "produces": [
-        "PIPE-I240",
-        "PIPE-I250",
-        "PIPE-I260",
-        "PIPE-I270"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "stress line geometry exported from S3D",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I220",
-          "use": "stress category, load cases and temperatures",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I130",
-          "use": "design and upset temperatures and pressures",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I111",
-          "use": "operating cases for load case definition",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I250",
-          "use": "relief load, set pressure and fluid for PSV reaction forces",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I190",
-          "use": "two-phase flow regime and slug flags",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I280",
-          "use": "allowable nozzle forces and moments",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I420",
-          "use": "certified nozzle locations for anchor points",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "VEND-I090",
-          "use": "vendor allowable nozzle loads",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I140",
-          "use": "certified nozzle data for rotating equipment and packages",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CIVL-I030",
-          "use": "wind speed and exposure, seismic parameters",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I020",
-          "use": "structure deflection limits and rack load allowance assumptions",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T230",
-      "name": "Resolve nozzle loads with mechanical and vendors",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-05",
-      "description": "Agrees exceeded nozzle loads with mechanical and vendors by re-routing, re-supporting or vendor acceptance.",
-      "produces": [
-        "PIPE-I280"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I250",
-          "use": "calculated nozzle loads vs allowables",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I470",
-          "use": "acceptance or required piping changes per nozzle",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "VEND-I050",
-          "use": "vendor responses accepting or rejecting exceeded nozzle loads",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T240",
-      "name": "Specify and requisition spring and engineered supports",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Prepares the spring hanger and engineered support datasheet and requisition and reviews vendor data.",
-      "produces": [
-        "PIPE-I290"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I240",
-          "use": "spring loads, travel and support type",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "VEND-I070",
-          "use": "spring and engineered support drawings and load tables",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SCM-I030",
-          "use": "approved bidders for spring supports",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "SCM-I050",
-          "use": "MR number and need date",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T250",
-      "name": "Design pipe supports",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-05",
-      "description": "Places standard and special supports in S3D and details special supports, trunnions and secondary steel requirements.",
-      "produces": [
-        "PIPE-I300",
-        "PIPE-I310"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I270",
-          "use": "support type changes, guides, anchors and spring locations",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I260",
-          "use": "support loads for support selection",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I180",
-          "use": "routed lines",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I235",
-          "use": "available steel members and platforms",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner standard pipe support catalogue and standards",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T260",
-      "name": "Request civil and structural openings, platforms and foundations",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "LAY-02",
-      "description": "Issues piping requirements for platforms, access, sleepers, trenches, culverts, wall and floor penetrations to civil.",
-      "produces": [
-        "PIPE-I320"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "routing, valve and instrument access points",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I235",
-          "use": "structure layout",
-          "method": "file",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I190",
-          "use": "foundation locations and top of concrete",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T270",
-      "name": "Design underground piping",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-02",
-      "description": "Lays out underground firewater, oily water and process drains and buried lines and coordinates with civil drainage and foundations.",
-      "produces": [
-        "PIPE-I330"
-      ],
-      "consumes": [
-        {
-          "item": "SAFE-I192",
-          "use": "ring main sizing basis, hydrant and monitor locations, isolation valve sectioning",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I100",
-          "use": "finished grade elevations",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I110",
-          "use": "sewer routes, inverts, catch basins and manholes",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I190",
-          "use": "foundation outlines and depths",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I140",
-          "use": "road crossings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I150",
-          "use": "underground composite: crossings and depths",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I340",
-          "use": "drain system P&IDs",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PROC-I280",
-          "use": "effluent and drain flows and composition",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I334",
-          "use": "duct bank routes, depths and crossings",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I272",
-          "use": "ground grid routing",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T280",
-      "name": "Run 30/60/90 model reviews",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "iConstruct",
-      "activity": "LAY-03",
-      "description": "Prepares model review packages and runs reviews with operations, safety, construction and all disciplines, tracking actions to close.",
-      "produces": [
-        "PIPE-I340",
-        "PIPE-I350"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "routed piping",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I300",
-          "use": "supports",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I236",
-          "use": "Tekla structural model published to Navisworks",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I140",
-          "use": "owner access, valve reach and maintenance comments",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I250",
-          "use": "spacing, escape, fire-fighting access and valve operability comments",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I230",
-          "use": "safety shower, escape route and muster locations",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "CONS-I100",
-          "use": "access, rigging, scaffolding and spool break comments",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "electrical tray and equipment in model",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I290",
-          "use": "instrument and JB locations",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I291",
-          "use": "JB coordinates and sizes",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I292",
-          "use": "instrument access and valve orientation comments",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "PROC-I330",
-          "use": "slope, pocket, NPSH, two-phase and PSV location comments",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "MECH-I540",
-          "use": "equipment access, removal clearance and nozzle discrepancy comments",
-          "method": "meeting",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T290",
-      "name": "Detect and resolve clashes",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "LAY-03",
-      "description": "Runs interference checks across piping, structural, electrical and instrument models and resolves hard and soft clashes.",
-      "produces": [
-        "PIPE-I360"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "routed piping for interference checks",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I235",
-          "use": "structural reference geometry",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "tray and conduit routes",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I290",
-          "use": "instrument locations and tray routing",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I291",
-          "use": "JB positions and sizes",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I330",
-          "use": "civil resolution and model change status per clash",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T300",
-      "name": "Respond to HAZOP and safety layout actions",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "SAF-03",
-      "description": "Implements and closes HAZOP, siting and fire and gas actions that need layout or piping changes.",
-      "produces": [
-        "PIPE-I370"
-      ],
-      "consumes": [
-        {
-          "item": "SAFE-I152",
-          "use": "HAZOP recommendations assigned to piping",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I090",
-          "use": "preliminary HAZOP layout and isolation actions",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I022",
-          "use": "HAZID layout actions",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I122",
-          "use": "QRA spacing and isolation recommendations",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PROC-I301",
-          "use": "clouded HAZOP P&ID changes",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PROC-I340",
-          "use": "updated IFD P&IDs",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T310",
-      "name": "Incorporate vendor data and manage piping holds",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "VEN-01",
-      "description": "Updates the model with certified vendor nozzle and package data and maintains the piping hold list.",
-      "produces": [
-        "PIPE-I380",
-        "PIPE-I390"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I140",
-          "use": "certified GA nozzle locations, sizes, ratings and terminal points",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "MECH-I420",
-          "use": "certified equipment nozzle data for model update",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "MECH-I410",
-          "use": "consolidated vendor document review codes",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "MECH-I460",
-          "use": "hold status per requisition and vendor document",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PROC-I320",
-          "use": "P&ID hold answers and release dates",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T320",
-      "name": "Extract and check isometrics",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-04",
-      "description": "Extracts isometrics from S3D, checks them and issues IFC isometrics with bill of materials and weld data.",
-      "produces": [
-        "PIPE-I400"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "routed lines",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I300",
-          "use": "supports",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I240",
-          "use": "stress sign-off per stress system",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I390",
-          "use": "released holds",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I160",
-          "use": "test pressure, NDE, PWHT, paint and insulation per line",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "PROJ-I040",
-          "use": "document numbering, revision and issue-purpose conventions",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROJ-I070",
-          "use": "reserved isometric document numbers",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T330",
-      "name": "Prepare spool lists and fabrication packages",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-04",
-      "description": "Splits isometrics into shop spools and field welds and issues spool lists and fabrication packages to the fabricator.",
-      "produces": [
-        "PIPE-I410"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I400",
-          "use": "IFC isometrics with welds and BOM",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "CONS-I030",
-          "use": "module boundaries and maximum dimensions",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "CONS-I010",
-          "use": "preferred spool sizes and field weld preferences",
-          "method": "meeting",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T340",
-      "name": "Produce MTO by ident and bulk requisitions",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "PIP-04",
-      "description": "Exports MTO by commodity ident from S3D, applies surplus and reconciles against prior buys, and issues bulk requisitions.",
-      "produces": [
-        "PIPE-I420",
-        "PIPE-I430"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "model quantities",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I400",
-          "use": "isometric BOM by ident",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I130",
-          "use": "valve datasheets",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I140",
-          "use": "SP item list",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "SCM-I140",
-          "use": "previous PO line quantities by commodity code",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "SCM-I060",
-          "use": "previous bulk MR lines with surplus",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "CONS-I090",
-          "use": "ROS dates by CWP for delivery split",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T350",
-      "name": "Evaluate piping bids",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Evaluates technical offers for bulk piping, valves and specialty items against requisitions.",
-      "produces": [
-        "PIPE-I440"
-      ],
-      "consumes": [
-        {
-          "item": "SCM-I090",
-          "use": "technical portions of bids",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "VEND-I050",
-          "use": "technical clarification answers",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I430",
-          "use": "requisition technical requirements",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T360",
-      "name": "Review valve and specialty item vendor data",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "Reviews vendor drawings, test certificates and data books for valves and specialty items.",
-      "produces": [
-        "PIPE-I450"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I070",
-          "use": "valve and SP item drawings and dimensions",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "VEND-I170",
-          "use": "MTRs per component",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "VEND-I180",
-          "use": "hydrotest, NDE and fire-safe test certificates",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SCM-I180",
-          "use": "vendor documents routed for review with return date",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T370",
-      "name": "Produce piping GA and key plan drawings",
-      "phases": [
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "LAY-02",
-      "description": "Extracts piping general arrangement drawings, sections and key plans from S3D for construction and review.",
-      "produces": [
-        "PIPE-I460"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "routed piping",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I040",
-          "use": "plant grid references",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I235",
-          "use": "structural references",
-          "method": "file",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T380",
-      "name": "Identify tie-ins and issue tie-in packages",
-      "phases": [
-        "FEL3",
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-02",
-      "description": "Surveys existing connections, lists tie-ins with type and timing, and issues tie-in sketches and packages.",
-      "produces": [
-        "PIPE-I470",
-        "PIPE-I480"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I335",
-          "use": "fluid, operating/design P/T, hot-tap feasibility and isolation/purging per tie-in; hot tap and isolation requirements (taken from process tie-in conditions)",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I340",
-          "use": "tie-in points on P&IDs",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I050",
-          "use": "existing facility as-built drawings and line data",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I160",
-          "use": "outage windows and tie-ins allowed per window",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T390",
-      "name": "Define hydrotest and test pack boundaries",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Defines test circuits by test pressure and medium aligned to systems and issues test pack boundaries.",
-      "produces": [
-        "PIPE-I490",
-        "PIPE-I500"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I400",
-          "use": "isometrics for circuit definition",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I160",
-          "use": "test pressure and medium per line",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "COMM-I030",
-          "use": "system and subsystem limits and isolation points",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "COMM-I040",
-          "use": "subsystem numbers and descriptions",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "MECH-I130",
-          "use": "equipment hydrotest pressure and MAWP",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I170",
-          "use": "equipment design P/T to include or isolate",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I050",
-          "use": "in-line instrument types to remove or isolate",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T400",
-      "name": "Issue model to AWP and construction model",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "iConstruct",
-      "activity": "CON-02",
-      "description": "Publishes the piping model through Navisworks to iConstruct with iso, spool and CWP attributes for work packaging.",
-      "produces": [
-        "PIPE-I510"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "piping model",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I400",
-          "use": "iso attributes",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I410",
-          "use": "spool attributes",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "CONS-I060",
-          "use": "CWA boundaries",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "CONS-I070",
-          "use": "CWP IDs and scope boundaries",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "CONS-I050",
-          "use": "area sequence",
-          "method": "file",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T410",
-      "name": "Review fabricator spool drawings",
-      "phases": [
-        "CON"
-      ],
-      "system": "Document Locator",
-      "activity": "PIP-04",
-      "description": "Reviews fabricator spool drawings and weld maps against IFC isometrics.",
-      "produces": [
-        "PIPE-I520"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I300",
-          "use": "fabricator weld maps and NDE records",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T420",
-      "name": "Respond to piping RFIs and field changes",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Procore",
-      "activity": "CON-01",
-      "description": "Answers site RFIs and issues field change isos and model updates for piping.",
-      "produces": [
-        "PIPE-I530",
-        "PIPE-I540"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I210",
-          "use": "RFI question, location and markups",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "CONS-I220",
-          "use": "proposed field change, markups and affected drawings",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "SCM-I300",
-          "use": "material availability per IWP",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "SCM-I320",
-          "use": "material shortages per IWP",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "COMM-I240",
-          "use": "commissioning queries on piping",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T430",
-      "name": "Reconcile piping material shortages and surplus",
-      "phases": [
-        "CON"
-      ],
-      "system": "Jovix",
-      "activity": "PIP-04",
-      "description": "Reconciles MTO with received and issued materials and raises supplementary requisitions for shortages.",
-      "produces": [
-        "PIPE-I550"
-      ],
-      "consumes": [
-        {
-          "item": "SCM-I330",
-          "use": "ordered vs received vs issued by commodity",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "SCM-I270",
-          "use": "received quantities",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "SCM-I310",
-          "use": "issued quantities",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I420",
-          "use": "required quantities by ident",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I260",
-          "use": "work-face shortages and damage",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "PIPE-T440",
-      "name": "Prepare as-built isometrics and model",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "S3D",
-      "activity": "PIP-04",
-      "description": "Incorporates field redlines into isometrics and the model and issues as-built records for handover.",
-      "produces": [
-        "PIPE-I560",
-        "PIPE-I570"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I330",
-          "use": "redlined isometrics and layout drawings",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I540",
-          "use": "field change isos",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "COMM-I140",
-          "use": "test pack status",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "COMM-I150",
-          "use": "punch items affecting piping",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I280",
-          "use": "final weld numbers and NDE/PWHT records",
-          "method": "manual",
-          "level": 4
-        }
-      ]
+     "item": "PROJ-I200",
+     "use": "trends and changes to assess for discipline impact",
+     "method": "manual",
+     "level": 2
     }
-  ],
-  "items": [
+   ]
+  },
+  {
+   "id": "PIPE-T010",
+   "name": "Prepare block plot plan options",
+   "phases": [
+    "FEL1"
+   ],
+   "system": "Excel / Word",
+   "activity": "FEL-02",
+   "description": "Lays out alternative block plot arrangements for the unit, offsites and tankage on the candidate site for configuration screening.",
+   "produces": [
+    "PIPE-I010"
+   ],
+   "consumes": [
     {
-      "id": "PIPE-I010",
-      "name": "Block plot plan options",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Block-level arrangement per option: block footprints, main rack corridor, tank farm, flare location, roads, approximate areas and interconnecting run lengths.",
-      "owner_task": "PIPE-T010"
+     "item": "PROC-I040",
+     "use": "process blocks, main streams, capacities and tankage/utility blocks per option",
+     "method": "manual",
+     "level": 1
     },
     {
-      "id": "PIPE-I020",
-      "name": "FEL1 factored piping quantities",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per option: piping weight factors per equipment, interconnecting pipe length by size range, rack length, alloy fraction.",
-      "owner_task": "PIPE-T020"
+     "item": "OWNR-I040",
+     "use": "site boundary, survey benchmarks, prevailing wind and site access rules",
+     "method": "manual",
+     "level": 1
     },
     {
-      "id": "PIPE-I030",
-      "name": "Piping layout design basis",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Spacing tables, clearances and headroom, rack elevations and tier allocation rules, valve and instrument access rules, platform rules, S3D modelling and naming conventions.",
-      "owner_task": "PIPE-T030"
+     "item": "OWNR-I050",
+     "use": "existing facility layout, existing interconnecting piping and utility tie points",
+     "method": "manual",
+     "level": 1
     },
     {
-      "id": "PIPE-I040",
-      "name": "Plot plan",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Equipment locations to grid, rack corridors, roads, buildings, lay-down and maintenance areas, north arrow, battery limits, area numbering.",
-      "owner_task": "PIPE-T040"
+     "item": "OWNR-I060",
+     "use": "owner layout and spacing standards",
+     "method": "manual",
+     "level": 1
     },
     {
-      "id": "PIPE-I050",
-      "name": "Equipment location list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per equipment tag: coordinates (E/N), foundation top/grade elevation, orientation, support type (grade, structure, rack); used by civil foundations and mechanical.",
-      "owner_task": "PIPE-T040"
+     "item": "SAFE-I030",
+     "use": "preliminary worst-case hazard zones and receptor distances per site",
+     "method": "review",
+     "level": 1
     },
     {
-      "id": "PIPE-I060",
-      "name": "3D layout model",
-      "system": "S3D",
-      "form": "model",
-      "content": "Equipment envelopes, structures and rack placeholders, access and maintenance volumes, main line corridors for layout review.",
-      "owner_task": "PIPE-T050"
+     "item": "SAFE-I050",
+     "use": "recommended block spacing, sterile areas and building locations",
+     "method": "review",
+     "level": 1
     },
     {
-      "id": "PIPE-I070",
-      "name": "Pipe rack layout and widths",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Rack routes, widths, bay spacing, tier elevations, line allocation by tier, cable tray levels, future space allowance, road crossing clearances.",
-      "owner_task": "PIPE-T060"
+     "item": "CIVL-I010",
+     "use": "topography, flood elevation and access routes per candidate site",
+     "method": "manual",
+     "level": 1
     },
     {
-      "id": "PIPE-I080",
-      "name": "Pipe rack preliminary loads",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per rack bay and tier: uniform pipe load (operating, hydrotest), concentrated anchor/guide loads, friction allowance, future load allowance.",
-      "owner_task": "PIPE-T060"
-    },
-    {
-      "id": "PIPE-I090",
-      "name": "Critical line routing studies",
-      "system": "S3D",
-      "form": "model",
-      "content": "Routing of critical lines with stress loop concepts, elevations and space claims; flags equipment relocation needs.",
-      "owner_task": "PIPE-T070"
-    },
-    {
-      "id": "PIPE-I100",
-      "name": "Nozzle orientation and elevation requests",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Per equipment: nozzle orientation angles, elevations, projections, platform, ladder and davit locations, clip locations for pipe supports.",
-      "owner_task": "PIPE-T080"
-    },
-    {
-      "id": "PIPE-I110",
-      "name": "Piping material class specification",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Per class: rating, P-T limits, materials, corrosion allowance, wall thickness by size, components by size range, gaskets and bolting, branch table, valve codes.",
-      "owner_task": "PIPE-T090"
-    },
-    {
-      "id": "PIPE-I120",
-      "name": "S3D piping spec and commodity catalogue",
-      "system": "S3D",
-      "form": "data",
-      "content": "Spec rules, short codes, commodity codes (idents), dimensional tables, valve operators, branch rules used by routing and isometric extraction.",
-      "owner_task": "PIPE-T100"
-    },
-    {
-      "id": "PIPE-I130",
-      "name": "Valve datasheets",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Per valve code: type, rating, body/trim/seat materials, ends, operator, fire-safe and fugitive emission tests, NDE and inspection.",
-      "owner_task": "PIPE-T110"
-    },
-    {
-      "id": "PIPE-I140",
-      "name": "Specialty piping item list and datasheets",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per SP tag: type, size, rating, materials, P&ID and line number, process data, quantity, datasheet reference.",
-      "owner_task": "PIPE-T120"
-    },
-    {
-      "id": "PIPE-I150",
-      "name": "Piping fabrication, erection and inspection specification",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Welding and WPS requirements, NDE class by line category, PWHT rules, hydrotest and pneumatic test rules, flushing and cleaning, painting and insulation reference.",
-      "owner_task": "PIPE-T130"
-    },
-    {
-      "id": "PIPE-I160",
-      "name": "Line list piping attributes",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per line: piping class, test pressure, test medium, NDE category, PWHT, paint system, insulation type and thickness, stress category.",
-      "owner_task": "PIPE-T140"
-    },
-    {
-      "id": "PIPE-I170",
-      "name": "Estimate piping bulk MTO",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Pipe length, fittings, flanges, valves and SP items by class, size and material; field and shop weld counts; growth allowances by area.",
-      "owner_task": "PIPE-T150"
-    },
-    {
-      "id": "PIPE-I180",
-      "name": "Routed piping model",
-      "system": "S3D",
-      "form": "model",
-      "content": "Lines by number with class, size, components, valves, SP items, in-line instruments, supports placeholders and insulation; source for isos, MTO, reviews and clash checks.",
-      "owner_task": "PIPE-T160"
-    },
-    {
-      "id": "PIPE-I190",
-      "name": "P&ID to model consistency report",
-      "system": "SPF",
-      "form": "data",
-      "content": "Mismatches between P&ID and model: missing or extra lines, size, spec and component differences, tag mismatches, with resolution status.",
-      "owner_task": "PIPE-T170"
-    },
-    {
-      "id": "PIPE-I200",
-      "name": "In-line instrument positions",
-      "system": "S3D",
-      "form": "data",
-      "content": "Per instrument tag: line number, coordinates, elevation, orientation, upstream/downstream straight run, access platform, tapping orientation; used for instrument hook-ups and cable routing.",
-      "owner_task": "PIPE-T180"
-    },
-    {
-      "id": "PIPE-I210",
-      "name": "As-routed line hydraulic data",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per line: equivalent length, fittings count, elevation changes, pockets, PSV inlet/outlet routing and tailpipe geometry.",
-      "owner_task": "PIPE-T190"
-    },
-    {
-      "id": "PIPE-I220",
-      "name": "Stress-critical line list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per line: stress category (visual, simplified, CAESAR II), load cases, governing temperatures, connected sensitive equipment, analysis owner and status.",
-      "owner_task": "PIPE-T200"
-    },
-    {
-      "id": "PIPE-I230",
-      "name": "Screening stress results and layout markups",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Expansion loop and anchor concepts, routing changes, equipment location requests, spring support needs for critical lines.",
-      "owner_task": "PIPE-T210"
-    },
-    {
-      "id": "PIPE-I240",
-      "name": "Stress calculation report",
-      "system": "CAESAR II",
-      "form": "model",
-      "content": "CAESAR II models and report per stress system: load cases, code compliance, displacements, flange leakage checks, support types and locations.",
-      "owner_task": "PIPE-T220"
-    },
-    {
-      "id": "PIPE-I250",
-      "name": "Nozzle loads for equipment",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per equipment nozzle: forces and moments by load case compared to allowables; sent to mechanical and vendors for acceptance.",
-      "owner_task": "PIPE-T220"
-    },
-    {
-      "id": "PIPE-I260",
-      "name": "Support loads for civil and structural",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per support tag: location, support type, operating, sustained, hydrotest, wind and seismic loads, friction loads, for steel and foundation design.",
-      "owner_task": "PIPE-T220"
-    },
-    {
-      "id": "PIPE-I270",
-      "name": "Stress markups to the model",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Routing changes, support type changes, gaps, guides, anchors and spring locations to be applied in S3D by layout designers.",
-      "owner_task": "PIPE-T220"
-    },
-    {
-      "id": "PIPE-I280",
-      "name": "Nozzle load acceptance",
-      "system": "Document Locator",
-      "form": "decision",
-      "content": "Per nozzle: accepted, rerouted or reinforced; vendor and mechanical sign-off reference.",
-      "owner_task": "PIPE-T230"
-    },
-    {
-      "id": "PIPE-I290",
-      "name": "Spring and engineered support requisition",
-      "system": "Purchasing DB",
-      "form": "document",
-      "content": "Per support tag: hot/cold load, travel, type, size, materials, coating, quantities; technical requisition and TBE.",
-      "owner_task": "PIPE-T240"
-    },
-    {
-      "id": "PIPE-I300",
-      "name": "Pipe support model and special support drawings",
-      "system": "S3D",
-      "form": "model",
-      "content": "Supports in S3D by tag and standard type; special support details; support MTO for steel and attachments.",
-      "owner_task": "PIPE-T250"
-    },
-    {
-      "id": "PIPE-I310",
-      "name": "Secondary steel and support steel requests",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Required secondary steel, stub columns, extra beams, sleeper locations and support attachment points with loads; sent to civil/structural.",
-      "owner_task": "PIPE-T250"
-    },
-    {
-      "id": "PIPE-I320",
-      "name": "Platform, access and penetration requests",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Platform and ladder locations for valve and instrument access, sleeper and pipe-track positions, trench and culvert crossings, sleeves and wall openings with sizes.",
-      "owner_task": "PIPE-T260"
-    },
-    {
-      "id": "PIPE-I330",
-      "name": "Underground piping layout",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Underground line routes, inverts, cover depths, crossings, manholes, catch basins and tie points; coordinated with civil drainage.",
-      "owner_task": "PIPE-T270"
-    },
-    {
-      "id": "PIPE-I340",
-      "name": "Model review package",
-      "system": "iConstruct",
-      "form": "model",
-      "content": "Navisworks review model with checklists by area, review scope, attendee list, previous action status.",
-      "owner_task": "PIPE-T280"
-    },
-    {
-      "id": "PIPE-I350",
-      "name": "Model review action list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per action: area, location, description, responsible discipline, due date, close-out evidence.",
-      "owner_task": "PIPE-T280"
-    },
-    {
-      "id": "PIPE-I360",
-      "name": "Clash report",
-      "system": "S3D",
-      "form": "data",
-      "content": "Per clash: objects, disciplines, location, type (hard/soft/clearance), owner, resolution and status.",
-      "owner_task": "PIPE-T290"
-    },
-    {
-      "id": "PIPE-I370",
-      "name": "Piping safety action responses",
-      "system": "Excel / Word",
-      "form": "decision",
-      "content": "Per action: response, model/drawing changes made, evidence, close-out status.",
-      "owner_task": "PIPE-T300"
-    },
-    {
-      "id": "PIPE-I380",
-      "name": "Piping vendor data review comments",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Piping comments on vendor GAs and interface drawings: nozzle orientation, connection type, support clips, access.",
-      "owner_task": "PIPE-T310"
-    },
-    {
-      "id": "PIPE-I390",
-      "name": "Piping hold list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per hold: line or iso, reason (vendor data, P&ID, stress), owner, due date, released status.",
-      "owner_task": "PIPE-T310"
-    },
-    {
-      "id": "PIPE-I400",
-      "name": "IFC isometrics",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Per line/sheet: geometry, coordinates, BOM by ident, weld numbers, shop/field welds, supports, NDE, PWHT, test data, revision clouds.",
-      "owner_task": "PIPE-T320"
-    },
-    {
-      "id": "PIPE-I410",
-      "name": "Spool list and fabrication package",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per spool: spool ID, iso, size, class, weight, welds, NDE, PWHT, paint, bill of materials; fabrication package release.",
-      "owner_task": "PIPE-T330"
-    },
-    {
-      "id": "PIPE-I420",
-      "name": "Piping MTO by ident",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per commodity ident: description, class, size, schedule, material, quantity by area and iso, surplus, delta to previous MTO; exported to Purchasing DB.",
-      "owner_task": "PIPE-T340"
-    },
-    {
-      "id": "PIPE-I430",
-      "name": "Piping bulk material requisitions",
-      "system": "Purchasing DB",
-      "form": "document",
-      "content": "Requisitions for pipe, fittings, flanges, gaskets, bolting, valves and SP items with technical specs, quantities and delivery split.",
-      "owner_task": "PIPE-T340"
-    },
-    {
-      "id": "PIPE-I440",
-      "name": "Piping technical bid evaluation",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Per bidder and line item: compliance, deviations, clarifications, technical recommendation.",
-      "owner_task": "PIPE-T350"
-    },
-    {
-      "id": "PIPE-I450",
-      "name": "Valve and SP item vendor data review",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Return codes and comments; certified dimensions to be updated in the S3D catalogue.",
-      "owner_task": "PIPE-T360"
-    },
-    {
-      "id": "PIPE-I460",
-      "name": "Piping GA drawings and key plans",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Plans and sections by area with line numbers, elevations, equipment and structural references, match lines, area key plan.",
-      "owner_task": "PIPE-T370"
-    },
-    {
-      "id": "PIPE-I470",
-      "name": "Tie-in list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per tie-in: number, P&ID, existing and new line numbers, size, class, type (hot tap, cold cut, flanged), shutdown requirement, status.",
-      "owner_task": "PIPE-T380"
-    },
-    {
-      "id": "PIPE-I480",
-      "name": "Tie-in packages",
-      "system": "Document Locator",
-      "form": "drawing",
-      "content": "Per tie-in: sketch, isometric, survey photos, materials, isolation and method, NDE and test requirements.",
-      "owner_task": "PIPE-T380"
-    },
-    {
-      "id": "PIPE-I490",
-      "name": "Test pack boundaries",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Marked-up P&IDs and isos for each test circuit: limits, blinds, vents and drains, test pressure and medium, gauge location.",
-      "owner_task": "PIPE-T390"
-    },
-    {
-      "id": "PIPE-I500",
-      "name": "Test pack register",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Per test pack: number, system/subsystem, lines and isos included, test pressure and medium; loaded to Smart Completions for ITR tracking.",
-      "owner_task": "PIPE-T390"
-    },
-    {
-      "id": "PIPE-I510",
-      "name": "Piping construction model export",
-      "system": "iConstruct",
-      "form": "model",
-      "content": "Navisworks piping model with line, iso, spool, test pack and CWP attributes for AWP and material availability.",
-      "owner_task": "PIPE-T400"
-    },
-    {
-      "id": "PIPE-I520",
-      "name": "Spool drawing review comments",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Return codes and comments per spool drawing against IFC iso.",
-      "owner_task": "PIPE-T410"
-    },
-    {
-      "id": "PIPE-I530",
-      "name": "Piping RFI responses",
-      "system": "Procore",
-      "form": "document",
-      "content": "Per RFI: answer, sketch or markup, affected isos and lines, cost/schedule impact flag.",
-      "owner_task": "PIPE-T420"
-    },
-    {
-      "id": "PIPE-I540",
-      "name": "Field change isometrics",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Revised isometrics and model updates issued for field changes with revision clouds and material changes.",
-      "owner_task": "PIPE-T420"
-    },
-    {
-      "id": "PIPE-I550",
-      "name": "Piping material shortage and surplus list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per ident: required, received, issued, shortage, surplus, supplementary requisition reference.",
-      "owner_task": "PIPE-T430"
-    },
-    {
-      "id": "PIPE-I560",
-      "name": "As-built isometrics",
-      "system": "Document Locator",
-      "form": "drawing",
-      "content": "As-built isometrics with final routing, welds and supports, issued for handover.",
-      "owner_task": "PIPE-T440"
-    },
-    {
-      "id": "PIPE-I570",
-      "name": "As-built piping model",
-      "system": "S3D",
-      "form": "model",
-      "content": "S3D model updated to as-built for operations handover.",
-      "owner_task": "PIPE-T440"
+     "item": "CIVL-I040",
+     "use": "existing ground levels, plant grid, existing roads and underground services",
+     "method": "manual",
+     "level": 1
     }
-  ],
-  "gaps": [
+   ]
+  },
+  {
+   "id": "PIPE-T020",
+   "name": "Estimate piping quantities for FEL1 estimate",
+   "phases": [
+    "FEL1"
+   ],
+   "system": "Excel / Word",
+   "activity": "FEL-04",
+   "description": "Factors piping tonnage, bulk quantities and interconnecting run lengths per option for the Class 5 estimate.",
+   "produces": [
+    "PIPE-I020"
+   ],
+   "consumes": [
     {
-      "task": "PIPE-T090",
-      "from": "PROJ",
-      "info": "Project specification and code list (ASME B31.3 edition, referenced standards, order of precedence for piping)",
-      "method": "manual",
-      "level": 2
+     "item": "PIPE-I010",
+     "use": "block footprints, rack corridor length and interconnecting run lengths per option",
+     "method": "manual",
+     "level": 1
     },
     {
-      "task": "PIPE-T220",
-      "from": "MECH",
-      "info": "Equipment thermal growth and nozzle displacements (columns, heaters, exchangers) and nozzle flexibility data for CAESAR II",
-      "method": "manual",
-      "level": 3
+     "item": "PROC-I050",
+     "use": "equipment type, count, key size and material class per option",
+     "method": "manual",
+     "level": 1
     },
     {
-      "task": "PIPE-T340",
-      "from": "PROJ",
-      "info": "Bulk material surplus and allowance policy (percent by commodity and size)",
-      "method": "manual",
-      "level": 3
-    },
-    {
-      "task": "PIPE-T380",
-      "from": "CONS",
-      "info": "Field verification survey of existing tie-in points (dimensions, wall thickness, condition, photos)",
-      "method": "manual",
-      "level": 3
-    },
-    {
-      "task": "PIPE-T410",
-      "from": "VEND",
-      "info": "Fabricator spool shop drawings for review against IFC isometrics",
-      "method": "review",
-      "level": 3
+     "item": "PROJ-I080",
+     "use": "quantity take-off template, estimate class, code of accounts and due date",
+     "method": "manual",
+     "level": 1
     }
-  ]
+   ]
+  },
+  {
+   "id": "PIPE-T030",
+   "name": "Write piping layout design basis",
+   "phases": [
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRJ-01",
+   "description": "Sets the layout, spacing, access, maintenance, rack and model rules (elevations, clearances, valve access, naming) for the project.",
+   "produces": [
+    "PIPE-I030"
+   ],
+   "consumes": [
+    {
+     "item": "OWNR-I060",
+     "use": "owner piping and layout standards, order of precedence",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I120",
+     "use": "operating access, isolation, drains, bundle pull and lifting requirements",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I040",
+     "use": "spacing codes, fire-fighting access and design fire basis",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I050",
+     "use": "recommended equipment spacing and sterile areas",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I070",
+     "use": "design life, units, winterisation and site design margins",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I040",
+     "use": "climatic design data and seismic zone",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "CONS-I010",
+     "use": "access widths, crane corridors and module transport limits",
+     "method": "meeting",
+     "level": 1
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T040",
+   "name": "Develop plot plan and equipment layout",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "LAY-01",
+   "description": "Develops the selected plot plan with equipment locations, rack corridors, roads and maintenance areas and issues it for review and HAZOP.",
+   "produces": [
+    "PIPE-I040",
+    "PIPE-I050"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I160",
+     "use": "equipment tag, type, size and operating/design P/T",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I200",
+     "use": "equipment interconnections from IFR P&IDs",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PROC-I095",
+     "use": "minimum elevations for NPSH, thermosiphon and gravity drain, close-coupling and adjacency",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I290",
+     "use": "overall dimensions, support type and location",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I300",
+     "use": "footprint, height, bundle pull, internals removal and crane access envelopes",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I080",
+     "use": "equipment tag list with size and operating weight",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I050",
+     "use": "hazard distances, spacing changes and marked-up plot plan",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I102",
+     "use": "building acceptability, relocation and occupancy restrictions",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I130",
+     "use": "flare sterile zone radius and radiation contours at grade",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I040",
+     "use": "plant coordinate system, benchmarks, existing ground levels and grid",
+     "method": "file",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I030",
+     "use": "spacing tables, access and maintenance rules",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I080",
+     "use": "substation and electrical building footprint and clearances",
+     "method": "meeting",
+     "level": 1
+    },
+    {
+     "item": "INST-I031",
+     "use": "control and rack room footprint and cabinet space",
+     "method": "meeting",
+     "level": 1
+    },
+    {
+     "item": "CIVL-I080",
+     "use": "road widths, drainage falls, dike footprints and foundation interference markups",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T050",
+   "name": "Build 3D layout model",
+   "phases": [
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "S3D",
+   "activity": "LAY-02",
+   "description": "Builds the early S3D model with equipment envelopes, structures, rack and access space for layout reviews.",
+   "produces": [
+    "PIPE-I060"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I040",
+     "use": "equipment locations, rack corridors and roads",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I050",
+     "use": "equipment coordinates, elevations and orientation",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "MECH-I290",
+     "use": "outline dimensions, skirt/saddle heights and nozzle positions",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I170",
+     "use": "preliminary nozzle schedule sizes and ratings",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I130",
+     "use": "rack widths, bent spacing, tier elevations and structure frame sizes",
+     "method": "manual",
+     "level": 1
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T060",
+   "name": "Lay out pipe racks and assign tiers",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "LAY-02",
+   "description": "Sizes main pipe rack widths and tiers, allocates lines and cable tray space, and estimates rack loads for civil.",
+   "produces": [
+    "PIPE-I070",
+    "PIPE-I080"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I210",
+     "use": "line number, from/to, fluid, design P/T and insulation for rack lines",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I190",
+     "use": "line sizes for rack lines",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I200",
+     "use": "from/to of interconnecting lines",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "electrical tray widths and rack levels reserved",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "INST-I321",
+     "use": "instrument cable count and tray loading per segment",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "rack corridors and road crossings",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I135",
+     "use": "uniform tier load and anchor/guide load limits assumed by civil",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T070",
+   "name": "Study critical line routing",
+   "phases": [
+    "FEL3"
+   ],
+   "system": "S3D",
+   "activity": "PIP-02",
+   "description": "Routes large-bore, alloy, two-phase, transfer and pump suction lines in the model to confirm layout and early stress feasibility.",
+   "produces": [
+    "PIPE-I090"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I095",
+     "use": "slope, no-pocket, gravity, NPSH and symmetrical routing requirements",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I190",
+     "use": "critical-line flags, two-phase flow regime and line sizes",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I200",
+     "use": "IFR P&IDs for routed systems",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "MECH-I170",
+     "use": "nozzle schedule sizes, ratings and duties on columns and vessels",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I290",
+     "use": "preliminary nozzle positions on heaters, pumps and exchangers",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T080",
+   "name": "Request equipment nozzle orientations and elevations",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "LAY-01",
+   "description": "Defines required nozzle orientations, elevations, platform and davit positions from routing and returns them to mechanical and vendors.",
+   "produces": [
+    "PIPE-I100"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I290",
+     "use": "nozzle positions and support details",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "MECH-I170",
+     "use": "nozzle schedule",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "MECH-I270",
+     "use": "engineering nozzle angles, elevations, platform clips and davits to comment",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "VEND-I070",
+     "use": "package, pump, compressor and exchanger nozzle sizes and orientations",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I090",
+     "use": "critical line routing and required nozzle positions",
+     "method": "integrated",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T090",
+   "name": "Develop piping material classes",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-01",
+   "description": "Writes piping classes by service with pressure-temperature ratings, components, branch tables and wall thickness calculations.",
+   "produces": [
+    "PIPE-I110"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I040",
+     "use": "base material, corrosion allowance, sour/NACE, PWHT and impact test per circuit",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I130",
+     "use": "max design P/T and MDMT per system",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I210",
+     "use": "fluid code and design P/T per line group",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner piping material standards and approved vendors",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PROJ-I371",
+     "use": "Project specification and code list (ASME B31.3 edition, referenced standards, order of precedence for piping)",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T100",
+   "name": "Build S3D piping specification catalogue",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-01",
+   "description": "Loads piping classes, commodity codes and valve codes into the S3D catalogue for routing, isometrics and MTO.",
+   "produces": [
+    "PIPE-I120"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I110",
+     "use": "class rules, components by size, wall thickness, branch tables, valve codes",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I020",
+     "use": "valve and component outline dimensions and weights from preferred vendor offers",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T110",
+   "name": "Prepare valve specifications and datasheets",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-01",
+   "description": "Writes valve datasheets by valve code covering type, rating, materials, trim, end connection and testing.",
+   "produces": [
+    "PIPE-I130"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I110",
+     "use": "valve codes per class with rating and materials",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I240",
+     "use": "isolation and blinding philosophy, tight shut-off and special service needs",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "INST-I080",
+     "use": "actuated on/off valve type, size, rating, shut-off class and fire-proofing",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T120",
+   "name": "Prepare specialty item list and datasheets",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-01",
+   "description": "Lists and specifies special piping items (strainers, spectacle blinds, hoses, sight glasses, expansion joints, steam traps).",
+   "produces": [
+    "PIPE-I140"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I340",
+     "use": "SP item tags, sizes, line numbers and service on IFD P&IDs",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROC-I210",
+     "use": "flow, operating/design P/T and fluid per SP item line",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I110",
+     "use": "class rating and materials for SP items",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T130",
+   "name": "Prepare piping fabrication, erection and inspection specifications",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-01",
+   "description": "Specifies fabrication, welding, NDE extent, PWHT, testing, cleaning and painting requirements for shop and field piping.",
+   "produces": [
+    "PIPE-I150"
+   ],
+   "consumes": [
+    {
+     "item": "OWNR-I060",
+     "use": "owner welding, NDE, painting and insulation standards",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "MECH-I040",
+     "use": "PWHT, hardness, sour service and impact test requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CONS-I030",
+     "use": "shop versus field fabrication split and module scope",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "CONS-I010",
+     "use": "preferred spool sizes and shop vs field work preferences",
+     "method": "meeting",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T140",
+   "name": "Add piping data to the line list",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRC-08",
+   "description": "Adds piping class, test pressure and medium, NDE category, PWHT, paint and insulation systems to each line in the line list.",
+   "produces": [
+    "PIPE-I160"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I210",
+     "use": "line number, fluid, operating/design P/T, test pressure basis, insulation and tracing requirement",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I110",
+     "use": "class assignment by service and P/T",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I150",
+     "use": "NDE category, PWHT and test rules",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T150",
+   "name": "Prepare FEL3 piping MTO for the estimate",
+   "phases": [
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "S3D",
+   "activity": "CST-02",
+   "description": "Combines model-based quantities for routed areas with factored quantities for the rest into a bulk piping MTO for the estimate and early buys.",
+   "produces": [
+    "PIPE-I170"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I090",
+     "use": "model quantities in routed areas",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I060",
+     "use": "rack and corridor lengths for factored areas",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I110",
+     "use": "class components and materials for pricing",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I190",
+     "use": "line sizes",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I210",
+     "use": "line count per P&ID and fluid",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROJ-I080",
+     "use": "estimate class, basis, growth and allowance and code of accounts",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T160",
+   "name": "Route piping in the 3D model",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-02",
+   "description": "Routes all lines to the P&IDs in S3D using the piping catalogue, placing valves, SP items and in-line instruments.",
+   "produces": [
+    "PIPE-I180"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I340",
+     "use": "IFD P&IDs: line numbers, sizes, specs, valves, SP items, in-line instrument tags",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROC-I210",
+     "use": "design P/T, fluid, insulation and critical-line flags",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I170",
+     "use": "nozzle size, rating, facing and location",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I420",
+     "use": "certified nozzle locations, sizes and ratings for final routing",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified package GA and terminal point nozzle data",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "CIVL-I235",
+     "use": "steel and concrete geometry, platforms and rack steel as S3D reference",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "INST-I072",
+     "use": "control and on/off valve face-to-face, weights and actuator envelopes",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I091",
+     "use": "flow element sizes and upstream/downstream straight runs",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I151",
+     "use": "certified face-to-face and weights for model update",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "tray and conduit routes, elevations and reserved rack levels",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I120",
+     "use": "spec rules, commodity codes and dimensional tables",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I230",
+     "use": "screening stress markups (loops, supports, routing changes)",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T170",
+   "name": "Check model against P&IDs",
+   "phases": [
+    "DD"
+   ],
+   "system": "SPF",
+   "activity": "PIP-02",
+   "description": "Runs the SPID to S3D correlation through SPF and resolves differences in line numbers, sizes, specs and components.",
+   "produces": [
+    "PIPE-I190"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I340",
+     "use": "P&ID lines, valves, SP items and instruments published from SPID",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROC-I210",
+     "use": "line number, size and spec attributes for correlation",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I180",
+     "use": "modelled lines and components",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T180",
+   "name": "Position in-line instruments and instrument access",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "ICS-09",
+   "description": "Places in-line and line-mounted instruments with straight runs, orientation and access, and issues positions to I&C.",
+   "produces": [
+    "PIPE-I200"
+   ],
+   "consumes": [
+    {
+     "item": "INST-I050",
+     "use": "tag, type, line number and P&ID",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I091",
+     "use": "straight-run requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I115",
+     "use": "connection type, size, orientation and elevation",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I180",
+     "use": "routed lines for instrument placement",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T190",
+   "name": "Issue as-routed line data for hydraulic checks",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PRC-03",
+   "description": "Extracts as-routed lengths, fittings and elevations for PSV inlet/outlet, pump suction and two-phase lines to process for hydraulic verification.",
+   "produces": [
+    "PIPE-I210"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I190",
+     "use": "critical lines requiring hydraulic verification (gravity, two-phase, pump suction)",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I251",
+     "use": "PSV tags, inlet/outlet sizes and allowable back pressure for inlet loss and tailpipe checks",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I180",
+     "use": "as-routed geometry",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T200",
+   "name": "Prepare stress-critical line list",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-03",
+   "description": "Categorises lines for stress analysis by size, temperature, service and connected equipment.",
+   "produces": [
+    "PIPE-I220"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I130",
+     "use": "design and minimum design temperatures, steam-out and vacuum conditions",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I111",
+     "use": "upset and start-up cases governing temperatures",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I210",
+     "use": "operating and design temperature per line",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I160",
+     "use": "class, size and insulation per line",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I080",
+     "use": "equipment type: rotating, air coolers, heaters",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T210",
+   "name": "Perform screening stress analysis",
+   "phases": [
+    "FEL3"
+   ],
+   "system": "CAESAR II",
+   "activity": "PIP-03",
+   "description": "Runs simplified and screening analyses on critical lines to confirm loops, layout and anchor concepts.",
+   "produces": [
+    "PIPE-I230"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I090",
+     "use": "critical line geometry exported to CAESAR II",
+     "method": "file",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I220",
+     "use": "lines and load cases to screen",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I280",
+     "use": "preliminary allowable forces and moments per nozzle",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T220",
+   "name": "Perform detailed stress analysis in CAESAR II",
+   "phases": [
+    "DD"
+   ],
+   "system": "CAESAR II",
+   "activity": "PIP-05",
+   "description": "Analyses stress-critical lines exported from S3D for sustained, thermal, occasional and test cases and sets supports.",
+   "produces": [
+    "PIPE-I240",
+    "PIPE-I250",
+    "PIPE-I260",
+    "PIPE-I270"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "stress line geometry exported from S3D",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I220",
+     "use": "stress category, load cases and temperatures",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I130",
+     "use": "design and upset temperatures and pressures",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I111",
+     "use": "operating cases for load case definition",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I250",
+     "use": "relief load, set pressure and fluid for PSV reaction forces",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I190",
+     "use": "two-phase flow regime and slug flags",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I280",
+     "use": "allowable nozzle forces and moments",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I420",
+     "use": "certified nozzle locations for anchor points",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I090",
+     "use": "vendor allowable nozzle loads",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified nozzle data for rotating equipment and packages",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CIVL-I030",
+     "use": "wind speed and exposure, seismic parameters",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I020",
+     "use": "structure deflection limits and rack load allowance assumptions",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I600",
+     "use": "Equipment thermal growth and nozzle displacements (columns, heaters, exchangers) and nozzle flexibility data for CAESAR II",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I480",
+     "use": "pulsation study results (orifices, dampeners, support spacing) for stress",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T230",
+   "name": "Resolve nozzle loads with mechanical and vendors",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-05",
+   "description": "Agrees exceeded nozzle loads with mechanical and vendors by re-routing, re-supporting or vendor acceptance.",
+   "produces": [
+    "PIPE-I280"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I250",
+     "use": "calculated nozzle loads vs allowables",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I470",
+     "use": "acceptance or required piping changes per nozzle",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I050",
+     "use": "vendor responses accepting or rejecting exceeded nozzle loads",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T240",
+   "name": "Specify and requisition spring and engineered supports",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Prepares the spring hanger and engineered support datasheet and requisition and reviews vendor data.",
+   "produces": [
+    "PIPE-I290"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I240",
+     "use": "spring loads, travel and support type",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I070",
+     "use": "spring and engineered support drawings and load tables",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I030",
+     "use": "approved bidders for spring supports",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SCM-I050",
+     "use": "MR number and need date",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T250",
+   "name": "Design pipe supports",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-05",
+   "description": "Places standard and special supports in S3D and details special supports, trunnions and secondary steel requirements.",
+   "produces": [
+    "PIPE-I300",
+    "PIPE-I310"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I270",
+     "use": "support type changes, guides, anchors and spring locations",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I260",
+     "use": "support loads for support selection",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I180",
+     "use": "routed lines",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I235",
+     "use": "available steel members and platforms",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner standard pipe support catalogue and standards",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T260",
+   "name": "Request civil and structural openings, platforms and foundations",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "LAY-02",
+   "description": "Issues piping requirements for platforms, access, sleepers, trenches, culverts, wall and floor penetrations to civil.",
+   "produces": [
+    "PIPE-I320"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "routing, valve and instrument access points",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I235",
+     "use": "structure layout",
+     "method": "file",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I190",
+     "use": "foundation locations and top of concrete",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T270",
+   "name": "Design underground piping",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-02",
+   "description": "Lays out underground firewater, oily water and process drains and buried lines and coordinates with civil drainage and foundations.",
+   "produces": [
+    "PIPE-I330"
+   ],
+   "consumes": [
+    {
+     "item": "SAFE-I192",
+     "use": "ring main sizing basis, hydrant and monitor locations, isolation valve sectioning",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I100",
+     "use": "finished grade elevations",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I110",
+     "use": "sewer routes, inverts, catch basins and manholes",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I190",
+     "use": "foundation outlines and depths",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I140",
+     "use": "road crossings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I150",
+     "use": "underground composite: crossings and depths",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I340",
+     "use": "drain system P&IDs",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROC-I280",
+     "use": "effluent and drain flows and composition",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I334",
+     "use": "duct bank routes, depths and crossings",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I272",
+     "use": "ground grid routing",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I155",
+     "use": "conflicts between underground piping and other services",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T280",
+   "name": "Run 30/60/90 model reviews",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "iConstruct",
+   "activity": "LAY-03",
+   "description": "Prepares model review packages and runs reviews with operations, safety, construction and all disciplines, tracking actions to close.",
+   "produces": [
+    "PIPE-I340",
+    "PIPE-I350"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "routed piping",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I300",
+     "use": "supports",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I236",
+     "use": "Tekla structural model published to Navisworks",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I140",
+     "use": "owner access, valve reach and maintenance comments",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I250",
+     "use": "spacing, escape, fire-fighting access and valve operability comments",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I230",
+     "use": "safety shower, escape route and muster locations",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "CONS-I100",
+     "use": "access, rigging, scaffolding and spool break comments",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "electrical tray and equipment in model",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I290",
+     "use": "instrument and JB locations",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I291",
+     "use": "JB coordinates and sizes",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I292",
+     "use": "instrument access and valve orientation comments",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "PROC-I330",
+     "use": "slope, pocket, NPSH, two-phase and PSV location comments",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "MECH-I540",
+     "use": "equipment access, removal clearance and nozzle discrepancy comments",
+     "method": "meeting",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T290",
+   "name": "Detect and resolve clashes",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "LAY-03",
+   "description": "Runs interference checks across piping, structural, electrical and instrument models and resolves hard and soft clashes.",
+   "produces": [
+    "PIPE-I360"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "routed piping for interference checks",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I235",
+     "use": "structural reference geometry",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "tray and conduit routes",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I290",
+     "use": "instrument locations and tray routing",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I291",
+     "use": "JB positions and sizes",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I330",
+     "use": "civil resolution and model change status per clash",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T300",
+   "name": "Respond to HAZOP and safety layout actions",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "SAF-03",
+   "description": "Implements and closes HAZOP, siting and fire and gas actions that need layout or piping changes.",
+   "produces": [
+    "PIPE-I370"
+   ],
+   "consumes": [
+    {
+     "item": "SAFE-I152",
+     "use": "HAZOP recommendations assigned to piping",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I090",
+     "use": "preliminary HAZOP layout and isolation actions",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I022",
+     "use": "HAZID layout actions",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I122",
+     "use": "QRA spacing and isolation recommendations",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PROC-I301",
+     "use": "clouded HAZOP P&ID changes",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROC-I340",
+     "use": "updated IFD P&IDs",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T310",
+   "name": "Incorporate vendor data and manage piping holds",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "VEN-01",
+   "description": "Updates the model with certified vendor nozzle and package data and maintains the piping hold list.",
+   "produces": [
+    "PIPE-I380",
+    "PIPE-I390"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I140",
+     "use": "certified GA nozzle locations, sizes, ratings and terminal points",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "MECH-I420",
+     "use": "certified equipment nozzle data for model update",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "MECH-I410",
+     "use": "consolidated vendor document review codes",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "MECH-I460",
+     "use": "hold status per requisition and vendor document",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PROC-I320",
+     "use": "P&ID hold answers and release dates",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T320",
+   "name": "Extract and check isometrics",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-04",
+   "description": "Extracts isometrics from S3D, checks them and issues IFC isometrics with bill of materials and weld data.",
+   "produces": [
+    "PIPE-I400"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "routed lines",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I300",
+     "use": "supports",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I240",
+     "use": "stress sign-off per stress system",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I390",
+     "use": "released holds",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I160",
+     "use": "test pressure, NDE, PWHT, paint and insulation per line",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I040",
+     "use": "document numbering, revision and issue-purpose conventions",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I070",
+     "use": "reserved isometric document numbers",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T330",
+   "name": "Prepare spool lists and fabrication packages",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-04",
+   "description": "Splits isometrics into shop spools and field welds and issues spool lists and fabrication packages to the fabricator.",
+   "produces": [
+    "PIPE-I410"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I400",
+     "use": "IFC isometrics with welds and BOM",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "CONS-I030",
+     "use": "module boundaries and maximum dimensions",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "CONS-I010",
+     "use": "preferred spool sizes and field weld preferences",
+     "method": "meeting",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T340",
+   "name": "Produce MTO by ident and bulk requisitions",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "PIP-04",
+   "description": "Exports MTO by commodity ident from S3D, applies surplus and reconciles against prior buys, and issues bulk requisitions.",
+   "produces": [
+    "PIPE-I420",
+    "PIPE-I430"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "model quantities",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I400",
+     "use": "isometric BOM by ident",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I130",
+     "use": "valve datasheets",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I140",
+     "use": "SP item list",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SCM-I140",
+     "use": "previous PO line quantities by commodity code",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "SCM-I060",
+     "use": "previous bulk MR lines with surplus",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CONS-I090",
+     "use": "ROS dates by CWP for delivery split",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I373",
+     "use": "Bulk material surplus and allowance policy (percent by commodity and size)",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T350",
+   "name": "Evaluate piping bids",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Evaluates technical offers for bulk piping, valves and specialty items against requisitions.",
+   "produces": [
+    "PIPE-I440"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I090",
+     "use": "technical portions of bids",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "VEND-I050",
+     "use": "technical clarification answers",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I430",
+     "use": "requisition technical requirements",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T360",
+   "name": "Review valve and specialty item vendor data",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Reviews vendor drawings, test certificates and data books for valves and specialty items.",
+   "produces": [
+    "PIPE-I450"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I070",
+     "use": "valve and SP item drawings and dimensions",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I170",
+     "use": "MTRs per component",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I180",
+     "use": "hydrotest, NDE and fire-safe test certificates",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I180",
+     "use": "vendor documents routed for review with return date",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T370",
+   "name": "Produce piping GA and key plan drawings",
+   "phases": [
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "LAY-02",
+   "description": "Extracts piping general arrangement drawings, sections and key plans from S3D for construction and review.",
+   "produces": [
+    "PIPE-I460"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "routed piping",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I040",
+     "use": "plant grid references",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I235",
+     "use": "structural references",
+     "method": "file",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T380",
+   "name": "Identify tie-ins and issue tie-in packages",
+   "phases": [
+    "FEL3",
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-02",
+   "description": "Surveys existing connections, lists tie-ins with type and timing, and issues tie-in sketches and packages.",
+   "produces": [
+    "PIPE-I470",
+    "PIPE-I480"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I335",
+     "use": "fluid, operating/design P/T, hot-tap feasibility and isolation/purging per tie-in; hot tap and isolation requirements (taken from process tie-in conditions)",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I340",
+     "use": "tie-in points on P&IDs",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I050",
+     "use": "existing facility as-built drawings and line data",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I160",
+     "use": "outage windows and tie-ins allowed per window",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CONS-I361",
+     "use": "Field verification survey of existing tie-in points (dimensions, wall thickness, condition, photos)",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T390",
+   "name": "Define hydrotest and test pack boundaries",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Defines test circuits by test pressure and medium aligned to systems and issues test pack boundaries.",
+   "produces": [
+    "PIPE-I490",
+    "PIPE-I500"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I400",
+     "use": "isometrics for circuit definition",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I160",
+     "use": "test pressure and medium per line",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "COMM-I030",
+     "use": "system and subsystem limits and isolation points",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "COMM-I040",
+     "use": "subsystem numbers and descriptions",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "MECH-I130",
+     "use": "equipment hydrotest pressure and MAWP",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I170",
+     "use": "equipment design P/T to include or isolate",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I050",
+     "use": "in-line instrument types to remove or isolate",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T400",
+   "name": "Issue model to AWP and construction model",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "iConstruct",
+   "activity": "CON-02",
+   "description": "Publishes the piping model through Navisworks to iConstruct with iso, spool and CWP attributes for work packaging.",
+   "produces": [
+    "PIPE-I510"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "piping model",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I400",
+     "use": "iso attributes",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I410",
+     "use": "spool attributes",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "CONS-I060",
+     "use": "CWA boundaries",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CONS-I070",
+     "use": "CWP IDs and scope boundaries",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CONS-I050",
+     "use": "area sequence",
+     "method": "file",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T410",
+   "name": "Review fabricator spool drawings",
+   "phases": [
+    "CON"
+   ],
+   "system": "Document Locator",
+   "activity": "PIP-04",
+   "description": "Reviews fabricator spool drawings and weld maps against IFC isometrics.",
+   "produces": [
+    "PIPE-I520"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I300",
+     "use": "fabricator weld maps and NDE records",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I320",
+     "use": "Fabricator spool shop drawings for review against IFC isometrics",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T420",
+   "name": "Respond to piping RFIs and field changes",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Procore",
+   "activity": "CON-01",
+   "description": "Answers site RFIs and issues field change isos and model updates for piping.",
+   "produces": [
+    "PIPE-I530",
+    "PIPE-I540"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I210",
+     "use": "RFI question, location and markups",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "CONS-I220",
+     "use": "proposed field change, markups and affected drawings",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "SCM-I300",
+     "use": "material availability per IWP",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "SCM-I320",
+     "use": "material shortages per IWP",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "COMM-I240",
+     "use": "commissioning queries on piping",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T430",
+   "name": "Reconcile piping material shortages and surplus",
+   "phases": [
+    "CON"
+   ],
+   "system": "Jovix",
+   "activity": "PIP-04",
+   "description": "Reconciles MTO with received and issued materials and raises supplementary requisitions for shortages.",
+   "produces": [
+    "PIPE-I550"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I330",
+     "use": "ordered vs received vs issued by commodity",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "SCM-I270",
+     "use": "received quantities",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "SCM-I310",
+     "use": "issued quantities",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I420",
+     "use": "required quantities by ident",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I260",
+     "use": "work-face shortages and damage",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "PIPE-T440",
+   "name": "Prepare as-built isometrics and model",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "S3D",
+   "activity": "PIP-04",
+   "description": "Incorporates field redlines into isometrics and the model and issues as-built records for handover.",
+   "produces": [
+    "PIPE-I560",
+    "PIPE-I570"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I330",
+     "use": "redlined isometrics and layout drawings",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I540",
+     "use": "field change isos",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "COMM-I140",
+     "use": "test pack status",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "COMM-I150",
+     "use": "punch items affecting piping",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I280",
+     "use": "final weld numbers and NDE/PWHT records",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "PIPE-I010",
+   "name": "Block plot plan options",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Block-level arrangement per option: block footprints, main rack corridor, tank farm, flare location, roads, approximate areas and interconnecting run lengths.",
+   "owner_task": "PIPE-T010"
+  },
+  {
+   "id": "PIPE-I020",
+   "name": "FEL1 factored piping quantities",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per option: piping weight factors per equipment, interconnecting pipe length by size range, rack length, alloy fraction.",
+   "owner_task": "PIPE-T020"
+  },
+  {
+   "id": "PIPE-I030",
+   "name": "Piping layout design basis",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Spacing tables, clearances and headroom, rack elevations and tier allocation rules, valve and instrument access rules, platform rules, S3D modelling and naming conventions.",
+   "owner_task": "PIPE-T030"
+  },
+  {
+   "id": "PIPE-I040",
+   "name": "Plot plan",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Equipment locations to grid, rack corridors, roads, buildings, lay-down and maintenance areas, north arrow, battery limits, area numbering.",
+   "owner_task": "PIPE-T040"
+  },
+  {
+   "id": "PIPE-I050",
+   "name": "Equipment location list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per equipment tag: coordinates (E/N), foundation top/grade elevation, orientation, support type (grade, structure, rack); used by civil foundations and mechanical.",
+   "owner_task": "PIPE-T040"
+  },
+  {
+   "id": "PIPE-I060",
+   "name": "3D layout model",
+   "system": "S3D",
+   "form": "model",
+   "content": "Equipment envelopes, structures and rack placeholders, access and maintenance volumes, main line corridors for layout review.",
+   "owner_task": "PIPE-T050"
+  },
+  {
+   "id": "PIPE-I070",
+   "name": "Pipe rack layout and widths",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Rack routes, widths, bay spacing, tier elevations, line allocation by tier, cable tray levels, future space allowance, road crossing clearances.",
+   "owner_task": "PIPE-T060"
+  },
+  {
+   "id": "PIPE-I080",
+   "name": "Pipe rack preliminary loads",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per rack bay and tier: uniform pipe load (operating, hydrotest), concentrated anchor/guide loads, friction allowance, future load allowance.",
+   "owner_task": "PIPE-T060"
+  },
+  {
+   "id": "PIPE-I090",
+   "name": "Critical line routing studies",
+   "system": "S3D",
+   "form": "model",
+   "content": "Routing of critical lines with stress loop concepts, elevations and space claims; flags equipment relocation needs.",
+   "owner_task": "PIPE-T070"
+  },
+  {
+   "id": "PIPE-I100",
+   "name": "Nozzle orientation and elevation requests",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Per equipment: nozzle orientation angles, elevations, projections, platform, ladder and davit locations, clip locations for pipe supports.",
+   "owner_task": "PIPE-T080"
+  },
+  {
+   "id": "PIPE-I110",
+   "name": "Piping material class specification",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Per class: rating, P-T limits, materials, corrosion allowance, wall thickness by size, components by size range, gaskets and bolting, branch table, valve codes.",
+   "owner_task": "PIPE-T090"
+  },
+  {
+   "id": "PIPE-I120",
+   "name": "S3D piping spec and commodity catalogue",
+   "system": "S3D",
+   "form": "data",
+   "content": "Spec rules, short codes, commodity codes (idents), dimensional tables, valve operators, branch rules used by routing and isometric extraction.",
+   "owner_task": "PIPE-T100"
+  },
+  {
+   "id": "PIPE-I130",
+   "name": "Valve datasheets",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Per valve code: type, rating, body/trim/seat materials, ends, operator, fire-safe and fugitive emission tests, NDE and inspection.",
+   "owner_task": "PIPE-T110"
+  },
+  {
+   "id": "PIPE-I140",
+   "name": "Specialty piping item list and datasheets",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per SP tag: type, size, rating, materials, P&ID and line number, process data, quantity, datasheet reference.",
+   "owner_task": "PIPE-T120"
+  },
+  {
+   "id": "PIPE-I150",
+   "name": "Piping fabrication, erection and inspection specification",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Welding and WPS requirements, NDE class by line category, PWHT rules, hydrotest and pneumatic test rules, flushing and cleaning, painting and insulation reference.",
+   "owner_task": "PIPE-T130"
+  },
+  {
+   "id": "PIPE-I160",
+   "name": "Line list piping attributes",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per line: piping class, test pressure, test medium, NDE category, PWHT, paint system, insulation type and thickness, stress category.",
+   "owner_task": "PIPE-T140"
+  },
+  {
+   "id": "PIPE-I170",
+   "name": "Estimate piping bulk MTO",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Pipe length, fittings, flanges, valves and SP items by class, size and material; field and shop weld counts; growth allowances by area.",
+   "owner_task": "PIPE-T150"
+  },
+  {
+   "id": "PIPE-I180",
+   "name": "Routed piping model",
+   "system": "S3D",
+   "form": "model",
+   "content": "Lines by number with class, size, components, valves, SP items, in-line instruments, supports placeholders and insulation; source for isos, MTO, reviews and clash checks.",
+   "owner_task": "PIPE-T160"
+  },
+  {
+   "id": "PIPE-I190",
+   "name": "P&ID to model consistency report",
+   "system": "SPF",
+   "form": "data",
+   "content": "Mismatches between P&ID and model: missing or extra lines, size, spec and component differences, tag mismatches, with resolution status.",
+   "owner_task": "PIPE-T170"
+  },
+  {
+   "id": "PIPE-I200",
+   "name": "In-line instrument positions",
+   "system": "S3D",
+   "form": "data",
+   "content": "Per instrument tag: line number, coordinates, elevation, orientation, upstream/downstream straight run, access platform, tapping orientation; used for instrument hook-ups and cable routing.",
+   "owner_task": "PIPE-T180"
+  },
+  {
+   "id": "PIPE-I210",
+   "name": "As-routed line hydraulic data",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per line: equivalent length, fittings count, elevation changes, pockets, PSV inlet/outlet routing and tailpipe geometry.",
+   "owner_task": "PIPE-T190"
+  },
+  {
+   "id": "PIPE-I220",
+   "name": "Stress-critical line list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per line: stress category (visual, simplified, CAESAR II), load cases, governing temperatures, connected sensitive equipment, analysis owner and status.",
+   "owner_task": "PIPE-T200"
+  },
+  {
+   "id": "PIPE-I230",
+   "name": "Screening stress results and layout markups",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Expansion loop and anchor concepts, routing changes, equipment location requests, spring support needs for critical lines.",
+   "owner_task": "PIPE-T210"
+  },
+  {
+   "id": "PIPE-I240",
+   "name": "Stress calculation report",
+   "system": "CAESAR II",
+   "form": "model",
+   "content": "CAESAR II models and report per stress system: load cases, code compliance, displacements, flange leakage checks, support types and locations.",
+   "owner_task": "PIPE-T220"
+  },
+  {
+   "id": "PIPE-I250",
+   "name": "Nozzle loads for equipment",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per equipment nozzle: forces and moments by load case compared to allowables; sent to mechanical and vendors for acceptance.",
+   "owner_task": "PIPE-T220"
+  },
+  {
+   "id": "PIPE-I260",
+   "name": "Support loads for civil and structural",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per support tag: location, support type, operating, sustained, hydrotest, wind and seismic loads, friction loads, for steel and foundation design.",
+   "owner_task": "PIPE-T220"
+  },
+  {
+   "id": "PIPE-I270",
+   "name": "Stress markups to the model",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Routing changes, support type changes, gaps, guides, anchors and spring locations to be applied in S3D by layout designers.",
+   "owner_task": "PIPE-T220"
+  },
+  {
+   "id": "PIPE-I280",
+   "name": "Nozzle load acceptance",
+   "system": "Document Locator",
+   "form": "decision",
+   "content": "Per nozzle: accepted, rerouted or reinforced; vendor and mechanical sign-off reference.",
+   "owner_task": "PIPE-T230"
+  },
+  {
+   "id": "PIPE-I290",
+   "name": "Spring and engineered support requisition",
+   "system": "Purchasing DB",
+   "form": "document",
+   "content": "Per support tag: hot/cold load, travel, type, size, materials, coating, quantities; technical requisition and TBE.",
+   "owner_task": "PIPE-T240"
+  },
+  {
+   "id": "PIPE-I300",
+   "name": "Pipe support model and special support drawings",
+   "system": "S3D",
+   "form": "model",
+   "content": "Supports in S3D by tag and standard type; special support details; support MTO for steel and attachments.",
+   "owner_task": "PIPE-T250"
+  },
+  {
+   "id": "PIPE-I310",
+   "name": "Secondary steel and support steel requests",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Required secondary steel, stub columns, extra beams, sleeper locations and support attachment points with loads; sent to civil/structural.",
+   "owner_task": "PIPE-T250"
+  },
+  {
+   "id": "PIPE-I320",
+   "name": "Platform, access and penetration requests",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Platform and ladder locations for valve and instrument access, sleeper and pipe-track positions, trench and culvert crossings, sleeves and wall openings with sizes.",
+   "owner_task": "PIPE-T260"
+  },
+  {
+   "id": "PIPE-I330",
+   "name": "Underground piping layout",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Underground line routes, inverts, cover depths, crossings, manholes, catch basins and tie points; coordinated with civil drainage.",
+   "owner_task": "PIPE-T270"
+  },
+  {
+   "id": "PIPE-I340",
+   "name": "Model review package",
+   "system": "iConstruct",
+   "form": "model",
+   "content": "Navisworks review model with checklists by area, review scope, attendee list, previous action status.",
+   "owner_task": "PIPE-T280"
+  },
+  {
+   "id": "PIPE-I350",
+   "name": "Model review action list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per action: area, location, description, responsible discipline, due date, close-out evidence.",
+   "owner_task": "PIPE-T280"
+  },
+  {
+   "id": "PIPE-I360",
+   "name": "Clash report",
+   "system": "S3D",
+   "form": "data",
+   "content": "Per clash: objects, disciplines, location, type (hard/soft/clearance), owner, resolution and status.",
+   "owner_task": "PIPE-T290"
+  },
+  {
+   "id": "PIPE-I370",
+   "name": "Piping safety action responses",
+   "system": "Excel / Word",
+   "form": "decision",
+   "content": "Per action: response, model/drawing changes made, evidence, close-out status.",
+   "owner_task": "PIPE-T300"
+  },
+  {
+   "id": "PIPE-I380",
+   "name": "Piping vendor data review comments",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Piping comments on vendor GAs and interface drawings: nozzle orientation, connection type, support clips, access.",
+   "owner_task": "PIPE-T310"
+  },
+  {
+   "id": "PIPE-I390",
+   "name": "Piping hold list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per hold: line or iso, reason (vendor data, P&ID, stress), owner, due date, released status.",
+   "owner_task": "PIPE-T310"
+  },
+  {
+   "id": "PIPE-I400",
+   "name": "IFC isometrics",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Per line/sheet: geometry, coordinates, BOM by ident, weld numbers, shop/field welds, supports, NDE, PWHT, test data, revision clouds.",
+   "owner_task": "PIPE-T320"
+  },
+  {
+   "id": "PIPE-I410",
+   "name": "Spool list and fabrication package",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per spool: spool ID, iso, size, class, weight, welds, NDE, PWHT, paint, bill of materials; fabrication package release.",
+   "owner_task": "PIPE-T330"
+  },
+  {
+   "id": "PIPE-I420",
+   "name": "Piping MTO by ident",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per commodity ident: description, class, size, schedule, material, quantity by area and iso, surplus, delta to previous MTO; exported to Purchasing DB.",
+   "owner_task": "PIPE-T340"
+  },
+  {
+   "id": "PIPE-I430",
+   "name": "Piping bulk material requisitions",
+   "system": "Purchasing DB",
+   "form": "document",
+   "content": "Requisitions for pipe, fittings, flanges, gaskets, bolting, valves and SP items with technical specs, quantities and delivery split.",
+   "owner_task": "PIPE-T340"
+  },
+  {
+   "id": "PIPE-I440",
+   "name": "Piping technical bid evaluation",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Per bidder and line item: compliance, deviations, clarifications, technical recommendation.",
+   "owner_task": "PIPE-T350"
+  },
+  {
+   "id": "PIPE-I450",
+   "name": "Valve and SP item vendor data review",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Return codes and comments; certified dimensions to be updated in the S3D catalogue.",
+   "owner_task": "PIPE-T360"
+  },
+  {
+   "id": "PIPE-I460",
+   "name": "Piping GA drawings and key plans",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Plans and sections by area with line numbers, elevations, equipment and structural references, match lines, area key plan.",
+   "owner_task": "PIPE-T370"
+  },
+  {
+   "id": "PIPE-I470",
+   "name": "Tie-in list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per tie-in: number, P&ID, existing and new line numbers, size, class, type (hot tap, cold cut, flanged), shutdown requirement, status.",
+   "owner_task": "PIPE-T380"
+  },
+  {
+   "id": "PIPE-I480",
+   "name": "Tie-in packages",
+   "system": "Document Locator",
+   "form": "drawing",
+   "content": "Per tie-in: sketch, isometric, survey photos, materials, isolation and method, NDE and test requirements.",
+   "owner_task": "PIPE-T380"
+  },
+  {
+   "id": "PIPE-I490",
+   "name": "Test pack boundaries",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Marked-up P&IDs and isos for each test circuit: limits, blinds, vents and drains, test pressure and medium, gauge location.",
+   "owner_task": "PIPE-T390"
+  },
+  {
+   "id": "PIPE-I500",
+   "name": "Test pack register",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Per test pack: number, system/subsystem, lines and isos included, test pressure and medium; loaded to Smart Completions for ITR tracking.",
+   "owner_task": "PIPE-T390"
+  },
+  {
+   "id": "PIPE-I510",
+   "name": "Piping construction model export",
+   "system": "iConstruct",
+   "form": "model",
+   "content": "Navisworks piping model with line, iso, spool, test pack and CWP attributes for AWP and material availability.",
+   "owner_task": "PIPE-T400"
+  },
+  {
+   "id": "PIPE-I520",
+   "name": "Spool drawing review comments",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Return codes and comments per spool drawing against IFC iso.",
+   "owner_task": "PIPE-T410"
+  },
+  {
+   "id": "PIPE-I530",
+   "name": "Piping RFI responses",
+   "system": "Procore",
+   "form": "document",
+   "content": "Per RFI: answer, sketch or markup, affected isos and lines, cost/schedule impact flag.",
+   "owner_task": "PIPE-T420"
+  },
+  {
+   "id": "PIPE-I540",
+   "name": "Field change isometrics",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Revised isometrics and model updates issued for field changes with revision clouds and material changes.",
+   "owner_task": "PIPE-T420"
+  },
+  {
+   "id": "PIPE-I550",
+   "name": "Piping material shortage and surplus list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per ident: required, received, issued, shortage, surplus, supplementary requisition reference.",
+   "owner_task": "PIPE-T430"
+  },
+  {
+   "id": "PIPE-I560",
+   "name": "As-built isometrics",
+   "system": "Document Locator",
+   "form": "drawing",
+   "content": "As-built isometrics with final routing, welds and supports, issued for handover.",
+   "owner_task": "PIPE-T440"
+  },
+  {
+   "id": "PIPE-I570",
+   "name": "As-built piping model",
+   "system": "S3D",
+   "form": "model",
+   "content": "S3D model updated to as-built for operations handover.",
+   "owner_task": "PIPE-T440"
+  },
+  {
+   "id": "PIPE-I901",
+   "name": "Piping deliverables list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Drawing types and isometric counts by area with planned dates.",
+   "owner_task": "PIPE-T005"
+  },
+  {
+   "id": "PIPE-I902",
+   "name": "Piping progress measurement",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Model completion and isometrics issued against plan by area.",
+   "owner_task": "PIPE-T005"
+  },
+  {
+   "id": "PIPE-I904",
+   "name": "Piping change impact",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Isometric and model rework estimate (hours, quantities) per trend or change.",
+   "owner_task": "PIPE-T005"
+  }
+ ],
+ "gaps": []
 }

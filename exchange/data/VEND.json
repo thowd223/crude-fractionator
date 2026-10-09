@@ -1,870 +1,1177 @@
 {
-  "discipline": "VEND",
-  "tasks": [
+ "discipline": "VEND",
+ "tasks": [
+  {
+   "id": "VEND-T010",
+   "name": "Prepare budget quotations",
+   "phases": [
+    "FEL1",
+    "FEL2"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Quote budget price, delivery and outline scope for major equipment against preliminary data.",
+   "produces": [
+    "VEND-I010"
+   ],
+   "consumes": [
     {
-      "id": "VEND-T010",
-      "name": "Prepare budget quotations",
-      "phases": [
-        "FEL1",
-        "FEL2"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Quote budget price, delivery and outline scope for major equipment against preliminary data.",
-      "produces": [
-        "VEND-I010"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "Preliminary datasheets: duty, size, design P/T, materials",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "from": "SCM",
-          "info": "Budget enquiry with scope and due date",
-          "method": "manual",
-          "level": 1
-        }
-      ]
-    },
-    {
-      "id": "VEND-T020",
-      "name": "Prepare firm technical and commercial quotations",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Design to the RFQ and submit the technical offer, deviations and priced commercial offer.",
-      "produces": [
-        "VEND-I020",
-        "VEND-I030",
-        "VEND-I040"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "RFQ package: MR, specifications, datasheets, commercial terms, VDRL",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROC",
-          "info": "Process datasheets: duties, operating and design conditions, fluid properties",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "MECH",
-          "info": "Mechanical datasheets and project specifications",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "INST",
-          "info": "Instrument and control requirements for packages",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "ELEC",
-          "info": "Electrical supply data, motor and hazardous area requirements",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T030",
-      "name": "Answer bid clarifications",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Respond to technical and commercial clarification questions during evaluation.",
-      "produces": [
-        "VEND-I050"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "Technical clarification questions from the TBE",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "SCM",
-          "info": "Commercial clarification questions and bid bulletins",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T040",
-      "name": "Issue the vendor document schedule",
-      "phases": [
-        "DD"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "After PO, list each vendor document with project number, type and planned submission date.",
-      "produces": [
-        "VEND-I060"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Purchase order with VDRL and document numbering instructions",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "PROJ",
-          "info": "Assigned project document numbers",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T050",
-      "name": "Prepare GA and outline drawings for review",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "MEC-03",
-      "description": "Produce GA drawings with nozzles, orientations, weights, loads and anchor bolts for review.",
-      "produces": [
-        "VEND-I070",
-        "VEND-I080"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "Approved datasheets and nozzle schedule",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "PIPE",
-          "info": "Nozzle orientation and allowable load requirements",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "SCM",
-          "info": "Review comments returned on previous revisions",
-          "method": "integrated",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "VEND-T060",
-      "name": "Prepare vendor design calculations",
-      "phases": [
-        "DD"
-      ],
-      "system": "Mechanical calc tool",
-      "activity": "MEC-01",
-      "description": "Mechanical design calculations (thickness, nozzles, wind/seismic, rotordynamics) to code.",
-      "produces": [
-        "VEND-I090"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "Design conditions, code, materials, corrosion allowance, nozzle loads",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "CIVL",
-          "info": "Wind and seismic design data for the site",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T070",
-      "name": "Prepare package P&IDs, I/O and control narrative",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Produce package P&IDs, instrument list, I/O list and control narrative for interface with the plant DCS/SIS.",
-      "produces": [
-        "VEND-I100",
-        "VEND-I110",
-        "VEND-I130"
-      ],
-      "needs": [
-        {
-          "from": "PROC",
-          "info": "Process P&IDs and control philosophy at the package battery limits",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "INST",
-          "info": "Instrument specifications, tagging rules, DCS/SIS interface and communication protocol",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "SAFE",
-          "info": "SIF requirements and SIL targets affecting the package",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T080",
-      "name": "Prepare package electrical data",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Provide motor datasheets, electrical loads, local control panel data and heat tracing needs.",
-      "produces": [
-        "VEND-I120"
-      ],
-      "needs": [
-        {
-          "from": "ELEC",
-          "info": "Supply voltage, frequency, fault level, hazardous area classification, motor specification",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T090",
-      "name": "Incorporate comments and issue certified final data",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "Resolve review comments and issue certified drawings and data as final.",
-      "produces": [
-        "VEND-I140"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Consolidated review comments and review codes returned by transmittal",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "from": "MECH",
-          "info": "Approved review status on GA and calculations",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T100",
-      "name": "Prepare the ITP and manufacturing schedule",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Issue the inspection and test plan and manufacturing schedule with milestones.",
-      "produces": [
-        "VEND-I150",
-        "VEND-I160"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "PO inspection requirements and delivery dates",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "MECH",
-          "info": "Required tests and inspection level",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T110",
-      "name": "Procure raw materials and issue MTRs",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Buy plates, forgings, pipe and components and collect material test reports with heat numbers.",
-      "produces": [
-        "VEND-I170"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Approved design and bill of materials (VEND-T060, VEND-T090)",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T120",
-      "name": "Fabricate and test the equipment",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Fabricate, weld, NDE, pressure test and run performance or FAT tests, issuing inspection notices and certificates.",
-      "produces": [
-        "VEND-I180",
-        "VEND-I190",
-        "VEND-I300"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Certified drawings and MTRs (VEND-T090, VEND-T110)",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "SCM",
-          "info": "Agreed ITP with hold/witness points and inspector contact",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T130",
-      "name": "Fabricate pipe spools",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "PIP-04",
-      "description": "Fabricate spools from IFC isometrics, weld and test, and report spool status with heat traceability.",
-      "produces": [
-        "VEND-I200"
-      ],
-      "needs": [
-        {
-          "from": "PIPE",
-          "info": "IFC isometrics with spool breaks, weld numbers, piping class and NDE requirements",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "from": "SCM",
-          "info": "Free-issue or purchased bulk material receipts at the fabrication shop",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "CONS",
-          "info": "Spool delivery priority by CWP",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T140",
-      "name": "Detail and fabricate structural steel",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Tekla",
-      "activity": "CIV-02",
-      "description": "Produce shop drawings from the Tekla model, fabricate, coat and mark steel members.",
-      "produces": [
-        "VEND-I210"
-      ],
-      "needs": [
-        {
-          "from": "CIVL",
-          "info": "IFC structural steel drawings and Tekla model with connection design",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "from": "CONS",
-          "info": "Erection sequence and delivery priority",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T150",
-      "name": "Report manufacturing progress",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Issue periodic progress reports against milestones with forecast dates.",
-      "produces": [
-        "VEND-I310"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Expediting requests and report format",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "VEND",
-          "info": "Baseline manufacturing schedule (VEND-T100)",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T160",
-      "name": "Pack, preserve and ship",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Prepare packing lists, preservation and shipping documents for released items.",
-      "produces": [
-        "VEND-I220",
-        "VEND-I290"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Inspection release note and shipping instructions",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "SCM",
-          "info": "Logistics plan constraints: envelope, marking, routing",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "VEND-T170",
-      "name": "Prepare nameplate and as-built data",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Issue nameplate data and as-built dimensions, weights and serial numbers.",
-      "produces": [
-        "VEND-I230"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Final test results and as-built measurements (VEND-T120)",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T180",
-      "name": "Compile the MDR / data book",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "Assemble certified drawings, calculations, MTRs, weld and NDE records, test certificates into the data book.",
-      "produces": [
-        "VEND-I240"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Certified drawings, MTRs, test certificates and nameplate data (VEND-T090 to T170)",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "OWNR",
-          "info": "Data book index and format requirements",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T190",
-      "name": "Prepare IOM manuals and spare parts lists",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "Issue installation, operation and maintenance manuals and spare parts interchangeability records.",
-      "produces": [
-        "VEND-I250",
-        "VEND-I260"
-      ],
-      "needs": [
-        {
-          "from": "OWNR",
-          "info": "Spare parts list format and maintenance system requirements",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T200",
-      "name": "Configure and test the DCS/SIS",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "DCS / SIS config",
-      "activity": "ICS-07",
-      "description": "Configure control and safety logic, graphics and alarms and run FAT with the project team.",
-      "produces": [
-        "VEND-I280"
-      ],
-      "needs": [
-        {
-          "from": "INST",
-          "info": "I/O list with tags, ranges, alarms and signal types",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "from": "INST",
-          "info": "Control narratives, cause and effect matrix and SRS",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "PROC",
-          "info": "Alarm and trip setpoints and operating philosophy",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "VEND",
-          "info": "Package I/O lists and communication maps (VEND-T070)",
-          "method": "file",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "VEND-T210",
-      "name": "Provide site services",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Supervise installation, assist pre-commissioning and commissioning and report findings.",
-      "produces": [
-        "VEND-I270"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Site service call-off with dates",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "COMM",
-          "info": "Commissioning procedures and system readiness",
-          "method": "meeting",
-          "level": 4
-        }
-      ]
+     "item": "MECH-I060",
+     "use": "short-form datasheets and scope for budget pricing; enquiry due date; enquiry scope and due date",
+     "method": "manual",
+     "level": 1
     }
-  ],
-  "items": [
+   ]
+  },
+  {
+   "id": "VEND-T020",
+   "name": "Prepare firm technical and commercial quotations",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Design to the RFQ and submit the technical offer, deviations and priced commercial offer.",
+   "produces": [
+    "VEND-I020",
+    "VEND-I030",
+    "VEND-I040",
+    "VEND-I321",
+    "VEND-I324"
+   ],
+   "consumes": [
     {
-      "id": "VEND-I010",
-      "name": "Budget quotation",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Budget price, delivery, outline scope, weight and main dimensions.",
-      "owner_task": "VEND-T010"
+     "item": "SCM-I070",
+     "use": "MR, commercial terms, instructions to bidders, VDRL, bid due date",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I020",
-      "name": "Technical quotation",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Compliance statement, completed datasheets, outline drawings, weights, utilities, performance guarantees.",
-      "owner_task": "VEND-T020"
+     "item": "PROC-I170",
+     "use": "vessel/column process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I030",
-      "name": "Commercial quotation",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Price breakdown, options, spares prices, delivery, payment and validity.",
-      "owner_task": "VEND-T020"
+     "item": "PROC-I171",
+     "use": "tank process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I040",
-      "name": "Deviations and exceptions list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Technical and commercial exceptions to the RFQ with justification.",
-      "owner_task": "VEND-T020"
+     "item": "PROC-I175",
+     "use": "shell-and-tube/plate exchanger process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I050",
-      "name": "Clarification responses",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Answers to TBE and commercial queries, revised offers.",
-      "owner_task": "VEND-T030"
+     "item": "PROC-I176",
+     "use": "air cooler process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I060",
-      "name": "Vendor document schedule",
-      "system": "Document Locator",
-      "form": "data",
-      "content": "Vendor document numbers, project numbers, titles, types and planned submission dates.",
-      "owner_task": "VEND-T040"
+     "item": "PROC-I177",
+     "use": "fired heater process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I070",
-      "name": "Vendor GA drawings for review",
-      "system": "Document Locator",
-      "form": "drawing",
-      "content": "Dimensions, nozzle sizes and orientations, weights, lifting points, access, terminal points.",
-      "owner_task": "VEND-T050"
+     "item": "PROC-I180",
+     "use": "pump process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I080",
-      "name": "Vendor foundation and load data",
-      "system": "Document Locator",
-      "form": "drawing",
-      "content": "Anchor bolt layout, static and dynamic loads, operating and test weights.",
-      "owner_task": "VEND-T050"
+     "item": "PROC-I181",
+     "use": "compressor process data",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I090",
-      "name": "Vendor design calculations",
-      "system": "Mechanical calc tool",
-      "form": "document",
-      "content": "Thicknesses, MAWP, nozzle reinforcement, wind/seismic, allowable nozzle loads.",
-      "owner_task": "VEND-T060"
+     "item": "PROC-I185",
+     "use": "package duties, battery-limit conditions and guarantees",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I100",
-      "name": "Package P&IDs",
-      "system": "Document Locator",
-      "form": "drawing",
-      "content": "Package process and instrument scheme with vendor tags and battery-limit points.",
-      "owner_task": "VEND-T070"
+     "item": "MECH-I350",
+     "use": "requisition scope, datasheets, spares and inspection requirements",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I110",
-      "name": "Package I/O list and control narrative",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Signals to and from DCS/SIS, communication protocol, control and shutdown description.",
-      "owner_task": "VEND-T070"
+     "item": "MECH-I340",
+     "use": "project mechanical specifications",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I120",
-      "name": "Package electrical data",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Motor ratings, starting data, electrical loads, panel requirements, heat tracing.",
-      "owner_task": "VEND-T080"
+     "item": "MECH-I220",
+     "use": "package scope of supply and terminal points",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I130",
-      "name": "Package instrument list and datasheets",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Vendor-supplied instrument tags, types, ranges and datasheets.",
-      "owner_task": "VEND-T070"
+     "item": "INST-I270",
+     "use": "package I&C requirements, PLC and interfaces",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I140",
-      "name": "Certified vendor drawings and data",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Final certified GA, foundation, P&ID, electrical and instrument data.",
-      "owner_task": "VEND-T090"
+     "item": "INST-I040",
+     "use": "general instrument specifications",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I150",
-      "name": "Inspection and test plan",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Inspection activities, acceptance criteria, hold and witness points.",
-      "owner_task": "VEND-T100"
+     "item": "ELEC-I012",
+     "use": "motor and package electrical requirements",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "VEND-I160",
-      "name": "Manufacturing schedule",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Baseline milestones: drawings, material order, fabrication, tests, ex-works date.",
-      "owner_task": "VEND-T100"
-    },
-    {
-      "id": "VEND-I170",
-      "name": "Material test reports",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "MTRs per component with heat numbers, chemistry and mechanical properties.",
-      "owner_task": "VEND-T110"
-    },
-    {
-      "id": "VEND-I180",
-      "name": "Test certificates",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Hydrotest, NDE, PMI, performance and FAT certificates.",
-      "owner_task": "VEND-T120"
-    },
-    {
-      "id": "VEND-I190",
-      "name": "Inspection notification",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Test or inspection due, date and location, notice period.",
-      "owner_task": "VEND-T120"
-    },
-    {
-      "id": "VEND-I200",
-      "name": "Spool fabrication status",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Spool number, isometric, status (cut, welded, NDE, painted, shipped), heat numbers per spool.",
-      "owner_task": "VEND-T130"
-    },
-    {
-      "id": "VEND-I210",
-      "name": "Steel shop drawings and fabrication status",
-      "system": "Tekla",
-      "form": "drawing",
-      "content": "Shop drawings, piece marks, erection drawings and fabrication/shipping status.",
-      "owner_task": "VEND-T140"
-    },
-    {
-      "id": "VEND-I220",
-      "name": "Packing list and shipping documents",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Shipping pieces, item marks, tags, weights, dimensions, heat numbers, certificates of origin.",
-      "owner_task": "VEND-T160"
-    },
-    {
-      "id": "VEND-I230",
-      "name": "Nameplate and as-built data",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Serial number, nameplate rating, MAWP, test pressure, as-built weights and dimensions.",
-      "owner_task": "VEND-T170"
-    },
-    {
-      "id": "VEND-I240",
-      "name": "MDR / data book",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Certified drawings, calculations, MTRs, weld maps, NDE and test records, certificates.",
-      "owner_task": "VEND-T180"
-    },
-    {
-      "id": "VEND-I250",
-      "name": "IOM manuals",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Installation, operation and maintenance instructions.",
-      "owner_task": "VEND-T190"
-    },
-    {
-      "id": "VEND-I260",
-      "name": "Spare parts interchangeability records",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Part numbers, recommended quantities, prices and lead times per tag.",
-      "owner_task": "VEND-T190"
-    },
-    {
-      "id": "VEND-I270",
-      "name": "Site service reports",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Installation checks, alignment, commissioning findings and sign-offs.",
-      "owner_task": "VEND-T210"
-    },
-    {
-      "id": "VEND-I280",
-      "name": "DCS/SIS configuration and FAT records",
-      "system": "DCS / SIS config",
-      "form": "data",
-      "content": "Configured database, logic, graphics, FAT punch list and FAT certificate.",
-      "owner_task": "VEND-T200"
-    },
-    {
-      "id": "VEND-I290",
-      "name": "Preservation and storage instructions",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Storage conditions and preservation activities and frequencies per item.",
-      "owner_task": "VEND-T160"
-    },
-    {
-      "id": "VEND-I300",
-      "name": "Weld maps and NDE records",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Weld map, WPS/PQR references, welder IDs and NDE results.",
-      "owner_task": "VEND-T120"
-    },
-    {
-      "id": "VEND-I310",
-      "name": "Manufacturing progress report",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Milestone actuals, sub-order status, percent complete, forecast ex-works date and delays.",
-      "owner_task": "VEND-T150"
+     "item": "ELEC-I072",
+     "use": "area classification, gas group, T-code per tag",
+     "method": "manual",
+     "level": 3
     }
-  ]
+   ]
+  },
+  {
+   "id": "VEND-T030",
+   "name": "Answer bid clarifications",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Respond to technical and commercial clarification questions during evaluation.",
+   "produces": [
+    "VEND-I050",
+    "VEND-I323"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I370",
+     "use": "technical queries and deviations to answer",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SCM-I080",
+     "use": "bid bulletins and commercial questions",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T040",
+   "name": "Issue the vendor document schedule",
+   "phases": [
+    "DD"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "After PO, list each vendor document with project number, type and planned submission date.",
+   "produces": [
+    "VEND-I060"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I120",
+     "use": "PO VDRL and document instructions",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I070",
+     "use": "project document numbers per vendor document",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T050",
+   "name": "Prepare GA and outline drawings for review",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "MEC-03",
+   "description": "Produce GA drawings with nozzles, orientations, weights, loads and anchor bolts for review.",
+   "produces": [
+    "VEND-I070",
+    "VEND-I080"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I390",
+     "use": "conformed datasheets and nozzle schedule",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I270",
+     "use": "required nozzle orientations, platform clips and davits",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I100",
+     "use": "nozzle orientation and elevation requests",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I250",
+     "use": "calculated nozzle loads to accept",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SCM-I190",
+     "use": "comments and review code on previous revision",
+     "method": "integrated",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "VEND-T060",
+   "name": "Prepare vendor design calculations",
+   "phases": [
+    "DD"
+   ],
+   "system": "Mechanical calc tool",
+   "activity": "MEC-01",
+   "description": "Mechanical design calculations (thickness, nozzles, wind/seismic, rotordynamics) to code.",
+   "produces": [
+    "VEND-I090"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I390",
+     "use": "design P/T, code and nozzle schedule",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I040",
+     "use": "materials, corrosion allowance, PWHT, impact test",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I280",
+     "use": "allowable nozzle load basis",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CIVL-I030",
+     "use": "wind speed, exposure and seismic parameters",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T070",
+   "name": "Prepare package P&IDs, I/O and control narrative",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Produce package P&IDs, instrument list, I/O list and control narrative for interface with the plant DCS/SIS.",
+   "produces": [
+    "VEND-I100",
+    "VEND-I110",
+    "VEND-I130"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I340",
+     "use": "P&IDs at package battery limits",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PROC-I230",
+     "use": "control strategy affecting the package",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I040",
+     "use": "instrument standards and tagging rules",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I270",
+     "use": "PLC requirements, communication and SIS interfaces",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I272",
+     "use": "interface signal list",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I160",
+     "use": "SIF tags, SIL and safe state affecting the package",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T080",
+   "name": "Prepare package electrical data",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Provide motor datasheets, electrical loads, local control panel data and heat tracing needs.",
+   "produces": [
+    "VEND-I120"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I010",
+     "use": "system voltages and frequency",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I012",
+     "use": "motor specification requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "area classification per tag",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "fault level at the supply bus",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I240",
+     "use": "harmonic limits and filter requirements for package VFDs",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T090",
+   "name": "Incorporate comments and issue certified final data",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Resolve review comments and issue certified drawings and data as final.",
+   "produces": [
+    "VEND-I140",
+    "VEND-I322"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I190",
+     "use": "consolidated comments and review code",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "MECH-I410",
+     "use": "review code on GA and calculations",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T100",
+   "name": "Prepare the ITP and manufacturing schedule",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Issue the inspection and test plan and manufacturing schedule with milestones.",
+   "produces": [
+    "VEND-I150",
+    "VEND-I160"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I120",
+     "use": "PO inspection requirements and delivery dates",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I350",
+     "use": "inspection level and required tests",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I340",
+     "use": "NDE, PWHT and testing requirements",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T110",
+   "name": "Procure raw materials and issue MTRs",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Buy plates, forgings, pipe and components and collect material test reports with heat numbers.",
+   "produces": [
+    "VEND-I170"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I090",
+     "use": "design thicknesses and materials",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified bill of materials",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T120",
+   "name": "Fabricate and test the equipment",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Fabricate, weld, NDE, pressure test and run performance or FAT tests, issuing inspection notices and certificates.",
+   "produces": [
+    "VEND-I180",
+    "VEND-I190",
+    "VEND-I300"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I140",
+     "use": "certified drawings for fabrication",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I170",
+     "use": "material heat numbers for traceability",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "SCM-I210",
+     "use": "agreed hold/witness points and inspector",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T130",
+   "name": "Fabricate pipe spools",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-04",
+   "description": "Fabricate spools from IFC isometrics, weld and test, and report spool status with heat traceability.",
+   "produces": [
+    "VEND-I200",
+    "VEND-I320"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I400",
+     "use": "IFC isometric geometry, BOM, weld numbers, NDE, PWHT",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I410",
+     "use": "spool IDs, welds, NDE, paint and fabrication package release",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "SCM-I310",
+     "use": "free-issue material issued with heat numbers",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I090",
+     "use": "ROS dates for spools by CWP",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I520",
+     "use": "spool drawing review comments to incorporate",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T140",
+   "name": "Detail and fabricate structural steel",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Tekla",
+   "activity": "CIV-02",
+   "description": "Produce shop drawings from the Tekla model, fabricate, coat and mark steel members.",
+   "produces": [
+    "VEND-I210"
+   ],
+   "consumes": [
+    {
+     "item": "CIVL-I230",
+     "use": "Tekla model with members, connections and fabrication attributes",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "CIVL-I240",
+     "use": "steel GA and erection drawings",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "CIVL-I245",
+     "use": "connection design forces and criteria",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "CONS-I090",
+     "use": "ROS dates for steel by CWP",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I340",
+     "use": "steel erection sequence and release dates",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T150",
+   "name": "Report manufacturing progress",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Issue periodic progress reports against milestones with forecast dates.",
+   "produces": [
+    "VEND-I310"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I120",
+     "use": "PO progress reporting requirements",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I160",
+     "use": "baseline milestones",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T160",
+   "name": "Pack, preserve and ship",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Prepare packing lists, preservation and shipping documents for released items.",
+   "produces": [
+    "VEND-I220",
+    "VEND-I290",
+    "VEND-I325"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I230",
+     "use": "release for shipment",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "SCM-I240",
+     "use": "routing, envelope and transport constraints",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T170",
+   "name": "Prepare nameplate and as-built data",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Issue nameplate data and as-built dimensions, weights and serial numbers.",
+   "produces": [
+    "VEND-I230"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I180",
+     "use": "test results and test pressures",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T180",
+   "name": "Compile the MDR / data book",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Assemble certified drawings, calculations, MTRs, weld and NDE records, test certificates into the data book.",
+   "produces": [
+    "VEND-I240"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I140",
+     "use": "certified drawings and data",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I170",
+     "use": "MTRs",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I180",
+     "use": "test certificates",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I230",
+     "use": "nameplate data",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I300",
+     "use": "weld maps and NDE records",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner data book index and format standard",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T190",
+   "name": "Prepare IOM manuals and spare parts lists",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Issue installation, operation and maintenance manuals and spare parts interchangeability records.",
+   "produces": [
+    "VEND-I250",
+    "VEND-I260"
+   ],
+   "consumes": [
+    {
+     "item": "OWNR-I200",
+     "use": "CMMS asset classes and required attributes",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I180",
+     "use": "spares policy and interchangeability targets",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "VEND-T200",
+   "name": "Configure and test the DCS/SIS",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "DCS / SIS config",
+   "activity": "ICS-07",
+   "description": "Configure control and safety logic, graphics and alarms and run FAT with the project team.",
+   "produces": [
+    "VEND-I280"
+   ],
+   "consumes": [
+    {
+     "item": "INST-I260",
+     "use": "tag, signal type, system, cabinet, card, channel",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "INST-I380",
+     "use": "ranges, units, alarm limits, I/O assignment for configuration",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "INST-I170",
+     "use": "control narratives and functional logic",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I240",
+     "use": "process shutdown C&E",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I241",
+     "use": "F&G C&E",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I220",
+     "use": "SRS per SIF",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROC-I235",
+     "use": "trip initiators, set points and actions",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROC-I240",
+     "use": "operating modes and philosophy",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I110",
+     "use": "package signals and communication protocol",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "INST-I190",
+     "use": "SIS functional and hardware requirements to configure",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I200",
+     "use": "F&G system functional and hardware requirements to configure",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "VEND-T210",
+   "name": "Provide site services",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Supervise installation, assist pre-commissioning and commissioning and report findings.",
+   "produces": [
+    "VEND-I270"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I340",
+     "use": "service type, dates and location",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "COMM-I100",
+     "use": "commissioning and run-in procedures",
+     "method": "meeting",
+     "level": 4
+    },
+    {
+     "item": "COMM-I160",
+     "use": "subsystem turnover status (readiness)",
+     "method": "meeting",
+     "level": 4
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "VEND-I010",
+   "name": "Budget quotation",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Budget price, delivery, outline scope, weight and main dimensions.",
+   "owner_task": "VEND-T010"
+  },
+  {
+   "id": "VEND-I020",
+   "name": "Technical quotation",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Compliance statement, completed datasheets, outline drawings, weights, utilities, performance guarantees.",
+   "owner_task": "VEND-T020"
+  },
+  {
+   "id": "VEND-I030",
+   "name": "Commercial quotation",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Price breakdown, options, spares prices, delivery, payment and validity.",
+   "owner_task": "VEND-T020"
+  },
+  {
+   "id": "VEND-I040",
+   "name": "Deviations and exceptions list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Technical and commercial exceptions to the RFQ with justification.",
+   "owner_task": "VEND-T020"
+  },
+  {
+   "id": "VEND-I050",
+   "name": "Clarification responses",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Answers to TBE and commercial queries, revised offers.",
+   "owner_task": "VEND-T030"
+  },
+  {
+   "id": "VEND-I060",
+   "name": "Vendor document schedule",
+   "system": "Document Locator",
+   "form": "data",
+   "content": "Vendor document numbers, project numbers, titles, types and planned submission dates.",
+   "owner_task": "VEND-T040"
+  },
+  {
+   "id": "VEND-I070",
+   "name": "Vendor GA drawings for review",
+   "system": "Document Locator",
+   "form": "drawing",
+   "content": "Dimensions, nozzle sizes and orientations, weights, lifting points, access, terminal points.",
+   "owner_task": "VEND-T050"
+  },
+  {
+   "id": "VEND-I080",
+   "name": "Vendor foundation and load data",
+   "system": "Document Locator",
+   "form": "drawing",
+   "content": "Anchor bolt layout, static and dynamic loads, operating and test weights.",
+   "owner_task": "VEND-T050"
+  },
+  {
+   "id": "VEND-I090",
+   "name": "Vendor design calculations",
+   "system": "Mechanical calc tool",
+   "form": "document",
+   "content": "Thicknesses, MAWP, nozzle reinforcement, wind/seismic, allowable nozzle loads.",
+   "owner_task": "VEND-T060"
+  },
+  {
+   "id": "VEND-I100",
+   "name": "Package P&IDs",
+   "system": "Document Locator",
+   "form": "drawing",
+   "content": "Package process and instrument scheme with vendor tags and battery-limit points.",
+   "owner_task": "VEND-T070"
+  },
+  {
+   "id": "VEND-I110",
+   "name": "Package I/O list and control narrative",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Signals to and from DCS/SIS, communication protocol, control and shutdown description.",
+   "owner_task": "VEND-T070"
+  },
+  {
+   "id": "VEND-I120",
+   "name": "Package electrical data",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Motor ratings, starting data, electrical loads, panel requirements, heat tracing.",
+   "owner_task": "VEND-T080"
+  },
+  {
+   "id": "VEND-I130",
+   "name": "Package instrument list and datasheets",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Vendor-supplied instrument tags, types, ranges and datasheets.",
+   "owner_task": "VEND-T070"
+  },
+  {
+   "id": "VEND-I140",
+   "name": "Certified vendor drawings and data",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Final certified GA, foundation, P&ID, electrical and instrument data.",
+   "owner_task": "VEND-T090"
+  },
+  {
+   "id": "VEND-I150",
+   "name": "Inspection and test plan",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Inspection activities, acceptance criteria, hold and witness points.",
+   "owner_task": "VEND-T100"
+  },
+  {
+   "id": "VEND-I160",
+   "name": "Manufacturing schedule",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Baseline milestones: drawings, material order, fabrication, tests, ex-works date.",
+   "owner_task": "VEND-T100"
+  },
+  {
+   "id": "VEND-I170",
+   "name": "Material test reports",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "MTRs per component with heat numbers, chemistry and mechanical properties.",
+   "owner_task": "VEND-T110"
+  },
+  {
+   "id": "VEND-I180",
+   "name": "Test certificates",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Hydrotest, NDE, PMI, performance and FAT certificates.",
+   "owner_task": "VEND-T120"
+  },
+  {
+   "id": "VEND-I190",
+   "name": "Inspection notification",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Test or inspection due, date and location, notice period.",
+   "owner_task": "VEND-T120"
+  },
+  {
+   "id": "VEND-I200",
+   "name": "Spool fabrication status",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Spool number, isometric, status (cut, welded, NDE, painted, shipped), heat numbers per spool.",
+   "owner_task": "VEND-T130"
+  },
+  {
+   "id": "VEND-I210",
+   "name": "Steel shop drawings and fabrication status",
+   "system": "Tekla",
+   "form": "drawing",
+   "content": "Shop drawings, piece marks, erection drawings and fabrication/shipping status.",
+   "owner_task": "VEND-T140"
+  },
+  {
+   "id": "VEND-I220",
+   "name": "Packing list and shipping documents",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Shipping pieces, item marks, tags, weights, dimensions, heat numbers, certificates of origin.",
+   "owner_task": "VEND-T160"
+  },
+  {
+   "id": "VEND-I230",
+   "name": "Nameplate and as-built data",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Serial number, nameplate rating, MAWP, test pressure, as-built weights and dimensions.",
+   "owner_task": "VEND-T170"
+  },
+  {
+   "id": "VEND-I240",
+   "name": "MDR / data book",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Certified drawings, calculations, MTRs, weld maps, NDE and test records, certificates.",
+   "owner_task": "VEND-T180"
+  },
+  {
+   "id": "VEND-I250",
+   "name": "IOM manuals",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Installation, operation and maintenance instructions.",
+   "owner_task": "VEND-T190"
+  },
+  {
+   "id": "VEND-I260",
+   "name": "Spare parts interchangeability records",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Part numbers, recommended quantities, prices and lead times per tag.",
+   "owner_task": "VEND-T190"
+  },
+  {
+   "id": "VEND-I270",
+   "name": "Site service reports",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Installation checks, alignment, commissioning findings and sign-offs.",
+   "owner_task": "VEND-T210"
+  },
+  {
+   "id": "VEND-I280",
+   "name": "DCS/SIS configuration and FAT records",
+   "system": "DCS / SIS config",
+   "form": "data",
+   "content": "Configured database, logic, graphics, FAT punch list and FAT certificate.",
+   "owner_task": "VEND-T200"
+  },
+  {
+   "id": "VEND-I290",
+   "name": "Preservation and storage instructions",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Storage conditions and preservation activities and frequencies per item.",
+   "owner_task": "VEND-T160"
+  },
+  {
+   "id": "VEND-I300",
+   "name": "Weld maps and NDE records",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Weld map, WPS/PQR references, welder IDs and NDE results.",
+   "owner_task": "VEND-T120"
+  },
+  {
+   "id": "VEND-I310",
+   "name": "Manufacturing progress report",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Milestone actuals, sub-order status, percent complete, forecast ex-works date and delays.",
+   "owner_task": "VEND-T150"
+  },
+  {
+   "id": "VEND-I320",
+   "name": "Fabricator spool shop drawings",
+   "system": "Document Locator",
+   "form": "drawing",
+   "content": "Spool shop drawings for review against IFC isometrics.",
+   "owner_task": "VEND-T130"
+  },
+  {
+   "id": "VEND-I321",
+   "name": "Licensor process proposal",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Licensor yields, utilities, catalyst and chemical consumption, and guarantees.",
+   "owner_task": "VEND-T020"
+  },
+  {
+   "id": "VEND-I322",
+   "name": "Licensor process design package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Licensor H&MB, operating conditions, dosing rates and catalyst volumes, performance test procedure and correction curves.",
+   "owner_task": "VEND-T090"
+  },
+  {
+   "id": "VEND-I323",
+   "name": "Bidder questions",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Technical and commercial questions raised by bidders during the bid period.",
+   "owner_task": "VEND-T030"
+  },
+  {
+   "id": "VEND-I324",
+   "name": "Change-order quotation",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Price and delivery impact of a post-award change.",
+   "owner_task": "VEND-T020"
+  },
+  {
+   "id": "VEND-I325",
+   "name": "OS&D response",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Vendor replacement, repair or credit proposal for an OS&D report.",
+   "owner_task": "VEND-T160"
+  }
+ ],
+ "gaps": []
 }

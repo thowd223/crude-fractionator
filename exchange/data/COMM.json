@@ -1,1277 +1,1299 @@
 {
-  "discipline": "COMM",
-  "tasks": [
+ "discipline": "COMM",
+ "tasks": [
+  {
+   "id": "COMM-T010",
+   "name": "Prepare completions and commissioning execution plan",
+   "phases": [
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRJ-05",
+   "description": "Sets the completions philosophy: MC, RFC, RFSU and handover definitions, ITR scheme, punch categories, certificate flow and systems used.",
+   "produces": [
+    "COMM-I010"
+   ],
+   "consumes": [
     {
-      "id": "COMM-T010",
-      "name": "Prepare completions and commissioning execution plan",
-      "phases": [
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRJ-05",
-      "description": "Sets the completions philosophy: MC, RFC, RFSU and handover definitions, ITR scheme, punch categories, certificate flow and systems used.",
-      "produces": [
-        "COMM-I010"
-      ],
-      "consumes": [
-        {
-          "item": "PROJ-I010",
-          "use": "phase plan, organisation, key procedures",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PROJ-I020",
-          "use": "contract packages and construction/commissioning split",
-          "method": "review",
-          "level": 2
-        }
-      ]
+     "item": "PROJ-I010",
+     "use": "phase plan, organisation, key procedures",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "COMM-T020",
-      "name": "Develop preliminary system list and start-up sequence",
-      "phases": [
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Defines commissioning systems from PFDs and utility diagrams and sets the high-level start-up order (utilities first).",
-      "produces": [
-        "COMM-I020"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I120",
-          "use": "major equipment and main lines by unit for system split",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PROC-I090",
-          "use": "utility systems and supply conditions",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PROC-I240",
-          "use": "operating modes and start-up/shutdown approach",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "OWNR-I050",
-          "use": "existing utility capacity available for start-up",
-          "method": "meeting",
-          "level": 2
-        }
-      ]
+     "item": "PROJ-I020",
+     "use": "contract packages and construction/commissioning split",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "COMM-T030",
-      "name": "Mark system and subsystem boundaries on P&IDs",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "SPID",
-      "activity": "CON-02",
-      "description": "Marks colour-coded system and subsystem limits on P&IDs and single-lines, including isolation points.",
-      "produces": [
-        "COMM-I030",
-        "COMM-I040"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I340",
-          "use": "IFD P&IDs: line numbers, valves, equipment tags",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "PROC-I355",
-          "use": "process system/subsystem boundaries, isolation points and commissioning sequence preference",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "switchboard and feeder IDs",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I420",
-          "use": "electrical systems/subsystems and energisation order",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "INST-I030",
-          "use": "control system cabinets and networks for control-system subsystems",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I470",
-          "use": "tie-in points as system limits",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I490",
-          "use": "test circuit limits to align with subsystems",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "COMM-I020",
-          "use": "system list",
-          "method": "manual",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "COMM-T040",
-      "name": "Set commissioning sequence and required subsystem turnover dates",
-      "phases": [
-        "DD"
-      ],
-      "system": "P6",
-      "activity": "CON-02",
-      "description": "Builds the commissioning schedule by system and gives construction the required MC/turnover date per subsystem.",
-      "produces": [
-        "COMM-I050"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I040",
-          "use": "systems and subsystems with priority",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROJ-I130",
-          "use": "level 2 schedule and start-up milestone",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CONS-I050",
-          "use": "area sequence",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "CONS-I080",
-          "use": "CWP sequence",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "COMM-T050",
-      "name": "Define ITR library and ITR matrix by tag type",
-      "phases": [
-        "DD"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Defines A (construction), B (pre-commissioning) and C (commissioning) check sheets and maps them to discipline tag types.",
-      "produces": [
-        "COMM-I060"
-      ],
-      "consumes": [
-        {
-          "item": "INST-I410",
-          "use": "instrument, cable, JB and loop tag types and ITR form types",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I422",
-          "use": "electrical equipment and cable types for ITRs",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I570",
-          "use": "per equipment type: installation, box-up, flush and run-in test criteria",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner check sheet standards and witness points",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "COMM-T060",
-      "name": "Build tag-to-subsystem register",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Assigns every tag (lines, equipment, instruments, cables, electrical equipment) to a subsystem from the engineering lists.",
-      "produces": [
-        "COMM-I070"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I210",
-          "use": "line number, from/to, fluid code per line",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "MECH-I080",
-          "use": "equipment tag, type, service",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "INST-I410",
-          "use": "instrument, cable, JB and loop tags with type and system",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "INST-I050",
-          "use": "tag, type, loop, P&ID",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I422",
-          "use": "equipment, cable and circuit tags with system",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I320",
-          "use": "cable from/to",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I140",
-          "use": "specialty item tags with P&ID and line number",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "COMM-I030",
-          "use": "subsystem limits on P&IDs",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T070",
-      "name": "Load tags and assign ITRs in Smart Completions",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Loads the tag register into Smart Completions by spreadsheet and generates the ITR set per tag from the ITR matrix.",
-      "produces": [
-        "COMM-I080"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I070",
-          "use": "tag-to-subsystem register for spreadsheet load",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "COMM-I060",
-          "use": "ITR matrix by tag type",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "PROJ-I320",
-          "use": "IFC re-issues triggering engineering list deltas",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T080",
-      "name": "Write pre-commissioning procedures",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Writes flushing, blowing, chemical cleaning, drying, leak test and inerting procedures by system.",
-      "produces": [
-        "COMM-I090"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I341",
-          "use": "IFC P&IDs",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PROC-I360",
-          "use": "cleaning/flushing method, drying dew point, inerting limits per system",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I160",
-          "use": "line class, test medium per line",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I150",
-          "use": "flushing and cleaning rules",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I490",
-          "use": "test circuits, vents and drains",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "MECH-I570",
-          "use": "vendor pre-commissioning: lube flush, box-up, solo run criteria",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "MECH-I530",
-          "use": "preservation requirements before commissioning",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I250",
-          "use": "IOM pre-commissioning instructions",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I290",
-          "use": "preservation and storage instructions",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T090",
-      "name": "Write commissioning and function test procedures",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Writes system commissioning, run-in and function test procedures, including SIS and C&E testing.",
-      "produces": [
-        "COMM-I100"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I231",
-          "use": "control narratives",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PROC-I240",
-          "use": "operating philosophy",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PROC-I365",
-          "use": "start-up and shutdown steps and hold points",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "INST-I240",
-          "use": "process shutdown C&E",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "INST-I241",
-          "use": "F&G C&E",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "INST-I220",
-          "use": "SRS per SIF",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I252",
-          "use": "relay settings to test",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I420",
-          "use": "energisation order",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I220",
-          "use": "draft operating procedures",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "COMM-T100",
-      "name": "Define commissioning spares, consumables and first fills",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Lists commissioning spares, lubricants, chemicals, catalysts, filters and gases needed by system and date.",
-      "produces": [
-        "COMM-I110"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I260",
-          "use": "commissioning spares part numbers and quantities",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "MECH-I510",
-          "use": "commissioning/start-up spares per tag",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I275",
-          "use": "chemical and catalyst first-fill quantities",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I360",
-          "use": "first-fill list per system",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "COMM-T110",
-      "name": "Define vendor commissioning support requirements",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "States vendor representative scope, man-days and timing per package for pre-commissioning and start-up.",
-      "produces": [
-        "COMM-I120"
-      ],
-      "consumes": [
-        {
-          "item": "SCM-I120",
-          "use": "PO scope for vendor site services",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "COMM-I050",
-          "use": "commissioning sequence by subsystem",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "COMM-T120",
-      "name": "Plan temporary commissioning facilities",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Defines temporary spools, strainers, blinds, flushing pumps, nitrogen and steam supply needed for pre-commissioning.",
-      "produces": [
-        "COMM-I130"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "flushing connections and spool breaks in the model",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PIPE-I400",
-          "use": "isos at flushing points",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "COMM-I090",
-          "use": "flushing and blowing methods by system",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I050",
-          "use": "existing N2, steam and water availability",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "COMM-T130",
-      "name": "Track test pack status by subsystem",
-      "phases": [
-        "CON"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Tracks test pack status (prepared, tested, reinstated) against subsystems to forecast MC.",
-      "produces": [
-        "COMM-I140"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I290",
-          "use": "test packs and lines included",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I300",
-          "use": "tested/reinstated status",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T140",
-      "name": "Raise and manage punch lists",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Records punch items from walkdowns by subsystem with A/B/C category and action-by party and tracks them to closure.",
-      "produces": [
-        "COMM-I150"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I320",
-          "use": "punch items cleared by construction",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I230",
-          "use": "owner walkdown signatures and findings",
-          "method": "meeting",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T150",
-      "name": "Accept subsystem turnover from construction",
-      "phases": [
-        "CON"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Accepts MC subsystems from construction after checking A-ITRs and A punch and takes custody for pre-commissioning.",
-      "produces": [
-        "COMM-I160"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I340",
-          "use": "MC certificate with outstanding B punch",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I350",
-          "use": "quality dossier per subsystem",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I310",
-          "use": "signed A-ITRs by tag",
-          "method": "integrated",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T160",
-      "name": "Execute pre-commissioning (B-ITRs)",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Carries out flushing, cleaning, insulation tests, motor solo runs and other B-ITRs and records them per tag.",
-      "produces": [
-        "COMM-I170"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I090",
-          "use": "pre-commissioning procedures",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "COMM-I080",
-          "use": "B-ITRs per tag",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "VEND-I270",
-          "use": "vendor site service reports and sign-offs",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T170",
-      "name": "Execute loop checks",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "ICS-06",
-      "description": "Checks each loop from field device to DCS/SIS graphic and records loop status and defects.",
-      "produces": [
-        "COMM-I180",
-        "COMM-I190"
-      ],
-      "consumes": [
-        {
-          "item": "INST-I330",
-          "use": "loop terminals, ranges, set points",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I260",
-          "use": "I/O assignment",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I380",
-          "use": "ranges, units, alarm limits as configured",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I390",
-          "use": "FAT punch closed and configuration released",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I430",
-          "use": "control system power and UPS energised",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T180",
-      "name": "Execute C&E and SIF function tests",
-      "phases": [
-        "COM"
-      ],
-      "system": "DCS / SIS config",
-      "activity": "ICS-08",
-      "description": "Tests every cause and effect line and SIF end to end and records results against the SRS.",
-      "produces": [
-        "COMM-I200"
-      ],
-      "consumes": [
-        {
-          "item": "INST-I240",
-          "use": "C&E causes, set points and effects",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I241",
-          "use": "F&G C&E",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I220",
-          "use": "SIF safe state, response time, trip set points",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "SAFE-I160",
-          "use": "SIL targets and process safety time per SIF",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T190",
-      "name": "Energise electrical systems",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Energises substations, switchboards and feeders under permit after protection testing and records energisation.",
-      "produces": [
-        "COMM-I210"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I252",
-          "use": "relay and trip unit settings",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I420",
-          "use": "energisation sequence",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I430",
-          "use": "engineering readiness to energise",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I310",
-          "use": "electrical A-ITRs and cable test records",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I210",
-          "use": "permit to energise",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T200",
-      "name": "Commission systems and confirm ready for start-up",
-      "phases": [
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Runs C-ITRs and system run-in tests, closes punch required for start-up and issues RFSU.",
-      "produces": [
-        "COMM-I220",
-        "COMM-I230"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I180",
-          "use": "loop check records",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "COMM-I200",
-          "use": "C&E/SIF test records",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "COMM-I210",
-          "use": "energisation certificates",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I220",
-          "use": "approved operating procedures",
-          "method": "meeting",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I230",
-          "use": "owner witness sign-off",
-          "method": "meeting",
-          "level": 4
-        },
-        {
-          "item": "SAFE-I340",
-          "use": "PSSR findings per system",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "SAFE-I342",
-          "use": "PSSR sign-off",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T210",
-      "name": "Raise commissioning technical queries",
-      "phases": [
-        "COM"
-      ],
-      "system": "Procore",
-      "activity": "CON-02",
-      "description": "Raises queries and modification requests to engineering for design problems found during commissioning.",
-      "produces": [
-        "COMM-I240"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I370",
-          "use": "process answers and P&ID impact",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "PROC-I375",
-          "use": "commissioning troubleshooting and set point changes",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I420",
-          "use": "loop check and set point corrections",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "INST-I400",
-          "use": "I&C RFI responses",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T220",
-      "name": "Compile system turnover packages",
-      "phases": [
-        "COM"
-      ],
-      "system": "Document Locator",
-      "activity": "CON-02",
-      "description": "Assembles the turnover dossier per system: certificates, ITRs, test records, punch, vendor data and as-built list.",
-      "produces": [
-        "COMM-I250"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I350",
-          "use": "construction quality dossier per subsystem",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I240",
-          "use": "data books",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I250",
-          "use": "IOM manuals",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "PROJ-I350",
-          "use": "as-built documents per system and locations",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T230",
-      "name": "Hand over systems to the owner",
-      "phases": [
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Hands over each system with the agreed punch list and turnover package and gets the owner handover certificate signed.",
-      "produces": [
-        "COMM-I260"
-      ],
-      "consumes": [
-        {
-          "item": "OWNR-I240",
-          "use": "owner acceptance and retained punch",
-          "method": "meeting",
-          "level": 4
-        },
-        {
-          "item": "COMM-I250",
-          "use": "complete turnover package",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T240",
-      "name": "Report completions progress",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Reports ITR, punch and certificate progress by system against the commissioning schedule.",
-      "produces": [
-        "COMM-I270"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I080",
-          "use": "ITR status",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "COMM-I150",
-          "use": "punch status",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "PROJ-I010",
-          "use": "reporting requirements",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "COMM-T250",
-      "name": "Support performance test run",
-      "phases": [
-        "COM"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-02",
-      "description": "Supports the owner's performance test run and compiles the test data against guarantees.",
-      "produces": [
-        "COMM-I280"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I010",
-          "use": "design cases and product specifications",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "PROC-I380",
-          "use": "test conditions, measurements, guarantee figures and acceptance criteria; performance test procedure and acceptance criteria",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "VEND-I020",
-          "use": "equipment performance guarantees",
-          "method": "review",
-          "level": 4
-        }
-      ]
+     "item": "OWNR-I281",
+     "use": "owner handover requirements, operating organisation and acceptance criteria",
+     "method": "meeting",
+     "level": 2
     }
-  ],
-  "items": [
+   ]
+  },
+  {
+   "id": "COMM-T020",
+   "name": "Develop preliminary system list and start-up sequence",
+   "phases": [
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Defines commissioning systems from PFDs and utility diagrams and sets the high-level start-up order (utilities first).",
+   "produces": [
+    "COMM-I020"
+   ],
+   "consumes": [
     {
-      "id": "COMM-I010",
-      "name": "Completions and commissioning execution plan",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Definitions of MC, RFC, RFSU and handover, ITR scheme, punch categories, certificate flow, roles and systems used.",
-      "owner_task": "COMM-T010"
+     "item": "PROC-I120",
+     "use": "major equipment and main lines by unit for system split",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "COMM-I020",
-      "name": "Preliminary system list and start-up sequence",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "System numbers and descriptions, start-up order and preliminary ready-for-commissioning dates.",
-      "owner_task": "COMM-T020"
+     "item": "PROC-I090",
+     "use": "utility systems and supply conditions",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "COMM-I030",
-      "name": "System boundary P&IDs",
-      "system": "SPID",
-      "form": "drawing",
-      "content": "P&IDs and single-lines colour-marked with system and subsystem limits and isolation points.",
-      "owner_task": "COMM-T030"
+     "item": "PROC-I240",
+     "use": "operating modes and start-up/shutdown approach",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "COMM-I040",
-      "name": "System and subsystem register",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "System and subsystem numbers, descriptions, discipline, priority and boundary descriptions.",
-      "owner_task": "COMM-T030"
-    },
-    {
-      "id": "COMM-I050",
-      "name": "Commissioning sequence and required turnover dates",
-      "system": "P6",
-      "form": "data",
-      "content": "Subsystem sequence and required MC/turnover date per subsystem; sent to construction and project controls.",
-      "owner_task": "COMM-T040"
-    },
-    {
-      "id": "COMM-I060",
-      "name": "ITR library and ITR matrix",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "A/B/C check sheet forms and the mapping of discipline tag types to ITRs.",
-      "owner_task": "COMM-T050"
-    },
-    {
-      "id": "COMM-I070",
-      "name": "Tag-to-subsystem register",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Every tag with discipline, tag type, P&ID and subsystem, ready for spreadsheet load into Smart Completions.",
-      "owner_task": "COMM-T060"
-    },
-    {
-      "id": "COMM-I080",
-      "name": "ITR assignment register",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Tag, ITR, subsystem and status in Smart Completions; the ITR set construction and commissioning must complete.",
-      "owner_task": "COMM-T070"
-    },
-    {
-      "id": "COMM-I090",
-      "name": "Pre-commissioning procedures",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Flushing, blowing, chemical cleaning, drying, leak test and inerting procedures by system.",
-      "owner_task": "COMM-T080"
-    },
-    {
-      "id": "COMM-I100",
-      "name": "Commissioning and function test procedures",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "System commissioning, run-in, C&E and SIF test procedures.",
-      "owner_task": "COMM-T090"
-    },
-    {
-      "id": "COMM-I110",
-      "name": "Commissioning spares and first-fill list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Commissioning spares, lubricants, chemicals, catalysts, filters and gases by system, quantity and need date; sent to procurement and owner.",
-      "owner_task": "COMM-T100"
-    },
-    {
-      "id": "COMM-I120",
-      "name": "Vendor commissioning support requirements",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Vendor representative scope, man-days and call-off dates per package; sent to procurement and vendors.",
-      "owner_task": "COMM-T110"
-    },
-    {
-      "id": "COMM-I130",
-      "name": "Temporary commissioning facility requirements",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Temporary spools, strainers, blinds, pumps and N2/steam/water needs with locations; sent to piping and construction.",
-      "owner_task": "COMM-T120"
-    },
-    {
-      "id": "COMM-I140",
-      "name": "Test pack status by subsystem",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Test packs per subsystem with status (prepared, tested, reinstated).",
-      "owner_task": "COMM-T130"
-    },
-    {
-      "id": "COMM-I150",
-      "name": "Punch list",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Punch items by tag and subsystem: description, category A/B/C, action-by discipline, due date and status.",
-      "owner_task": "COMM-T140"
-    },
-    {
-      "id": "COMM-I160",
-      "name": "Subsystem turnover certificate (construction to commissioning)",
-      "system": "Smart Completions",
-      "form": "decision",
-      "content": "Signed acceptance of MC subsystem custody transfer with exceptions.",
-      "owner_task": "COMM-T150"
-    },
-    {
-      "id": "COMM-I170",
-      "name": "Completed pre-commissioning ITRs (B sheets)",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Signed B-ITR records by tag: flushing, cleaning, insulation tests, solo runs.",
-      "owner_task": "COMM-T160"
-    },
-    {
-      "id": "COMM-I180",
-      "name": "Loop check records",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Loop status, test results and sign-off by loop.",
-      "owner_task": "COMM-T170"
-    },
-    {
-      "id": "COMM-I190",
-      "name": "Loop and configuration defect list",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Defects found in loops: wrong ranges, wiring, tag or graphic errors, with action-by INST or DCS vendor.",
-      "owner_task": "COMM-T170"
-    },
-    {
-      "id": "COMM-I200",
-      "name": "C&E and SIF function test records",
-      "system": "DCS / SIS config",
-      "form": "document",
-      "content": "Test results for every C&E line and SIF with response times and sign-off.",
-      "owner_task": "COMM-T180"
-    },
-    {
-      "id": "COMM-I210",
-      "name": "Energisation certificates",
-      "system": "Smart Completions",
-      "form": "decision",
-      "content": "Signed energisation certificates per switchboard and feeder.",
-      "owner_task": "COMM-T190"
-    },
-    {
-      "id": "COMM-I220",
-      "name": "Commissioning ITR records (C sheets)",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Signed C-ITRs and run-in test results by system.",
-      "owner_task": "COMM-T200"
-    },
-    {
-      "id": "COMM-I230",
-      "name": "Ready-for-start-up certificate",
-      "system": "Smart Completions",
-      "form": "decision",
-      "content": "RFSU certificate per system with outstanding punch and pre-start-up safety review closure.",
-      "owner_task": "COMM-T200"
-    },
-    {
-      "id": "COMM-I240",
-      "name": "Commissioning technical query",
-      "system": "Procore",
-      "form": "document",
-      "content": "Query or modification request to engineering with tags, markups and impact on start-up.",
-      "owner_task": "COMM-T210"
-    },
-    {
-      "id": "COMM-I250",
-      "name": "System turnover package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Per system: certificates, ITRs, test records, punch, vendor data and as-built list.",
-      "owner_task": "COMM-T220"
-    },
-    {
-      "id": "COMM-I260",
-      "name": "System handover certificate",
-      "system": "Smart Completions",
-      "form": "decision",
-      "content": "Owner-signed handover certificate per system with retained punch.",
-      "owner_task": "COMM-T230"
-    },
-    {
-      "id": "COMM-I270",
-      "name": "Completions progress report",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "ITR, punch and certificate progress by system against plan.",
-      "owner_task": "COMM-T240"
-    },
-    {
-      "id": "COMM-I280",
-      "name": "Performance test report",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Measured yields, product quality and utilities against guarantees.",
-      "owner_task": "COMM-T250"
+     "item": "OWNR-I050",
+     "use": "existing utility capacity available for start-up",
+     "method": "meeting",
+     "level": 2
     }
-  ],
-  "gaps": [
+   ]
+  },
+  {
+   "id": "COMM-T030",
+   "name": "Mark system and subsystem boundaries on P&IDs",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "SPID",
+   "activity": "CON-02",
+   "description": "Marks colour-coded system and subsystem limits on P&IDs and single-lines, including isolation points.",
+   "produces": [
+    "COMM-I030",
+    "COMM-I040"
+   ],
+   "consumes": [
     {
-      "task": "COMM-T010",
-      "from": "OWNR",
-      "info": "owner handover requirements, operating organisation and acceptance criteria",
-      "method": "meeting",
-      "level": 2
+     "item": "PROC-I340",
+     "use": "IFD P&IDs: line numbers, valves, equipment tags",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PROC-I355",
+     "use": "process system/subsystem boundaries, isolation points and commissioning sequence preference",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "switchboard and feeder IDs",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I420",
+     "use": "electrical systems/subsystems and energisation order",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "INST-I030",
+     "use": "control system cabinets and networks for control-system subsystems",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I470",
+     "use": "tie-in points as system limits",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I490",
+     "use": "test circuit limits to align with subsystems",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "COMM-I020",
+     "use": "system list",
+     "method": "manual",
+     "level": 2
     }
-  ]
+   ]
+  },
+  {
+   "id": "COMM-T040",
+   "name": "Set commissioning sequence and required subsystem turnover dates",
+   "phases": [
+    "DD"
+   ],
+   "system": "P6",
+   "activity": "CON-02",
+   "description": "Builds the commissioning schedule by system and gives construction the required MC/turnover date per subsystem.",
+   "produces": [
+    "COMM-I050"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I040",
+     "use": "systems and subsystems with priority",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I130",
+     "use": "level 2 schedule and start-up milestone",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CONS-I050",
+     "use": "area sequence",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CONS-I080",
+     "use": "CWP sequence",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "COMM-T050",
+   "name": "Define ITR library and ITR matrix by tag type",
+   "phases": [
+    "DD"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Defines A (construction), B (pre-commissioning) and C (commissioning) check sheets and maps them to discipline tag types.",
+   "produces": [
+    "COMM-I060"
+   ],
+   "consumes": [
+    {
+     "item": "INST-I410",
+     "use": "instrument, cable, JB and loop tag types and ITR form types",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I422",
+     "use": "electrical equipment and cable types for ITRs",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I570",
+     "use": "per equipment type: installation, box-up, flush and run-in test criteria",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner check sheet standards and witness points",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "COMM-T060",
+   "name": "Build tag-to-subsystem register",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Assigns every tag (lines, equipment, instruments, cables, electrical equipment) to a subsystem from the engineering lists.",
+   "produces": [
+    "COMM-I070"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I210",
+     "use": "line number, from/to, fluid code per line",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "MECH-I080",
+     "use": "equipment tag, type, service",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "INST-I410",
+     "use": "instrument, cable, JB and loop tags with type and system",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "INST-I050",
+     "use": "tag, type, loop, P&ID",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I422",
+     "use": "equipment, cable and circuit tags with system",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I320",
+     "use": "cable from/to",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I140",
+     "use": "specialty item tags with P&ID and line number",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "COMM-I030",
+     "use": "subsystem limits on P&IDs",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T070",
+   "name": "Load tags and assign ITRs in Smart Completions",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Loads the tag register into Smart Completions by spreadsheet and generates the ITR set per tag from the ITR matrix.",
+   "produces": [
+    "COMM-I080"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I070",
+     "use": "tag-to-subsystem register for spreadsheet load",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "COMM-I060",
+     "use": "ITR matrix by tag type",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I320",
+     "use": "IFC re-issues triggering engineering list deltas",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T080",
+   "name": "Write pre-commissioning procedures",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Writes flushing, blowing, chemical cleaning, drying, leak test and inerting procedures by system.",
+   "produces": [
+    "COMM-I090"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I341",
+     "use": "IFC P&IDs",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PROC-I360",
+     "use": "cleaning/flushing method, drying dew point, inerting limits per system",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I160",
+     "use": "line class, test medium per line",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I150",
+     "use": "flushing and cleaning rules",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I490",
+     "use": "test circuits, vents and drains",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "MECH-I570",
+     "use": "vendor pre-commissioning: lube flush, box-up, solo run criteria",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I530",
+     "use": "preservation requirements before commissioning",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I250",
+     "use": "IOM pre-commissioning instructions",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I290",
+     "use": "preservation and storage instructions",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T090",
+   "name": "Write commissioning and function test procedures",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Writes system commissioning, run-in and function test procedures, including SIS and C&E testing.",
+   "produces": [
+    "COMM-I100"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I231",
+     "use": "control narratives",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PROC-I240",
+     "use": "operating philosophy",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PROC-I365",
+     "use": "start-up and shutdown steps and hold points",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "INST-I240",
+     "use": "process shutdown C&E",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "INST-I241",
+     "use": "F&G C&E",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "INST-I220",
+     "use": "SRS per SIF",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I252",
+     "use": "relay settings to test",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I420",
+     "use": "energisation order",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I220",
+     "use": "draft operating procedures",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "COMM-T100",
+   "name": "Define commissioning spares, consumables and first fills",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Lists commissioning spares, lubricants, chemicals, catalysts, filters and gases needed by system and date.",
+   "produces": [
+    "COMM-I110"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I260",
+     "use": "commissioning spares part numbers and quantities",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I510",
+     "use": "commissioning/start-up spares per tag",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I275",
+     "use": "chemical and catalyst first-fill quantities",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I360",
+     "use": "first-fill list per system",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "COMM-T110",
+   "name": "Define vendor commissioning support requirements",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "States vendor representative scope, man-days and timing per package for pre-commissioning and start-up.",
+   "produces": [
+    "COMM-I120"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I120",
+     "use": "PO scope for vendor site services",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "COMM-I050",
+     "use": "commissioning sequence by subsystem",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I560",
+     "use": "vendor representative schedule for commissioning",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T120",
+   "name": "Plan temporary commissioning facilities",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Defines temporary spools, strainers, blinds, flushing pumps, nitrogen and steam supply needed for pre-commissioning.",
+   "produces": [
+    "COMM-I130"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "flushing connections and spool breaks in the model",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I400",
+     "use": "isos at flushing points",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "COMM-I090",
+     "use": "flushing and blowing methods by system",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I050",
+     "use": "existing N2, steam and water availability",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "COMM-T130",
+   "name": "Track test pack status by subsystem",
+   "phases": [
+    "CON"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Tracks test pack status (prepared, tested, reinstated) against subsystems to forecast MC.",
+   "produces": [
+    "COMM-I140"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I290",
+     "use": "test packs and lines included",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I300",
+     "use": "tested/reinstated status",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T140",
+   "name": "Raise and manage punch lists",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Records punch items from walkdowns by subsystem with A/B/C category and action-by party and tracks them to closure.",
+   "produces": [
+    "COMM-I150"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I320",
+     "use": "punch items cleared by construction",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I230",
+     "use": "owner walkdown signatures and findings",
+     "method": "meeting",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I400",
+     "use": "open electrical FAT punch items carried to site",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T150",
+   "name": "Accept subsystem turnover from construction",
+   "phases": [
+    "CON"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Accepts MC subsystems from construction after checking A-ITRs and A punch and takes custody for pre-commissioning.",
+   "produces": [
+    "COMM-I160"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I340",
+     "use": "MC certificate with outstanding B punch",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I350",
+     "use": "quality dossier per subsystem",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I310",
+     "use": "signed A-ITRs by tag",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "CIVL-I370",
+     "use": "settlement acceptance before tank or foundation turnover",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T160",
+   "name": "Execute pre-commissioning (B-ITRs)",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Carries out flushing, cleaning, insulation tests, motor solo runs and other B-ITRs and records them per tag.",
+   "produces": [
+    "COMM-I170"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I090",
+     "use": "pre-commissioning procedures",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "COMM-I080",
+     "use": "B-ITRs per tag",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "VEND-I270",
+     "use": "vendor site service reports and sign-offs",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T170",
+   "name": "Execute loop checks",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "ICS-06",
+   "description": "Checks each loop from field device to DCS/SIS graphic and records loop status and defects.",
+   "produces": [
+    "COMM-I180",
+    "COMM-I190"
+   ],
+   "consumes": [
+    {
+     "item": "INST-I330",
+     "use": "loop terminals, ranges, set points",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I260",
+     "use": "I/O assignment",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I380",
+     "use": "ranges, units, alarm limits as configured",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I390",
+     "use": "FAT punch closed and configuration released",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I430",
+     "use": "control system power and UPS energised",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T180",
+   "name": "Execute C&E and SIF function tests",
+   "phases": [
+    "COM"
+   ],
+   "system": "DCS / SIS config",
+   "activity": "ICS-08",
+   "description": "Tests every cause and effect line and SIF end to end and records results against the SRS.",
+   "produces": [
+    "COMM-I200"
+   ],
+   "consumes": [
+    {
+     "item": "INST-I240",
+     "use": "C&E causes, set points and effects",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I241",
+     "use": "F&G C&E",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I220",
+     "use": "SIF safe state, response time, trip set points",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "SAFE-I160",
+     "use": "SIL targets and process safety time per SIF",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T190",
+   "name": "Energise electrical systems",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Energises substations, switchboards and feeders under permit after protection testing and records energisation.",
+   "produces": [
+    "COMM-I210"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I252",
+     "use": "relay and trip unit settings",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I420",
+     "use": "energisation sequence",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I430",
+     "use": "engineering readiness to energise",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I310",
+     "use": "electrical A-ITRs and cable test records",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I210",
+     "use": "permit to energise",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T200",
+   "name": "Commission systems and confirm ready for start-up",
+   "phases": [
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Runs C-ITRs and system run-in tests, closes punch required for start-up and issues RFSU.",
+   "produces": [
+    "COMM-I220",
+    "COMM-I230"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I180",
+     "use": "loop check records",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "COMM-I200",
+     "use": "C&E/SIF test records",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "COMM-I210",
+     "use": "energisation certificates",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I220",
+     "use": "approved operating procedures",
+     "method": "meeting",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I230",
+     "use": "owner witness sign-off",
+     "method": "meeting",
+     "level": 4
+    },
+    {
+     "item": "SAFE-I340",
+     "use": "PSSR findings per system",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "SAFE-I342",
+     "use": "PSSR sign-off",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T210",
+   "name": "Raise commissioning technical queries",
+   "phases": [
+    "COM"
+   ],
+   "system": "Procore",
+   "activity": "CON-02",
+   "description": "Raises queries and modification requests to engineering for design problems found during commissioning.",
+   "produces": [
+    "COMM-I240"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I370",
+     "use": "process answers and P&ID impact",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROC-I375",
+     "use": "commissioning troubleshooting and set point changes",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I420",
+     "use": "loop check and set point corrections",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I400",
+     "use": "I&C RFI responses",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T220",
+   "name": "Compile system turnover packages",
+   "phases": [
+    "COM"
+   ],
+   "system": "Document Locator",
+   "activity": "CON-02",
+   "description": "Assembles the turnover dossier per system: certificates, ITRs, test records, punch, vendor data and as-built list.",
+   "produces": [
+    "COMM-I250"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I350",
+     "use": "construction quality dossier per subsystem",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I240",
+     "use": "data books",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I250",
+     "use": "IOM manuals",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I350",
+     "use": "as-built documents per system and locations",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T230",
+   "name": "Hand over systems to the owner",
+   "phases": [
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Hands over each system with the agreed punch list and turnover package and gets the owner handover certificate signed.",
+   "produces": [
+    "COMM-I260"
+   ],
+   "consumes": [
+    {
+     "item": "OWNR-I240",
+     "use": "owner acceptance and retained punch",
+     "method": "meeting",
+     "level": 4
+    },
+    {
+     "item": "COMM-I250",
+     "use": "complete turnover package",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I250",
+     "use": "CMMS loaded before system handover",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T240",
+   "name": "Report completions progress",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Reports ITR, punch and certificate progress by system against the commissioning schedule.",
+   "produces": [
+    "COMM-I270"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I080",
+     "use": "ITR status",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "COMM-I150",
+     "use": "punch status",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I010",
+     "use": "reporting requirements",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "COMM-T250",
+   "name": "Support performance test run",
+   "phases": [
+    "COM"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-02",
+   "description": "Supports the owner's performance test run and compiles the test data against guarantees.",
+   "produces": [
+    "COMM-I280"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I010",
+     "use": "design cases and product specifications",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "PROC-I380",
+     "use": "test conditions, measurements, guarantee figures and acceptance criteria; performance test procedure and acceptance criteria",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "VEND-I020",
+     "use": "equipment performance guarantees",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "COMM-I010",
+   "name": "Completions and commissioning execution plan",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Definitions of MC, RFC, RFSU and handover, ITR scheme, punch categories, certificate flow, roles and systems used.",
+   "owner_task": "COMM-T010"
+  },
+  {
+   "id": "COMM-I020",
+   "name": "Preliminary system list and start-up sequence",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "System numbers and descriptions, start-up order and preliminary ready-for-commissioning dates.",
+   "owner_task": "COMM-T020"
+  },
+  {
+   "id": "COMM-I030",
+   "name": "System boundary P&IDs",
+   "system": "SPID",
+   "form": "drawing",
+   "content": "P&IDs and single-lines colour-marked with system and subsystem limits and isolation points.",
+   "owner_task": "COMM-T030"
+  },
+  {
+   "id": "COMM-I040",
+   "name": "System and subsystem register",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "System and subsystem numbers, descriptions, discipline, priority and boundary descriptions.",
+   "owner_task": "COMM-T030"
+  },
+  {
+   "id": "COMM-I050",
+   "name": "Commissioning sequence and required turnover dates",
+   "system": "P6",
+   "form": "data",
+   "content": "Subsystem sequence and required MC/turnover date per subsystem; sent to construction and project controls.",
+   "owner_task": "COMM-T040"
+  },
+  {
+   "id": "COMM-I060",
+   "name": "ITR library and ITR matrix",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "A/B/C check sheet forms and the mapping of discipline tag types to ITRs.",
+   "owner_task": "COMM-T050"
+  },
+  {
+   "id": "COMM-I070",
+   "name": "Tag-to-subsystem register",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Every tag with discipline, tag type, P&ID and subsystem, ready for spreadsheet load into Smart Completions.",
+   "owner_task": "COMM-T060"
+  },
+  {
+   "id": "COMM-I080",
+   "name": "ITR assignment register",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Tag, ITR, subsystem and status in Smart Completions; the ITR set construction and commissioning must complete.",
+   "owner_task": "COMM-T070"
+  },
+  {
+   "id": "COMM-I090",
+   "name": "Pre-commissioning procedures",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Flushing, blowing, chemical cleaning, drying, leak test and inerting procedures by system.",
+   "owner_task": "COMM-T080"
+  },
+  {
+   "id": "COMM-I100",
+   "name": "Commissioning and function test procedures",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "System commissioning, run-in, C&E and SIF test procedures.",
+   "owner_task": "COMM-T090"
+  },
+  {
+   "id": "COMM-I110",
+   "name": "Commissioning spares and first-fill list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Commissioning spares, lubricants, chemicals, catalysts, filters and gases by system, quantity and need date; sent to procurement and owner.",
+   "owner_task": "COMM-T100"
+  },
+  {
+   "id": "COMM-I120",
+   "name": "Vendor commissioning support requirements",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Vendor representative scope, man-days and call-off dates per package; sent to procurement and vendors.",
+   "owner_task": "COMM-T110"
+  },
+  {
+   "id": "COMM-I130",
+   "name": "Temporary commissioning facility requirements",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Temporary spools, strainers, blinds, pumps and N2/steam/water needs with locations; sent to piping and construction.",
+   "owner_task": "COMM-T120"
+  },
+  {
+   "id": "COMM-I140",
+   "name": "Test pack status by subsystem",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Test packs per subsystem with status (prepared, tested, reinstated).",
+   "owner_task": "COMM-T130"
+  },
+  {
+   "id": "COMM-I150",
+   "name": "Punch list",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Punch items by tag and subsystem: description, category A/B/C, action-by discipline, due date and status.",
+   "owner_task": "COMM-T140"
+  },
+  {
+   "id": "COMM-I160",
+   "name": "Subsystem turnover certificate (construction to commissioning)",
+   "system": "Smart Completions",
+   "form": "decision",
+   "content": "Signed acceptance of MC subsystem custody transfer with exceptions.",
+   "owner_task": "COMM-T150"
+  },
+  {
+   "id": "COMM-I170",
+   "name": "Completed pre-commissioning ITRs (B sheets)",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Signed B-ITR records by tag: flushing, cleaning, insulation tests, solo runs.",
+   "owner_task": "COMM-T160"
+  },
+  {
+   "id": "COMM-I180",
+   "name": "Loop check records",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Loop status, test results and sign-off by loop.",
+   "owner_task": "COMM-T170"
+  },
+  {
+   "id": "COMM-I190",
+   "name": "Loop and configuration defect list",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Defects found in loops: wrong ranges, wiring, tag or graphic errors, with action-by INST or DCS vendor.",
+   "owner_task": "COMM-T170"
+  },
+  {
+   "id": "COMM-I200",
+   "name": "C&E and SIF function test records",
+   "system": "DCS / SIS config",
+   "form": "document",
+   "content": "Test results for every C&E line and SIF with response times and sign-off.",
+   "owner_task": "COMM-T180"
+  },
+  {
+   "id": "COMM-I210",
+   "name": "Energisation certificates",
+   "system": "Smart Completions",
+   "form": "decision",
+   "content": "Signed energisation certificates per switchboard and feeder.",
+   "owner_task": "COMM-T190"
+  },
+  {
+   "id": "COMM-I220",
+   "name": "Commissioning ITR records (C sheets)",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Signed C-ITRs and run-in test results by system.",
+   "owner_task": "COMM-T200"
+  },
+  {
+   "id": "COMM-I230",
+   "name": "Ready-for-start-up certificate",
+   "system": "Smart Completions",
+   "form": "decision",
+   "content": "RFSU certificate per system with outstanding punch and pre-start-up safety review closure.",
+   "owner_task": "COMM-T200"
+  },
+  {
+   "id": "COMM-I240",
+   "name": "Commissioning technical query",
+   "system": "Procore",
+   "form": "document",
+   "content": "Query or modification request to engineering with tags, markups and impact on start-up.",
+   "owner_task": "COMM-T210"
+  },
+  {
+   "id": "COMM-I250",
+   "name": "System turnover package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Per system: certificates, ITRs, test records, punch, vendor data and as-built list.",
+   "owner_task": "COMM-T220"
+  },
+  {
+   "id": "COMM-I260",
+   "name": "System handover certificate",
+   "system": "Smart Completions",
+   "form": "decision",
+   "content": "Owner-signed handover certificate per system with retained punch.",
+   "owner_task": "COMM-T230"
+  },
+  {
+   "id": "COMM-I270",
+   "name": "Completions progress report",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "ITR, punch and certificate progress by system against plan.",
+   "owner_task": "COMM-T240"
+  },
+  {
+   "id": "COMM-I280",
+   "name": "Performance test report",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Measured yields, product quality and utilities against guarantees.",
+   "owner_task": "COMM-T250"
+  }
+ ],
+ "gaps": []
 }

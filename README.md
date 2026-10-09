@@ -38,6 +38,27 @@ The build checks that each gate's targets are supported by its inputs. It also c
 this package has issued. The output is CFU-000-PM-DEP-003 (report and workbook) and
 `deliverables/06-wrapup/portal/phases.html`: gate readiness, the matrix, and the ready/blocked steps of each phase.
 
+## Discipline interface register
+
+`exchange/` is a generic register for onshore process plants, not specific to this unit. It covers every
+detailed task each discipline does from FEL 1 to handover, the information those tasks produce, and every
+exchange of that information between disciplines and systems. The systems are the client's: HYSYS, SPID, SI,
+SPEL, S3D, CAESAR II, Tekla, ETAP, Document Locator, the purchasing database, Jovix, P6, iConstruct, Procore and
+Smart Completions.
+
+Each exchange records:
+- what is used;
+- the maturity level it needs;
+- how it moves today: integrated, file, manual re-entry, review or meeting.
+
+`python exchange/build.py` checks every reference and writes:
+- `exchange/out/Task-and-Interface-Register.xlsx`: tasks, items, exchanges, discipline and system matrices,
+  and the manual hand-offs;
+- `exchange/out/interfaces.html`: the interactive register;
+- `exchange/out/item-catalog.md`.
+
+The data format is in `exchange/SPEC.md`.
+
 ## Design summary
 
 | Item | Value |

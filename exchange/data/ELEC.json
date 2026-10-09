@@ -1,2713 +1,2776 @@
 {
-  "discipline": "ELEC",
-  "tasks": [
+ "discipline": "ELEC",
+ "tasks": [
+  {
+   "id": "ELEC-T005",
+   "name": "Plan, measure and report discipline deliverables",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRJ-03",
+   "description": "Keep the discipline deliverables list, measure progress by rules of credit, and report holds and change impacts to project controls.",
+   "produces": [
+    "ELEC-I901",
+    "ELEC-I902"
+   ],
+   "consumes": [
     {
-      "id": "ELEC-T010",
-      "name": "Prepare electrical design basis and philosophy",
-      "phases": [
-        "FEL1",
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRJ-01",
-      "description": "Sets voltage levels, distribution configuration and redundancy, codes (NEC/NFPA 70, NFPA 70E, IEEE, API RP 500/505/540), motor voltage thresholds, emergency/essential power philosophy and owner electrical standards.",
-      "produces": [
-        "ELEC-I010",
-        "ELEC-I012"
-      ],
-      "consumes": [
-        {
-          "item": "OWNR-I060",
-          "use": "owner electrical standards, preferred vendors, NFPA 70E program, spare philosophy",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I070",
-          "use": "design life, on-stream factor, sparing and reliability expectations",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PROJ-I010",
-          "use": "project scope, phase plan, execution strategy and codes basis",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PROC-I240",
-          "use": "operating modes, sparing (A/B), continuous vs intermittent, start-up/shutdown approach for essential and restart loads",
-          "method": "review",
-          "level": 1
-        },
-        {
-          "item": "CIVL-I030",
-          "use": "ambient max/min temperatures, wind, seismic parameters, snow/ice for equipment ratings and derating",
-          "method": "manual",
-          "level": 2
-        }
-      ]
+     "item": "PROJ-I060",
+     "use": "deliverable numbers, titles and register status",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "ELEC-T020",
-      "name": "Prepare preliminary electrical load estimate",
-      "phases": [
-        "FEL1",
-        "FEL2"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-01",
-      "description": "Estimates total connected and running load (MW/MVA) from the equipment list and factored allowances to size the plant supply and utility request.",
-      "produces": [
-        "ELEC-I020"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I050",
-          "use": "equipment type, count and power key size per option for factored load estimate",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "PROC-I270",
-          "use": "power estimate per consumer, normal/peak/intermittent",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "PROC-I030",
-          "use": "power demand per screening option",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "MECH-I050",
-          "use": "driver type, fixed/variable speed, estimated absorbed and rated power, voltage class per machine",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "demand and diversity factors, power factor, voltage thresholds",
-          "method": "review",
-          "level": 1
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T030",
-      "name": "Coordinate utility interconnect and power supply",
-      "phases": [
-        "FEL1",
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "SEL-03",
-      "description": "Prepares the interconnection request to the utility, obtains available fault levels and supply options, and agrees point of interconnection, metering and protection requirements.",
-      "produces": [
-        "ELEC-I030",
-        "ELEC-I032"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I020",
-          "use": "peak MW/MVA, growth margin, largest motor size",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "OWNR-I050",
-          "use": "existing electrical supply capacity, existing service points and agreements",
-          "method": "meeting",
-          "level": 1
-        },
-        {
-          "item": "CIVL-I040",
-          "use": "property and plant grid, existing overhead lines and roads for utility line routing and substation location",
-          "method": "review",
-          "level": 1
-        },
-        {
-          "item": "PROJ-I130",
-          "use": "baseline date for permanent power (backfeed) and mechanical completion",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T040",
-      "name": "Develop configuration options and preliminary key one-line",
-      "phases": [
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "FEL-02",
-      "description": "Screens supply and distribution options (on-site generation vs utility, substation count, voltage levels) and issues a key one-line for the selected option.",
-      "produces": [
-        "ELEC-I040"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I030",
-          "use": "service voltage, available fault MVA and X/R, utility-owned equipment boundary",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I020",
-          "use": "demand by area for substation count and transformer sizing",
-          "method": "manual",
-          "level": 1
-        },
-        {
-          "item": "PIPE-I010",
-          "use": "block arrangement per option, candidate substation locations",
-          "method": "review",
-          "level": 1
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "unit areas, rack corridors and building locations",
-          "method": "review",
-          "level": 1
-        },
-        {
-          "item": "SAFE-I050",
-          "use": "overpressure and fire distances affecting substation/building locations",
-          "method": "review",
-          "level": 1
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T050",
-      "name": "Prepare electrical cost estimate inputs",
-      "phases": [
-        "FEL1",
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "CST-01",
-      "description": "Produces factored then quantity-based electrical quantities and major equipment pricing for the Class 5/4/3 estimates.",
-      "produces": [
-        "ELEC-I050"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I040",
-          "use": "number and rating of transformers, switchgear, generators and UPS",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings for pricing",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I090",
-          "use": "number and size of motors and loads by voltage",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "area dimensions and rack corridors for cable and tray lengths",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "VEND-I010",
-          "use": "budget prices, weights and dimensions of major electrical equipment",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROJ-I080",
-          "use": "quantity take-off template, estimate class, code of accounts, due date",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PROJ-I030",
-          "use": "WBS, area and cost codes",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T060",
-      "name": "Prepare hazardous area release source list",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-02",
-      "description": "Identifies release sources, grades of release and ventilation per API RP 500/505 and NFPA 497 using process fluid data.",
-      "produces": [
-        "ELEC-I060"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I285",
-          "use": "per release source: composition, P, T, phase, flash point, MW, fluid category for HAC",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I035",
-          "use": "LFL/UFL, autoignition temperature, gas group and T-class per material",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I201",
-          "use": "release sources on P&IDs: pump seals, flanges, vents, drains, sample points, PSV discharges",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I050",
-          "use": "flash fire extents and dispersion distances affecting classified extents",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "equipment locations, buildings and enclosed areas",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner area classification practice (Division vs Zone)",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T070",
-      "name": "Prepare hazardous area classification drawings",
-      "phases": [
-        "FEL3",
-        "DD",
-        "CON"
-      ],
-      "system": "S3D",
-      "activity": "ELE-02",
-      "description": "Draws classified area extents in plan and elevation on the plot plan background and issues them to all disciplines and vendors.",
-      "produces": [
-        "ELEC-I070",
-        "ELEC-I072"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I060",
-          "use": "Class/Division, group, T-code and extent per source",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "plot plan background to grid",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I060",
-          "use": "equipment elevations and structures for elevation views",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I270",
-          "use": "building layouts, doors and openings near classified areas",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I300",
-          "use": "HVAC pressurisation and air changes per room",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I152",
-          "use": "HAZOP recommendations affecting vents, drains and release sources",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I255",
-          "use": "comments on missing sources, extents, gas group/T-class",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T080",
-      "name": "Size substations and electrical buildings",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Develops substation and electrical room arrangements and passes sizes, loads, HVAC and civil requirements to civil/structural.",
-      "produces": [
-        "ELEC-I080",
-        "ELEC-I082",
-        "ELEC-I084"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I040",
-          "use": "substation configuration and section count",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I110",
-          "use": "transformer MVA, MCC bucket counts, UPS/battery sizes",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "VEND-I020",
-          "use": "outline dimensions, weights and heat losses of switchgear, MCC, VFD, UPS",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "SAFE-I102",
-          "use": "building acceptability per API 752, hardening or relocation required",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I100",
-          "use": "blast overpressure and impulse per building",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I070",
-          "use": "building location relative to classified areas, pressurization need",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "substation location and access roads",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T090",
-      "name": "Develop electrical load list in SPEL",
-      "phases": [
-        "FEL3",
-        "DD",
-        "CON"
-      ],
-      "system": "SPEL",
-      "activity": "ELE-01",
-      "description": "Keys every electrical consumer into SPEL with rating, voltage, duty, bus assignment and demand factors and maintains it through vendor data.",
-      "produces": [
-        "ELEC-I090",
-        "ELEC-I092"
-      ],
-      "consumes": [
-        {
-          "item": "MECH-I080",
-          "use": "tags, service, driver power, vendor/PO status",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "MECH-I330",
-          "use": "absorbed and rated motor power, voltage, speed, starting method, VFD, duty, space heater",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "PROC-I340",
-          "use": "running vs spare equipment and motor tags on IFD P&IDs",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I240",
-          "use": "operating modes and simultaneous operation for demand factors",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I280",
-          "use": "DCS/SIS/F&G cabinet and instrument power kW/kVA, UPS vs normal",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "INST-I161",
-          "use": "analyzer shelter power and UPS",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "INST-I351",
-          "use": "telecom device power and UPS load",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I305",
-          "use": "HVAC consumer tag, kW, voltage, duty/standby, essential/UPS need",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "item": "VEND-I120",
-          "use": "package motor ratings, electrical loads and panel requirements",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I300",
-          "use": "heat tracing panel loads",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I292",
-          "use": "lighting panel loads",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T100",
-      "name": "Review P&IDs and assign electrical attributes",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "SPID",
-      "activity": "PRC-08",
-      "description": "Reviews P&IDs for motor tags, MOVs, heat tracing flags, electrical interlocks and local control stations and returns comments.",
-      "produces": [
-        "ELEC-I100"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I200",
-          "use": "motor-driven equipment, MOVs, heat tracing/insulation codes, interlocks on IFR P&IDs",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "INST-I050",
-          "use": "motor-related instrument tags: run status, trips, permissives",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T110",
-      "name": "Size major electrical equipment",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-03",
-      "description": "Sizes transformers, switchgear, MCCs, emergency generator, UPS/batteries and capacitor/filter banks from the load list and study results.",
-      "produces": [
-        "ELEC-I110"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I090",
-          "use": "running/peak kVA per bus, essential/UPS loads",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I030",
-          "use": "utility fault levels and X/R",
-          "method": "file",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "preliminary short-circuit duties",
-          "method": "file",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I210",
-          "use": "preliminary bus loading and voltage drop",
-          "method": "file",
-          "level": 2
-        },
-        {
-          "item": "INST-I280",
-          "use": "UPS-powered control system loads, redundancy and autonomy",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I045",
-          "use": "fire water source/redundancy and F&G basis for emergency power",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I190",
-          "use": "fire water pump duty (electric vs diesel driver)",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T120",
-      "name": "Develop one-line diagrams in SPEL",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "SPEL",
-      "activity": "ELE-03",
-      "description": "Draws main and MCC one-line diagrams from the SPEL load list and equipment ratings, with protection and metering.",
-      "produces": [
-        "ELEC-I120"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I090",
-          "use": "loads with bus/MCC assignment and starter type",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I110",
-          "use": "transformer, switchgear, MCC, generator and UPS ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I030",
-          "use": "point of interconnection, metering and utility protection requirements",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "protection and metering philosophy",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T130",
-      "name": "Specify MV switchgear",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
-      "produces": [
-        "ELEC-I130"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "one-line configuration, feeders, protection and metering",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "Class/Division, group and T-code at equipment location",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "ambient, enclosure, standards and design basis",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "short-circuit interrupting and withstand duties at the bus",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner electrical standards and approved vendor list",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "INST-I030",
-          "use": "electrical network protocol (Modbus TCP/IEC 61850) and DCS/ECMS links",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T140",
-      "name": "Specify power transformers",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
-      "produces": [
-        "ELEC-I140"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "one-line configuration, feeders, protection and metering",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "Class/Division, group and T-code at equipment location",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "ambient, enclosure, standards and design basis",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "short-circuit interrupting and withstand duties at the bus",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner electrical standards and approved vendor list",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T150",
-      "name": "Specify LV switchgear, MCCs and E-houses",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
-      "produces": [
-        "ELEC-I150"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "one-line configuration, feeders, protection and metering",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "Class/Division, group and T-code at equipment location",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "ambient, enclosure, standards and design basis",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "short-circuit interrupting and withstand duties at the bus",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner electrical standards and approved vendor list",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I084",
-          "use": "E-house scope, modules and shipping splits",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I082",
-          "use": "room heat loads and HVAC/pressurization requirements",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I030",
-          "use": "wind and seismic design data for E-house structure",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "CIVL-I020",
-          "use": "structural design criteria for E-house skid and support",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "INST-I030",
-          "use": "intelligent MCC communication protocol to DCS",
-          "method": "review",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T160",
-      "name": "Specify VFDs and harmonic mitigation",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
-      "produces": [
-        "ELEC-I160"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "one-line configuration, feeders, protection and metering",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "Class/Division, group and T-code at equipment location",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "ambient, enclosure, standards and design basis",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "short-circuit interrupting and withstand duties at the bus",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner electrical standards and approved vendor list",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "MECH-I050",
-          "use": "machines with variable speed (VFD) and rated power",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I330",
-          "use": "speed range, starting limitations, duty for VFD-driven motors",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I231",
-          "use": "controlled variable and turndown requiring variable speed",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T170",
-      "name": "Specify UPS, DC systems and emergency generator",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
-      "produces": [
-        "ELEC-I170"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "one-line configuration, feeders, protection and metering",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "Class/Division, group and T-code at equipment location",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I010",
-          "use": "ambient, enclosure, standards and design basis",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "short-circuit interrupting and withstand duties at the bus",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner electrical standards and approved vendor list",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I062",
-          "use": "generator emission requirements (EPA tier, NSPS)",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I220",
-          "use": "fixed fire protection for generator and fuel tank",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "INST-I280",
-          "use": "UPS load list and autonomy for DCS/SIS/F&G",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T180",
-      "name": "Evaluate electrical bids technically",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Evaluates vendor proposals against specifications, holds clarification meetings and issues technical recommendations.",
-      "produces": [
-        "ELEC-I180"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I020",
-          "use": "compliance statement, completed datasheets, outline drawings",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "VEND-I040",
-          "use": "technical exceptions",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "VEND-I050",
-          "use": "clarification responses",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "SCM-I090",
-          "use": "unpriced technical offers and TBE due date",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I130",
-          "use": "MV switchgear requirements",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I140",
-          "use": "transformer requirements",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I150",
-          "use": "LV switchgear/MCC/E-house requirements",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I160",
-          "use": "VFD requirements",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I170",
-          "use": "UPS/DC/generator requirements",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T190",
-      "name": "Review electrical vendor drawings and data",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "Reviews vendor GA, schematics, datasheets and test procedures for electrical equipment and returns coded comments; loads certified data into SPEL/ETAP.",
-      "produces": [
-        "ELEC-I190",
-        "ELEC-I192"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I070",
-          "use": "vendor GA: dimensions, weights, cable entry, access",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "VEND-I140",
-          "use": "certified one-lines, schematics, wiring, relay data, impedance test reports",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SCM-I160",
-          "use": "VDRL per PO: documents and due dates",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SCM-I180",
-          "use": "vendor documents routed for review with return date",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T200",
-      "name": "Review motor and package electrical data",
-      "phases": [
-        "DD"
-      ],
-      "system": "SPEL",
-      "activity": "VEN-01",
-      "description": "Checks motor data sheets and package electrical scope from driven-equipment vendors against the electrical requirements and updates the load list.",
-      "produces": [
-        "ELEC-I200",
-        "ELEC-I202"
-      ],
-      "consumes": [
-        {
-          "item": "MECH-I440",
-          "use": "certified motor datasheets: kW, FLA, LRC, PF, efficiency, inertia, speed-torque, accessories",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I330",
-          "use": "motor rating, voltage, starting method and limitations per tag",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "VEND-I120",
-          "use": "package motor ratings, starting data, panel loads and requirements",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I012",
-          "use": "motor electrical requirements for compliance check",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T210",
-      "name": "Build ETAP model and run load flow study",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "ETAP",
-      "activity": "ELE-05",
-      "description": "Builds the ETAP network from SPEL load list and one-lines, runs load flow for normal, contingency and maximum load cases and sets transformer taps.",
-      "produces": [
-        "ELEC-I210"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I090",
-          "use": "loads, ratings and bus assignments exported from SPEL",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "network topology from one-lines",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I030",
-          "use": "utility fault MVA, X/R and voltage range",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I110",
-          "use": "equipment ratings",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I192",
-          "use": "certified transformer %Z, X/R, losses and tap ranges",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I320",
-          "use": "cable sizes and lengths for impedances",
-          "method": "file",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T220",
-      "name": "Run short-circuit study",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "ETAP",
-      "activity": "ELE-05",
-      "description": "Calculates maximum and minimum fault currents per IEEE/ANSI C37 to confirm equipment interrupting and withstand duties.",
-      "produces": [
-        "ELEC-I220"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I210",
-          "use": "ETAP network model and operating cases",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I192",
-          "use": "certified equipment impedances",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I202",
-          "use": "motor kW, LRC and X/R for motor contribution",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T230",
-      "name": "Run motor-starting study",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "ETAP",
-      "activity": "ELE-05",
-      "description": "Simulates starting of large motors to check voltage dips and acceleration and sets the starting method.",
-      "produces": [
-        "ELEC-I230",
-        "ELEC-I232"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I210",
-          "use": "ETAP network model",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I202",
-          "use": "LRC, inertia, speed-torque curves",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I440",
-          "use": "load torque curve and load inertia from certified motor/driven-equipment data",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "MECH-I210",
-          "use": "compressor start conditions (unloaded/loaded, valve position)",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PROC-I240",
-          "use": "restart and re-acceleration requirements after voltage dips",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T240",
-      "name": "Run harmonic analysis",
-      "phases": [
-        "DD"
-      ],
-      "system": "ETAP",
-      "activity": "ELE-05",
-      "description": "Models VFD and non-linear loads and checks IEEE 519 compliance at the point of common coupling and buses.",
-      "produces": [
-        "ELEC-I240"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I210",
-          "use": "ETAP model and load flow cases",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "VEND-I140",
-          "use": "certified VFD harmonic spectra and front-end type",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I030",
-          "use": "utility IEEE 519 limits at point of interconnection",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T250",
-      "name": "Perform protective relay coordination study",
-      "phases": [
-        "DD",
-        "COM"
-      ],
-      "system": "ETAP",
-      "activity": "ELE-05",
-      "description": "Develops time-current coordination and relay/breaker trip settings from utility interface to motors.",
-      "produces": [
-        "ELEC-I250",
-        "ELEC-I252"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I220",
-          "use": "fault currents per bus",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I210",
-          "use": "ETAP network model",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "VEND-I140",
-          "use": "certified relay models, CT ratios, breaker trip units, fuse curves",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I202",
-          "use": "FLA, LRC, accelerating time, thermal limit curves",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I030",
-          "use": "utility protection settings at interconnect",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T260",
-      "name": "Perform arc flash study",
-      "phases": [
-        "DD",
-        "COM"
-      ],
-      "system": "ETAP",
-      "activity": "ELE-05",
-      "description": "Calculates incident energy per IEEE 1584 and NFPA 70E, specifies PPE categories and produces equipment labels.",
-      "produces": [
-        "ELEC-I260"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I250",
-          "use": "protective device clearing times and settings",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "bolted fault currents per bus",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I192",
-          "use": "enclosure type, gaps, electrode configuration",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "OWNR-I060",
-          "use": "owner NFPA 70E program and labeling standard",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T270",
-      "name": "Design grounding system",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Performs ground grid study (IEEE 80) and designs plant, substation and equipment grounding.",
-      "produces": [
-        "ELEC-I270",
-        "ELEC-I272"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I220",
-          "use": "SLG fault current and clearing times",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I040",
-          "use": "equipment, tank and building locations to bond",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I180",
-          "use": "structures and piping in model for bonding points",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I190",
-          "use": "foundation plans for ground rod and embed locations",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I240",
-          "use": "steel structures and pipe rack columns to ground",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T280",
-      "name": "Design lightning protection",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Performs risk assessment (NFPA 780) and designs air terminals and down conductors for buildings and tall structures.",
-      "produces": [
-        "ELEC-I280"
-      ],
-      "consumes": [
-        {
-          "item": "CIVL-I290",
-          "use": "building dimensions and roofing",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I240",
-          "use": "structure heights and layouts",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "MECH-I290",
-          "use": "overall heights of columns, stacks and tanks",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I272",
-          "use": "ground grid for down-conductor connection",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T290",
-      "name": "Design lighting and small power",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Calculates illumination levels (IES) and lays out area, platform, building and emergency/egress lighting and receptacles.",
-      "produces": [
-        "ELEC-I290",
-        "ELEC-I292"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "platforms, stairs, equipment and valve operating points",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I290",
-          "use": "room layouts and functions",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I240",
-          "use": "steel for fixture supports",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "Class/Division and T-code for fixture certification",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SAFE-I230",
-          "use": "escape routes, muster points, safety showers for emergency lighting",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T300",
-      "name": "Design electric heat tracing",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Designs heat tracing circuits for freeze protection and process temperature maintenance using vendor design software outputs.",
-      "produces": [
-        "ELEC-I300",
-        "ELEC-I302",
-        "ELEC-I304"
-      ],
-      "consumes": [
-        {
-          "item": "PROC-I210",
-          "use": "lines requiring tracing, maintain temperature, design/steam-out temperature, fluid",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I400",
-          "use": "isometric geometry, line lengths, valves, flanges, supports",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I160",
-          "use": "insulation type and thickness per line",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I281",
-          "use": "impulse and analyzer sample lines needing tracing, maintain temperature",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I072",
-          "use": "T-code limit on sheath temperature",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T310",
-      "name": "Design cathodic protection",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Designs impressed-current or galvanic cathodic protection for buried piping and tank bottoms per NACE/AMPP standards.",
-      "produces": [
-        "ELEC-I310"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I330",
-          "use": "buried piping routes, sizes, crossings",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I160",
-          "use": "paint/coating system per line",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "MECH-I150",
-          "use": "tank diameter, bottom design and appurtenances",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I272",
-          "use": "ground grid layout for interference and isolation",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T320",
-      "name": "Size cables and build cable schedule in SPEL",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "SPEL",
-      "activity": "ELE-04",
-      "description": "Sizes power and control cables for ampacity, voltage drop and short circuit per NEC and creates the cable schedule.",
-      "produces": [
-        "ELEC-I320",
-        "ELEC-I322"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I090",
-          "use": "loads, ratings, voltage",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "from/to feeders and protective devices",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "route lengths per raceway segment",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I220",
-          "use": "short-circuit duties and clearing times for withstand check",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "INST-I321",
-          "use": "instrument cables sharing trays: count, diameter, segregation",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T330",
-      "name": "Route raceway, cable tray and duct banks in S3D",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "S3D",
-      "activity": "ELE-06",
-      "description": "Models cable tray, conduit and underground duct banks in S3D and reserves space on racks and structures.",
-      "produces": [
-        "ELEC-I330",
-        "ELEC-I332",
-        "ELEC-I334"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I180",
-          "use": "routed piping and equipment for tray routing and clearances",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I070",
-          "use": "rack tier elevations and cable tray levels",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I235",
-          "use": "Tekla steel and concrete reference geometry",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I150",
-          "use": "underground services and crossings",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I360",
-          "use": "substation and equipment locations",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I080",
-          "use": "cable entry and cable vault locations",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "INST-I290",
-          "use": "instrument tray routing and JB locations",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I321",
-          "use": "instrument tray loading and segregation",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T340",
-      "name": "Define MCC and switchgear interface signals with I&C",
-      "phases": [
-        "DD"
-      ],
-      "system": "SPEL",
-      "activity": "ICS-05",
-      "description": "Lists hardwired and serial signals between switchgear/MCC and DCS/SIS/ECMS and agrees marshalling and protocol.",
-      "produces": [
-        "ELEC-I340"
-      ],
-      "consumes": [
-        {
-          "item": "INST-I170",
-          "use": "motor control logic: start/stop, auto/manual, permissives",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "INST-I240",
-          "use": "SIS/ESD trips of motors and breakers",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "INST-I030",
-          "use": "network protocol, marshalling and electrical system interfaces",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I090",
-          "use": "starter types per load",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T350",
-      "name": "Prepare control and interlock schematics",
-      "phases": [
-        "DD"
-      ],
-      "system": "SPEL",
-      "activity": "ELE-03",
-      "description": "Prepares motor control typicals, elementary diagrams and interlock schematics, including SIS and MOV interfaces.",
-      "produces": [
-        "ELEC-I350"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I340",
-          "use": "interface signals per motor and breaker",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "INST-I240",
-          "use": "cause and effect trip actions on motors",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "INST-I210",
-          "use": "SIF final elements that are motors or breakers",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "VEND-I140",
-          "use": "certified MCC/switchgear schematics",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T360",
-      "name": "Prepare electrical layouts and installation details",
-      "phases": [
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "ELE-06",
-      "description": "Issues electrical equipment layouts, power plans and installation details for construction.",
-      "produces": [
-        "ELEC-I360",
-        "ELEC-I362"
-      ],
-      "consumes": [
-        {
-          "item": "PIPE-I040",
-          "use": "plot plan background",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I460",
-          "use": "piping GA plans for equipment and tray drops",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I192",
-          "use": "certified equipment dimensions",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "tray model",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I190",
-          "use": "foundation drawings",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CIVL-I270",
-          "use": "building layouts, cable entry and trenches",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T370",
-      "name": "Prepare electrical MTO and bulk requisitions",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Takes off bulk materials (cable, tray, conduit, fittings, lighting, grounding, heat tracing) and issues MTO revisions to procurement.",
-      "produces": [
-        "ELEC-I370"
-      ],
-      "consumes": [
-        {
-          "item": "ELEC-I320",
-          "use": "cable types and lengths",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I330",
-          "use": "tray, fittings and support quantities",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I290",
-          "use": "lighting fixtures and panels",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I272",
-          "use": "grounding materials",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I302",
-          "use": "heat tracing materials",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I310",
-          "use": "CP materials",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "SCM-I060",
-          "use": "commodity codes and bulk MR lines",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "item": "SCM-I330",
-          "use": "surplus and reconciliation by commodity",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T380",
-      "name": "Design temporary construction power",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "CON-01",
-      "description": "Sizes and lays out temporary construction power and early backfeed arrangements.",
-      "produces": [
-        "ELEC-I380"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I025",
-          "use": "temporary power demand and building loads",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "item": "CONS-I020",
-          "use": "laydown, temporary buildings and utility connection points",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "item": "CONS-I050",
-          "use": "area sequence and dates",
-          "method": "meeting",
-          "level": 2
-        },
-        {
-          "item": "ELEC-I030",
-          "use": "utility backfeed date and service arrangements",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T390",
-      "name": "Seal and issue electrical deliverables IFC",
-      "phases": [
-        "DD"
-      ],
-      "system": "Document Locator",
-      "activity": "PRJ-04",
-      "description": "Performs inter-discipline and PE check, seals and issues electrical deliverables IFC.",
-      "produces": [
-        "ELEC-I390"
-      ],
-      "consumes": [
-        {
-          "item": "PROJ-I060",
-          "use": "deliverables, revisions and status",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "PROJ-I140",
-          "use": "planned IFC dates",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "item": "OWNR-I110",
-          "use": "owner comments on IFD electrical deliverables",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I350",
-          "use": "model review actions assigned to electrical",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "PIPE-I360",
-          "use": "clashes involving electrical objects",
-          "method": "meeting",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T400",
-      "name": "Witness factory acceptance tests",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Witnesses FAT of switchgear, MCCs, E-houses, transformers, VFDs and UPS, including integrated communication tests with the DCS.",
-      "produces": [
-        "ELEC-I400"
-      ],
-      "consumes": [
-        {
-          "item": "VEND-I150",
-          "use": "FAT procedures, acceptance criteria, witness points",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "VEND-I180",
-          "use": "FAT certificates and test results",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SCM-I210",
-          "use": "inspection level and witness points per PO",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "SCM-I230",
-          "use": "release for shipment",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T410",
-      "name": "Answer RFIs and issue field changes",
-      "phases": [
-        "CON"
-      ],
-      "system": "Procore",
-      "activity": "CON-01",
-      "description": "Answers construction RFIs and issues field change notices and revised details.",
-      "produces": [
-        "ELEC-I410"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I210",
-          "use": "electrical RFIs with markups",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "CONS-I220",
-          "use": "field change requests on electrical work",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "VEND-I270",
-          "use": "vendor field service findings",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T420",
-      "name": "Define electrical systems and energization sequence",
-      "phases": [
-        "DD",
-        "CON",
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Defines electrical system/subsystem boundaries, energization sequence and supplies tag lists for completions.",
-      "produces": [
-        "ELEC-I420",
-        "ELEC-I422"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I020",
-          "use": "system list and start-up order",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "COMM-I040",
-          "use": "system and subsystem numbers and boundaries",
-          "method": "meeting",
-          "level": 3
-        },
-        {
-          "item": "ELEC-I120",
-          "use": "one-lines for boundary marking",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I090",
-          "use": "equipment tags",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I320",
-          "use": "cable tags",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "CONS-I050",
-          "use": "area sequence",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "item": "CONS-I070",
-          "use": "CWP boundaries",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T430",
-      "name": "Support electrical testing, setting and energization",
-      "phases": [
-        "COM"
-      ],
-      "system": "Smart Completions",
-      "activity": "CON-02",
-      "description": "Supports field testing (NETA ATS), relay setting implementation, LOTO and first energization; reviews test records.",
-      "produces": [
-        "ELEC-I430"
-      ],
-      "consumes": [
-        {
-          "item": "COMM-I170",
-          "use": "insulation resistance, hi-pot, solo run B-ITRs",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "COMM-I220",
-          "use": "run-in and commissioning results",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I252",
-          "use": "relay setting files",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I260",
-          "use": "arc flash label data",
-          "method": "file",
-          "level": 4
-        },
-        {
-          "item": "VEND-I270",
-          "use": "field service reports for switchgear, VFD, UPS",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "ELEC-T440",
-      "name": "Produce as-built electrical records",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "SPEL",
-      "activity": "CON-02",
-      "description": "Incorporates field redlines into SPEL, ETAP and drawings and issues as-built records.",
-      "produces": [
-        "ELEC-I440"
-      ],
-      "consumes": [
-        {
-          "item": "CONS-I330",
-          "use": "redlined cable routes, terminations, layouts",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "item": "ELEC-I252",
-          "use": "as-left relay settings recorded against setting files",
-          "method": "manual",
-          "level": 4
-        }
-      ]
+     "item": "PROJ-I140",
+     "use": "planned IFR/IFD/IFC dates per deliverable",
+     "method": "manual",
+     "level": 2
     }
-  ],
-  "items": [
+   ]
+  },
+  {
+   "id": "ELEC-T010",
+   "name": "Prepare electrical design basis and philosophy",
+   "phases": [
+    "FEL1",
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRJ-01",
+   "description": "Sets voltage levels, distribution configuration and redundancy, codes (NEC/NFPA 70, NFPA 70E, IEEE, API RP 500/505/540), motor voltage thresholds, emergency/essential power philosophy and owner electrical standards.",
+   "produces": [
+    "ELEC-I010",
+    "ELEC-I012",
+    "ELEC-I450"
+   ],
+   "consumes": [
     {
-      "id": "ELEC-I010",
-      "name": "Electrical design basis and philosophy",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "System voltages (utility, 13.8 kV/4.16 kV/480 V/120-208 V), short-circuit design limits, redundancy (main-tie-main), motor voltage by kW range, motor efficiency (NEMA Premium), enclosure, starting philosophy, essential/UPS loads, grounding method (resistance-grounded MV), codes and standards list.",
-      "owner_task": "ELEC-T010"
+     "item": "OWNR-I060",
+     "use": "owner electrical standards, preferred vendors, NFPA 70E program, spare philosophy",
+     "method": "review",
+     "level": 3
     },
     {
-      "id": "ELEC-I012",
-      "name": "Motor and electrical requirements for mechanical/vendor specs",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Electrical requirements section for driven-equipment and package specs: motor voltage by size, frequency, enclosure (TEFC/explosion-proof), insulation class, service factor, space heaters, winding RTDs, IEEE 841, VFD-duty requirements, package MCC/panel supply rules, local control station requirements.",
-      "owner_task": "ELEC-T010"
+     "item": "OWNR-I070",
+     "use": "design life, on-stream factor, sparing and reliability expectations",
+     "method": "review",
+     "level": 3
     },
     {
-      "id": "ELEC-I020",
-      "name": "Preliminary power demand estimate",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Connected kW, running kW, peak demand MW/MVA, power factor, essential load MW, largest motor size, growth margin; by unit/area.",
-      "owner_task": "ELEC-T020"
+     "item": "PROJ-I010",
+     "use": "project scope, phase plan, execution strategy and codes basis",
+     "method": "review",
+     "level": 2
     },
     {
-      "id": "ELEC-I030",
-      "name": "Utility interconnect requirements",
-      "system": "Excel / Word",
-      "form": "decision",
-      "content": "Point of interconnection, service voltage, available three-phase and SLG fault MVA and X/R (max/min), utility protection and metering requirements, revenue metering, power quality limits (IEEE 519), backfeed date, utility-owned vs owner-owned equipment boundary.",
-      "owner_task": "ELEC-T030"
+     "item": "PROC-I240",
+     "use": "operating modes, sparing (A/B), continuous vs intermittent, start-up/shutdown approach for essential and restart loads",
+     "method": "review",
+     "level": 1
     },
     {
-      "id": "ELEC-I032",
-      "name": "Utility interconnection application and load forecast",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Formal application to utility: forecast demand by year, largest motor, harmonic sources, single-line at POI; supports owner commercial agreement and schedule.",
-      "owner_task": "ELEC-T030"
-    },
-    {
-      "id": "ELEC-I040",
-      "name": "Preliminary key one-line diagram",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Main substation, transformers (MVA, voltages), MV/LV distribution, number of substations, emergency generator and UPS, selected configuration with rationale.",
-      "owner_task": "ELEC-T040"
-    },
-    {
-      "id": "ELEC-I050",
-      "name": "Electrical estimate quantities and pricing",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Major equipment list with budget prices, bulk quantities (cable by size, tray, conduit, grounding, lighting fixtures, heat tracing), installation hours basis, by WBS/area.",
-      "owner_task": "ELEC-T050"
-    },
-    {
-      "id": "ELEC-I060",
-      "name": "Hazardous area release source list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per source: equipment/tag, fluid, NFPA 497 group, AIT, temperature class, grade of release, ventilation, Class/Division (or Zone), extent per API RP 500/505 figure reference.",
-      "owner_task": "ELEC-T060"
-    },
-    {
-      "id": "ELEC-I070",
-      "name": "Hazardous area classification drawings",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Plan and elevation drawings with Class I Div 1/Div 2 (or Zone 0/1/2) boundaries, gas group, temperature class, unclassified buildings, pressurized rooms; issued to all disciplines, vendors and construction.",
-      "owner_task": "ELEC-T070"
-    },
-    {
-      "id": "ELEC-I072",
-      "name": "Equipment certification requirements by area",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Per area/equipment tag: Class/Division or Zone, gas group, T-code; used by MECH (motors, packages), INST (instruments, junction boxes), CIVL (HVAC), vendors.",
-      "owner_task": "ELEC-T070"
-    },
-    {
-      "id": "ELEC-I080",
-      "name": "Substation and electrical building requirements to civil",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Building footprint, ceiling height, equipment arrangement, floor loads and equipment weights, cable vault/raised floor/cable entry, doors and maintenance clearances (NEC 110.26), transformer pads, oil containment volumes, fire separation, battery room ventilation, blast rating.",
-      "owner_task": "ELEC-T080"
-    },
-    {
-      "id": "ELEC-I082",
-      "name": "Electrical building HVAC and pressurization requirements",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Heat dissipation per room (kW) for switchgear, MCC, VFD, UPS, transformers; design temperatures/humidity; battery hydrogen ventilation; positive pressurization and purge per NFPA 496; HVAC power supply needs back to ELEC.",
-      "owner_task": "ELEC-T080"
-    },
-    {
-      "id": "ELEC-I084",
-      "name": "Prefabricated E-house scope definition",
-      "system": "Excel / Word",
-      "form": "decision",
-      "content": "Decision on stick-built vs E-house, modules, shipping splits, equipment included, skid foundation interface.",
-      "owner_task": "ELEC-T080"
-    },
-    {
-      "id": "ELEC-I090",
-      "name": "Electrical load list",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Per load: tag, description, P&ID, area, kW/HP, voltage, phases, efficiency, PF, duty, demand factor, bus/MCC assignment, essential/UPS flag, starter type (DOL/RVSS/VFD); summary by bus and switchboard.",
-      "owner_task": "ELEC-T090"
-    },
-    {
-      "id": "ELEC-I092",
-      "name": "Plant power demand summary to process and owner",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Total electrical demand (normal, peak, essential), per-unit kWh/yr for utility balance and opex; issued to PROC utility balance and OWNR.",
-      "owner_task": "ELEC-T090"
-    },
-    {
-      "id": "ELEC-I100",
-      "name": "Electrical P&ID review comments",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Markups: missing motor tags, MOV/EOV electrical data, heat tracing notes, start/stop and interlock representation, ESD trip of motors, VFD symbols.",
-      "owner_task": "ELEC-T100"
-    },
-    {
-      "id": "ELEC-I110",
-      "name": "Electrical equipment ratings",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Transformer MVA, voltage, %Z, cooling; switchgear bus and interrupting ratings; MCC sizes and bucket counts; generator kW/kVA; UPS kVA and battery Ah/autonomy; spare capacity.",
-      "owner_task": "ELEC-T110"
-    },
-    {
-      "id": "ELEC-I120",
-      "name": "Single-line diagrams",
-      "system": "SPEL",
-      "form": "drawing",
-      "content": "Main, MV, LV and MCC one-lines: buses, breakers, transformers, feeders, cable references, protection relays (ANSI devices), CTs/PTs, metering, interlocks, normal/tie/standby schemes.",
-      "owner_task": "ELEC-T120"
-    },
-    {
-      "id": "ELEC-I130",
-      "name": "MV switchgear requisition package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Specification and datasheets: voltage, continuous/interrupting ratings, arc-resistant construction (IEEE C37.20.7), relays, communication protocol, I/O to DCS/ECMS, testing and documentation requirements.",
-      "owner_task": "ELEC-T130"
-    },
-    {
-      "id": "ELEC-I140",
-      "name": "Power transformer requisition package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Specification and datasheets: MVA, voltages, %Z, vector group, OLTC/NLTC, cooling, neutral grounding resistor, oil containment data, losses evaluation basis, testing.",
-      "owner_task": "ELEC-T140"
-    },
-    {
-      "id": "ELEC-I150",
-      "name": "LV switchgear, MCC and E-house requisition package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Specification and datasheets: buses, starter schedule (bucket list), intelligent MCC protocol, E-house structure, HVAC, fire detection, internal lighting and shipping splits.",
-      "owner_task": "ELEC-T150"
-    },
-    {
-      "id": "ELEC-I160",
-      "name": "VFD requisition package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Specification and datasheets: motor list on VFD, ratings, pulse number/active front end, IEEE 519 limits, bypass, motor compatibility (inverter-duty), DCS interface.",
-      "owner_task": "ELEC-T160"
-    },
-    {
-      "id": "ELEC-I170",
-      "name": "UPS, DC and generator requisition package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Specification and datasheets: UPS kVA, autonomy, battery type, DC charger rating, generator kW, fuel and tank autonomy, ATS, NFPA 110 level, emissions tier.",
-      "owner_task": "ELEC-T170"
-    },
-    {
-      "id": "ELEC-I180",
-      "name": "Electrical technical bid evaluations",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Technical compliance tables, accepted deviations, clarifications, recommended vendor per requisition, technical conditions for PO.",
-      "owner_task": "ELEC-T180"
-    },
-    {
-      "id": "ELEC-I190",
-      "name": "Electrical vendor document comments",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Coded returns (approved, approved with comments, rejected) with markups on GA, schematics and datasheets.",
-      "owner_task": "ELEC-T190"
-    },
-    {
-      "id": "ELEC-I192",
-      "name": "Certified electrical equipment data",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Certified transformer %Z/X/R, losses, switchgear dimensions/weights, breaker and relay models, CT ratios, heat loss; keyed into SPEL and ETAP and passed to CIVL for foundations.",
-      "owner_task": "ELEC-T190"
-    },
-    {
-      "id": "ELEC-I200",
-      "name": "Motor data review comments",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Comments to MECH and vendors on motor voltage, enclosure, area certification, starting capability, space heaters, RTDs, VFD compatibility.",
-      "owner_task": "ELEC-T200"
-    },
-    {
-      "id": "ELEC-I202",
-      "name": "Certified motor data",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Per motor: rated kW, FLA, LRC, PF and efficiency at load, inertia (motor and load), starting torque, accelerating time; used in SPEL, ETAP motor starting, cable sizing and relay settings.",
-      "owner_task": "ELEC-T200"
-    },
-    {
-      "id": "ELEC-I210",
-      "name": "Load flow study results",
-      "system": "ETAP",
-      "form": "document",
-      "content": "Bus voltages, branch loading, transformer loading and tap settings, power factor and capacitor needs, losses, for normal and N-1 cases.",
-      "owner_task": "ELEC-T210"
-    },
-    {
-      "id": "ELEC-I220",
-      "name": "Short-circuit study results",
-      "system": "ETAP",
-      "form": "document",
-      "content": "Momentary and interrupting duties per bus, X/R, SLG fault values, equipment duty check pass/fail; feeds specs, cable sizing (short-circuit withstand) and grounding.",
-      "owner_task": "ELEC-T220"
-    },
-    {
-      "id": "ELEC-I230",
-      "name": "Motor-starting study results",
-      "system": "ETAP",
-      "form": "document",
-      "content": "Voltage dip at motor and buses, acceleration time, pass/fail per motor, restart/re-acceleration scheme.",
-      "owner_task": "ELEC-T230"
-    },
-    {
-      "id": "ELEC-I232",
-      "name": "Motor starting method requirements",
-      "system": "Excel / Word",
-      "form": "decision",
-      "content": "Maximum DOL motor size per bus, motors requiring soft starter/VFD/autotransformer, minimum starting torque requirements; returned to MECH and driven-equipment vendors.",
-      "owner_task": "ELEC-T230"
-    },
-    {
-      "id": "ELEC-I240",
-      "name": "Harmonic study results and filter requirements",
-      "system": "ETAP",
-      "form": "document",
-      "content": "THD/TDD per bus, resonance check, filter or capacitor bank requirements, VFD front-end requirements.",
-      "owner_task": "ELEC-T240"
-    },
-    {
-      "id": "ELEC-I250",
-      "name": "Protective device coordination study",
-      "system": "ETAP",
-      "form": "document",
-      "content": "TCC curves, coordination per zone, selectivity exceptions, arc-flash reduction (maintenance switch) settings.",
-      "owner_task": "ELEC-T250"
-    },
-    {
-      "id": "ELEC-I252",
-      "name": "Relay and breaker setting files",
-      "system": "ETAP",
-      "form": "data",
-      "content": "Setting sheets/files per relay and trip unit for loading by the commissioning testing contractor.",
-      "owner_task": "ELEC-T250"
-    },
-    {
-      "id": "ELEC-I260",
-      "name": "Arc flash study and labels",
-      "system": "ETAP",
-      "form": "document",
-      "content": "Incident energy and arc flash boundary per bus, PPE category, label data file for printing and installation, mitigation recommendations.",
-      "owner_task": "ELEC-T260"
-    },
-    {
-      "id": "ELEC-I270",
-      "name": "Ground grid study",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Grid resistance, step and touch potentials vs IEEE 80 limits, conductor size, rod quantity.",
-      "owner_task": "ELEC-T270"
-    },
-    {
-      "id": "ELEC-I272",
-      "name": "Grounding layouts and details",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Ground grid routing, ground wells, equipment/tank/vessel/structure bonding points, embeds in foundations (to CIVL), static grounding details.",
-      "owner_task": "ELEC-T270"
-    },
-    {
-      "id": "ELEC-I280",
-      "name": "Lightning protection design",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Risk assessment, protected zones, air terminal and down-conductor layouts, bonding to ground grid.",
-      "owner_task": "ELEC-T280"
-    },
-    {
-      "id": "ELEC-I290",
-      "name": "Lighting and small power layouts",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Fixture types and locations, lux levels, circuiting, lighting panels, photocell/contactor control, convenience/welding receptacles.",
-      "owner_task": "ELEC-T290"
-    },
-    {
-      "id": "ELEC-I292",
-      "name": "Lighting panel schedules and loads",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Panel schedules: circuits, kW per panel, feeder supply; keyed into load list.",
-      "owner_task": "ELEC-T290"
-    },
-    {
-      "id": "ELEC-I300",
-      "name": "Heat tracing circuit list and loads",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Per circuit: line number, cable type, W/m, circuit length, breaker, panel, controller, maintain/max temperature; panel loads to load list.",
-      "owner_task": "ELEC-T300"
-    },
-    {
-      "id": "ELEC-I302",
-      "name": "Heat tracing isometrics and requirements to piping",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Heat tracing isometrics, power connection and end-seal locations, RTD locations, requirements back to piping/insulation (insulation oversize, aluminium tape).",
-      "owner_task": "ELEC-T300"
-    },
-    {
-      "id": "ELEC-I304",
-      "name": "Heat tracing control and alarm interface to I&C",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Heat trace panel common alarms and monitoring points, communication to DCS.",
-      "owner_task": "ELEC-T300"
-    },
-    {
-      "id": "ELEC-I310",
-      "name": "Cathodic protection design",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Current requirement calculations, anode beds, rectifiers (AC supply load to load list), test stations, insulating flange locations (to PIPE), cable routing.",
-      "owner_task": "ELEC-T310"
-    },
-    {
-      "id": "ELEC-I320",
-      "name": "Cable schedule",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Per cable: tag, from/to, voltage, conductors, size, type (MC/TC-ER), length, route/raceway segments, gland size.",
-      "owner_task": "ELEC-T320"
-    },
-    {
-      "id": "ELEC-I322",
-      "name": "Cable pull cards and terminations",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Pull cards with route segments, terminations and drum assignment for construction and Smart Completions tag load.",
-      "owner_task": "ELEC-T320"
-    },
-    {
-      "id": "ELEC-I330",
-      "name": "Cable tray routing model",
-      "system": "S3D",
-      "form": "model",
-      "content": "Tray and conduit routes, sizes, elevations, rack levels reserved, fill; reference for piping clash checks and model reviews.",
-      "owner_task": "ELEC-T330"
-    },
-    {
-      "id": "ELEC-I332",
-      "name": "Cable tray support loads to civil/structural",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Tray loads per rack level and structure (kg/m), support locations and attachments.",
-      "owner_task": "ELEC-T330"
-    },
-    {
-      "id": "ELEC-I334",
-      "name": "Underground duct bank and trench layout",
-      "system": "S3D",
-      "form": "drawing",
-      "content": "Duct bank routes, sections, manholes, depths and crossings; to CIVL for excavation and drainage coordination.",
-      "owner_task": "ELEC-T330"
-    },
-    {
-      "id": "ELEC-I340",
-      "name": "MCC and switchgear interface signal list",
-      "system": "SPEL",
-      "form": "data",
-      "content": "Per motor/breaker: run status, trip, available, remote start/stop, SIS trip, VFD speed ref/feedback, kW/current via network; hardwired vs serial; marshalling terminal; for INST I/O list.",
-      "owner_task": "ELEC-T340"
-    },
-    {
-      "id": "ELEC-I350",
-      "name": "Control and interlock schematics",
-      "system": "SPEL",
-      "form": "drawing",
-      "content": "Motor control typicals, elementary/interlock diagrams, transfer schemes, ESD interfaces with terminal numbers.",
-      "owner_task": "ELEC-T350"
-    },
-    {
-      "id": "ELEC-I360",
-      "name": "Electrical layouts and power plans",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Substation/room layouts, outdoor equipment locations, power plans with conduit/tray drops, local control station and motor locations.",
-      "owner_task": "ELEC-T360"
-    },
-    {
-      "id": "ELEC-I362",
-      "name": "Electrical equipment foundation and embed requirements",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Equipment weights, anchorage, base dimensions, conduit stub-ups and embeds for transformers, switchgear, E-houses, generators; to CIVL.",
-      "owner_task": "ELEC-T360"
-    },
-    {
-      "id": "ELEC-I370",
-      "name": "Electrical bulk MTO",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Line items with commodity code, size, quantity, contingency, delta vs previous MTO; loaded by hand into Purchasing DB.",
-      "owner_task": "ELEC-T370"
-    },
-    {
-      "id": "ELEC-I380",
-      "name": "Temporary construction power design",
-      "system": "Excel / Word",
-      "form": "drawing",
-      "content": "Temporary service, generators, distribution panels and routing for construction.",
-      "owner_task": "ELEC-T380"
-    },
-    {
-      "id": "ELEC-I390",
-      "name": "IFC electrical deliverable package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Sealed IFC one-lines, layouts, schedules, schematics, area classification and details.",
-      "owner_task": "ELEC-T390"
-    },
-    {
-      "id": "ELEC-I400",
-      "name": "Electrical FAT reports and punch",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "FAT acceptance, punch items, open deviations, release for shipment recommendation.",
-      "owner_task": "ELEC-T400"
-    },
-    {
-      "id": "ELEC-I410",
-      "name": "Electrical RFI responses and field changes",
-      "system": "Procore",
-      "form": "decision",
-      "content": "RFI answers, field change notices, revised sketches, impact on cable schedule and SPEL.",
-      "owner_task": "ELEC-T410"
-    },
-    {
-      "id": "ELEC-I420",
-      "name": "Electrical energization sequence and system boundaries",
-      "system": "Smart Completions",
-      "form": "decision",
-      "content": "Electrical systems/subsystems marked on one-lines, energization order, permanent power backfeed date.",
-      "owner_task": "ELEC-T420"
-    },
-    {
-      "id": "ELEC-I422",
-      "name": "Electrical tag and cable lists for completions",
-      "system": "Smart Completions",
-      "form": "data",
-      "content": "Equipment, cable and circuit tag lists with system assignment, loaded by spreadsheet into Smart Completions for ITRs.",
-      "owner_task": "ELEC-T420"
-    },
-    {
-      "id": "ELEC-I430",
-      "name": "Energization readiness sign-off",
-      "system": "Smart Completions",
-      "form": "decision",
-      "content": "Engineering sign-off that settings are applied, labels installed, tests accepted, ready to energize.",
-      "owner_task": "ELEC-T430"
-    },
-    {
-      "id": "ELEC-I440",
-      "name": "As-built electrical records",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "As-built SPEL database, ETAP model, one-lines, cable schedule and layouts for handover to owner.",
-      "owner_task": "ELEC-T440"
+     "item": "CIVL-I030",
+     "use": "ambient max/min temperatures, wind, seismic parameters, snow/ice for equipment ratings and derating",
+     "method": "manual",
+     "level": 2
     }
-  ],
-  "gaps": [
+   ]
+  },
+  {
+   "id": "ELEC-T020",
+   "name": "Prepare preliminary electrical load estimate",
+   "phases": [
+    "FEL1",
+    "FEL2"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-01",
+   "description": "Estimates total connected and running load (MW/MVA) from the equipment list and factored allowances to size the plant supply and utility request.",
+   "produces": [
+    "ELEC-I020"
+   ],
+   "consumes": [
     {
-      "task": "ELEC-T270",
-      "from": "CIVL",
-      "info": "Soil resistivity survey (Wenner four-pin) and soil chemistry for grounding design",
-      "method": "manual",
-      "level": 3
+     "item": "PROC-I050",
+     "use": "equipment type, count and power key size per option for factored load estimate",
+     "method": "manual",
+     "level": 1
     },
     {
-      "task": "ELEC-T310",
-      "from": "CIVL",
-      "info": "Soil resistivity and soil chemistry (pH, chlorides) survey along buried routes and tank pads for CP design",
-      "method": "manual",
-      "level": 3
+     "item": "PROC-I270",
+     "use": "power estimate per consumer, normal/peak/intermittent",
+     "method": "manual",
+     "level": 1
     },
     {
-      "task": "ELEC-T400",
-      "from": "INST",
-      "info": "DCS/ECMS emulator or test rig and communication map for integrated switchgear/MCC communication FAT",
-      "method": "meeting",
-      "level": 3
+     "item": "PROC-I030",
+     "use": "power demand per screening option",
+     "method": "manual",
+     "level": 1
+    },
+    {
+     "item": "MECH-I050",
+     "use": "driver type, fixed/variable speed, estimated absorbed and rated power, voltage class per machine",
+     "method": "manual",
+     "level": 1
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "demand and diversity factors, power factor, voltage thresholds",
+     "method": "review",
+     "level": 1
     }
-  ]
+   ]
+  },
+  {
+   "id": "ELEC-T030",
+   "name": "Coordinate utility interconnect and power supply",
+   "phases": [
+    "FEL1",
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "SEL-03",
+   "description": "Prepares the interconnection request to the utility, obtains available fault levels and supply options, and agrees point of interconnection, metering and protection requirements.",
+   "produces": [
+    "ELEC-I030",
+    "ELEC-I032"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I020",
+     "use": "peak MW/MVA, growth margin, largest motor size",
+     "method": "manual",
+     "level": 1
+    },
+    {
+     "item": "OWNR-I050",
+     "use": "existing electrical supply capacity, existing service points and agreements",
+     "method": "meeting",
+     "level": 1
+    },
+    {
+     "item": "CIVL-I040",
+     "use": "property and plant grid, existing overhead lines and roads for utility line routing and substation location",
+     "method": "review",
+     "level": 1
+    },
+    {
+     "item": "PROJ-I130",
+     "use": "baseline date for permanent power (backfeed) and mechanical completion",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T040",
+   "name": "Develop configuration options and preliminary key one-line",
+   "phases": [
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "FEL-02",
+   "description": "Screens supply and distribution options (on-site generation vs utility, substation count, voltage levels) and issues a key one-line for the selected option.",
+   "produces": [
+    "ELEC-I040"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I030",
+     "use": "service voltage, available fault MVA and X/R, utility-owned equipment boundary",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I020",
+     "use": "demand by area for substation count and transformer sizing",
+     "method": "manual",
+     "level": 1
+    },
+    {
+     "item": "PIPE-I010",
+     "use": "block arrangement per option, candidate substation locations",
+     "method": "review",
+     "level": 1
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "unit areas, rack corridors and building locations",
+     "method": "review",
+     "level": 1
+    },
+    {
+     "item": "SAFE-I050",
+     "use": "overpressure and fire distances affecting substation/building locations",
+     "method": "review",
+     "level": 1
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T050",
+   "name": "Prepare electrical cost estimate inputs",
+   "phases": [
+    "FEL1",
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "CST-01",
+   "description": "Produces factored then quantity-based electrical quantities and major equipment pricing for the Class 5/4/3 estimates.",
+   "produces": [
+    "ELEC-I050"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I040",
+     "use": "number and rating of transformers, switchgear, generators and UPS",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings for pricing",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I090",
+     "use": "number and size of motors and loads by voltage",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "area dimensions and rack corridors for cable and tray lengths",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "VEND-I010",
+     "use": "budget prices, weights and dimensions of major electrical equipment",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROJ-I080",
+     "use": "quantity take-off template, estimate class, code of accounts, due date",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PROJ-I030",
+     "use": "WBS, area and cost codes",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T060",
+   "name": "Prepare hazardous area release source list",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-02",
+   "description": "Identifies release sources, grades of release and ventilation per API RP 500/505 and NFPA 497 using process fluid data.",
+   "produces": [
+    "ELEC-I060"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I285",
+     "use": "per release source: composition, P, T, phase, flash point, MW, fluid category for HAC",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I035",
+     "use": "LFL/UFL, autoignition temperature, gas group and T-class per material",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I201",
+     "use": "release sources on P&IDs: pump seals, flanges, vents, drains, sample points, PSV discharges",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I050",
+     "use": "flash fire extents and dispersion distances affecting classified extents",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "equipment locations, buildings and enclosed areas",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner area classification practice (Division vs Zone)",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T070",
+   "name": "Prepare hazardous area classification drawings",
+   "phases": [
+    "FEL3",
+    "DD",
+    "CON"
+   ],
+   "system": "S3D",
+   "activity": "ELE-02",
+   "description": "Draws classified area extents in plan and elevation on the plot plan background and issues them to all disciplines and vendors.",
+   "produces": [
+    "ELEC-I070",
+    "ELEC-I072"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I060",
+     "use": "Class/Division, group, T-code and extent per source",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "plot plan background to grid",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I060",
+     "use": "equipment elevations and structures for elevation views",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I270",
+     "use": "building layouts, doors and openings near classified areas",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I300",
+     "use": "HVAC pressurisation and air changes per room",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I152",
+     "use": "HAZOP recommendations affecting vents, drains and release sources",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I255",
+     "use": "comments on missing sources, extents, gas group/T-class",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T080",
+   "name": "Size substations and electrical buildings",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Develops substation and electrical room arrangements and passes sizes, loads, HVAC and civil requirements to civil/structural.",
+   "produces": [
+    "ELEC-I080",
+    "ELEC-I082",
+    "ELEC-I084"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I040",
+     "use": "substation configuration and section count",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I110",
+     "use": "transformer MVA, MCC bucket counts, UPS/battery sizes",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "VEND-I020",
+     "use": "outline dimensions, weights and heat losses of switchgear, MCC, VFD, UPS",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "SAFE-I102",
+     "use": "building acceptability per API 752, hardening or relocation required",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I100",
+     "use": "blast overpressure and impulse per building",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I070",
+     "use": "building location relative to classified areas, pressurization need",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "substation location and access roads",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T090",
+   "name": "Develop electrical load list in SPEL",
+   "phases": [
+    "FEL3",
+    "DD",
+    "CON"
+   ],
+   "system": "SPEL",
+   "activity": "ELE-01",
+   "description": "Keys every electrical consumer into SPEL with rating, voltage, duty, bus assignment and demand factors and maintains it through vendor data.",
+   "produces": [
+    "ELEC-I090",
+    "ELEC-I092"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I080",
+     "use": "tags, service, driver power, vendor/PO status",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I330",
+     "use": "absorbed and rated motor power, voltage, speed, starting method, VFD, duty, space heater",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "PROC-I340",
+     "use": "running vs spare equipment and motor tags on IFD P&IDs",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I240",
+     "use": "operating modes and simultaneous operation for demand factors",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I280",
+     "use": "DCS/SIS/F&G cabinet and instrument power kW/kVA, UPS vs normal",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "INST-I161",
+     "use": "analyzer shelter power and UPS",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "INST-I351",
+     "use": "telecom device power and UPS load",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I305",
+     "use": "HVAC consumer tag, kW, voltage, duty/standby, essential/UPS need",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "VEND-I120",
+     "use": "package motor ratings, electrical loads and panel requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I300",
+     "use": "heat tracing panel loads",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I292",
+     "use": "lighting panel loads",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I350",
+     "use": "telecom and CCTV power loads",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T100",
+   "name": "Review P&IDs and assign electrical attributes",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "SPID",
+   "activity": "PRC-08",
+   "description": "Reviews P&IDs for motor tags, MOVs, heat tracing flags, electrical interlocks and local control stations and returns comments.",
+   "produces": [
+    "ELEC-I100"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I200",
+     "use": "motor-driven equipment, MOVs, heat tracing/insulation codes, interlocks on IFR P&IDs",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "INST-I050",
+     "use": "motor-related instrument tags: run status, trips, permissives",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T110",
+   "name": "Size major electrical equipment",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-03",
+   "description": "Sizes transformers, switchgear, MCCs, emergency generator, UPS/batteries and capacitor/filter banks from the load list and study results.",
+   "produces": [
+    "ELEC-I110"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I090",
+     "use": "running/peak kVA per bus, essential/UPS loads",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I030",
+     "use": "utility fault levels and X/R",
+     "method": "file",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "preliminary short-circuit duties",
+     "method": "file",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I210",
+     "use": "preliminary bus loading and voltage drop",
+     "method": "file",
+     "level": 2
+    },
+    {
+     "item": "INST-I280",
+     "use": "UPS-powered control system loads, redundancy and autonomy",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I045",
+     "use": "fire water source/redundancy and F&G basis for emergency power",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I190",
+     "use": "fire water pump duty (electric vs diesel driver)",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T120",
+   "name": "Develop one-line diagrams in SPEL",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "SPEL",
+   "activity": "ELE-03",
+   "description": "Draws main and MCC one-line diagrams from the SPEL load list and equipment ratings, with protection and metering.",
+   "produces": [
+    "ELEC-I120"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I090",
+     "use": "loads with bus/MCC assignment and starter type",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I110",
+     "use": "transformer, switchgear, MCC, generator and UPS ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I030",
+     "use": "point of interconnection, metering and utility protection requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "protection and metering philosophy",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T130",
+   "name": "Specify MV switchgear",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
+   "produces": [
+    "ELEC-I130"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "one-line configuration, feeders, protection and metering",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "Class/Division, group and T-code at equipment location",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "ambient, enclosure, standards and design basis",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "short-circuit interrupting and withstand duties at the bus",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner electrical standards and approved vendor list",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I030",
+     "use": "electrical network protocol (Modbus TCP/IEC 61850) and DCS/ECMS links",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T140",
+   "name": "Specify power transformers",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
+   "produces": [
+    "ELEC-I140"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "one-line configuration, feeders, protection and metering",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "Class/Division, group and T-code at equipment location",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "ambient, enclosure, standards and design basis",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "short-circuit interrupting and withstand duties at the bus",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner electrical standards and approved vendor list",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T150",
+   "name": "Specify LV switchgear, MCCs and E-houses",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
+   "produces": [
+    "ELEC-I150"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "one-line configuration, feeders, protection and metering",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "Class/Division, group and T-code at equipment location",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "ambient, enclosure, standards and design basis",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "short-circuit interrupting and withstand duties at the bus",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner electrical standards and approved vendor list",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I084",
+     "use": "E-house scope, modules and shipping splits",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I082",
+     "use": "room heat loads and HVAC/pressurization requirements",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I030",
+     "use": "wind and seismic design data for E-house structure",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I020",
+     "use": "structural design criteria for E-house skid and support",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "INST-I030",
+     "use": "intelligent MCC communication protocol to DCS",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T160",
+   "name": "Specify VFDs and harmonic mitigation",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
+   "produces": [
+    "ELEC-I160"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "one-line configuration, feeders, protection and metering",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "Class/Division, group and T-code at equipment location",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "ambient, enclosure, standards and design basis",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "short-circuit interrupting and withstand duties at the bus",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner electrical standards and approved vendor list",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "MECH-I050",
+     "use": "machines with variable speed (VFD) and rated power",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I330",
+     "use": "speed range, starting limitations, duty for VFD-driven motors",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I231",
+     "use": "controlled variable and turndown requiring variable speed",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T170",
+   "name": "Specify UPS, DC systems and emergency generator",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Writes the specification and datasheets and issues the technical part of the requisition.",
+   "produces": [
+    "ELEC-I170"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "one-line configuration, feeders, protection and metering",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "Class/Division, group and T-code at equipment location",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "ambient, enclosure, standards and design basis",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "short-circuit interrupting and withstand duties at the bus",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner electrical standards and approved vendor list",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I062",
+     "use": "generator emission requirements (EPA tier, NSPS)",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I220",
+     "use": "fixed fire protection for generator and fuel tank",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I280",
+     "use": "UPS load list and autonomy for DCS/SIS/F&G",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T180",
+   "name": "Evaluate electrical bids technically",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Evaluates vendor proposals against specifications, holds clarification meetings and issues technical recommendations.",
+   "produces": [
+    "ELEC-I180"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I020",
+     "use": "compliance statement, completed datasheets, outline drawings",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "VEND-I040",
+     "use": "technical exceptions",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "VEND-I050",
+     "use": "clarification responses",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "SCM-I090",
+     "use": "unpriced technical offers and TBE due date",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I130",
+     "use": "MV switchgear requirements",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I140",
+     "use": "transformer requirements",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I150",
+     "use": "LV switchgear/MCC/E-house requirements",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I160",
+     "use": "VFD requirements",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I170",
+     "use": "UPS/DC/generator requirements",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T190",
+   "name": "Review electrical vendor drawings and data",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Reviews vendor GA, schematics, datasheets and test procedures for electrical equipment and returns coded comments; loads certified data into SPEL/ETAP.",
+   "produces": [
+    "ELEC-I190",
+    "ELEC-I192"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I070",
+     "use": "vendor GA: dimensions, weights, cable entry, access",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified one-lines, schematics, wiring, relay data, impedance test reports",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I160",
+     "use": "VDRL per PO: documents and due dates",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I180",
+     "use": "vendor documents routed for review with return date",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T200",
+   "name": "Review motor and package electrical data",
+   "phases": [
+    "DD"
+   ],
+   "system": "SPEL",
+   "activity": "VEN-01",
+   "description": "Checks motor data sheets and package electrical scope from driven-equipment vendors against the electrical requirements and updates the load list.",
+   "produces": [
+    "ELEC-I200",
+    "ELEC-I202"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I440",
+     "use": "certified motor datasheets: kW, FLA, LRC, PF, efficiency, inertia, speed-torque, accessories",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I330",
+     "use": "motor rating, voltage, starting method and limitations per tag",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I120",
+     "use": "package motor ratings, starting data, panel loads and requirements",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I012",
+     "use": "motor electrical requirements for compliance check",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T210",
+   "name": "Build ETAP model and run load flow study",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "ETAP",
+   "activity": "ELE-05",
+   "description": "Builds the ETAP network from SPEL load list and one-lines, runs load flow for normal, contingency and maximum load cases and sets transformer taps.",
+   "produces": [
+    "ELEC-I210"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I090",
+     "use": "loads, ratings and bus assignments exported from SPEL",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "network topology from one-lines",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I030",
+     "use": "utility fault MVA, X/R and voltage range",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I110",
+     "use": "equipment ratings",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I192",
+     "use": "certified transformer %Z, X/R, losses and tap ranges",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I320",
+     "use": "cable sizes and lengths for impedances",
+     "method": "file",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T220",
+   "name": "Run short-circuit study",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "ETAP",
+   "activity": "ELE-05",
+   "description": "Calculates maximum and minimum fault currents per IEEE/ANSI C37 to confirm equipment interrupting and withstand duties.",
+   "produces": [
+    "ELEC-I220"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I210",
+     "use": "ETAP network model and operating cases",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I192",
+     "use": "certified equipment impedances",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I202",
+     "use": "motor kW, LRC and X/R for motor contribution",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T230",
+   "name": "Run motor-starting study",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "ETAP",
+   "activity": "ELE-05",
+   "description": "Simulates starting of large motors to check voltage dips and acceleration and sets the starting method.",
+   "produces": [
+    "ELEC-I230",
+    "ELEC-I232"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I210",
+     "use": "ETAP network model",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I202",
+     "use": "LRC, inertia, speed-torque curves",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I440",
+     "use": "load torque curve and load inertia from certified motor/driven-equipment data",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I210",
+     "use": "compressor start conditions (unloaded/loaded, valve position)",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I240",
+     "use": "restart and re-acceleration requirements after voltage dips",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T240",
+   "name": "Run harmonic analysis",
+   "phases": [
+    "DD"
+   ],
+   "system": "ETAP",
+   "activity": "ELE-05",
+   "description": "Models VFD and non-linear loads and checks IEEE 519 compliance at the point of common coupling and buses.",
+   "produces": [
+    "ELEC-I240"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I210",
+     "use": "ETAP model and load flow cases",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified VFD harmonic spectra and front-end type",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I030",
+     "use": "utility IEEE 519 limits at point of interconnection",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T250",
+   "name": "Perform protective relay coordination study",
+   "phases": [
+    "DD",
+    "COM"
+   ],
+   "system": "ETAP",
+   "activity": "ELE-05",
+   "description": "Develops time-current coordination and relay/breaker trip settings from utility interface to motors.",
+   "produces": [
+    "ELEC-I250",
+    "ELEC-I252"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I220",
+     "use": "fault currents per bus",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I210",
+     "use": "ETAP network model",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified relay models, CT ratios, breaker trip units, fuse curves",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I202",
+     "use": "FLA, LRC, accelerating time, thermal limit curves",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I030",
+     "use": "utility protection settings at interconnect",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T260",
+   "name": "Perform arc flash study",
+   "phases": [
+    "DD",
+    "COM"
+   ],
+   "system": "ETAP",
+   "activity": "ELE-05",
+   "description": "Calculates incident energy per IEEE 1584 and NFPA 70E, specifies PPE categories and produces equipment labels.",
+   "produces": [
+    "ELEC-I260"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I250",
+     "use": "protective device clearing times and settings",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "bolted fault currents per bus",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I192",
+     "use": "enclosure type, gaps, electrode configuration",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner NFPA 70E program and labeling standard",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T270",
+   "name": "Design grounding system",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Performs ground grid study (IEEE 80) and designs plant, substation and equipment grounding.",
+   "produces": [
+    "ELEC-I270",
+    "ELEC-I272"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I220",
+     "use": "SLG fault current and clearing times",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I040",
+     "use": "equipment, tank and building locations to bond",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I180",
+     "use": "structures and piping in model for bonding points",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I190",
+     "use": "foundation plans for ground rod and embed locations",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I240",
+     "use": "steel structures and pipe rack columns to ground",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I390",
+     "use": "Soil resistivity survey (Wenner four-pin) and soil chemistry for grounding design",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T280",
+   "name": "Design lightning protection",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Performs risk assessment (NFPA 780) and designs air terminals and down conductors for buildings and tall structures.",
+   "produces": [
+    "ELEC-I280"
+   ],
+   "consumes": [
+    {
+     "item": "CIVL-I290",
+     "use": "building dimensions and roofing",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I240",
+     "use": "structure heights and layouts",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "MECH-I290",
+     "use": "overall heights of columns, stacks and tanks",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I272",
+     "use": "ground grid for down-conductor connection",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T290",
+   "name": "Design lighting and small power",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Calculates illumination levels (IES) and lays out area, platform, building and emergency/egress lighting and receptacles.",
+   "produces": [
+    "ELEC-I290",
+    "ELEC-I292"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "platforms, stairs, equipment and valve operating points",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I290",
+     "use": "room layouts and functions",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I240",
+     "use": "steel for fixture supports",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "Class/Division and T-code for fixture certification",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I230",
+     "use": "escape routes, muster points, safety showers for emergency lighting",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T300",
+   "name": "Design electric heat tracing",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Designs heat tracing circuits for freeze protection and process temperature maintenance using vendor design software outputs.",
+   "produces": [
+    "ELEC-I300",
+    "ELEC-I302",
+    "ELEC-I304"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I210",
+     "use": "lines requiring tracing, maintain temperature, design/steam-out temperature, fluid",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I400",
+     "use": "isometric geometry, line lengths, valves, flanges, supports",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I160",
+     "use": "insulation type and thickness per line",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I281",
+     "use": "impulse and analyzer sample lines needing tracing, maintain temperature",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I072",
+     "use": "T-code limit on sheath temperature",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T310",
+   "name": "Design cathodic protection",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Designs impressed-current or galvanic cathodic protection for buried piping and tank bottoms per NACE/AMPP standards.",
+   "produces": [
+    "ELEC-I310"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I330",
+     "use": "buried piping routes, sizes, crossings",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I160",
+     "use": "paint/coating system per line",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "MECH-I150",
+     "use": "tank diameter, bottom design and appurtenances",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I272",
+     "use": "ground grid layout for interference and isolation",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I390",
+     "use": "Soil resistivity and soil chemistry (pH, chlorides) survey along buried routes and tank pads for CP design",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T320",
+   "name": "Size cables and build cable schedule in SPEL",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "SPEL",
+   "activity": "ELE-04",
+   "description": "Sizes power and control cables for ampacity, voltage drop and short circuit per NEC and creates the cable schedule.",
+   "produces": [
+    "ELEC-I320",
+    "ELEC-I322"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I090",
+     "use": "loads, ratings, voltage",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "from/to feeders and protective devices",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "route lengths per raceway segment",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I220",
+     "use": "short-circuit duties and clearing times for withstand check",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I321",
+     "use": "instrument cables sharing trays: count, diameter, segregation",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T330",
+   "name": "Route raceway, cable tray and duct banks in S3D",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "S3D",
+   "activity": "ELE-06",
+   "description": "Models cable tray, conduit and underground duct banks in S3D and reserves space on racks and structures.",
+   "produces": [
+    "ELEC-I330",
+    "ELEC-I332",
+    "ELEC-I334"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I180",
+     "use": "routed piping and equipment for tray routing and clearances",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I070",
+     "use": "rack tier elevations and cable tray levels",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I235",
+     "use": "Tekla steel and concrete reference geometry",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I150",
+     "use": "underground services and crossings",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I360",
+     "use": "substation and equipment locations",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I080",
+     "use": "cable entry and cable vault locations",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I290",
+     "use": "instrument tray routing and JB locations",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I321",
+     "use": "instrument tray loading and segregation",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I155",
+     "use": "conflicts between duct banks and other underground services",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T340",
+   "name": "Define MCC and switchgear interface signals with I&C",
+   "phases": [
+    "DD"
+   ],
+   "system": "SPEL",
+   "activity": "ICS-05",
+   "description": "Lists hardwired and serial signals between switchgear/MCC and DCS/SIS/ECMS and agrees marshalling and protocol.",
+   "produces": [
+    "ELEC-I340"
+   ],
+   "consumes": [
+    {
+     "item": "INST-I170",
+     "use": "motor control logic: start/stop, auto/manual, permissives",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I240",
+     "use": "SIS/ESD trips of motors and breakers",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I030",
+     "use": "network protocol, marshalling and electrical system interfaces",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I090",
+     "use": "starter types per load",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T350",
+   "name": "Prepare control and interlock schematics",
+   "phases": [
+    "DD"
+   ],
+   "system": "SPEL",
+   "activity": "ELE-03",
+   "description": "Prepares motor control typicals, elementary diagrams and interlock schematics, including SIS and MOV interfaces.",
+   "produces": [
+    "ELEC-I350"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I340",
+     "use": "interface signals per motor and breaker",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "INST-I240",
+     "use": "cause and effect trip actions on motors",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I210",
+     "use": "SIF final elements that are motors or breakers",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified MCC/switchgear schematics",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T360",
+   "name": "Prepare electrical layouts and installation details",
+   "phases": [
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "ELE-06",
+   "description": "Issues electrical equipment layouts, power plans and installation details for construction.",
+   "produces": [
+    "ELEC-I360",
+    "ELEC-I362"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I040",
+     "use": "plot plan background",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I460",
+     "use": "piping GA plans for equipment and tray drops",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I192",
+     "use": "certified equipment dimensions",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "tray model",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I190",
+     "use": "foundation drawings",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I270",
+     "use": "building layouts, cable entry and trenches",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T370",
+   "name": "Prepare electrical MTO and bulk requisitions",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Takes off bulk materials (cable, tray, conduit, fittings, lighting, grounding, heat tracing) and issues MTO revisions to procurement.",
+   "produces": [
+    "ELEC-I370"
+   ],
+   "consumes": [
+    {
+     "item": "ELEC-I320",
+     "use": "cable types and lengths",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I330",
+     "use": "tray, fittings and support quantities",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I290",
+     "use": "lighting fixtures and panels",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I272",
+     "use": "grounding materials",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I302",
+     "use": "heat tracing materials",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I310",
+     "use": "CP materials",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SCM-I060",
+     "use": "commodity codes and bulk MR lines",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SCM-I330",
+     "use": "surplus and reconciliation by commodity",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T380",
+   "name": "Design temporary construction power",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "CON-01",
+   "description": "Sizes and lays out temporary construction power and early backfeed arrangements.",
+   "produces": [
+    "ELEC-I380"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I025",
+     "use": "temporary power demand and building loads",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "CONS-I020",
+     "use": "laydown, temporary buildings and utility connection points",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "CONS-I050",
+     "use": "area sequence and dates",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I030",
+     "use": "utility backfeed date and service arrangements",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T390",
+   "name": "Seal and issue electrical deliverables IFC",
+   "phases": [
+    "DD"
+   ],
+   "system": "Document Locator",
+   "activity": "PRJ-04",
+   "description": "Performs inter-discipline and PE check, seals and issues electrical deliverables IFC.",
+   "produces": [
+    "ELEC-I390"
+   ],
+   "consumes": [
+    {
+     "item": "PROJ-I060",
+     "use": "deliverables, revisions and status",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I140",
+     "use": "planned IFC dates",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I110",
+     "use": "owner comments on IFD electrical deliverables",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I350",
+     "use": "model review actions assigned to electrical",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I360",
+     "use": "clashes involving electrical objects",
+     "method": "meeting",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T400",
+   "name": "Witness factory acceptance tests",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Witnesses FAT of switchgear, MCCs, E-houses, transformers, VFDs and UPS, including integrated communication tests with the DCS.",
+   "produces": [
+    "ELEC-I400"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I150",
+     "use": "FAT procedures, acceptance criteria, witness points",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I180",
+     "use": "FAT certificates and test results",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I210",
+     "use": "inspection level and witness points per PO",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I230",
+     "use": "release for shipment",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I450",
+     "use": "DCS/ECMS emulator or test rig and communication map for integrated switchgear/MCC communication FAT",
+     "method": "meeting",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T410",
+   "name": "Answer RFIs and issue field changes",
+   "phases": [
+    "CON"
+   ],
+   "system": "Procore",
+   "activity": "CON-01",
+   "description": "Answers construction RFIs and issues field change notices and revised details.",
+   "produces": [
+    "ELEC-I410"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I210",
+     "use": "electrical RFIs with markups",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I220",
+     "use": "field change requests on electrical work",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I270",
+     "use": "vendor field service findings",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T420",
+   "name": "Define electrical systems and energization sequence",
+   "phases": [
+    "DD",
+    "CON",
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Defines electrical system/subsystem boundaries, energization sequence and supplies tag lists for completions.",
+   "produces": [
+    "ELEC-I420",
+    "ELEC-I422"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I020",
+     "use": "system list and start-up order",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "COMM-I040",
+     "use": "system and subsystem numbers and boundaries",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I120",
+     "use": "one-lines for boundary marking",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I090",
+     "use": "equipment tags",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I320",
+     "use": "cable tags",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "CONS-I050",
+     "use": "area sequence",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CONS-I070",
+     "use": "CWP boundaries",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T430",
+   "name": "Support electrical testing, setting and energization",
+   "phases": [
+    "COM"
+   ],
+   "system": "Smart Completions",
+   "activity": "CON-02",
+   "description": "Supports field testing (NETA ATS), relay setting implementation, LOTO and first energization; reviews test records.",
+   "produces": [
+    "ELEC-I430"
+   ],
+   "consumes": [
+    {
+     "item": "COMM-I170",
+     "use": "insulation resistance, hi-pot, solo run B-ITRs",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "COMM-I220",
+     "use": "run-in and commissioning results",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I252",
+     "use": "relay setting files",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I260",
+     "use": "arc flash label data",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "VEND-I270",
+     "use": "field service reports for switchgear, VFD, UPS",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "ELEC-T440",
+   "name": "Produce as-built electrical records",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "SPEL",
+   "activity": "CON-02",
+   "description": "Incorporates field redlines into SPEL, ETAP and drawings and issues as-built records.",
+   "produces": [
+    "ELEC-I440"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I330",
+     "use": "redlined cable routes, terminations, layouts",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I252",
+     "use": "as-left relay settings recorded against setting files",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "ELEC-I010",
+   "name": "Electrical design basis and philosophy",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "System voltages (utility, 13.8 kV/4.16 kV/480 V/120-208 V), short-circuit design limits, redundancy (main-tie-main), motor voltage by kW range, motor efficiency (NEMA Premium), enclosure, starting philosophy, essential/UPS loads, grounding method (resistance-grounded MV), codes and standards list.",
+   "owner_task": "ELEC-T010"
+  },
+  {
+   "id": "ELEC-I012",
+   "name": "Motor and electrical requirements for mechanical/vendor specs",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Electrical requirements section for driven-equipment and package specs: motor voltage by size, frequency, enclosure (TEFC/explosion-proof), insulation class, service factor, space heaters, winding RTDs, IEEE 841, VFD-duty requirements, package MCC/panel supply rules, local control station requirements.",
+   "owner_task": "ELEC-T010"
+  },
+  {
+   "id": "ELEC-I020",
+   "name": "Preliminary power demand estimate",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Connected kW, running kW, peak demand MW/MVA, power factor, essential load MW, largest motor size, growth margin; by unit/area.",
+   "owner_task": "ELEC-T020"
+  },
+  {
+   "id": "ELEC-I030",
+   "name": "Utility interconnect requirements",
+   "system": "Excel / Word",
+   "form": "decision",
+   "content": "Point of interconnection, service voltage, available three-phase and SLG fault MVA and X/R (max/min), utility protection and metering requirements, revenue metering, power quality limits (IEEE 519), backfeed date, utility-owned vs owner-owned equipment boundary.",
+   "owner_task": "ELEC-T030"
+  },
+  {
+   "id": "ELEC-I032",
+   "name": "Utility interconnection application and load forecast",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Formal application to utility: forecast demand by year, largest motor, harmonic sources, single-line at POI; supports owner commercial agreement and schedule.",
+   "owner_task": "ELEC-T030"
+  },
+  {
+   "id": "ELEC-I040",
+   "name": "Preliminary key one-line diagram",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Main substation, transformers (MVA, voltages), MV/LV distribution, number of substations, emergency generator and UPS, selected configuration with rationale.",
+   "owner_task": "ELEC-T040"
+  },
+  {
+   "id": "ELEC-I050",
+   "name": "Electrical estimate quantities and pricing",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Major equipment list with budget prices, bulk quantities (cable by size, tray, conduit, grounding, lighting fixtures, heat tracing), installation hours basis, by WBS/area.",
+   "owner_task": "ELEC-T050"
+  },
+  {
+   "id": "ELEC-I060",
+   "name": "Hazardous area release source list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per source: equipment/tag, fluid, NFPA 497 group, AIT, temperature class, grade of release, ventilation, Class/Division (or Zone), extent per API RP 500/505 figure reference.",
+   "owner_task": "ELEC-T060"
+  },
+  {
+   "id": "ELEC-I070",
+   "name": "Hazardous area classification drawings",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Plan and elevation drawings with Class I Div 1/Div 2 (or Zone 0/1/2) boundaries, gas group, temperature class, unclassified buildings, pressurized rooms; issued to all disciplines, vendors and construction.",
+   "owner_task": "ELEC-T070"
+  },
+  {
+   "id": "ELEC-I072",
+   "name": "Equipment certification requirements by area",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Per area/equipment tag: Class/Division or Zone, gas group, T-code; used by MECH (motors, packages), INST (instruments, junction boxes), CIVL (HVAC), vendors.",
+   "owner_task": "ELEC-T070"
+  },
+  {
+   "id": "ELEC-I080",
+   "name": "Substation and electrical building requirements to civil",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Building footprint, ceiling height, equipment arrangement, floor loads and equipment weights, cable vault/raised floor/cable entry, doors and maintenance clearances (NEC 110.26), transformer pads, oil containment volumes, fire separation, battery room ventilation, blast rating.",
+   "owner_task": "ELEC-T080"
+  },
+  {
+   "id": "ELEC-I082",
+   "name": "Electrical building HVAC and pressurization requirements",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Heat dissipation per room (kW) for switchgear, MCC, VFD, UPS, transformers; design temperatures/humidity; battery hydrogen ventilation; positive pressurization and purge per NFPA 496; HVAC power supply needs back to ELEC.",
+   "owner_task": "ELEC-T080"
+  },
+  {
+   "id": "ELEC-I084",
+   "name": "Prefabricated E-house scope definition",
+   "system": "Excel / Word",
+   "form": "decision",
+   "content": "Decision on stick-built vs E-house, modules, shipping splits, equipment included, skid foundation interface.",
+   "owner_task": "ELEC-T080"
+  },
+  {
+   "id": "ELEC-I090",
+   "name": "Electrical load list",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Per load: tag, description, P&ID, area, kW/HP, voltage, phases, efficiency, PF, duty, demand factor, bus/MCC assignment, essential/UPS flag, starter type (DOL/RVSS/VFD); summary by bus and switchboard.",
+   "owner_task": "ELEC-T090"
+  },
+  {
+   "id": "ELEC-I092",
+   "name": "Plant power demand summary to process and owner",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Total electrical demand (normal, peak, essential), per-unit kWh/yr for utility balance and opex; issued to PROC utility balance and OWNR.",
+   "owner_task": "ELEC-T090"
+  },
+  {
+   "id": "ELEC-I100",
+   "name": "Electrical P&ID review comments",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Markups: missing motor tags, MOV/EOV electrical data, heat tracing notes, start/stop and interlock representation, ESD trip of motors, VFD symbols.",
+   "owner_task": "ELEC-T100"
+  },
+  {
+   "id": "ELEC-I110",
+   "name": "Electrical equipment ratings",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Transformer MVA, voltage, %Z, cooling; switchgear bus and interrupting ratings; MCC sizes and bucket counts; generator kW/kVA; UPS kVA and battery Ah/autonomy; spare capacity.",
+   "owner_task": "ELEC-T110"
+  },
+  {
+   "id": "ELEC-I120",
+   "name": "Single-line diagrams",
+   "system": "SPEL",
+   "form": "drawing",
+   "content": "Main, MV, LV and MCC one-lines: buses, breakers, transformers, feeders, cable references, protection relays (ANSI devices), CTs/PTs, metering, interlocks, normal/tie/standby schemes.",
+   "owner_task": "ELEC-T120"
+  },
+  {
+   "id": "ELEC-I130",
+   "name": "MV switchgear requisition package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Specification and datasheets: voltage, continuous/interrupting ratings, arc-resistant construction (IEEE C37.20.7), relays, communication protocol, I/O to DCS/ECMS, testing and documentation requirements.",
+   "owner_task": "ELEC-T130"
+  },
+  {
+   "id": "ELEC-I140",
+   "name": "Power transformer requisition package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Specification and datasheets: MVA, voltages, %Z, vector group, OLTC/NLTC, cooling, neutral grounding resistor, oil containment data, losses evaluation basis, testing.",
+   "owner_task": "ELEC-T140"
+  },
+  {
+   "id": "ELEC-I150",
+   "name": "LV switchgear, MCC and E-house requisition package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Specification and datasheets: buses, starter schedule (bucket list), intelligent MCC protocol, E-house structure, HVAC, fire detection, internal lighting and shipping splits.",
+   "owner_task": "ELEC-T150"
+  },
+  {
+   "id": "ELEC-I160",
+   "name": "VFD requisition package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Specification and datasheets: motor list on VFD, ratings, pulse number/active front end, IEEE 519 limits, bypass, motor compatibility (inverter-duty), DCS interface.",
+   "owner_task": "ELEC-T160"
+  },
+  {
+   "id": "ELEC-I170",
+   "name": "UPS, DC and generator requisition package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Specification and datasheets: UPS kVA, autonomy, battery type, DC charger rating, generator kW, fuel and tank autonomy, ATS, NFPA 110 level, emissions tier.",
+   "owner_task": "ELEC-T170"
+  },
+  {
+   "id": "ELEC-I180",
+   "name": "Electrical technical bid evaluations",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Technical compliance tables, accepted deviations, clarifications, recommended vendor per requisition, technical conditions for PO.",
+   "owner_task": "ELEC-T180"
+  },
+  {
+   "id": "ELEC-I190",
+   "name": "Electrical vendor document comments",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Coded returns (approved, approved with comments, rejected) with markups on GA, schematics and datasheets.",
+   "owner_task": "ELEC-T190"
+  },
+  {
+   "id": "ELEC-I192",
+   "name": "Certified electrical equipment data",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Certified transformer %Z/X/R, losses, switchgear dimensions/weights, breaker and relay models, CT ratios, heat loss; keyed into SPEL and ETAP and passed to CIVL for foundations.",
+   "owner_task": "ELEC-T190"
+  },
+  {
+   "id": "ELEC-I200",
+   "name": "Motor data review comments",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Comments to MECH and vendors on motor voltage, enclosure, area certification, starting capability, space heaters, RTDs, VFD compatibility.",
+   "owner_task": "ELEC-T200"
+  },
+  {
+   "id": "ELEC-I202",
+   "name": "Certified motor data",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Per motor: rated kW, FLA, LRC, PF and efficiency at load, inertia (motor and load), starting torque, accelerating time; used in SPEL, ETAP motor starting, cable sizing and relay settings.",
+   "owner_task": "ELEC-T200"
+  },
+  {
+   "id": "ELEC-I210",
+   "name": "Load flow study results",
+   "system": "ETAP",
+   "form": "document",
+   "content": "Bus voltages, branch loading, transformer loading and tap settings, power factor and capacitor needs, losses, for normal and N-1 cases.",
+   "owner_task": "ELEC-T210"
+  },
+  {
+   "id": "ELEC-I220",
+   "name": "Short-circuit study results",
+   "system": "ETAP",
+   "form": "document",
+   "content": "Momentary and interrupting duties per bus, X/R, SLG fault values, equipment duty check pass/fail; feeds specs, cable sizing (short-circuit withstand) and grounding.",
+   "owner_task": "ELEC-T220"
+  },
+  {
+   "id": "ELEC-I230",
+   "name": "Motor-starting study results",
+   "system": "ETAP",
+   "form": "document",
+   "content": "Voltage dip at motor and buses, acceleration time, pass/fail per motor, restart/re-acceleration scheme.",
+   "owner_task": "ELEC-T230"
+  },
+  {
+   "id": "ELEC-I232",
+   "name": "Motor starting method requirements",
+   "system": "Excel / Word",
+   "form": "decision",
+   "content": "Maximum DOL motor size per bus, motors requiring soft starter/VFD/autotransformer, minimum starting torque requirements; returned to MECH and driven-equipment vendors.",
+   "owner_task": "ELEC-T230"
+  },
+  {
+   "id": "ELEC-I240",
+   "name": "Harmonic study results and filter requirements",
+   "system": "ETAP",
+   "form": "document",
+   "content": "THD/TDD per bus, resonance check, filter or capacitor bank requirements, VFD front-end requirements.",
+   "owner_task": "ELEC-T240"
+  },
+  {
+   "id": "ELEC-I250",
+   "name": "Protective device coordination study",
+   "system": "ETAP",
+   "form": "document",
+   "content": "TCC curves, coordination per zone, selectivity exceptions, arc-flash reduction (maintenance switch) settings.",
+   "owner_task": "ELEC-T250"
+  },
+  {
+   "id": "ELEC-I252",
+   "name": "Relay and breaker setting files",
+   "system": "ETAP",
+   "form": "data",
+   "content": "Setting sheets/files per relay and trip unit for loading by the commissioning testing contractor.",
+   "owner_task": "ELEC-T250"
+  },
+  {
+   "id": "ELEC-I260",
+   "name": "Arc flash study and labels",
+   "system": "ETAP",
+   "form": "document",
+   "content": "Incident energy and arc flash boundary per bus, PPE category, label data file for printing and installation, mitigation recommendations.",
+   "owner_task": "ELEC-T260"
+  },
+  {
+   "id": "ELEC-I270",
+   "name": "Ground grid study",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Grid resistance, step and touch potentials vs IEEE 80 limits, conductor size, rod quantity.",
+   "owner_task": "ELEC-T270"
+  },
+  {
+   "id": "ELEC-I272",
+   "name": "Grounding layouts and details",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Ground grid routing, ground wells, equipment/tank/vessel/structure bonding points, embeds in foundations (to CIVL), static grounding details.",
+   "owner_task": "ELEC-T270"
+  },
+  {
+   "id": "ELEC-I280",
+   "name": "Lightning protection design",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Risk assessment, protected zones, air terminal and down-conductor layouts, bonding to ground grid.",
+   "owner_task": "ELEC-T280"
+  },
+  {
+   "id": "ELEC-I290",
+   "name": "Lighting and small power layouts",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Fixture types and locations, lux levels, circuiting, lighting panels, photocell/contactor control, convenience/welding receptacles.",
+   "owner_task": "ELEC-T290"
+  },
+  {
+   "id": "ELEC-I292",
+   "name": "Lighting panel schedules and loads",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Panel schedules: circuits, kW per panel, feeder supply; keyed into load list.",
+   "owner_task": "ELEC-T290"
+  },
+  {
+   "id": "ELEC-I300",
+   "name": "Heat tracing circuit list and loads",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Per circuit: line number, cable type, W/m, circuit length, breaker, panel, controller, maintain/max temperature; panel loads to load list.",
+   "owner_task": "ELEC-T300"
+  },
+  {
+   "id": "ELEC-I302",
+   "name": "Heat tracing isometrics and requirements to piping",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Heat tracing isometrics, power connection and end-seal locations, RTD locations, requirements back to piping/insulation (insulation oversize, aluminium tape).",
+   "owner_task": "ELEC-T300"
+  },
+  {
+   "id": "ELEC-I304",
+   "name": "Heat tracing control and alarm interface to I&C",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Heat trace panel common alarms and monitoring points, communication to DCS.",
+   "owner_task": "ELEC-T300"
+  },
+  {
+   "id": "ELEC-I310",
+   "name": "Cathodic protection design",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Current requirement calculations, anode beds, rectifiers (AC supply load to load list), test stations, insulating flange locations (to PIPE), cable routing.",
+   "owner_task": "ELEC-T310"
+  },
+  {
+   "id": "ELEC-I320",
+   "name": "Cable schedule",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Per cable: tag, from/to, voltage, conductors, size, type (MC/TC-ER), length, route/raceway segments, gland size.",
+   "owner_task": "ELEC-T320"
+  },
+  {
+   "id": "ELEC-I322",
+   "name": "Cable pull cards and terminations",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Pull cards with route segments, terminations and drum assignment for construction and Smart Completions tag load.",
+   "owner_task": "ELEC-T320"
+  },
+  {
+   "id": "ELEC-I330",
+   "name": "Cable tray routing model",
+   "system": "S3D",
+   "form": "model",
+   "content": "Tray and conduit routes, sizes, elevations, rack levels reserved, fill; reference for piping clash checks and model reviews.",
+   "owner_task": "ELEC-T330"
+  },
+  {
+   "id": "ELEC-I332",
+   "name": "Cable tray support loads to civil/structural",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Tray loads per rack level and structure (kg/m), support locations and attachments.",
+   "owner_task": "ELEC-T330"
+  },
+  {
+   "id": "ELEC-I334",
+   "name": "Underground duct bank and trench layout",
+   "system": "S3D",
+   "form": "drawing",
+   "content": "Duct bank routes, sections, manholes, depths and crossings; to CIVL for excavation and drainage coordination.",
+   "owner_task": "ELEC-T330"
+  },
+  {
+   "id": "ELEC-I340",
+   "name": "MCC and switchgear interface signal list",
+   "system": "SPEL",
+   "form": "data",
+   "content": "Per motor/breaker: run status, trip, available, remote start/stop, SIS trip, VFD speed ref/feedback, kW/current via network; hardwired vs serial; marshalling terminal; for INST I/O list.",
+   "owner_task": "ELEC-T340"
+  },
+  {
+   "id": "ELEC-I350",
+   "name": "Control and interlock schematics",
+   "system": "SPEL",
+   "form": "drawing",
+   "content": "Motor control typicals, elementary/interlock diagrams, transfer schemes, ESD interfaces with terminal numbers.",
+   "owner_task": "ELEC-T350"
+  },
+  {
+   "id": "ELEC-I360",
+   "name": "Electrical layouts and power plans",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Substation/room layouts, outdoor equipment locations, power plans with conduit/tray drops, local control station and motor locations.",
+   "owner_task": "ELEC-T360"
+  },
+  {
+   "id": "ELEC-I362",
+   "name": "Electrical equipment foundation and embed requirements",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Equipment weights, anchorage, base dimensions, conduit stub-ups and embeds for transformers, switchgear, E-houses, generators; to CIVL.",
+   "owner_task": "ELEC-T360"
+  },
+  {
+   "id": "ELEC-I370",
+   "name": "Electrical bulk MTO",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Line items with commodity code, size, quantity, contingency, delta vs previous MTO; loaded by hand into Purchasing DB.",
+   "owner_task": "ELEC-T370"
+  },
+  {
+   "id": "ELEC-I380",
+   "name": "Temporary construction power design",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Temporary service, generators, distribution panels and routing for construction.",
+   "owner_task": "ELEC-T380"
+  },
+  {
+   "id": "ELEC-I390",
+   "name": "IFC electrical deliverable package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Sealed IFC one-lines, layouts, schedules, schematics, area classification and details.",
+   "owner_task": "ELEC-T390"
+  },
+  {
+   "id": "ELEC-I400",
+   "name": "Electrical FAT reports and punch",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "FAT acceptance, punch items, open deviations, release for shipment recommendation.",
+   "owner_task": "ELEC-T400"
+  },
+  {
+   "id": "ELEC-I410",
+   "name": "Electrical RFI responses and field changes",
+   "system": "Procore",
+   "form": "decision",
+   "content": "RFI answers, field change notices, revised sketches, impact on cable schedule and SPEL.",
+   "owner_task": "ELEC-T410"
+  },
+  {
+   "id": "ELEC-I420",
+   "name": "Electrical energization sequence and system boundaries",
+   "system": "Smart Completions",
+   "form": "decision",
+   "content": "Electrical systems/subsystems marked on one-lines, energization order, permanent power backfeed date.",
+   "owner_task": "ELEC-T420"
+  },
+  {
+   "id": "ELEC-I422",
+   "name": "Electrical tag and cable lists for completions",
+   "system": "Smart Completions",
+   "form": "data",
+   "content": "Equipment, cable and circuit tag lists with system assignment, loaded by spreadsheet into Smart Completions for ITRs.",
+   "owner_task": "ELEC-T420"
+  },
+  {
+   "id": "ELEC-I430",
+   "name": "Energization readiness sign-off",
+   "system": "Smart Completions",
+   "form": "decision",
+   "content": "Engineering sign-off that settings are applied, labels installed, tests accepted, ready to energize.",
+   "owner_task": "ELEC-T430"
+  },
+  {
+   "id": "ELEC-I440",
+   "name": "As-built electrical records",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "As-built SPEL database, ETAP model, one-lines, cable schedule and layouts for handover to owner.",
+   "owner_task": "ELEC-T440"
+  },
+  {
+   "id": "ELEC-I901",
+   "name": "Electrical deliverables list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "SLDs, studies, cable schedule and layouts with planned dates.",
+   "owner_task": "ELEC-T005"
+  },
+  {
+   "id": "ELEC-I902",
+   "name": "Electrical progress measurement",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Electrical deliverable completion counts against plan.",
+   "owner_task": "ELEC-T005"
+  },
+  {
+   "id": "ELEC-I450",
+   "name": "Electrical acceptable manufacturers",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Acceptable manufacturers per electrical equipment type.",
+   "owner_task": "ELEC-T010"
+  }
+ ],
+ "gaps": []
 }

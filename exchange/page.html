@@ -98,7 +98,8 @@ table.ls tr.grp td { background: var(--chip); font: 600 14px var(--f-display); l
 .lv { font: 500 11px var(--f-mono); color: var(--muted); white-space: nowrap }
 
 .tk { display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); gap: 16px; align-items: start }
-@media (max-width: 860px) { .tk { grid-template-columns: 1fr } }
+@media (max-width: 860px) { .tk { grid-template-columns: minmax(0, 1fr) } }
+.tk > * { min-width: 0 }
 .tlist { background: var(--sheet); border: 1px solid var(--rule); max-height: 74vh; overflow: auto }
 .tlist button { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 78px 1fr auto; gap: 8px; width: 100%; padding: 7px 12px;
   border-bottom: 1px solid var(--rule); cursor: pointer; font-size: 13.5px; line-height: 1.35 }

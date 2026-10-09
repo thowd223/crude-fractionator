@@ -1,1273 +1,1616 @@
 {
-  "discipline": "SCM",
-  "tasks": [
+ "discipline": "SCM",
+ "tasks": [
+  {
+   "id": "SCM-T010",
+   "name": "Prepare the procurement plan and long-lead list",
+   "phases": [
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Plan each procurement package with sourcing route, durations and need dates, and identify long-lead items for early commitment.",
+   "produces": [
+    "SCM-I010",
+    "SCM-I020"
+   ],
+   "consumes": [
     {
-      "id": "SCM-T010",
-      "name": "Prepare the procurement plan and long-lead list",
-      "phases": [
-        "FEL2",
-        "FEL3"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Plan each procurement package with sourcing route, durations and need dates, and identify long-lead items for early commitment.",
-      "produces": [
-        "SCM-I010",
-        "SCM-I020"
-      ],
-      "needs": [
-        {
-          "from": "PROJ",
-          "info": "Contracting and procurement strategy: packages and owner/contractor-furnished split",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Required-on-site dates per MR from the schedule",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "from": "MECH",
-          "info": "Equipment list with types, sizes and materials for lead-time assessment",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "from": "ELEC",
-          "info": "Major electrical equipment list (transformers, switchgear, MCCs)",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "from": "INST",
-          "info": "Control system and analyzer package scope",
-          "method": "manual",
-          "level": 2
-        }
-      ]
+     "item": "PROJ-I020",
+     "use": "procurement packages and owner/contractor-furnished split",
+     "method": "manual",
+     "level": 3
     },
     {
-      "id": "SCM-T020",
-      "name": "Prepare bidders lists and prequalify vendors",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Purchasing DB",
-      "activity": "PRO-01",
-      "description": "Select qualified bidders per package from the approved vendor list and prequalify new vendors.",
-      "produces": [
-        "SCM-I030",
-        "SCM-I040"
-      ],
-      "needs": [
-        {
-          "from": "OWNR",
-          "info": "Owner approved manufacturers list and excluded vendors",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "MECH",
-          "info": "Technical acceptability of proposed bidders per equipment type",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "INST",
-          "info": "Acceptable instrument and control system manufacturers",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "ELEC",
-          "info": "Acceptable electrical equipment manufacturers",
-          "method": "review",
-          "level": 3
-        }
-      ]
+     "item": "PROJ-I150",
+     "use": "ROS and MR/PO need dates",
+     "method": "manual",
+     "level": 2
     },
     {
-      "id": "SCM-T030",
-      "name": "Register material requisitions in the Purchasing DB",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Purchasing DB",
-      "activity": "PRO-01",
-      "description": "Log each MR and revision received through Document Locator, key header and line data and set status.",
-      "produces": [
-        "SCM-I050"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "Equipment MR: tags, quantity, datasheets, specifications, VDRL requirements, inspection level",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "INST",
-          "info": "Instrument MR: tag list, datasheets, quantities, specifications",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "ELEC",
-          "info": "Electrical MR: equipment tags, datasheets, quantities, specifications",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "CIVL",
-          "info": "Structural steel, building and civil material MRs",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Required-on-site and need dates per MR",
-          "method": "manual",
-          "level": 3
-        }
-      ]
+     "item": "MECH-I080",
+     "use": "type, size, material per tag",
+     "method": "manual",
+     "level": 2
     },
     {
-      "id": "SCM-T040",
-      "name": "Load piping bulk MTO into the Purchasing DB",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Purchasing DB",
-      "activity": "PIP-04",
-      "description": "Import the S3D MTO spreadsheet, map commodity codes and add surplus allowances to form bulk MR lines.",
-      "produces": [
-        "SCM-I060"
-      ],
-      "needs": [
-        {
-          "from": "PIPE",
-          "info": "Piping MTO spreadsheet from S3D: commodity code, size, schedule, material, quantity per isometric and area",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "from": "PIPE",
-          "info": "Piping material classes and valve/specialty item descriptions with short codes",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PIPE",
-          "info": "Surplus allowance percentages by commodity",
-          "method": "manual",
-          "level": 3
-        }
-      ]
+     "item": "MECH-I070",
+     "use": "lead time and long-lead flag per tag",
+     "method": "manual",
+     "level": 2
     },
     {
-      "id": "SCM-T050",
-      "name": "Issue RFQ packages",
-      "phases": [
-        "FEL2",
-        "FEL3",
-        "DD"
-      ],
-      "system": "Purchasing DB",
-      "activity": "VEN-01",
-      "description": "Combine the technical MR with commercial terms and issue the request for quotation to the bidders list.",
-      "produces": [
-        "SCM-I070"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Registered MR and bidders list (SCM-T020, SCM-T030)",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Commercial terms, contract templates and delivery terms from the procurement strategy",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "PROJ",
-          "info": "Vendor document numbering instructions and Document Locator submission rules",
-          "method": "manual",
-          "level": 4
-        }
-      ]
+     "item": "ELEC-I110",
+     "use": "transformer, switchgear, MCC, generator and UPS ratings",
+     "method": "manual",
+     "level": 2
     },
     {
-      "id": "SCM-T060",
-      "name": "Manage bid clarifications and bid bulletins",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Collect bidder questions, get technical answers and issue bid bulletins to all bidders.",
-      "produces": [
-        "SCM-I080"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Bidder technical and commercial questions during the bid period",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "from": "MECH",
-          "info": "Technical answers to bidder questions and MR revisions",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "INST",
-          "info": "Technical answers to bidder questions on instrument packages",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "ELEC",
-          "info": "Technical answers to bidder questions on electrical packages",
-          "method": "manual",
-          "level": 3
-        }
-      ]
+     "item": "INST-I010",
+     "use": "DCS/SIS/F&G split and packaged control approach",
+     "method": "manual",
+     "level": 2
     },
     {
-      "id": "SCM-T070",
-      "name": "Receive bids and distribute technical portions",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Document Locator",
-      "activity": "PRO-01",
-      "description": "Open bids, separate priced and unpriced portions and send unpriced technical offers for technical bid evaluation.",
-      "produces": [
-        "SCM-I090"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Technical quotation: compliance, deviations, datasheets, drawings, weights",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "VEND",
-          "info": "Commercial quotation: prices, delivery, payment terms, validity",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T080",
-      "name": "Prepare the commercial bid evaluation",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Normalise prices, delivery and terms across bidders and score the commercial offers.",
-      "produces": [
-        "SCM-I100"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Commercial quotation: price breakdown, options, spares pricing, delivery, terms exceptions",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "MECH",
-          "info": "Technical bid evaluation: acceptable bidders, technical adders and deviations priced",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "INST",
-          "info": "Technical bid evaluation for instrument packages",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "ELEC",
-          "info": "Technical bid evaluation for electrical packages",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T090",
-      "name": "Prepare the bid tabulation and award recommendation",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "PRO-01",
-      "description": "Combine technical and commercial evaluations into the award recommendation for approval.",
-      "produces": [
-        "SCM-I110"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Commercial bid evaluation (SCM-T080)",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "MECH",
-          "info": "Technical bid evaluation recommendation",
-          "method": "review",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Budget per package from the control budget or estimate",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "OWNR",
-          "info": "Award approval for packages above the delegated authority",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T100",
-      "name": "Award the purchase order in the Purchasing DB",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Purchasing DB",
-      "activity": "PRO-01",
-      "description": "Prepare the PO from the conformed MR and successful bid, enter PO header and lines and issue to the vendor.",
-      "produces": [
-        "SCM-I120",
-        "SCM-I130",
-        "SCM-I140",
-        "SCM-I370"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Approved award recommendation (SCM-T090)",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "MECH",
-          "info": "Conformed MR for purchase incorporating agreed clarifications",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PIPE",
-          "info": "Bulk MR line items with commodity codes and quantities",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Cost codes and WBS for each PO line",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T110",
-      "name": "Process PO amendments",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Purchasing DB",
-      "activity": "PRO-01",
-      "description": "Issue PO amendments for MR revisions, quantity changes and vendor change orders.",
-      "produces": [
-        "SCM-I150"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "MR revisions with changed scope or data",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PIPE",
-          "info": "MTO revision deltas by commodity code",
-          "method": "file",
-          "level": 3
-        },
-        {
-          "from": "VEND",
-          "info": "Vendor change order price and delivery impact",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Approved change notice",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T120",
-      "name": "Set up VDRL tracking",
-      "phases": [
-        "DD"
-      ],
-      "system": "Purchasing DB",
-      "activity": "VEN-01",
-      "description": "Load the vendor document requirements per PO with document numbers and due dates in the Purchasing DB.",
-      "produces": [
-        "SCM-I160"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "VDRL requirements in the MR: document types, review or information, due weeks after PO",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "VEND",
-          "info": "Vendor document schedule with vendor document numbers and planned submission dates",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Assigned project document numbers for vendor documents",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T130",
-      "name": "Expedite vendor documents and route them for review",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Document Locator",
-      "activity": "VEN-01",
-      "description": "Receive vendor documents, transmit to engineering for review, return comments to the vendor and report print status.",
-      "produces": [
-        "SCM-I170",
-        "SCM-I180",
-        "SCM-I190"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Vendor drawings and data for review with revision and transmittal",
-          "method": "integrated",
-          "level": 2
-        },
-        {
-          "from": "MECH",
-          "info": "Vendor document review comments and review code",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "PIPE",
-          "info": "Nozzle load and orientation comments on vendor GAs",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "CIVL",
-          "info": "Foundation load and anchor bolt comments on vendor drawings",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "INST",
-          "info": "Instrument and control comments on package drawings and I/O",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "ELEC",
-          "info": "Electrical comments on motor and package electrical data",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "PROJ",
-          "info": "Consolidated comment sheet and review status",
-          "method": "integrated",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "SCM-T140",
-      "name": "Expedite manufacturing and forecast deliveries",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Purchasing DB",
-      "activity": "VEN-01",
-      "description": "Track sub-orders, manufacturing milestones and forecast ex-works dates per PO line and report exceptions.",
-      "produces": [
-        "SCM-I200"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Manufacturing schedule and progress reports with milestone dates",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "PROJ",
-          "info": "Required-on-site dates per PO line",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T150",
-      "name": "Coordinate inspection and test plans",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Review vendor ITPs, set hold and witness points with engineering and owner and assign inspectors.",
-      "produces": [
-        "SCM-I210"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Inspection and test plan with hold/witness points",
-          "method": "review",
-          "level": 2
-        },
-        {
-          "from": "MECH",
-          "info": "Inspection level and required tests per equipment item",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "OWNR",
-          "info": "Owner witness point selection",
-          "method": "review",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T160",
-      "name": "Carry out shop inspection and release",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Witness tests, review certificates and issue inspection reports and release notes for shipment.",
-      "produces": [
-        "SCM-I220",
-        "SCM-I230"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Inspection notification with date and test",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "VEND",
-          "info": "Material test reports, NDE records, hydrotest and performance test certificates",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "from": "MECH",
-          "info": "Certified vendor drawings and approved datasheets for dimensional checks",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "from": "INST",
-          "info": "FAT procedure and acceptance criteria for control system and analyzer packages",
-          "method": "review",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T170",
-      "name": "Prepare the logistics plan",
-      "phases": [
-        "FEL3",
-        "DD"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Plan freight routes, heavy-haul and oversize moves, customs and port handling.",
-      "produces": [
-        "SCM-I240"
-      ],
-      "needs": [
-        {
-          "from": "MECH",
-          "info": "Shipping dimensions and weights for large equipment",
-          "method": "manual",
-          "level": 2
-        },
-        {
-          "from": "VEND",
-          "info": "Shipping envelope, weight and centre of gravity per shipping piece",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "CONS",
-          "info": "Site access routes, laydown areas, heavy lift plan and set dates",
-          "method": "meeting",
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "SCM-T180",
-      "name": "Manage shipping and traffic",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Excel / Word",
-      "activity": "VEN-01",
-      "description": "Book freight, clear customs and issue shipping notices to site.",
-      "produces": [
-        "SCM-I250"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Packing list, shipping documents and preservation requirements",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "SCM",
-          "info": "Inspection release note (SCM-T160)",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T190",
-      "name": "Pass PO data to Jovix for receiving",
-      "phases": [
-        "DD",
-        "CON"
-      ],
-      "system": "Jovix",
-      "activity": "VEN-01",
-      "description": "Transfer PO header and line data to Jovix as expected receipts.",
-      "produces": [
-        "SCM-I260"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "PO header and PO line items in the Purchasing DB (SCM-T100, SCM-T110)",
-          "method": "integrated",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T200",
-      "name": "Receive materials at site in Jovix",
-      "phases": [
-        "CON"
-      ],
-      "system": "Jovix",
-      "activity": "CON-02",
-      "description": "Check received items against PO lines and packing lists, record heat numbers and tag them to location.",
-      "produces": [
-        "SCM-I270"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Expected receipts and shipping notice (SCM-T180, SCM-T190)",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "from": "VEND",
-          "info": "Packing list with item marks, tags and heat numbers; MTRs",
-          "method": "manual",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T210",
-      "name": "Raise OS&D reports",
-      "phases": [
-        "CON"
-      ],
-      "system": "Jovix",
-      "activity": "CON-02",
-      "description": "Report overage, shortage and damage on receipt and follow up with vendor and carrier.",
-      "produces": [
-        "SCM-I280"
-      ],
-      "needs": [
-        {
-          "from": "SCM",
-          "info": "Receipt record discrepancies (SCM-T200)",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "from": "VEND",
-          "info": "Vendor response and replacement or repair proposal",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T220",
-      "name": "Manage the warehouse, laydown and preservation",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Jovix",
-      "activity": "CON-02",
-      "description": "Store materials by location, perform periodic preservation and record it.",
-      "produces": [
-        "SCM-I290"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Preservation and storage instructions per equipment item",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "CONS",
-          "info": "Laydown area plan",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T230",
-      "name": "Report material availability to AWP",
-      "phases": [
-        "CON"
-      ],
-      "system": "Jovix",
-      "activity": "CON-02",
-      "description": "Match received materials against CWP/IWP bills of material and publish availability for constraint checks.",
-      "produces": [
-        "SCM-I300",
-        "SCM-I320"
-      ],
-      "needs": [
-        {
-          "from": "CONS",
-          "info": "IWP bills of material and planned start dates",
-          "method": "integrated",
-          "level": 3
-        },
-        {
-          "from": "PIPE",
-          "info": "Isometric MTO per IWP (commodity codes, quantities)",
-          "method": "file",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T240",
-      "name": "Issue materials to construction",
-      "phases": [
-        "CON"
-      ],
-      "system": "Jovix",
-      "activity": "CON-02",
-      "description": "Reserve and issue materials against IWPs with pick tickets and record heat number traceability.",
-      "produces": [
-        "SCM-I310"
-      ],
-      "needs": [
-        {
-          "from": "CONS",
-          "info": "Material requests and IWP release for issue",
-          "method": "integrated",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T250",
-      "name": "Reconcile materials and dispose of surplus",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Jovix",
-      "activity": "CON-02",
-      "description": "Reconcile ordered, received, issued and installed quantities and dispose of surplus.",
-      "produces": [
-        "SCM-I330"
-      ],
-      "needs": [
-        {
-          "from": "CONS",
-          "info": "Installed quantities by commodity",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "PIPE",
-          "info": "Final IFC MTO totals",
-          "method": "file",
-          "level": 4
-        }
-      ]
-    },
-    {
-      "id": "SCM-T260",
-      "name": "Call off vendor site services",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Purchasing DB",
-      "activity": "VEN-01",
-      "description": "Request vendor representatives for installation supervision and commissioning against PO service rates.",
-      "produces": [
-        "SCM-I340"
-      ],
-      "needs": [
-        {
-          "from": "CONS",
-          "info": "Installation dates needing vendor supervision",
-          "method": "manual",
-          "level": 3
-        },
-        {
-          "from": "COMM",
-          "info": "Commissioning and startup dates needing vendor support",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T270",
-      "name": "Procure commissioning and operating spares",
-      "phases": [
-        "DD",
-        "CON",
-        "COM"
-      ],
-      "system": "Purchasing DB",
-      "activity": "VEN-01",
-      "description": "Process vendor spare parts lists, get owner selection and place spares orders.",
-      "produces": [
-        "SCM-I350"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Spare parts interchangeability records with part numbers and prices",
-          "method": "manual",
-          "level": 4
-        },
-        {
-          "from": "OWNR",
-          "info": "Selected operating spares and quantities",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "from": "COMM",
-          "info": "Commissioning spares needs",
-          "method": "manual",
-          "level": 3
-        }
-      ]
-    },
-    {
-      "id": "SCM-T280",
-      "name": "Close out purchase orders",
-      "phases": [
-        "CON",
-        "COM"
-      ],
-      "system": "Purchasing DB",
-      "activity": "VEN-01",
-      "description": "Confirm final documentation, MDR and deliveries complete and close POs.",
-      "produces": [
-        "SCM-I360"
-      ],
-      "needs": [
-        {
-          "from": "VEND",
-          "info": "Final MDR/data book accepted",
-          "method": "review",
-          "level": 4
-        },
-        {
-          "from": "SCM",
-          "info": "Final receipts and OS&D closed (SCM-T200, SCM-T210)",
-          "method": "integrated",
-          "level": 4
-        },
-        {
-          "from": "PROJ",
-          "info": "Final invoice and back-charge status",
-          "method": "manual",
-          "level": 4
-        }
-      ]
+     "item": "INST-I160",
+     "use": "analyzer systems scope",
+     "method": "manual",
+     "level": 2
     }
-  ],
-  "items": [
+   ]
+  },
+  {
+   "id": "SCM-T020",
+   "name": "Prepare bidders lists and prequalify vendors",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Purchasing DB",
+   "activity": "PRO-01",
+   "description": "Select qualified bidders per package from the approved vendor list and prequalify new vendors.",
+   "produces": [
+    "SCM-I030",
+    "SCM-I040"
+   ],
+   "consumes": [
     {
-      "id": "SCM-I010",
-      "name": "Procurement plan",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Packages, sourcing route, procurement durations, RFQ/award dates and ROS per MR.",
-      "owner_task": "SCM-T010"
+     "item": "OWNR-I060",
+     "use": "approved vendor list by commodity and excluded vendors",
+     "method": "manual",
+     "level": 4
     },
     {
-      "id": "SCM-I020",
-      "name": "Long-lead items list",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Tag, description, lead time, ROS and required commitment date for long-lead items.",
-      "owner_task": "SCM-T010"
+     "item": "INST-I040",
+     "use": "approved instrument and control vendor list",
+     "method": "review",
+     "level": 3
     },
     {
-      "id": "SCM-I030",
-      "name": "Bidders list",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Approved bidders per MR with contact and qualification status.",
-      "owner_task": "SCM-T020"
+     "item": "MECH-I601",
+     "use": "Mechanical technical acceptability of proposed bidders per equipment type",
+     "method": "review",
+     "level": 3
     },
     {
-      "id": "SCM-I040",
-      "name": "Vendor prequalification record",
-      "system": "Purchasing DB",
-      "form": "document",
-      "content": "Capability, capacity, quality system and financial assessment of new vendors.",
-      "owner_task": "SCM-T020"
-    },
-    {
-      "id": "SCM-I050",
-      "name": "MR register entry",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "MR number, revision, title, originator, tag list, status and need date.",
-      "owner_task": "SCM-T030"
-    },
-    {
-      "id": "SCM-I060",
-      "name": "Bulk material MR lines",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Commodity code, description, size, material, quantity with surplus allowance, area.",
-      "owner_task": "SCM-T040"
-    },
-    {
-      "id": "SCM-I070",
-      "name": "RFQ package",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "MR, commercial terms, instructions to bidders, VDRL, bid due date.",
-      "owner_task": "SCM-T050"
-    },
-    {
-      "id": "SCM-I080",
-      "name": "Bid bulletin",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Questions and answers and MR changes issued to all bidders.",
-      "owner_task": "SCM-T060"
-    },
-    {
-      "id": "SCM-I090",
-      "name": "Unpriced technical offers for TBE",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Technical portions of each bid sent to the technical evaluator with TBE due date.",
-      "owner_task": "SCM-T070"
-    },
-    {
-      "id": "SCM-I100",
-      "name": "Commercial bid evaluation",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Normalised price, delivery, terms and commercial ranking per bidder.",
-      "owner_task": "SCM-T080"
-    },
-    {
-      "id": "SCM-I110",
-      "name": "Award recommendation",
-      "system": "Excel / Word",
-      "form": "decision",
-      "content": "Recommended vendor, evaluated price, delivery and justification, with approvals.",
-      "owner_task": "SCM-T090"
-    },
-    {
-      "id": "SCM-I120",
-      "name": "Purchase order",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Issued PO document: scope, conformed MR, price, delivery, terms, VDRL.",
-      "owner_task": "SCM-T100"
-    },
-    {
-      "id": "SCM-I130",
-      "name": "PO header data",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "PO number, vendor, award date, value, delivery terms, buyer, expeditor.",
-      "owner_task": "SCM-T100"
-    },
-    {
-      "id": "SCM-I140",
-      "name": "PO line items",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Line number, tag or commodity code, description, quantity, unit price, contract delivery date, cost code.",
-      "owner_task": "SCM-T100"
-    },
-    {
-      "id": "SCM-I150",
-      "name": "PO amendment",
-      "system": "Purchasing DB",
-      "form": "document",
-      "content": "Amendment number, changed lines, quantities, price and delivery changes.",
-      "owner_task": "SCM-T110"
-    },
-    {
-      "id": "SCM-I160",
-      "name": "VDRL tracking records",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Per PO: vendor document number, project number, type, review/information, due date.",
-      "owner_task": "SCM-T120"
-    },
-    {
-      "id": "SCM-I170",
-      "name": "Vendor print status report",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Per vendor document: due, received, sent for review, returned, review code, overdue days.",
-      "owner_task": "SCM-T130"
-    },
-    {
-      "id": "SCM-I180",
-      "name": "Vendor documents routed for review",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Vendor drawings and data transmitted to reviewing disciplines with return date.",
-      "owner_task": "SCM-T130"
-    },
-    {
-      "id": "SCM-I190",
-      "name": "Review comments returned to vendor",
-      "system": "Document Locator",
-      "form": "document",
-      "content": "Consolidated comments and review code returned to the vendor by transmittal.",
-      "owner_task": "SCM-T130"
-    },
-    {
-      "id": "SCM-I200",
-      "name": "Expediting forecast",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Per PO line: milestone status, forecast ex-works and site delivery dates, exceptions.",
-      "owner_task": "SCM-T140"
-    },
-    {
-      "id": "SCM-I210",
-      "name": "Inspection assignment and agreed ITP",
-      "system": "Excel / Word",
-      "form": "data",
-      "content": "Inspection level, hold/witness points agreed, inspector assigned per PO.",
-      "owner_task": "SCM-T150"
-    },
-    {
-      "id": "SCM-I220",
-      "name": "Inspection report",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Tests witnessed, results, non-conformances and open points.",
-      "owner_task": "SCM-T160"
-    },
-    {
-      "id": "SCM-I230",
-      "name": "Inspection release note",
-      "system": "Excel / Word",
-      "form": "decision",
-      "content": "Release for shipment per PO line with outstanding items listed.",
-      "owner_task": "SCM-T160"
-    },
-    {
-      "id": "SCM-I240",
-      "name": "Logistics plan",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "Routes, heavy-haul and oversize moves, port and customs plan, transport schedule.",
-      "owner_task": "SCM-T170"
-    },
-    {
-      "id": "SCM-I250",
-      "name": "Shipping notice",
-      "system": "Excel / Word",
-      "form": "document",
-      "content": "PO, shipping pieces, weights, dimensions, carrier and expected arrival date at site.",
-      "owner_task": "SCM-T180"
-    },
-    {
-      "id": "SCM-I260",
-      "name": "Expected receipts in Jovix",
-      "system": "Jovix",
-      "form": "data",
-      "content": "PO number and lines, quantities and descriptions passed from the Purchasing DB for receiving.",
-      "owner_task": "SCM-T190"
-    },
-    {
-      "id": "SCM-I270",
-      "name": "Material receipt record",
-      "system": "Jovix",
-      "form": "data",
-      "content": "PO line received, quantity, date, location, heat numbers and MTR reference, tag.",
-      "owner_task": "SCM-T200"
-    },
-    {
-      "id": "SCM-I280",
-      "name": "OS&D report",
-      "system": "Jovix",
-      "form": "document",
-      "content": "Overage, shortage and damage details, photos, PO line and disposition.",
-      "owner_task": "SCM-T210"
-    },
-    {
-      "id": "SCM-I290",
-      "name": "Storage location and preservation records",
-      "system": "Jovix",
-      "form": "data",
-      "content": "Item location and preservation activity dates and findings.",
-      "owner_task": "SCM-T220"
-    },
-    {
-      "id": "SCM-I300",
-      "name": "Material availability status",
-      "system": "Jovix",
-      "form": "data",
-      "content": "Material availability per IWP fed to iConstruct for constraint checks.",
-      "owner_task": "SCM-T230"
-    },
-    {
-      "id": "SCM-I310",
-      "name": "Material issue record",
-      "system": "Jovix",
-      "form": "data",
-      "content": "Pick ticket, IWP, items and quantities issued with heat numbers.",
-      "owner_task": "SCM-T240"
-    },
-    {
-      "id": "SCM-I320",
-      "name": "Material shortage report",
-      "system": "Jovix",
-      "form": "data",
-      "content": "Shortages per IWP with expected receipt dates.",
-      "owner_task": "SCM-T230"
-    },
-    {
-      "id": "SCM-I330",
-      "name": "Material reconciliation and surplus report",
-      "system": "Jovix",
-      "form": "document",
-      "content": "Ordered vs received vs issued vs installed by commodity, surplus disposal.",
-      "owner_task": "SCM-T250"
-    },
-    {
-      "id": "SCM-I340",
-      "name": "Vendor site service request",
-      "system": "Purchasing DB",
-      "form": "document",
-      "content": "Service type, dates, location and PO reference for vendor representatives.",
-      "owner_task": "SCM-T260"
-    },
-    {
-      "id": "SCM-I350",
-      "name": "Spares purchase order and register",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Spare parts ordered by tag and part number, quantities, delivery.",
-      "owner_task": "SCM-T270"
-    },
-    {
-      "id": "SCM-I360",
-      "name": "PO close-out record",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "Final documentation, deliveries and claims complete, PO closed date.",
-      "owner_task": "SCM-T280"
-    },
-    {
-      "id": "SCM-I370",
-      "name": "Committed cost data",
-      "system": "Purchasing DB",
-      "form": "data",
-      "content": "PO and amendment values by cost code and WBS for cost reporting.",
-      "owner_task": "SCM-T100"
+     "item": "ELEC-I450",
+     "use": "Electrical acceptable manufacturers per equipment type",
+     "method": "review",
+     "level": 3
     }
-  ]
+   ]
+  },
+  {
+   "id": "SCM-T030",
+   "name": "Register material requisitions in the Purchasing DB",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Purchasing DB",
+   "activity": "PRO-01",
+   "description": "Log each MR and revision received through Document Locator, key header and line data and set status.",
+   "produces": [
+    "SCM-I050"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I350",
+     "use": "MR number, revision, scope, tags, datasheets, VDRL, inspection requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I130",
+     "use": "MR number, scope, datasheets, quantities, VDRL",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I130",
+     "use": "MV switchgear MR scope and datasheets",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I140",
+     "use": "power transformer MR scope and datasheets",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I150",
+     "use": "LV switchgear/MCC/E-house MR scope",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I160",
+     "use": "VFD MR scope",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I170",
+     "use": "UPS, DC and generator MR scope",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I310",
+     "use": "civil and structural MRs and scopes",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I307",
+     "use": "HVAC requisition scope and datasheets",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I150",
+     "use": "ROS and MR need date per MR",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I370",
+     "use": "electrical bulk MR lines (cable, tray, fittings)",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I340",
+     "use": "instrument bulk MR lines (tubing, fittings, cable, supports)",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I290",
+     "use": "spring and engineered support MR",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T040",
+   "name": "Load piping bulk MTO into the Purchasing DB",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Purchasing DB",
+   "activity": "PIP-04",
+   "description": "Import the S3D MTO spreadsheet, map commodity codes and add surplus allowances to form bulk MR lines.",
+   "produces": [
+    "SCM-I060"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I420",
+     "use": "commodity ident, description, class, size, schedule, material, quantity by area and iso, delta to previous MTO; surplus allowance per ident",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I430",
+     "use": "bulk requisition technical specs and delivery split",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I110",
+     "use": "class materials and component descriptions",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I120",
+     "use": "short codes and commodity codes (idents)",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T050",
+   "name": "Issue RFQ packages",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Purchasing DB",
+   "activity": "VEN-01",
+   "description": "Combine the technical MR with commercial terms and issue the request for quotation to the bidders list.",
+   "produces": [
+    "SCM-I070"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I050",
+     "use": "MR number, revision, scope and need date",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "SCM-I030",
+     "use": "bidders per MR",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I020",
+     "use": "approved commercial terms and delivery terms",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I040",
+     "use": "vendor document numbering and metadata rules",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PROJ-I050",
+     "use": "Document Locator submission workflow",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "INST-I190",
+     "use": "SIS specification for the RFQ package",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I200",
+     "use": "F&G system specification for the RFQ package",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "SCM-I040",
+     "use": "prequalified bidders for the RFQ distribution",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "SCM-T060",
+   "name": "Manage bid clarifications and bid bulletins",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Collect bidder questions, get technical answers and issue bid bulletins to all bidders.",
+   "produces": [
+    "SCM-I080"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I370",
+     "use": "technical query responses and agreed clarifications",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I140",
+     "use": "technical clarifications for instrument packages",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I180",
+     "use": "clarifications for electrical packages",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I323",
+     "use": "Bidder questions raised during the bid period (technical and commercial)",
+     "method": "manual",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "SCM-T070",
+   "name": "Receive bids and distribute technical portions",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Document Locator",
+   "activity": "PRO-01",
+   "description": "Open bids, separate priced and unpriced portions and send unpriced technical offers for technical bid evaluation.",
+   "produces": [
+    "SCM-I090"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I020",
+     "use": "technical offer to forward unpriced for TBE",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I040",
+     "use": "technical exceptions to forward for TBE",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I030",
+     "use": "priced offer held for commercial evaluation",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T080",
+   "name": "Prepare the commercial bid evaluation",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Normalise prices, delivery and terms across bidders and score the commercial offers.",
+   "produces": [
+    "SCM-I100"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I030",
+     "use": "price breakdown, options, spares, delivery, payment and validity",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I040",
+     "use": "commercial exceptions to price",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I380",
+     "use": "technically acceptable bidders, deviations accepted, evaluation adders",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I140",
+     "use": "technically acceptable bidders for instrument packages",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I180",
+     "use": "recommended vendor and technical conditions for electrical packages",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T090",
+   "name": "Prepare the bid tabulation and award recommendation",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Combine technical and commercial evaluations into the award recommendation for approval.",
+   "produces": [
+    "SCM-I110"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I100",
+     "use": "commercial ranking and normalised price",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I380",
+     "use": "preferred bidder and technical acceptability",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I120",
+     "use": "budget per package",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I110",
+     "use": "estimate value per package where no control budget yet",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I291",
+     "use": "Owner award approval for packages above delegated authority",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I440",
+     "use": "piping technical acceptability per bidder",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T100",
+   "name": "Award the purchase order in the Purchasing DB",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Purchasing DB",
+   "activity": "PRO-01",
+   "description": "Prepare the PO from the conformed MR and successful bid, enter PO header and lines and issue to the vendor.",
+   "produces": [
+    "SCM-I120",
+    "SCM-I130",
+    "SCM-I140",
+    "SCM-I370"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I110",
+     "use": "approved vendor, price and delivery",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I390",
+     "use": "conformed datasheets, scope, VDRL and remaining holds",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I430",
+     "use": "bulk requisition lines, quantities and delivery split",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I030",
+     "use": "cost codes and WBS per PO line",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T110",
+   "name": "Process PO amendments",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Purchasing DB",
+   "activity": "PRO-01",
+   "description": "Issue PO amendments for MR revisions, quantity changes and vendor change orders.",
+   "produces": [
+    "SCM-I150"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I390",
+     "use": "revised conformed requisition scope and data",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I420",
+     "use": "MTO delta to previous revision by ident",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I210",
+     "use": "approved change scope and affected POs",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I324",
+     "use": "Vendor change-order quotation: price and delivery impact of post-award changes",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T120",
+   "name": "Set up VDRL tracking",
+   "phases": [
+    "DD"
+   ],
+   "system": "Purchasing DB",
+   "activity": "VEN-01",
+   "description": "Load the vendor document requirements per PO with document numbers and due dates in the Purchasing DB.",
+   "produces": [
+    "SCM-I160"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I390",
+     "use": "VDRL document types, review/information and due weeks after PO",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I400",
+     "use": "agreed VDRL dates from kick-off",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I060",
+     "use": "vendor document numbers and planned submission dates",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I070",
+     "use": "project document numbers for vendor documents",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T130",
+   "name": "Expedite vendor documents and route them for review",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Receive vendor documents, transmit to engineering for review, return comments to the vendor and report print status.",
+   "produces": [
+    "SCM-I170",
+    "SCM-I180",
+    "SCM-I190"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I070",
+     "use": "GA drawings for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I080",
+     "use": "foundation and load data for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I090",
+     "use": "calculations for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I100",
+     "use": "package P&IDs for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I110",
+     "use": "package I/O and narrative for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I120",
+     "use": "package electrical data for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I130",
+     "use": "package instrument list and datasheets for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "VEND-I150",
+     "use": "ITP for review",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "MECH-I410",
+     "use": "consolidated comments and review code per vendor document",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I380",
+     "use": "nozzle orientation and connection comments",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I280",
+     "use": "nozzle load acceptance or exceedance",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "CIVL-I320",
+     "use": "anchor bolt and load acceptance comments",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "INST-I271",
+     "use": "comments on package P&IDs, instrument lists, panels",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "INST-I150",
+     "use": "return code and comments on instrument vendor data",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I190",
+     "use": "electrical coded returns",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "ELEC-I200",
+     "use": "motor data comments",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "PROJ-I290",
+     "use": "consolidated comment sheet",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PROJ-I300",
+     "use": "review code and return date",
+     "method": "integrated",
+     "level": 2
+    },
+    {
+     "item": "PIPE-I450",
+     "use": "review codes on valve and SP item vendor documents",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T140",
+   "name": "Expedite manufacturing and forecast deliveries",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Purchasing DB",
+   "activity": "VEN-01",
+   "description": "Track sub-orders, manufacturing milestones and forecast ex-works dates per PO line and report exceptions.",
+   "produces": [
+    "SCM-I200"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I160",
+     "use": "baseline milestone dates",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I310",
+     "use": "milestone actuals, percent complete and forecast ex-works date",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROJ-I150",
+     "use": "ROS per MR and tag to check against forecast",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CONS-I190",
+     "use": "material constraints on IWPs to expedite",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I200",
+     "use": "spool fabrication status for expediting",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T150",
+   "name": "Coordinate inspection and test plans",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Review vendor ITPs, set hold and witness points with engineering and owner and assign inspectors.",
+   "produces": [
+    "SCM-I210"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I150",
+     "use": "inspection activities, hold and witness points",
+     "method": "review",
+     "level": 2
+    },
+    {
+     "item": "MECH-I350",
+     "use": "inspection level and testing requirements in the requisition",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I340",
+     "use": "testing and NDE requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I490",
+     "use": "approved ITP with witness/hold points",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I292",
+     "use": "Owner witness point selection per PO and ITP",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T160",
+   "name": "Carry out shop inspection and release",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Witness tests, review certificates and issue inspection reports and release notes for shipment.",
+   "produces": [
+    "SCM-I220",
+    "SCM-I230"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I190",
+     "use": "test due, date and location",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "VEND-I170",
+     "use": "MTRs and heat numbers",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "VEND-I180",
+     "use": "hydrotest, NDE, PMI, performance and FAT certificates",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "VEND-I300",
+     "use": "weld maps and NDE results",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "MECH-I420",
+     "use": "certified dimensions and nozzle data for checks",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "MECH-I170",
+     "use": "approved datasheet values",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "INST-I180",
+     "use": "DCS FAT requirements",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "INST-I160",
+     "use": "analyzer system specification and test requirements",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "ELEC-I400",
+     "use": "FAT results for inspection release",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T170",
+   "name": "Prepare the logistics plan",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Plan freight routes, heavy-haul and oversize moves, customs and port handling.",
+   "produces": [
+    "SCM-I240"
+   ],
+   "consumes": [
+    {
+     "item": "MECH-I320",
+     "use": "lift weight, CoG, shipping dimensions",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "VEND-I070",
+     "use": "weights, dimensions and lifting points",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CONS-I020",
+     "use": "laydown areas, haul roads and gates",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "CONS-I040",
+     "use": "heavy lift list, crane and set dates",
+     "method": "meeting",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "SCM-T180",
+   "name": "Manage shipping and traffic",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Excel / Word",
+   "activity": "VEN-01",
+   "description": "Book freight, clear customs and issue shipping notices to site.",
+   "produces": [
+    "SCM-I250"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I220",
+     "use": "shipping pieces, weights, dimensions, certificates of origin",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I290",
+     "use": "preservation requirements in transit",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "SCM-I230",
+     "use": "release for shipment per PO line",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T190",
+   "name": "Pass PO data to Jovix for receiving",
+   "phases": [
+    "DD",
+    "CON"
+   ],
+   "system": "Jovix",
+   "activity": "VEN-01",
+   "description": "Transfer PO header and line data to Jovix as expected receipts.",
+   "produces": [
+    "SCM-I260"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I130",
+     "use": "PO number, vendor",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "SCM-I140",
+     "use": "PO lines, quantities, descriptions",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "SCM-I150",
+     "use": "amended lines and quantities",
+     "method": "integrated",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T200",
+   "name": "Receive materials at site in Jovix",
+   "phases": [
+    "CON"
+   ],
+   "system": "Jovix",
+   "activity": "CON-02",
+   "description": "Check received items against PO lines and packing lists, record heat numbers and tag them to location.",
+   "produces": [
+    "SCM-I270"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I260",
+     "use": "expected PO lines and quantities",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "SCM-I250",
+     "use": "shipping pieces and expected arrival",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I220",
+     "use": "item marks, tags and heat numbers per piece",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "VEND-I170",
+     "use": "MTR reference per heat number",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T210",
+   "name": "Raise OS&D reports",
+   "phases": [
+    "CON"
+   ],
+   "system": "Jovix",
+   "activity": "CON-02",
+   "description": "Report overage, shortage and damage on receipt and follow up with vendor and carrier.",
+   "produces": [
+    "SCM-I280"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I270",
+     "use": "receipt discrepancies by PO line",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "VEND-I325",
+     "use": "Vendor response to OS&D: replacement, repair or credit proposal",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T220",
+   "name": "Manage the warehouse, laydown and preservation",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Jovix",
+   "activity": "CON-02",
+   "description": "Store materials by location, perform periodic preservation and record it.",
+   "produces": [
+    "SCM-I290"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I290",
+     "use": "storage conditions and preservation frequencies",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I530",
+     "use": "storage class, N2 blanket, shaft rotation intervals",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "CONS-I020",
+     "use": "laydown and storage areas",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T230",
+   "name": "Report material availability to AWP",
+   "phases": [
+    "CON"
+   ],
+   "system": "Jovix",
+   "activity": "CON-02",
+   "description": "Match received materials against CWP/IWP bills of material and publish availability for constraint checks.",
+   "produces": [
+    "SCM-I300",
+    "SCM-I320"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I170",
+     "use": "IWP bill of materials and quantities",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CONS-I200",
+     "use": "released IWPs and planned start",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I420",
+     "use": "MTO quantities by iso and area",
+     "method": "file",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T240",
+   "name": "Issue materials to construction",
+   "phases": [
+    "CON"
+   ],
+   "system": "Jovix",
+   "activity": "CON-02",
+   "description": "Reserve and issue materials against IWPs with pick tickets and record heat number traceability.",
+   "produces": [
+    "SCM-I310"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I250",
+     "use": "pick list by IWP: item code, quantity, heat number, date",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "CONS-I200",
+     "use": "released IWPs for issue",
+     "method": "integrated",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T250",
+   "name": "Reconcile materials and dispose of surplus",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Jovix",
+   "activity": "CON-02",
+   "description": "Reconcile ordered, received, issued and installed quantities and dispose of surplus.",
+   "produces": [
+    "SCM-I330"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I270",
+     "use": "installed quantities by IWP/CWP",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I420",
+     "use": "final IFC MTO totals by ident",
+     "method": "file",
+     "level": 4
+    },
+    {
+     "item": "PIPE-I550",
+     "use": "shortage and surplus by ident",
+     "method": "file",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T260",
+   "name": "Call off vendor site services",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Purchasing DB",
+   "activity": "VEN-01",
+   "description": "Request vendor representatives for installation supervision and commissioning against PO service rates.",
+   "produces": [
+    "SCM-I340"
+   ],
+   "consumes": [
+    {
+     "item": "CONS-I140",
+     "use": "installation dates by CWP/IWP needing vendor supervision",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "COMM-I120",
+     "use": "vendor representative scope, man-days and call-off dates",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I560",
+     "use": "vendor site service dates to call off",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  },
+  {
+   "id": "SCM-T270",
+   "name": "Procure commissioning and operating spares",
+   "phases": [
+    "DD",
+    "CON",
+    "COM"
+   ],
+   "system": "Purchasing DB",
+   "activity": "VEN-01",
+   "description": "Process vendor spare parts lists, get owner selection and place spares orders.",
+   "produces": [
+    "SCM-I350"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I260",
+     "use": "part numbers, recommended quantities, prices and lead times",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "MECH-I510",
+     "use": "reviewed commissioning, operating and capital spares per tag",
+     "method": "manual",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I190",
+     "use": "approved spares by tag and part number with quantities",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "COMM-I110",
+     "use": "commissioning spares and first fill by system and need date",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "SCM-T280",
+   "name": "Close out purchase orders",
+   "phases": [
+    "CON",
+    "COM"
+   ],
+   "system": "Purchasing DB",
+   "activity": "VEN-01",
+   "description": "Confirm final documentation, MDR and deliveries complete and close POs.",
+   "produces": [
+    "SCM-I360"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I240",
+     "use": "final data book delivered",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "MECH-I520",
+     "use": "MDR acceptance",
+     "method": "review",
+     "level": 4
+    },
+    {
+     "item": "SCM-I270",
+     "use": "final receipts per PO line",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "SCM-I280",
+     "use": "OS&D dispositions closed",
+     "method": "integrated",
+     "level": 4
+    },
+    {
+     "item": "OWNR-I285",
+     "use": "Final invoice and back-charge status per PO",
+     "method": "manual",
+     "level": 4
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "SCM-I010",
+   "name": "Procurement plan",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Packages, sourcing route, procurement durations, RFQ/award dates and ROS per MR.",
+   "owner_task": "SCM-T010"
+  },
+  {
+   "id": "SCM-I020",
+   "name": "Long-lead items list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Tag, description, lead time, ROS and required commitment date for long-lead items.",
+   "owner_task": "SCM-T010"
+  },
+  {
+   "id": "SCM-I030",
+   "name": "Bidders list",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Approved bidders per MR with contact and qualification status.",
+   "owner_task": "SCM-T020"
+  },
+  {
+   "id": "SCM-I040",
+   "name": "Vendor prequalification record",
+   "system": "Purchasing DB",
+   "form": "document",
+   "content": "Capability, capacity, quality system and financial assessment of new vendors.",
+   "owner_task": "SCM-T020"
+  },
+  {
+   "id": "SCM-I050",
+   "name": "MR register entry",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "MR number, revision, title, originator, tag list, status and need date.",
+   "owner_task": "SCM-T030"
+  },
+  {
+   "id": "SCM-I060",
+   "name": "Bulk material MR lines",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Commodity code, description, size, material, quantity with surplus allowance, area.",
+   "owner_task": "SCM-T040"
+  },
+  {
+   "id": "SCM-I070",
+   "name": "RFQ package",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "MR, commercial terms, instructions to bidders, VDRL, bid due date.",
+   "owner_task": "SCM-T050"
+  },
+  {
+   "id": "SCM-I080",
+   "name": "Bid bulletin",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Questions and answers and MR changes issued to all bidders.",
+   "owner_task": "SCM-T060"
+  },
+  {
+   "id": "SCM-I090",
+   "name": "Unpriced technical offers for TBE",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Technical portions of each bid sent to the technical evaluator with TBE due date.",
+   "owner_task": "SCM-T070"
+  },
+  {
+   "id": "SCM-I100",
+   "name": "Commercial bid evaluation",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Normalised price, delivery, terms and commercial ranking per bidder.",
+   "owner_task": "SCM-T080"
+  },
+  {
+   "id": "SCM-I110",
+   "name": "Award recommendation",
+   "system": "Excel / Word",
+   "form": "decision",
+   "content": "Recommended vendor, evaluated price, delivery and justification, with approvals.",
+   "owner_task": "SCM-T090"
+  },
+  {
+   "id": "SCM-I120",
+   "name": "Purchase order",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Issued PO document: scope, conformed MR, price, delivery, terms, VDRL.",
+   "owner_task": "SCM-T100"
+  },
+  {
+   "id": "SCM-I130",
+   "name": "PO header data",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "PO number, vendor, award date, value, delivery terms, buyer, expeditor.",
+   "owner_task": "SCM-T100"
+  },
+  {
+   "id": "SCM-I140",
+   "name": "PO line items",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Line number, tag or commodity code, description, quantity, unit price, contract delivery date, cost code.",
+   "owner_task": "SCM-T100"
+  },
+  {
+   "id": "SCM-I150",
+   "name": "PO amendment",
+   "system": "Purchasing DB",
+   "form": "document",
+   "content": "Amendment number, changed lines, quantities, price and delivery changes.",
+   "owner_task": "SCM-T110"
+  },
+  {
+   "id": "SCM-I160",
+   "name": "VDRL tracking records",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Per PO: vendor document number, project number, type, review/information, due date.",
+   "owner_task": "SCM-T120"
+  },
+  {
+   "id": "SCM-I170",
+   "name": "Vendor print status report",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Per vendor document: due, received, sent for review, returned, review code, overdue days.",
+   "owner_task": "SCM-T130"
+  },
+  {
+   "id": "SCM-I180",
+   "name": "Vendor documents routed for review",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Vendor drawings and data transmitted to reviewing disciplines with return date.",
+   "owner_task": "SCM-T130"
+  },
+  {
+   "id": "SCM-I190",
+   "name": "Review comments returned to vendor",
+   "system": "Document Locator",
+   "form": "document",
+   "content": "Consolidated comments and review code returned to the vendor by transmittal.",
+   "owner_task": "SCM-T130"
+  },
+  {
+   "id": "SCM-I200",
+   "name": "Expediting forecast",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Per PO line: milestone status, forecast ex-works and site delivery dates, exceptions.",
+   "owner_task": "SCM-T140"
+  },
+  {
+   "id": "SCM-I210",
+   "name": "Inspection assignment and agreed ITP",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Inspection level, hold/witness points agreed, inspector assigned per PO.",
+   "owner_task": "SCM-T150"
+  },
+  {
+   "id": "SCM-I220",
+   "name": "Inspection report",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Tests witnessed, results, non-conformances and open points.",
+   "owner_task": "SCM-T160"
+  },
+  {
+   "id": "SCM-I230",
+   "name": "Inspection release note",
+   "system": "Excel / Word",
+   "form": "decision",
+   "content": "Release for shipment per PO line with outstanding items listed.",
+   "owner_task": "SCM-T160"
+  },
+  {
+   "id": "SCM-I240",
+   "name": "Logistics plan",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Routes, heavy-haul and oversize moves, port and customs plan, transport schedule.",
+   "owner_task": "SCM-T170"
+  },
+  {
+   "id": "SCM-I250",
+   "name": "Shipping notice",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "PO, shipping pieces, weights, dimensions, carrier and expected arrival date at site.",
+   "owner_task": "SCM-T180"
+  },
+  {
+   "id": "SCM-I260",
+   "name": "Expected receipts in Jovix",
+   "system": "Jovix",
+   "form": "data",
+   "content": "PO number and lines, quantities and descriptions passed from the Purchasing DB for receiving.",
+   "owner_task": "SCM-T190"
+  },
+  {
+   "id": "SCM-I270",
+   "name": "Material receipt record",
+   "system": "Jovix",
+   "form": "data",
+   "content": "PO line received, quantity, date, location, heat numbers and MTR reference, tag.",
+   "owner_task": "SCM-T200"
+  },
+  {
+   "id": "SCM-I280",
+   "name": "OS&D report",
+   "system": "Jovix",
+   "form": "document",
+   "content": "Overage, shortage and damage details, photos, PO line and disposition.",
+   "owner_task": "SCM-T210"
+  },
+  {
+   "id": "SCM-I290",
+   "name": "Storage location and preservation records",
+   "system": "Jovix",
+   "form": "data",
+   "content": "Item location and preservation activity dates and findings.",
+   "owner_task": "SCM-T220"
+  },
+  {
+   "id": "SCM-I300",
+   "name": "Material availability status",
+   "system": "Jovix",
+   "form": "data",
+   "content": "Material availability per IWP fed to iConstruct for constraint checks.",
+   "owner_task": "SCM-T230"
+  },
+  {
+   "id": "SCM-I310",
+   "name": "Material issue record",
+   "system": "Jovix",
+   "form": "data",
+   "content": "Pick ticket, IWP, items and quantities issued with heat numbers.",
+   "owner_task": "SCM-T240"
+  },
+  {
+   "id": "SCM-I320",
+   "name": "Material shortage report",
+   "system": "Jovix",
+   "form": "data",
+   "content": "Shortages per IWP with expected receipt dates.",
+   "owner_task": "SCM-T230"
+  },
+  {
+   "id": "SCM-I330",
+   "name": "Material reconciliation and surplus report",
+   "system": "Jovix",
+   "form": "document",
+   "content": "Ordered vs received vs issued vs installed by commodity, surplus disposal.",
+   "owner_task": "SCM-T250"
+  },
+  {
+   "id": "SCM-I340",
+   "name": "Vendor site service request",
+   "system": "Purchasing DB",
+   "form": "document",
+   "content": "Service type, dates, location and PO reference for vendor representatives.",
+   "owner_task": "SCM-T260"
+  },
+  {
+   "id": "SCM-I350",
+   "name": "Spares purchase order and register",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Spare parts ordered by tag and part number, quantities, delivery.",
+   "owner_task": "SCM-T270"
+  },
+  {
+   "id": "SCM-I360",
+   "name": "PO close-out record",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "Final documentation, deliveries and claims complete, PO closed date.",
+   "owner_task": "SCM-T280"
+  },
+  {
+   "id": "SCM-I370",
+   "name": "Committed cost data",
+   "system": "Purchasing DB",
+   "form": "data",
+   "content": "PO and amendment values by cost code and WBS for cost reporting.",
+   "owner_task": "SCM-T100"
+  }
+ ],
+ "gaps": []
 }

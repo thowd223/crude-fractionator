@@ -289,4 +289,8 @@ def main():
 
 
 if __name__ == "__main__":
+    bad = [a for a in sys.argv[1:] if a != "--check" and a not in DISC]
+    if bad:
+        print(__doc__)
+        sys.exit(2)
     sys.exit(1 if main() else 0)
