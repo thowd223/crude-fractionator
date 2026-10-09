@@ -235,7 +235,8 @@ footer {{ margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 
     pumparounds, naphtha stabilisation and splitting, wet vacuum distillation and ejectors. Every document below is generated
     from one calculation model, so the drawings, lists and reports agree with each other.</p>
     <div class="ctas"><a class="cta" href="viewer.html">Open the 3D model &rarr;</a>
-    <a class="cta" href="dependencies.html">Design dependency map &rarr;</a></div>
+    <a class="cta" href="dependencies.html">Design dependency map &rarr;</a>
+    <a class="cta" href="phases.html">Phase maturity plan &rarr;</a></div>
   </div>
   <div class="cells">
     <div class="cell"><b>DOCUMENT SET</b><span>{len(rows)} documents</span></div>

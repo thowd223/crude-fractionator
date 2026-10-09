@@ -26,7 +26,8 @@ DATA = ROOT / "data"
 OUT = ROOT / "deliverables" / "06-wrapup"
 PORTAL = OUT / "portal"
 STATUS = {"done": "Issued (FEED)", "partial": "Issued, provisional", "open": "Not started"}
-DEP_DOCS = [("CFU-000-PM-DEP-001", "Design Dependency Map"), ("CFU-000-PM-DEP-002", "Design Network Diagram")]
+DEP_DOCS = [("CFU-000-PM-DEP-001", "Design Dependency Map"), ("CFU-000-PM-DEP-002", "Design Network Diagram"),
+            ("CFU-000-PM-DEP-003", "Phase Maturity Plan")]
 
 
 # ---------------------------------------------------------------------------------------------- graph

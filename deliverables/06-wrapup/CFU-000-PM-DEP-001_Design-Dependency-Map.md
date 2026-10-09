@@ -24,7 +24,7 @@ matrix (DSM), change-impact table, to-do list and code check. An interactive ver
 | Sequence waves | 13 |
 | Input links | 129 |
 | Iteration loops | 15 |
-| Deliverables mapped to activities | 104 |
+| Deliverables mapped to activities | 105 |
 | Data reads traced in the build | 62 (62 upstream) |
 | Code-check issues | 0 |
 
@@ -85,21 +85,21 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 
 - External inputs: Owner capacity, crude slate, product specs, turndown; Site, climate and utility conditions; Codes, standards and owner specifications
 - Issues: CFU-000-PR-BOD-001
-- Feeds: PRJ-02, PRC-01, PIP-01, LAY-01; 44 downstream activities, 103 downstream deliverables
+- Feeds: PRJ-02, PRC-01, PIP-01, LAY-01; 44 downstream activities, 104 downstream deliverables
 - Note: Every other activity reads the basis; a change here re-opens the whole package.
 
 **PRJ-02 Crude assay characterisation** (Process, issued, provisional)
 
 - Needs: PRJ-01 (crude slate, design and check crudes)
 - External inputs: Full laboratory assay (TBP, gravity, sulphur, salts, metals, acidity)
-- Feeds: PRC-00, PRC-01; 43 downstream activities, 103 downstream deliverables
+- Feeds: PRC-00, PRC-01; 43 downstream activities, 104 downstream deliverables
 - Note: Uses a published Arab Light assay with pseudo-components, not a lab assay.
 
 **PRC-00 Rigorous simulation and model calibration** (Process, not started)
 
 - Needs: PRJ-02 (lab assay pseudo-components)
 - External inputs: Simulator licence (HYSYS / Petro-SIM / Pro-II); Licensor or owner operating data
-- Feeds: PRC-01; 42 downstream activities, 103 downstream deliverables
+- Feeds: PRC-01; 42 downstream activities, 104 downstream deliverables
 - Note: Replaces the ideal-VLE shortcut model; expect 5-10 C changes in draw temperatures.
 
 **PRC-01 Heat and material balance** (Process, issued, provisional)
@@ -107,14 +107,14 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 - Needs: PRJ-01 (capacity, product specs, utility conditions); PRJ-02 (pseudo-components); PRC-00 (calibrated cut points and efficiencies)
 - Owns data: data/streams.json, data/process_results.json
 - Issues: CFU-000-PR-HMB-001
-- Feeds: PRC-02, PRC-05, PIP-01, PRC-03, PRC-04, LAY-01, PRC-06, PRC-07, MEC-01, ICS-01, ICS-04; 41 downstream activities, 102 downstream deliverables
+- Feeds: PRC-02, PRC-05, PIP-01, PRC-03, PRC-04, LAY-01, PRC-06, PRC-07, MEC-01, ICS-01, ICS-04; 41 downstream activities, 103 downstream deliverables
 
 **PRC-02 Process equipment sizing** (Process, issued (feed))
 
 - Needs: PRC-01 (flows, duties, column vapour/liquid loads)
 - Owns data: data/equipment.json
 - Issues: CFU-000-ME-LST-001
-- Feeds: PRC-03, PRC-04, LAY-01, ELE-01, PRC-06, PRC-07, MEC-01, LAY-02, ICS-01, ELE-02, PRC-08, MEC-02, CST-01, ICS-04, ICS-05, ICS-03; 38 downstream activities, 99 downstream deliverables
+- Feeds: PRC-03, PRC-04, LAY-01, ELE-01, PRC-06, PRC-07, MEC-01, LAY-02, ICS-01, ELE-02, PRC-08, MEC-02, CST-01, ICS-04, ICS-05, ICS-03; 38 downstream activities, 100 downstream deliverables
 - Revised by: MEC-01 (mechanical holds re-rate sizing (C-201 bed-1 diameter, heater box length)); PIP-02 (routed lengths update pump and line hydraulics)
 - Note: Equipment list is the hub: mechanical, layout, electrical, I&C and cost all read it.
 
@@ -122,54 +122,54 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 
 - Needs: PRC-01 (unit yields)
 - Issues: CFU-000-PR-BFD-001
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **PIP-01 Piping material classes** (Piping, issued (feed))
 
 - Needs: PRJ-01 (codes, corrosion basis); PRC-01 (design T/P, sulphur and acid corrosion)
 - Issues: CFU-000-PI-SPC-001
-- Feeds: PRC-08, PIP-04; 20 downstream activities, 50 downstream deliverables
+- Feeds: PRC-08, PIP-04; 20 downstream activities, 51 downstream deliverables
 - Note: Defined in CONVENTIONS.md; summary issued with the P&IDs.
 
 **PRC-03 Relief load and PSV sizing (unit)** (Process, issued (feed))
 
 - Needs: PRC-01 (relief compositions and rates); PRC-02 (design pressures, wetted areas)
 - Owns data: data/psv.json
-- Feeds: PRC-07, SAF-02, MEC-01, PRC-08, MEC-02, SAF-01, PIP-02, ICS-03; 28 downstream activities, 69 downstream deliverables
+- Feeds: PRC-07, SAF-02, MEC-01, PRC-08, MEC-02, SAF-01, PIP-02, ICS-03; 28 downstream activities, 70 downstream deliverables
 - Revised by: SAF-02 (flare back-pressure changes PSV type and size)
 
 **PRC-04 Control loops and SIF definition** (Process, issued (feed))
 
 - Needs: PRC-01 (operating points); PRC-02 (equipment and instrument ranges)
 - Owns data: data/control_loops.json
-- Feeds: PRC-06, ICS-01, ELE-02, PRC-08, SAF-01, ICS-04, ICS-05, ICS-02, ICS-03; 24 downstream activities, 69 downstream deliverables
+- Feeds: PRC-06, ICS-01, ELE-02, PRC-08, SAF-01, ICS-04, ICS-05, ICS-02, ICS-03; 24 downstream activities, 70 downstream deliverables
 
 **LAY-01 Plot plan and equipment layout** (Layout, issued (feed))
 
 - Needs: PRC-02 (equipment list and footprints); PRC-01 (hazard inventory, heater duties); PRJ-01 (site, spacing standards)
 - Owns data: data/layout.json
 - Issues: CFU-000-PL-PLT-001
-- Feeds: LAY-02, ELE-02, PRC-08, ELE-04, PIP-02, ICS-05, SAF-04, CIV-01; 23 downstream activities, 58 downstream deliverables
+- Feeds: LAY-02, ELE-02, PRC-08, ELE-04, PIP-02, ICS-05, SAF-04, CIV-01; 23 downstream activities, 59 downstream deliverables
 - Revised by: MEC-01 (calculated dimensions and weights update footprints and spacing); PIP-02 (rack width and clashes move equipment); SAF-04 (siting study moves occupied buildings and equipment); VEN-01 (vendor package footprints)
 
 **ELE-01 Electrical load list** (Electrical, issued (feed))
 
 - Needs: PRC-02 (motor ratings, absorbed power)
 - Issues: CFU-000-EL-LDL-001
-- Feeds: ELE-03, ELE-04; 7 downstream activities, 10 downstream deliverables
+- Feeds: ELE-03, ELE-04; 7 downstream activities, 11 downstream deliverables
 - Revised by: ICS-07 (ICS cabinet and UPS loads added to the load list); VEN-01 (certified motor ratings)
 
 **PRC-06 Process flow diagrams** (Process, issued (feed))
 
 - Needs: PRC-01 (stream table); PRC-02 (equipment data); PRC-04 (principal control loops)
 - Issues: CFU-000-PR-PFD-ALL, CFU-100-PR-PFD-001, CFU-100-PR-PFD-002, CFU-100-PR-PFD-003, CFU-100-PR-PFD-004, CFU-200-PR-PFD-005, CFU-200-PR-PFD-006
-- Feeds: PRC-08; 20 downstream activities, 50 downstream deliverables
+- Feeds: PRC-08; 20 downstream activities, 51 downstream deliverables
 
 **PRC-07 Process design report** (Process, issued (feed))
 
 - Needs: PRC-01 (H&MB); PRC-02 (sizing results); PRC-03 (relief summary)
 - Issues: CFU-000-PR-RPT-001
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **SAF-02 Global flare load study** (Safety, not started)
 
@@ -183,33 +183,33 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 - Needs: PRC-02 (design P/T, dimensions, internals); PRC-01 (nozzle flows); PRC-03 (PSV set points)
 - Owns data: data/mech.json
 - Issues: CFU-000-ME-CAL-001
-- Feeds: MEC-02, MEC-03, CST-01, PIP-02, PIP-03, CIV-01; 15 downstream activities, 37 downstream deliverables
+- Feeds: MEC-02, MEC-03, CST-01, PIP-02, PIP-03, CIV-01; 15 downstream activities, 38 downstream deliverables
 - Revised by: VEN-01 (certified vendor dimensions, weights and nozzles)
 
 **LAY-02 Sections and 3D layout model** (Layout, issued (feed))
 
 - Needs: LAY-01 (equipment positions, structures); PRC-02 (equipment heights)
 - Issues: CFU-000-PL-3DM-001, CFU-000-PL-ELV-001, CFU-000-PL-ELV-002, CFU-000-PL-ELV-003
-- Feeds: PRJ-03, LAY-03; 3 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03, LAY-03; 3 downstream activities, 4 downstream deliverables
 
 **ICS-01 Control philosophy and schemes** (I&C, issued (feed))
 
 - Needs: PRC-04 (loops and SIFs); PRC-01 (operating points); PRC-02 (equipment)
 - Issues: CFU-000-IC-CSD-006, CFU-000-IC-CSD-ALL, CFU-000-IC-RPT-001, CFU-100-IC-CSD-001, CFU-100-IC-CSD-002, CFU-100-IC-CSD-003, CFU-100-IC-CSD-004, CFU-200-IC-CSD-005
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **ELE-02 Hazardous area classification** (Electrical, issued (feed))
 
 - Needs: LAY-01 (release-source positions); PRC-02 (fluids and conditions); PRC-04 (analysers and vents)
 - Issues: CFU-000-EL-HAC-001, CFU-000-EL-HAC-002, CFU-000-EL-HAC-003
-- Feeds: ELE-04, SAF-04; 5 downstream activities, 4 downstream deliverables
+- Feeds: ELE-04, SAF-04; 5 downstream activities, 5 downstream deliverables
 
 **ELE-03 Electrical sizing, single-line diagrams** (Electrical, issued (feed))
 
 - Needs: ELE-01 (loads and demand)
 - Owns data: data/electrical.json
 - Issues: CFU-000-EL-CAL-001, CFU-000-EL-SLD-001, CFU-000-EL-SLD-002, CFU-000-EL-SLD-003, CFU-000-EL-SLD-004
-- Feeds: ELE-04, ICS-07, ELE-05; 6 downstream activities, 5 downstream deliverables
+- Feeds: ELE-04, ICS-07, ELE-05; 6 downstream activities, 6 downstream deliverables
 - Revised by: ELE-04 (actual cable impedances re-run the motor-starting voltage-dip check)
 
 **PRC-08 P&IDs, line list, instrument index** (Process, issued (feed))
@@ -217,7 +217,7 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 - Needs: PRC-02 (equipment and design conditions); PRC-03 (PSV tags and sizes); PRC-04 (control loops and SIFs); PRC-06 (PFD topology); PIP-01 (piping classes); LAY-01 (fire and gas detector locations)
 - Owns data: data/lines.json, data/instruments.json
 - Issues: CFU-000-IC-IDX-001, CFU-000-PI-LL-001, CFU-000-PR-PID-000, CFU-000-PR-PID-ALL, CFU-100-PR-PID-001, CFU-100-PR-PID-002, CFU-100-PR-PID-003, CFU-100-PR-PID-004, CFU-100-PR-PID-005, CFU-100-PR-PID-006, CFU-100-PR-PID-007, CFU-100-PR-PID-008, CFU-100-PR-PID-009, CFU-100-PR-PID-010, CFU-100-PR-PID-011, CFU-200-PR-PID-012, CFU-200-PR-PID-013, CFU-200-PR-PID-014, CFU-200-PR-PID-015, CFU-900-PR-PID-016
-- Feeds: SAF-01, PIP-02, ICS-04, ICS-05, SAF-03; 19 downstream activities, 30 downstream deliverables
+- Feeds: SAF-01, PIP-02, ICS-04, ICS-05, SAF-03; 19 downstream activities, 31 downstream deliverables
 - Revised by: ICS-04 (control valve sizes and reducers shown on the P&IDs); SAF-01 (HAZOP recommendations revise the P&IDs); SAF-03 (formal HAZOP actions revise the P&IDs)
 - Note: Line list and instrument index feed piping, I&C and electrical; P&ID revisions ripple widely.
 
@@ -225,31 +225,31 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 
 - Needs: MEC-01 (thicknesses, weights, nozzles); PRC-02 (process data); PRC-03 (PSV data)
 - Issues: CFU-000-ME-DS-000, CFU-000-ME-DS-001, CFU-000-ME-DS-002, CFU-000-ME-DS-003, CFU-000-ME-DS-004, CFU-000-ME-DS-005, CFU-000-ME-DS-006, CFU-000-ME-DS-007
-- Feeds: VEN-01, PRJ-03; 7 downstream activities, 3 downstream deliverables
+- Feeds: VEN-01, PRJ-03; 7 downstream activities, 4 downstream deliverables
 
 **MEC-03 Equipment GA drawings** (Mechanical, issued (feed))
 
 - Needs: MEC-01 (geometry, nozzle schedule)
 - Issues: CFU-100-ME-GA-001, CFU-100-ME-GA-002, CFU-100-ME-GA-003, CFU-100-ME-GA-005, CFU-100-ME-GA-007, CFU-100-ME-GA-008, CFU-200-ME-GA-004, CFU-200-ME-GA-006
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **ELE-04 Cable schedule** (Electrical, issued (feed))
 
 - Needs: ELE-01 (loads); ELE-03 (feeders); LAY-01 (routes); ELE-02 (zone ratings)
 - Issues: CFU-000-EL-CBL-001
-- Feeds: PRJ-03, CST-02; 3 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03, CST-02; 3 downstream activities, 4 downstream deliverables
 
 **CST-01 Class 4 cost estimate** (Cost, issued (feed))
 
 - Needs: PRC-02 (equipment list); MEC-01 (shell weights)
 - Issues: CFU-000-PM-EST-001
-- Feeds: PRJ-03, CST-02; 3 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03, CST-02; 3 downstream activities, 4 downstream deliverables
 
 **SAF-01 Preliminary HAZOP** (Safety, issued (feed))
 
 - Needs: PRC-08 (P&IDs); PRC-04 (SIFs); PRC-03 (relief devices)
 - Issues: CFU-000-PR-RPT-002
-- Feeds: SAF-04, ICS-02, SAF-03, PRJ-03; 7 downstream activities, 5 downstream deliverables
+- Feeds: SAF-04, ICS-02, SAF-03, PRJ-03; 7 downstream activities, 6 downstream deliverables
 
 **VEN-01 Vendor enquiries and vendor data** (Mechanical, not started)
 
@@ -263,20 +263,20 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 - Needs: PRC-08 (line list, in-line instruments); LAY-01 (nozzle positions, pipe rack); PRC-03 (PSV inlet/outlet); MEC-01 (nozzle sizes, weights)
 - Owns data: data/routing.json
 - Issues: CFU-000-PI-3DM-002
-- Feeds: PIP-03, PIP-04, LAY-03; 8 downstream activities, 19 downstream deliverables
+- Feeds: PIP-03, PIP-04, LAY-03; 8 downstream activities, 20 downstream deliverables
 
 **ICS-04 Control valve sizing** (I&C, issued (feed))
 
 - Needs: PRC-01 (flows, densities); PRC-02 (pump curves); PRC-04 (valve tags); PRC-08 (line sizes)
 - Issues: CFU-000-IC-CAL-001
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **ICS-05 I/O list** (I&C, issued (feed))
 
 - Needs: PRC-08 (instrument index); PRC-04 (loops and SIFs); PRC-02 (motor drivers); LAY-01 (junction-box zones)
 - Owns data: data/io_list.json
 - Issues: CFU-000-IC-IOL-001
-- Feeds: ICS-06, ICS-07; 4 downstream activities, 8 downstream deliverables
+- Feeds: ICS-06, ICS-07; 4 downstream activities, 9 downstream deliverables
 - Revised by: VEN-01 (vendor package I/O)
 
 **SAF-04 Siting study, QRA, F&G mapping** (Safety, not started)
@@ -290,33 +290,33 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 
 - Needs: PIP-02 (routed geometry); MEC-01 (nozzle allowables)
 - Issues: CFU-000-PI-RPT-001
-- Feeds: PIP-05, CIV-01, PRJ-03; 6 downstream activities, 3 downstream deliverables
+- Feeds: PIP-05, CIV-01, PRJ-03; 6 downstream activities, 4 downstream deliverables
 - Note: Screening only; CAESAR II analysis is PIP-05.
 
 **PIP-04 Isometrics and piping MTO** (Piping, issued (feed))
 
 - Needs: PIP-02 (routed geometry); PIP-01 (piping classes)
 - Issues: CFU-000-PI-ISO-000, CFU-000-PI-MTO-001, CFU-100-PI-ISO-001, CFU-100-PI-ISO-002, CFU-100-PI-ISO-003, CFU-100-PI-ISO-004, CFU-100-PI-ISO-005, CFU-100-PI-ISO-006, CFU-100-PI-ISO-007, CFU-100-PI-ISO-008, CFU-100-PI-ISO-009, CFU-100-PI-ISO-010, CFU-100-PI-ISO-011, CFU-100-PI-ISO-012, CFU-200-PI-ISO-001
-- Feeds: PRJ-03, CST-02; 3 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03, CST-02; 3 downstream activities, 4 downstream deliverables
 
 **ICS-02 SIF list and SIL determination (LOPA)** (I&C, issued, provisional)
 
 - Needs: PRC-04 (SIF definitions); SAF-01 (hazard scenarios)
 - Issues: CFU-000-IC-RPT-002
-- Feeds: SAF-03, ICS-03, ICS-08; 5 downstream activities, 4 downstream deliverables
+- Feeds: SAF-03, ICS-03, ICS-08; 5 downstream activities, 5 downstream deliverables
 - Note: LOPA frequencies are FEED judgements pending SAF-03.
 
 **ICS-06 Loop diagrams** (I&C, issued (feed))
 
 - Needs: ICS-05 (terminations, cabinets)
 - Issues: CFU-100-IC-LD-001, CFU-100-IC-LD-002, CFU-100-IC-LD-003, CFU-100-IC-LD-ALL
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **ICS-07 ICS architecture** (I&C, issued (feed))
 
 - Needs: ICS-05 (I/O counts); ELE-03 (UPS feeds)
 - Issues: CFU-000-IC-BLK-001
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **ELE-05 Power system studies and protection** (Electrical, not started)
 
@@ -349,12 +349,12 @@ and what it feeds. Downstream counts are the activities and deliverables to re-c
 
 - Needs: PRC-04 (SIFs); PRC-03 (relief devices); PRC-02 (equipment); ICS-02 (SIL targets)
 - Issues: CFU-000-IC-CE-001
-- Feeds: PRJ-03; 2 downstream activities, 3 downstream deliverables
+- Feeds: PRJ-03; 2 downstream activities, 4 downstream deliverables
 
 **PRJ-03 Document register and portal** (Project, issued (feed))
 
 - Needs: CST-01 (estimate); SAF-01 (HAZOP); PIP-04 (isometrics); ICS-06 (loop diagrams); ICS-07 (architecture); ELE-04 (cables); MEC-03 (GAs); LAY-02 (3D model); PRC-05 (BFD); PRC-07 (process report); ICS-01 (control philosophy); ICS-03 (C&E); ICS-04 (CV sizing); MEC-02 (datasheets); PIP-03 (stress study)
-- Issues: CFU-000-PM-DEP-001, CFU-000-PM-DEP-002, CFU-000-PM-REG-001
+- Issues: CFU-000-PM-DEP-001, CFU-000-PM-DEP-002, CFU-000-PM-DEP-003, CFU-000-PM-REG-001
 - Feeds: PRJ-04; 1 downstream activities, 0 downstream deliverables
 
 **LAY-03 3D model reviews and constructability** (Layout, not started)
@@ -409,20 +409,20 @@ The activities whose change reaches the most deliverables. Freeze these first.
 
 | ID | Activity | Downstream activities | Downstream deliverables |
 |---|---|---|---|
-| PRC-00 | Rigorous simulation and model calibration | 42 | 103 |
-| PRJ-01 | Design basis (BOD) | 44 | 103 |
-| PRJ-02 | Crude assay characterisation | 43 | 103 |
-| PRC-01 | Heat and material balance | 41 | 102 |
-| PRC-02 | Process equipment sizing | 38 | 99 |
-| PRC-03 | Relief load and PSV sizing (unit) | 28 | 69 |
-| PRC-04 | Control loops and SIF definition | 24 | 69 |
-| LAY-01 | Plot plan and equipment layout | 23 | 58 |
-| PIP-01 | Piping material classes | 20 | 50 |
-| PRC-06 | Process flow diagrams | 20 | 50 |
-| MEC-01 | Mechanical design calculations | 15 | 37 |
-| PRC-08 | P&IDs, line list, instrument index | 19 | 30 |
-| PIP-02 | Piping routing and 3D model | 8 | 19 |
-| ELE-01 | Electrical load list | 7 | 10 |
+| PRC-00 | Rigorous simulation and model calibration | 42 | 104 |
+| PRJ-01 | Design basis (BOD) | 44 | 104 |
+| PRJ-02 | Crude assay characterisation | 43 | 104 |
+| PRC-01 | Heat and material balance | 41 | 103 |
+| PRC-02 | Process equipment sizing | 38 | 100 |
+| PRC-03 | Relief load and PSV sizing (unit) | 28 | 70 |
+| PRC-04 | Control loops and SIF definition | 24 | 70 |
+| LAY-01 | Plot plan and equipment layout | 23 | 59 |
+| PIP-01 | Piping material classes | 20 | 51 |
+| PRC-06 | Process flow diagrams | 20 | 51 |
+| MEC-01 | Mechanical design calculations | 15 | 38 |
+| PRC-08 | P&IDs, line list, instrument index | 19 | 31 |
+| PIP-02 | Piping routing and 3D model | 8 | 20 |
+| ELE-01 | Electrical load list | 7 | 11 |
 
 # 7 What still needs to be done
 In sequence order. "Ready" means nothing it needs is still not started. "Re-opens" counts the issued activities

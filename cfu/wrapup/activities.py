@@ -194,7 +194,7 @@ ACTIVITIES = [
              ("ICS-07", "architecture"), ("ELE-04", "cables"), ("MEC-03", "GAs"), ("LAY-02", "3D model"),
              ("PRC-05", "BFD"), ("PRC-07", "process report"), ("ICS-01", "control philosophy"),
              ("ICS-03", "C&E"), ("ICS-04", "CV sizing"), ("MEC-02", "datasheets"), ("PIP-03", "stress study")],
-      code=["cfu/wrapup/portal.py", "cfu/wrapup/__init__.py"], docs=["CFU-000-PM-REG", "CFU-000-PM-DEP"]),
+      code=["cfu/wrapup/portal.py", "cfu/wrapup/__init__.py", "cfu/wrapup/phases.py"], docs=["CFU-000-PM-REG", "CFU-000-PM-DEP"]),
     A("PRJ-04", "PE review, seal and IFC issue", "Project", "open",
       after=[("PRJ-03", "complete document set"), ("SAF-03", "closed HAZOP actions"), ("ICS-08", "SIL verification"),
              ("PIP-05", "stress sign-off"), ("ELE-05", "studies"), ("CST-02", "Class 3 estimate"),

@@ -12,9 +12,9 @@ python build.py              # all 12 stages, ~45 s
 python build.py process pid  # or selected stages
 ```
 
-Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 104 documents.
+Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 105 documents.
 `deliverables/06-wrapup/portal/dependencies.html` maps the design steps: the order they run in, what each needs from
-upstream, and what it affects downstream.
+upstream, and what it affects downstream. `phases.html` carries that map through FEL 1, FEL 2, FEL 3 and detailed design.
 
 ## Design dependency map
 
@@ -22,6 +22,21 @@ The activity network lives in `cfu/wrapup/activities.py` (45 activities, includi
 construction). `python -m cfu.wrapup.depmap --trace` runs the full build with file access recorded, writes
 `data/dataflow.json`, and checks that every data file a module reads comes from an upstream activity. Run it after
 adding a module or a data file; the report (CFU-000-PM-DEP-001, section 8) lists anything the map does not cover.
+
+## Phase maturity plan
+
+`cfu/wrapup/phases.py` extends the same network across FEL 1, FEL 2, FEL 3 and detailed design. It holds:
+
+- a maturity scale (0 not started to 4 final);
+- the target level of every activity at each gate;
+- the activities that only appear once phases are modelled (business case, select decision, execution plan,
+  procurement, work packaging, detail design);
+- the maturity each link needs. Iteration loops become forward links between levels, so the step network has
+  no cycles.
+
+The build checks that each gate's targets are supported by its inputs. It also compares the targets with what
+this package has issued. The output is CFU-000-PM-DEP-003 (report and workbook) and
+`deliverables/06-wrapup/portal/phases.html`: gate readiness, the matrix, and the ready/blocked steps of each phase.
 
 ## Design summary
 
