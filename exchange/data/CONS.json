@@ -14,22 +14,34 @@
       "produces": [
         "CONS-I010"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "site conditions: soil, climate, access routes, existing facility constraints, working-hour and labour restrictions",
+          "item": "OWNR-I040",
+          "use": "site access rules, climatic data, soil history, working-hour restrictions",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "preliminary plot plan: unit boundaries, equipment locations, pipe rack runs, access ways",
+          "item": "OWNR-I050",
+          "use": "existing facility constraints: as-built interconnecting piping, utilities and electrical supply near the plot",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I040",
+          "use": "unit boundaries, equipment locations, pipe rack runs, roads and access ways",
           "method": "review",
           "level": 1
         },
         {
-          "from": "PROJ",
-          "info": "execution plan and contracting strategy: construction contract split, modular vs stick-built assumptions",
+          "item": "PROJ-I010",
+          "use": "construction contract split, phase plan and work split",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I020",
+          "use": "contract packages and modular vs stick-built assumptions",
           "method": "review",
           "level": 2
         }
@@ -50,28 +62,46 @@
         "CONS-I020",
         "CONS-I025"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan: plot limits, equipment coordinates, roads, maintenance access and drop zones",
+          "item": "PIPE-I040",
+          "use": "plot limits, equipment coordinates, roads, lay-down and maintenance areas, battery limits",
           "method": "file",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "site grading and drainage plan, permanent roads, soil bearing at laydown areas",
+          "item": "CIVL-I100",
+          "use": "finished grade elevations and slopes at laydown areas",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "site access rules, existing underground services, available site area outside battery limits",
+          "item": "CIVL-I140",
+          "use": "permanent roads, gates, fencing, crane pads and bearing capacity",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I060",
+          "use": "allowable bearing pressure for laydown and temporary building areas",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I040",
+          "use": "site access rules and benchmarks",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "SAFE",
-          "info": "facility siting results: exclusion zones for occupied temporary buildings (blast and fire contours)",
+          "item": "OWNR-I050",
+          "use": "existing underground services and available area outside battery limits",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "SAFE-I104",
+          "use": "API 753 exclusion zones for trailers and temporary buildings, allowed locations",
           "method": "review",
           "level": 3
         }
@@ -90,28 +120,40 @@
       "produces": [
         "CONS-I030"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan and pipe rack layout: rack lengths, levels, areas that can be modularised",
+          "item": "PIPE-I040",
+          "use": "plot areas that can be modularised, equipment locations",
           "method": "review",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "equipment list with weights, dimensions and package scope (skid vs field-erected)",
+          "item": "PIPE-I070",
+          "use": "rack routes, widths, bay spacing and tier elevations for pre-assembled rack modules",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "MECH-I080",
+          "use": "per tag: type, size, empty/operating weight, package scope",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PROJ",
-          "info": "schedule targets and estimate basis (labour rates, productivity, location factor)",
+          "item": "PROJ-I130",
+          "use": "schedule targets and milestones",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "SCM",
-          "info": "transport route survey: maximum load dimensions and weights to site",
+          "item": "PROJ-I100",
+          "use": "estimate basis: labour rates, productivity, location factor",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "SCM-I240",
+          "use": "transport routes, heavy-haul and oversize limits (max load dimensions and weights)",
           "method": "review",
           "level": 2
         }
@@ -131,28 +173,46 @@
         "CONS-I040",
         "CONS-I045"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "MECH",
-          "info": "equipment erection weights, centre of gravity, dimensions, lifting and tailing lug locations (columns, reactors, exchangers)",
+          "item": "MECH-I320",
+          "use": "lift weight, CoG, lifting and tailing lug locations and capacities, shipping dimensions",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "VEND",
-          "info": "certified GA drawings with shipping and lift weights and lift points",
+          "item": "VEND-I140",
+          "use": "certified GA with shipping and lift weights and lift points",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "3D model: setting elevations, obstructions, crane access corridors (via Navisworks)",
+          "item": "PIPE-I180",
+          "use": "setting elevations, obstructions and crane access corridors in the model (via Navisworks)",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "CIVL",
-          "info": "foundation locations, soil bearing for crane pads and underground services",
+          "item": "CIVL-I190",
+          "use": "foundation locations and top-of-concrete elevations",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I060",
+          "use": "bearing capacity for crane pads",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I140",
+          "use": "crane pad locations and bearing capacity, road access",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "CIVL-I150",
+          "use": "underground services under crane positions",
           "method": "review",
           "level": 3
         }
@@ -170,28 +230,28 @@
       "produces": [
         "CONS-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "preliminary system list and start-up sequence with required ready-for-commissioning dates by system",
+          "item": "COMM-I020",
+          "use": "preliminary system list and start-up sequence with required ready-for-commissioning dates by system",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "plot plan with areas, rack sections and equipment locations",
+          "item": "PIPE-I040",
+          "use": "plot plan with areas, rack sections and equipment locations",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "project milestones: mechanical completion, start-up dates, contract interfaces",
+          "item": "PROJ-I130",
+          "use": "MC, start-up and contract interface milestones",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "CONS",
-          "info": "heavy lift plan: lift sequence and crane positions that constrain area sequence",
+          "item": "CONS-I040",
+          "use": "lift sequence, dates and crane positions that constrain area sequence",
           "method": "manual",
           "level": 2
         }
@@ -209,16 +269,16 @@
       "produces": [
         "CONS-I060"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "plot plan area / unit boundaries and grid coordinates",
+          "item": "PIPE-I040",
+          "use": "area numbering, unit boundaries and plant grid coordinates",
           "method": "file",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "path of construction: area sequence",
+          "item": "CONS-I050",
+          "use": "area sequence",
           "method": "manual",
           "level": 2
         }
@@ -239,40 +299,64 @@
         "CONS-I080",
         "CONS-I090"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "CWA boundaries and path of construction sequence",
+          "item": "CONS-I060",
+          "use": "CWA IDs and boundaries",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "WBS, deliverables register and level 2 schedule (engineering and procurement milestones)",
+          "item": "CONS-I050",
+          "use": "area sequence and target dates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I030",
+          "use": "WBS levels, area codes and P6 activity codes",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "line list and 3D model area breakdown to size piping CWPs (inch-dia, spools per area)",
+          "item": "PROJ-I060",
+          "use": "deliverables by discipline and area to group into EWPs",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PROJ-I130",
+          "use": "level 2 engineering and procurement milestones",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I170",
+          "use": "pipe length, inch-dia and field/shop weld counts by area to size piping CWPs",
           "method": "file",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "foundation and steel scope by area (quantities, structures list)",
+          "item": "CIVL-I070",
+          "use": "concrete, steel and pile quantities by area",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "cable and raceway quantities by area",
+          "item": "CIVL-I340",
+          "use": "civil/steel CWP list, pour and erection sequence",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "instrument index counts by area and type",
+          "item": "ELEC-I050",
+          "use": "cable, tray and conduit quantities by area",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "INST-I050",
+          "use": "instrument count by type and area (via P&ID/unit)",
           "method": "manual",
           "level": 2
         }
@@ -291,28 +375,28 @@
       "produces": [
         "CONS-I100"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "S3D piping and equipment model at 30/60/90 % (via Navisworks into iConstruct)",
+          "item": "PIPE-I340",
+          "use": "Navisworks review model by area with checklists and previous action status",
           "method": "integrated",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "Tekla structural model: steel, platforms, foundations (via Navisworks)",
+          "item": "CIVL-I236",
+          "use": "Tekla steel, platforms and foundations in iConstruct",
           "method": "integrated",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "cable tray and major electrical equipment in the S3D model",
+          "item": "ELEC-I330",
+          "use": "tray and conduit routes, sizes and elevations in the model",
           "method": "integrated",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "instrument and junction box locations in the S3D model",
+          "item": "INST-I291",
+          "use": "junction box locations and sizes in the model",
           "method": "integrated",
           "level": 2
         }
@@ -330,28 +414,70 @@
       "produces": [
         "CONS-I110"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "IFR GA drawings, tie-in list, sample isometrics, hydrotest philosophy",
+          "item": "PIPE-I460",
+          "use": "IFR piping plans and sections",
           "method": "review",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "IFR foundation and steel drawings, anchor bolt plans",
+          "item": "PIPE-I470",
+          "use": "tie-in locations, type and shutdown requirement",
           "method": "review",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "IFR cable routing and raceway layouts",
+          "item": "PIPE-I400",
+          "use": "sample isometrics: field welds, spool breaks",
           "method": "review",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "IFR installation details and hook-ups",
+          "item": "PIPE-I150",
+          "use": "hydrotest, flushing and NDE rules",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I190",
+          "use": "foundation dimensions and elevations",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I240",
+          "use": "steel GA, erection marks and sequence notes",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "CIVL-I195",
+          "use": "anchor bolt layouts and projections",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I360",
+          "use": "power plans with tray and conduit drops",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "ELEC-I334",
+          "use": "duct bank routes and crossings",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I300",
+          "use": "hook-up typicals and bills of material",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "INST-I290",
+          "use": "instrument and JB location plans",
           "method": "review",
           "level": 2
         }
@@ -371,46 +497,58 @@
         "CONS-I120",
         "CONS-I130"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROJ",
-          "info": "estimate basis, WBS and location factors",
+          "item": "PROJ-I080",
+          "use": "estimate class, basis, code of accounts and take-off template",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "PIPE",
-          "info": "piping MTO by size and class (inch-dia, weld counts)",
+          "item": "PROJ-I030",
+          "use": "WBS, area and cost codes",
+          "method": "manual",
+          "level": 2
+        },
+        {
+          "item": "PIPE-I170",
+          "use": "pipe, fittings, valves by class and size; shop and field weld counts",
           "method": "file",
           "level": 2
         },
         {
-          "from": "CIVL",
-          "info": "civil and steel quantities (concrete m3, steel tonnes)",
+          "item": "CIVL-I070",
+          "use": "earthworks, concrete m3, piles, steel tonnes by area",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "ELEC",
-          "info": "cable and raceway quantities",
+          "item": "ELEC-I050",
+          "use": "cable, tray, conduit, grounding and lighting quantities",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "INST",
-          "info": "instrument counts and installation quantities",
+          "item": "INST-I020",
+          "use": "instrument counts by type, valve counts, JBs, cable allowances",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "MECH",
-          "info": "equipment list with weights and field-erected scope",
+          "item": "MECH-I080",
+          "use": "equipment weights and field-erected scope",
           "method": "manual",
           "level": 2
         },
         {
-          "from": "CONS",
-          "info": "modularisation decision and heavy lift plan",
+          "item": "CONS-I030",
+          "use": "module and prefabrication scope",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CONS-I040",
+          "use": "heavy lift cranes and durations",
           "method": "manual",
           "level": 3
         }
@@ -429,28 +567,34 @@
       "produces": [
         "CONS-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "CWP breakdown, sequence and quantities",
+          "item": "CONS-I070",
+          "use": "CWP scope and budget quantities",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "integrated level 2 schedule and engineering milestones",
+          "item": "CONS-I080",
+          "use": "CWP sequence and start dates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROJ-I130",
+          "use": "level 2/3 logic and engineering milestones",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "PO promised delivery dates and expediting forecasts by item",
+          "item": "SCM-I200",
+          "use": "forecast site delivery dates by PO line",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "COMM",
-          "info": "commissioning sequence and required subsystem turnover dates",
+          "item": "COMM-I050",
+          "use": "required MC/turnover date per subsystem",
           "method": "manual",
           "level": 3
         }
@@ -468,22 +612,40 @@
       "produces": [
         "CONS-I150"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROJ",
-          "info": "deliverables register with EWP assignment and forecast IFC dates",
+          "item": "PROJ-I060",
+          "use": "deliverables with EWP assignment and current status",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "SCM",
-          "info": "requisition and PO list with ROS and forecast delivery dates (Purchasing DB extract)",
+          "item": "PROJ-I140",
+          "use": "planned and forecast IFC dates per deliverable",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "SCM-I140",
+          "use": "PO lines with tag/commodity and contract delivery date",
           "method": "file",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "CWP need dates for EWPs and materials",
+          "item": "SCM-I200",
+          "use": "forecast ex-works and site delivery dates by PO line",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "CONS-I080",
+          "use": "EWP need dates by CWP",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CONS-I090",
+          "use": "material ROS dates by CWP",
           "method": "manual",
           "level": 3
         }
@@ -502,34 +664,40 @@
       "produces": [
         "CONS-I160"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "S3D model export (piping, equipment) with line numbers, spool and iso numbers, via Navisworks",
+          "item": "PIPE-I510",
+          "use": "Navisworks piping model with line, iso, spool, test pack and CWP attributes",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "CIVL",
-          "info": "Tekla model export with assembly marks and foundation IDs, via Navisworks",
+          "item": "CIVL-I236",
+          "use": "Tekla model in iConstruct with assembly marks, CWP and erection sequence",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "S3D raceway and electrical equipment objects with tags",
+          "item": "ELEC-I330",
+          "use": "tray and conduit objects with tags (S3D via Navisworks)",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "S3D instrument objects with tags",
+          "item": "INST-I290",
+          "use": "instrument objects and locations (S3D via Navisworks)",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "SCM",
-          "info": "Jovix material status by item code, spool and PO line (received, in laydown, issued)",
+          "item": "INST-I291",
+          "use": "junction box objects with tags (S3D via Navisworks)",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "SCM-I300",
+          "use": "material availability by item code, spool and PO line fed to iConstruct",
           "method": "integrated",
           "level": 3
         }
@@ -547,40 +715,94 @@
       "produces": [
         "CONS-I170"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "construction model with CWP assignment",
+          "item": "CONS-I160",
+          "use": "objects by CWP for IWP selection",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "IFC isometrics, spool drawings, support details and tie-in details",
+          "item": "PIPE-I400",
+          "use": "IFC isos with BOM, welds, supports",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CIVL",
-          "info": "IFC foundation and steel erection drawings",
+          "item": "PIPE-I410",
+          "use": "spool IDs and spool BOMs",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "IFC cable schedule, termination and raceway drawings",
+          "item": "PIPE-I300",
+          "use": "support tags and special support details",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "IFC hook-ups, installation details, loop and termination drawings",
+          "item": "PIPE-I480",
+          "use": "tie-in sketches, isolation and method",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PROJ",
-          "info": "current IFC document revisions from Document Locator",
+          "item": "CIVL-I190",
+          "use": "IFC foundation drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CIVL-I240",
+          "use": "IFC steel erection drawings",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I320",
+          "use": "cables, from/to, route segments, length",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I322",
+          "use": "pull cards and terminations",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I360",
+          "use": "power plans and tray/conduit drops",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I300",
+          "use": "hook-ups and tag assignments",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I310",
+          "use": "termination diagrams",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I320",
+          "use": "instrument cable from/to and lengths",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I330",
+          "use": "loop diagrams",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "PROJ-I320",
+          "use": "current IFC revision and release date per document",
           "method": "manual",
           "level": 4
         }
@@ -598,22 +820,28 @@
       "produces": [
         "CONS-I180"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SCM",
-          "info": "Jovix status: received, storage location, reserved and issued quantity by item code and spool",
+          "item": "SCM-I300",
+          "use": "availability per IWP: received, reserved and issued quantity by item code and spool",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "SCM",
-          "info": "expediting forecasts for outstanding PO lines",
+          "item": "SCM-I290",
+          "use": "storage location by item",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "SCM-I200",
+          "use": "forecast site delivery for outstanding PO lines",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "IWP bill of materials",
+          "item": "CONS-I170",
+          "use": "IWP bill of materials",
           "method": "integrated",
           "level": 4
         }
@@ -632,28 +860,40 @@
         "CONS-I190",
         "CONS-I200"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "IWP material shortage report and open RFIs by IWP",
+          "item": "CONS-I180",
+          "use": "short items per IWP",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "engineering hold list on isometrics and drawings",
+          "item": "CONS-I210",
+          "use": "open RFIs by IWP",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I390",
+          "use": "holds per line/iso with reason and release date",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "permit-to-work and isolation approvals for brownfield IWPs",
+          "item": "OWNR-I210",
+          "use": "permits to work and isolations for brownfield IWPs",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "subsystem priority and required turnover dates for IWP sequencing",
+          "item": "COMM-I050",
+          "use": "subsystem turnover dates",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "COMM-I040",
+          "use": "subsystem priority",
           "method": "manual",
           "level": 3
         }
@@ -671,34 +911,34 @@
       "produces": [
         "CONS-I210"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROJ",
-          "info": "current IFC drawing and document revisions",
+          "item": "PROJ-I320",
+          "use": "current IFC revision per document",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "RFI responses on piping (dimensions, supports, tie-ins)",
+          "item": "PIPE-I530",
+          "use": "piping answers, sketches, affected isos",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CIVL",
-          "info": "RFI responses on foundations and steel",
+          "item": "CIVL-I360",
+          "use": "civil answers and drawing revisions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "RFI responses on cable routing and terminations",
+          "item": "ELEC-I410",
+          "use": "electrical answers and revised sketches",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "RFI responses on installation and terminations",
+          "item": "INST-I400",
+          "use": "I&C answers and revised hook-up/termination details",
           "method": "manual",
           "level": 4
         }
@@ -717,28 +957,34 @@
         "CONS-I220",
         "CONS-I230"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "RFI responses that change design",
+          "item": "CONS-I210",
+          "use": "RFI responses that change design",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PROJ",
-          "info": "change control procedure and approval thresholds",
+          "item": "PROJ-I010",
+          "use": "change control procedure and approval thresholds",
           "method": "review",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "engineering disposition and revised drawings for field changes",
+          "item": "PIPE-I540",
+          "use": "revised field-change isometrics",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "owner approval of field changes affecting operability or scope",
+          "item": "PIPE-I530",
+          "use": "piping disposition of the change",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I170",
+          "use": "owner approve/reject decision with conditions",
           "method": "review",
           "level": 4
         }
@@ -756,22 +1002,28 @@
       "produces": [
         "CONS-I240"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CIVL",
-          "info": "IFC foundation drawings, anchor bolt plans and setting-out coordinates",
+          "item": "CIVL-I190",
+          "use": "foundation coordinates and top-of-concrete elevations",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "certified equipment GA drawings: base plate and anchor bolt pattern",
+          "item": "CIVL-I195",
+          "use": "anchor bolt coordinates, size and projection",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "site survey control points and benchmarks",
+          "item": "VEND-I140",
+          "use": "certified base plate and anchor bolt pattern",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I040",
+          "use": "survey control points and benchmarks",
           "method": "manual",
           "level": 4
         }
@@ -790,16 +1042,22 @@
         "CONS-I250",
         "CONS-I260"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "released IWP bill of materials",
+          "item": "CONS-I170",
+          "use": "IWP bill of materials for released IWPs",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "SCM",
-          "info": "Jovix stock and storage location by item code and heat number",
+          "item": "SCM-I270",
+          "use": "received quantity, heat numbers and location by PO line",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "SCM-I290",
+          "use": "storage location and preservation status",
           "method": "integrated",
           "level": 4
         }
@@ -817,16 +1075,16 @@
       "produces": [
         "CONS-I270"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "IWP scope and budget quantities",
+          "item": "CONS-I170",
+          "use": "IWP scope, budget quantities and hours",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "PROJ",
-          "info": "progress measurement rules of credit and WBS",
+          "item": "PROJ-I010",
+          "use": "progress measurement and reporting requirements",
           "method": "review",
           "level": 4
         }
@@ -844,16 +1102,28 @@
       "produces": [
         "CONS-I280"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "IFC isometrics with weld numbers, line class, NDE percentage and PWHT requirements",
+          "item": "PIPE-I400",
+          "use": "weld numbers and shop/field welds per iso",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "SCM",
-          "info": "material certificates and heat numbers for traceability",
+          "item": "PIPE-I160",
+          "use": "per line: class, NDE category, PWHT",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I150",
+          "use": "WPS, NDE class and PWHT rules",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SCM-I270",
+          "use": "heat numbers and MTR reference per received item",
           "method": "manual",
           "level": 4
         }
@@ -872,34 +1142,52 @@
         "CONS-I290",
         "CONS-I300"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "test package limits, test medium and test pressure by line (hydrotest list)",
+          "item": "PIPE-I490",
+          "use": "test circuit limits, blinds, vents, drains, test pressure and medium",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "IFC isometrics",
+          "item": "PIPE-I500",
+          "use": "test pack number, lines and isos included",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PROC",
-          "info": "IFC P&IDs for marking test boundaries",
+          "item": "PIPE-I160",
+          "use": "test pressure and medium per line",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "weld log complete and NDE accepted for lines in the pack",
+          "item": "PIPE-I400",
+          "use": "IFC isos for marking test limits",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "subsystem boundaries so test packs align with subsystems",
+          "item": "PROC-I341",
+          "use": "IFC P&IDs for marking test boundaries",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I280",
+          "use": "welds complete and NDE accepted for lines in the pack",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "COMM-I030",
+          "use": "subsystem limits on P&IDs",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "COMM-I040",
+          "use": "subsystem numbers",
           "method": "manual",
           "level": 3
         }
@@ -917,28 +1205,40 @@
       "produces": [
         "CONS-I310"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "ITR assignment by tag and subsystem in Smart Completions",
+          "item": "COMM-I080",
+          "use": "ITRs assigned per tag and subsystem",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "installation specifications and hook-up details",
+          "item": "INST-I040",
+          "use": "installation and connection standards",
           "method": "review",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "cable schedule and termination details",
+          "item": "INST-I300",
+          "use": "hook-up details per tag",
           "method": "review",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "equipment installation and alignment requirements; vendor installation manuals",
+          "item": "ELEC-I320",
+          "use": "cable from/to and type",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I322",
+          "use": "termination details",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "MECH-I570",
+          "use": "installation checks and alignment tolerances per equipment type",
           "method": "review",
           "level": 4
         }
@@ -957,10 +1257,10 @@
       "produces": [
         "CONS-I320"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "punch list by subsystem with category and action-by",
+          "item": "COMM-I150",
+          "use": "punch items by subsystem with category and action-by construction",
           "method": "integrated",
           "level": 4
         }
@@ -979,22 +1279,34 @@
       "produces": [
         "CONS-I330"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROJ",
-          "info": "IFC drawing set from Document Locator",
+          "item": "PROJ-I320",
+          "use": "IFC document list and revisions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "approved field changes and RFI responses",
+          "item": "PROJ-I280",
+          "use": "IFC transmittals with documents and revisions",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "foundation survey as-built data",
+          "item": "CONS-I220",
+          "use": "approved field changes",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I210",
+          "use": "RFI responses",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I240",
+          "use": "as-built foundation elevations and anchor bolt positions",
           "method": "manual",
           "level": 4
         }
@@ -1012,28 +1324,34 @@
       "produces": [
         "CONS-I340"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "subsystem boundaries and tag-to-subsystem register",
+          "item": "COMM-I040",
+          "use": "subsystem boundaries",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "punch list and ITR status by subsystem",
+          "item": "COMM-I080",
+          "use": "tags and ITR status per subsystem (A-ITRs complete)",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "pressure test and reinstatement records",
+          "item": "COMM-I150",
+          "use": "open A punch per subsystem",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "CONS-I300",
+          "use": "test packs tested and reinstated",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "owner walkdown participation and witness sign-off",
+          "item": "OWNR-I230",
+          "use": "owner walkdown witness signatures",
           "method": "meeting",
           "level": 4
         }
@@ -1052,22 +1370,28 @@
       "produces": [
         "CONS-I350"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "weld log, NDE records, test pack records",
+          "item": "CONS-I280",
+          "use": "weld and NDE records",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "SCM",
-          "info": "material certificates and site receiving inspection reports",
+          "item": "CONS-I300",
+          "use": "test records",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "site installation and inspection records from vendor representatives",
+          "item": "SCM-I270",
+          "use": "receiving records with heat numbers and MTR references",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "VEND-I270",
+          "use": "vendor site installation and inspection reports",
           "method": "manual",
           "level": 4
         }
@@ -1371,5 +1695,6 @@
       "content": "Per subsystem: weld and NDE records, test records, material traceability, calibration and inspection reports.",
       "owner_task": "CONS-T280"
     }
-  ]
+  ],
+  "gaps": []
 }

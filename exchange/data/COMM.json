@@ -13,17 +13,17 @@
       "produces": [
         "COMM-I010"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROJ",
-          "info": "project execution plan and contracting strategy",
+          "item": "PROJ-I010",
+          "use": "phase plan, organisation, key procedures",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "owner handover requirements, operating organisation and acceptance criteria",
-          "method": "meeting",
+          "item": "PROJ-I020",
+          "use": "contract packages and construction/commissioning split",
+          "method": "review",
           "level": 2
         }
       ]
@@ -40,22 +40,28 @@
       "produces": [
         "COMM-I020"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "PFDs and utility flow diagrams with unit and utility configuration",
+          "item": "PROC-I120",
+          "use": "major equipment and main lines by unit for system split",
           "method": "review",
           "level": 2
         },
         {
-          "from": "PROC",
-          "info": "operating philosophy: start-up and shutdown sequence",
+          "item": "PROC-I090",
+          "use": "utility systems and supply conditions",
           "method": "review",
           "level": 2
         },
         {
-          "from": "OWNR",
-          "info": "operations start-up priorities and existing utility availability",
+          "item": "PROC-I240",
+          "use": "operating modes and start-up/shutdown approach",
+          "method": "review",
+          "level": 2
+        },
+        {
+          "item": "OWNR-I050",
+          "use": "existing utility capacity available for start-up",
           "method": "meeting",
           "level": 2
         }
@@ -75,34 +81,52 @@
         "COMM-I030",
         "COMM-I040"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "P&IDs IFD with line numbers, valves and equipment tags",
+          "item": "PROC-I340",
+          "use": "IFD P&IDs: line numbers, valves, equipment tags",
           "method": "file",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "single-line diagrams with switchboard and feeder IDs",
+          "item": "PROC-I355",
+          "use": "process system/subsystem boundaries, isolation points and commissioning sequence preference",
           "method": "file",
           "level": 3
         },
         {
-          "from": "INST",
-          "info": "ICS architecture and control system cabinets",
+          "item": "ELEC-I120",
+          "use": "switchboard and feeder IDs",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "ELEC-I420",
+          "use": "electrical systems/subsystems and energisation order",
+          "method": "file",
+          "level": 3
+        },
+        {
+          "item": "INST-I030",
+          "use": "control system cabinets and networks for control-system subsystems",
           "method": "review",
           "level": 3
         },
         {
-          "from": "PIPE",
-          "info": "tie-in list and test package limits",
+          "item": "PIPE-I470",
+          "use": "tie-in points as system limits",
           "method": "review",
           "level": 3
         },
         {
-          "from": "COMM",
-          "info": "preliminary system list",
+          "item": "PIPE-I490",
+          "use": "test circuit limits to align with subsystems",
+          "method": "review",
+          "level": 3
+        },
+        {
+          "item": "COMM-I020",
+          "use": "system list",
           "method": "manual",
           "level": 2
         }
@@ -120,22 +144,28 @@
       "produces": [
         "COMM-I050"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "system and subsystem register",
+          "item": "COMM-I040",
+          "use": "systems and subsystems with priority",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROJ",
-          "info": "level 2 schedule and start-up milestone",
+          "item": "PROJ-I130",
+          "use": "level 2 schedule and start-up milestone",
           "method": "integrated",
           "level": 3
         },
         {
-          "from": "CONS",
-          "info": "path of construction and CWP sequence",
+          "item": "CONS-I050",
+          "use": "area sequence",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "CONS-I080",
+          "use": "CWP sequence",
           "method": "manual",
           "level": 3
         }
@@ -153,28 +183,28 @@
       "produces": [
         "COMM-I060"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "instrument types used in the instrument index",
+          "item": "INST-I410",
+          "use": "instrument, cable, JB and loop tag types and ITR form types",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "ELEC",
-          "info": "electrical equipment types and site test requirements",
+          "item": "ELEC-I422",
+          "use": "electrical equipment and cable types for ITRs",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "MECH",
-          "info": "equipment types and vendor pre-commissioning requirements",
+          "item": "MECH-I570",
+          "use": "per equipment type: installation, box-up, flush and run-in test criteria",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "OWNR",
-          "info": "owner check sheet standards and witness points",
+          "item": "OWNR-I060",
+          "use": "owner check sheet standards and witness points",
           "method": "review",
           "level": 3
         }
@@ -193,40 +223,52 @@
       "produces": [
         "COMM-I070"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "line list: line number, from/to, P&ID number",
+          "item": "PROC-I210",
+          "use": "line number, from/to, fluid code per line",
           "method": "file",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "equipment list: tag, type, P&ID number",
+          "item": "MECH-I080",
+          "use": "equipment tag, type, service",
           "method": "file",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "instrument index from SI: tag, type, loop, P&ID number",
+          "item": "INST-I410",
+          "use": "instrument, cable, JB and loop tags with type and system",
           "method": "file",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "cable schedule and electrical equipment list from SPEL",
+          "item": "INST-I050",
+          "use": "tag, type, loop, P&ID",
           "method": "file",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "piping specialty and manual valve list with tags",
+          "item": "ELEC-I422",
+          "use": "equipment, cable and circuit tags with system",
           "method": "file",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "system boundary P&IDs",
+          "item": "ELEC-I320",
+          "use": "cable from/to",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I140",
+          "use": "specialty item tags with P&ID and line number",
+          "method": "file",
+          "level": 4
+        },
+        {
+          "item": "COMM-I030",
+          "use": "subsystem limits on P&IDs",
           "method": "manual",
           "level": 4
         }
@@ -245,22 +287,22 @@
       "produces": [
         "COMM-I080"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "tag-to-subsystem register",
+          "item": "COMM-I070",
+          "use": "tag-to-subsystem register for spreadsheet load",
           "method": "file",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "ITR matrix",
+          "item": "COMM-I060",
+          "use": "ITR matrix by tag type",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "PROJ",
-          "info": "list of engineering list revisions (deltas) after each IFC re-issue",
+          "item": "PROJ-I320",
+          "use": "IFC re-issues triggering engineering list deltas",
           "method": "manual",
           "level": 4
         }
@@ -279,28 +321,58 @@
       "produces": [
         "COMM-I090"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "P&IDs, operating conditions and cleanliness requirements",
+          "item": "PROC-I341",
+          "use": "IFC P&IDs",
           "method": "review",
           "level": 4
         },
         {
-          "from": "PIPE",
-          "info": "line classes, flushing connection points and test packages",
+          "item": "PROC-I360",
+          "use": "cleaning/flushing method, drying dew point, inerting limits per system",
           "method": "review",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "vendor pre-commissioning requirements (exchangers, compressors, heater dry-out)",
+          "item": "PIPE-I160",
+          "use": "line class, test medium per line",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I150",
+          "use": "flushing and cleaning rules",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "PIPE-I490",
+          "use": "test circuits, vents and drains",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "MECH-I570",
+          "use": "vendor pre-commissioning: lube flush, box-up, solo run criteria",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "vendor IOM manuals and preservation requirements",
+          "item": "MECH-I530",
+          "use": "preservation requirements before commissioning",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "VEND-I250",
+          "use": "IOM pre-commissioning instructions",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "VEND-I290",
+          "use": "preservation and storage instructions",
           "method": "manual",
           "level": 4
         }
@@ -319,28 +391,58 @@
       "produces": [
         "COMM-I100"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "control narrative and operating philosophy",
+          "item": "PROC-I231",
+          "use": "control narratives",
           "method": "review",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "cause and effect matrix and SRS",
+          "item": "PROC-I240",
+          "use": "operating philosophy",
           "method": "review",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "protection settings and energisation sequence",
+          "item": "PROC-I365",
+          "use": "start-up and shutdown steps and hold points",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "draft operating procedures",
+          "item": "INST-I240",
+          "use": "process shutdown C&E",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I241",
+          "use": "F&G C&E",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "INST-I220",
+          "use": "SRS per SIF",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I252",
+          "use": "relay settings to test",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I420",
+          "use": "energisation order",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I220",
+          "use": "draft operating procedures",
           "method": "review",
           "level": 3
         }
@@ -358,22 +460,28 @@
       "produces": [
         "COMM-I110"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "VEND",
-          "info": "SPIR commissioning spares and lubrication schedules",
+          "item": "VEND-I260",
+          "use": "commissioning spares part numbers and quantities",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "MECH",
-          "info": "first-fill requirements (catalyst, packing, lube oil)",
+          "item": "MECH-I510",
+          "use": "commissioning/start-up spares per tag",
           "method": "manual",
           "level": 3
         },
         {
-          "from": "PROC",
-          "info": "chemical injection and catalyst requirements",
+          "item": "PROC-I275",
+          "use": "chemical and catalyst first-fill quantities",
+          "method": "manual",
+          "level": 3
+        },
+        {
+          "item": "PROC-I360",
+          "use": "first-fill list per system",
           "method": "manual",
           "level": 3
         }
@@ -391,16 +499,16 @@
       "produces": [
         "COMM-I120"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "SCM",
-          "info": "PO scope and rates for vendor site services",
+          "item": "SCM-I120",
+          "use": "PO scope for vendor site services",
           "method": "review",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "commissioning schedule by system",
+          "item": "COMM-I050",
+          "use": "commissioning sequence by subsystem",
           "method": "manual",
           "level": 3
         }
@@ -419,22 +527,28 @@
       "produces": [
         "COMM-I130"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PIPE",
-          "info": "3D model and isos at flushing connections and spool breaks",
+          "item": "PIPE-I180",
+          "use": "flushing connections and spool breaks in the model",
           "method": "review",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "pre-commissioning procedures",
+          "item": "PIPE-I400",
+          "use": "isos at flushing points",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "COMM-I090",
+          "use": "flushing and blowing methods by system",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "existing utility availability (N2, steam, water) for commissioning",
+          "item": "OWNR-I050",
+          "use": "existing N2, steam and water availability",
           "method": "manual",
           "level": 3
         }
@@ -452,16 +566,16 @@
       "produces": [
         "COMM-I140"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "pressure test packs with line lists",
+          "item": "CONS-I290",
+          "use": "test packs and lines included",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "pressure test and reinstatement records",
+          "item": "CONS-I300",
+          "use": "tested/reinstated status",
           "method": "manual",
           "level": 4
         }
@@ -480,16 +594,16 @@
       "produces": [
         "COMM-I150"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "punch clearance status",
+          "item": "CONS-I320",
+          "use": "punch items cleared by construction",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "owner walkdown findings",
+          "item": "OWNR-I230",
+          "use": "owner walkdown signatures and findings",
           "method": "meeting",
           "level": 4
         }
@@ -507,16 +621,22 @@
       "produces": [
         "COMM-I160"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "MC certificate and construction quality dossier",
+          "item": "CONS-I340",
+          "use": "MC certificate with outstanding B punch",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "completed A-ITRs",
+          "item": "CONS-I350",
+          "use": "quality dossier per subsystem",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I310",
+          "use": "signed A-ITRs by tag",
           "method": "integrated",
           "level": 4
         }
@@ -535,16 +655,22 @@
       "produces": [
         "COMM-I170"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "pre-commissioning procedures and ITR assignments",
+          "item": "COMM-I090",
+          "use": "pre-commissioning procedures",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "vendor representative attendance and records",
+          "item": "COMM-I080",
+          "use": "B-ITRs per tag",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "VEND-I270",
+          "use": "vendor site service reports and sign-offs",
           "method": "manual",
           "level": 4
         }
@@ -564,22 +690,34 @@
         "COMM-I180",
         "COMM-I190"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "loop diagrams, I/O list and instrument datasheets (ranges, alarm set points)",
+          "item": "INST-I330",
+          "use": "loop terminals, ranges, set points",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "DCS/SIS configuration loaded and FAT punch closed",
+          "item": "INST-I260",
+          "use": "I/O assignment",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I380",
+          "use": "ranges, units, alarm limits as configured",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I390",
+          "use": "FAT punch closed and configuration released",
           "method": "review",
           "level": 4
         },
         {
-          "from": "ELEC",
-          "info": "power and UPS available to control system cabinets",
+          "item": "ELEC-I430",
+          "use": "control system power and UPS energised",
           "method": "manual",
           "level": 4
         }
@@ -597,16 +735,28 @@
       "produces": [
         "COMM-I200"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "INST",
-          "info": "IFC cause and effect matrix and SRS with trip set points",
+          "item": "INST-I240",
+          "use": "C&E causes, set points and effects",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "SAFE",
-          "info": "SIL requirements and proof test intervals",
+          "item": "INST-I241",
+          "use": "F&G C&E",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I220",
+          "use": "SIF safe state, response time, trip set points",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I160",
+          "use": "SIL targets and process safety time per SIF",
           "method": "review",
           "level": 4
         }
@@ -625,22 +775,34 @@
       "produces": [
         "COMM-I210"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "ELEC",
-          "info": "protection relay settings and energisation sequence",
+          "item": "ELEC-I252",
+          "use": "relay and trip unit settings",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "CONS",
-          "info": "completed electrical A-ITRs and cable test records",
+          "item": "ELEC-I420",
+          "use": "energisation sequence",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "ELEC-I430",
+          "use": "engineering readiness to energise",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "CONS-I310",
+          "use": "electrical A-ITRs and cable test records",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "electrical authority permit to energise",
+          "item": "OWNR-I210",
+          "use": "permit to energise",
           "method": "manual",
           "level": 4
         }
@@ -659,22 +821,46 @@
         "COMM-I220",
         "COMM-I230"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "loop check, C&E test and energisation records",
+          "item": "COMM-I180",
+          "use": "loop check records",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "operations crew available, operating procedures approved, owner witness sign-off",
+          "item": "COMM-I200",
+          "use": "C&E/SIF test records",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "COMM-I210",
+          "use": "energisation certificates",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "OWNR-I220",
+          "use": "approved operating procedures",
           "method": "meeting",
           "level": 4
         },
         {
-          "from": "SAFE",
-          "info": "pre-start-up safety review findings",
+          "item": "OWNR-I230",
+          "use": "owner witness sign-off",
+          "method": "meeting",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I340",
+          "use": "PSSR findings per system",
+          "method": "review",
+          "level": 4
+        },
+        {
+          "item": "SAFE-I342",
+          "use": "PSSR sign-off",
           "method": "review",
           "level": 4
         }
@@ -692,16 +878,28 @@
       "produces": [
         "COMM-I240"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "engineering responses and revised P&IDs",
+          "item": "PROC-I370",
+          "use": "process answers and P&ID impact",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "INST",
-          "info": "engineering responses on set points, ranges and logic",
+          "item": "PROC-I375",
+          "use": "commissioning troubleshooting and set point changes",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I420",
+          "use": "loop check and set point corrections",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "INST-I400",
+          "use": "I&C RFI responses",
           "method": "manual",
           "level": 4
         }
@@ -719,22 +917,28 @@
       "produces": [
         "COMM-I250"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "CONS",
-          "info": "construction quality dossier",
+          "item": "CONS-I350",
+          "use": "construction quality dossier per subsystem",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "final data books and IOM manuals",
+          "item": "VEND-I240",
+          "use": "data books",
           "method": "manual",
           "level": 4
         },
         {
-          "from": "PROJ",
-          "info": "as-built drawing status per system",
+          "item": "VEND-I250",
+          "use": "IOM manuals",
+          "method": "manual",
+          "level": 4
+        },
+        {
+          "item": "PROJ-I350",
+          "use": "as-built documents per system and locations",
           "method": "manual",
           "level": 4
         }
@@ -752,16 +956,16 @@
       "produces": [
         "COMM-I260"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "OWNR",
-          "info": "handover acceptance and retained punch agreement",
+          "item": "OWNR-I240",
+          "use": "owner acceptance and retained punch",
           "method": "meeting",
           "level": 4
         },
         {
-          "from": "COMM",
-          "info": "complete system turnover package",
+          "item": "COMM-I250",
+          "use": "complete turnover package",
           "method": "manual",
           "level": 4
         }
@@ -780,16 +984,22 @@
       "produces": [
         "COMM-I270"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "COMM",
-          "info": "Smart Completions ITR, punch and certificate data",
+          "item": "COMM-I080",
+          "use": "ITR status",
           "method": "integrated",
           "level": 4
         },
         {
-          "from": "PROJ",
-          "info": "reporting calendar and progress measurement rules",
+          "item": "COMM-I150",
+          "use": "punch status",
+          "method": "integrated",
+          "level": 4
+        },
+        {
+          "item": "PROJ-I010",
+          "use": "reporting requirements",
           "method": "review",
           "level": 4
         }
@@ -807,22 +1017,22 @@
       "produces": [
         "COMM-I280"
       ],
-      "needs": [
+      "consumes": [
         {
-          "from": "PROC",
-          "info": "design case and guarantee figures (yields, product specs, utilities)",
+          "item": "PROC-I010",
+          "use": "design cases and product specifications",
           "method": "review",
           "level": 4
         },
         {
-          "from": "OWNR",
-          "info": "performance test procedure and acceptance criteria",
+          "item": "PROC-I380",
+          "use": "test conditions, measurements, guarantee figures and acceptance criteria; performance test procedure and acceptance criteria",
           "method": "review",
           "level": 4
         },
         {
-          "from": "VEND",
-          "info": "equipment performance guarantees",
+          "item": "VEND-I020",
+          "use": "equipment performance guarantees",
           "method": "review",
           "level": 4
         }
@@ -1053,6 +1263,15 @@
       "form": "document",
       "content": "Measured yields, product quality and utilities against guarantees.",
       "owner_task": "COMM-T250"
+    }
+  ],
+  "gaps": [
+    {
+      "task": "COMM-T010",
+      "from": "OWNR",
+      "info": "owner handover requirements, operating organisation and acceptance criteria",
+      "method": "meeting",
+      "level": 2
     }
   ]
 }
