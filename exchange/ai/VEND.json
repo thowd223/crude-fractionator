@@ -1,0 +1,263 @@
+{
+ "discipline": "VEND",
+ "tasks": [
+  {
+   "task": "VEND-T010",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "VEND-T020",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "VEND-T030",
+   "risk": "commercial",
+   "keeps": "Clarification answers stay with the vendor; evaluation with the engineer",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks vendor clarification responses against open TBE queries and lists unresolved items"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T040",
+   "risk": "normal",
+   "keeps": "Vendor schedule content; acceptance by the expeditor",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks the vendor document schedule against the VDRL for missing documents, numbers and dates"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T050",
+   "risk": "normal",
+   "keeps": "Vendor design; review code set by the engineer",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks received GAs against datasheet nozzles, weights and loads and drafts review comments"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T060",
+   "risk": "sealed",
+   "keeps": "Vendor calculations; review code set by the engineer",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks design conditions, materials and allowances in vendor calcs against the datasheet and drafts comments"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T070",
+   "risk": "normal",
+   "keeps": "Package design; tag acceptance by the I&C engineer",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts tags, I/O points and DCS/SIS interface signals from received package P&IDs"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T080",
+   "risk": "normal",
+   "keeps": "Vendor electrical data; acceptance by the electrical engineer",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls motor ratings and electrical loads from vendor datasheets into load list staging tables"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T090",
+   "risk": "normal",
+   "keeps": "Comment resolution by vendor; acceptance by the engineer",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks the certified issue incorporates every prior review comment and flags unresolved ones"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T100",
+   "risk": "normal",
+   "keeps": "Vendor schedule; expeditor accepts the baseline",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Loads vendor manufacturing milestones as the expediting baseline and checks them against need dates"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T110",
+   "risk": "normal",
+   "keeps": "Material purchase by vendor; acceptance by the inspector",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts heat numbers, grades and test values from MTRs and flags values outside specification"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T120",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "VEND-T130",
+   "risk": "normal",
+   "keeps": "Fabrication by vendor; site priorities by construction",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks spool status reports against the IFC isometric list and site need by CWP"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T140",
+   "risk": "normal",
+   "keeps": "Fabrication by vendor; findings cleared by the steel checker",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks returned shop drawings against the Tekla model and issued steel drawings, listing differences"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T150",
+   "risk": "normal",
+   "keeps": "Report content by vendor; escalations by the expeditor",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Reads vendor progress reports, updates forecasts and flags slipped milestones"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T160",
+   "risk": "normal",
+   "keeps": "Packing and shipping by vendor; release by inspection",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks vendor packing lists against PO lines before shipment release"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T170",
+   "risk": "normal",
+   "keeps": "Vendor data; acceptance by the engineer",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts nameplate data, serial numbers and as-built weights into asset data staging tables"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T180",
+   "risk": "normal",
+   "keeps": "Data book content by vendor; acceptance by QA",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks the received data book against the MDR index and lists missing certificates and records"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T190",
+   "risk": "normal",
+   "keeps": "Manual content by vendor; acceptance by the engineer",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts SPIR spare parts and interchangeability data into staging for spares processing"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T200",
+   "risk": "safety",
+   "keeps": "Logic configuration, FAT witness and acceptance",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks configured cause-and-effect logic against approved C&E charts and lists mismatches before FAT"
+    }
+   ]
+  },
+  {
+   "task": "VEND-T210",
+   "risk": "normal",
+   "agents": []
+  }
+ ]
+}

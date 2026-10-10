@@ -1,0 +1,512 @@
+{
+ "discipline": "SAFE",
+ "tasks": [
+  {
+   "task": "SAFE-T010",
+   "risk": "normal",
+   "keeps": "Site constraint interpretation and baseline completeness",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers from owner site reports and existing permits: receptors, limits and attainment status with citations"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T015",
+   "risk": "normal",
+   "keeps": "Inherent safety and environmental ranking",
+   "agents": []
+  },
+  {
+   "task": "SAFE-T020",
+   "risk": "safety",
+   "keeps": "Hazard identification, safeguards, rankings and facilitation",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts HAZID/ENVID worksheets from the session record and tracks every action to close-out"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T030",
+   "risk": "normal",
+   "keeps": "Site evaluation and recommendation",
+   "agents": []
+  },
+  {
+   "task": "SAFE-T035",
+   "risk": "normal",
+   "keeps": "Inventory boundaries and property data acceptance",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles hazardous material inventories and properties by area from H&MB, vessel sizes and SDS data"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T040",
+   "risk": "safety",
+   "keeps": "Risk criteria, accidental loads and study scope",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks draft SHE basis against owner standards and cited codes for missing requirements"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T050",
+   "risk": "safety",
+   "keeps": "Release cases, modelling and spacing conclusions",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks release cases use current inventory, fluid data and site meteorology from the basis"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T060",
+   "risk": "normal",
+   "keeps": "Emission factors, PTE and permit applicability",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles source-by-source emission tables from heater datasheets, tank data and fugitive component counts"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T070",
+   "risk": "normal",
+   "keeps": "Dispersion modelling, BACT analysis and permit strategy",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the application against regulatory checklist, emissions inventory and datasheets for gaps"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T080",
+   "risk": "normal",
+   "keeps": "Permit basis and containment requirements",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites NPDES, pretreatment and SPCC requirements and pulls tank volumes for containment checks"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T090",
+   "risk": "safety",
+   "keeps": "Facilitation, deviations, safeguards and recommendations",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts coarse HAZOP worksheets from session record and tracks recommendations to close-out"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T100",
+   "risk": "safety",
+   "keeps": "Explosion and fire modelling and building design loads",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks building occupancy, inventories and plot coordinates in siting models against current issues"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T110",
+   "risk": "safety",
+   "keeps": "Ingress assessment and shelter-in-place requirements",
+   "agents": []
+  },
+  {
+   "task": "SAFE-T120",
+   "risk": "safety",
+   "keeps": "Frequencies, consequence modelling and risk comparison",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks QRA inputs (parts counts, inventories, isolation times, populations) against current issued sources"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T130",
+   "risk": "safety",
+   "keeps": "Radiation, dispersion and noise conclusions",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks flare radiation inputs match current flare loads, stack data and plot plan"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T140",
+   "risk": "safety",
+   "keeps": "Scenario adequacy judgement and relief study comments",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Lists HAZOP overpressure causes and fire zones without a matching relief scenario, citing documents"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T150",
+   "risk": "safety",
+   "keeps": "Facilitation, deviations, safeguards, risk rankings and recommendations",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts node-by-node HAZOP worksheets from session record and PHA tool; tracks recommendations"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T160",
+   "risk": "safety",
+   "keeps": "IPL credit, frequencies and SIL assignment",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts LOPA worksheets from HAZOP scenarios and session notes"
+    },
+    {
+     "agent": "AG-09",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts the SIF list with target SIL from LOPA results and SI tags"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T170",
+   "risk": "safety",
+   "keeps": "Acceptance of responses and action close-out sign-off",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Tracks HAZID, HAZOP, LOPA, siting and QRA actions; chases owners and checks close-out evidence exists"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T180",
+   "risk": "safety",
+   "keeps": "Detector placement and coverage targets",
+   "agents": []
+  },
+  {
+   "task": "SAFE-T210",
+   "risk": "safety",
+   "keeps": "EIV locations, fire-safe and closure requirements",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner and API criteria for EIV need against inventory and fire zone data"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T230",
+   "risk": "normal",
+   "keeps": "Locations of safety equipment, escape routes and muster points",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites code and owner requirements for shower, eyewash, egress and muster distances"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T240",
+   "risk": "normal",
+   "keeps": "Noise limits, modelling and mitigation",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts vendor sound power and pressure data into the noise model input table"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T250",
+   "risk": "safety",
+   "keeps": "Safety acceptance of layout and model review findings",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks model reports for spacing, escape and access against siting and layout rules"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records safety model review comments and tracks them to close-out"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T255",
+   "risk": "safety",
+   "keeps": "Acceptance of area classification",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks HAC release sources and gas groups against hazmat inventory and API RP 505 clauses"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T260",
+   "risk": "safety",
+   "keeps": "Acceptance of SIL verification and C&E logic",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks C&Es and SIL verification against LOPA targets, F&G actions and HAZOP recommendations; lists mismatches"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T270",
+   "risk": "normal",
+   "keeps": "SHE acceptability and review comments",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor bids and data for noise, emission guarantees, fire-safe valves and safety devices; drafts comments"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T280",
+   "risk": "safety",
+   "keeps": "Facilitation, safeguards, rankings and recommendations",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts vendor package and revalidation HAZOP worksheets from session record; tracks recommendations"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T290",
+   "risk": "safety",
+   "keeps": "PSI completeness acceptance and handover sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Checks PSI dossier against OSHA 1910.119(d) list; lists missing relief, SIL, HAC and procedure records"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Confirms each PSI document is the current issued revision in Document Locator"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T300",
+   "risk": "safety",
+   "keeps": "Worst-case and alternative release modelling",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks RMP registration data against hazmat inventory, Part 68 thresholds and requirements"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T310",
+   "risk": "normal",
+   "keeps": "Scenario selection and emergency response input",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Compiles cited scenarios, zones, alarms and muster data from siting, F&G and layout studies"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T320",
+   "risk": "normal",
+   "keeps": "Construction requirements and compliance approach",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 1,
+     "does": "Extracts permit conditions from issued permits and maps each to a construction requirement with citations"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T330",
+   "risk": "safety",
+   "keeps": "Safety screening decision and revalidation needs",
+   "agents": [
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists safety studies, PSI items and HAZOP nodes relying on each changed item"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T340",
+   "risk": "safety",
+   "keeps": "PSSR verification, field walkdown and start-up authorisation",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks PHA close-out evidence and PSSR checklist items exist; lists open items"
+    },
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks system turnover dossiers and punch status for PSSR completeness"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T350",
+   "risk": "normal",
+   "keeps": "Compliance approach, test plans and CEMS certification",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Extracts valves, flanges and connectors from as-built P&IDs to draft the LDAR component inventory"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks startup notification, performance test and CEMS certification deadlines against permit conditions"
+    }
+   ]
+  },
+  {
+   "task": "SAFE-T360",
+   "risk": "safety",
+   "keeps": "Revised study conclusions and handover",
+   "agents": [
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists study inputs changed by as-built redlines to scope siting, F&G and QRA revisions"
+    }
+   ]
+  }
+ ]
+}

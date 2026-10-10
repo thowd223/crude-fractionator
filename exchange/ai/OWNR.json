@@ -1,0 +1,285 @@
+{
+ "discipline": "OWNR",
+ "tasks": [
+  {
+   "task": "OWNR-T010",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "OWNR-T020",
+   "risk": "normal",
+   "keeps": "Assay selection and design case choice by owner",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Loads received assay and feed case data into the design basis parameter table for process review"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T030",
+   "risk": "normal",
+   "keeps": "Owner data; acceptance by the receiving disciplines",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts tie-in points, capacities and coordinates from owner as-built drawings into staging tables"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Loads received climatic and survey values into the basis parameter table"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T040",
+   "risk": "normal",
+   "keeps": "Owner standards and order of precedence",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Indexes received owner standards and answers clause questions from the project team with citations"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T050",
+   "risk": "normal",
+   "keeps": "Owner requirements; basis values owned by each discipline",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries owner design life, margins and utility conditions into the basis parameter table"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T060",
+   "risk": "safety",
+   "keeps": "Risk criteria set by the owner",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers project questions on the risk matrix and LOPA target frequencies with citations"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T070",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "OWNR-T080",
+   "risk": "normal",
+   "keeps": "Permit applications and dealings with regulators",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks permit conditions passed back by the owner as actions on the owning disciplines"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T090",
+   "risk": "normal",
+   "keeps": "Owner comments and review status",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks owner review due dates, lists overdue comment sheets and chases returns"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T100",
+   "risk": "normal",
+   "keeps": "Operations and maintenance requirements",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records O&M requirements from workshops and tracks each to the owning discipline"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T110",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "OWNR-T120",
+   "risk": "normal",
+   "keeps": "Operability judgement and comment acceptance",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Records model review comments by location and tracks each to the owning discipline's close-out"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T130",
+   "risk": "safety",
+   "keeps": "Action acceptance, close-out approval and residual risk",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks close-out evidence exists before each action goes to owner sign-off and reports status"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T140",
+   "risk": "normal",
+   "keeps": "Outage windows and live-plant constraints",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records agreed outage windows and reminds tie-in owners before cut-off dates"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T150",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "OWNR-T160",
+   "risk": "commercial",
+   "keeps": "Spares philosophy and spares approval",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Consolidates vendor SPIRs into a spares list grouped by philosophy category for owner selection"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T170",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "OWNR-T180",
+   "risk": "safety",
+   "agents": []
+  },
+  {
+   "task": "OWNR-T190",
+   "risk": "safety",
+   "keeps": "Procedure content and operator training",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers procedure writers' questions from control narratives, C&Es and vendor IOMs with citations"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T200",
+   "risk": "safety",
+   "keeps": "Witnessing and acceptance signatures",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks ITRs and test records in each witness pack are complete before owner witnessing"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T210",
+   "risk": "normal",
+   "keeps": "System acceptance and retained punch agreement",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks turnover packages for completeness and drafts the retained punch summary for owner review"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T220",
+   "risk": "normal",
+   "keeps": "CMMS master data and asset register load",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts CMMS asset load sheets from handover tag registers, flagging missing required attributes"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T230",
+   "risk": "normal",
+   "keeps": "Acceptance or rejection of final documentation",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks handover documents and data books against the handover specification index before submission"
+    }
+   ]
+  },
+  {
+   "task": "OWNR-T240",
+   "risk": "commercial",
+   "agents": []
+  }
+ ]
+}

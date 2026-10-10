@@ -1,0 +1,96 @@
+{
+ "discipline": "FIRE",
+ "tasks": [
+  {
+   "task": "FIRE-T045",
+   "risk": "safety",
+   "keeps": "Fire protection strategy, voting and executive actions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks draft philosophy against SHE basis, owner standards and NFPA clauses; lists gaps"
+    }
+   ]
+  },
+  {
+   "task": "FIRE-T190",
+   "risk": "safety",
+   "keeps": "Design scenario, demand, pump capacity and storage",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks demand calc inputs (fire zones, areas, rates) against current fire envelopes and NFPA 15"
+    }
+   ]
+  },
+  {
+   "task": "FIRE-T200",
+   "risk": "safety",
+   "keeps": "Fire envelope definition and fireproofing decisions",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts structures, supports, cable routes and valves inside fire envelopes from plot plans"
+    }
+   ]
+  },
+  {
+   "task": "FIRE-T220",
+   "risk": "safety",
+   "keeps": "System selection and coverage by area",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites NFPA and owner requirements by area for deluge, water spray, foam and clean agent"
+    }
+   ]
+  },
+  {
+   "task": "FIRE-T230",
+   "risk": "safety",
+   "keeps": "Equipment specification and requisition issue",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills fire pump, driver and skid datasheets from demand calc and NFPA 20 templates; flags unsourced fields"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assembles fire protection requisition packages from datasheets and specifications"
+    }
+   ]
+  },
+  {
+   "task": "FIRE-T240",
+   "risk": "safety",
+   "keeps": "Review code and acceptance of certified data",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks fire pump curves, skid drawings and listings against datasheets and NFPA 20; drafts comments"
+    }
+   ]
+  }
+ ]
+}

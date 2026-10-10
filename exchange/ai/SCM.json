@@ -1,0 +1,423 @@
+{
+ "discipline": "SCM",
+ "tasks": [
+  {
+   "task": "SCM-T010",
+   "risk": "normal",
+   "keeps": "Sourcing route, durations and long-lead commitment decisions",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts package need dates from P6 and flags items whose delivery durations make them long-lead"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T020",
+   "risk": "commercial",
+   "keeps": "Bidder selection and prequalification decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers which approved-vendor-list entries cover each package, citing the list revision"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T030",
+   "risk": "normal",
+   "keeps": "Approval of each MR load and status setting",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Keys MR header and line data from Document Locator issues into the Purchasing DB for buyer approval"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T040",
+   "risk": "normal",
+   "keeps": "Surplus allowances and acceptance of bulk MR lines",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks S3D MTO commodity codes map to purchasing idents and flags unmapped or changed lines"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T050",
+   "risk": "commercial",
+   "keeps": "Commercial terms, bidders and RFQ issue",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assembles the RFQ package from the technical MR and standard terms and checks the attachment list"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T060",
+   "risk": "commercial",
+   "keeps": "Technical answers, commercial answers and bulletin issue",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Logs bidder questions and drafts bid bulletins from the engineers' answers"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers technical bidder questions already settled by the specs, citing the clause"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T070",
+   "risk": "commercial",
+   "keeps": "Bid opening and control of priced content",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Builds the unpriced technical bid folder per bidder for TBE distribution"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T080",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "SCM-T090",
+   "risk": "commercial",
+   "keeps": "Award recommendation and approval",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Compiles TBE results and deviation lists into the technical section of the bid tabulation"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T100",
+   "risk": "commercial",
+   "keeps": "PO terms, award and issue to vendor",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Prepares PO line entries from the conformed MR lines for the buyer to check and load"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T110",
+   "risk": "commercial",
+   "keeps": "Amendment content, pricing and issue",
+   "agents": [
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists PO lines affected by each MR revision with the quantity and specification differences"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T120",
+   "risk": "normal",
+   "keeps": "VDRL content and approval of the load",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Loads VDRL documents, numbers and due dates per PO into the Purchasing DB for approval"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks VDRL document numbers against the project numbering rule"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T130",
+   "risk": "normal",
+   "keeps": "Escalations, review codes and commercial issues",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Chases overdue vendor documents, updates receipt and return status and reports print status"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Lists vendor documents overdue in engineering review and reminds reviewers"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T140",
+   "risk": "normal",
+   "keeps": "Escalations, recovery agreements and commercial issues",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Requests milestone status, updates forecast ex-works dates and warns when forecasts pass P6 need dates"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T150",
+   "risk": "normal",
+   "keeps": "Hold and witness points and inspector assignment",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Reviews vendor ITPs against requisition inspection requirements and drafts comments with proposed hold points"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T160",
+   "risk": "normal",
+   "keeps": "Witnessing, release decision and inspection report signature",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks certificates and MTRs against specification and PO requirements before release"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T170",
+   "risk": "normal",
+   "keeps": "Routes, heavy-haul method and customs strategy",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts shipping dimensions and weights from certified vendor drawings into the oversize move list"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T180",
+   "risk": "normal",
+   "keeps": "Freight booking, customs clearance and carrier dealings",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks shipments against forecasts and sends templated shipping notices to site"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T190",
+   "risk": "normal",
+   "keeps": "Approval of the Jovix transfer",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Checks Jovix expected receipts match PO header, lines and idents after each transfer"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T200",
+   "risk": "normal",
+   "keeps": "Physical receipt, acceptance and location tagging",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Compares packing lists with PO lines and flags differences for the receiving clerk"
+    },
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts heat numbers from MTRs and packing lists into staging for Jovix"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T210",
+   "risk": "commercial",
+   "keeps": "Claims against vendor or carrier and remedy decisions",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Tracks open OS&D reports and sends templated follow-ups to vendor and carrier"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T220",
+   "risk": "normal",
+   "keeps": "Storage decisions and preservation work",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Lists preservation tasks due by location from Jovix and flags overdue records"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T230",
+   "risk": "normal",
+   "keeps": "Allocation priorities between work packages",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Matches received stock against CWP/IWP bills of material and publishes availability and shortage lists"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T240",
+   "risk": "normal",
+   "keeps": "Reservation, physical issue and traceability sign-off",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks pick tickets against IWP material lists and heat traceability records"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T250",
+   "risk": "normal",
+   "keeps": "Surplus disposal and write-off decisions",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Reconciles ordered, received, issued and installed quantities by ident and CWP and forecasts surplus"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T260",
+   "risk": "commercial",
+   "keeps": "Call-off decisions and service rate approval",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks call-off requests, vendor representative dates and service days against the PO"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T270",
+   "risk": "commercial",
+   "keeps": "Spares ordering and commercial terms",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Extracts vendor SPIR lines into a consolidated spares list for owner selection"
+    }
+   ]
+  },
+  {
+   "task": "SCM-T280",
+   "risk": "commercial",
+   "keeps": "Final payment and PO closure decision",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks final documents and MDR received against the VDRL and lists gaps blocking closure"
+    },
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Confirms delivered quantities match PO lines and lists open lines"
+    }
+   ]
+  }
+ ]
+}

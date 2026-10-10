@@ -1,0 +1,409 @@
+{
+ "discipline": "PROJ",
+ "tasks": [
+  {
+   "task": "PROJ-T010",
+   "risk": "normal",
+   "keeps": "Scope, organisation, phase plan and work split decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the draft execution plan against contract and owner procedures and lists missing required sections"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T020",
+   "risk": "commercial",
+   "agents": []
+  },
+  {
+   "task": "PROJ-T030",
+   "risk": "normal",
+   "keeps": "WBS structure, coding decisions and P6 setup approval",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts P6 activity code and cost code dictionaries from the approved WBS and area codes"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T040",
+   "risk": "normal",
+   "keeps": "Numbering procedure, workflows and distribution matrix decisions",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks Document Locator folders, type codes and workflows against the issued numbering procedure, listing mismatches"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T050",
+   "risk": "normal",
+   "keeps": "Register scope and approval of numbers and register changes",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Collects discipline deliverables lists, checks numbers against the rule, keeps planned and actual dates in step with P6"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T060",
+   "risk": "normal",
+   "keeps": "Estimating method, factors and the estimate itself",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts capacity-factored cost tables from benchmark data, flagging every factor and escalation applied"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T070",
+   "risk": "normal",
+   "keeps": "Estimate basis, template content and quantity acceptance",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Sends QTO templates, basis and due dates to each discipline, tracks returns and chases late ones"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T080",
+   "risk": "normal",
+   "keeps": "Factors, pricing judgement and the estimate",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds the equipment-factored quantity sheet from the equipment list and budget quotes, flagging each factor"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T090",
+   "risk": "normal",
+   "keeps": "Unit rates, pricing and estimate sign-off",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks estimate quantities against the latest discipline MTOs and vendor quotes and lists differences"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T100",
+   "risk": "normal",
+   "keeps": "Budget allocation and control budget approval",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Maps approved estimate lines to WBS and cost codes into a draft control budget table"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T110",
+   "risk": "normal",
+   "keeps": "Schedule logic, durations and baseline approval",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts engineering and procurement activity lists from the deliverables register and procurement plan for planner review"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T120",
+   "risk": "normal",
+   "keeps": "Approval of each P6 update and schedule judgement",
+   "agents": [
+    {
+     "agent": "AG-10",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Carries PO award, drawing return and forecast delivery dates from the Purchasing DB into a P6 update"
+    },
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Flags vendor forecast dates that erode float or pass need dates on the critical path"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T130",
+   "risk": "normal",
+   "keeps": "Rules of credit and validation of reported progress",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Computes deliverable progress by rules of credit from Document Locator status and drafts the earned value update"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks document statuses claimed for credit against issued revisions in Document Locator"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T140",
+   "risk": "normal",
+   "keeps": "Critical path judgement and recovery proposals",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Runs float and critical path comparison against last period and drafts the look-ahead and slippage list"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T150",
+   "risk": "commercial",
+   "keeps": "Forecasts, cost judgement and cost report issue",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts cost report tables and narrative from commitment and actuals exports, citing the source of each figure"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T160",
+   "risk": "commercial",
+   "keeps": "Impact estimates, change notice decisions and approvals",
+   "agents": [
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists downstream tasks, documents and systems affected by each trend to support impact estimating"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Logs trends and change notices, tracks their approval status and reminds owners of open items"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T170",
+   "risk": "normal",
+   "keeps": "Gate package content, recommendation and presentation",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks every gate deliverable is issued at the required revision and lists gaps in the package"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records gate decisions and conditions and tracks each condition to close-out"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T180",
+   "risk": "normal",
+   "keeps": "Risk identification, ranking and contingency setting",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Records workshop risks and mitigations into the register and tracks mitigation actions with their owners"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T190",
+   "risk": "normal",
+   "keeps": "Interface agreement content, disputes and escalation",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Keeps the interface register, reminds owners before need dates and chases interface agreements to closure"
+    },
+    {
+     "agent": "AG-19",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Notifies interface owners when an exchanged item they rely on is revised"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T200",
+   "risk": "normal",
+   "keeps": "Issue authorisation and transmittal release",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Checks numbering, title block and metadata on each issue and builds transmittals from the distribution matrix"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T210",
+   "risk": "normal",
+   "keeps": "Comment resolution and the review status returned",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Routes documents per the review matrix, consolidates comment sheets, lists overdue reviews and chases reviewers"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T220",
+   "risk": "normal",
+   "keeps": "Hold causes, priorities and release decisions",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Tracks each hold by cause, owner and target date, reminds owners and reports overdue releases"
+    },
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts HOLD clouds and notes from issued drawings to reconcile against the hold list"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T230",
+   "risk": "sealed",
+   "keeps": "Seal decision and IFC release",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks each IFC document shows checked, approved and sealed status in Document Locator before release"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T240",
+   "risk": "normal",
+   "keeps": "Validation, messaging and issue of the owner report",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Compiles progress, cost, schedule, change, procurement and HSE figures into the draft report with sourced narrative"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T250",
+   "risk": "normal",
+   "keeps": "Validation of field quantities and approval of the P6 load",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles installed quantities and IWP completion from iConstruct into a P6 progress update for approval"
+    }
+   ]
+  },
+  {
+   "task": "PROJ-T260",
+   "risk": "normal",
+   "keeps": "Handover acceptance and project close-out decisions",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks the final records index against the deliverables register and lists missing as-builts"
+    },
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks vendor data books and turnover records for completeness against the handover requirements"
+    }
+   ]
+  }
+ ]
+}

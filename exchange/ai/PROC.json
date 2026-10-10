@@ -1,0 +1,761 @@
+{
+ "discipline": "PROC",
+ "tasks": [
+  {
+   "task": "PROC-T005",
+   "risk": "normal",
+   "keeps": "Priorities, hold decisions and change impact judgement",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Keeps process deliverables register in step with P6 and Document Locator; lists overdue and held documents"
+    },
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Computes earned progress by rules of credit from document status and drafts the period report narrative"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T010",
+   "risk": "normal",
+   "keeps": "Selection of design cases, margins and on-stream factor",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles owner feed, product, ambient and battery-limit data into the basis parameter table with sources"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks draft basis against owner standards and BOD for missing or conflicting requirements"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T020",
+   "risk": "normal",
+   "keeps": "Characterisation method, cut points and blend case choice",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Transfers owner assay cuts and contaminant data into a sourced input table for the simulation"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T030",
+   "risk": "normal",
+   "keeps": "Choice of configuration and the screening judgement",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds the screening equipment list and BFD tables from each HYSYS case"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T060",
+   "risk": "normal",
+   "keeps": "Heat integration scheme, case definitions and simulation results",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks each alternative's simulation uses the current basis feed, ambient and turndown cases"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T070",
+   "risk": "normal",
+   "keeps": "Process risk judgement and technology recommendation",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Tabulates licensor offers on yields, utilities, catalyst and guarantees; drafts clarification questions"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T080",
+   "risk": "normal",
+   "keeps": "Ranking of alternatives and the recommended configuration",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records the alternatives ranking workshop, scores and rationale; tracks follow-up actions"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T090",
+   "risk": "normal",
+   "keeps": "Utility system definition and offsite tankage requirements",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks utility supply conditions against owner site data and electrical inputs; flags superseded values"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T095",
+   "risk": "normal",
+   "keeps": "Elevations, adjacency and segregation requirements",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner layout, spacing and access clauses relevant to each process layout requirement"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T100",
+   "risk": "normal",
+   "keeps": "Model configuration, calibration and tuning decisions",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Compares model inputs with licensor and plant test data tables; flags mismatched or superseded values"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T110",
+   "risk": "normal",
+   "keeps": "Simulation results, case selection and stream data acceptance",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Extracts stream tables per design case from HYSYS into the H&MB template, marking changes since last revision"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T120",
+   "risk": "normal",
+   "keeps": "PFD content, control scheme and drafting",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks PFD stream numbers and equipment tags against the H&MB stream table and equipment list"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T130",
+   "risk": "normal",
+   "keeps": "Pressure profile and design pressure/temperature settings",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Flags design conditions built on superseded H&MB, pump shut-off or owner margin values"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T140",
+   "risk": "normal",
+   "keeps": "Sizing method, internals selection and final dimensions",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Feeds current H&MB flows and properties into vessel sizing workbooks; flags stale inputs"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T150",
+   "risk": "normal",
+   "keeps": "Differential head, NPSHa margins and operating range",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Feeds H&MB flows and piping elevations into pump and compressor hydraulics sheets; flags superseded inputs"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T155",
+   "risk": "normal",
+   "keeps": "Duty, area and pressure drop estimates",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Feeds H&MB stream data and design conditions into exchanger screening sheets; flags superseded inputs"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T160",
+   "risk": "normal",
+   "keeps": "Acceptance of each equipment entry",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Carries duty, size and design conditions from sizing sheets into equipment list process columns"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares equipment list process data with sizing calcs and Mechanical's equipment register"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T170",
+   "risk": "normal",
+   "keeps": "Datasheet check, notes and issue",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills vessel, column and tank process datasheets from sizing, design conditions and H&MB; flags unsourced fields"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T175",
+   "risk": "normal",
+   "keeps": "Datasheet check, notes and issue",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills exchanger, air cooler and heater process datasheets from duty estimates and H&MB; flags unsourced fields"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T180",
+   "risk": "normal",
+   "keeps": "Datasheet check, notes and issue",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills pump, compressor and blower process datasheets from duty calcs and stream properties"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T185",
+   "risk": "normal",
+   "keeps": "Package duty, battery limits and scope split",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts package process specifications from utility basis and consumption lists"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks package specifications against owner standards and the design basis"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T190",
+   "risk": "normal",
+   "keeps": "Line sizes, two-phase and erosion judgements",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Loads H&MB stream data into the line sizing workbook; flags lines sized on superseded cases"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T200",
+   "risk": "normal",
+   "keeps": "P&ID design content, control and safeguarding",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts tags, connections and notes from vendor and licensor P&IDs for incorporation"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares SPID equipment and lines with equipment list, line sizing and instrument index"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T210",
+   "risk": "normal",
+   "keeps": "Tie-in conditions and final line data acceptance",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Populates line list process conditions from H&MB, design conditions and line sizing per SPID line"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks line list against SPID lines and piping classes"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T220",
+   "risk": "normal",
+   "keeps": "Operating ranges, design cases and controllability judgement",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills instrument process data per SI tag from the H&MB; flags tags without stream mapping"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T230",
+   "risk": "normal",
+   "keeps": "Operating modes, control strategy and narratives",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks control narratives against the control philosophy and owner operating standards, citing clauses"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T235",
+   "risk": "safety",
+   "keeps": "Trip selection, set points and actions",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts trip schedule table from P&ID interlocks and SI tags; checks it against the P&IDs"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T250",
+   "risk": "safety",
+   "keeps": "Scenario selection, relief loads and PSV sizing",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts PSV tags, set pressures and protected equipment from P&IDs into the relief device register"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Flags relief calcs built on superseded H&MB, design pressures or fire zone data"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T260",
+   "risk": "safety",
+   "keeps": "Governing scenarios, network sizing and blowdown results",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks flare model loads and inputs against the current relief load summary and isometric data"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T270",
+   "risk": "normal",
+   "keeps": "Utility balances, peak cases and consumption judgements",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles per-consumer utility, chemical and catalyst tables from equipment list, electrical load list and vendor data"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T280",
+   "risk": "normal",
+   "keeps": "Representative release cases and inventory assumptions",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles release-source compositions, inventories and effluent summaries from H&MB and vessel sizing"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T290",
+   "risk": "normal",
+   "keeps": "Report content, narrative and design decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Pulls cited basis, case and decision references from design basis, H&MB and HAZID records"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T300",
+   "risk": "safety",
+   "keeps": "HAZOP participation and technical responses to every action",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks process-owned HAZOP/LOPA actions and checks close-out evidence exists"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T305",
+   "risk": "normal",
+   "keeps": "Process acceptability statement",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares vendor offers clause by clause with process datasheets; drafts deviation list and clarifications"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T310",
+   "risk": "normal",
+   "keeps": "Review code and signed comments",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor drawings and performance data against process datasheets; drafts comments citing datasheet fields"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T315",
+   "risk": "normal",
+   "keeps": "Model update and acceptance of revised H&MB",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts certified performance curves and data from vendor documents into simulation input tables"
+    },
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Lists datasheets and documents relying on the revised H&MB and notifies their owners"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T320",
+   "risk": "normal",
+   "keeps": "Technical answers, hold release and change impact decisions",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers process TQs already settled in datasheets or H&MB with citations; routes the rest"
+    },
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Lists downstream tasks and documents affected by each change request or deviation"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T325",
+   "risk": "safety",
+   "keeps": "Controllability and sizing acceptance",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares process data used in SI valve, flow element and PSV sizing against current instrument process data"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T330",
+   "risk": "normal",
+   "keeps": "Process acceptability of layout and routing",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks model reports and isometrics for slopes, pockets and elevations against process layout requirements"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T340",
+   "risk": "normal",
+   "keeps": "Incorporation decisions and P&ID issue",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks updated P&IDs against SI, line list and equipment register before issue"
+    },
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks every HAZOP markup is incorporated on the IFD and IFC P&IDs"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks revision status, title blocks and transmittals of the P&ID issue set"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T350",
+   "risk": "normal",
+   "keeps": "Operating limits, control and safeguarding content",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers drafters' questions from control narratives, trip schedule and vendor manuals with citations"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T360",
+   "risk": "normal",
+   "keeps": "System boundaries and flushing, drying and purging requirements",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds draft system and subsystem tag registers from SPID lines and equipment for process marking"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T365",
+   "risk": "safety",
+   "keeps": "Procedure steps, sequences and emergency actions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Pulls cited limits, trip actions and vendor start-up steps from manuals, C&E and narratives"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T370",
+   "risk": "normal",
+   "keeps": "Process impact assessment and signed responses",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers RFIs already resolved in P&IDs, line list or datasheets with citations; routes field changes"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T375",
+   "risk": "normal",
+   "keeps": "Field decisions, test definition and guarantee evaluation",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records commissioning and performance test meetings; tracks process punch items and actions"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T385",
+   "risk": "normal",
+   "keeps": "Acceptance of each redline into the as-built record",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks field redlines and commissioning changes through P&ID incorporation to closure"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares as-built P&IDs with line list and SI after redline incorporation"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T135",
+   "risk": "normal",
+   "keeps": "Corrosion basis and agreed materials selection",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner corrosion standards and NACE/API clauses applicable to the identified corrosive species"
+    }
+   ]
+  },
+  {
+   "task": "PROC-T255",
+   "risk": "safety",
+   "keeps": "Acceptance of PSV sizing and review code",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor orifice, rated capacity and back-pressure limits against each relief case; drafts comments"
+    }
+   ]
+  }
+ ]
+}
