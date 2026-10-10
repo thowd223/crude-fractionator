@@ -1,0 +1,437 @@
+{
+ "discipline": "CONS",
+ "tasks": [
+  {
+   "task": "CONS-T010",
+   "risk": "normal",
+   "keeps": "Which constructability requirements apply and how they are stated",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 1,
+     "does": "Searches lessons-learned registers, site and contractor documents and lists cited constructability requirements by area"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T020",
+   "risk": "normal",
+   "keeps": "Laydown layout, haul roads and temporary facility locations",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers site data, owner rules and safety separation distances for laydown planning with cited clauses"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T030",
+   "risk": "normal",
+   "keeps": "Modularisation choice, transport limits and cost judgement",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts quantity and field-hour comparison tables for stick-built versus rack and module options, flagging benchmarks used"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T040",
+   "risk": "safety",
+   "keeps": "Crane selection, lift plans and rigging engineering sign-off",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls certified lift weights, centres of gravity and lifting lug data from vendor drawings into the lift register"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T050",
+   "risk": "normal",
+   "keeps": "Construction sequence and its link to commissioning priorities",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Drafts area sequence tables from the commissioning system order and plot plan areas for planner review"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T060",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CONS-T070",
+   "risk": "normal",
+   "keeps": "CWP breakdown, scope boundaries and need dates",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts discipline CWP scope lists from deliverable registers and CWA boundaries, with engineering and material need dates"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T080",
+   "risk": "normal",
+   "keeps": "Constructability judgement on access, rigging, scaffolding and sequence",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Runs model reports against weld access, spool break and erection clearance rules and lists findings for reviewers"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Records 30/60/90 % review comments and actions by area and tracks them to close-out"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T090",
+   "risk": "normal",
+   "keeps": "Installability comments and constructability judgement",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks IFR drawings against construction specs and tolerance clauses and lists deviations with citations"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Lists IFR drawings due for construction review and flags comments overdue against review deadlines"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T100",
+   "risk": "normal",
+   "keeps": "Execution strategy, crew sizes and productivity assumptions",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds direct field-hour takeoffs from MTO quantities and installation norms, flagging every productivity factor applied"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T110",
+   "risk": "normal",
+   "keeps": "Schedule logic, resource loading and level 3 baseline approval",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts CWP activity list tied to EWP and material delivery dates and flags need-date conflicts"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T120",
+   "risk": "normal",
+   "keeps": "Recovery actions and priority calls on late packages",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Maps EWP and PO forecast dates to CWP need dates and lists every package that misses"
+    },
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Sends templated forecast requests to vendors on POs flagged late against CWP need dates"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T130",
+   "risk": "normal",
+   "keeps": "Object-to-package assignment and model federation set-up",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks every model object carries CWA, CWP and IWP codes and lists unassigned or conflicting objects"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares iConstruct object tags against S3D, Tekla and Jovix idents and lists mismatches with both values"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T140",
+   "risk": "normal",
+   "keeps": "IWP scope boundaries, crew sizing and package approval",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Assembles IWP content per crew scope: isos, drawings, model views, materials and quantities from iConstruct"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T150",
+   "risk": "normal",
+   "keeps": "Shortage actions and the decision to hold or resequence IWPs",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Compares each IWP bill of materials with Jovix warehouse and laydown status and reports shortages by ident"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T160",
+   "risk": "normal",
+   "keeps": "Release of constraint-free IWPs to the field backlog",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks each IWP for open holds, RFIs, materials, scaffolding and permits and lists what blocks release"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Chases constraint owners before IWP need dates and logs constraint status changes"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T170",
+   "risk": "normal",
+   "keeps": "Which RFIs to raise and acceptance of the engineering response",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers RFIs already covered by the project record with citations; drafts and routes the rest, tracking closure"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T180",
+   "risk": "commercial",
+   "keeps": "Field solution, cost and schedule impact, and approval",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts field change requests from RFI history and marked-up IFC drawings and routes them to the owning discipline"
+    },
+    {
+     "agent": "AG-19",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Lists downstream documents, tasks and systems affected by each proposed field change"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T190",
+   "risk": "normal",
+   "keeps": "Survey measurements, setting-out and tolerance acceptance",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls anchor bolt patterns and baseplate dimensions from certified vendor drawings into the setting-out check list"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T200",
+   "risk": "normal",
+   "keeps": "Material issue requests and disposition of damaged items",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Lists material to issue for released IWPs and tracks reported shortages, damage and surplus to closure"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T210",
+   "risk": "normal",
+   "keeps": "Field quantity measurement and progress claim validation",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Rolls daily installed quantities from IWP up to CWP and schedule and flags variance against plan"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T220",
+   "risk": "normal",
+   "keeps": "NDE selection, repair decisions and weld acceptance",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks the weld log against isos for missing welds, welder qualifications, NDE percentages and repair rates"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T230",
+   "risk": "safety",
+   "keeps": "Test pressures, test execution, witnessing and reinstatement sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assembles test pack contents: marked-up P&IDs and isos, test limits, blind list and test pressure tables"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T240",
+   "risk": "normal",
+   "keeps": "Inspection and signing of every ITR",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks A-ITR records for missing fields, attachments and tag mismatches before signature"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T250",
+   "risk": "normal",
+   "keeps": "Punch rectification work and clearance sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts punch summaries by subsystem and crew listing outstanding construction items for planning"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T260",
+   "risk": "normal",
+   "keeps": "Marking field deviations and confirming redlines match installed work",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks redlines against approved field changes and RFIs and drafts transmittals listing affected drawings"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks redline transmittals cite correct drawing numbers and IFC revisions"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T270",
+   "risk": "safety",
+   "keeps": "Walkdown, MC certificate signature and acceptance",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks each subsystem for complete A-ITRs, cleared A punch and test packs; lists outstanding items before walkdown"
+    }
+   ]
+  },
+  {
+   "task": "CONS-T280",
+   "risk": "normal",
+   "keeps": "Quality acceptance and dossier sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Assembles weld, NDE, test, traceability and calibration records per subsystem and reports missing records"
+    }
+   ]
+  }
+ ]
+}

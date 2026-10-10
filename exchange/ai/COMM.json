@@ -1,0 +1,425 @@
+{
+ "discipline": "COMM",
+ "tasks": [
+  {
+   "task": "COMM-T010",
+   "risk": "normal",
+   "keeps": "Completions philosophy, definitions and certificate flow",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the draft plan against owner completions requirements and contract definitions of MC, RFSU and handover"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T020",
+   "risk": "normal",
+   "keeps": "System definition and start-up order",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists equipment, units and utility streams from PFDs and utility diagrams as input to system definition"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T030",
+   "risk": "normal",
+   "keeps": "Boundary and isolation point decisions",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts tags, valves and isolation points from P&IDs and single-lines along the marked boundaries"
+    },
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks every P&ID tag falls in exactly one subsystem and lists gaps and overlaps"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T040",
+   "risk": "normal",
+   "keeps": "Commissioning logic and committed turnover dates",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts the required turnover date table per subsystem and flags clashes with the construction path"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T050",
+   "risk": "normal",
+   "keeps": "Check sheet content and ITR scheme approval",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts the ITR matrix mapping A, B and C check sheets to discipline tag types"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner and discipline inspection requirements by tag type for each check sheet"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T060",
+   "risk": "normal",
+   "keeps": "Subsystem assignment of ambiguous tags and register acceptance",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Builds the tag-to-subsystem register from line, equipment, instrument and cable lists against marked boundaries"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares register tags against SPID, SI and SPEL and lists missing or duplicate tags"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T070",
+   "risk": "normal",
+   "keeps": "Approval of the Smart Completions load",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Prepares the load sheet and generates ITRs per tag from the matrix; flags tags with no matrix match"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T080",
+   "risk": "safety",
+   "keeps": "Procedure method, limits and safety precautions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls vendor flushing, cleaning, drying and preservation requirements from vendor manuals into a requirement table"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers spec requirements for flushing velocity, leak test media and inerting criteria with citations"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T090",
+   "risk": "safety",
+   "keeps": "Test method, acceptance criteria and procedure approval",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks procedure test steps cover every C&E line and SIF in the SRS and lists omissions"
+    },
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts vendor run-in and function test requirements from vendor manuals into a test requirement table"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T100",
+   "risk": "normal",
+   "keeps": "Final consumables list and need dates by system",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Pulls lubricant, chemical, catalyst, filter and first-fill quantities from vendor data and lists them by system"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T110",
+   "risk": "normal",
+   "keeps": "Vendor support scope, timing and call-off",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts vendor representative scope and man-day allowances from purchase orders per package"
+    },
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Requests and tracks vendor representative mobilisation dates against the commissioning schedule"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T120",
+   "risk": "normal",
+   "keeps": "Temporary facilities design and flushing arrangements",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts temporary spool, blind and strainer quantity lists from flushing circuits and isometric data"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T130",
+   "risk": "normal",
+   "keeps": "MC forecast validation and recovery actions",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Tracks test pack prepared, tested and reinstated status per subsystem and forecasts MC dates"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T140",
+   "risk": "normal",
+   "keeps": "Punch categorisation and clearance acceptance",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts punch entries from walkdown notes with subsystem, category and action-by party; summarises open items"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Reminds action-by parties of open punch items ahead of subsystem need dates"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T150",
+   "risk": "safety",
+   "keeps": "Acceptance and custody transfer of the subsystem",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks turnover packages for complete A-ITRs, cleared A punch, test records and dossier before acceptance"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T160",
+   "risk": "safety",
+   "keeps": "Executing pre-commissioning tests and signing B-ITRs",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks recorded B-ITRs for missing values, out-of-tolerance results and missing vendor sign-offs"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T170",
+   "risk": "normal",
+   "keeps": "Performing loop checks and accepting loops",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Compares loop check records against SI loop data and the DCS/SIS I/O list and lists mismatches"
+    },
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Reports loop check status and open defects by subsystem against the commissioning schedule"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T180",
+   "risk": "safety",
+   "keeps": "Test execution, witnessing and SIF acceptance",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks recorded results against every C&E line and SRS requirement and lists untested or failed items"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T190",
+   "risk": "safety",
+   "keeps": "Energisation permit, switching and authorisation",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Lists missing prerequisite records per feeder: protection test results, ITRs and permit references"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T200",
+   "risk": "safety",
+   "keeps": "Commissioning execution, RFSU decision and certificate signature",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks C-ITRs, test results and start-up punch per system and lists open RFSU items"
+    },
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks PSSR and safety study actions due before start-up have close-out evidence and lists gaps"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T210",
+   "risk": "normal",
+   "keeps": "Problem diagnosis and any design modification decision",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers commissioning queries already covered by design records with citations; drafts and routes the rest"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T220",
+   "risk": "normal",
+   "keeps": "Dossier completeness approval and sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Assembles system dossiers from certificates, ITRs, test records, punch and vendor data and lists gaps"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks as-built and vendor document revisions in the dossier against Document Locator status"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T230",
+   "risk": "safety",
+   "keeps": "Handover certificate, agreed punch exceptions and signatures",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records handover meetings, agreed punch exceptions and owner actions and tracks them to closure"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T240",
+   "risk": "normal",
+   "keeps": "Validation and issue of the progress report",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Compiles ITR, punch and certificate counts by system from Smart Completions and drafts the report narrative"
+    }
+   ]
+  },
+  {
+   "task": "COMM-T250",
+   "risk": "commercial",
+   "keeps": "Test conduct, data correction and guarantee conclusions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts guarantee values and test conditions from vendor and licensor data into the comparison table"
+    }
+   ]
+  }
+ ]
+}
