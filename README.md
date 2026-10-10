@@ -74,6 +74,18 @@ It then ranks the candidates by value × ease. Value is built from re-entry effo
 tasks, and the share of hand-offs landing late in the project. The ranking appears as a sheet in the workbook
 and as the first tab of the page.
 
+### AI agent opportunities
+
+`exchange/agents.json` defines 20 agent roles. Each role has:
+- what it does, and its working patterns (extract, draft, check, review, transfer, monitor, record, answer);
+- what it reads and writes, and the highest autonomy it may have;
+- what the person keeps, its guardrails, and how ready it is.
+
+`exchange/ai/<CODE>.json` assigns every task to the agents that could take part of its work. Each assignment
+records the share of the task, the autonomy and the risk class; safety tasks are capped at draft. `exchange/agents.py`
+checks the assignments (`--check <CODE>`) and ranks the agents. The results go to
+`exchange/out/ai-agent-opportunities.md`, to three workbook sheets, and to the "AI agents" tab of the page.
+
 ## Design summary
 
 | Item | Value |
