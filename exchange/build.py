@@ -9,6 +9,7 @@ item sent from its owner task to a task that uses it) and writes:
   out/interfaces.html                    interactive register
   out/item-catalog.md                    every item by discipline (reference for authors)
   out/integration-priorities.md          integration candidates (integrations.json) ranked by rank.py
+  out/ai-agent-opportunities.md          AI agents (agents.json, ai/*.json) ranked by agents.py
 """
 from __future__ import annotations
 
@@ -178,7 +179,7 @@ def catalog(tasks, items):
     (OUT / "item-catalog.md").write_text("".join(md))
 
 
-def workbook(tasks, items, ex, errs, warns, rows=(), man=()):
+def workbook(tasks, items, ex, errs, warns, rows=(), man=(), arows=(), by_disc=None):
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter
@@ -239,6 +240,8 @@ def workbook(tasks, items, ex, errs, warns, rows=(), man=()):
                    f"{e['to_task']} {tasks[e['to_task']]['name']}", e["use"]])
     if rows:
         rank_sheets(wb, sheet, rows, man, tasks)
+    if arows:
+        agent_sheets(wb, sheet, arows, by_disc)
     ws = sheet("Checks", ["Severity", "Message"], (10, 120))
     for s in errs:
         ws.append(["error", s])
@@ -278,7 +281,33 @@ def rank_sheets(wb, sheet, rows, man, tasks):
                    m["level"], ", ".join(m["phases"]), m["use"]])
 
 
-def page(tasks, items, ex, errs, warns, rows=(), man=()):
+def agent_sheets(wb, sheet, arows, by_disc):
+    ws = sheet("AI agents", ["Rank", "Wave", "ID", "Agent", "Patterns", "What it does", "Tasks", "Disciplines",
+                             "Work relieved", "Hand-offs touched", "Beyond integration", "Safety or sealed tasks",
+                             "Value", "Readiness", "Priority", "Highest autonomy", "Reads", "Writes",
+                             "What the person keeps", "Guardrails", "Prerequisite", "Related integrations"],
+               (6, 6, 8, 30, 16, 60, 7, 18, 9, 9, 9, 9, 7, 14, 8, 8, 30, 24, 40, 40, 28, 18))
+    for r in arows:
+        ws.append([r["rank"], r["wave"], r["id"], r["name"], ", ".join(r["patterns"]), r["what"], r["n"],
+                   ", ".join(r["discs"]), r["relief"], r["touched"], r["beyond"], r["safety"], r["value"],
+                   r["ready_word"], r["priority"], r["autonomy_max"], ", ".join(r["reads"]), ", ".join(r["writes"]),
+                   r["human"], r["guardrails"], r["prerequisite"], ", ".join(r["related"])])
+    ws.append([])
+    ws.append(["Scoring is described in exchange/agents.py. Shares, readiness and autonomy are assumptions to confirm."])
+    ws = sheet("AI task assignments", ["Task", "Discipline", "Task name", "Agent", "Pattern", "What the agent does",
+                                       "Share", "Autonomy", "Risk", "What the person keeps"],
+               (11, 8, 40, 30, 9, 60, 6, 8, 10, 40))
+    for r in sorted(arows, key=lambda r: r["id"]):
+        for x in r["tasks"]:
+            ws.append([x["task"], x["disc"], x["name"], f"{r['id']} {r['name']}", x["pattern"], x["does"],
+                       x["share"], x["autonomy"], x["risk"], x["keeps"]])
+    ws = sheet("AI by discipline", ["Discipline", "Tasks", "Tasks with an agent", "Share of work agents could take"],
+               (28, 8, 10, 12))
+    for c, v in by_disc.items():
+        ws.append([f"{c} {DISC[c]}", v["tasks"], v["with_agent"], v["share"]])
+
+
+def page(tasks, items, ex, errs, warns, rows=(), man=(), arows=(), by_disc=None):
     T = {t["id"]: dict(d=t["disc"], n=t["name"], s=t["system"], p=t["phases"], a=t.get("activity", ""),
                        x=t.get("description", "")) for t in tasks.values()}
     I = {i["id"]: dict(d=i["disc"], n=i["name"], s=i["system"], f=i["form"], c=i.get("content", ""),
@@ -289,7 +318,16 @@ def page(tasks, items, ex, errs, warns, rows=(), man=()):
             "value", "ease", "ease_word", "priority", "ease_note", "approach", "prerequisite", "items", "discs")
     R = dict(rows=[{k: r[k] for k in keep} for r in rows], remedy=REMEDY, total=len(man),
              x=[[m["item"], m["to_task"], m["remedy"], m["weight"], m["cand"]] for m in man])
-    data = dict(disc=DISC, systems=SYSTEMS, phases=PHASES, methods=METHODS, mnote=METHOD_NOTE, T=T, I=I, E=E, R=R,
+    import agents
+    cat = agents.catalog()
+    akeep = ("rank", "wave", "id", "name", "patterns", "what", "reads", "writes", "autonomy_max", "human",
+             "guardrails", "readiness", "ready_word", "readiness_note", "prerequisite", "related", "n", "relief",
+             "touched", "beyond", "discs", "safety", "value", "priority", "autonomy")
+    A = dict(rows=[dict({k: r[k] for k in akeep},
+                        t=[[x["task"], x["pattern"], x["share"], x["autonomy"], x["risk"], x["does"], x["keeps"]]
+                           for x in r["tasks"]]) for r in arows],
+             disc=by_disc or {}, patterns=cat["patterns"], autonomy=cat["autonomy"])
+    data = dict(disc=DISC, systems=SYSTEMS, phases=PHASES, methods=METHODS, mnote=METHOD_NOTE, T=T, I=I, E=E, R=R, A=A,
                 order=[t["id"] for t in sorted(tasks.values(), key=order_key)], warns=len(warns), errs=errs)
     tpl = (HERE / "page.html").read_text()
     js = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
@@ -301,8 +339,10 @@ def main():
     tasks, items, errs = load()
     e2, warns = check(tasks, items)
     errs += e2
+    import agents
     import rank
     errs += rank.check(rank.load(), items)
+    errs += agents.check(tasks)
     if "--check" in sys.argv:       # validation only, no outputs (safe to run concurrently)
         only = next((a for a in sys.argv[1:] if a in DISC), None)
         mine = [s for s in errs if not only or s.startswith(only) or f" {only}-" in s]
@@ -312,11 +352,14 @@ def main():
         return mine
     ex = exchanges(tasks, items)
     rows, man = rank.rank(tasks, items, ex)
+    arows, by_disc = agents.rank(tasks, items, ex, man)
+    by_disc = {c: by_disc[c] for c in DISC if c in by_disc}
     catalog(tasks, items)
     rank.summary(rows, man)
-    workbook(tasks, items, ex, errs, warns, rows, man)
+    agents.summary(arows, by_disc, DISC)
+    workbook(tasks, items, ex, errs, warns, rows, man, arows, by_disc)
     if (HERE / "page.html").exists():
-        page(tasks, items, ex, errs, warns, rows, man)
+        page(tasks, items, ex, errs, warns, rows, man, arows, by_disc)
     by = Counter(t["disc"] for t in tasks.values())
     print(f"{len(tasks)} tasks, {len(items)} items, {len(ex)} exchanges; " +
           ", ".join(f"{c} {by[c]}" for c in DISC if by[c]))

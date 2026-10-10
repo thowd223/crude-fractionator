@@ -150,6 +150,22 @@ table.ls tr.grp td { background: var(--chip); font: 600 14px var(--f-display); l
 .rmd.read { opacity: .65 }
 @media (max-width: 640px) { .rk summary { grid-template-columns: 30px minmax(0, 1fr) 40px } .rk .pb { display: none }
   .rk dl { grid-template-columns: 1fr } }
+.kp { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin: 0 0 14px }
+.kp div { background: var(--sheet); border: 1px solid var(--rule); padding: 10px 14px }
+.kp b { display: block; font: 600 30px/1.05 var(--f-display); font-variant-numeric: tabular-nums }
+.kp span { font-size: 12.5px; color: var(--muted) }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin: 0 0 16px }
+@media (max-width: 860px) { .two { grid-template-columns: minmax(0, 1fr) } }
+.two h3 { font: 500 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px }
+.bars.ds .r { grid-template-columns: minmax(0, 190px) minmax(0, 1fr) 44px; cursor: default }
+.bars.ds .r .t i { background: var(--line); border-radius: 0 4px 4px 0 }
+.bars.ds .r:hover b { text-decoration: none }
+.leg { background: var(--sheet); border: 1px solid var(--rule); padding: 10px 14px; font-size: 13px; display: grid; gap: 4px }
+.leg div { display: grid; grid-template-columns: 74px 1fr; gap: 8px }
+.leg code { font: 500 11.5px var(--f-mono); color: var(--ink) }
+.au { font: 500 11px var(--f-mono); padding: 1px 6px; white-space: nowrap; border: 1px solid var(--rule) }
+.au.a3 { border-color: var(--ok); color: var(--ok) } .au.a2 { border-color: var(--line); color: var(--line) } .au.a1 { color: var(--muted) }
+.risk { font: 500 11px var(--f-mono); color: var(--flame) }
 footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 12px }
 </style>
 </head>
@@ -174,6 +190,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1
 <div class="bar">
   <div class="tabs" role="tablist">
     <button role="tab" data-v="pri" aria-selected="true">Integration priorities</button>
+    <button role="tab" data-v="ai" aria-selected="false">AI agents</button>
     <button role="tab" data-v="disc" aria-selected="false">Disciplines</button>
     <button role="tab" data-v="sys" aria-selected="false">Systems</button>
     <button role="tab" data-v="task" aria-selected="false">Tasks</button>
@@ -188,6 +205,16 @@ footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1
   <div class="found" id="pri-found"></div>
   <div class="rk" id="pri-list"></div>
   <p class="hint" id="pri-note"></p>
+</section>
+<section id="v-ai" hidden>
+  <p class="lede" id="ai-lede"></p>
+  <div class="kp" id="ai-kp"></div>
+  <div class="two">
+    <div><h3>Share of each discipline's work agents could take</h3><div class="bars ds" id="ai-disc"></div></div>
+    <div><h3>How agents work</h3><div class="leg" id="ai-leg"></div></div>
+  </div>
+  <div class="rk" id="ai-list"></div>
+  <p class="hint" id="ai-note"></p>
 </section>
 <section id="v-disc" hidden>
   <p class="lede">Rows send, columns receive. Each cell counts the exchanges between two disciplines; the small orange
@@ -347,11 +374,51 @@ function priorities() {
     ". Ease and volume are assumptions to confirm with IT, the tool owners and the discipline leads. Scoring: <code>exchange/rank.py</code>; candidates: <code>exchange/integrations.json</code>.";
 }
 
+function agentsView() {
+  const A = D.A, rows = A.rows, all = Object.values(A.disc);
+  const nt = all.reduce((s, v) => s + v.tasks, 0), na = all.reduce((s, v) => s + v.with_agent, 0);
+  const sh = all.reduce((s, v) => s + v.relief, 0) / all.reduce((s, v) => s + v.weight, 0);
+  const asg = rows.reduce((s, r) => s + r.n, 0), a3 = rows.reduce((s, r) => s + (r.autonomy[3] || 0), 0);
+  const beyond = rows.reduce((s, r) => s + r.beyond, 0);
+  document.getElementById("ai-lede").innerHTML = `Where AI agents could take part of each task's work, with people keeping every judgement,
+    approval and signature. Agents complement the integrations on the first tab: an integration moves structured data between systems for good;
+    an agent reads, drafts, checks, chases and records, including the documents no integration can read. Open an agent for the tasks it serves.`;
+  document.getElementById("ai-kp").innerHTML = [
+    [`${na} / ${nt}`, "tasks with work an agent could take"],
+    [`${Math.round(100 * sh)}%`, "of task effort, weighted by how often each task recurs"],
+    [asg, `task assignments across ${rows.length} agents`],
+    [a3, "assignments where the agent acts on its own, with audit"]].map(([b, t]) => `<div><b>${b}</b><span>${esc(t)}</span></div>`).join("");
+  const ds = Object.entries(A.disc).sort((a, b) => b[1].share - a[1].share), mx = Math.max(...ds.map(([, v]) => v.share));
+  document.getElementById("ai-disc").innerHTML = ds.map(([c, v]) => `<div class="r" title="${v.with_agent} of ${v.tasks} tasks have an agent"><b>${esc(D.disc[c])}</b><div class="t"><i style="width:${100 * v.share / mx}%"></i></div><span>${Math.round(100 * v.share)}%</span></div>`).join("");
+  document.getElementById("ai-leg").innerHTML = Object.entries(A.patterns).map(([k, v]) => `<div><code>${k}</code><span>${esc(v)}</span></div>`).join("") +
+    Object.entries(A.autonomy).map(([k, v]) => `<div><span class="au a${k}">autonomy ${k}</span><span>${esc(v)}</span></div>`).join("");
+  const max = Math.max(...rows.map(r => r.priority));
+  document.getElementById("ai-list").innerHTML = rows.map(r => `<details><summary>
+      <span class="n">${r.rank}</span>
+      <span class="nm"><b>${esc(r.name)}</b><span><span class="tag w${r.wave}">wave ${r.wave}</span><span class="tag">${esc(r.ready_word)}</span>${r.patterns.join(" · ")} · ${r.n} tasks · ${r.discs.join(", ")}</span></span>
+      <span class="pb" title="Priority ${r.priority} = value ${r.value} × readiness (${esc(r.ready_word)})"><i style="width:${100 * r.priority / max}%"></i></span>
+      <span class="pv">${r.priority}</span></summary>
+      <div class="body"><p>${esc(r.what)}</p>
+      <dl><dt>Person keeps</dt><dd>${esc(r.human)}</dd>
+      <dt>Guardrails</dt><dd>${esc(r.guardrails)}</dd>
+      <dt>Reads / writes</dt><dd>${esc(r.reads.join(", "))} / ${esc(r.writes.join(", "))}</dd>
+      <dt>Readiness</dt><dd>${esc(r.ready_word)}: ${esc(r.readiness_note)} Prerequisite: ${esc(r.prerequisite)}.</dd>
+      <dt>Score</dt><dd>value ${r.value}: work relieved ${r.relief}, ${r.touched} manual, review or meeting hand-offs touched,
+        ${r.beyond} hand-offs no integration removes, ${r.discs.length} disciplines${r.safety ? `; ${r.safety} safety or sealed tasks, so it drafts only there` : ""}</dd>
+      ${r.related.length ? `<dt>Integrations</dt><dd>${r.related.map(i => { const x = D.R.rows.find(q => q.id === i); return x ? `${i} ${esc(x.name)} (rank ${x.rank})` : i; }).join("; ")}</dd>` : ""}</dl>
+      <div class="tw"><table class="ls"><thead><tr><th>Task</th><th>What the agent does</th><th>Person keeps</th><th>Share</th><th>Autonomy</th></tr></thead><tbody>` +
+      r.t.map(([t, p, s, a, rk, does, keeps]) => `<tr><td><button class="lnk" data-task="${t}">${esc(tname(t))}</button><br><span class="sys">${esc(D.T[t].s)}${rk !== "normal" ? ` · <span class="risk">${rk}</span>` : ""}</span></td>
+        <td class="use"><span class="id">${p}</span> ${esc(does)}</td><td class="use">${esc(keeps)}</td><td class="lv">${["", "small", "moderate", "large"][s]}</td><td><span class="au a${a}">${a}</span></td></tr>`).join("") +
+      `</tbody></table></div></div></details>`).join("");
+  document.getElementById("ai-note").innerHTML = "Shares, autonomy and readiness are assumptions for the discipline leads and IT to confirm. Scoring: <code>exchange/agents.py</code>; catalog: <code>exchange/agents.json</code>; task assignments: <code>exchange/ai/</code>.";
+}
+
 function render() {
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.v === st.v));
-  ["pri", "disc", "sys", "task", "man"].forEach(v => document.getElementById("v-" + v).hidden = v !== st.v);
-  document.getElementById("lp").hidden = st.v === "task" || st.v === "pri";
-  document.querySelectorAll(".bar .ctl").forEach(c => c.hidden = st.v === "pri");
+  ["pri", "ai", "disc", "sys", "task", "man"].forEach(v => document.getElementById("v-" + v).hidden = v !== st.v);
+  document.getElementById("lp").hidden = ["task", "pri", "ai"].includes(st.v);
+  document.querySelectorAll(".bar .ctl").forEach(c => c.hidden = st.v === "pri" || st.v === "ai");
+  if (st.v === "ai" && !document.getElementById("ai-list").innerHTML) agentsView();
   if (st.v === "pri" && !document.getElementById("pri-list").innerHTML) priorities();
   if (st.v === "disc") matrix("mx-disc", DC, "fd", "td", "FROM \\ TO");
   if (st.v === "sys") matrix("mx-sys", D.systems, "fs", "ts", "FROM \\ TO");

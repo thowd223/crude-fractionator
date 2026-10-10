@@ -211,3 +211,30 @@ Rules:
 - CST-01: Class 4 cost estimate
 - CST-02: Class 3 cost estimate
 - CST-03: Control estimate
+
+## AI agent assignments
+
+`exchange/agents.json` is the agent catalog: 20 agent roles, each with the patterns it works in, what it reads and
+writes, its highest autonomy, what the person keeps, guardrails and readiness. `exchange/ai/<CODE>.json` assigns
+every task of a discipline (every task must appear, even with no agent):
+
+```json
+{"discipline": "PROC",
+ "tasks": [
+  {"task": "PROC-T030", "risk": "normal", "keeps": "Choice of configuration and the screening judgement",
+   "agents": [{"agent": "AG-04", "pattern": "draft", "share": 2, "autonomy": 2,
+               "does": "Builds the screening equipment list and BFD tables from each HYSYS case"}]}]}
+```
+
+Rules:
+- `agents`: 0 to 3 entries; only agents that really fit the task. An empty list is a valid answer.
+- `pattern`: one of that agent's patterns in the catalog.
+- `share`: the part of the task's effort the agent could take: 1 small (about 10%), 2 moderate (about 30%),
+  3 large (about 55%). Be conservative: engineering judgement, design decisions and coordination stay with people.
+- `autonomy`: 1 assist, 2 draft, 3 act with audit; never above the agent's `autonomy_max`.
+- `risk`: `safety` (relief, SIL, HAZOP, fire and gas, safety-critical logic), `sealed` (calculations or drawings an
+  engineer of record seals), `commercial` (awards, POs, change orders, invoices) or `normal`. Safety tasks take
+  autonomy 2 at most.
+- `does`: up to 20 words, specific to this task. `keeps`: up to 15 words, what the person keeps.
+
+Check with `python exchange/agents.py --check <CODE>`.
