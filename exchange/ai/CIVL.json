@@ -1,0 +1,509 @@
+{
+ "discipline": "CIVL",
+ "tasks": [
+  {
+   "task": "CIVL-T005",
+   "risk": "normal",
+   "keeps": "Rules of credit, progress claims and hold escalation",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles civil deliverable progress from Document Locator status and P6; flags late deliverables and holds"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Keeps the civil deliverables register in step with P6 and Document Locator; lists overdue reviews"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T010",
+   "risk": "normal",
+   "keeps": "Site screening judgement",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers site questions from flood maps, surveys and soil reports with citations"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T020",
+   "risk": "normal",
+   "keeps": "Load combinations and design criteria",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Collects site wind, seismic, temperature and rainfall data from owner documents into the basis table"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites code editions and owner standards for each civil and structural design criterion"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T030",
+   "risk": "normal",
+   "keeps": "Survey scope, grid and acceptance",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks survey deliverables against the scope for coverage, grid, benchmarks and format"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T040",
+   "risk": "normal",
+   "keeps": "Borehole locations, depths and test programme",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts the geotechnical contractor scope from the borehole location plan and test schedule"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T050",
+   "risk": "normal",
+   "keeps": "Design soil parameters and foundation type",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Extracts borehole logs, SPT/CPT results and lab test values from the geotechnical report into tables"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T060",
+   "risk": "normal",
+   "keeps": "Factors applied and estimate quantities",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds civil and steel quantity sheets from plot plan, equipment list, Tekla reports and benchmarks, flagging factors"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T070",
+   "risk": "normal",
+   "keeps": "Civil comments on the plot plan",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Logs civil comments per plot plan revision and tracks their incorporation"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T080",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T090",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T100",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T110",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T120",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T130",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T140",
+   "risk": "normal",
+   "keeps": "Conflict resolution",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks underground conflicts found in the composite by owner until each is resolved"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T150",
+   "risk": "sealed",
+   "keeps": "Foundation design and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks foundation calcs use current certified vendor loads and soil parameters; flags superseded inputs"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T160",
+   "risk": "sealed",
+   "keeps": "Foundation design, dynamic acceptance and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks dynamic foundation calcs use current certified machine data and soil parameters"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T170",
+   "risk": "sealed",
+   "keeps": "Tank foundation design, settlement prediction and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks tank foundation calcs use current tank loads and soil parameters; flags superseded inputs"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T180",
+   "risk": "sealed",
+   "keeps": "Pile type, group design and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks pile designs use current foundation loads and geotechnical parameters"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T190",
+   "risk": "sealed",
+   "keeps": "Foundation details and seal",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks anchor bolt plans against certified vendor base plate data and equipment coordinates; lists mismatches"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T200",
+   "risk": "sealed",
+   "keeps": "Rack analysis, member sizing and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks rack analysis loads against current piping, cable and air cooler load data"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T210",
+   "risk": "sealed",
+   "keeps": "Structure design and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks structure analysis loads against current equipment, piping and cable load data"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T220",
+   "risk": "normal",
+   "keeps": "Structural model content",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks Tekla model reports against design outputs and the S3D reference for missing members"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T230",
+   "risk": "sealed",
+   "keeps": "Drawing content, connection criteria and seal",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks steel GA and erection drawings against the Tekla model, standards and title block rules"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T240",
+   "risk": "normal",
+   "keeps": "MTO allowances and issue",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Builds steel MTO by profile, grade and coating from Tekla reports; checks against the estimate"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T250",
+   "risk": "normal",
+   "keeps": "Embedment details and locations",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Collects embedment and penetration requests from disciplines into one schedule; chases missing ones"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T260",
+   "risk": "safety",
+   "keeps": "Fireproofing extent, rating and type",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites fireproofing standards and fire scenario envelopes for the members in question"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T270",
+   "risk": "normal",
+   "keeps": "Building layouts and room sizes",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner building standards and room size requirements for each building"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T280",
+   "risk": "sealed",
+   "keeps": "Building structural design and seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks building designs use current blast overpressure and wind/seismic basis values"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T290",
+   "risk": "normal",
+   "keeps": "Architectural design and fire ratings",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks door, finish and fire rating schedules against owner standards; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T300",
+   "risk": "normal",
+   "keeps": "Heat loads, sizing and pressurisation design",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts HVAC equipment datasheets from heat load results and room data"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T310",
+   "risk": "normal",
+   "keeps": "Technical scope and recommendation",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assembles civil, steel and HVAC technical scopes; drafts TBE tables comparing bids clause by clause"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T320",
+   "risk": "normal",
+   "keeps": "Review code",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor load and anchor data and steel shop drawings against design drawings; drafts comments"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T330",
+   "risk": "normal",
+   "keeps": "Structural clash and access resolution",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Records structural review actions and clash assignments and tracks them to close"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T340",
+   "risk": "normal",
+   "keeps": "CWP boundaries and sequence",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts civil and steel CWP content lists from the model and construction sequence"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T350",
+   "risk": "sealed",
+   "keeps": "Checking, PE seal and IFC issue",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks IFC package contents, numbering, title blocks and revisions against the register before sealing"
+    },
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks package drawings against the Tekla model and standards before checker review"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T360",
+   "risk": "normal",
+   "keeps": "Field change approval and NCR disposition",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers civil RFIs from IFC drawings and specs where answered; drafts others and routes NCRs"
+    }
+   ]
+  },
+  {
+   "task": "CIVL-T370",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "CIVL-T380",
+   "risk": "normal",
+   "keeps": "As-built drafting and records issue",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks civil field redlines to closure; lists drawings and Tekla areas awaiting as-built update"
+    }
+   ]
+  }
+ ]
+}

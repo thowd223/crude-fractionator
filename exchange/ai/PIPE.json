@@ -1,0 +1,632 @@
+{
+ "discipline": "PIPE",
+ "tasks": [
+  {
+   "task": "PIPE-T005",
+   "risk": "normal",
+   "keeps": "Rules of credit, progress claims and hold escalation",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles piping deliverable progress from Document Locator status and P6; flags late deliverables and holds"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Keeps the piping deliverables register in step with P6 and Document Locator; lists overdue reviews"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T010",
+   "risk": "normal",
+   "keeps": "Layout options and spacing judgement",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner spacing standards and siting study distances for each block layout option"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T020",
+   "risk": "normal",
+   "keeps": "Factors chosen and estimate quantities",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Applies benchmark factors to equipment counts and run lengths to draft piping quantities per option"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T030",
+   "risk": "normal",
+   "keeps": "Layout rules and project-specific choices",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner layout standards, spacing tables and constructability rules for each design basis section"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T040",
+   "risk": "normal",
+   "keeps": "Equipment locations and layout decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks plot plan spacing against owner standards and the siting study; lists deviations"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Records plot plan review comments and tracks each action to close"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T050",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "PIPE-T060",
+   "risk": "normal",
+   "keeps": "Rack width, tier allocation and load estimates",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tabulates rack lines from the line list with sizes and weights to draft rack load estimates"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T070",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "PIPE-T080",
+   "risk": "normal",
+   "keeps": "Required orientations and elevations",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares requested nozzle orientations with vendor drawings and vessel datasheets; lists differences"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T090",
+   "risk": "normal",
+   "keeps": "Class content, ratings and wall thicknesses",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks piping classes against ASME B31.3, B16.5 ratings and owner standards; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T100",
+   "risk": "normal",
+   "keeps": "Catalogue build and approval",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Compares S3D catalogue entries with issued piping classes; lists mismatched commodity and valve codes"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T110",
+   "risk": "normal",
+   "keeps": "Valve selection by service",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts valve datasheets per valve code from piping classes and process valve requirements"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T120",
+   "risk": "normal",
+   "keeps": "Specialty item selection",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Lists special items with tags and sizes from P&IDs into the specialty item list"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts specialty item datasheets from process data and piping classes"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T130",
+   "risk": "normal",
+   "keeps": "Fabrication, NDE and PWHT requirements",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks fabrication, NDE and testing specifications against ASME B31.3 and owner standards; lists gaps"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T140",
+   "risk": "normal",
+   "keeps": "Line-by-line exceptions and test medium choice",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills class, test pressure, NDE, PWHT, paint and insulation per line from classes and fabrication specs"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T150",
+   "risk": "normal",
+   "keeps": "Factors applied and MTO issue",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Combines S3D MTO reports with factored quantities for unrouted areas into the bulk MTO, flagging factors"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T160",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "PIPE-T170",
+   "risk": "normal",
+   "keeps": "Resolving each difference",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Compares SPID line numbers, sizes, specs and components with S3D and lists every mismatch"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T180",
+   "risk": "normal",
+   "keeps": "Instrument positions and access",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares in-line instrument tags in S3D with the instrument index and P&IDs"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T190",
+   "risk": "safety",
+   "keeps": "Line selection and confirming data to Process",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Carries as-routed lengths, fittings and elevations from S3D reports into process hydraulic check templates"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T200",
+   "risk": "normal",
+   "keeps": "Final categorisation and borderline lines",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Applies stress-criticality rules by size, temperature and service to the line list; drafts the categorisation"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T210",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "PIPE-T220",
+   "risk": "normal",
+   "keeps": "Analysis, support decisions and acceptance",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks CAESAR II inputs (design conditions, wind, seismic) against the line list and design basis"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T230",
+   "risk": "normal",
+   "keeps": "Re-route, re-support or acceptance decisions",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks each exceeded nozzle load to agreement with mechanical and the vendor"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T240",
+   "risk": "normal",
+   "keeps": "Support selection and vendor data acceptance",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assembles the spring hanger requisition from CAESAR II support data and drafts the TBE"
+    },
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks vendor spring hanger data against datasheet loads and travel; drafts comments"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T250",
+   "risk": "normal",
+   "keeps": "Support design and special support details",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks S3D support placement reports against stress support output and standard support rules"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T260",
+   "risk": "normal",
+   "keeps": "Platform, access and penetration requirements",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks piping requests for platforms, sleepers and penetrations until civil incorporates them"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T270",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "PIPE-T280",
+   "risk": "normal",
+   "keeps": "Review conduct and acceptance of layout",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Records 30/60/90 review comments by area and owner and tracks each action to close-out"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T290",
+   "risk": "normal",
+   "keeps": "Clash resolution",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Tracks clash assignments by owner and reports open clashes by area before each issue"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T300",
+   "risk": "safety",
+   "keeps": "Layout changes and closing each action",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Tracks layout-related HAZOP, siting and fire and gas actions; checks close-out evidence exists"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T310",
+   "risk": "normal",
+   "keeps": "Model updates and hold decisions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls certified nozzle sizes, ratings and positions from vendor drawings for model update"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Maintains the piping hold list, reminding owners and flagging holds blocking isometric issue"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T320",
+   "risk": "normal",
+   "keeps": "Checker signature and IFC issue",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Checks isometrics against line list, piping class, supports and hold list before issue"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T330",
+   "risk": "normal",
+   "keeps": "Spool breaks and field weld locations",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles fabrication packages from IFC isometrics, spool lists and weld data"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T340",
+   "risk": "normal",
+   "keeps": "Surplus allowances and requisition issue",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Reconciles S3D MTO by ident against prior buys and surplus; lists net quantities"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles bulk requisitions from the net MTO and valve and specialty datasheets"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T350",
+   "risk": "normal",
+   "keeps": "Technical acceptance and recommendation",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares bulk material and valve offers line by line with requisitions and drafts the TBE"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T360",
+   "risk": "normal",
+   "keeps": "Review code",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks valve vendor drawings, test certificates and data books against datasheets; drafts comments"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T370",
+   "risk": "normal",
+   "keeps": "Drawing content and issue",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks extracted GA drawings for key plan references and line labels against the line list"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T380",
+   "risk": "normal",
+   "keeps": "Tie-in type, timing and survey verification",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists tie-in points with size and spec from marked-up P&IDs into the tie-in list"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T390",
+   "risk": "normal",
+   "keeps": "Test circuit boundaries and pressures",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts test pack boundaries from isos and line list grouped by test pressure, medium and system"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T400",
+   "risk": "normal",
+   "keeps": "Model publication and attribute rules",
+   "agents": [
+    {
+     "agent": "AG-15",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks published model objects carry iso, spool and CWP attributes; lists gaps"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T410",
+   "risk": "normal",
+   "keeps": "Approval of spool drawings",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Checks fabricator spool drawings and weld maps against IFC isometrics; lists differences"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T420",
+   "risk": "normal",
+   "keeps": "Responses that change design and field change isos",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers piping RFIs from isos, specs and model where answered; drafts others; tracks field change isos"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T430",
+   "risk": "normal",
+   "keeps": "Supplementary requisitions",
+   "agents": [
+    {
+     "agent": "AG-14",
+     "pattern": "monitor",
+     "share": 3,
+     "autonomy": 3,
+     "does": "Reconciles MTO against received and issued quantities by ident; forecasts shortages and surplus"
+    }
+   ]
+  },
+  {
+   "task": "PIPE-T440",
+   "risk": "normal",
+   "keeps": "As-built drafting and records issue",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tracks field redlines to closure; lists isos and model areas still awaiting as-built update"
+    }
+   ]
+  }
+ ]
+}

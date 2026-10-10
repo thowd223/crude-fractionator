@@ -1,0 +1,859 @@
+{
+ "discipline": "INST",
+ "tasks": [
+  {
+   "task": "INST-T005",
+   "risk": "normal",
+   "keeps": "Rules-of-credit judgement, hold priorities and reporting to project controls",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles I&C deliverable progress from Document Locator status against PROJ-I140 planned dates; flags holds"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Keeps the I&C deliverables list in step with the PROJ-I060 register and Document Locator revisions"
+    }
+   ]
+  },
+  {
+   "task": "INST-T010",
+   "risk": "normal",
+   "keeps": "Automation concept, DCS/SIS/F&G split and control room decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers from OWNR-I130/I060 owner automation standards and approved system vendors, citing clauses"
+    }
+   ]
+  },
+  {
+   "task": "INST-T020",
+   "risk": "normal",
+   "keeps": "Factors, allowances and the I&C estimate basis",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Lists instrument tags, control valves and analyzers from PROC-I200 P&IDs or PFDs for counting"
+    },
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds I/O, valve and cabinet counts in the PROJ-I080 template, flagging every factor applied"
+    }
+   ]
+  },
+  {
+   "task": "INST-T030",
+   "risk": "normal",
+   "keeps": "Network architecture, redundancy, room sizing and heat load decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites OWNR-I130 platform, historian and control room integration standards for the architecture"
+    }
+   ]
+  },
+  {
+   "task": "INST-T040",
+   "risk": "normal",
+   "keeps": "Instrument selection rules, order of precedence and Ex protection concept",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 1,
+     "does": "Checks draft I&C basis and general specs against OWNR-I060/I180 standards and codes; lists deviations"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries ambient data from CIVL-I030 and area classification method from ELEC-I010 into basis tables"
+    }
+   ]
+  },
+  {
+   "task": "INST-T045",
+   "risk": "normal",
+   "keeps": "Markup content, control and interlock representation decisions",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Lists instruments, loops, fail positions and holds per PROC-I200/I340 P&ID revision for markup"
+    },
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks each SAFE-I152 HAZOP recommendation on instruments appears on the P&ID markups"
+    }
+   ]
+  },
+  {
+   "task": "INST-T050",
+   "risk": "normal",
+   "keeps": "Acceptance of each tag and the load into SI",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Extracts tags, loops, service, line, equipment and P&ID number from PROC-I340 P&IDs into SI staging"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares SI index with SPID tags after each P&ID revision; lists missing or mismatched tags"
+    }
+   ]
+  },
+  {
+   "task": "INST-T055",
+   "risk": "safety",
+   "keeps": "Technical responses, design changes and action close-out sign-off",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Tracks SAFE-I152/I160 actions assigned to I&C and checks close-out evidence exists on IFD P&IDs"
+    }
+   ]
+  },
+  {
+   "task": "INST-T060",
+   "risk": "normal",
+   "keeps": "Case selection per instrument and approval of each SI load",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Carries HYSYS stream data PROC-I110 and per-tag ranges PROC-I220 into SI process data sheets"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares SI process data with process datasheets and line list after each process revision"
+    }
+   ]
+  },
+  {
+   "task": "INST-T070",
+   "risk": "normal",
+   "keeps": "Sizing, noise and cavitation judgements; trim, body and actuator selection",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Loads flow cases and allowable dP from PROC-I220 and line class into SI sizing inputs, flagging gaps"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Flags control valve calculations built on superseded process data or line class revisions"
+    }
+   ]
+  },
+  {
+   "task": "INST-T080",
+   "risk": "safety",
+   "keeps": "Actuator sizing, stroke times, fail positions, leak class and fire-safe decisions",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Loads closure times, fail positions and SIF final element requirements from PROC-I235 and INST-I220 into SI"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Flags ESD valve sizing based on superseded trip, EIV or SIF requirement revisions"
+    }
+   ]
+  },
+  {
+   "task": "INST-T090",
+   "risk": "normal",
+   "keeps": "Element selection, beta ratio and wake frequency acceptance",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries flow cases from INST-I060 and pipe ID from PIPE-I160 schedules into SI calculation inputs"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Flags flow element and thermowell calculations on superseded process or line data"
+    }
+   ]
+  },
+  {
+   "task": "INST-T100",
+   "risk": "safety",
+   "keeps": "Orifice, body size and rating selection; PSV datasheet sign-off",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills PSV datasheets from PROC-I250/I251 relief cases: rate, set and back pressure, fluid properties, orifice"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Compares PSV datasheet values with the process relief summary and PIPE-I160 inlet/outlet classes"
+    }
+   ]
+  },
+  {
+   "task": "INST-T110",
+   "risk": "normal",
+   "keeps": "Instrument selection, materials and issue for requisition",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills SI datasheets from process data, valve sizing results, area classification and piping class materials"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks datasheet Ex ratings and wetted materials against ELEC-I072 and PIPE-I110"
+    }
+   ]
+  },
+  {
+   "task": "INST-T115",
+   "risk": "normal",
+   "keeps": "Connection types, bridle arrangements and tapping elevations",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists instrument nozzles, sizes and elevations from MECH-I170/I270 nozzle schedules and vessel drawings"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares instrument connection list with mechanical nozzle schedules; flags missing or mismatched nozzles"
+    }
+   ]
+  },
+  {
+   "task": "INST-T130",
+   "risk": "normal",
+   "keeps": "Package split, technical content and MR issue approval",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assembles instrument MRs with SI and PSV datasheets, PROJ-I370 VDRL template and SCM-I030 bidder list"
+    }
+   ]
+  },
+  {
+   "task": "INST-T140",
+   "risk": "normal",
+   "keeps": "Technical acceptability and bidder recommendation",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares vendor offers with MR datasheets clause by clause; drafts TBE tables, clarifications and deviations"
+    }
+   ]
+  },
+  {
+   "task": "INST-T150",
+   "risk": "normal",
+   "keeps": "Review codes, comment sign-off and acceptance of certified data into SI",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks instrument vendor drawings against SI datasheets; drafts comments; extracts certified dimensions and weights"
+    },
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Chases overdue instrument vendor documents against SCM-I170 due dates"
+    }
+   ]
+  },
+  {
+   "task": "INST-T160",
+   "risk": "normal",
+   "keeps": "Analyzer technology, sample system design and shelter sizing",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts analyzer datasheets from PROC-I390 requirements and PROC-I110 stream compositions"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites SAFE-I062/I072 permit conditions for CEMS and flare monitoring requirements"
+    }
+   ]
+  },
+  {
+   "task": "INST-T170",
+   "risk": "normal",
+   "keeps": "Control strategy, sequence logic and permissive design",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks draft narratives against PROC-I230/I240 control philosophy and operating modes; lists gaps"
+    }
+   ]
+  },
+  {
+   "task": "INST-T180",
+   "risk": "normal",
+   "keeps": "Functional requirements, redundancy and hardware scope of the DCS",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the DCS specification against OWNR-I130 standards and INST-I030 architecture; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "INST-T190",
+   "risk": "safety",
+   "keeps": "SIS requirements and IEC 61511 compliance of the specification",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the SIS specification against the SRS and owner standards; lists deviations with citations"
+    },
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Cross-checks SIS I/O and SIF counts with INST-I261 and SAFE-I160 SIL targets"
+    }
+   ]
+  },
+  {
+   "task": "INST-T200",
+   "risk": "safety",
+   "keeps": "F&G specification, detector selection, voting and executive actions",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Extracts detector tags, types, coordinates and zones from SAFE-I180 mapping study into SI staging"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks F&G device Ex ratings in SI against ELEC-I072 area classification"
+    }
+   ]
+  },
+  {
+   "task": "INST-T210",
+   "risk": "safety",
+   "keeps": "SIF definition, voting and reliability input to SIL determination",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts SIF list rows from PROC-I235 trip schedule and SAFE-I160 LOPA; checks tags against P&IDs"
+    }
+   ]
+  },
+  {
+   "task": "INST-T220",
+   "risk": "safety",
+   "keeps": "SRS content, proof test requirements and approval",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts SRS tables per SIF: safe state, trip points, response time, bypasses from INST-I210, SAFE-I160, PROC-I235"
+    }
+   ]
+  },
+  {
+   "task": "INST-T230",
+   "risk": "safety",
+   "keeps": "PFDavg calculations, architectural constraints and proof test intervals",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts failure rates, SFF and SIL capability from VEND-I140 FMEDA reports and SIL certificates"
+    },
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks verified SIF architectures match the SRS and the selected device tags"
+    }
+   ]
+  },
+  {
+   "task": "INST-T240",
+   "risk": "safety",
+   "keeps": "Shutdown logic, F&G executive actions and C&E approval",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts shutdown and F&G C&E charts from PROC-I235 trips, SAFE-I182 zones and the SIF list"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks C&E tags against the SI index and ELEC-I340 motor trip signals"
+    }
+   ]
+  },
+  {
+   "task": "INST-T250",
+   "risk": "normal",
+   "keeps": "Alarm priorities, consequences and rationalization decisions",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pre-loads the alarm database with INST-I050 tags and PROC-I220 set points before sessions"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Records rationalization session outcomes: set points, priorities, consequences and open actions"
+    }
+   ]
+  },
+  {
+   "task": "INST-T260",
+   "risk": "normal",
+   "keeps": "I/O assignment to cabinets and cards, spares and vendor counts",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries per-motor signals from the SPEL ELEC-I340 export into the SI I/O list for approval"
+    },
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts package I/O and serial link maps from MECH-I450 vendor documents into staging"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks the I/O list against the SI index, motor signals and package I/O"
+    }
+   ]
+  },
+  {
+   "task": "INST-T270",
+   "risk": "normal",
+   "keeps": "Package control requirements, scope split and interface decisions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Reviews package P&IDs, I/O lists and narratives VEND-I100/I110 against I&C requirements; drafts comments"
+    },
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts package interface signals from vendor P&IDs and I/O lists into the signal list"
+    }
+   ]
+  },
+  {
+   "task": "INST-T280",
+   "risk": "normal",
+   "keeps": "Diversity, UPS versus normal allocation and tracing requirements",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts power, UPS and instrument air consumer lists from SI instrument types and locations"
+    },
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls analyzer, cabinet and panel power from VEND-I120/I020 vendor data"
+    }
+   ]
+  },
+  {
+   "task": "INST-T290",
+   "risk": "normal",
+   "keeps": "Instrument and JB placement, access and model review positions",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks S3D instrument and JB placements against access rules and hazardous area boundaries"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Records I&C model review comments and tracks them to close-out"
+    }
+   ]
+  },
+  {
+   "task": "INST-T300",
+   "risk": "normal",
+   "keeps": "Hook-up typical design and special-service hook-ups",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Assigns each SI tag to a hook-up typical by type, connection and service flags; compiles BOMs"
+    }
+   ]
+  },
+  {
+   "task": "INST-T310",
+   "risk": "normal",
+   "keeps": "Wiring, marshalling and termination design",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks SI terminations against VEND-I140 marshalling numbering and ELEC-I350 MCC relay terminals"
+    }
+   ]
+  },
+  {
+   "task": "INST-T320",
+   "risk": "normal",
+   "keeps": "Cable routing, segregation and tray loading figures to electrical",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Takes off cable lengths from S3D route distances and counts cables per tray segment"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares the cable schedule with SI wiring; lists missing or duplicate cables"
+    }
+   ]
+  },
+  {
+   "task": "INST-T330",
+   "risk": "normal",
+   "keeps": "Loop diagram generation and issue",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks loop diagrams against VEND-I280 final I/O and INST-I151 certified wiring data before issue"
+    }
+   ]
+  },
+  {
+   "task": "INST-T340",
+   "risk": "normal",
+   "keeps": "Surplus allowances and MTO issue",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Totals cable, tubing, fittings and JBs from hook-up BOMs and cable schedule with SCM-I060 codes"
+    },
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Reconciles instrument bulk MTO revisions against purchased, received and issued quantities"
+    }
+   ]
+  },
+  {
+   "task": "INST-T350",
+   "risk": "normal",
+   "keeps": "Telecom and security system design and device placement",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers from owner telecom standards and SAFE-I370 security assessment with citations"
+    }
+   ]
+  },
+  {
+   "task": "INST-T380",
+   "risk": "safety",
+   "keeps": "Approval of each configuration data release to vendors",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Exports tags, ranges, alarms and I/O from SI and the alarm database into vendor configuration templates"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Cross-checks the configuration export against SI, the alarm database and C&E; lists mismatches"
+    }
+   ]
+  },
+  {
+   "task": "INST-T390",
+   "risk": "safety",
+   "keeps": "Witnessing, test acceptance and punch categorisation",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks configured SIS and F&G logic against INST-I240/I241 C&E charts; lists mismatches"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records FAT punch items and tracks them to closure"
+    }
+   ]
+  },
+  {
+   "task": "INST-T400",
+   "risk": "normal",
+   "keeps": "Responses that change design and field change approval",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers I&C RFIs from IFC loop, hook-up and location drawings where the answer exists; drafts responses"
+    }
+   ]
+  },
+  {
+   "task": "INST-T410",
+   "risk": "normal",
+   "keeps": "Subsystem assignment acceptance and load into Smart Completions",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Builds instrument, cable and JB register with subsystem codes from SI exports in COMM-I040 format"
+    }
+   ]
+  },
+  {
+   "task": "INST-T420",
+   "risk": "normal",
+   "keeps": "Engineering resolution of loop defects and punch items",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts responses to I&C punch items citing IFC loop diagrams"
+    },
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Summarises loop check results and open I&C punch by subsystem"
+    }
+   ]
+  },
+  {
+   "task": "INST-T430",
+   "risk": "safety",
+   "keeps": "Validation witnessing, SIS acceptance and sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks SIF validation records are complete against the SRS and C&E test procedures"
+    }
+   ]
+  },
+  {
+   "task": "INST-T440",
+   "risk": "normal",
+   "keeps": "Incorporation of redlines and handover issue",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists each CONS-I330 redline with affected SI tags and drawings for incorporation"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks as-built SI against final vendor data and approved field changes"
+    }
+   ]
+  },
+  {
+   "task": "INST-T145",
+   "risk": "safety",
+   "keeps": "Agreement of final relief valve sizing with Process before purchase",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Compares vendor final orifice, model and rating VEND-I020 with PROC-I255 acceptance and the TBE"
+    }
+   ]
+  }
+ ]
+}

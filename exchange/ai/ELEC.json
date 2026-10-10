@@ -1,0 +1,799 @@
+{
+ "discipline": "ELEC",
+ "tasks": [
+  {
+   "task": "ELEC-T005",
+   "risk": "normal",
+   "keeps": "Rules-of-credit judgement, hold priorities and reporting to project controls",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles electrical deliverable progress from Document Locator status against PROJ-I140 planned dates; flags holds"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Keeps the electrical deliverables list in step with the PROJ-I060 register and Document Locator revisions"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T010",
+   "risk": "normal",
+   "keeps": "Voltage levels, redundancy and emergency power philosophy",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks draft basis against OWNR-I060 owner standards and NEC, NFPA 70E, API RP 540 clauses"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries ambient, wind and seismic data from CIVL-I030 into basis tables"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T020",
+   "risk": "normal",
+   "keeps": "Diversity factors, allowances and the plant demand figure",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles connected and running loads from MECH-I050 drivers and PROC-I270, flagging every factor"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T030",
+   "risk": "normal",
+   "keeps": "Point of interconnection, protection requirements and utility agreement",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records utility meetings and tracks interconnection application actions and dates"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T040",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "ELEC-T050",
+   "risk": "normal",
+   "keeps": "Factors, pricing judgement and the estimate basis",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds quantity sheets from equipment ratings, motor list and VEND-I010 budget prices in PROJ-I080 template"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T060",
+   "risk": "safety",
+   "keeps": "Grades of release, ventilation and classification judgement",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Lists release sources (seals, flanges, vents, drains, PSVs) from PROC-I201 P&IDs with locations"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Fills fluid data from PROC-I285 and gas group and T-class from SAFE-I035 per source"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T070",
+   "risk": "safety",
+   "keeps": "Classified extents, drawing content and issue",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks drawn extents cover every source on the ELEC-I060 release source list"
+    },
+    {
+     "agent": "AG-19",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Notifies instrument, telecom, lighting and vendor owners when classified extents are revised"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T080",
+   "risk": "normal",
+   "keeps": "Building arrangement, sizing and blast and pressurization decisions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Pulls switchgear, MCC, VFD and UPS dimensions, weights and heat losses from VEND-I020"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T090",
+   "risk": "normal",
+   "keeps": "Bus assignment, demand factors and load list acceptance",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Loads consumer tags, ratings, duty and voltage from MECH, INST, CIVL and vendor lists into SPEL"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares SPEL load list with P&ID motor tags and the equipment register"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T100",
+   "risk": "normal",
+   "keeps": "Review comments and electrical attribute decisions",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Lists motors, MOVs, heat tracing flags and electrical interlocks per PROC-I200 IFR P&ID"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares P&ID motor and MOV tags with the SPEL load list"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T110",
+   "risk": "normal",
+   "keeps": "Equipment ratings and sizing judgement",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Flags sizing calculations built on a superseded load list or study revision"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T120",
+   "risk": "sealed",
+   "keeps": "Distribution configuration, protection and metering on the one-lines",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares one-line loads and ratings with the SPEL load list and ELEC-I110 ratings"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T130",
+   "risk": "normal",
+   "keeps": "Ratings, configuration choices, deviations and issue of the technical requisition",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills MV switchgear datasheets with ratings, fault duties and area class from ELEC-I110, ELEC-I220, ELEC-I072"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles the MV switchgear requisition package from datasheets, specification and VDRL"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the MV switchgear specification against OWNR-I060 owner standards and approved vendors; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T140",
+   "risk": "normal",
+   "keeps": "Ratings, configuration choices, deviations and issue of the technical requisition",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills power transformer datasheets with ratings, fault duties and area class from ELEC-I110, ELEC-I220, ELEC-I072"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles the power transformer requisition package from datasheets, specification and VDRL"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the power transformer specification against OWNR-I060 owner standards and approved vendors; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T150",
+   "risk": "normal",
+   "keeps": "Ratings, configuration choices, deviations and issue of the technical requisition",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills LV switchgear, MCC and E-house datasheets with ratings, fault duties and area class from ELEC-I110, ELEC-I220, ELEC-I072"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles the LV switchgear, MCC and E-house requisition package from datasheets, specification and VDRL"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the LV switchgear, MCC and E-house specification against OWNR-I060 owner standards and approved vendors; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T160",
+   "risk": "normal",
+   "keeps": "Ratings, configuration choices, deviations and issue of the technical requisition",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills VFD datasheets with ratings, fault duties and area class from ELEC-I110, ELEC-I220, ELEC-I072 and MECH-I330"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles the VFD requisition package from datasheets, specification and VDRL"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the VFD specification against OWNR-I060 owner standards and approved vendors; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T170",
+   "risk": "normal",
+   "keeps": "Ratings, configuration choices, deviations and issue of the technical requisition",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills UPS, DC and generator datasheets with ratings, fault duties and area class from ELEC-I110, ELEC-I220, ELEC-I072 and INST-I280"
+    },
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles the UPS, DC and generator requisition package from datasheets, specification and VDRL"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the UPS, DC and generator specification against OWNR-I060 owner standards and approved vendors; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T180",
+   "risk": "normal",
+   "keeps": "Technical acceptability and bidder recommendation",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares electrical offers with ELEC-I130 to I170 requirements; drafts TBE tables and deviation lists"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records clarification meetings and tracks open vendor clarifications"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T190",
+   "risk": "normal",
+   "keeps": "Review codes, comment sign-off and loading certified data into SPEL and ETAP",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor GA, schematics and datasheets against specs; drafts comments; extracts certified impedances and weights"
+    },
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Chases overdue electrical vendor documents against SCM-I160 VDRL dates"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T200",
+   "risk": "normal",
+   "keeps": "Acceptance of motor data and load list updates",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks MECH-I440 motor datasheets against ELEC-I012 requirements; extracts kW, FLA, LRC and PF"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares certified motor data with SPEL load list values"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T210",
+   "risk": "normal",
+   "keeps": "Model building, study cases, tap settings and interpretation of results",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries SPEL loads and certified transformer data ELEC-I192 into ETAP input tables for approval"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Flags study runs on a superseded load list or one-line revision"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T220",
+   "risk": "normal",
+   "keeps": "Fault calculations and confirmation of equipment duties",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Flags short-circuit runs using superseded or uncertified impedances"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T230",
+   "risk": "normal",
+   "keeps": "Study cases and starting method decisions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts speed-torque curves, inertia and LRC from MECH-I440 certified motor and driven-equipment data"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T240",
+   "risk": "normal",
+   "keeps": "Harmonic modelling, compliance judgement and filter requirements",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts VFD harmonic spectra and front-end type from VEND-I140 certified data"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T250",
+   "risk": "safety",
+   "keeps": "Coordination, relay and breaker settings",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts relay models, CT ratios, trip units and fuse curves from VEND-I140 certified documents"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T260",
+   "risk": "safety",
+   "keeps": "Incident energy results, PPE categories and label approval",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Flags arc flash results based on superseded settings or fault currents"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts equipment labels from approved study results and the OWNR-I060 labeling standard"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T270",
+   "risk": "normal",
+   "keeps": "Ground grid design and grounding layouts",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks the ground grid study uses current CIVL-I390 soil resistivity and ELEC-I220 fault data"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T280",
+   "risk": "normal",
+   "keeps": "Risk assessment and protection design",
+   "agents": [
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists structure heights and building dimensions from MECH-I290 and civil drawings for NFPA 780 assessment"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T290",
+   "risk": "normal",
+   "keeps": "Illumination design, fixture layout and emergency lighting coverage",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Takes off fixtures and receptacles per area from layouts into lighting panel schedules"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T300",
+   "risk": "normal",
+   "keeps": "Circuit design, sheath temperature limits and control approach",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Compiles circuit list and loads from vendor design software output and PROC-I210 tracing requirements"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T310",
+   "risk": "normal",
+   "keeps": "CP design and current requirement calculations",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Answers NACE/AMPP and owner CP requirements from the spec library with citations"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T320",
+   "risk": "normal",
+   "keeps": "Cable sizing for ampacity, voltage drop and short-circuit withstand",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares the cable schedule with SPEL loads and one-line feeders; lists missing or orphan cables"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T330",
+   "risk": "normal",
+   "keeps": "Raceway routing and space reservation decisions",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks S3D tray reports against segregation rules, PIPE-I070 rack levels and clash rules"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Records model review actions on electrical raceway and tracks closure"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T340",
+   "risk": "safety",
+   "keeps": "Signal definitions, hardwired versus serial and protocol agreement",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares MCC/switchgear signal list with SI I/O list, INST-I240 motor trips and INST-I170 logic"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T350",
+   "risk": "safety",
+   "keeps": "Schematic design and interlock logic",
+   "agents": [
+    {
+     "agent": "AG-09",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks interlock schematics against INST-I240 C&E trip actions and INST-I210 SIF final elements"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T360",
+   "risk": "sealed",
+   "keeps": "Layout design and drawing issue under seal",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks layouts against ELEC-I192 certified dimensions, CIVL-I190 foundations and the tray model"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T370",
+   "risk": "normal",
+   "keeps": "Allowances and MTO issue to procurement",
+   "agents": [
+    {
+     "agent": "AG-13",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Totals cable, tray, conduit, lighting, grounding, tracing and CP materials with SCM-I060 codes"
+    },
+    {
+     "agent": "AG-14",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Reconciles MTO revisions with purchased quantities and SCM-I330 surplus"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T380",
+   "risk": "normal",
+   "agents": []
+  },
+  {
+   "task": "ELEC-T390",
+   "risk": "sealed",
+   "keeps": "Inter-discipline check, PE seal and IFC issue",
+   "agents": [
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks title blocks, numbering and revisions of the IFC package against the PROJ-I060 register"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists open OWNR-I110 comments, PIPE-I350 model actions and PIPE-I360 clashes before IFC"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T400",
+   "risk": "normal",
+   "keeps": "Witnessing, test acceptance and release recommendation",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks VEND-I150 FAT procedures against specification acceptance criteria and witness points"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Records switchgear, MCC, VFD and UPS FAT punch and tracks it to closure"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T410",
+   "risk": "normal",
+   "keeps": "Responses that change design and field change approval",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers electrical RFIs from IFC drawings, SPEL and vendor data where the answer exists; drafts responses"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T420",
+   "risk": "normal",
+   "keeps": "System boundaries and energization sequence",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Builds electrical tag and cable lists by subsystem from SPEL exports in COMM-I040 format"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T430",
+   "risk": "safety",
+   "keeps": "Energization readiness, LOTO and sign-off",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks NETA test records and B-ITRs are complete per tag before energization"
+    }
+   ]
+  },
+  {
+   "task": "ELEC-T440",
+   "risk": "normal",
+   "keeps": "Incorporation of redlines and issue of as-built records",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists each CONS-I330 redline with affected SPEL cables, terminations and drawings"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks as-left relay settings against the ELEC-I252 setting files"
+    }
+   ]
+  }
+ ]
+}

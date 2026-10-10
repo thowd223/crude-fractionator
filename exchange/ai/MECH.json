@@ -1,0 +1,768 @@
+{
+ "discipline": "MECH",
+ "tasks": [
+  {
+   "task": "MECH-T005",
+   "risk": "normal",
+   "keeps": "Rules of credit, progress claims and hold escalation",
+   "agents": [
+    {
+     "agent": "AG-12",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compiles mechanical deliverable progress from Document Locator status and P6; flags late deliverables and holds"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Keeps the mechanical deliverables register in step with P6 and Document Locator; lists overdue reviews"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T010",
+   "risk": "normal",
+   "keeps": "Equipment types, rough sizes, materials and weights per option",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tabulates equipment from each HYSYS screening case into the block-level equipment list template"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T020",
+   "risk": "normal",
+   "keeps": "Codes, margins, sparing and standardisation rules",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites owner standards, code editions and design basis clauses for each mechanical design rule"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Carries current site data and safety basis values into the mechanical design basis tables"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T030",
+   "risk": "normal",
+   "keeps": "Material and corrosion allowance selection",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites corrosion basis, owner materials standards and code clauses for each service"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts the materials selection table by equipment tag from the corrosion basis and stream data"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T040",
+   "risk": "normal",
+   "keeps": "Sparing philosophy and driver choice per machine",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists rotating machines with duty, power and sparing basis from the equipment list and sparing philosophy"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T050",
+   "risk": "normal",
+   "keeps": "Enquiry list and judgement of cost data",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Assembles budget enquiry packages from preliminary datasheets and the equipment list"
+    },
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Pulls price, weight and delivery from vendor budget quotations into the equipment cost sheet"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T060",
+   "risk": "normal",
+   "keeps": "Master mechanical attributes and tag changes",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Compares equipment list attributes with datasheets, SPID and vendor data and lists mismatches"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Carries updated datasheet and certified vendor attributes into the equipment list for approval"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T070",
+   "risk": "normal",
+   "keeps": "Exchanger rating, TEMA type and geometry",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Transfers HYSYS stream data and fouling factors into the thermal rating input files"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Flags exchanger ratings built on superseded process data or design basis revisions"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T080",
+   "risk": "normal",
+   "keeps": "Air cooler sizing, bays and fan selection",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Loads process data and design ambient from the basis into the air cooler rating inputs"
+    },
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks air cooler designs use the current design ambient temperature and site elevation"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T090",
+   "risk": "normal",
+   "keeps": "Heater configuration, coil, burner and stack design",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills the API 560 datasheet from heater design results and process data, flagging unsourced values"
+    },
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks the heater datasheet against API 560 and the project heater specification; lists deviations"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T100",
+   "risk": "sealed",
+   "keeps": "Thickness, reinforcement, wind and seismic calculations and the seal",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Feeds design conditions, corrosion allowance and site wind/seismic data into vessel calcs; flags superseded inputs"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T110",
+   "risk": "normal",
+   "keeps": "Internals selection and hydraulic acceptability",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts internals specification sheets from tray or packing vendor data and vessel calc dimensions"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T120",
+   "risk": "sealed",
+   "keeps": "Shell, roof and venting design and foundation loads",
+   "agents": [
+    {
+     "agent": "AG-07",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Feeds basis wind, seismic, soil and fire-case data into tank calcs; flags superseded inputs"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T130",
+   "risk": "normal",
+   "keeps": "Datasheet content and issue under the engineer's name",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills vessel and column mechanical datasheets from process datasheets, vessel calcs and nozzle schedules"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares datasheet nozzles and design conditions with SPID, line list and instrument data"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T140",
+   "risk": "normal",
+   "keeps": "Datasheet content and issue under the engineer's name",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Fills TEMA and API 661 datasheets from thermal rating outputs and the materials selection table"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T150",
+   "risk": "normal",
+   "keeps": "Seal, bearing and driver choices; datasheet issue",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Fills pump and compressor API datasheets from process datasheets and electrical motor data"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T160",
+   "risk": "normal",
+   "keeps": "Scope split, battery limits and interface decisions",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks package specifications against owner standards and interface requirements; lists missing clauses"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts package utility demand and interface tables from process, I&C and electrical inputs"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T170",
+   "risk": "normal",
+   "keeps": "Seal plan and lube system selection",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "answer",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Cites API 682, API 614 and owner seal-plan rules for each pump and compressor service"
+    },
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Drafts the seal plan schedule per pump from rotating datasheets and fluid properties"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T180",
+   "risk": "safety",
+   "keeps": "P&ID markups and HAZOP action responses",
+   "agents": [
+    {
+     "agent": "AG-08",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Tracks mechanical HAZOP actions to close-out and checks close-out evidence exists"
+    },
+    {
+     "agent": "AG-01",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Lists vents, drains, seal systems and package boundary tags from P&IDs for mechanical markup"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T190",
+   "risk": "normal",
+   "keeps": "Nozzle orientations and allowable load values",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "draft",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Tabulates allowable nozzle loads per nozzle from datasheets and the project nozzle load table"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares orientation drawings with piping requests and the vessel datasheet nozzle schedule"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T200",
+   "risk": "normal",
+   "keeps": "Outline dimensions and maintenance envelopes",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Pulls dimensions, footprints and removal envelopes from vendor outline drawings into the layout table"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T210",
+   "risk": "normal",
+   "keeps": "Load cases and values released to civil",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Pulls empty, operating and test weights and loads from vessel calcs and vendor drawings into the load register"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks the load register against vessel calcs and datasheets and lists weight differences"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T220",
+   "risk": "sealed",
+   "keeps": "Lifting lug and trunnion design and lift weights",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Extracts lifting weights and centres of gravity from vendor lifting drawings into the heavy-lift list"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T230",
+   "risk": "normal",
+   "keeps": "Starting method and VFD decisions",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Carries motor power, voltage, starting method and VFD needs from rotating datasheets to the electrical load list"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T240",
+   "risk": "normal",
+   "keeps": "Specification content and technical requirements",
+   "agents": [
+    {
+     "agent": "AG-06",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 1,
+     "does": "Checks draft specifications against owner standards and current code editions; lists deviations and gaps"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T250",
+   "risk": "normal",
+   "keeps": "Requisition technical content and hold decisions",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Assembles requisitions from datasheets, specifications, VDRL and scope; lists open holds per requisition"
+    },
+    {
+     "agent": "AG-11",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks every referenced document revision in the requisition is current in Document Locator"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T260",
+   "risk": "normal",
+   "keeps": "Which deviations are acceptable",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Compares bids clause by clause with the requisition; drafts technical queries and deviation lists"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T270",
+   "risk": "normal",
+   "keeps": "Technical acceptability and the recommendation",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts TBE tables from clarified offers and TQ responses, collating other disciplines' comments"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T280",
+   "risk": "commercial",
+   "keeps": "Conformed scope signed for purchase order placement",
+   "agents": [
+    {
+     "agent": "AG-05",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Carries agreed TQ answers and accepted deviations from the clarified offer into the purchase requisition"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T290",
+   "risk": "normal",
+   "keeps": "Scope confirmation and vendor commitments",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Records kick-off minutes, open holds and data schedule commitments; tracks actions to close"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T300",
+   "risk": "normal",
+   "keeps": "Review code and engineering comments",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor drawings and calcs against datasheet and requisition, drafting cited comments; collates discipline comments"
+    },
+    {
+     "agent": "AG-10",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Chases overdue vendor submissions and resubmissions against the VDRL schedule"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T310",
+   "risk": "normal",
+   "keeps": "Certification acceptance and release decision",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Pulls certified weights, loads, nozzle and motor data from certified vendor documents into release registers"
+    },
+    {
+     "agent": "AG-19",
+     "pattern": "monitor",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Notifies piping, civil, electrical and I&C owners when certified vendor data is released or revised"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T320",
+   "risk": "normal",
+   "keeps": "Hold closure decisions",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Tracks requisition and vendor data holds, reminds owners and flags holds blocking vendor dates"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T330",
+   "risk": "normal",
+   "keeps": "Acceptance of exceedances and vendor confirmation",
+   "agents": [
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Tabulates CAESAR II nozzle loads against vendor and code allowables and lists every exceedance"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T340",
+   "risk": "normal",
+   "keeps": "Acceptance of rotordynamic, torsional and pulsation results",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks vendor rotordynamic and pulsation reports against API acceptance criteria and drafts cited comments"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T350",
+   "risk": "normal",
+   "keeps": "Witness and hold point selection",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor ITPs against specification test and NDE requirements; drafts comments on missing points"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T360",
+   "risk": "normal",
+   "keeps": "Witnessing, acceptance and release for shipment",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 1,
+     "autonomy": 2,
+     "does": "Checks FAT and shop test records against ITP acceptance criteria and drafts the test report punch"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T370",
+   "risk": "normal",
+   "keeps": "Spares acceptance and owner spares policy decisions",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Checks vendor spare parts lists for completeness and drafts interchangeability tables per owner spares policy"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T380",
+   "risk": "normal",
+   "keeps": "Acceptance of the data book",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "review",
+     "share": 3,
+     "autonomy": 2,
+     "does": "Checks data books against VDRL and specifications for missing certificates, code stamps and manuals"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T390",
+   "risk": "normal",
+   "keeps": "Preservation requirements issued to site",
+   "agents": [
+    {
+     "agent": "AG-02",
+     "pattern": "extract",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Extracts storage and preservation requirements from vendor manuals into the equipment preservation schedule"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T400",
+   "risk": "normal",
+   "keeps": "Access and maintainability judgement",
+   "agents": [
+    {
+     "agent": "AG-20",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Checks model equipment against maintenance envelopes and access rules; lists infringements"
+    },
+    {
+     "agent": "AG-18",
+     "pattern": "record",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Records equipment access findings from model reviews and tracks them to close"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T410",
+   "risk": "normal",
+   "keeps": "Responses that change design and NCR dispositions",
+   "agents": [
+    {
+     "agent": "AG-16",
+     "pattern": "answer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Answers equipment RFIs from datasheets and vendor documents where answered; drafts others for the engineer"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T420",
+   "risk": "normal",
+   "keeps": "Vendor call-off decisions and service orders",
+   "agents": [
+    {
+     "agent": "AG-18",
+     "pattern": "monitor",
+     "share": 2,
+     "autonomy": 3,
+     "does": "Tracks vendor representative requests, dates and attendance against the construction schedule; reminds owners"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T430",
+   "risk": "normal",
+   "keeps": "Check sheet requirements and punch acceptance",
+   "agents": [
+    {
+     "agent": "AG-17",
+     "pattern": "draft",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Drafts equipment check sheet assignments by tag class and checks punch lists for completeness"
+    }
+   ]
+  },
+  {
+   "task": "MECH-T440",
+   "risk": "normal",
+   "keeps": "As-built data acceptance and handover issue",
+   "agents": [
+    {
+     "agent": "AG-04",
+     "pattern": "transfer",
+     "share": 2,
+     "autonomy": 2,
+     "does": "Updates datasheets and the equipment register with certified as-built vendor values, flagging changes"
+    },
+    {
+     "agent": "AG-03",
+     "pattern": "check",
+     "share": 1,
+     "autonomy": 3,
+     "does": "Compares the as-built register with certified vendor data and owner handover requirements"
+    }
+   ]
+  }
+ ]
+}
