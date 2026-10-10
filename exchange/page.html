@@ -46,6 +46,7 @@ header.tb { margin-top: 18px; border: 1.5px solid var(--ink); background: var(--
   background: var(--sheet); color: var(--ink); cursor: pointer }
 .tabs button + button { border-left: 1px solid var(--rule) }
 .tabs button[aria-selected="true"] { background: var(--ink); color: var(--sheet) }
+.ctl[hidden] { display: none }
 .ctl { display: flex; gap: 6px; align-items: center; flex-wrap: wrap }
 .ctl label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
 .ctl select { font: 14px var(--f-body); padding: 6px 8px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink) }
@@ -121,6 +122,34 @@ table.ls tr.grp td { background: var(--chip); font: 600 14px var(--f-display); l
 .bars .r .t { height: 10px; background: var(--chip) } .bars .r .t i { display: block; height: 100%; background: var(--flame) }
 .bars .r span:last-child { font-family: var(--f-mono); font-size: 12px; text-align: right }
 @media (max-width: 640px) { .bars .r { grid-template-columns: 1fr 60px } .bars .r .t { display: none } }
+.found { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; margin: 0 0 16px }
+.found div { background: var(--sheet); border: 1px solid var(--rule); border-left: 3px solid var(--flame); padding: 8px 12px; font-size: 13px }
+.found b { display: block; font-weight: 600 }
+.found span { font: 11.5px var(--f-mono); color: var(--muted) }
+.rk { background: var(--sheet); border: 1.5px solid var(--ink) }
+.rk details + details { border-top: 1px solid var(--rule) }
+.rk summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 34px minmax(0, 1fr) minmax(120px, 220px) 44px;
+  gap: 4px 12px; align-items: center; padding: 9px 14px }
+.rk summary::-webkit-details-marker { display: none }
+.rk summary:hover { background: var(--paper) }
+.rk details[open] summary { background: var(--chip) }
+.rk .n { font: 600 24px/1 var(--f-display); color: var(--muted); font-variant-numeric: tabular-nums }
+.rk .nm b { font-weight: 600; display: block; line-height: 1.3 }
+.rk .nm span { font: 11.5px var(--f-mono); color: var(--muted) }
+.rk .pb { height: 12px; background: var(--chip); position: relative }
+.rk .pb i { display: block; height: 100%; background: var(--line); border-radius: 0 4px 4px 0 }
+.rk .pv { font: 600 20px/1 var(--f-display); text-align: right; font-variant-numeric: tabular-nums }
+.tag { font: 500 11px var(--f-mono); padding: 1px 6px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; margin-right: 4px }
+.tag.w1 { border-color: var(--flame); color: var(--flame) }
+.rk .body { padding: 4px 18px 14px; display: grid; gap: 10px }
+.rk .body p { margin: 0; max-width: 90ch }
+.rk dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; font-size: 13.5px }
+.rk dt { font: 500 11px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 2px }
+.rk dd { margin: 0 }
+.rmd { font: 500 11px var(--f-mono); color: var(--muted); white-space: nowrap }
+.rmd.read { opacity: .65 }
+@media (max-width: 640px) { .rk summary { grid-template-columns: 30px minmax(0, 1fr) 40px } .rk .pb { display: none }
+  .rk dl { grid-template-columns: 1fr } }
 footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 12px }
 </style>
 </head>
@@ -144,7 +173,8 @@ footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1
 
 <div class="bar">
   <div class="tabs" role="tablist">
-    <button role="tab" data-v="disc" aria-selected="true">Disciplines</button>
+    <button role="tab" data-v="pri" aria-selected="true">Integration priorities</button>
+    <button role="tab" data-v="disc" aria-selected="false">Disciplines</button>
     <button role="tab" data-v="sys" aria-selected="false">Systems</button>
     <button role="tab" data-v="task" aria-selected="false">Tasks</button>
     <button role="tab" data-v="man" aria-selected="false">Manual hand-offs</button>
@@ -153,7 +183,13 @@ footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; border-top: 1
   <div class="ctl"><label>How it moves</label><div class="pills" id="mf"></div></div>
 </div>
 
-<section id="v-disc">
+<section id="v-pri">
+  <p class="lede" id="pri-lede"></p>
+  <div class="found" id="pri-found"></div>
+  <div class="rk" id="pri-list"></div>
+  <p class="hint" id="pri-note"></p>
+</section>
+<section id="v-disc" hidden>
   <p class="lede">Rows send, columns receive. Each cell counts the exchanges between two disciplines; the small orange
   figure is how many are re-entered by hand. Select a cell to list them.</p>
   <div class="mxw"><table class="mx" id="mx-disc"></table></div>
@@ -189,7 +225,7 @@ const EX = D.E.map(([it, to, use, m, lv]) => {
   const I = D.I[it], fr = I.o;
   return {it, fr, to, use, m: M[m], lv, fd: I.d, td: D.T[to].d, fs: I.s, ts: D.T[to].s, ph: D.T[to].p};
 });
-let st = {v: "disc", ph: "", mset: new Set(M), sel: null, disc: "PROC", task: null};
+let st = {v: "pri", ph: "", mset: new Set(M), sel: null, disc: "PROC", task: null};
 try { const s = JSON.parse(localStorage.getItem("ifreg") || "{}"); Object.assign(st, {v: s.v || st.v, disc: s.disc || st.disc, task: s.task || null}); } catch (e) {}
 const save = () => { try { localStorage.setItem("ifreg", JSON.stringify({v: st.v, disc: st.disc, task: st.task})); } catch (e) {} };
 const vis = () => EX.filter(e => st.mset.has(e.m) && (!st.ph || e.ph.includes(st.ph)));
@@ -271,10 +307,52 @@ function manual() {
     || `<p class="empty">No manual hand-offs with the current filters.</p>`;
 }
 
+function priorities() {
+  const R = D.R, rows = R.rows, cov = R.x.filter(x => x[4]).length, reads = R.x.filter(x => x[2] === "read").length;
+  document.getElementById("pri-lede").innerHTML = `The ${R.total} manual hand-offs between systems, grouped into ${rows.length} integration
+    candidates and ranked by priority (value × ease). ${cov} hand-offs (${Math.round(100 * cov / R.total)}%) fall in a candidate.
+    ${reads} are a person reading a document to do their own work; they are listed but carry no weight, because no integration removes them.
+    Open a candidate for its approach and the hand-offs it removes.`;
+  const dep = {};
+  rows.forEach(r => r.prerequisite.split(/;\s*/).filter(p => p && p !== "None").forEach(p => {
+    const k = p.replace(/\s*\(.*\)$/, ""); (dep[k] = dep[k] || []).push(r.id); }));
+  document.getElementById("pri-found").innerHTML = Object.entries(dep).filter(([, v]) => v.length > 1).sort((a, b) => b[1].length - a[1].length)
+    .map(([k, v]) => `<div><b>${esc(k)}</b><span>needed by ${v.length}: ${v.join(", ")}</span></div>`).join("");
+  const max = Math.max(...rows.map(r => r.priority));
+  const byC = {}; R.x.forEach(x => { if (x[4]) (byC[x[4]] = byC[x[4]] || []).push(x); });
+  document.getElementById("pri-list").innerHTML = rows.map(r => {
+    const xs = (byC[r.id] || []).sort((a, b) => b[3] - a[3]);
+    return `<details data-id="${r.id}"><summary>
+      <span class="n">${r.rank}</span>
+      <span class="nm"><b>${esc(r.name)}</b><span><span class="tag w${r.wave}">wave ${r.wave}</span><span class="tag">${r.ease_word}</span>${esc(r.path)}</span></span>
+      <span class="pb" title="Priority ${r.priority} = value ${r.value} × ease (${r.ease_word})"><i style="width:${100 * r.priority / max}%"></i></span>
+      <span class="pv" title="Priority">${r.priority}</span></summary>
+      <div class="body"><p>${esc(r.flow)}</p>
+      <dl><dt>Approach</dt><dd>${esc(r.approach)}</dd>
+      <dt>Ease</dt><dd>${esc(r.ease_word)}: ${esc(r.ease_note)}</dd>
+      <dt>Prerequisite</dt><dd>${esc(r.prerequisite)}</dd>
+      <dt>Score</dt><dd>value ${r.value}: ${r.n} manual hand-offs, effort ${r.effort} (volume ${["", "tens", "hundreds", "thousands"][r.volume]} of records per issue),
+        ${r.reach} tasks within two hand-offs downstream, ${Math.round(100 * r.late)}% landing in procurement, construction or completions or needed final</dd>
+      <dt>Remedy mix</dt><dd>${Object.entries(r.remedies).filter(([, n]) => n).map(([k, n]) => `<span class="rmd" title="${esc(R.remedy[k])}">${k} ${n}</span>`).join(" · ")}</dd>
+      <dt>Disciplines</dt><dd>${r.discs.join(", ")}</dd></dl>
+      <div class="tw"><table class="ls"><thead><tr><th>Information</th><th>From</th><th>To</th><th>What is re-entered</th><th>Remedy</th><th>Weight</th></tr></thead><tbody>` +
+      xs.map(([it, to, rm, w]) => { const e = EX.find(e => e.it === it && e.to === to && e.m === "manual");
+        return `<tr><td><span class="id">${it}</span> ${esc(D.I[it].n)}</td>
+        <td><button class="lnk" data-task="${e.fr}">${esc(tname(e.fr))}</button><br><span class="sys">${esc(e.fs)}</span></td>
+        <td><button class="lnk" data-task="${to}">${esc(tname(to))}</button><br><span class="sys">${esc(e.ts)}</span></td>
+        <td class="use">${esc(e.use)}</td><td><span class="rmd ${rm}" title="${esc(R.remedy[rm])}">${rm}</span></td><td class="lv">${w}</td></tr>`; }).join("") +
+      `</tbody></table></div></div></details>`;
+  }).join("");
+  document.getElementById("pri-note").innerHTML = "Remedies: " + Object.entries(R.remedy).map(([k, v]) => `<b>${k}</b> ${esc(v.split(":")[0].toLowerCase())}`).join("; ") +
+    ". Ease and volume are assumptions to confirm with IT, the tool owners and the discipline leads. Scoring: <code>exchange/rank.py</code>; candidates: <code>exchange/integrations.json</code>.";
+}
+
 function render() {
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.v === st.v));
-  ["disc", "sys", "task", "man"].forEach(v => document.getElementById("v-" + v).hidden = v !== st.v);
-  document.getElementById("lp").hidden = st.v === "task";
+  ["pri", "disc", "sys", "task", "man"].forEach(v => document.getElementById("v-" + v).hidden = v !== st.v);
+  document.getElementById("lp").hidden = st.v === "task" || st.v === "pri";
+  document.querySelectorAll(".bar .ctl").forEach(c => c.hidden = st.v === "pri");
+  if (st.v === "pri" && !document.getElementById("pri-list").innerHTML) priorities();
   if (st.v === "disc") matrix("mx-disc", DC, "fd", "td", "FROM \\ TO");
   if (st.v === "sys") matrix("mx-sys", D.systems, "fs", "ts", "FROM \\ TO");
   if (st.v === "task") tasks();

@@ -55,9 +55,24 @@ Each exchange records:
 - `exchange/out/Task-and-Interface-Register.xlsx`: tasks, items, exchanges, discipline and system matrices,
   and the manual hand-offs;
 - `exchange/out/interfaces.html`: the interactive register;
-- `exchange/out/item-catalog.md`.
+- `exchange/out/item-catalog.md`;
+- `exchange/out/integration-priorities.md`: the integration candidates ranked.
 
 The data format is in `exchange/SPEC.md`.
+
+### Integration priorities
+
+`exchange/integrations.json` groups the manual hand-offs between systems into 22 integration candidates. Each
+candidate lists its items, an approach, a prerequisite, and two assumptions to confirm: ease, and record
+volume per issue. `exchange/rank.py` scores every manual hand-off and classes its remedy:
+- link two systems;
+- give the data a system of record;
+- publish structured data alongside a document;
+- or none, where a person only reads a document.
+
+It then ranks the candidates by value × ease. Value is built from re-entry effort, the number of downstream
+tasks, and the share of hand-offs landing late in the project. The ranking appears as a sheet in the workbook
+and as the first tab of the page.
 
 ## Design summary
 

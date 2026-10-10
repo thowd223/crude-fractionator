@@ -8,6 +8,7 @@ item sent from its owner task to a task that uses it) and writes:
   out/Task-and-Interface-Register.xlsx   tasks, items, exchanges, discipline and system matrices, manual hand-offs
   out/interfaces.html                    interactive register
   out/item-catalog.md                    every item by discipline (reference for authors)
+  out/integration-priorities.md          integration candidates (integrations.json) ranked by rank.py
 """
 from __future__ import annotations
 
@@ -177,7 +178,7 @@ def catalog(tasks, items):
     (OUT / "item-catalog.md").write_text("".join(md))
 
 
-def workbook(tasks, items, ex, errs, warns):
+def workbook(tasks, items, ex, errs, warns, rows=(), man=()):
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter
@@ -236,6 +237,8 @@ def workbook(tasks, items, ex, errs, warns):
         ws.append([e["from_sys"], e["to_sys"], e["item"], e["item_name"],
                    f"{e['from_task']} {tasks[e['from_task']]['name']}",
                    f"{e['to_task']} {tasks[e['to_task']]['name']}", e["use"]])
+    if rows:
+        rank_sheets(wb, sheet, rows, man, tasks)
     ws = sheet("Checks", ["Severity", "Message"], (10, 120))
     for s in errs:
         ws.append(["error", s])
@@ -248,13 +251,45 @@ def workbook(tasks, items, ex, errs, warns):
     wb.save(OUT / "Task-and-Interface-Register.xlsx")
 
 
-def page(tasks, items, ex, errs, warns):
+def rank_sheets(wb, sheet, rows, man, tasks):
+    from rank import REMEDY
+    ws = sheet("Integration ranking", ["Rank", "Wave", "ID", "Integration", "Systems", "What moves by hand today",
+                                       "Manual hand-offs", "Link", "Record", "Extract", "Read", "Effort", "Volume",
+                                       "Downstream tasks", "Late-stage share", "Value", "Ease", "Priority",
+                                       "Ease basis", "Approach", "Prerequisite", "Items"],
+               (6, 6, 8, 30, 30, 50, 9, 6, 7, 7, 6, 8, 7, 9, 9, 7, 8, 8, 40, 50, 28, 40))
+    for r in rows:
+        ws.append([r["rank"], r["wave"], r["id"], r["name"], r["path"], r["flow"], r["n"], r["remedies"]["link"],
+                   r["remedies"]["record"], r["remedies"]["extract"], r["remedies"]["read"], r["effort"],
+                   r["volume"], r["reach"], r["late"], r["value"], r["ease_word"], r["priority"], r["ease_note"],
+                   r["approach"], r["prerequisite"], ", ".join(r["items"])])
+    ws.append([])
+    ws.append(["Scoring is described in exchange/rank.py. Ease and volume are assumptions to confirm."])
+    for k, v in REMEDY.items():
+        ws.append([k.capitalize(), v])
+    ws = sheet("Manual hand-off scores", ["Candidate", "Remedy", "Weight", "Late stage", "From system", "To system",
+                                          "Item", "Information", "Form", "From task", "To task", "Level",
+                                          "Phases", "What is re-entered"],
+               (9, 9, 7, 7, 16, 16, 11, 34, 9, 34, 34, 6, 18, 50))
+    for m in sorted(man, key=lambda m: (m["cand"] or "ZZZ", -m["weight"], m["item"])):
+        ws.append([m["cand"] or "(none)", m["remedy"], m["weight"], "yes" if m["late"] else "", m["from_sys"],
+                   m["to_sys"], m["item"], m["item_name"], m["form"],
+                   f"{m['from_task']} {tasks[m['from_task']]['name']}", f"{m['to_task']} {tasks[m['to_task']]['name']}",
+                   m["level"], ", ".join(m["phases"]), m["use"]])
+
+
+def page(tasks, items, ex, errs, warns, rows=(), man=()):
     T = {t["id"]: dict(d=t["disc"], n=t["name"], s=t["system"], p=t["phases"], a=t.get("activity", ""),
                        x=t.get("description", "")) for t in tasks.values()}
     I = {i["id"]: dict(d=i["disc"], n=i["name"], s=i["system"], f=i["form"], c=i.get("content", ""),
                        o=i["owner_task"]) for i in items.values()}
     E = [[e["item"], e["to_task"], e["use"], METHODS.index(e["method"]), e["level"]] for e in ex]
-    data = dict(disc=DISC, systems=SYSTEMS, phases=PHASES, methods=METHODS, mnote=METHOD_NOTE, T=T, I=I, E=E,
+    from rank import REMEDY
+    keep = ("rank", "wave", "id", "name", "path", "flow", "n", "remedies", "effort", "volume", "reach", "late",
+            "value", "ease", "ease_word", "priority", "ease_note", "approach", "prerequisite", "items", "discs")
+    R = dict(rows=[{k: r[k] for k in keep} for r in rows], remedy=REMEDY, total=len(man),
+             x=[[m["item"], m["to_task"], m["remedy"], m["weight"], m["cand"]] for m in man])
+    data = dict(disc=DISC, systems=SYSTEMS, phases=PHASES, methods=METHODS, mnote=METHOD_NOTE, T=T, I=I, E=E, R=R,
                 order=[t["id"] for t in sorted(tasks.values(), key=order_key)], warns=len(warns), errs=errs)
     tpl = (HERE / "page.html").read_text()
     js = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
@@ -266,6 +301,8 @@ def main():
     tasks, items, errs = load()
     e2, warns = check(tasks, items)
     errs += e2
+    import rank
+    errs += rank.check(rank.load(), items)
     if "--check" in sys.argv:       # validation only, no outputs (safe to run concurrently)
         only = next((a for a in sys.argv[1:] if a in DISC), None)
         mine = [s for s in errs if not only or s.startswith(only) or f" {only}-" in s]
@@ -274,10 +311,12 @@ def main():
             print("  ERROR", s)
         return mine
     ex = exchanges(tasks, items)
+    rows, man = rank.rank(tasks, items, ex)
     catalog(tasks, items)
-    workbook(tasks, items, ex, errs, warns)
+    rank.summary(rows, man)
+    workbook(tasks, items, ex, errs, warns, rows, man)
     if (HERE / "page.html").exists():
-        page(tasks, items, ex, errs, warns)
+        page(tasks, items, ex, errs, warns, rows, man)
     by = Counter(t["disc"] for t in tasks.values())
     print(f"{len(tasks)} tasks, {len(items)} items, {len(ex)} exchanges; " +
           ", ".join(f"{c} {by[c]}" for c in DISC if by[c]))
