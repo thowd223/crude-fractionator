@@ -535,6 +535,12 @@
      "use": "Project specification and code list (ASME B31.3 edition, referenced standards, order of precedence for piping)",
      "method": "manual",
      "level": 2
+    },
+    {
+     "item": "PROC-I136",
+     "use": "agreed materials selection per service for piping classes",
+     "method": "review",
+     "level": 2
     }
    ]
   },
@@ -845,6 +851,18 @@
      "use": "screening stress markups (loops, supports, routing changes)",
      "method": "manual",
      "level": 2
+    },
+    {
+     "item": "FIRE-I230",
+     "use": "fire pump and skid nozzle connections for firewater piping",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I145",
+     "use": "final PSV inlet and outlet sizes and ratings",
+     "method": "manual",
+     "level": 3
     }
    ]
   },
@@ -1300,7 +1318,7 @@
    ],
    "consumes": [
     {
-     "item": "SAFE-I192",
+     "item": "FIRE-I192",
      "use": "ring main sizing basis, hydrant and monitor locations, isolation valve sectioning",
      "method": "manual",
      "level": 3

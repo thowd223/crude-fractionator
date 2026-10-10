@@ -149,14 +149,14 @@
   },
   {
    "id": "MECH-T030",
-   "name": "Select equipment materials and corrosion allowances",
+   "name": "Select equipment materials and corrosion allowances with Process",
    "phases": [
     "FEL2",
     "FEL3"
    ],
    "system": "Excel / Word",
    "activity": "MEC-01",
-   "description": "Selects base and cladding materials, corrosion allowances and PWHT/hardness requirements for each equipment item.",
+   "description": "Mechanical and Process jointly select materials and corrosion allowances from the corrosion basis; Mechanical issues the result.",
    "produces": [
     "MECH-I040"
    ],
@@ -184,6 +184,12 @@
      "use": "corrosion allowance rules and design life",
      "method": "manual",
      "level": 3
+    },
+    {
+     "item": "PROC-I136",
+     "use": "agreed materials selection per service",
+     "method": "meeting",
+     "level": 2
     }
    ]
   },
@@ -358,7 +364,7 @@
     "FEL3",
     "DD"
    ],
-   "system": "Aspen EDR",
+   "system": "HTRI",
    "activity": "PRC-02",
    "description": "Rates or designs shell-and-tube exchangers to fix TEMA type, geometry, area and pressure drops.",
    "produces": [
@@ -373,7 +379,7 @@
     },
     {
      "item": "PROC-I155",
-     "use": "process EDR case as starting point: TEMA type, area, passes, fouling",
+     "use": "process preliminary sizing as the starting point: duty, area, allowable pressure drop, fouling",
      "method": "manual",
      "level": 3
     },
@@ -404,7 +410,7 @@
     "FEL3",
     "DD"
    ],
-   "system": "Aspen EDR",
+   "system": "HTRI",
    "activity": "PRC-02",
    "description": "Sizes air coolers for bays, bundles, fans and fan power at design ambient conditions.",
    "produces": [
@@ -419,7 +425,7 @@
     },
     {
      "item": "PROC-I155",
-     "use": "process EDR air-cooler bays and fan basis",
+     "use": "process preliminary air cooler duty and area as the starting point",
      "method": "manual",
      "level": 3
     },
@@ -598,7 +604,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I220",
+     "item": "FIRE-I220",
      "use": "foam and cooling ring requirements for tanks",
      "method": "manual",
      "level": 3
@@ -803,7 +809,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I045",
+     "item": "FIRE-I045",
      "use": "F&G and fixed fire protection philosophy for packages",
      "method": "review",
      "level": 3
@@ -2158,7 +2164,7 @@
   },
   {
    "id": "MECH-I040",
-   "name": "Equipment materials selection and corrosion allowances",
+   "name": "Materials selection and corrosion allowances (Process and Mechanical)",
    "system": "Excel / Word",
    "form": "document",
    "content": "Per equipment/component: base material, cladding/lining, corrosion allowance, PWHT, NACE/sour service, impact test (MDMT) requirements.",
@@ -2199,7 +2205,7 @@
   {
    "id": "MECH-I090",
    "name": "Shell-and-tube exchanger thermal design",
-   "system": "Aspen EDR",
+   "system": "HTRI",
    "form": "model",
    "content": "TEMA type, shells in series/parallel, shell diameter, tube length/count/layout, area, overdesign, allowable vs calculated pressure drops, vibration check.",
    "owner_task": "MECH-T070"
@@ -2207,7 +2213,7 @@
   {
    "id": "MECH-I100",
    "name": "Air-cooled exchanger thermal design",
-   "system": "Aspen EDR",
+   "system": "HTRI",
    "form": "model",
    "content": "Bays, bundles per bay, tube rows/length, fins, plot area, fans per bay, fan power, louvres, winterisation, noise per fan.",
    "owner_task": "MECH-T080"

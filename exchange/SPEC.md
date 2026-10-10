@@ -18,7 +18,8 @@ checks every reference and generates the register workbook and the interactive p
 | Code | Discipline | Covers |
 |---|---|---|
 | PROC | Process | Simulation, H&MB, PFDs, P&IDs (process content), line list process data, process datasheets, relief and flare hydraulics, utility balances, control and operating philosophy |
-| SAFE | Process safety and environmental | HAZID, HAZOP, LOPA, SIL determination input, QRA, facility siting, fire and gas mapping, fire protection, environmental studies, emissions, permits |
+| SAFE | Process safety and environmental | HAZID, HAZOP, LOPA, SIL determination input, QRA, facility siting, fire and gas mapping, environmental studies, emissions, permits |
+| FIRE | Fire protection | Fire protection philosophy, fire water demand and network, fire zones and fireproofing, fixed fire protection systems, fire pump and fire equipment datasheets, requisitions and vendor data |
 | MECH | Mechanical | Static equipment (vessels, columns, tanks, exchangers, heaters), rotating equipment, packages, mechanical datasheets and calculations, technical bid evaluation, vendor data review |
 | PIPE | Piping | Plot plan and layout, 3D model, piping materials (classes, valve and specialty items, MTO), stress, supports, isometrics, tie-ins, hydrotest |
 | CIVL | Civil and structural | Survey, geotechnical, grading and drainage, roads, foundations, structures, pipe racks, buildings, HVAC, architecture |
@@ -38,7 +39,7 @@ The client's stack. Use "Excel / Word" where a task uses no specific system.
 | System | Used for | Status today |
 |---|---|---|
 | HYSYS | Process simulation (AspenTech) | In use |
-| Aspen EDR | Exchanger thermal design | Assumed; confirm |
+| HTRI | Exchanger thermal design (Mechanical) | In use |
 | Flare / relief tool | Relief and flare hydraulics (e.g. Aspen Flare System Analyzer) | Assumed; confirm |
 | SPID | Smart P&ID (Octave, formerly Hexagon) | In use |
 | SI | Smart Instrumentation (Octave) | In use |
@@ -72,6 +73,14 @@ Integration state today (use it to choose `method`):
 - S3D and Tekla models to iConstruct: through Navisworks; Jovix status into iConstruct for material availability.
 - Tags into Smart Completions: spreadsheet loads from engineering lists.
 - Documents of all kinds move through Document Locator (transmittals, comments).
+
+## Ownership agreed with the client
+
+- Materials selection and corrosion allowances: Process and Mechanical jointly; Mechanical issues.
+- Exchanger thermal design: Mechanical, in HTRI. Process does preliminary sizing only.
+- Fire pumps and fixed fire protection: Fire protection.
+- Relief valves: Process sizes them, I&C specifies and quotes them, the vendor does the final sizing, and
+  I&C and Process align the final sizing with the vendor before purchase.
 
 ## Phases
 

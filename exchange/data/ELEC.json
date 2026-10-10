@@ -535,6 +535,12 @@
      "use": "telecom and CCTV power loads",
      "method": "manual",
      "level": 3
+    },
+    {
+     "item": "FIRE-I230",
+     "use": "fire pump motor rating and supply requirements",
+     "method": "manual",
+     "level": 3
     }
    ]
   },
@@ -611,13 +617,13 @@
      "level": 3
     },
     {
-     "item": "SAFE-I045",
+     "item": "FIRE-I045",
      "use": "fire water source/redundancy and F&G basis for emergency power",
      "method": "review",
      "level": 3
     },
     {
-     "item": "SAFE-I190",
+     "item": "FIRE-I190",
      "use": "fire water pump duty (electric vs diesel driver)",
      "method": "review",
      "level": 3
@@ -983,7 +989,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I220",
+     "item": "FIRE-I220",
      "use": "fixed fire protection for generator and fuel tank",
      "method": "review",
      "level": 3

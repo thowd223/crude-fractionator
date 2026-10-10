@@ -230,7 +230,7 @@
      "level": 2
     },
     {
-     "item": "SAFE-I045",
+     "item": "FIRE-I045",
      "use": "detector types and F&G philosophy; ambient design temperatures, humidity and wind for instrument selection",
      "method": "review",
      "level": 2
@@ -528,7 +528,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I202",
+     "item": "FIRE-I202",
      "use": "EIV locations, closure time, fire-safe test (API 607); actuator and cable fireproofing rating",
      "method": "review",
      "level": 3
@@ -578,7 +578,7 @@
   },
   {
    "id": "INST-T100",
-   "name": "Prepare relief valve datasheets",
+   "name": "Specify relief valves from the process sizing",
    "phases": [
     "FEL3",
     "DD"
@@ -862,6 +862,12 @@
      "use": "vendor document due/received dates and PO milestone status",
      "method": "review",
      "level": 3
+    },
+    {
+     "item": "INST-I145",
+     "use": "agreed sizing to check certified relief valve data against",
+     "method": "manual",
+     "level": 4
     }
    ]
   },
@@ -1060,7 +1066,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I045",
+     "item": "FIRE-I045",
      "use": "F&G philosophy, zones, voting, executive actions, deluge activation logic, HVAC intake detection and damper closure",
      "method": "review",
      "level": 3
@@ -1072,7 +1078,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I220",
+     "item": "FIRE-I220",
      "use": "F&G philosophy, zones, voting, executive actions, deluge activation logic, HVAC intake detection and damper closure",
      "method": "review",
      "level": 3
@@ -1105,6 +1111,12 @@
      "item": "CIVL-I306",
      "use": "room layouts for building smoke/heat detection; HVAC trip and damper signals to F&G",
      "method": "review",
+     "level": 3
+    },
+    {
+     "item": "FIRE-I230",
+     "use": "fire pump controller and deluge skid signals to the F&G system",
+     "method": "manual",
      "level": 3
     }
    ]
@@ -1743,7 +1755,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I045",
+     "item": "FIRE-I045",
      "use": "alarm tones, muster and evacuation; beacon and horn locations; alarm and beacon philosophy for PA/GA zoning",
      "method": "review",
      "level": 3
@@ -2102,6 +2114,40 @@
      "use": "closed punch and approved field changes",
      "method": "review",
      "level": 4
+    }
+   ]
+  },
+  {
+   "id": "INST-T145",
+   "name": "Align final relief valve sizing with Process and vendor",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "SI",
+   "activity": "ICS-04",
+   "description": "Agree the vendor's final orifice, model and rating with Process before the relief valves are purchased.",
+   "produces": [
+    "INST-I145"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I020",
+     "use": "vendor final sizing: orifice, model, rating, inlet/outlet sizes",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "PROC-I255",
+     "use": "process acceptance of vendor sizing per PSV",
+     "method": "meeting",
+     "level": 3
+    },
+    {
+     "item": "INST-I140",
+     "use": "technical evaluation of the relief valve offers",
+     "method": "manual",
+     "level": 3
     }
    ]
   }
@@ -2634,6 +2680,14 @@
    "form": "document",
    "content": "DCS/ECMS emulator or test rig and communication map for the integrated switchgear/MCC communication test.",
    "owner_task": "INST-T390"
+  },
+  {
+   "id": "INST-I145",
+   "name": "Agreed final relief valve sizing for purchase",
+   "system": "SI",
+   "form": "decision",
+   "owner_task": "INST-T145",
+   "content": "Per PSV: final orifice, model, set pressure, rated capacity, inlet and outlet sizes and ratings, agreed by I&C, Process and vendor."
   }
  ],
  "gaps": []

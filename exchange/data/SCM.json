@@ -192,6 +192,12 @@
      "use": "spring and engineered support MR",
      "method": "manual",
      "level": 3
+    },
+    {
+     "item": "FIRE-I231",
+     "use": "fire protection MRs to register",
+     "method": "manual",
+     "level": 3
     }
    ]
   },
@@ -469,6 +475,12 @@
      "use": "piping technical acceptability per bidder",
      "method": "manual",
      "level": 3
+    },
+    {
+     "item": "INST-I145",
+     "use": "agreed relief valve sizing before award",
+     "method": "manual",
+     "level": 3
     }
    ]
   },
@@ -721,6 +733,12 @@
     {
      "item": "PIPE-I450",
      "use": "review codes on valve and SP item vendor documents",
+     "method": "integrated",
+     "level": 3
+    },
+    {
+     "item": "FIRE-I240",
+     "use": "review codes on fire protection vendor documents",
      "method": "integrated",
      "level": 3
     }

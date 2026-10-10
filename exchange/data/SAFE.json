@@ -327,52 +327,6 @@
    ]
   },
   {
-   "id": "SAFE-T045",
-   "name": "Prepare fire protection and F&G philosophy",
-   "phases": [
-    "FEL2",
-    "FEL3"
-   ],
-   "system": "Excel / Word",
-   "activity": "SAF-04",
-   "description": "Set the strategy for active and passive fire protection, fire water, F&G detection, voting and executive actions.",
-   "produces": [
-    "SAFE-I045"
-   ],
-   "consumes": [
-    {
-     "item": "SAFE-I040",
-     "use": "codes, design fire loads, F&G targets, fire water basis",
-     "method": "manual",
-     "level": 2
-    },
-    {
-     "item": "OWNR-I060",
-     "use": "owner fire protection and insurer standards",
-     "method": "meeting",
-     "level": 2
-    },
-    {
-     "item": "OWNR-I050",
-     "use": "existing fire water system capacity",
-     "method": "meeting",
-     "level": 2
-    },
-    {
-     "item": "INST-I010",
-     "use": "DCS/SIS/F&G split and F&G system concept",
-     "method": "review",
-     "level": 1
-    },
-    {
-     "item": "OWNR-I288",
-     "use": "Local fire department and mutual aid capabilities and insurer (property) requirements",
-     "method": "meeting",
-     "level": 2
-    }
-   ]
-  },
-  {
    "id": "SAFE-T050",
    "name": "Run preliminary consequence modelling for layout spacing",
    "phases": [
@@ -903,7 +857,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I200",
+     "item": "FIRE-I200",
      "use": "fire zones",
      "method": "manual",
      "level": 3
@@ -1115,7 +1069,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I045",
+     "item": "FIRE-I045",
      "use": "coverage targets and detector types",
      "method": "manual",
      "level": 3
@@ -1135,118 +1089,6 @@
     {
      "item": "PROC-I285",
      "use": "gas composition and H2S content per area",
-     "method": "manual",
-     "level": 3
-    }
-   ]
-  },
-  {
-   "id": "SAFE-T190",
-   "name": "Calculate fire water demand",
-   "phases": [
-    "FEL3",
-    "DD"
-   ],
-   "system": "Excel / Word",
-   "activity": "SAF-04",
-   "description": "Size fire water demand for the largest credible fire scenario and set pump capacity, storage and network requirements.",
-   "produces": [
-    "SAFE-I190",
-    "SAFE-I192"
-   ],
-   "consumes": [
-    {
-     "item": "PIPE-I040",
-     "use": "fire zones, dikes and equipment positions",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "MECH-I150",
-     "use": "tank diameter and roof type",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "MECH-I170",
-     "use": "vessel dimensions for cooling area",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "SAFE-I045",
-     "use": "fire water design basis",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "SAFE-I200",
-     "use": "fire zones",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "OWNR-I050",
-     "use": "existing fire water capacity",
-     "method": "review",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "SAFE-T200",
-   "name": "Define fire scenario envelopes and fireproofing zones",
-   "phases": [
-    "FEL3",
-    "DD"
-   ],
-   "system": "Excel / Word",
-   "activity": "SAF-04",
-   "description": "Define fire-potential envelopes (API 2218) and list structures, supports, cables and valves requiring fireproofing.",
-   "produces": [
-    "SAFE-I200",
-    "SAFE-I202"
-   ],
-   "consumes": [
-    {
-     "item": "PIPE-I040",
-     "use": "equipment layout",
-     "method": "file",
-     "level": 3
-    },
-    {
-     "item": "PIPE-I180",
-     "use": "equipment and rack elevations",
-     "method": "file",
-     "level": 3
-    },
-    {
-     "item": "CIVL-I130",
-     "use": "rack and structure configuration",
-     "method": "review",
-     "level": 3
-    },
-    {
-     "item": "CIVL-I230",
-     "use": "steel members and supports",
-     "method": "review",
-     "level": 3
-    },
-    {
-     "item": "INST-I080",
-     "use": "ESD valve fire-proofing need and locations",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "INST-I321",
-     "use": "instrument cable routes",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "SAFE-I050",
-     "use": "fire extents",
      "method": "manual",
      "level": 3
     }
@@ -1279,7 +1121,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I200",
+     "item": "FIRE-I200",
      "use": "fire zones",
      "method": "manual",
      "level": 3
@@ -1288,64 +1130,6 @@
      "item": "SAFE-I122",
      "use": "QRA isolation recommendations",
      "method": "manual",
-     "level": 3
-    }
-   ]
-  },
-  {
-   "id": "SAFE-T220",
-   "name": "Specify fixed fire protection systems",
-   "phases": [
-    "FEL3",
-    "DD"
-   ],
-   "system": "Excel / Word",
-   "activity": "SAF-04",
-   "description": "Define deluge, water spray, foam, clean agent and portable extinguisher requirements by area per NFPA.",
-   "produces": [
-    "SAFE-I220"
-   ],
-   "consumes": [
-    {
-     "item": "SAFE-I045",
-     "use": "fixed system philosophy",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "SAFE-I190",
-     "use": "fire water demand and pressure",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "SAFE-I182",
-     "use": "F&G zones and deluge actions",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "MECH-I150",
-     "use": "tank roof type, rim seal and diameter",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "MECH-I170",
-     "use": "vessel surface area data",
-     "method": "manual",
-     "level": 3
-    },
-    {
-     "item": "CIVL-I290",
-     "use": "room functions and fire ratings",
-     "method": "review",
-     "level": 3
-    },
-    {
-     "item": "CIVL-I270",
-     "use": "electrical and I&C room layouts for clean agent",
-     "method": "review",
      "level": 3
     }
    ]
@@ -1489,7 +1273,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I192",
+     "item": "FIRE-I192",
      "use": "hydrant and monitor layout",
      "method": "review",
      "level": 3
@@ -2214,14 +1998,6 @@
    "owner_task": "SAFE-T040"
   },
   {
-   "id": "SAFE-I045",
-   "name": "Fire protection and F&G philosophy",
-   "system": "Excel / Word",
-   "form": "document",
-   "content": "Fire water source and redundancy, fixed system types per hazard, fireproofing criteria (API 2218), detector types, coverage targets, voting (2ooN), executive actions, alarm and beacon philosophy.",
-   "owner_task": "SAFE-T045"
-  },
-  {
    "id": "SAFE-I050",
    "name": "Preliminary hazard distances and spacing comments",
    "system": "Excel / Word",
@@ -2406,52 +2182,12 @@
    "owner_task": "SAFE-T180"
   },
   {
-   "id": "SAFE-I190",
-   "name": "Fire water demand and pump duty",
-   "system": "Excel / Word",
-   "form": "data",
-   "content": "Design scenario, deluge/monitor/hydrant/foam flows, total demand, required residual pressure, duration and storage volume; to MECH for fire pump datasheets and PROC utility balance.",
-   "owner_task": "SAFE-T190"
-  },
-  {
-   "id": "SAFE-I192",
-   "name": "Fire water network, hydrant and monitor layout requirements",
-   "system": "Excel / Word",
-   "form": "drawing",
-   "content": "Ring main sizing basis, hydrant and monitor locations and spacing, isolation valve sectioning, hose reel and foam connection locations; to PIPE/CIVL.",
-   "owner_task": "SAFE-T190"
-  },
-  {
-   "id": "SAFE-I200",
-   "name": "Fire zones and fireproofing envelopes",
-   "system": "Excel / Word",
-   "form": "drawing",
-   "content": "Fire-scenario envelope boundaries in plan and elevation, fire zone numbers for relief fire case and deluge.",
-   "owner_task": "SAFE-T200"
-  },
-  {
-   "id": "SAFE-I202",
-   "name": "Fireproofing requirements list",
-   "system": "Excel / Word",
-   "form": "data",
-   "content": "Steel members, skirts, vessel supports, cable trays and actuators needing fireproofing, rating (hours), test standard (UL 1709), extent; to CIVL, ELEC, INST.",
-   "owner_task": "SAFE-T200"
-  },
-  {
    "id": "SAFE-I210",
    "name": "Emergency isolation valve requirements",
    "system": "Excel / Word",
    "form": "data",
    "content": "EIV/ROEIV location, initiating causes, closure time, fire-safe test (API 607), fireproofing of actuator and cable, operation point outside fire zone; to PROC and INST.",
    "owner_task": "SAFE-T210"
-  },
-  {
-   "id": "SAFE-I220",
-   "name": "Fixed fire protection system requirements",
-   "system": "Excel / Word",
-   "form": "document",
-   "content": "System type and coverage per area (NFPA 11/13/15/2001), design density, deluge valve locations and activation logic, extinguisher schedule; to MECH (package requisition) and INST.",
-   "owner_task": "SAFE-T220"
   },
   {
    "id": "SAFE-I230",

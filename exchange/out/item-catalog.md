@@ -113,9 +113,10 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | PROC-I112 | Corrosion-relevant process data | Excel / Word | data | Per circuit: H2S, CO2, chlorides, ammonia, free water, naphthenic acid, sulfur species, oxygen, operating T/P for corrosion and material selection. |
 | PROC-I120 | Process flow diagrams | Excel / Word | drawing | Major equipment with tags and duties, main lines with stream numbers, main control loops, stream table extract, utility interfaces. |
 | PROC-I130 | Design pressure and temperature basis | Excel / Word | data | Per system/equipment: max/min operating and design pressure, design and minimum design metal temperature, steam-out and vacuum conditions, settle-out pressure. |
+| PROC-I136 | Process agreement of materials selection | Excel / Word | decision | Process sign-off on materials and corrosion allowances per service, with the corrosion cases they cover. |
 | PROC-I140 | Vessel and column process sizing | Excel / Word | data | ID, T/T, liquid levels (LL/LLL/NLL/HLL/HHLL), residence times, nozzle duties, internals type and count, tray loading and flood margin. |
 | PROC-I150 | Rotating equipment process duties | Excel / Word | data | Per pump/compressor: rated/normal/min flow, suction/discharge P, differential head, NPSHa, fluid properties, sparing, driver preference, operating cases. |
-| PROC-I155 | Exchanger thermal design | Aspen EDR | model | EDR thermal design per exchanger: TEMA type, area, shells, passes, fouling, allowable/calculated dP, velocities, vibration check, air-cooler bays/fans. |
+| PROC-I155 | Preliminary exchanger sizing | HYSYS | model | Duty, LMTD, preliminary area and allowable pressure drop per exchanger for screening and as the starting point for HTRI design. |
 | PROC-I160 | Equipment process duties | Excel / Word | data | Per equipment tag: service, type, duty/capacity, operating and design P/T, size, MoC recommendation, insulation, sparing. |
 | PROC-I170 | Vessel and column process datasheets | Excel / Word | document | Sketch, ID/T-T, levels, nozzle schedule with duties, internals, design/operating conditions, corrosion allowance basis, fluid data. |
 | PROC-I171 | Tank process datasheets | Excel / Word | document | Working/gross capacity, fill/draw rates, vapour pressure, breathing/emission data, blanketing, heating, mixer duty, levels. |
@@ -136,6 +137,7 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | PROC-I240 | Operating philosophy | Excel / Word | document | Operating modes, turndown, sparing, run length, start-up/shutdown approach, isolation and blinding philosophy, sampling. |
 | PROC-I250 | Relief load summary | Flare / relief tool | data | Per device: governing scenario, relief load, fluid composition, MW, T, Z, k, set and back pressure, coincident loads by scenario. |
 | PROC-I251 | PSV process datasheets | Excel / Word | document | Per PSV: set pressure, relieving rate, relieving conditions, fluid properties, required area and orifice letter, back pressure, discharge destination. |
+| PROC-I255 | Process review of vendor relief valve sizing | Excel / Word | decision | Per PSV: governing case, required versus rated capacity, inlet loss and back pressure check, accept or resize. |
 | PROC-I260 | Flare network hydraulic results | Flare / relief tool | data | Header and sub-header sizes, back pressure at each device, Mach and rho-v2, KO drum and flare tip loads per scenario. |
 | PROC-I261 | Depressuring study results | Flare / relief tool | document | Per segment: inventory, restriction orifice size, peak rate, minimum metal temperature, time to target pressure. |
 | PROC-I270 | Utility consumption list | Excel / Word | data | Per consumer: steam by level, cooling water, instrument/plant air, nitrogen, fuel gas, BFW, condensate return, power estimate; normal/peak/intermittent. |
@@ -181,7 +183,6 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | SAFE-I030 | Site selection SHE assessment | Excel / Word | document | Per site: distance to public receptors, preliminary worst-case hazard zones, flood/wind exposure, permit complexity score, emergency services access; recommended site. |
 | SAFE-I035 | Hazardous materials inventory and properties | Excel / Word | data | Material, area, inventory (kg), flash point, LFL/UFL, autoignition temperature, gas group/T-class, IDLH/ERPG/AEGL, RMP threshold quantity check, OSHA PSM threshold check. |
 | SAFE-I040 | SHE design basis | Excel / Word | document | Codes and regulations, risk tolerance criteria, design blast and fire loads method, toxic thresholds, F&G performance targets, fire water design basis, noise limits, emission targets and study schedule. |
-| SAFE-I045 | Fire protection and F&G philosophy | Excel / Word | document | Fire water source and redundancy, fixed system types per hazard, fireproofing criteria (API 2218), detector types, coverage targets, voting (2ooN), executive actions, alarm and beacon philosophy. |
 | SAFE-I050 | Preliminary hazard distances and spacing comments | Excel / Word | document | Jet/pool fire radiation distances, flash fire extents, overpressure contours, toxic distances, recommended equipment spacing changes, building locations and sterile areas; marked-up plot plan. |
 | SAFE-I060 | Emissions inventory | Excel / Word | data | Per source: tag, pollutant (NOx, CO, VOC, SO2, PM, HAPs, GHG CO2e), emission factor basis, hourly and annual PTE, stack parameters (height, diameter, temperature, velocity, location). |
 | SAFE-I062 | Emission control requirements | Excel / Word | document | BACT/LAER and NSPS/NESHAP requirements by source: low-NOx burner or SCR, CEMS, tank seal type and vapour control, LDAR program, flare monitoring (40 CFR 63 CC) requirements to PROC, MECH and INST. |
@@ -205,12 +206,7 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | SAFE-I170 | Action close-out records | PHA tool | data | Per action: response, evidence document number and revision, verification by SAFE, owner acceptance, closure date; open items carried to PSSR. |
 | SAFE-I180 | F&G detector layout and coverage | Excel / Word | drawing | Detector tag, type, location coordinates, elevation, orientation, coverage maps and achieved coverage per zone; to INST for F&G system design and PIPE/INST for installation. |
 | SAFE-I182 | F&G zones and executive action requirements | Excel / Word | data | F&G zone list, detector voting per zone, alarm and executive actions (ESD, deluge release, HVAC trip, beacons), to INST for F&G C&E. |
-| SAFE-I190 | Fire water demand and pump duty | Excel / Word | data | Design scenario, deluge/monitor/hydrant/foam flows, total demand, required residual pressure, duration and storage volume; to MECH for fire pump datasheets and PROC utility balance. |
-| SAFE-I192 | Fire water network, hydrant and monitor layout requirements | Excel / Word | drawing | Ring main sizing basis, hydrant and monitor locations and spacing, isolation valve sectioning, hose reel and foam connection locations; to PIPE/CIVL. |
-| SAFE-I200 | Fire zones and fireproofing envelopes | Excel / Word | drawing | Fire-scenario envelope boundaries in plan and elevation, fire zone numbers for relief fire case and deluge. |
-| SAFE-I202 | Fireproofing requirements list | Excel / Word | data | Steel members, skirts, vessel supports, cable trays and actuators needing fireproofing, rating (hours), test standard (UL 1709), extent; to CIVL, ELEC, INST. |
 | SAFE-I210 | Emergency isolation valve requirements | Excel / Word | data | EIV/ROEIV location, initiating causes, closure time, fire-safe test (API 607), fireproofing of actuator and cable, operation point outside fire zone; to PROC and INST. |
-| SAFE-I220 | Fixed fire protection system requirements | Excel / Word | document | System type and coverage per area (NFPA 11/13/15/2001), design density, deluge valve locations and activation logic, extinguisher schedule; to MECH (package requisition) and INST. |
 | SAFE-I230 | Safety equipment and escape route layout | Excel / Word | drawing | Locations of safety showers/eyewashes (with utility needs), escape routes, muster points, windsocks, alarm beacons and horns; to PIPE, CIVL and ELEC. |
 | SAFE-I240 | Equipment noise limits | Excel / Word | data | Maximum sound pressure level at 1 m per equipment type and tag for datasheets and requisitions; to MECH and INST. |
 | SAFE-I242 | Noise study results and mitigation | Excel / Word | document | Noise contours, fence-line levels, hearing protection zones, required mitigation (silencers, enclosures, acoustic insulation). |
@@ -230,6 +226,20 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | SAFE-I360 | As-built safety studies | Excel / Word | document | Final revisions of siting study, F&G mapping, QRA, fire water and fireproofing studies; to OWNR via handover. |
 | SAFE-I370 | Security vulnerability assessment | Excel / Word | document | Security risks, required CCTV coverage and access control. |
 
+## FIRE Fire protection
+
+| ID | Item | System | Form | Content |
+|---|---|---|---|---|
+| FIRE-I045 | Fire protection and F&G philosophy | Excel / Word | document | Fire water source and redundancy, fixed system types per hazard, fireproofing criteria (API 2218), detector types, coverage targets, voting (2ooN), executive actions, alarm and beacon philosophy. |
+| FIRE-I190 | Fire water demand and pump duty | Excel / Word | data | Design scenario, deluge/monitor/hydrant/foam flows, total demand, required residual pressure, duration and storage volume; for the fire pump datasheets and PROC utility balance. |
+| FIRE-I192 | Fire water network, hydrant and monitor layout requirements | Excel / Word | drawing | Ring main sizing basis, hydrant and monitor locations and spacing, isolation valve sectioning, hose reel and foam connection locations; to PIPE/CIVL. |
+| FIRE-I200 | Fire zones and fireproofing envelopes | Excel / Word | drawing | Fire-scenario envelope boundaries in plan and elevation, fire zone numbers for relief fire case and deluge. |
+| FIRE-I202 | Fireproofing requirements list | Excel / Word | data | Steel members, skirts, vessel supports, cable trays and actuators needing fireproofing, rating (hours), test standard (UL 1709), extent; to CIVL, ELEC, INST. |
+| FIRE-I220 | Fixed fire protection system requirements | Excel / Word | document | System type and coverage per area (NFPA 11/13/15/2001), design density, deluge valve locations and activation logic, extinguisher schedule; to MECH (package requisition) and INST. |
+| FIRE-I230 | Fire pump and fire protection equipment datasheets | Excel / Word | document | Fire pump rated flow and head, driver type and rating, jockey pump, deluge and foam skid data, monitors, hydrants, NFPA 20 / 15 / 11 requirements. |
+| FIRE-I231 | Fire protection material requisitions | Purchasing DB | document | Requisitions for fire pumps, skids and fire equipment with datasheets and vendor document requirements. |
+| FIRE-I240 | Fire protection vendor data comments | Document Locator | document | Review codes and comments on fire pump and fire equipment vendor documents; certified data acceptance. |
+
 ## MECH Mechanical
 
 | ID | Item | System | Form | Content |
@@ -237,13 +247,13 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | MECH-I010 | FEL 1 equipment type and size list (mechanical attributes) | Excel / Word | data | Equipment tag/service, type, approximate size and duty class, base material, rough empty weight per option. |
 | MECH-I020 | FEL 1 equipment cost factors | Excel / Word | data | Factored equipment costs and weight factors per equipment type for the Class 5 estimate and screening. |
 | MECH-I030 | Mechanical design basis | Excel / Word | document | Applicable codes (ASME VIII, TEMA, API 650/610/617/661/560), design margins on P/T, corrosion allowance rules, sparing philosophy, driver preferences, wind/seismic criteria, units and standard sizes. |
-| MECH-I040 | Equipment materials selection and corrosion allowances | Excel / Word | document | Per equipment/component: base material, cladding/lining, corrosion allowance, PWHT, NACE/sour service, impact test (MDMT) requirements. |
+| MECH-I040 | Materials selection and corrosion allowances (Process and Mechanical) | Excel / Word | document | Per equipment/component: base material, cladding/lining, corrosion allowance, PWHT, NACE/sour service, impact test (MDMT) requirements. |
 | MECH-I050 | Rotating equipment sparing and driver selection list | Excel / Word | data | Per machine: number running/spare, driver type, fixed or variable speed (VFD), estimated absorbed and rated power, voltage class. |
 | MECH-I060 | Budget enquiry package | Document Locator | document | Short-form datasheets and scope for budget pricing of major equipment and packages. |
 | MECH-I070 | Equipment cost, weight and delivery data for estimate | Excel / Word | data | Per tag: budget price or factored cost, weight, delivery lead time, long-lead flag, source (quote or factored). |
 | MECH-I080 | Mechanical equipment list | Excel / Word | data | Per tag: service, type, size/rating, design P/T, material, empty/operating weight, driver power, PO number, vendor, status. |
-| MECH-I090 | Shell-and-tube exchanger thermal design | Aspen EDR | model | TEMA type, shells in series/parallel, shell diameter, tube length/count/layout, area, overdesign, allowable vs calculated pressure drops, vibration check. |
-| MECH-I100 | Air-cooled exchanger thermal design | Aspen EDR | model | Bays, bundles per bay, tube rows/length, fins, plot area, fans per bay, fan power, louvres, winterisation, noise per fan. |
+| MECH-I090 | Shell-and-tube exchanger thermal design | HTRI | model | TEMA type, shells in series/parallel, shell diameter, tube length/count/layout, area, overdesign, allowable vs calculated pressure drops, vibration check. |
+| MECH-I100 | Air-cooled exchanger thermal design | HTRI | model | Bays, bundles per bay, tube rows/length, fins, plot area, fans per bay, fan power, louvres, winterisation, noise per fan. |
 | MECH-I110 | Fired heater datasheet and specification | Excel / Word | document | Duty, coil passes and material, flux rates, burner type/number, fuel gas/oil conditions, stack height, efficiency, NOx, air preheat, draft. |
 | MECH-I120 | Fired heater burner management and combustion control requirements | Excel / Word | document | BMS functions, flame scanners, pilot/main fuel trips, draft and O2 control points, purge sequence and instrument requirements for I&C. |
 | MECH-I130 | Vessel and column mechanical design calculations | Mechanical calc tool | model | Shell/head thickness, nozzle reinforcement, skirt/saddle design, wind and seismic moments, empty/operating/test weights, MAWP, hydrotest pressure. |
@@ -451,6 +461,7 @@ Every information item, by owning discipline. Use these IDs in `consumes`.
 | INST-I115 | Instrument connection requirements on equipment and piping | Excel / Word | data | Per instrument: connection type, size, rating, orientation, elevation/level range, bridle arrangement; for MECH nozzle schedule and PIPE branch tables. |
 | INST-I130 | Instrument material requisitions | Purchasing DB | document | MR per instrument package: technical scope, datasheets, quantities, spares, VDRL, inspection and test requirements. |
 | INST-I140 | Instrument technical bid evaluations | Excel / Word | document | Compliance table, technical clarifications, deviations accepted, technically acceptable bidders, recommended vendor. |
+| INST-I145 | Agreed final relief valve sizing for purchase | SI | decision | Per PSV: final orifice, model, set pressure, rated capacity, inlet and outlet sizes and ratings, agreed by I&C, Process and vendor. |
 | INST-I150 | Instrument vendor data comments | Document Locator | document | Return code (1-4) and comments on vendor drawings, sizing, materials, certificates. |
 | INST-I151 | Certified in-line instrument dimensions and weights | SI | data | Certified face-to-face, end connections, weights, actuator envelopes, centre of gravity for control valves, on/off valves, flow meters and PSVs for PIPE model and stress. |
 | INST-I160 | Analyzer datasheets and system specification | Excel / Word | document | Analyzer type, components, ranges, sample conditioning, calibration gases, shelter scope. |

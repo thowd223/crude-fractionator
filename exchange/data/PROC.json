@@ -639,14 +639,15 @@
   },
   {
    "id": "PROC-T155",
-   "name": "Design heat exchangers thermally",
+   "name": "Estimate exchanger duties and preliminary areas",
    "phases": [
-    "FEL3",
-    "DD"
+    "FEL1",
+    "FEL2",
+    "FEL3"
    ],
-   "system": "Aspen EDR",
+   "system": "HYSYS",
    "activity": "PRC-02",
-   "description": "Run thermal design/rating of shell-and-tube exchangers and air coolers from the simulation duties.",
+   "description": "Preliminary exchanger duties, areas and pressure drops for screening and the equipment list; final thermal design is Mechanical's in HTRI.",
    "produces": [
     "PROC-I155"
    ],
@@ -727,6 +728,18 @@
      "use": "equipment tags, types and mechanical attributes",
      "method": "manual",
      "level": 2
+    },
+    {
+     "item": "MECH-I090",
+     "use": "final area, pressure drop and configuration from the HTRI design",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I100",
+     "use": "final area, pressure drop and configuration from the HTRI design",
+     "method": "manual",
+     "level": 3
     }
    ]
   },
@@ -770,7 +783,7 @@
      "level": 2
     },
     {
-     "item": "SAFE-I200",
+     "item": "FIRE-I200",
      "use": "fire zones for fire-case nozzle/venting basis",
      "method": "review",
      "level": 2
@@ -795,7 +808,7 @@
    "consumes": [
     {
      "item": "PROC-I155",
-     "use": "EDR thermal results per exchanger and air cooler",
+     "use": "HTRI thermal results per exchanger and air cooler",
      "method": "manual",
      "level": 3
     },
@@ -1220,7 +1233,7 @@
   },
   {
    "id": "PROC-T250",
-   "name": "Calculate relief loads and size relief devices",
+   "name": "Calculate relief loads and size relief valves",
    "phases": [
     "FEL3",
     "DD"
@@ -1258,7 +1271,7 @@
      "level": 3
     },
     {
-     "item": "SAFE-I200",
+     "item": "FIRE-I200",
      "use": "fire zone boundaries for fire-case grouping",
      "method": "manual",
      "level": 3
@@ -1326,6 +1339,12 @@
     {
      "item": "MECH-I170",
      "use": "vessel volumes, materials and thickness",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I145",
+     "use": "rated capacities and outlet sizes for flare back-pressure checks",
      "method": "manual",
      "level": 3
     }
@@ -2234,6 +2253,63 @@
      "level": 4
     }
    ]
+  },
+  {
+   "id": "PROC-T135",
+   "name": "Define corrosion basis and agree materials selection with Mechanical",
+   "phases": [
+    "FEL2",
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PIP-01",
+   "description": "Process sets the corrosion basis (corrosive species, cases, upsets) and agrees the materials selection with Mechanical.",
+   "produces": [
+    "PROC-I136"
+   ],
+   "consumes": [
+    {
+     "item": "PROC-I112",
+     "use": "corrosive species, cases and upsets per stream",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "MECH-I040",
+     "use": "proposed materials and corrosion allowances to agree",
+     "method": "meeting",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "PROC-T255",
+   "name": "Review vendor relief valve sizing",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRC-03",
+   "description": "Check the vendor's orifice selection and rated capacity against every relief case and the inlet and back-pressure limits.",
+   "produces": [
+    "PROC-I255"
+   ],
+   "consumes": [
+    {
+     "item": "VEND-I020",
+     "use": "vendor relief valve sizing: orifice, rated capacity, model",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "PROC-I250",
+     "use": "relief cases and required capacities to check against",
+     "method": "manual",
+     "level": 3
+    }
+   ]
   }
  ],
  "items": [
@@ -2391,10 +2467,10 @@
   },
   {
    "id": "PROC-I155",
-   "name": "Exchanger thermal design",
-   "system": "Aspen EDR",
+   "name": "Preliminary exchanger sizing",
+   "system": "HYSYS",
    "form": "model",
-   "content": "EDR thermal design per exchanger: TEMA type, area, shells, passes, fouling, allowable/calculated dP, velocities, vibration check, air-cooler bays/fans.",
+   "content": "Duty, LMTD, preliminary area and allowable pressure drop per exchanger for screening and as the starting point for HTRI design.",
    "owner_task": "PROC-T155"
   },
   {
@@ -2820,6 +2896,22 @@
    "form": "data",
    "content": "Flare stack height, tip type and diameter, and location basis.",
    "owner_task": "PROC-T260"
+  },
+  {
+   "id": "PROC-I136",
+   "name": "Process agreement of materials selection",
+   "system": "Excel / Word",
+   "form": "decision",
+   "owner_task": "PROC-T135",
+   "content": "Process sign-off on materials and corrosion allowances per service, with the corrosion cases they cover."
+  },
+  {
+   "id": "PROC-I255",
+   "name": "Process review of vendor relief valve sizing",
+   "system": "Excel / Word",
+   "form": "decision",
+   "owner_task": "PROC-T255",
+   "content": "Per PSV: governing case, required versus rated capacity, inlet loss and back pressure check, accept or resize."
   }
  ],
  "gaps": []

@@ -22,11 +22,11 @@ DATA, OUT = HERE / "data", HERE / "out"
 
 DISC = {
     "OWNR": "Owner and operations", "PROJ": "Project and controls", "PROC": "Process",
-    "SAFE": "Process safety and environmental", "MECH": "Mechanical", "PIPE": "Piping", "CIVL": "Civil and structural",
+    "SAFE": "Process safety and environmental", "FIRE": "Fire protection", "MECH": "Mechanical", "PIPE": "Piping", "CIVL": "Civil and structural",
     "INST": "Instrumentation and control", "ELEC": "Electrical", "SCM": "Procurement and materials",
     "VEND": "Vendors and fabricators", "CONS": "Construction", "COMM": "Completions and commissioning",
 }
-SYSTEMS = ["HYSYS", "Aspen EDR", "Flare / relief tool", "SPID", "SI", "SPEL", "S3D", "SPF", "CAESAR II", "Tekla",
+SYSTEMS = ["HYSYS", "HTRI", "Flare / relief tool", "SPID", "SI", "SPEL", "S3D", "SPF", "CAESAR II", "Tekla",
            "ETAP", "Mechanical calc tool", "PHA tool", "Document Locator", "Purchasing DB", "Jovix", "P6",
            "iConstruct", "Procore", "Smart Completions", "DCS / SIS config", "Excel / Word"]
 PHASES = ["FEL1", "FEL2", "FEL3", "DD", "CON", "COM"]

@@ -1,0 +1,364 @@
+{
+ "discipline": "FIRE",
+ "tasks": [
+  {
+   "id": "FIRE-T045",
+   "name": "Prepare fire protection and F&G philosophy",
+   "phases": [
+    "FEL2",
+    "FEL3"
+   ],
+   "system": "Excel / Word",
+   "activity": "SAF-04",
+   "description": "Set the strategy for active and passive fire protection, fire water, F&G detection, voting and executive actions.",
+   "produces": [
+    "FIRE-I045"
+   ],
+   "consumes": [
+    {
+     "item": "SAFE-I040",
+     "use": "codes, design fire loads, F&G targets, fire water basis",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I060",
+     "use": "owner fire protection and insurer standards",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "OWNR-I050",
+     "use": "existing fire water system capacity",
+     "method": "meeting",
+     "level": 2
+    },
+    {
+     "item": "INST-I010",
+     "use": "DCS/SIS/F&G split and F&G system concept",
+     "method": "review",
+     "level": 1
+    },
+    {
+     "item": "OWNR-I288",
+     "use": "Local fire department and mutual aid capabilities and insurer (property) requirements",
+     "method": "meeting",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "FIRE-T190",
+   "name": "Calculate fire water demand",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "SAF-04",
+   "description": "Size fire water demand for the largest credible fire scenario and set pump capacity, storage and network requirements.",
+   "produces": [
+    "FIRE-I190",
+    "FIRE-I192"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I040",
+     "use": "fire zones, dikes and equipment positions",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I150",
+     "use": "tank diameter and roof type",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I170",
+     "use": "vessel dimensions for cooling area",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "FIRE-I045",
+     "use": "fire water design basis",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "FIRE-I200",
+     "use": "fire zones",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "OWNR-I050",
+     "use": "existing fire water capacity",
+     "method": "review",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "FIRE-T200",
+   "name": "Define fire scenario envelopes and fireproofing zones",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "SAF-04",
+   "description": "Define fire-potential envelopes (API 2218) and list structures, supports, cables and valves requiring fireproofing.",
+   "produces": [
+    "FIRE-I200",
+    "FIRE-I202"
+   ],
+   "consumes": [
+    {
+     "item": "PIPE-I040",
+     "use": "equipment layout",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "PIPE-I180",
+     "use": "equipment and rack elevations",
+     "method": "file",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I130",
+     "use": "rack and structure configuration",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I230",
+     "use": "steel members and supports",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "INST-I080",
+     "use": "ESD valve fire-proofing need and locations",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "INST-I321",
+     "use": "instrument cable routes",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I050",
+     "use": "fire extents",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "FIRE-T220",
+   "name": "Specify fixed fire protection systems",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "SAF-04",
+   "description": "Define deluge, water spray, foam, clean agent and portable extinguisher requirements by area per NFPA.",
+   "produces": [
+    "FIRE-I220"
+   ],
+   "consumes": [
+    {
+     "item": "FIRE-I045",
+     "use": "fixed system philosophy",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "FIRE-I190",
+     "use": "fire water demand and pressure",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "SAFE-I182",
+     "use": "F&G zones and deluge actions",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I150",
+     "use": "tank roof type, rim seal and diameter",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "MECH-I170",
+     "use": "vessel surface area data",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I290",
+     "use": "room functions and fire ratings",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "CIVL-I270",
+     "use": "electrical and I&C room layouts for clean agent",
+     "method": "review",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "FIRE-T230",
+   "name": "Prepare fire pump and fire protection equipment datasheets and requisitions",
+   "phases": [
+    "FEL3",
+    "DD"
+   ],
+   "system": "Excel / Word",
+   "activity": "PRO-01",
+   "description": "Fire protection specifies the fire pumps and drivers, deluge and foam skids, monitors and hydrants, and issues the requisitions.",
+   "produces": [
+    "FIRE-I230",
+    "FIRE-I231"
+   ],
+   "consumes": [
+    {
+     "item": "FIRE-I190",
+     "use": "fire water demand and fire pump duty",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "FIRE-I220",
+     "use": "fixed fire protection system requirements",
+     "method": "manual",
+     "level": 3
+    },
+    {
+     "item": "ELEC-I010",
+     "use": "voltage levels and power supply for electric fire pump drivers",
+     "method": "manual",
+     "level": 2
+    },
+    {
+     "item": "SCM-I030",
+     "use": "bidders for fire protection equipment",
+     "method": "manual",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "FIRE-T240",
+   "name": "Review fire protection vendor data",
+   "phases": [
+    "DD"
+   ],
+   "system": "Document Locator",
+   "activity": "VEN-01",
+   "description": "Review fire pump, skid and fire equipment vendor drawings and data, and accept certified data.",
+   "produces": [
+    "FIRE-I240"
+   ],
+   "consumes": [
+    {
+     "item": "SCM-I180",
+     "use": "fire protection vendor documents for review",
+     "method": "review",
+     "level": 3
+    },
+    {
+     "item": "VEND-I140",
+     "use": "certified fire pump curves, skid drawings and data",
+     "method": "review",
+     "level": 4
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "FIRE-I045",
+   "name": "Fire protection and F&G philosophy",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "Fire water source and redundancy, fixed system types per hazard, fireproofing criteria (API 2218), detector types, coverage targets, voting (2ooN), executive actions, alarm and beacon philosophy.",
+   "owner_task": "FIRE-T045"
+  },
+  {
+   "id": "FIRE-I190",
+   "name": "Fire water demand and pump duty",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Design scenario, deluge/monitor/hydrant/foam flows, total demand, required residual pressure, duration and storage volume; for the fire pump datasheets and PROC utility balance.",
+   "owner_task": "FIRE-T190"
+  },
+  {
+   "id": "FIRE-I192",
+   "name": "Fire water network, hydrant and monitor layout requirements",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Ring main sizing basis, hydrant and monitor locations and spacing, isolation valve sectioning, hose reel and foam connection locations; to PIPE/CIVL.",
+   "owner_task": "FIRE-T190"
+  },
+  {
+   "id": "FIRE-I200",
+   "name": "Fire zones and fireproofing envelopes",
+   "system": "Excel / Word",
+   "form": "drawing",
+   "content": "Fire-scenario envelope boundaries in plan and elevation, fire zone numbers for relief fire case and deluge.",
+   "owner_task": "FIRE-T200"
+  },
+  {
+   "id": "FIRE-I202",
+   "name": "Fireproofing requirements list",
+   "system": "Excel / Word",
+   "form": "data",
+   "content": "Steel members, skirts, vessel supports, cable trays and actuators needing fireproofing, rating (hours), test standard (UL 1709), extent; to CIVL, ELEC, INST.",
+   "owner_task": "FIRE-T200"
+  },
+  {
+   "id": "FIRE-I220",
+   "name": "Fixed fire protection system requirements",
+   "system": "Excel / Word",
+   "form": "document",
+   "content": "System type and coverage per area (NFPA 11/13/15/2001), design density, deluge valve locations and activation logic, extinguisher schedule; to MECH (package requisition) and INST.",
+   "owner_task": "FIRE-T220"
+  },
+  {
+   "id": "FIRE-I230",
+   "name": "Fire pump and fire protection equipment datasheets",
+   "system": "Excel / Word",
+   "form": "document",
+   "owner_task": "FIRE-T230",
+   "content": "Fire pump rated flow and head, driver type and rating, jockey pump, deluge and foam skid data, monitors, hydrants, NFPA 20 / 15 / 11 requirements."
+  },
+  {
+   "id": "FIRE-I231",
+   "name": "Fire protection material requisitions",
+   "system": "Purchasing DB",
+   "form": "document",
+   "owner_task": "FIRE-T230",
+   "content": "Requisitions for fire pumps, skids and fire equipment with datasheets and vendor document requirements."
+  },
+  {
+   "id": "FIRE-I240",
+   "name": "Fire protection vendor data comments",
+   "system": "Document Locator",
+   "form": "document",
+   "owner_task": "FIRE-T240",
+   "content": "Review codes and comments on fire pump and fire equipment vendor documents; certified data acceptance."
+  }
+ ],
+ "gaps": []
+}
