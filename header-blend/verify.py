@@ -5,8 +5,9 @@ prints a hand-checkable worked case plus balance checks. Run: python3 verify.py
 """
 MW  = {"H2":2.016,"CH4":16.043,"C2H4":28.054,"C2H6":30.070,"C3H6":42.081,"C3H8":44.097,
        "C4":58.123,"C5+":72.15,"N2":28.013,"CO2":44.010,"H2S":34.081}
-LHV = {"H2":10.79,"CH4":35.81,"C2H4":59.03,"C2H6":63.74,"C3H6":86.00,"C3H8":91.25,
-       "C4":118.4,"C5+":146.0,"N2":0,"CO2":0,"H2S":23.38}   # MJ/Nm3, 0 C / 1 atm, ideal gas
+Q = {"H2":241.83,"CH4":802.69,"C2H4":1323.15,"C2H6":1428.84,"C3H6":1927.71,"C3H8":2043.37,
+     "C4":2657.60,"C5+":3245.0,"N2":0,"CO2":0,"H2S":518.0}  # net heat of combustion, kJ/mol, 25 C
+LHV = {c:Q[c]/22.414 for c in Q}   # MJ/Nm3, 0 C / 101.325 kPa, ideal gas
 C = list(MW)
 S = {  # kmol/h, mol% in order of C
  "FCC":(900,[18,38,15,16,3,2,1,0.3,5,1.69,0.010]),
@@ -48,5 +49,5 @@ print(f"\nCoker off, NG make-up held: NG {ng:.0f} kmol/h, duty {held['duty_GJh']
 assert abs(held["duty_GJh"]-b["duty_GJh"]) < 1e-6
 
 # Hand-checkable case: equal kmol of pure H2 and pure CH4 -> 50/50 mix
-mw = 0.5*2.016+0.5*16.043; lhv = 0.5*10.79+0.5*35.81
+mw = 0.5*2.016+0.5*16.043; lhv = 0.5*LHV['H2']+0.5*LHV['CH4']
 print(f"\nHand check, 50/50 H2/CH4: MW {mw:.3f} (=(2.016+16.043)/2), LHV {lhv:.2f} (=(10.79+35.81)/2)")

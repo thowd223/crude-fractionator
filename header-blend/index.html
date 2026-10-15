@@ -78,6 +78,14 @@ th{font-weight:600;color:var(--muted);font-size:.75rem;text-transform:uppercase;
 td{font-family:var(--f-mono)}
 td:first-child{font-family:var(--f-body)}
 .note{font-size:.82rem;color:var(--muted);max-width:75ch}
+.basis{display:grid;gap:18px;border-top:2px solid var(--line);padding-top:24px}
+.basis h2{color:var(--fg);font-size:1.25rem;letter-spacing:.05em}
+.basis h3{font-family:var(--f-disp);font-weight:600;font-size:1.05rem;margin:0 0 8px;color:var(--accent)}
+.basis p,.basis li{max-width:80ch}
+.basis ul,.basis ol{margin:0;padding-left:1.3em;display:grid;gap:4px}
+.basis .panel{display:grid;gap:8px}
+.eq{font-family:var(--f-mono);font-size:.86rem;background:var(--off);border-radius:4px;padding:10px 12px;overflow-x:auto;line-height:1.7;white-space:pre}
+.flag{color:var(--warn);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -116,25 +124,114 @@ td:first-child{font-family:var(--f-body)}
       <h2>Component detail</h2>
       <div class="tbl"><table id="tbl"></table></div>
     </div>
-    <p class="note">Method: ideal-gas molar mixing (header mol% = Σ Fᵢ·yᵢ / Σ Fᵢ). LHV at 0 °C, 1 atm. Wobbe index uses LHV / √SG. A real study would add time-aligned historian data per stream, data reconciliation against the header meter, and a rigorous property package where liquids or dew point matter.</p>
+    <p class="note">Method and data basis are set out in full under Technical basis below.</p>
   </section>
 </div>
+
+<section class="basis" id="basis">
+  <div>
+    <h2>Technical basis for engineering review</h2>
+    <p class="note">Status: proof of concept. Stream flows and analyses are illustrative and the tool is not for design use. This section sets out every equation, constant, assumption and check so a process engineer can verify the method independently.</p>
+  </div>
+
+  <div class="panel">
+    <h3>1. Calculation method</h3>
+    <p>Steady-state, ideal-gas, molar mixing. No reaction, no phase change, no hold-up in the header.</p>
+<div class="eq">Normalise each analysis     y_ij = a_ij / Σ_j a_ij          a_ij = reported mol%, stream i, component j
+Header component flow       n_j  = Σ_i F_i · y_ij           F_i = stream molar flow, kmol/h
+Header total and mol frac   F = Σ_i F_i ,  x_j = n_j / F
+Molecular weight            MW = Σ_j x_j · MW_j              kg/kmol
+Specific gravity (ideal)    SG = MW / 28.964
+Net heating value           LHV = Σ_j x_j · ΔHc,net,j / 22.414   MJ/Nm³ (ΔHc in kJ/mol)
+Wobbe index (net basis)     WI = LHV / √SG                   MJ/Nm³
+Header heat supply          Q = F · 22.414 · LHV / 1000      GJ/h
+H₂S                         ppmv = x_H2S · 10⁶
+NG make-up (hold option)    F_NG = (Q_base − Q_other) · 1000 / (22.414 · LHV_NG),  F_NG ≥ 0</div>
+    <p class="note">Q_base is the heat supply with every unit at its base flow. Q_other is the heat from all non-NG streams in the current case. Analyses that do not total exactly 100% are normalised, which is standard practice for GC results.</p>
+  </div>
+
+  <div class="panel">
+    <h3>2. Reference conditions and assumptions</h3>
+    <ul>
+      <li>Normal conditions 0 °C, 101.325 kPa. Ideal-gas molar volume 22.414 Nm³/kmol. Compressibility Z = 1.</li>
+      <li>Heats of combustion at 25 °C, water as vapour (net / LHV). The 25 °C to 0 °C combustion-temperature correction is ignored; its effect is around 0.1%.</li>
+      <li>Wobbe index on a <span class="flag">net (LHV) basis</span>. Burner vendors and ISO 6976 usually quote gross (HHV) Wobbe. Absolute values differ from a gross-basis Wobbe, though the percentage swing between cases is comparable.</li>
+      <li>C4s are lumped as n-butane and C5+ as n-pentane. A heavier C5+ cut would raise MW and LHV slightly.</li>
+      <li>Air density for SG: 28.964 kg/kmol.</li>
+      <li>Limits shown (±5% Wobbe swing, 160 ppmv H₂S) are placeholders. Replace them with the site permit and the burner vendor's tolerances.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>3. Component properties used</h3>
+    <p class="note">MW and molar net heats of combustion are standard thermochemical values entered by hand. <span class="flag">They have not yet been checked against a cited reference.</span> Check them against GPSA Engineering Data Book Section 23 (physical constants), ISO 6976 or the NIST Chemistry WebBook. The LHV column is calculated by the page from the ΔHc column.</p>
+    <div class="tbl"><table id="ptbl"></table></div>
+  </div>
+
+  <div class="panel">
+    <h3>4. Verification carried out</h3>
+    <ul>
+      <li>Independent re-implementation in Python (<code>header-blend/verify.py</code>, run with <code>python3 verify.py</code>). It matches this page to the precision shown for all three cases below.</li>
+      <li>Closure checks in every case: Σ x_j = 1 and Σ n_j = F, both to machine precision.</li>
+      <li>Hold option: with NG make-up on, the calculated heat supply equals the base case (2,160 GJ/h) exactly.</li>
+      <li>Hand check: equal moles of pure H₂ and CH₄ give MW 9.029 and LHV 23.30 MJ/Nm³, the simple averages of the pure-component values.</li>
+    </ul>
+    <div class="tbl"><table>
+      <thead><tr><th>Case</th><th>Flow kmol/h</th><th>MW</th><th>LHV MJ/Nm³</th><th>Wobbe MJ/Nm³</th><th>H₂ mol%</th><th>H₂S ppmv</th><th>Heat GJ/h</th></tr></thead>
+      <tbody>
+        <tr><td>Base, all units on</td><td>2,500</td><td>18.39</td><td>38.55</td><td>48.38</td><td>29.32</td><td>88</td><td>2,160</td></tr>
+        <tr><td>Coker shut down</td><td>2,000</td><td>17.37</td><td>36.58</td><td>47.25</td><td>33.65</td><td>60</td><td>1,640</td></tr>
+        <tr><td>Coker shut down, NG make-up 887 kmol/h</td><td>2,637</td><td>17.38</td><td>36.54</td><td>47.18</td><td>25.52</td><td>45</td><td>2,160</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Not yet done, and recommended before client use: the same three cases in a process simulator (HYSYS, UniSim, Pro/II or similar) with the same compositions, and a comparison of the calculated blend against the header analyser over a period of real operation.</p>
+  </div>
+
+  <div class="panel">
+    <h3>5. Not modelled in this prototype</h3>
+    <ul>
+      <li>Real-gas behaviour, hydrocarbon or water dew point, and condensation in the header or knock-out drums.</li>
+      <li>Transients. Each case is a new steady state; pressure swings and controller response during a trip are not represented.</li>
+      <li>Meter compensation. Orifice and other differential-pressure meters on fuel gas read wrong when MW changes. Plant flows must be density-corrected before mixing, and the correction itself shifts when a unit trips.</li>
+      <li>Components outside the list (CO, O₂, NH₃, mercaptans, COS, H₂O).</li>
+      <li>Analyser and lab uncertainty, and data reconciliation against the header meter.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>6. Data needed from the client for the real study</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Item</th><th>Why it is needed</th></tr></thead>
+      <tbody>
+        <tr><td>List of every stream into the header, with PFD/P&amp;ID references</td><td>Defines the mixing node; avoids missing a small but rich contributor</td></tr>
+        <tr><td>Flow tag per stream, meter type, design MW, P and T basis</td><td>Convert indicated flow to true kmol/h with density compensation</td></tr>
+        <tr><td>Online analyser tags or lab sample history per stream</td><td>Stream compositions, and how they vary with unit operation</td></tr>
+        <tr><td>Header flow meter and analyser (GC, Wobbe or calorimeter) tags</td><td>Closure check: calculated blend vs measured header</td></tr>
+        <tr><td>Historian export for a representative period, with unit outage dates</td><td>Base case and real shutdown periods to validate against</td></tr>
+        <tr><td>Fuel gas consumers, NG make-up and pressure-control philosophy</td><td>Decides whether a trip is backfilled by NG or simply lost</td></tr>
+        <tr><td>Burner Wobbe tolerance, H₂S/SO₂ permit limits, any H₂ limits</td><td>Pass/fail criteria for each shutdown case</td></tr>
+        <tr><td>Preferred property basis (ISO 6976, GPSA, simulator package) and reference conditions</td><td>Results match the client's own reporting basis</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
 </div>
 
 <script>
-// Component data: MW (kg/kmol), LHV (MJ/Nm3), display group
+// Component data: MW (kg/kmol), net heat of combustion (kJ/mol, 25 C, H2O as vapour), display group
+const VM = 22.414; // Nm3/kmol, ideal gas at 0 C, 101.325 kPa
 const COMP = [
-  ["H2","Hydrogen",2.016,10.79,"h2"],
-  ["CH4","Methane",16.043,35.81,"c1"],
-  ["C2H4","Ethylene",28.054,59.03,"c2"],
-  ["C2H6","Ethane",30.070,63.74,"c2"],
-  ["C3H6","Propylene",42.081,86.00,"c3"],
-  ["C3H8","Propane",44.097,91.25,"c3"],
-  ["C4","Butanes",58.123,118.4,"c4"],
-  ["C5+","Pentanes+",72.15,146.0,"c5"],
+  ["H2","Hydrogen",2.016,241.83,"h2"],
+  ["CH4","Methane",16.043,802.69,"c1"],
+  ["C2H4","Ethylene",28.054,1323.15,"c2"],
+  ["C2H6","Ethane",30.070,1428.84,"c2"],
+  ["C3H6","Propylene",42.081,1927.71,"c3"],
+  ["C3H8","Propane",44.097,2043.37,"c3"],
+  ["C4","Butanes (as n-butane)",58.123,2657.60,"c4"],
+  ["C5+","Pentanes+ (as n-pentane)",72.150,3245.0,"c5"],
   ["N2","Nitrogen",28.013,0,"inert"],
   ["CO2","Carbon dioxide",44.010,0,"inert"],
-  ["H2S","Hydrogen sulphide",34.081,23.38,"h2s"],
+  ["H2S","Hydrogen sulphide",34.081,518.0,"h2s"],
 ];
 const GROUPS = [["h2","H₂"],["c1","C1"],["c2","C2s"],["c3","C3s"],["c4","C4"],["c5","C5+"],["inert","N₂ + CO₂"],["h2s","H₂S"]];
 // Example streams. Flow kmol/h, analysis mol% in COMP order. Illustrative only.
@@ -160,7 +257,7 @@ function mix(cfg, hold){
     const mk = STREAMS.findIndex(s=>s.makeup);
     const others = flows.map((f,i)=>i===mk?0:f);
     const dutyOthers = others.reduce((a,f,i)=>a+f*lhvOf(norm(STREAMS[i].y)),0);
-    const need = (base.duty*1000/22.414 - dutyOthers)/lhvOf(norm(STREAMS[mk].y));
+    const need = (base.duty*1000/VM - dutyOthers)/lhvOf(norm(STREAMS[mk].y));
     flows[mk] = cfg[STREAMS[mk].id].on ? Math.max(0,need) : 0;
   }
   const F = flows.reduce((a,b)=>a+b,0);
@@ -168,9 +265,9 @@ function mix(cfg, hold){
   if(F>0) STREAMS.forEach((s,i)=>norm(s.y).forEach((v,j)=>x[j]+=flows[i]*v/F));
   const mw = x.reduce((a,v,j)=>a+v*COMP[j][2],0);
   const lhv = lhvOf(x), sg = mw/28.964;
-  return {F,x,mw,lhv,sg,wobbe:sg>0?lhv/Math.sqrt(sg):0,duty:F*22.414*lhv/1000,flows,h2s:x[10]*1e6};
+  return {F,x,mw,lhv,sg,wobbe:sg>0?lhv/Math.sqrt(sg):0,duty:F*VM*lhv/1000,flows,h2s:x[10]*1e6};
 }
-function lhvOf(x){return x.reduce((a,v,j)=>a+v*COMP[j][3],0);}
+function lhvOf(x){return x.reduce((a,v,j)=>a+v*COMP[j][3]/VM,0);} // MJ/Nm3
 function baseCfg(){const c={};STREAMS.forEach(s=>c[s.id]={on:true,flow:s.flow});return c;}
 
 const $=id=>document.getElementById(id);
@@ -233,6 +330,8 @@ function render(){
     COMP.map((cm,j)=>{const bv=b.x[j]*100,cv=c.x[j]*100,d=cv-bv,dp=cm[0]==="H2S"?4:2;
       return `<tr><td>${cm[1]} <span style="color:var(--muted)">${cm[0]}</span></td><td>${fmt(bv,dp)}</td><td>${fmt(cv,dp)}</td><td class="d ${Math.abs(d)<1e-4?"z":d>0?"up":"dn"}">${d>0?"+":""}${fmt(d,dp)}</td><td>${fmt(c.x[j]*c.F,1)}</td></tr>`}).join("")+`</tbody>`;
 }
+$("ptbl").innerHTML=`<thead><tr><th>Component</th><th>Formula</th><th>MW kg/kmol</th><th>ΔHc,net kJ/mol</th><th>LHV MJ/Nm³</th></tr></thead><tbody>`+
+  COMP.map(c=>`<tr><td>${c[1]}</td><td>${c[0]}</td><td>${fmt(c[2],3)}</td><td>${c[3]?fmt(c[3],2):"0 (inert)"}</td><td>${fmt(c[3]/VM,2)}</td></tr>`).join("")+`</tbody>`;
 buildUnits(); syncInputs();
 $("hold").addEventListener("change",render);
 $("reset").addEventListener("click",()=>{resetState();$("hold").checked=false;syncInputs();render();});
