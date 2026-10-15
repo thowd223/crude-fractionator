@@ -1,0 +1,241 @@
+<title>Fuel Gas Header Blender</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: control panel of source units on the left, header result on the right; stacks on phone */
+:root{
+  --bg:#f3f5f6; --panel:#ffffff; --line:#d5dbdf; --fg:#1b2329; --muted:#5d6a73;
+  --accent:#0f6e78; --accent-soft:#dcefef; --off:#e7eaec;
+  --good:#2f7d3a; --warn:#a86400; --bad:#b3261e;
+  --c-h2:#4c8fd6; --c-c1:#0f6e78; --c-c2:#6aa84f; --c-c3:#d4a017; --c-c4:#c8642a; --c-c5:#8e4c8c; --c-inert:#8a969e; --c-h2s:#b3261e;
+  --f-disp:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12181c; --panel:#1a2227; --line:#2c373e; --fg:#e3e9ec; --muted:#93a1aa;
+  --accent:#4fb3bd; --accent-soft:#1d3a3e; --off:#20282d;
+  --good:#6cc177; --warn:#e3a54a; --bad:#ef6b62;
+  --c-h2:#6ea8e6; --c-c1:#4fb3bd; --c-c2:#86c46b; --c-c3:#e5b93a; --c-c4:#e2834c; --c-c5:#b57ab3; --c-inert:#7d8a92; --c-h2s:#ef6b62;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12181c; --panel:#1a2227; --line:#2c373e; --fg:#e3e9ec; --muted:#93a1aa;
+  --accent:#4fb3bd; --accent-soft:#1d3a3e; --off:#20282d;
+  --good:#6cc177; --warn:#e3a54a; --bad:#ef6b62;
+  --c-h2:#6ea8e6; --c-c1:#4fb3bd; --c-c2:#86c46b; --c-c3:#e5b93a; --c-c4:#e2834c; --c-c5:#b57ab3; --c-inert:#7d8a92; --c-h2s:#ef6b62;
+  color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:20px}
+header h1{font-family:var(--f-disp);font-weight:700;font-size:1.9rem;margin:0;letter-spacing:.01em;text-wrap:balance}
+header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--warn);color:var(--warn);padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+h2{font-family:var(--f-disp);font-weight:600;font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
+.units{display:grid;gap:8px}
+.unit{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center}
+.unit.off{background:var(--off)}
+.unit.off .uname,.unit.off .usub{opacity:.55}
+.uname{font-weight:600}
+.usub{grid-column:2/4;color:var(--muted);font-size:.82rem;font-family:var(--f-mono)}
+.flow{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
+.flow input{width:76px;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:3px 6px;text-align:right}
+.sw{position:relative;width:46px;height:24px;flex:none}
+.sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.sw span{position:absolute;inset:0;border-radius:12px;background:var(--line);transition:background .15s}
+.sw span::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--panel);transition:transform .15s}
+.sw input:checked+span{background:var(--accent)}
+.sw input:checked+span::after{transform:translateX(22px)}
+.sw input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.opt{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border-radius:6px;padding:10px 12px;font-size:.9rem}
+.opt input{margin-top:3px;accent-color:var(--accent)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 .85rem var(--f-body);color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:4px;padding:5px 12px;cursor:pointer}
+button:hover{background:var(--accent-soft)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 18px}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi .l{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.kpi .v{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;font-variant-numeric:tabular-nums}
+.kpi .u{font-size:.75rem;color:var(--muted);margin-left:3px}
+.kpi .d{font-family:var(--f-mono);font-size:.78rem;font-variant-numeric:tabular-nums}
+.d.up{color:var(--warn)} .d.dn{color:var(--accent)} .d.z{color:var(--muted)} .d.bad{color:var(--bad);font-weight:600}
+.bars{display:grid;gap:8px;margin-top:4px}
+.barrow{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;height:22px;border-radius:3px;overflow:hidden;background:var(--off)}
+.bar i{display:block;height:100%;transition:width .25s}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted);margin-top:8px}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.alerts{display:grid;gap:6px}
+.alert{font-size:.88rem;padding:7px 10px;border-radius:4px;border-left:4px solid var(--warn);background:var(--off)}
+.alert.bad{border-left-color:var(--bad)} .alert.ok{border-left-color:var(--good)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:600;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+td{font-family:var(--f-mono)}
+td:first-child{font-family:var(--f-body)}
+.note{font-size:.82rem;color:var(--muted);max-width:75ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="tag">Proof of concept · illustrative data only</div>
+  <h1>Fuel Gas Header Blender</h1>
+  <p>Switch a contributing unit off and see the mixed header composition and fuel properties update. Stream flows and analyses below are made-up example values, not plant data.</p>
+</header>
+
+<div class="grid">
+  <section>
+    <h2>Contributing streams</h2>
+    <div class="units" id="units"></div>
+    <div style="height:10px"></div>
+    <label class="opt"><input type="checkbox" id="hold"> <span><b>Hold header heat demand with natural gas make-up.</b> When a unit is shut down, NG import rises to replace the lost LHV duty, as the pressure controller would.</span></label>
+    <div style="height:10px"></div>
+    <div class="btns"><button id="reset" type="button">Reset to base case</button></div>
+  </section>
+
+  <section style="display:grid;gap:16px;min-width:0">
+    <div class="panel">
+      <h2>Header result vs base case</h2>
+      <div class="kpis" id="kpis"></div>
+    </div>
+    <div class="panel">
+      <h2>Composition, mol %</h2>
+      <div class="bars" id="bars"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="panel">
+      <h2>Checks</h2>
+      <div class="alerts" id="alerts"></div>
+    </div>
+    <div class="panel">
+      <h2>Component detail</h2>
+      <div class="tbl"><table id="tbl"></table></div>
+    </div>
+    <p class="note">Method: ideal-gas molar mixing (header mol% = Σ Fᵢ·yᵢ / Σ Fᵢ). LHV at 0 °C, 1 atm. Wobbe index uses LHV / √SG. A real study would add time-aligned historian data per stream, data reconciliation against the header meter, and a rigorous property package where liquids or dew point matter.</p>
+  </section>
+</div>
+</div>
+
+<script>
+// Component data: MW (kg/kmol), LHV (MJ/Nm3), display group
+const COMP = [
+  ["H2","Hydrogen",2.016,10.79,"h2"],
+  ["CH4","Methane",16.043,35.81,"c1"],
+  ["C2H4","Ethylene",28.054,59.03,"c2"],
+  ["C2H6","Ethane",30.070,63.74,"c2"],
+  ["C3H6","Propylene",42.081,86.00,"c3"],
+  ["C3H8","Propane",44.097,91.25,"c3"],
+  ["C4","Butanes",58.123,118.4,"c4"],
+  ["C5+","Pentanes+",72.15,146.0,"c5"],
+  ["N2","Nitrogen",28.013,0,"inert"],
+  ["CO2","Carbon dioxide",44.010,0,"inert"],
+  ["H2S","Hydrogen sulphide",34.081,23.38,"h2s"],
+];
+const GROUPS = [["h2","H₂"],["c1","C1"],["c2","C2s"],["c3","C3s"],["c4","C4"],["c5","C5+"],["inert","N₂ + CO₂"],["h2s","H₂S"]];
+// Example streams. Flow kmol/h, analysis mol% in COMP order. Illustrative only.
+const STREAMS = [
+  {id:"fcc", name:"FCC gas plant dry gas", flow:900, y:[18,38,15,16,3,2,1,0.3,5,1.69,0.010]},
+  {id:"dht", name:"Diesel hydrotreater off-gas", flow:300, y:[60,20,0,10,0,6,2,0,1.995,0,0.005]},
+  {id:"cdu", name:"Crude unit overhead gas", flow:150, y:[2,25,0,20,0,28,15,6,2,1.99,0.010]},
+  {id:"ccr", name:"Reformer net gas spill", flow:400, y:[82,8,0,5,0,3,1.5,0.5,0,0,0]},
+  {id:"dcu", name:"Delayed coker off-gas", flow:500, y:[12,50,3,18,3,7,3,1,1,1.98,0.020]},
+  {id:"ng",  name:"Natural gas import", flow:250, y:[0,92,0,4,0,1,0,0,2,1,0], makeup:true},
+];
+const LIM = {h2s_ppm:160, wobbe_dev:5}; // example spec: H2S ppmv max, Wobbe swing %
+const state = {};
+function resetState(){STREAMS.forEach(s=>state[s.id]={on:true,flow:s.flow});}
+resetState();
+
+function norm(y){const t=y.reduce((a,b)=>a+b,0);return y.map(v=>v/t);}
+function mix(cfg, hold){
+  const flows = STREAMS.map(s=>cfg[s.id].on?+cfg[s.id].flow||0:0);
+  if(hold){
+    // replace lost LHV duty (vs all-on base) with NG make-up
+    const base = mix(baseCfg(), false);
+    const mk = STREAMS.findIndex(s=>s.makeup);
+    const others = flows.map((f,i)=>i===mk?0:f);
+    const dutyOthers = others.reduce((a,f,i)=>a+f*lhvOf(norm(STREAMS[i].y)),0);
+    const need = (base.duty*1000/22.414 - dutyOthers)/lhvOf(norm(STREAMS[mk].y));
+    flows[mk] = cfg[STREAMS[mk].id].on ? Math.max(0,need) : 0;
+  }
+  const F = flows.reduce((a,b)=>a+b,0);
+  const x = COMP.map(()=>0);
+  if(F>0) STREAMS.forEach((s,i)=>norm(s.y).forEach((v,j)=>x[j]+=flows[i]*v/F));
+  const mw = x.reduce((a,v,j)=>a+v*COMP[j][2],0);
+  const lhv = lhvOf(x), sg = mw/28.964;
+  return {F,x,mw,lhv,sg,wobbe:sg>0?lhv/Math.sqrt(sg):0,duty:F*22.414*lhv/1000,flows,h2s:x[10]*1e6};
+}
+function lhvOf(x){return x.reduce((a,v,j)=>a+v*COMP[j][3],0);}
+function baseCfg(){const c={};STREAMS.forEach(s=>c[s.id]={on:true,flow:s.flow});return c;}
+
+const $=id=>document.getElementById(id);
+function buildUnits(){
+  $("units").innerHTML = STREAMS.map(s=>`
+   <div class="unit" id="u-${s.id}">
+     <label class="sw"><input type="checkbox" id="on-${s.id}" aria-label="${s.name} in service"><span></span></label>
+     <div class="uname">${s.name}</div>
+     <div class="flow"><input type="number" min="0" step="10" id="f-${s.id}" aria-label="${s.name} flow"> kmol/h</div>
+     <div class="usub" id="sub-${s.id}"></div>
+   </div>`).join("");
+  STREAMS.forEach(s=>{
+    $("on-"+s.id).addEventListener("change",e=>{state[s.id].on=e.target.checked;render();});
+    $("f-"+s.id).addEventListener("input",e=>{state[s.id].flow=e.target.value;render();});
+  });
+  $("legend").innerHTML = GROUPS.map(([g,l])=>`<span><b style="background:var(--c-${g})"></b>${l}</span>`).join("");
+}
+function syncInputs(){STREAMS.forEach(s=>{$("on-"+s.id).checked=state[s.id].on;$("f-"+s.id).value=state[s.id].flow;});}
+const fmt=(v,d)=>v.toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+function delta(c,b,d,unit,pct){
+  const diff=c-b; if(Math.abs(diff)<Math.pow(10,-d)/2) return `<span class="d z">no change</span>`;
+  const p=b?diff/b*100:0;
+  return `<span class="d ${diff>0?"up":"dn"}">${diff>0?"+":"−"}${fmt(Math.abs(diff),d)}${unit}${pct?` (${p>0?"+":"−"}${fmt(Math.abs(p),1)}%)`:""}</span>`;
+}
+function groups(x){const g={};GROUPS.forEach(([k])=>g[k]=0);x.forEach((v,j)=>g[COMP[j][4]]+=v*100);return g;}
+function bar(x){const g=groups(x);return GROUPS.map(([k,l])=>`<i style="width:${g[k]}%;background:var(--c-${k})" title="${l} ${fmt(g[k],2)}%"></i>`).join("");}
+
+function render(){
+  const hold=$("hold").checked;
+  const b=mix(baseCfg(),false), c=mix(state,hold);
+  STREAMS.forEach((s,i)=>{
+    $("u-"+s.id).classList.toggle("off",!state[s.id].on);
+    const share=c.F?c.flows[i]/c.F*100:0;
+    $("sub-"+s.id).textContent = !state[s.id].on?"Shut down":
+      (s.makeup&&hold?`Make-up ${fmt(c.flows[i],0)} kmol/h · `:"")+`${fmt(share,1)}% of header`;
+  });
+  const wdev=b.wobbe?(c.wobbe-b.wobbe)/b.wobbe*100:0;
+  const k=[
+    ["Header flow",c.F,b.F,0," kmol/h",true],
+    ["Molecular weight",c.mw,b.mw,2," kg/kmol",true],
+    ["LHV",c.lhv,b.lhv,1," MJ/Nm³",true],
+    ["Wobbe (LHV)",c.wobbe,b.wobbe,1," MJ/Nm³",true],
+    ["Hydrogen",c.x[0]*100,b.x[0]*100,1," mol%",false],
+    ["H₂S",c.h2s,b.h2s,0," ppmv",false],
+  ];
+  $("kpis").innerHTML=k.map(([l,v,bv,d,u,p])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${fmt(v,d)}<span class="u">${u.trim()}</span></div>${delta(v,bv,d,u,p)}</div>`).join("");
+  $("bars").innerHTML=`<div class="barrow">Base<div class="bar">${bar(b.x)}</div></div><div class="barrow">This case<div class="bar">${bar(c.x)}</div></div>`;
+  const al=[];
+  if(c.F===0) al.push(["bad","All streams are shut down. The header has no supply."]);
+  else{
+    if(Math.abs(wdev)>LIM.wobbe_dev) al.push(["bad",`Wobbe index moves ${fmt(wdev,1)}% from base. Burners tuned for ±${LIM.wobbe_dev}% may need attention.`]);
+    else al.push(["ok",`Wobbe index within ±${LIM.wobbe_dev}% of base (${wdev>=0?"+":""}${fmt(wdev,1)}%).`]);
+    if(c.h2s>LIM.h2s_ppm) al.push(["bad",`H₂S ${fmt(c.h2s,0)} ppmv exceeds the ${LIM.h2s_ppm} ppmv example limit.`]);
+    else al.push(["ok",`H₂S ${fmt(c.h2s,0)} ppmv, below the ${LIM.h2s_ppm} ppmv example limit.`]);
+    const dutyDev=(c.duty-b.duty)/b.duty*100;
+    if(dutyDev<-2) al.push(["",`Header heat supply is down ${fmt(-dutyDev,1)}% (${fmt(b.duty-c.duty,0)} GJ/h short). Tick the NG make-up option to see the compensated case.`]);
+  }
+  $("alerts").innerHTML=al.map(([c,t])=>`<div class="alert ${c}">${t}</div>`).join("");
+  $("tbl").innerHTML=`<thead><tr><th>Component</th><th>Base mol%</th><th>Case mol%</th><th>Δ</th><th>Case kmol/h</th></tr></thead><tbody>`+
+    COMP.map((cm,j)=>{const bv=b.x[j]*100,cv=c.x[j]*100,d=cv-bv,dp=cm[0]==="H2S"?4:2;
+      return `<tr><td>${cm[1]} <span style="color:var(--muted)">${cm[0]}</span></td><td>${fmt(bv,dp)}</td><td>${fmt(cv,dp)}</td><td class="d ${Math.abs(d)<1e-4?"z":d>0?"up":"dn"}">${d>0?"+":""}${fmt(d,dp)}</td><td>${fmt(c.x[j]*c.F,1)}</td></tr>`}).join("")+`</tbody>`;
+}
+buildUnits(); syncInputs();
+$("hold").addEventListener("change",render);
+$("reset").addEventListener("click",()=>{resetState();$("hold").checked=false;syncInputs();render();});
+// open in a realistic working case: coker shut down
+state.dcu.on=false; syncInputs(); render();
+</script>
