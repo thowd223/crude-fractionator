@@ -1,0 +1,2 @@
+timestamp,header_flow_tag,header_flow_value,header_flow_eng_units,header_pressure_kpag,header_analyzer_tag,H2,CH4,C2H4,C2H6,C3H6,C3H8,C4,C5+,N2,CO2,H2S,wobbe_mj_nm3,hhv_mj_nm3,ng_import_kmol_h,flare_to_header_kmol_h
+2025-01-01 00:00,FI-9000,2500,kmol/h,350,AI-9000,29.3,40.1,4.1,10.9,1.4,6.0,2.9,0.9,2.7,0.8,0.0088,54.2,44.1,365,0

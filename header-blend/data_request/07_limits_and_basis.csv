@@ -1,0 +1,6 @@
+item,min,max,units,source,notes
+Wobbe index (gross),,,MJ/Nm3,burner vendor data sheet,state reference conditions and gross/net basis
+H2S in fuel gas,,,ppmv,site air permit,averaging period
+H2 in fuel gas,,,mol%,burner vendor,
+NG import capacity,,,kmol/h,NG letdown station design,
+Heating value basis,,,,client standard,ISO 6976 / GPSA / simulator; reference temperature for combustion and metering

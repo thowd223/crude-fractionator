@@ -1,0 +1,1045 @@
+{
+ "_note": "ILLUSTRATIVE EXAMPLE DATA ONLY. Not plant data. Replace with client historian data.",
+ "basis": {
+  "normal_conditions": "0 C, 101.325 kPa",
+  "molar_volume_nm3_kmol": 22.414,
+  "air_mw": 28.964,
+  "latent_heat_water_kj_mol": 44.01,
+  "heats_of_combustion": "gross, kJ/mol at 25 C; net = gross - n_H2O x 44.01"
+ },
+ "components": [
+  {
+   "id": "H2",
+   "name": "Hydrogen",
+   "mw": 2.016,
+   "q_gross_kj_mol": 285.83,
+   "n_h2o": 1,
+   "group": "h2"
+  },
+  {
+   "id": "CH4",
+   "name": "Methane",
+   "mw": 16.043,
+   "q_gross_kj_mol": 890.56,
+   "n_h2o": 2,
+   "group": "c1"
+  },
+  {
+   "id": "C2H4",
+   "name": "Ethylene",
+   "mw": 28.054,
+   "q_gross_kj_mol": 1411.18,
+   "n_h2o": 2,
+   "group": "c2"
+  },
+  {
+   "id": "C2H6",
+   "name": "Ethane",
+   "mw": 30.07,
+   "q_gross_kj_mol": 1560.69,
+   "n_h2o": 3,
+   "group": "c2"
+  },
+  {
+   "id": "C3H6",
+   "name": "Propylene",
+   "mw": 42.081,
+   "q_gross_kj_mol": 2058.02,
+   "n_h2o": 3,
+   "group": "c3"
+  },
+  {
+   "id": "C3H8",
+   "name": "Propane",
+   "mw": 44.097,
+   "q_gross_kj_mol": 2219.17,
+   "n_h2o": 4,
+   "group": "c3"
+  },
+  {
+   "id": "C4",
+   "name": "Butanes (as n-butane)",
+   "mw": 58.123,
+   "q_gross_kj_mol": 2877.4,
+   "n_h2o": 5,
+   "group": "c4"
+  },
+  {
+   "id": "C5+",
+   "name": "Pentanes+ (as n-pentane)",
+   "mw": 72.15,
+   "q_gross_kj_mol": 3535.77,
+   "n_h2o": 6,
+   "group": "c5"
+  },
+  {
+   "id": "N2",
+   "name": "Nitrogen",
+   "mw": 28.013,
+   "q_gross_kj_mol": 0,
+   "n_h2o": 0,
+   "group": "inert"
+  },
+  {
+   "id": "CO2",
+   "name": "Carbon dioxide",
+   "mw": 44.01,
+   "q_gross_kj_mol": 0,
+   "n_h2o": 0,
+   "group": "inert"
+  },
+  {
+   "id": "H2S",
+   "name": "Hydrogen sulphide",
+   "mw": 34.081,
+   "q_gross_kj_mol": 562.01,
+   "n_h2o": 1,
+   "group": "h2s"
+  }
+ ],
+ "units": [
+  {
+   "id": "cdu",
+   "name": "Crude unit overhead off-gas",
+   "short": "Crude unit",
+   "flow_kmol_h": {
+    "min": 80,
+    "normal": 120,
+    "max": 150
+   },
+   "fuel_use_gj_h": 540,
+   "analysis_mol_pct": {
+    "lean": [
+     2.0,
+     30.0,
+     0.0,
+     23.0,
+     0.0,
+     23.0,
+     12.0,
+     6.0,
+     2.0,
+     1.99,
+     0.01
+    ],
+    "normal": [
+     2.0,
+     25.0,
+     0.0,
+     20.0,
+     0.0,
+     28.0,
+     15.0,
+     6.0,
+     2.0,
+     1.99,
+     0.01
+    ],
+    "rich": [
+     2.0,
+     20.0,
+     0.0,
+     17.0,
+     0.0,
+     33.0,
+     18.0,
+     6.0,
+     2.0,
+     1.99,
+     0.01
+    ]
+   }
+  },
+  {
+   "id": "vdu",
+   "name": "Vacuum unit ejector off-gas",
+   "short": "Vacuum unit",
+   "flow_kmol_h": {
+    "min": 20,
+    "normal": 40,
+    "max": 55
+   },
+   "fuel_use_gj_h": 210,
+   "analysis_mol_pct": {
+    "lean": [
+     3.0,
+     44.03,
+     0.0,
+     15.0,
+     0.0,
+     12.0,
+     8.0,
+     6.0,
+     8.0,
+     3.95,
+     0.02
+    ],
+    "normal": [
+     3.0,
+     40.0,
+     0.0,
+     15.0,
+     0.0,
+     12.0,
+     8.0,
+     10.0,
+     8.0,
+     3.95,
+     0.05
+    ],
+    "rich": [
+     3.0,
+     35.9,
+     0.0,
+     15.0,
+     0.0,
+     12.0,
+     8.0,
+     14.0,
+     8.0,
+     3.95,
+     0.15
+    ]
+   }
+  },
+  {
+   "id": "fcc",
+   "name": "FCC gas plant dry gas",
+   "short": "FCC",
+   "flow_kmol_h": {
+    "min": 700,
+    "normal": 900,
+    "max": 1000
+   },
+   "fuel_use_gj_h": 90,
+   "analysis_mol_pct": {
+    "lean": [
+     23.0,
+     38.0,
+     12.0,
+     16.0,
+     1.0,
+     2.0,
+     1.0,
+     0.3,
+     5.0,
+     1.69,
+     0.01
+    ],
+    "normal": [
+     18.0,
+     38.0,
+     15.0,
+     16.0,
+     3.0,
+     2.0,
+     1.0,
+     0.3,
+     5.0,
+     1.69,
+     0.01
+    ],
+    "rich": [
+     13.0,
+     38.0,
+     18.0,
+     16.0,
+     5.0,
+     2.0,
+     1.0,
+     0.3,
+     5.0,
+     1.69,
+     0.01
+    ]
+   }
+  },
+  {
+   "id": "dcu",
+   "name": "Delayed coker off-gas",
+   "short": "Delayed coker",
+   "flow_kmol_h": {
+    "min": 380,
+    "normal": 500,
+    "max": 560
+   },
+   "fuel_use_gj_h": 240,
+   "analysis_mol_pct": {
+    "lean": [
+     15.0,
+     50.0,
+     3.0,
+     18.0,
+     3.0,
+     5.0,
+     2.0,
+     1.0,
+     1.0,
+     1.98,
+     0.02
+    ],
+    "normal": [
+     12.0,
+     50.0,
+     3.0,
+     18.0,
+     3.0,
+     7.0,
+     3.0,
+     1.0,
+     1.0,
+     1.98,
+     0.02
+    ],
+    "rich": [
+     8.49,
+     50.0,
+     3.0,
+     18.0,
+     3.0,
+     9.0,
+     4.5,
+     1.0,
+     1.0,
+     1.98,
+     0.03
+    ]
+   }
+  },
+  {
+   "id": "ccr",
+   "name": "Reformer net gas spill",
+   "short": "Reformer",
+   "flow_kmol_h": {
+    "min": 150,
+    "normal": 300,
+    "max": 400
+   },
+   "fuel_use_gj_h": 360,
+   "analysis_mol_pct": {
+    "lean": [
+     86.0,
+     6.0,
+     0.0,
+     4.0,
+     0.0,
+     2.0,
+     1.5,
+     0.5,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "normal": [
+     82.0,
+     8.0,
+     0.0,
+     5.0,
+     0.0,
+     3.0,
+     1.5,
+     0.5,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rich": [
+     74.0,
+     12.0,
+     0.0,
+     7.0,
+     0.0,
+     5.0,
+     1.5,
+     0.5,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "nht",
+   "name": "Naphtha hydrotreater off-gas",
+   "short": "Naphtha HT",
+   "flow_kmol_h": {
+    "min": 60,
+    "normal": 90,
+    "max": 110
+   },
+   "fuel_use_gj_h": 72,
+   "analysis_mol_pct": {
+    "lean": [
+     59.0,
+     20.0,
+     0.0,
+     10.0,
+     0.0,
+     6.0,
+     2.0,
+     1.0,
+     1.0,
+     0.99,
+     0.01
+    ],
+    "normal": [
+     55.0,
+     20.0,
+     0.0,
+     10.0,
+     0.0,
+     8.0,
+     4.0,
+     1.0,
+     1.0,
+     0.99,
+     0.01
+    ],
+    "rich": [
+     51.0,
+     20.0,
+     0.0,
+     10.0,
+     0.0,
+     10.0,
+     6.0,
+     1.0,
+     1.0,
+     0.99,
+     0.01
+    ]
+   }
+  },
+  {
+   "id": "kht",
+   "name": "Kerosene hydrotreater off-gas",
+   "short": "Kerosene HT",
+   "flow_kmol_h": {
+    "min": 40,
+    "normal": 60,
+    "max": 75
+   },
+   "fuel_use_gj_h": 48,
+   "analysis_mol_pct": {
+    "lean": [
+     62.0,
+     18.0,
+     0.0,
+     10.0,
+     0.0,
+     5.0,
+     2.0,
+     1.0,
+     1.995,
+     0.0,
+     0.005
+    ],
+    "normal": [
+     58.0,
+     18.0,
+     0.0,
+     10.0,
+     0.0,
+     7.0,
+     4.0,
+     1.0,
+     1.995,
+     0.0,
+     0.005
+    ],
+    "rich": [
+     54.0,
+     18.0,
+     0.0,
+     10.0,
+     0.0,
+     9.0,
+     6.0,
+     1.0,
+     1.995,
+     0.0,
+     0.005
+    ]
+   }
+  },
+  {
+   "id": "dht",
+   "name": "Diesel hydrotreater off-gas",
+   "short": "Diesel HT",
+   "flow_kmol_h": {
+    "min": 150,
+    "normal": 200,
+    "max": 240
+   },
+   "fuel_use_gj_h": 90,
+   "analysis_mol_pct": {
+    "lean": [
+     64.0,
+     20.0,
+     0.0,
+     10.0,
+     0.0,
+     4.0,
+     0.0,
+     0.0,
+     1.995,
+     0.0,
+     0.005
+    ],
+    "normal": [
+     60.0,
+     20.0,
+     0.0,
+     10.0,
+     0.0,
+     6.0,
+     2.0,
+     0.0,
+     1.995,
+     0.0,
+     0.005
+    ],
+    "rich": [
+     56.0,
+     20.0,
+     0.0,
+     10.0,
+     0.0,
+     8.0,
+     4.0,
+     0.0,
+     1.995,
+     0.0,
+     0.005
+    ]
+   }
+  },
+  {
+   "id": "hcu",
+   "name": "Hydrocracker LP flash gas",
+   "short": "Hydrocracker",
+   "flow_kmol_h": {
+    "min": 180,
+    "normal": 250,
+    "max": 300
+   },
+   "fuel_use_gj_h": 210,
+   "analysis_mol_pct": {
+    "lean": [
+     49.0,
+     25.0,
+     0.0,
+     12.0,
+     0.0,
+     8.0,
+     3.0,
+     1.5,
+     1.0,
+     0.49,
+     0.01
+    ],
+    "normal": [
+     45.0,
+     25.0,
+     0.0,
+     12.0,
+     0.0,
+     10.0,
+     5.0,
+     1.5,
+     1.0,
+     0.49,
+     0.01
+    ],
+    "rich": [
+     41.0,
+     25.0,
+     0.0,
+     12.0,
+     0.0,
+     12.0,
+     7.0,
+     1.5,
+     1.0,
+     0.49,
+     0.01
+    ]
+   }
+  },
+  {
+   "id": "gho",
+   "name": "Gas oil hydrotreater off-gas",
+   "short": "Gas oil HT",
+   "flow_kmol_h": {
+    "min": 80,
+    "normal": 120,
+    "max": 150
+   },
+   "fuel_use_gj_h": 90,
+   "analysis_mol_pct": {
+    "lean": [
+     54.0,
+     24.0,
+     0.0,
+     12.0,
+     0.0,
+     6.0,
+     1.0,
+     1.0,
+     1.99,
+     0.0,
+     0.01
+    ],
+    "normal": [
+     50.0,
+     24.0,
+     0.0,
+     12.0,
+     0.0,
+     8.0,
+     3.0,
+     1.0,
+     1.99,
+     0.0,
+     0.01
+    ],
+    "rich": [
+     46.0,
+     24.0,
+     0.0,
+     12.0,
+     0.0,
+     10.0,
+     5.0,
+     1.0,
+     1.99,
+     0.0,
+     0.01
+    ]
+   }
+  },
+  {
+   "id": "isom",
+   "name": "Isomerization stabilizer off-gas",
+   "short": "Isomerization",
+   "flow_kmol_h": {
+    "min": 30,
+    "normal": 50,
+    "max": 60
+   },
+   "fuel_use_gj_h": 24,
+   "analysis_mol_pct": {
+    "lean": [
+     44.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0,
+     23.0,
+     11.0,
+     2.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "normal": [
+     40.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0,
+     25.0,
+     13.0,
+     2.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "rich": [
+     36.0,
+     10.0,
+     0.0,
+     10.0,
+     0.0,
+     27.0,
+     15.0,
+     2.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "sgp",
+   "name": "Saturated gas plant off-gas",
+   "short": "Sat gas plant",
+   "flow_kmol_h": {
+    "min": 100,
+    "normal": 150,
+    "max": 180
+   },
+   "fuel_use_gj_h": 36,
+   "analysis_mol_pct": {
+    "lean": [
+     5.0,
+     60.0,
+     0.0,
+     22.0,
+     0.0,
+     6.0,
+     2.0,
+     0.5,
+     3.0,
+     1.48,
+     0.02
+    ],
+    "normal": [
+     5.0,
+     55.0,
+     0.0,
+     25.0,
+     0.0,
+     8.0,
+     2.0,
+     0.5,
+     3.0,
+     1.48,
+     0.02
+    ],
+    "rich": [
+     5.0,
+     50.0,
+     0.0,
+     28.0,
+     0.0,
+     10.0,
+     2.0,
+     0.5,
+     3.0,
+     1.48,
+     0.02
+    ]
+   }
+  },
+  {
+   "id": "vbu",
+   "name": "Visbreaker off-gas",
+   "short": "Visbreaker",
+   "flow_kmol_h": {
+    "min": 50,
+    "normal": 80,
+    "max": 100
+   },
+   "fuel_use_gj_h": 72,
+   "analysis_mol_pct": {
+    "lean": [
+     11.0,
+     45.0,
+     4.0,
+     18.0,
+     3.0,
+     7.0,
+     4.0,
+     2.0,
+     2.0,
+     3.97,
+     0.03
+    ],
+    "normal": [
+     8.0,
+     45.0,
+     4.0,
+     18.0,
+     3.0,
+     9.0,
+     5.0,
+     2.0,
+     2.0,
+     3.97,
+     0.03
+    ],
+    "rich": [
+     3.9992,
+     44.991,
+     3.9992,
+     17.9964,
+     2.9994,
+     10.9978,
+     6.9986,
+     1.9996,
+     1.9996,
+     3.9692,
+     0.05
+    ]
+   }
+  },
+  {
+   "id": "alky",
+   "name": "Alkylation depropanizer off-gas",
+   "short": "Alkylation",
+   "flow_kmol_h": {
+    "min": 15,
+    "normal": 30,
+    "max": 40
+   },
+   "fuel_use_gj_h": 42,
+   "analysis_mol_pct": {
+    "lean": [
+     0.0,
+     5.0,
+     0.0,
+     20.0,
+     0.0,
+     65.0,
+     8.0,
+     0.0,
+     2.0,
+     0.0,
+     0.0
+    ],
+    "normal": [
+     0.0,
+     5.0,
+     0.0,
+     15.0,
+     0.0,
+     70.0,
+     8.0,
+     0.0,
+     2.0,
+     0.0,
+     0.0
+    ],
+    "rich": [
+     0.0,
+     5.0,
+     0.0,
+     10.0,
+     0.0,
+     75.0,
+     8.0,
+     0.0,
+     2.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "id": "bsu",
+   "name": "Benzene saturation off-gas",
+   "short": "Benzene saturation",
+   "flow_kmol_h": {
+    "min": 20,
+    "normal": 30,
+    "max": 40
+   },
+   "fuel_use_gj_h": 18,
+   "analysis_mol_pct": {
+    "lean": [
+     69.0,
+     15.0,
+     0.0,
+     8.0,
+     0.0,
+     4.0,
+     1.0,
+     1.0,
+     2.0,
+     0.0,
+     0.0
+    ],
+    "normal": [
+     65.0,
+     15.0,
+     0.0,
+     8.0,
+     0.0,
+     6.0,
+     3.0,
+     1.0,
+     2.0,
+     0.0,
+     0.0
+    ],
+    "rich": [
+     61.0,
+     15.0,
+     0.0,
+     8.0,
+     0.0,
+     8.0,
+     5.0,
+     1.0,
+     2.0,
+     0.0,
+     0.0
+    ]
+   }
+  }
+ ],
+ "other_consumers": {
+  "name": "Utility boilers and offsites",
+  "fuel_use_gj_h": 810
+ },
+ "makeup": {
+  "id": "ng",
+  "name": "Natural gas import",
+  "max_kmol_h": 2500,
+  "analysis_mol_pct": [
+   0.0,
+   92.0,
+   0.0,
+   4.0,
+   0.0,
+   1.0,
+   0.0,
+   0.0,
+   2.0,
+   1.0,
+   0.0
+  ]
+ },
+ "limits": {
+  "wobbe_band_pct": 5,
+  "h2s_ppmv_max": 160
+ },
+ "scenarios": [
+  {
+   "id": "normal",
+   "name": "Normal operation",
+   "down": []
+  },
+  {
+   "id": "down-cdu",
+   "name": "Crude unit down",
+   "down": [
+    "cdu"
+   ]
+  },
+  {
+   "id": "down-vdu",
+   "name": "Vacuum unit down",
+   "down": [
+    "vdu"
+   ]
+  },
+  {
+   "id": "down-fcc",
+   "name": "FCC down",
+   "down": [
+    "fcc"
+   ]
+  },
+  {
+   "id": "down-dcu",
+   "name": "Delayed coker down",
+   "down": [
+    "dcu"
+   ]
+  },
+  {
+   "id": "down-ccr",
+   "name": "Reformer down",
+   "down": [
+    "ccr"
+   ]
+  },
+  {
+   "id": "down-nht",
+   "name": "Naphtha HT down",
+   "down": [
+    "nht"
+   ]
+  },
+  {
+   "id": "down-kht",
+   "name": "Kerosene HT down",
+   "down": [
+    "kht"
+   ]
+  },
+  {
+   "id": "down-dht",
+   "name": "Diesel HT down",
+   "down": [
+    "dht"
+   ]
+  },
+  {
+   "id": "down-hcu",
+   "name": "Hydrocracker down",
+   "down": [
+    "hcu"
+   ]
+  },
+  {
+   "id": "down-gho",
+   "name": "Gas oil HT down",
+   "down": [
+    "gho"
+   ]
+  },
+  {
+   "id": "down-isom",
+   "name": "Isomerization down",
+   "down": [
+    "isom"
+   ]
+  },
+  {
+   "id": "down-sgp",
+   "name": "Sat gas plant down",
+   "down": [
+    "sgp"
+   ]
+  },
+  {
+   "id": "down-vbu",
+   "name": "Visbreaker down",
+   "down": [
+    "vbu"
+   ]
+  },
+  {
+   "id": "down-alky",
+   "name": "Alkylation down",
+   "down": [
+    "alky"
+   ]
+  },
+  {
+   "id": "down-bsu",
+   "name": "Benzene saturation down",
+   "down": [
+    "bsu"
+   ]
+  },
+  {
+   "id": "ta-crude",
+   "name": "Crude turnaround (crude + vacuum)",
+   "down": [
+    "cdu",
+    "vdu"
+   ]
+  },
+  {
+   "id": "ta-fcc",
+   "name": "FCC turnaround (FCC + alky)",
+   "down": [
+    "fcc",
+    "alky"
+   ]
+  },
+  {
+   "id": "ta-ccr",
+   "name": "Reformer turnaround (CCR + NHT + BSU)",
+   "down": [
+    "ccr",
+    "nht",
+    "bsu"
+   ]
+  }
+ ]
+}

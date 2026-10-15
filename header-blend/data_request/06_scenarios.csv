@@ -1,0 +1,2 @@
+scenario_id,scenario_name,units_down_semicolon_separated,units_at_reduced_rate_semicolon_separated,how_likely,notes
+TA-CCR,Reformer turnaround,CCR;NHT;BSU,,every 3 years,linked units shut down together

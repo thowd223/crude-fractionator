@@ -1,12 +1,13 @@
+<meta charset="utf-8">
 <title>Fuel Gas Header Blender</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: control panel of source units on the left, header result on the right; stacks on phone */
+/* Layout: two working views (range envelope, single case) under one header; technical basis below. */
 :root{
   --bg:#f3f5f6; --panel:#ffffff; --line:#d5dbdf; --fg:#1b2329; --muted:#5d6a73;
   --accent:#0f6e78; --accent-soft:#dcefef; --off:#e7eaec;
-  --good:#2f7d3a; --warn:#a86400; --bad:#b3261e;
+  --good:#2f7d3a; --good-soft:#e2f1e4; --warn:#a86400; --warn-soft:#f7ecd9; --bad:#b3261e; --bad-soft:#f8e1df;
   --c-h2:#4c8fd6; --c-c1:#0f6e78; --c-c2:#6aa84f; --c-c3:#d4a017; --c-c4:#c8642a; --c-c5:#8e4c8c; --c-inert:#8a969e; --c-h2s:#b3261e;
   --f-disp:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -15,77 +16,102 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#12181c; --panel:#1a2227; --line:#2c373e; --fg:#e3e9ec; --muted:#93a1aa;
   --accent:#4fb3bd; --accent-soft:#1d3a3e; --off:#20282d;
-  --good:#6cc177; --warn:#e3a54a; --bad:#ef6b62;
+  --good:#6cc177; --good-soft:#1f3323; --warn:#e3a54a; --warn-soft:#3a2e1a; --bad:#ef6b62; --bad-soft:#3f2321;
   --c-h2:#6ea8e6; --c-c1:#4fb3bd; --c-c2:#86c46b; --c-c3:#e5b93a; --c-c4:#e2834c; --c-c5:#b57ab3; --c-inert:#7d8a92; --c-h2s:#ef6b62;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#12181c; --panel:#1a2227; --line:#2c373e; --fg:#e3e9ec; --muted:#93a1aa;
   --accent:#4fb3bd; --accent-soft:#1d3a3e; --off:#20282d;
-  --good:#6cc177; --warn:#e3a54a; --bad:#ef6b62;
+  --good:#6cc177; --good-soft:#1f3323; --warn:#e3a54a; --warn-soft:#3a2e1a; --bad:#ef6b62; --bad-soft:#3f2321;
   --c-h2:#6ea8e6; --c-c1:#4fb3bd; --c-c2:#86c46b; --c-c3:#e5b93a; --c-c4:#e2834c; --c-c5:#b57ab3; --c-inert:#7d8a92; --c-h2s:#ef6b62;
   color-scheme:dark}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45}
-.wrap{max-width:1180px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:20px}
+.wrap{max-width:1240px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:20px}
 header h1{font-family:var(--f-disp);font-weight:700;font-size:1.9rem;margin:0;letter-spacing:.01em;text-wrap:balance}
-header p{margin:4px 0 0;color:var(--muted);max-width:70ch}
+header p{margin:4px 0 0;color:var(--muted);max-width:75ch}
 .tag{display:inline-block;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--warn);color:var(--warn);padding:2px 8px;border-radius:3px;margin-bottom:8px}
-.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:start}
-@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs button{font:600 .95rem var(--f-body);background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 14px;cursor:pointer;border-radius:0}
+.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 h2{font-family:var(--f-disp);font-weight:600;font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
-.units{display:grid;gap:8px}
-.unit{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;min-width:0}
+.stack{display:grid;gap:16px;min-width:0}
+.status{font-size:.88rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:600;color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
+td{font-family:var(--f-mono)}
+td.t,td:first-child{font-family:var(--f-body)}
+td.l,th.l{text-align:left}
+.u{color:var(--muted);font-size:.78rem;font-family:var(--f-body)}
+.rbar{position:relative;width:180px;height:16px;background:var(--off);border-radius:3px}
+.rbar .r{position:absolute;top:3px;bottom:3px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:2px}
+.rbar .tp{position:absolute;top:0;bottom:0;width:2px;background:var(--fg)}
+.rbar .lim{position:absolute;top:-2px;bottom:-2px;width:0;border-left:2px dashed var(--bad)}
+.rbar .band{position:absolute;top:0;bottom:0;background:var(--good-soft)}
+.linkbtn{font:inherit;font-family:var(--f-body);font-size:.84rem;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-align:left}
+.linkbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pill{display:inline-block;font:600 .72rem var(--f-body);letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:10px}
+.pill.ok{background:var(--good-soft);color:var(--good)} .pill.chk{background:var(--warn-soft);color:var(--warn)} .pill.bad{background:var(--bad-soft);color:var(--bad)}
+.cell-bad{color:var(--bad);font-weight:500} .cell-chk{color:var(--warn);font-weight:500}
+.alerts{display:grid;gap:6px}
+.alert{font-size:.9rem;padding:8px 10px;border-radius:4px;border-left:4px solid var(--warn);background:var(--warn-soft)}
+.alert.bad{border-left-color:var(--bad);background:var(--bad-soft)} .alert.ok{border-left-color:var(--good);background:var(--good-soft)}
+.units{display:grid;gap:6px}
+.unit{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 10px;align-items:center}
 .unit.off{background:var(--off)}
-.unit.off .uname,.unit.off .usub{opacity:.55}
-.uname{font-weight:600}
-.usub{grid-column:2/4;color:var(--muted);font-size:.82rem;font-family:var(--f-mono)}
-.flow{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
-.flow input{width:76px;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:3px 6px;text-align:right}
-.sw{position:relative;width:46px;height:24px;flex:none}
+.unit.off .uname,.unit.off .ctrl{opacity:.5}
+.uname{font-weight:600;font-size:.92rem;min-width:0}
+.usub{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);text-align:right}
+.ctrl{grid-column:2/4;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.ctrl input[type=range]{flex:1 1 120px;min-width:100px;accent-color:var(--accent)}
+.ctrl .fv{font-family:var(--f-mono);min-width:86px;color:var(--fg)}
+.ctrl select{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:2px 4px}
+.sw{position:relative;width:42px;height:22px;flex:none}
 .sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
-.sw span{position:absolute;inset:0;border-radius:12px;background:var(--line);transition:background .15s}
-.sw span::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--panel);transition:transform .15s}
+.sw span{position:absolute;inset:0;border-radius:11px;background:var(--line);transition:background .15s}
+.sw span::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--panel);transition:transform .15s}
 .sw input:checked+span{background:var(--accent)}
-.sw input:checked+span::after{transform:translateX(22px)}
+.sw input:checked+span::after{transform:translateX(20px)}
 .sw input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
-.opt{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border-radius:6px;padding:10px 12px;font-size:.9rem}
-.opt input{margin-top:3px;accent-color:var(--accent)}
-.btns{display:flex;gap:8px;flex-wrap:wrap}
-button{font:600 .85rem var(--f-body);color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:4px;padding:5px 12px;cursor:pointer}
-button:hover{background:var(--accent-soft)}
-button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
-.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 18px}
-@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.kpi .l{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.kpi .v{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;font-variant-numeric:tabular-nums}
-.kpi .u{font-size:.75rem;color:var(--muted);margin-left:3px}
-.kpi .d{font-family:var(--f-mono);font-size:.78rem;font-variant-numeric:tabular-nums}
-.d.up{color:var(--warn)} .d.dn{color:var(--accent)} .d.z{color:var(--muted)} .d.bad{color:var(--bad);font-weight:600}
-.bars{display:grid;gap:8px;margin-top:4px}
-.barrow{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;font-size:.8rem;color:var(--muted)}
-.bar{display:flex;height:22px;border-radius:3px;overflow:hidden;background:var(--off)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button.b{font:600 .85rem var(--f-body);color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:4px;padding:5px 12px;cursor:pointer}
+button.b:hover{background:var(--accent-soft)}
+button.b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 18px}
+@media (max-width:620px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi .l{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.kpi .v{font-family:var(--f-mono);font-size:1.25rem;font-weight:500;font-variant-numeric:tabular-nums}
+.kpi .v .u{margin-left:3px}
+.kpi .d{font-family:var(--f-mono);font-size:.76rem}
+.d.up{color:var(--warn)} .d.dn{color:var(--accent)} .d.z{color:var(--muted)}
+.bars{display:grid;gap:8px}
+.barrow{display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:center;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;height:20px;border-radius:3px;overflow:hidden;background:var(--off)}
 .bar i{display:block;height:100%;transition:width .25s}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted);margin-top:8px}
 .legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.alerts{display:grid;gap:6px}
-.alert{font-size:.88rem;padding:7px 10px;border-radius:4px;border-left:4px solid var(--warn);background:var(--off)}
-.alert.bad{border-left-color:var(--bad)} .alert.ok{border-left-color:var(--good)}
-.tbl{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
-th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th:first-child,td:first-child{text-align:left}
-th{font-weight:600;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
-td{font-family:var(--f-mono)}
-td:first-child{font-family:var(--f-body)}
-.note{font-size:.82rem;color:var(--muted);max-width:75ch}
-.basis{display:grid;gap:18px;border-top:2px solid var(--line);padding-top:24px}
-.basis h2{color:var(--fg);font-size:1.25rem;letter-spacing:.05em}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{display:flex;gap:5px;align-items:center;font-size:.84rem;border:1px solid var(--line);border-radius:14px;padding:3px 10px;cursor:pointer;background:var(--bg)}
+.chips input{accent-color:var(--accent)}
+.addrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.addrow input[type=text]{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 8px;flex:1 1 220px;min-width:0}
+.basis{display:grid;gap:16px;border-top:2px solid var(--line);padding-top:24px}
+.basis>div>h2{color:var(--fg);font-size:1.25rem;letter-spacing:.05em}
 .basis h3{font-family:var(--f-disp);font-weight:600;font-size:1.05rem;margin:0 0 8px;color:var(--accent)}
-.basis p,.basis li{max-width:80ch}
+.basis p,.basis li{max-width:85ch}
 .basis ul,.basis ol{margin:0;padding-left:1.3em;display:grid;gap:4px}
 .basis .panel{display:grid;gap:8px}
-.eq{font-family:var(--f-mono);font-size:.86rem;background:var(--off);border-radius:4px;padding:10px 12px;overflow-x:auto;line-height:1.7;white-space:pre}
+.eq{font-family:var(--f-mono);font-size:.84rem;background:var(--off);border-radius:4px;padding:10px 12px;overflow-x:auto;line-height:1.7;white-space:pre}
+.note{font-size:.84rem;color:var(--muted);max-width:85ch;margin:0}
 .flag{color:var(--warn);font-weight:600}
+code{font-family:var(--f-mono);font-size:.85em}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -93,248 +119,382 @@ td:first-child{font-family:var(--f-body)}
 <header>
   <div class="tag">Proof of concept · illustrative data only</div>
   <h1>Fuel Gas Header Blender</h1>
-  <p>Switch a contributing unit off and see the mixed header composition and fuel properties update. Stream flows and analyses below are made-up example values, not plant data.</p>
+  <p>Fifteen units feed one fuel gas header. The range view gives the lowest and highest header composition and fuel properties across every outage scenario, with each unit anywhere in its flow and analysis range. The single-case view lets you switch units off and see one result. All unit data is made up.</p>
 </header>
 
-<div class="grid">
-  <section>
-    <h2>Contributing streams</h2>
-    <div class="units" id="units"></div>
-    <div style="height:10px"></div>
-    <label class="opt"><input type="checkbox" id="hold"> <span><b>Hold header heat demand with natural gas make-up.</b> When a unit is shut down, NG import rises to replace the lost LHV duty, as the pressure controller would.</span></label>
-    <div style="height:10px"></div>
-    <div class="btns"><button id="reset" type="button">Reset to base case</button></div>
-  </section>
-
-  <section style="display:grid;gap:16px;min-width:0">
-    <div class="panel">
-      <h2>Header result vs base case</h2>
-      <div class="kpis" id="kpis"></div>
-    </div>
-    <div class="panel">
-      <h2>Composition, mol %</h2>
-      <div class="bars" id="bars"></div>
-      <div class="legend" id="legend"></div>
-    </div>
-    <div class="panel">
-      <h2>Checks</h2>
-      <div class="alerts" id="alerts"></div>
-    </div>
-    <div class="panel">
-      <h2>Component detail</h2>
-      <div class="tbl"><table id="tbl"></table></div>
-    </div>
-    <p class="note">Method and data basis are set out in full under Technical basis below.</p>
-  </section>
+<div class="tabs" role="tablist">
+  <button role="tab" id="tab-range" aria-selected="true" aria-controls="view-range">Composition range</button>
+  <button role="tab" id="tab-case" aria-selected="false" aria-controls="view-case">Single case</button>
 </div>
+
+<section id="view-range" role="tabpanel" aria-labelledby="tab-range" class="stack">
+  <div class="status" id="status">Loading unit data…</div>
+  <div class="panel">
+    <h2>Header envelope across all scenarios</h2>
+    <div class="tbl"><table id="envTbl"></table></div>
+    <p class="note" style="margin-top:8px">Bar: shaded span is min to max, dark tick is typical (normal operation, every unit at normal flow and analysis). Green band is the allowed Wobbe swing; dashed line is a limit. Click a scenario name to open that exact case.</p>
+  </div>
+  <div class="panel"><h2>Findings</h2><div class="alerts" id="findings"></div></div>
+  <div class="panel">
+    <h2>By scenario</h2>
+    <div class="tbl"><table id="scnTbl"></table></div>
+  </div>
+  <div class="panel">
+    <h2>Add a scenario</h2>
+    <div class="stack" style="gap:10px">
+      <div class="chips" id="addChips"></div>
+      <div class="addrow">
+        <input type="text" id="addName" placeholder="Scenario name, e.g. Hydrocracker + gas oil HT down" aria-label="Scenario name">
+        <button class="b" id="addBtn" type="button">Add scenario</button>
+      </div>
+      <div class="note" id="addMsg"></div>
+    </div>
+  </div>
+</section>
+
+<section id="view-case" role="tabpanel" aria-labelledby="tab-case" hidden>
+  <div class="grid">
+    <div class="stack">
+      <div class="btns">
+        <button class="b" id="resetBtn" type="button">Reset to normal operation</button>
+        <button class="b" id="saveScn" type="button">Save outage set as scenario</button>
+      </div>
+      <div class="note" id="caseLabel"></div>
+      <div class="units" id="units"></div>
+    </div>
+    <div class="stack">
+      <div class="panel"><h2>Header result vs normal operation</h2><div class="kpis" id="kpis"></div></div>
+      <div class="panel"><h2>Header heat balance</h2><div id="balance" class="note" style="color:var(--fg)"></div></div>
+      <div class="panel"><h2>Composition, mol %</h2><div class="bars" id="bars"></div><div class="legend" id="legend"></div></div>
+      <div class="panel"><h2>Checks</h2><div class="alerts" id="alerts"></div></div>
+      <div class="panel"><h2>Component detail</h2><div class="tbl"><table id="compTbl"></table></div></div>
+    </div>
+  </div>
+</section>
 
 <section class="basis" id="basis">
   <div>
     <h2>Technical basis for engineering review</h2>
-    <p class="note">Status: proof of concept. Stream flows and analyses are illustrative and the tool is not for design use. This section sets out every equation, constant, assumption and check so a process engineer can verify the method independently.</p>
+    <p class="note">Status: proof of concept on illustrative data, not for design use. This section sets out the equations, constants, assumptions, solution method and checks so a process engineer can verify the work independently. Source files: <code>model.js</code> (engine), <code>example_units.json</code> (data), <code>verify.py</code> (independent check).</p>
   </div>
 
   <div class="panel">
-    <h3>1. Calculation method</h3>
-    <p>Steady-state, ideal-gas, molar mixing. No reaction, no phase change, no hold-up in the header.</p>
-<div class="eq">Normalise each analysis     y_ij = a_ij / Σ_j a_ij          a_ij = reported mol%, stream i, component j
-Header component flow       n_j  = Σ_i F_i · y_ij           F_i = stream molar flow, kmol/h
-Header total and mol frac   F = Σ_i F_i ,  x_j = n_j / F
-Molecular weight            MW = Σ_j x_j · MW_j              kg/kmol
-Specific gravity (ideal)    SG = MW / 28.964
-Net heating value           LHV = Σ_j x_j · ΔHc,net,j / 22.414   MJ/Nm³ (ΔHc in kJ/mol)
-Wobbe index (net basis)     WI = LHV / √SG                   MJ/Nm³
-Header heat supply          Q = F · 22.414 · LHV / 1000      GJ/h
-H₂S                         ppmv = x_H2S · 10⁶
-NG make-up (hold option)    F_NG = (Q_base − Q_other) · 1000 / (22.414 · LHV_NG),  F_NG ≥ 0</div>
-    <p class="note">Q_base is the heat supply with every unit at its base flow. Q_other is the heat from all non-NG streams in the current case. Analyses that do not total exactly 100% are normalised, which is standard practice for GC results.</p>
+    <h3>1. Header model</h3>
+    <p>Steady-state, ideal-gas, molar mixing at one header node. No reaction, phase change or hold-up. A unit that is down produces no fuel gas and burns none.</p>
+<div class="eq">Analysis of unit i              y_ij = Σ_a w_ia · ŷ_aij          a ∈ {lean, normal, rich}, w ≥ 0, Σ w = 1, ŷ normalised to 1
+Component flow from unit i      n_ij = F_i · y_ij                F_i in [F_i,min , F_i,max] kmol/h
+Heat supplied by running units  Q = Σ_i F_i · Σ_j y_ij · q_net,j / 1000          GJ/h
+Header heat demand              D = Σ_running fuel_use_i + other consumers         GJ/h
+If Q < D (short)                N_NG = (D − Q) · 1000 / q_net,NG   kmol/h, flare = 0
+If Q ≥ D (long)                 N_NG = 0, flare = Q − D GJ/h  (excess leaves as blended gas)
+Header mole fraction            x_j = (Σ_i n_ij + N_NG · y_NG,j) / (Σ_i F_i + N_NG)
+MW = Σ x_j MW_j     SG = MW / 28.964     LHV = Σ x_j q_net,j / 22.414     HHV = Σ x_j q_gross,j / 22.414
+Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
+    <p class="note">q in kJ/mol (equal to MJ/kmol); dividing by 22.414 Nm³/kmol gives MJ/Nm³. Header heat is held at demand: NG makes up any shortfall and any surplus is flared. NG above the import limit is reported as a failure; it is not capped, because the header cannot then hold pressure.</p>
   </div>
 
   <div class="panel">
-    <h3>2. Reference conditions and assumptions</h3>
+    <h3>2. How the range is found</h3>
+    <p>For each scenario, every running unit may sit anywhere in its operating range: any flow between min and max, and any blend of its lean, normal and rich analyses. The envelope is the lowest and highest value of each property over all those combinations, then over all scenarios.</p>
     <ul>
-      <li>Normal conditions 0 °C, 101.325 kPa. Ideal-gas molar volume 22.414 Nm³/kmol. Compressibility Z = 1.</li>
-      <li>Heats of combustion at 25 °C, water as vapour (net / LHV). The 25 °C to 0 °C combustion-temperature correction is ignored; its effect is around 0.1%.</li>
-      <li>Wobbe index on a <span class="flag">net (LHV) basis</span>. Burner vendors and ISO 6976 usually quote gross (HHV) Wobbe. Absolute values differ from a gross-basis Wobbe, though the percentage swing between cases is comparable.</li>
-      <li>C4s are lumped as n-butane and C5+ as n-pentane. A heavier C5+ cut would raise MW and LHV slightly.</li>
-      <li>Air density for SG: 28.964 kg/kmol.</li>
-      <li>Limits shown (±5% Wobbe swing, 160 ppmv H₂S) are placeholders. Replace them with the site permit and the burner vendor's tolerances.</li>
+      <li><b>Exact for every property except Wobbe.</b> On each side of the heat balance (short or long), each property is a ratio a/b with a and b linear in the unit flows. That is a linear-fractional program. It is solved exactly with Dinkelbach's method. Each step is a linear program with one coupling constraint (header heat), solved through its one-variable dual. The extreme is either a corner (every unit at min or max flow with a pure analysis) or a balance point (one unit between its limits so heat exactly meets demand).</li>
+      <li><b>Wobbe is searched.</b> HHV/√SG is not linear-fractional, so its extremes come from a local search. The search starts from every optimum found for the other properties plus random corners, and moves one unit at a time to any corner or balance point while Wobbe improves. The sampling checks below have not found a point outside the searched range.</li>
+      <li>Runtime is about 1.5 s for 19 scenarios in a browser.</li>
     </ul>
   </div>
 
   <div class="panel">
-    <h3>3. Component properties used</h3>
-    <p class="note">MW and molar net heats of combustion are standard thermochemical values entered by hand. <span class="flag">They have not yet been checked against a cited reference.</span> Check them against GPSA Engineering Data Book Section 23 (physical constants), ISO 6976 or the NIST Chemistry WebBook. The LHV column is calculated by the page from the ΔHc column.</p>
-    <div class="tbl"><table id="ptbl"></table></div>
+    <h3>3. Reference conditions and assumptions</h3>
+    <ul>
+      <li>Normal conditions 0 °C, 101.325 kPa. Ideal-gas molar volume 22.414 Nm³/kmol, Z = 1. Air MW 28.964.</li>
+      <li>Heats of combustion at 25 °C. Net = gross − n(H₂O) × 44.01 kJ/mol. The temperature correction to 0 °C combustion is ignored, which is about 0.1%.</li>
+      <li>Wobbe is reported on a gross (HHV) basis, the usual burner-vendor convention. Confirm the client's reference conditions; ISO 6976 tables at 15 °C give different absolute values.</li>
+      <li>C4s are lumped as n-butane and C5+ as n-pentane. A heavier C5+ cut raises MW and heating value.</li>
+      <li>Each unit's fuel use is fixed at its normal value while running; it does not scale with throughput.</li>
+      <li>The analysis range of a unit is every blend of its lean, normal and rich analyses. Real analyses may fall outside that if the data does not capture the extremes.</li>
+      <li>Wobbe swing limit ±5% of typical, H₂S limit 160 ppmv and NG import capacity 2,500 kmol/h are placeholders.</li>
+    </ul>
   </div>
 
   <div class="panel">
-    <h3>4. Verification carried out</h3>
-    <ul>
-      <li>Independent re-implementation in Python (<code>header-blend/verify.py</code>, run with <code>python3 verify.py</code>). It matches this page to the precision shown for all three cases below.</li>
-      <li>Closure checks in every case: Σ x_j = 1 and Σ n_j = F, both to machine precision.</li>
-      <li>Hold option: with NG make-up on, the calculated heat supply equals the base case (2,160 GJ/h) exactly.</li>
-      <li>Hand check: equal moles of pure H₂ and CH₄ give MW 9.029 and LHV 23.30 MJ/Nm³, the simple averages of the pure-component values.</li>
-    </ul>
+    <h3>4. Component properties used</h3>
+    <p class="note">Molecular weights and gross molar heats of combustion are standard values entered by hand. <span class="flag">They have not yet been checked against a cited reference.</span> Check against GPSA Engineering Data Book Section 23, ISO 6976 or the NIST Chemistry WebBook. Net and volumetric values are calculated from the gross column.</p>
+    <div class="tbl"><table id="propTbl"></table></div>
+  </div>
+
+  <div class="panel">
+    <h3>5. Verification carried out</h3>
+    <p>Run <code>python3 verify.py</code>. It is written separately in Python from the data file, not translated from the JavaScript. Latest run: all checks passed.</p>
     <div class="tbl"><table>
-      <thead><tr><th>Case</th><th>Flow kmol/h</th><th>MW</th><th>LHV MJ/Nm³</th><th>Wobbe MJ/Nm³</th><th>H₂ mol%</th><th>H₂S ppmv</th><th>Heat GJ/h</th></tr></thead>
+      <thead><tr><th>Check</th><th class="l">What it tests</th><th class="l">Result</th></tr></thead>
       <tbody>
-        <tr><td>Base, all units on</td><td>2,500</td><td>18.39</td><td>38.55</td><td>48.38</td><td>29.32</td><td>88</td><td>2,160</td></tr>
-        <tr><td>Coker shut down</td><td>2,000</td><td>17.37</td><td>36.58</td><td>47.25</td><td>33.65</td><td>60</td><td>1,640</td></tr>
-        <tr><td>Coker shut down, NG make-up 887 kmol/h</td><td>2,637</td><td>17.38</td><td>36.54</td><td>47.18</td><td>25.52</td><td>45</td><td>2,160</td></tr>
+        <tr><td>Single case</td><td class="t l">Normal operation recalculated in Python: flow, MW, LHV, HHV, Wobbe, NG make-up</td><td class="t l">Matches model.js to 4 decimal places</td></tr>
+        <tr><td>Closure</td><td class="t l">Σ x = 1 and Σ component flow = total flow, in every evaluation</td><td class="t l">Holds in every case</td></tr>
+        <tr><td>Exhaustive</td><td class="t l">Three 5-unit test scenarios that cross from short to long. Every corner (6⁵ = 7,776 each) and every balance point (978, 1,892 and 16,799) evaluated</td><td class="t l">model.js min and max equal the exhaustive answer to 1e-15 for all properties, including Wobbe</td></tr>
+        <tr><td>Sampled</td><td class="t l">All 19 scenarios: 2,000 random corners, 2,000 random interior points and up to 1,000 points forced onto the heat-balance boundary. No theory assumed</td><td class="t l">No sample outside the reported envelope</td></tr>
       </tbody>
     </table></div>
-    <p class="note">Not yet done, and recommended before client use: the same three cases in a process simulator (HYSYS, UniSim, Pro/II or similar) with the same compositions, and a comparison of the calculated blend against the header analyser over a period of real operation.</p>
+    <p class="note">Recommended before client use: run a few envelope cases in the client's process simulator (HYSYS, UniSim, Pro/II); replay a year of historian data through the model and compare with the header analyser; have the property table checked against a cited source.</p>
   </div>
 
   <div class="panel">
-    <h3>5. Not modelled in this prototype</h3>
+    <h3>6. Not modelled</h3>
     <ul>
-      <li>Real-gas behaviour, hydrocarbon or water dew point, and condensation in the header or knock-out drums.</li>
-      <li>Transients. Each case is a new steady state; pressure swings and controller response during a trip are not represented.</li>
-      <li>Meter compensation. Orifice and other differential-pressure meters on fuel gas read wrong when MW changes. Plant flows must be density-corrected before mixing, and the correction itself shifts when a unit trips.</li>
-      <li>Components outside the list (CO, O₂, NH₃, mercaptans, COS, H₂O).</li>
-      <li>Analyser and lab uncertainty, and data reconciliation against the header meter.</li>
+      <li>Real-gas behaviour, hydrocarbon or water dew point, condensation in the header or knock-out drums.</li>
+      <li>Transients during a trip: pressure swing, controller response, the delay before make-up catches up.</li>
+      <li>Meter error. Differential-pressure meters on fuel gas read wrong when MW changes; plant flows must be density-corrected before use.</li>
+      <li>Links between units beyond the scenario list, for example hydrotreaters cutting rate when the reformer is down and hydrogen is short.</li>
+      <li>Components outside the list: CO, O₂, NH₃, mercaptans, COS, H₂O.</li>
     </ul>
   </div>
 
   <div class="panel">
-    <h3>6. Data needed from the client for the real study</h3>
+    <h3>7. Data needed for the real study</h3>
+    <p class="note">Templates for each item are in <code>header-blend/data_request/</code>, one CSV per table with an example row, plus a README with the questions below.</p>
     <div class="tbl"><table>
-      <thead><tr><th>Item</th><th>Why it is needed</th></tr></thead>
+      <thead><tr><th>Item</th><th class="l">Detail</th><th class="l">Used for</th></tr></thead>
       <tbody>
-        <tr><td>List of every stream into the header, with PFD/P&amp;ID references</td><td>Defines the mixing node; avoids missing a small but rich contributor</td></tr>
-        <tr><td>Flow tag per stream, meter type, design MW, P and T basis</td><td>Convert indicated flow to true kmol/h with density compensation</td></tr>
-        <tr><td>Online analyser tags or lab sample history per stream</td><td>Stream compositions, and how they vary with unit operation</td></tr>
-        <tr><td>Header flow meter and analyser (GC, Wobbe or calorimeter) tags</td><td>Closure check: calculated blend vs measured header</td></tr>
-        <tr><td>Historian export for a representative period, with unit outage dates</td><td>Base case and real shutdown periods to validate against</td></tr>
-        <tr><td>Fuel gas consumers, NG make-up and pressure-control philosophy</td><td>Decides whether a trip is backfilled by NG or simply lost</td></tr>
-        <tr><td>Burner Wobbe tolerance, H₂S/SO₂ permit limits, any H₂ limits</td><td>Pass/fail criteria for each shutdown case</td></tr>
-        <tr><td>Preferred property basis (ISO 6976, GPSA, simulator package) and reference conditions</td><td>Results match the client's own reporting basis</td></tr>
+        <tr><td>Stream register</td><td class="t l">Every stream into the header: flow tag, meter type, design MW/P/T, compensated or not, analyser tag or lab point, the unit's own fuel use tag, PFD/P&amp;ID reference</td><td class="t l">Defines the 15 inputs; converts indicated flow to true kmol/h</td></tr>
+        <tr><td>Flow history</td><td class="t l">12–24 months, hourly averages, every flow and fuel use tag, with quality flags</td><td class="t l">Min, normal, max flow (P5/P50/P95 while running); unit fuel use</td></tr>
+        <tr><td>Analysis history</td><td class="t l">All online GC and lab results per stream in mol%, full component list including CO, O₂, H₂S</td><td class="t l">Lean, normal, rich analysis per unit</td></tr>
+        <tr><td>Header history</td><td class="t l">Header flow, pressure, analyser or calorimeter (Wobbe, HHV), NG import and any other make-up</td><td class="t l">Validation against measured header</td></tr>
+        <tr><td>Unit status and outages</td><td class="t l">Start and end of every shutdown, trip and turnaround in the period, planned or not</td><td class="t l">Exclude down periods from unit statistics; real outages to validate against</td></tr>
+        <tr><td>Scenarios</td><td class="t l">Outage cases to study, including units that always go down together and units forced to reduced rate</td><td class="t l">The scenario list in the range view</td></tr>
+        <tr><td>Limits and basis</td><td class="t l">Burner Wobbe tolerance, H₂S permit limit and averaging period, any H₂ limit, NG import capacity, heating-value standard and reference conditions</td><td class="t l">Pass/fail criteria; property basis</td></tr>
+        <tr><td>Operating philosophy</td><td class="t l">Is the header normally short or long? What is the make-up source? Which other consumers are on it? Which burners are most sensitive?</td><td class="t l">Header balance rules in section 1</td></tr>
       </tbody>
     </table></div>
   </div>
 </section>
 </div>
 
+<script src="model.js"></script>
 <script>
-// Component data: MW (kg/kmol), net heat of combustion (kJ/mol, 25 C, H2O as vapour), display group
-const VM = 22.414; // Nm3/kmol, ideal gas at 0 C, 101.325 kPa
-const COMP = [
-  ["H2","Hydrogen",2.016,241.83,"h2"],
-  ["CH4","Methane",16.043,802.69,"c1"],
-  ["C2H4","Ethylene",28.054,1323.15,"c2"],
-  ["C2H6","Ethane",30.070,1428.84,"c2"],
-  ["C3H6","Propylene",42.081,1927.71,"c3"],
-  ["C3H8","Propane",44.097,2043.37,"c3"],
-  ["C4","Butanes (as n-butane)",58.123,2657.60,"c4"],
-  ["C5+","Pentanes+ (as n-pentane)",72.150,3245.0,"c5"],
-  ["N2","Nitrogen",28.013,0,"inert"],
-  ["CO2","Carbon dioxide",44.010,0,"inert"],
-  ["H2S","Hydrogen sulphide",34.081,518.0,"h2s"],
-];
+const HB = window.HeaderBlend, $ = id => document.getElementById(id);
 const GROUPS = [["h2","H₂"],["c1","C1"],["c2","C2s"],["c3","C3s"],["c4","C4"],["c5","C5+"],["inert","N₂ + CO₂"],["h2s","H₂S"]];
-// Example streams. Flow kmol/h, analysis mol% in COMP order. Illustrative only.
-const STREAMS = [
-  {id:"fcc", name:"FCC gas plant dry gas", flow:900, y:[18,38,15,16,3,2,1,0.3,5,1.69,0.010]},
-  {id:"dht", name:"Diesel hydrotreater off-gas", flow:300, y:[60,20,0,10,0,6,2,0,1.995,0,0.005]},
-  {id:"cdu", name:"Crude unit overhead gas", flow:150, y:[2,25,0,20,0,28,15,6,2,1.99,0.010]},
-  {id:"ccr", name:"Reformer net gas spill", flow:400, y:[82,8,0,5,0,3,1.5,0.5,0,0,0]},
-  {id:"dcu", name:"Delayed coker off-gas", flow:500, y:[12,50,3,18,3,7,3,1,1,1.98,0.020]},
-  {id:"ng",  name:"Natural gas import", flow:250, y:[0,92,0,4,0,1,0,0,2,1,0], makeup:true},
-];
-const LIM = {h2s_ppm:160, wobbe_dev:5}; // example spec: H2S ppmv max, Wobbe swing %
-const state = {};
-function resetState(){STREAMS.forEach(s=>state[s.id]={on:true,flow:s.flow});}
-resetState();
+let M, P, DATA, TYP, results = [], customN = 0;
+const st = { on:{}, flow:{}, mix:{} };
+const fmt = (v,d) => (v==null||!isFinite(v)) ? "–" : v.toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-function norm(y){const t=y.reduce((a,b)=>a+b,0);return y.map(v=>v/t);}
-function mix(cfg, hold){
-  const flows = STREAMS.map(s=>cfg[s.id].on?+cfg[s.id].flow||0:0);
-  if(hold){
-    // replace lost LHV duty (vs all-on base) with NG make-up
-    const base = mix(baseCfg(), false);
-    const mk = STREAMS.findIndex(s=>s.makeup);
-    const others = flows.map((f,i)=>i===mk?0:f);
-    const dutyOthers = others.reduce((a,f,i)=>a+f*lhvOf(norm(STREAMS[i].y)),0);
-    const need = (base.duty*1000/VM - dutyOthers)/lhvOf(norm(STREAMS[mk].y));
-    flows[mk] = cfg[STREAMS[mk].id].on ? Math.max(0,need) : 0;
-  }
-  const F = flows.reduce((a,b)=>a+b,0);
-  const x = COMP.map(()=>0);
-  if(F>0) STREAMS.forEach((s,i)=>norm(s.y).forEach((v,j)=>x[j]+=flows[i]*v/F));
-  const mw = x.reduce((a,v,j)=>a+v*COMP[j][2],0);
-  const lhv = lhvOf(x), sg = mw/28.964;
-  return {F,x,mw,lhv,sg,wobbe:sg>0?lhv/Math.sqrt(sg):0,duty:F*VM*lhv/1000,flows,h2s:x[10]*1e6};
+// ---------- tabs ----------
+function showTab(t){
+  for (const k of ["range","case"]) { $("tab-"+k).setAttribute("aria-selected", k===t); $("view-"+k).hidden = k!==t; }
+  try { history.replaceState(null,"","#"+t); } catch(e){}
 }
-function lhvOf(x){return x.reduce((a,v,j)=>a+v*COMP[j][3]/VM,0);} // MJ/Nm3
-function baseCfg(){const c={};STREAMS.forEach(s=>c[s.id]={on:true,flow:s.flow});return c;}
+$("tab-range").onclick = () => showTab("range");
+$("tab-case").onclick = () => showTab("case");
 
-const $=id=>document.getElementById(id);
+// ---------- limits ----------
+const L = () => DATA.limits;
+function wobbeBand(){ const t = TYP[idx("wobbe")]; return [t*(1-L().wobbe_band_pct/100), t*(1+L().wobbe_band_pct/100)]; }
+const idx = k => P.findIndex(p => p.key===k);
+function flagsFor(r){ // r: {min:[], max:[]} values per property
+  const f = [], [wl, wh] = wobbeBand();
+  if (r.max[idx("ng")] > DATA.makeup.max_kmol_h) f.push(["bad","NG make-up above import capacity"]);
+  if (r.max[idx("h2s")] > L().h2s_ppmv_max) f.push(["bad","H₂S above limit"]);
+  if (r.min[idx("wobbe")] < wl || r.max[idx("wobbe")] > wh) f.push(["chk","Wobbe outside ±"+L().wobbe_band_pct+"%"]);
+  return f;
+}
+
+// ---------- range view ----------
+function computeAll(){
+  const scns = DATA.scenarios; results = []; let i = 0; const t0 = performance.now();
+  const step = () => {
+    if (i < scns.length) {
+      $("status").textContent = `Solving scenario ${i+1} of ${scns.length}: ${scns[i].name}…`;
+      results.push(HB.scenarioRange(M, scns[i])); i++; setTimeout(step, 0); return;
+    }
+    $("status").textContent = `${scns.length} scenarios × ${M.units.length} units solved in ${fmt((performance.now()-t0)/1000,1)} s. Each running unit varies over its full flow and analysis range.`;
+    renderRange();
+  };
+  step();
+}
+function envelope(){
+  return P.map((p,i) => {
+    let lo = null, hi = null;
+    for (const r of results) {
+      if (!lo || r.min[i].v < lo.v) lo = { v:r.min[i].v, r, c:r.min[i].case };
+      if (!hi || r.max[i].v > hi.v) hi = { v:r.max[i].v, r, c:r.max[i].case };
+    }
+    return { p, i, lo, hi, typ: TYP[i] };
+  });
+}
+function rangeBar(e){
+  const k = e.p.key; let lims = [], band = null;
+  if (k==="wobbe") band = wobbeBand();
+  if (k==="h2s") lims.push(L().h2s_ppmv_max);
+  if (k==="ng") lims.push(DATA.makeup.max_kmol_h);
+  const vals = [e.lo.v, e.hi.v, e.typ, ...lims, ...(band||[])];
+  let a = Math.min(...vals), b = Math.max(...vals);
+  if (k!=="wobbe" && k!=="mw" && k!=="lhv" && k!=="hhv") a = Math.min(a, 0);
+  const pad = (b-a)*0.06 || 1; a -= pad; b += pad;
+  const x = v => ((v-a)/(b-a)*100).toFixed(2)+"%";
+  return `<div class="rbar" aria-hidden="true">${band?`<div class="band" style="left:${x(band[0])};width:calc(${x(band[1])} - ${x(band[0])})"></div>`:""}`+
+    `<div class="r" style="left:${x(e.lo.v)};width:max(2px,calc(${x(e.hi.v)} - ${x(e.lo.v)}))"></div>`+
+    `<div class="tp" style="left:${x(e.typ)}"></div>${lims.map(l=>`<div class="lim" style="left:${x(l)}"></div>`).join("")}</div>`;
+}
+let caseRefs = [];
+const caseLink = (name, c, label) => { caseRefs.push({c, label}); return `<button class="linkbtn" data-case="${caseRefs.length-1}" type="button">${esc(name)}</button>`; };
+function renderRange(){
+  caseRefs = [];
+  const env = envelope(), [wl, wh] = wobbeBand();
+  const cls = e => {
+    const k = e.p.key;
+    if (k==="h2s" && e.hi.v > L().h2s_ppmv_max) return ["","cell-bad"];
+    if (k==="ng" && e.hi.v > DATA.makeup.max_kmol_h) return ["","cell-bad"];
+    if (k==="wobbe") return [e.lo.v<wl?"cell-chk":"", e.hi.v>wh?"cell-chk":""];
+    return ["",""];
+  };
+  $("envTbl").innerHTML = `<thead><tr><th>Property</th><th>Min</th><th>Typical</th><th>Max</th><th class="l">Range</th><th class="l">Lowest in</th><th class="l">Highest in</th></tr></thead><tbody>`+
+    env.map(e => { const [cl,ch] = cls(e); return `<tr><td>${e.p.label} <span class="u">${e.p.unit}${e.p.kind==="search"?" · searched":""}</span></td>`+
+      `<td class="${cl}">${fmt(e.lo.v,e.p.d)}</td><td>${fmt(e.typ,e.p.d)}</td><td class="${ch}">${fmt(e.hi.v,e.p.d)}</td><td class="l">${rangeBar(e)}</td>`+
+      `<td class="l">${caseLink(e.lo.r.scenario.name, e.lo.c, `${e.p.label} minimum (${fmt(e.lo.v,e.p.d)} ${e.p.unit}) in ${e.lo.r.scenario.name}`)}</td>`+
+      `<td class="l">${caseLink(e.hi.r.scenario.name, e.hi.c, `${e.p.label} maximum (${fmt(e.hi.v,e.p.d)} ${e.p.unit}) in ${e.hi.r.scenario.name}`)}</td></tr>`; }).join("")+`</tbody>`;
+  // findings
+  const g = k => env[idx(k)], fl = [];
+  const w = g("wobbe"), wt = w.typ;
+  const pct = v => (v>=0?"+":"−")+fmt(Math.abs(v),1)+"%";
+  const nW = results.filter(r => r.min[idx("wobbe")].v < wl || r.max[idx("wobbe")].v > wh).length;
+  fl.push([nW?"":"ok", `Wobbe index ranges ${fmt(w.lo.v,1)} to ${fmt(w.hi.v,1)} MJ/Nm³, ${pct((w.lo.v/wt-1)*100)} to ${pct((w.hi.v/wt-1)*100)} from typical. ${nW ? `${nW} of ${results.length} scenarios can leave the ±${L().wobbe_band_pct}% band.` : `All scenarios stay inside ±${L().wobbe_band_pct}%.`}`]);
+  const h = g("h2s"), nH = results.filter(r => r.max[idx("h2s")].v > L().h2s_ppmv_max).length;
+  fl.push([nH?"bad":"ok", `H₂S reaches ${fmt(h.hi.v,0)} ppmv at most (limit ${L().h2s_ppmv_max}). ${nH ? `${nH} scenarios can exceed the limit; the highest is ${h.hi.r.scenario.name}.` : "No scenario exceeds the limit."}`]);
+  const n = g("ng"), nN = results.filter(r => r.max[idx("ng")].v > DATA.makeup.max_kmol_h).length;
+  fl.push([nN?"bad":"ok", `NG make-up peaks at ${fmt(n.hi.v,0)} kmol/h in ${n.hi.r.scenario.name} (import capacity ${fmt(DATA.makeup.max_kmol_h,0)}). ${nN ? `${nN} scenarios need more than the import can supply.` : "Capacity is enough in every scenario."}`]);
+  const hy = g("h2");
+  fl.push(["", `Hydrogen ranges ${fmt(hy.lo.v,1)} to ${fmt(hy.hi.v,1)} mol% (typical ${fmt(hy.typ,1)}). Check burner H₂ limits against the maximum, reached in ${hy.hi.r.scenario.name}.`]);
+  const f = g("flare");
+  if (f.hi.v > 0) fl.push(["", `The header can run long: up to ${fmt(f.hi.v,0)} GJ/h of surplus gas would go to flare, highest in ${f.hi.r.scenario.name}.`]);
+  $("findings").innerHTML = fl.map(([c,t]) => `<div class="alert ${c}">${t}</div>`).join("");
+  // scenario table
+  const W = idx("wobbe"), H2 = idx("h2"), S = idx("h2s"), N = idx("ng"), F = idx("flare");
+  $("scnTbl").innerHTML = `<thead><tr><th>Scenario</th><th>Wobbe MJ/Nm³</th><th>H₂ mol%</th><th>H₂S max ppmv</th><th>NG max kmol/h</th><th>Flare max GJ/h</th><th class="l">Status</th><th></th></tr></thead><tbody>`+
+    results.map((r,ri) => {
+      const v = { min:r.min.map(o=>o.v), max:r.max.map(o=>o.v) }, fg = flagsFor(v);
+      const sev = fg.some(x=>x[0]==="bad") ? "bad" : fg.length ? "chk" : "ok";
+      const wc = (v.min[W]<wl||v.max[W]>wh) ? "cell-chk" : "";
+      const custom = r.scenario.custom ? ` <button class="linkbtn" data-del="${ri}" type="button" aria-label="Remove ${esc(r.scenario.name)}">remove</button>` : "";
+      return `<tr><td>${caseLink(r.scenario.name, {down:r.scenario.down}, `${r.scenario.name}, normal flows and analyses`)}${custom}</td>`+
+        `<td class="${wc}">${fmt(v.min[W],1)} – ${fmt(v.max[W],1)}</td><td>${fmt(v.min[H2],1)} – ${fmt(v.max[H2],1)}</td>`+
+        `<td class="${v.max[S]>L().h2s_ppmv_max?"cell-bad":""}">${fmt(v.max[S],0)}</td><td class="${v.max[N]>DATA.makeup.max_kmol_h?"cell-bad":""}">${fmt(v.max[N],0)}</td><td>${fmt(v.max[F],0)}</td>`+
+        `<td class="l"><span class="pill ${sev}">${sev==="ok"?"OK":sev==="bad"?"Fails":"Check"}</span> <span class="u">${fg.map(x=>x[1]).join("; ")}</span></td><td></td></tr>`;
+    }).join("")+`</tbody>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-case]");
+  if (b) { const r = caseRefs[+b.dataset.case]; loadCase(r.c, r.label); showTab("case"); window.scrollTo({top:0}); return; }
+  const d = e.target.closest("[data-del]");
+  if (d) { const r = results[+d.dataset.del]; DATA.scenarios = DATA.scenarios.filter(s => s !== r.scenario); results = results.filter(x => x !== r); renderRange(); }
+});
+
+// ---------- add scenario ----------
+function addScenario(name, down){
+  if (!down.length) { $("addMsg").textContent = "Pick at least one unit to take down."; return false; }
+  const key = [...down].sort().join("+");
+  if (DATA.scenarios.some(s => [...s.down].sort().join("+") === key)) { $("addMsg").textContent = "A scenario with exactly these units down already exists."; return false; }
+  const s = { id:"custom-"+(++customN), name: name || down.map(id => M.units.find(u=>u.id===id).short).join(" + ")+" down", down, custom:true };
+  DATA.scenarios.push(s); results.push(HB.scenarioRange(M, s)); renderRange();
+  $("addMsg").textContent = `Added “${s.name}”. The envelope and findings above now include it.`; return true;
+}
+$("addBtn").onclick = () => {
+  const down = [...document.querySelectorAll("#addChips input:checked")].map(i => i.value);
+  if (addScenario($("addName").value.trim(), down)) { document.querySelectorAll("#addChips input").forEach(i => i.checked=false); $("addName").value=""; }
+};
+$("saveScn").onclick = () => {
+  const down = M.units.filter(u => !st.on[u.id]).map(u => u.id);
+  addScenario("", down); showTab("range");
+};
+
+// ---------- single case ----------
+function mixLabel(mix){
+  const ks = Object.keys(mix).filter(k => mix[k] > 1e-6);
+  if (ks.length===1) return null;
+  return ks.map(k => `${k} ${fmt(mix[k]*100,0)}%`).join(" · ");
+}
 function buildUnits(){
-  $("units").innerHTML = STREAMS.map(s=>`
-   <div class="unit" id="u-${s.id}">
-     <label class="sw"><input type="checkbox" id="on-${s.id}" aria-label="${s.name} in service"><span></span></label>
-     <div class="uname">${s.name}</div>
-     <div class="flow"><input type="number" min="0" step="10" id="f-${s.id}" aria-label="${s.name} flow"> kmol/h</div>
-     <div class="usub" id="sub-${s.id}"></div>
+  $("units").innerHTML = M.units.map(u => `
+   <div class="unit" id="u-${u.id}">
+     <label class="sw"><input type="checkbox" id="on-${u.id}" aria-label="${esc(u.name)} in service"><span></span></label>
+     <div class="uname">${esc(u.name)}</div>
+     <div class="usub" id="sub-${u.id}"></div>
+     <div class="ctrl">
+       <input type="range" id="f-${u.id}" min="${u.flow_kmol_h.min}" max="${u.flow_kmol_h.max}" step="any" aria-label="${esc(u.name)} flow">
+       <span class="fv" id="fv-${u.id}"></span>
+       <select id="a-${u.id}" aria-label="${esc(u.name)} analysis"><option value="lean">Lean</option><option value="normal">Normal</option><option value="rich">Rich</option><option value="blend" disabled>Blend</option></select>
+     </div>
    </div>`).join("");
-  STREAMS.forEach(s=>{
-    $("on-"+s.id).addEventListener("change",e=>{state[s.id].on=e.target.checked;render();});
-    $("f-"+s.id).addEventListener("input",e=>{state[s.id].flow=e.target.value;render();});
-  });
-  $("legend").innerHTML = GROUPS.map(([g,l])=>`<span><b style="background:var(--c-${g})"></b>${l}</span>`).join("");
-}
-function syncInputs(){STREAMS.forEach(s=>{$("on-"+s.id).checked=state[s.id].on;$("f-"+s.id).value=state[s.id].flow;});}
-const fmt=(v,d)=>v.toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
-function delta(c,b,d,unit,pct){
-  const diff=c-b; if(Math.abs(diff)<Math.pow(10,-d)/2) return `<span class="d z">no change</span>`;
-  const p=b?diff/b*100:0;
-  return `<span class="d ${diff>0?"up":"dn"}">${diff>0?"+":"−"}${fmt(Math.abs(diff),d)}${unit}${pct?` (${p>0?"+":"−"}${fmt(Math.abs(p),1)}%)`:""}</span>`;
-}
-function groups(x){const g={};GROUPS.forEach(([k])=>g[k]=0);x.forEach((v,j)=>g[COMP[j][4]]+=v*100);return g;}
-function bar(x){const g=groups(x);return GROUPS.map(([k,l])=>`<i style="width:${g[k]}%;background:var(--c-${k})" title="${l} ${fmt(g[k],2)}%"></i>`).join("");}
-
-function render(){
-  const hold=$("hold").checked;
-  const b=mix(baseCfg(),false), c=mix(state,hold);
-  STREAMS.forEach((s,i)=>{
-    $("u-"+s.id).classList.toggle("off",!state[s.id].on);
-    const share=c.F?c.flows[i]/c.F*100:0;
-    $("sub-"+s.id).textContent = !state[s.id].on?"Shut down":
-      (s.makeup&&hold?`Make-up ${fmt(c.flows[i],0)} kmol/h · `:"")+`${fmt(share,1)}% of header`;
-  });
-  const wdev=b.wobbe?(c.wobbe-b.wobbe)/b.wobbe*100:0;
-  const k=[
-    ["Header flow",c.F,b.F,0," kmol/h",true],
-    ["Molecular weight",c.mw,b.mw,2," kg/kmol",true],
-    ["LHV",c.lhv,b.lhv,1," MJ/Nm³",true],
-    ["Wobbe (LHV)",c.wobbe,b.wobbe,1," MJ/Nm³",true],
-    ["Hydrogen",c.x[0]*100,b.x[0]*100,1," mol%",false],
-    ["H₂S",c.h2s,b.h2s,0," ppmv",false],
-  ];
-  $("kpis").innerHTML=k.map(([l,v,bv,d,u,p])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${fmt(v,d)}<span class="u">${u.trim()}</span></div>${delta(v,bv,d,u,p)}</div>`).join("");
-  $("bars").innerHTML=`<div class="barrow">Base<div class="bar">${bar(b.x)}</div></div><div class="barrow">This case<div class="bar">${bar(c.x)}</div></div>`;
-  const al=[];
-  if(c.F===0) al.push(["bad","All streams are shut down. The header has no supply."]);
-  else{
-    if(Math.abs(wdev)>LIM.wobbe_dev) al.push(["bad",`Wobbe index moves ${fmt(wdev,1)}% from base. Burners tuned for ±${LIM.wobbe_dev}% may need attention.`]);
-    else al.push(["ok",`Wobbe index within ±${LIM.wobbe_dev}% of base (${wdev>=0?"+":""}${fmt(wdev,1)}%).`]);
-    if(c.h2s>LIM.h2s_ppm) al.push(["bad",`H₂S ${fmt(c.h2s,0)} ppmv exceeds the ${LIM.h2s_ppm} ppmv example limit.`]);
-    else al.push(["ok",`H₂S ${fmt(c.h2s,0)} ppmv, below the ${LIM.h2s_ppm} ppmv example limit.`]);
-    const dutyDev=(c.duty-b.duty)/b.duty*100;
-    if(dutyDev<-2) al.push(["",`Header heat supply is down ${fmt(-dutyDev,1)}% (${fmt(b.duty-c.duty,0)} GJ/h short). Tick the NG make-up option to see the compensated case.`]);
+  for (const u of M.units) {
+    $("on-"+u.id).onchange = e => { st.on[u.id] = e.target.checked; caseNote(""); renderCase(); };
+    $("f-"+u.id).oninput = e => { st.flow[u.id] = +e.target.value; caseNote(""); renderCase(); };
+    $("a-"+u.id).onchange = e => { st.mix[u.id] = { [e.target.value]: 1 }; caseNote(""); renderCase(); };
   }
-  $("alerts").innerHTML=al.map(([c,t])=>`<div class="alert ${c}">${t}</div>`).join("");
-  $("tbl").innerHTML=`<thead><tr><th>Component</th><th>Base mol%</th><th>Case mol%</th><th>Δ</th><th>Case kmol/h</th></tr></thead><tbody>`+
-    COMP.map((cm,j)=>{const bv=b.x[j]*100,cv=c.x[j]*100,d=cv-bv,dp=cm[0]==="H2S"?4:2;
-      return `<tr><td>${cm[1]} <span style="color:var(--muted)">${cm[0]}</span></td><td>${fmt(bv,dp)}</td><td>${fmt(cv,dp)}</td><td class="d ${Math.abs(d)<1e-4?"z":d>0?"up":"dn"}">${d>0?"+":""}${fmt(d,dp)}</td><td>${fmt(c.x[j]*c.F,1)}</td></tr>`}).join("")+`</tbody>`;
 }
-$("ptbl").innerHTML=`<thead><tr><th>Component</th><th>Formula</th><th>MW kg/kmol</th><th>ΔHc,net kJ/mol</th><th>LHV MJ/Nm³</th></tr></thead><tbody>`+
-  COMP.map(c=>`<tr><td>${c[1]}</td><td>${c[0]}</td><td>${fmt(c[2],3)}</td><td>${c[3]?fmt(c[3],2):"0 (inert)"}</td><td>${fmt(c[3]/VM,2)}</td></tr>`).join("")+`</tbody>`;
-buildUnits(); syncInputs();
-$("hold").addEventListener("change",render);
-$("reset").addEventListener("click",()=>{resetState();$("hold").checked=false;syncInputs();render();});
-// open in a realistic working case: coker shut down
-state.dcu.on=false; syncInputs(); render();
+function caseNote(t){ $("caseLabel").textContent = t; }
+function loadCase(c, label){
+  const down = new Set(c.down || []);
+  for (const u of M.units) {
+    st.on[u.id] = !down.has(u.id);
+    st.flow[u.id] = c.flow && c.flow[u.id] != null ? c.flow[u.id] : u.flow_kmol_h.normal;
+    st.mix[u.id] = (c.mix && c.mix[u.id]) || { normal: 1 };
+  }
+  caseNote(label ? "Showing: "+label : ""); syncInputs(); renderCase();
+}
+function syncInputs(){
+  for (const u of M.units) {
+    $("on-"+u.id).checked = st.on[u.id];
+    $("f-"+u.id).value = st.flow[u.id];
+    const ml = mixLabel(st.mix[u.id]);
+    $("a-"+u.id).value = ml ? "blend" : Object.keys(st.mix[u.id]).find(k => st.mix[u.id][k] > 0);
+  }
+}
+function groupsOf(x){ const g = {}; GROUPS.forEach(([k]) => g[k]=0); x.forEach((v,j) => g[M.comps[j].group] += v*100); return g; }
+const bar = x => { const g = groupsOf(x); return GROUPS.map(([k,l]) => `<i style="width:${g[k]}%;background:var(--c-${k})" title="${l} ${fmt(g[k],2)}%"></i>`).join(""); };
+function delta(c,b,d,unit){
+  const diff = c-b; if (Math.abs(diff) < Math.pow(10,-d)/2) return `<span class="d z">no change</span>`;
+  const p = b ? ` (${diff>0?"+":"−"}${fmt(Math.abs(diff/b*100),1)}%)` : "";
+  return `<span class="d ${diff>0?"up":"dn"}">${diff>0?"+":"−"}${fmt(Math.abs(diff),d)}${p}</span>`;
+}
+let BASE;
+function renderCase(){
+  const c = { down: M.units.filter(u => !st.on[u.id]).map(u => u.id), flow: st.flow, mix: st.mix };
+  const r = HB.evaluate(M, c), b = BASE;
+  for (const u of M.units) {
+    $("u-"+u.id).classList.toggle("off", !st.on[u.id]);
+    $("fv-"+u.id).textContent = fmt(st.flow[u.id],0)+" kmol/h";
+    const ml = mixLabel(st.mix[u.id]);
+    $("sub-"+u.id).textContent = !st.on[u.id] ? "Down" : (ml ? "Blend: "+ml+" · " : "") + fmt(r.F ? st.flow[u.id]/r.F*100 : 0,1)+"% of header";
+  }
+  const k = [
+    ["Header flow", r.F, b.F, 0, "kmol/h"], ["Molecular weight", r.mw, b.mw, 2, "kg/kmol"],
+    ["HHV (gross)", r.hhv, b.hhv, 2, "MJ/Nm³"], ["Wobbe (gross)", r.wobbe, b.wobbe, 2, "MJ/Nm³"],
+    ["Hydrogen", r.x[M.idx.H2]*100, b.x[M.idx.H2]*100, 1, "mol%"], ["H₂S", r.x[M.idx.H2S]*1e6, b.x[M.idx.H2S]*1e6, 0, "ppmv"],
+    ["NG make-up", r.ng, b.ng, 0, "kmol/h"], ["Surplus to flare", r.flare, b.flare, 0, "GJ/h"],
+  ];
+  $("kpis").innerHTML = k.map(([l,v,bv,d,u]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${fmt(v,d)}<span class="u">${u}</span></div>${delta(v,bv,d,u)}</div>`).join("");
+  $("balance").innerHTML = `Running units supply <b>${fmt(r.supply,0)} GJ/h</b> against a demand of <b>${fmt(r.demand,0)} GJ/h</b> (running units' own fuel use plus ${fmt(DATA.other_consumers.fuel_use_gj_h,0)} GJ/h for ${esc(DATA.other_consumers.name.toLowerCase())}). `+
+    (r.ng > 0 ? `The header is short, so natural gas import makes up <b>${fmt(r.ng,0)} kmol/h</b>.` : r.flare > 0 ? `The header is long, so <b>${fmt(r.flare,0)} GJ/h</b> of blended gas goes to flare and no natural gas is imported.` : `Supply exactly meets demand.`);
+  $("bars").innerHTML = `<div class="barrow">Normal<div class="bar">${bar(b.x)}</div></div><div class="barrow">This case<div class="bar">${bar(r.x)}</div></div>`;
+  const al = [], [wl, wh] = wobbeBand(), wd = (r.wobbe/b.wobbe-1)*100;
+  if (r.wobbe < wl || r.wobbe > wh) al.push(["chk", `Wobbe index ${fmt(r.wobbe,2)} MJ/Nm³ is ${fmt(wd,1)}% from typical, outside the ±${L().wobbe_band_pct}% band.`]);
+  else al.push(["ok", `Wobbe index within ±${L().wobbe_band_pct}% of typical (${wd>=0?"+":""}${fmt(wd,1)}%).`]);
+  const h2s = r.x[M.idx.H2S]*1e6;
+  al.push([h2s > L().h2s_ppmv_max ? "bad" : "ok", `H₂S ${fmt(h2s,0)} ppmv against a ${L().h2s_ppmv_max} ppmv example limit.`]);
+  if (r.ngOverLimit) al.push(["bad", `NG make-up of ${fmt(r.ng,0)} kmol/h exceeds the ${fmt(DATA.makeup.max_kmol_h,0)} kmol/h import capacity. The header could not hold pressure.`]);
+  $("alerts").innerHTML = al.map(([c,t]) => `<div class="alert ${c==="chk"?"":c}">${t}</div>`).join("");
+  $("compTbl").innerHTML = `<thead><tr><th>Component</th><th>Normal mol%</th><th>Case mol%</th><th>Δ</th><th>Case kmol/h</th></tr></thead><tbody>`+
+    M.comps.map((cm,j) => { const bv=b.x[j]*100, cv=r.x[j]*100, d=cv-bv, dp=cm.id==="H2S"?4:2;
+      return `<tr><td>${cm.name} <span class="u">${cm.id}</span></td><td>${fmt(bv,dp)}</td><td>${fmt(cv,dp)}</td><td class="d ${Math.abs(d)<1e-4?"z":d>0?"up":"dn"}">${d>0?"+":""}${fmt(d,dp)}</td><td>${fmt(r.x[j]*r.F,1)}</td></tr>`; }).join("")+`</tbody>`;
+}
+
+// ---------- boot ----------
+fetch("example_units.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
+  DATA = data; M = HB.build(data); P = HB.props(M);
+  BASE = HB.evaluate(M, { down: [] }); TYP = P.map(p => p.f(BASE));
+  $("legend").innerHTML = GROUPS.map(([g,l]) => `<span><b style="background:var(--c-${g})"></b>${l}</span>`).join("");
+  $("addChips").innerHTML = M.units.map(u => `<label><input type="checkbox" value="${u.id}"> ${esc(u.short)}</label>`).join("");
+  $("propTbl").innerHTML = `<thead><tr><th>Component</th><th>Formula</th><th>MW kg/kmol</th><th>q gross kJ/mol</th><th>H₂O formed</th><th>q net kJ/mol</th><th>HHV MJ/Nm³</th><th>LHV MJ/Nm³</th></tr></thead><tbody>`+
+    M.comps.map(c => `<tr><td>${c.name}</td><td>${c.id}</td><td>${fmt(c.mw,3)}</td><td>${fmt(c.q_gross_kj_mol,2)}</td><td>${c.n_h2o}</td><td>${fmt(c.q_net_kj_mol,2)}</td><td>${fmt(c.q_gross_kj_mol/M.VM,2)}</td><td>${fmt(c.q_net_kj_mol/M.VM,2)}</td></tr>`).join("")+`</tbody>`;
+  buildUnits(); loadCase({ down: [] }, ""); computeAll();
+  if (location.hash === "#case") showTab("case");
+}).catch(err => { $("status").textContent = "Could not load example_units.json ("+err.message+"). Open the page through a web server, for example: python3 -m http.server"; });
 </script>

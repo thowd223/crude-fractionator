@@ -1,15 +1,45 @@
 # Fuel Gas Header Blender (proof of concept)
 
-Standalone demo, separate from the crude-fractionator model. It uses none of
-that project's data. Every stream flow and analysis in `index.html` is an
-illustrative example value.
+Standalone demo, separate from the crude-fractionator model; it uses none of that project's
+data. All 15 units in `example_units.json` are ILLUSTRATIVE values, not plant data.
 
-Open `index.html` in a browser. Toggle units off, edit flows, and optionally
-hold header heat demand with natural gas make-up.
+## What it does
 
-Method: ideal-gas molar mixing, header y_j = sum(F_i * y_ij) / sum(F_i).
-LHV at 0 C / 1 atm, Wobbe = LHV / sqrt(SG).
+- **Composition range**: for every outage scenario, the lowest and highest header composition
+  and fuel properties (H2, CH4, C2s, olefins, C3s, C4+, inerts, H2S, MW, LHV, HHV, Wobbe, NG
+  make-up, surplus to flare), with each running unit anywhere in its flow range and any blend
+  of its lean / normal / rich analysis. Shows which scenario drives each extreme and opens that
+  exact case.
+- **Single case**: switch units on/off, set flow and analysis, see the header result and heat
+  balance (NG make-up when short, flare when long).
 
-For the client study this would be replaced by historian data per stream
-(flow + GC/lab analyses), time alignment, reconciliation against the header
-meter/analyser, and a property package if liquids or dew point matter.
+## Files
+
+| File | Purpose |
+|---|---|
+| `index.html` | The page (UI only) |
+| `model.js` | Calculation engine and range solver; runs in browser and Node |
+| `example_units.json` | Illustrative unit data, scenarios, limits, component properties |
+| `make_example_data.py` | Regenerates `example_units.json` |
+| `verify.py` | Independent Python check of model.js (needs Node). `python3 verify.py` |
+| `search_cli.js` | Runs the range solver from the command line (used by verify.py) |
+| `data_request/` | CSV templates and questions for the client's historical data |
+
+## Run locally
+
+The page loads its data with `fetch`, so serve the folder rather than opening the file:
+
+    cd header-blend && python3 -m http.server 8000   # then open http://localhost:8000
+
+## Method in brief
+
+Ideal-gas molar mixing; header heat held at demand (NG make-up when short, flare when long).
+Every property except Wobbe is solved exactly as a linear-fractional program (Dinkelbach's
+method, one-constraint LP via its dual). Wobbe is searched. Full basis, assumptions and
+verification results are on the page under "Technical basis for engineering review".
+
+## Replacing the example data
+
+When the historical data arrives (see `data_request/README.md`), it is reduced to the same
+JSON shape: per unit, flow min / normal / max, lean / normal / rich analysis, and fuel use.
+No code changes are needed for a different number of units or scenarios.
