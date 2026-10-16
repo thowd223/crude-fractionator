@@ -5,3 +5,8 @@ H2S in fuel gas,,,ppmv,site air permit,averaging period
 H2 in fuel gas,,,mol%,burner vendor,
 NG import capacity,,,kmol/h,NG letdown station design,
 Heating value basis,,,,client standard,ISO 6976 / GPSA / simulator; reference temperature for combustion and metering
+Fuel use basis,,,,client,"Is each fuel use figure gas volume, net (LHV) heat input, gross (HHV) heat input or absorbed process duty? The model needs net heat input; for absorbed duty give furnace efficiency"
+Timestamp time zone and DST,,,,historian admin,"e.g. local time with DST, local standard time all year, or UTC; how the repeated/missing hour at DST change is handled"
+Historian averaging,,,,historian admin,"averaging interval (e.g. 1 h) and whether the timestamp marks the start or the end of the interval"
+Bad and missing data in export,,,,historian admin,"how bad-quality and missing values appear (blank, last good value, interpolated) and what the quality codes mean"
+Lab sample timing,,,,lab,"sample_time is when the gas was drawn; result_time when it was reported. Confirm which one LIMS stores as its main timestamp"

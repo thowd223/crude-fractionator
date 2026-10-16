@@ -10,7 +10,8 @@ is flared and does not change the composition.
 Checks
  1. Single case: normal operation computed here matches model.js (flow, MW, LHV, HHV, Wobbe,
     NG make-up, H2S and every component mole fraction).
- 2. Closure, inside every evaluation: mol fractions sum to 1, component flows sum to total.
+ 2. Closure, inside every evaluation made here (the Python evaluator, not model.js): mol
+    fractions sum to 1, component flows sum to total.
  3. Exhaustive: for test scenarios with 5 running units, evaluate every candidate extreme:
     all 6^5 corners (flow min/max x each analysis) and every balance point (one unit
     blending two of its corners so header heat equals demand exactly, the others at corners).
@@ -18,13 +19,21 @@ Checks
     these points. Compare the true min/max with model.js (pass threshold 1e-6 relative).
     Test sets are chosen so the header crosses from short to long, so balance points exist.
     For Wobbe this only checks that model.js covers these points; its true extreme can lie
-    elsewhere (see check 5).
+    elsewhere (see checks 5 and 6).
  4. Sampled, no theory assumed: for every scenario, random corners, random points anywhere
     inside the range, and random points on the heat-balance boundary (where reachable) must
     all lie within the model.js envelope.
- 5. Wobbe interior extremes: two-unit test (95% H2 stream and pure CH4) where the Wobbe
-    minimum lies inside an edge, not at a corner. model.js must match a fine grid search,
-    with the header always long, and with demands that make it cross short/long.
+ 5. Wobbe interior extremes: two-unit tests where the Wobbe minimum lies inside an edge, not
+    at a corner. (a) 95% H2 stream and pure CH4, 10 kmol/h grid refined at 0.25 kmol/h around
+    its best point, at a demand that keeps the header long and two that make it cross
+    short/long. (b) Pure H2 over a wide flow range with fixed CH4: the case an independent
+    review found escaping the earlier Wobbe search. model.js must reach or beat the scan and
+    its proven bound must contain it.
+ 6. Wobbe bound on random synthetic data: datasets of 2-4 units with random flows (some very
+    wide or starting at zero) and random analyses (H2-rich, pure H2, mixed). For each,
+    model.js's reported Wobbe min/max cases are re-evaluated here (they must be reachable and
+    give the reported value), and random points plus fine line scans must stay inside
+    model.js's proven Wobbe bound.
 
 Same author, same equations, same property table and assumptions: these checks test that
 model.js implements the stated model correctly. They do not test the model against a plant
@@ -160,21 +169,24 @@ def random_setting(u):
     fl = UNITS[u]["flow_kmol_h"]
     return [fl["min"] + rnd.random() * (fl["max"] - fl["min"]), blend(u, {a: rnd.random() for a in Y[u]})]
 def boundary_setting(keep, dem):
-    """Random point inside the range, moved in a straight line toward all-max or all-min flow
-    (same analyses) until header heat equals demand. None if that line never reaches demand."""
+    """Random point inside the range, moved in a straight line (component flows interpolated
+    unit by unit, which stays inside each unit's range) until header heat equals demand. The
+    line goes first toward all-max (or all-min) flow with the same analyses; if that never
+    reaches demand, toward each unit's highest-heat (or lowest-heat) corner. None if neither does."""
     for _ in range(50):
         st = [random_setting(u) for u in keep]
-        fl = [UNITS[u]["flow_kmol_h"] for u in keep]
-        h0 = sum(heat(f, y) for f, y in st)
-        end = [f["max"] if h0 < dem else f["min"] for f in fl]
-        h = lambda lam: sum(heat(f + lam * (e - f), y) for (f, y), e in zip(st, end))
-        if (h(1) - dem) * (h0 - dem) > 0: continue
-        lo_, hi_ = 0.0, 1.0
-        for _ in range(80):
-            mid = (lo_ + hi_) / 2
-            if (h(mid) - dem) * (h0 - dem) > 0: lo_ = mid
-            else: hi_ = mid
-        return [(f + hi_ * (e - f), y) for (f, y), e in zip(st, end)]
+        h0 = sum(heat(f, y) for f, y in st); up = h0 < dem
+        ends = [[(UNITS[u]["flow_kmol_h"]["max" if up else "min"], y) for u, (_, y) in zip(keep, st)],
+                [(max if up else min)(corners(u), key=lambda c: heat(*c)) for u in keep]]
+        for end in ends:
+            h1 = sum(heat(f, y) for f, y in end)
+            if (h1 - dem) * (h0 - dem) > 0 or h1 == h0: continue
+            lam = (dem - h0) / (h1 - h0)                 # heat is linear along the line
+            out = []
+            for (f0, y0), (f1, y1) in zip(st, end):
+                n = [(1 - lam) * f0 * a + lam * f1 * b for a, b in zip(y0, y1)]; F = sum(n)
+                out.append((F, [v / F for v in n]) if F > 0 else (0.0, y0))
+            return out
     return None
 for s in D["scenarios"]:
     down = set(s["down"]); keep = [u for u in ALL if u not in down]; dem = demand(down)
@@ -199,20 +211,33 @@ for s in D["scenarios"]:
     report(f"{s['name']} ({len(samples):,} samples, {where})", worst < 1e-6,
            "all inside envelope" if worst < 1e-6 else f"sample outside by {worst:.1e} on {wk}")
 
-print("\n5. Wobbe interior extremes: 95% H2 + pure CH4, flows 100-1000 kmol/h each, vs grid search")
-synth = json.loads(json.dumps(D))
-z = lambda **kw: [kw.get(i.replace("+", "p"), 0) for i in IDS]
-synth["units"] = [dict(id=i, name=i, short=i, fuel_use_gj_h=0, flow_kmol_h=dict(min=100, normal=500, max=1000),
-                       analysis_mol_pct=dict(normal=y)) for i, y in (("a", z(H2=95, N2=5)), ("b", z(CH4=100)))]
-synth["scenarios"] = [dict(id="s", name="s", down=[])]
-for dem in (0, 400, 700):
-    synth["other_consumers"]["fuel_use_gj_h"] = dem
+def synth_run(units, dem):
+    """Run model.js on a copy of the data with these units, one all-running scenario and this base demand."""
+    s = json.loads(json.dumps(D))
+    s["units"] = units; s["scenarios"] = [dict(id="s", name="s", down=[])]; s["other_consumers"]["fuel_use_gj_h"] = dem
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
-        json.dump(synth, f); sp = f.name
-    js = run_js([], sp)["scenarios"][0]["props"]["wobbe"]; os.unlink(sp)
-    ya, yb = frac(synth["units"][0]["analysis_mol_pct"]["normal"]), frac(synth["units"][1]["analysis_mol_pct"]["normal"])
-    def wob(fa, fb):
-        return header([(fa, ya), (fb, yb)], dem)["wobbe"]
+        json.dump(s, f); sp = f.name
+    r = run_js([], sp)["scenarios"][0]; os.unlink(sp); return r
+
+def wobbe_report(name, js, lo, hi):
+    """model.js must reach the scanned extremes (lo, hi) and its proven bound must contain them."""
+    w, (bl, bh) = js["props"]["wobbe"], js["wobbe"]["bound"]
+    reach = w["min"] <= lo + 1e-9 * hi and w["max"] >= hi - 1e-9 * hi
+    inside = bl <= lo and hi <= bh
+    report(f"{name}: model.js {w['min']:.5f}-{w['max']:.5f}, scan {lo:.5f}-{hi:.5f}, bound {bl:.5f}-{bh:.5f}",
+           reach and inside and all(js["wobbe"]["certified"]),
+           "model.js reaches the scanned extremes; bound contains them" if reach and inside else
+           ("scan beyond model.js" if not reach else "scan outside bound"))
+
+print("\n5. Wobbe interior extremes vs scans")
+z = lambda **kw: [kw.get(i.replace("+", "p"), 0) for i in IDS]
+two = lambda ya, fa, yb, fb: [dict(id=i, name=i, short=i, fuel_use_gj_h=0, flow_kmol_h=dict(min=fl[0], normal=fl[0], max=fl[1]),
+                                   analysis_mol_pct=dict(normal=y)) for i, y, fl in (("a", ya, fa), ("b", yb, fb))]
+units = two(z(H2=95, N2=5), (100, 1000), z(CH4=100), (100, 1000))
+ya, yb = frac(units[0]["analysis_mol_pct"]["normal"]), frac(units[1]["analysis_mol_pct"]["normal"])
+for dem in (50, 400, 700):
+    js = synth_run(units, dem)
+    wob = lambda fa, fb: header([(fa, ya), (fb, yb)], dem)["wobbe"]
     grid = [(wob(a, b), a, b) for a in range(100, 1001, 10) for b in range(100, 1001, 10)]
     res = []
     for pick in (min, max):
@@ -220,9 +245,73 @@ for dem in (0, 400, 700):
         fine = [wob(a0 + i / 4, b0 + j / 4) for i in range(-40, 41) for j in range(-40, 41)
                 if 100 <= a0 + i / 4 <= 1000 and 100 <= b0 + j / 4 <= 1000]
         res.append(pick(fine))
-    gap = max(js["min"] - res[0], res[1] - js["max"])
-    report(f"demand {dem:>3} GJ/h: model.js {js['min']:.4f}-{js['max']:.4f}, grid {res[0]:.4f}-{res[1]:.4f}",
-           gap < 1e-6 * res[1], "model.js at least as extreme as the grid")
+    wobbe_report(f"(a) 95% H2 + CH4, demand {dem:>3} GJ/h", js, *res)
+units = two(z(H2=100), (300, 10000), z(CH4=100), (100, 100))
+ya, yb = frac(units[0]["analysis_mol_pct"]["normal"]), frac(units[1]["analysis_mol_pct"]["normal"])
+js = synth_run(units, 100)
+scan = [header([(f, ya), (100, yb)], 100)["wobbe"] for f in
+        [300 + i * 0.01 for i in range(120001)] + [1500 + i for i in range(8501)]]
+wobbe_report("(b) pure H2 300-10,000 + CH4 100 kmol/h, demand 100 (review case)", js, min(scan), max(scan))
+w439 = header([(439.9, ya), (100, yb)], 100)["wobbe"]
+report(f"(b) review point H2 = 439.9 kmol/h, Wobbe {w439:.5f}, is inside model.js range",
+       js["props"]["wobbe"]["min"] <= w439 + 1e-12, f"model.js min {js['props']['wobbe']['min']:.5f}")
+
+print("\n6. Wobbe bound on random synthetic data (40 datasets)")
+srnd = random.Random(2024); worst_reach = 0.0; worst_out = -1.0; uncert = 0
+def rand_y():
+    k = srnd.random(); y = [0.0] * NC
+    if k < 0.3: y[IDS.index("H2")] = 50 + 50 * srnd.random(); y[IDS.index("CH4")] = 100 - y[IDS.index("H2")]
+    elif k < 0.5: y[IDS.index("H2")] = 100
+    else:
+        y = [srnd.random() * 30 if srnd.random() < 0.4 else 0.0 for _ in range(NC)]; y[IDS.index("CH4")] += 1
+    return y
+for case in range(40):
+    units = []
+    for i in range(srnd.randint(2, 4)):
+        lo = 0 if srnd.random() < 0.3 else 10 + 200 * srnd.random()
+        hi = lo + srnd.random() * (5000 if srnd.random() < 0.3 else 500)
+        an = dict(normal=rand_y())
+        if srnd.random() < 0.6: an["rich"] = rand_y()
+        if srnd.random() < 0.4: an["lean"] = rand_y()
+        units.append(dict(id=f"u{i}", name=f"u{i}", short=f"u{i}", fuel_use_gj_h=0,
+                          flow_kmol_h=dict(min=lo, normal=lo, max=hi), analysis_mol_pct=an))
+    dem = 1 + 600 * srnd.random()
+    js = synth_run(units, dem); w = js["props"]["wobbe"]; bl, bh = js["wobbe"]["bound"]
+    if not all(js["wobbe"]["certified"]): uncert += 1
+    YS = {u["id"]: {a: frac(v) for a, v in u["analysis_mol_pct"].items()} for u in units}
+    def setting(c):
+        out = []
+        for u in units:
+            mix = c["mix"][u["id"]]; t = sum(mix.values())
+            out.append((c["flow"][u["id"]], [sum(x * YS[u["id"]][a][j] for a, x in mix.items()) / t for j in range(NC)]))
+        return out
+    for key, c in (("min", js["wobbe"]["min_case"]), ("max", js["wobbe"]["max_case"])):
+        worst_reach = max(worst_reach, abs(header(setting(c), dem)["wobbe"] - w[key]) / w[key])
+    def rand_setting():
+        out = []
+        for u in units:
+            fl = u["flow_kmol_h"]; f = fl["min"] + srnd.random() * (fl["max"] - fl["min"])
+            if srnd.random() < 0.3: f = srnd.choice((fl["min"], fl["max"]))
+            ws = {a: srnd.random() for a in YS[u["id"]]}; t = sum(ws.values())
+            out.append((f, [sum(x * YS[u["id"]][a][j] for a, x in ws.items()) / t for j in range(NC)]))
+        return out
+    pts = [rand_setting() for _ in range(1000)]
+    for _ in range(10):                                  # fine line scans between random settings
+        a, b = rand_setting(), rand_setting()
+        for k in range(201):
+            lam = k / 200; st = []
+            for (f0, y0), (f1, y1) in zip(a, b):
+                n = [(1 - lam) * f0 * p + lam * f1 * q for p, q in zip(y0, y1)]; F = sum(n)
+                st.append((F, [v / F for v in n]) if F > 0 else (0.0, y0))
+            pts.append(st)
+    for st in pts:
+        if sum(f for f, _ in st) == 0 and dem == 0: continue
+        v = header(st, dem)["wobbe"]
+        worst_out = max(worst_out, (bl - v) / bh, (v - bh) / bh)
+report("reported Wobbe min/max cases are reachable (re-evaluated here)", worst_reach < 1e-9, f"largest difference {worst_reach:.1e}")
+report("no random point or line-scan point outside the proven bound (120,400 points)", worst_out <= 0,
+       f"largest excursion {worst_out:.1e} (negative = inside)")
+report("every dataset certified (inner and outer Wobbe agree within 1e-9)", uncert == 0, f"{uncert} not certified")
 
 print("\nALL CHECKS PASSED" if ok else "\nSOME CHECKS FAILED")
 sys.exit(0 if ok else 1)

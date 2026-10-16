@@ -1,4 +1,5 @@
-unit_id,start,end,status,reason,planned_yes_no
-CCR,2025-03-10 06:00,2025-04-02 18:00,down,catalyst regeneration turnaround,yes
-AMINE1,2025-06-02 10:00,2025-06-02 22:00,upset,"rich amine foaming, high H2S in treated gas",no
-HCU,2025-08-11 03:00,2025-08-12 15:00,hot standby,"compressor trip, heaters on minimum fire",no
+unit_id,start,end,status,rate_pct_of_normal,fuel_firing_gj_h_net,reason,planned_yes_no
+CCR,2025-03-10 06:00,2025-04-02 18:00,down,0,0,catalyst regeneration turnaround,yes
+AMINE1,2025-06-02 10:00,2025-06-02 22:00,upset,,,"rich amine foaming, high H2S in treated gas",no
+HCU,2025-08-11 03:00,2025-08-12 15:00,hot standby,0,25,"compressor trip, heaters on minimum fire",no
+FCC,2025-09-20 00:00,2025-09-27 00:00,reduced rate,60,,"wet gas compressor limit",no

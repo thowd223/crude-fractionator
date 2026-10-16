@@ -133,7 +133,7 @@ code{font-family:var(--f-mono);font-size:.85em}
     <h2>Header envelope across all scenarios</h2>
     <div class="tbl"><table id="envTbl"></table></div>
     <p class="note" style="margin-top:8px">Bar: shaded span is min to max, dark tick is typical (normal operation, every unit at normal flow and analysis). Green band is the allowed Wobbe swing; dashed line is a limit. Click a scenario name to open that exact case.</p>
-    <p class="note"><b>Read these as worst-case bounds, not expected values.</b> Each extreme can need every running unit at its own worst flow and analysis at the same time, which is unlikely. The real study should pair this envelope with a replay of the historian data to show how often the header comes near it.</p>
+    <p class="note"><b>Read these as bounds over the input envelope, not expected values and not a physical worst case.</b> Each extreme can need every running unit at its own worst flow and analysis at the same time, which is unlikely. Flows and analyses outside each unit's stated range (for real data, outside P5–P95 and the selected samples) are not covered. The real study should pair this envelope with a replay of the historian data to show how often the header comes near it.</p>
   </div>
   <div class="panel"><h2>Findings</h2><div class="alerts" id="findings"></div></div>
   <div class="panel">
@@ -199,9 +199,9 @@ Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
     <p>For each scenario, every running unit may sit anywhere in its operating range: any flow between min and max, and any blend of its lean, normal and rich analyses. The envelope is the lowest and highest value of each property over all those combinations, then over all scenarios.</p>
     <ul>
       <li><b>Exact for every property except Wobbe.</b> On each side of the heat balance (short or long), each property is a ratio a/b with a and b linear in the unit flows. That is a linear-fractional program. It is solved exactly with Dinkelbach's method. Each step is a linear program with one coupling constraint (header heat), solved through its one-variable dual. The extreme is either a corner (every unit at min or max flow with a pure analysis) or a balance point (one unit between its limits so heat exactly meets demand).</li>
-      <li><b>Wobbe is searched, so its range is an estimate.</b> HHV/√SG is not linear-fractional. Its extreme can lie part-way along a unit's range rather than at a corner: a hydrogen and methane blend has a lower Wobbe than either gas alone. The search starts from every optimum found for the other properties plus random corners. It alternates single-unit moves to any corner or balance point with continuous line searches, including paired moves that keep heat at demand, until neither improves. It matches a brute-force grid on a two-unit hydrogen/methane test built to have an interior minimum. A proven but much wider bound is HHV<sub>min</sub>/√SG<sub>max</sub> to HHV<sub>max</sub>/√SG<sub>min</sub>, from the exact HHV and MW extremes.</li>
+      <li><b>Wobbe is bounded from both sides.</b> HHV/√SG is not linear-fractional, and its extreme can lie part-way along a unit's range rather than at a corner: a hydrogen and methane blend has a lower Wobbe than either gas alone. On each side of the heat balance the reachable (HHV, MW) pairs form a convex set, because they are a linear-fractional image of the units' operating ranges. For any direction, the exact solver above finds the reachable point furthest in that direction. These points span an inner polygon; every point on it is a reachable case (two solved settings blended). Their support lines enclose an outer polygon that contains every reachable case. Wobbe = HHV·√(28.964/MW) is quasiconvex in (HHV, MW), so over a polygon its maximum is at a vertex and its minimum on an edge. Directions are added where the inner and outer values differ, until they agree within 1e-9 relative. The reported Wobbe min and max are reachable cases; the outer value is a proven bound, with a 1e-11 margin for floating-point rounding. A scenario that does not reach this agreement is flagged "Wobbe range not certified". None of the 19 example scenarios is.</li>
       <li>Each unit's analysis range is every blend of its named analyses. The example data uses lean, normal and rich. Real data can add engineer-selected samples, such as the highest-H₂S or highest-H₂ sample on record, without code changes, so that H₂S and H₂ extremes are not tied to MW.</li>
-      <li>Runtime is about 2 s for 19 scenarios in a browser.</li>
+      <li>Runtime is about 1 s for 19 scenarios in a browser.</li>
     </ul>
   </div>
 
@@ -227,15 +227,16 @@ Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
 
   <div class="panel">
     <h3>5. Verification carried out</h3>
-    <p>Run <code>python3 verify.py</code> (about 80 s). The Python is written from the data file, not translated from the JavaScript. Latest run: all checks passed. <b>Limit:</b> the same author wrote both, from the same equations, so the checks test the <i>implementation</i>. They do not show the <i>model</i> is right for this plant. That needs the checks in the note below.</p>
+    <p>Run <code>python3 verify.py</code> (about 65 s). The Python is written from the data file, not translated from the JavaScript. Latest run: all checks passed. <b>Limit:</b> the same author wrote both, from the same equations, so the checks test the <i>implementation</i>. They do not show the <i>model</i> is right for this plant. That needs the checks in the note below.</p>
     <div class="tbl"><table>
       <thead><tr><th>Check</th><th class="l">What it tests</th><th class="l">Result</th></tr></thead>
       <tbody>
         <tr><td>Single case</td><td class="t l">Normal operation recalculated in Python: flow, MW, LHV, HHV, Wobbe, NG make-up, H₂S and all 11 mole fractions</td><td class="t l">Matches model.js to 4 decimal places; mole fractions identical</td></tr>
-        <tr><td>Closure</td><td class="t l">Σ x = 1 and Σ component flow = total flow, asserted in every evaluation</td><td class="t l">Holds in every case</td></tr>
-        <tr><td>Exhaustive</td><td class="t l">Three 5-unit test scenarios that cross from short to long. Every corner (6⁵ = 7,776 each) and every balance point (978, 1,892 and 16,799) evaluated</td><td class="t l">Pass threshold 1e-6. Largest gap seen 3.3e-15 for all properties except Wobbe. Wobbe is searched, not solved, so this check only confirms its range covers every candidate. In these tests it matched exactly</td></tr>
-        <tr><td>Sampled</td><td class="t l">All 19 scenarios: 2,000 random corners, 2,000 random interior points and 1,000 points on the heat-balance boundary. For FCC down and the FCC turnaround the header is always short, so no boundary exists. For coker down, the boundary is reached only at extreme corners, and the random boundary search found none. No theory assumed</td><td class="t l">No sample outside the reported envelope</td></tr>
-        <tr><td>Wobbe interior</td><td class="t l">Synthetic 2-unit case (95% H₂ vs pure CH₄) built so the Wobbe extreme lies inside the flow range, not at a corner. Compared with a 1 kmol/h grid search at demand 0, 400 and 700 GJ/h</td><td class="t l">model.js equal to or more extreme than the grid in every case (e.g. 37.2172–51.9201 at demand 0)</td></tr>
+        <tr><td>Closure</td><td class="t l">Σ x = 1 and Σ component flow = total flow, asserted in every evaluation made by the Python checker (not inside model.js)</td><td class="t l">Holds in every case</td></tr>
+        <tr><td>Exhaustive</td><td class="t l">Three 5-unit test scenarios that cross from short to long. Every corner (6⁵ = 7,776 each) and every balance point (978, 1,892 and 16,799) evaluated</td><td class="t l">Pass threshold 1e-6. Largest gap seen 3.3e-15 for all properties except Wobbe. Wobbe's extreme need not be a corner or balance point, so for Wobbe this check only confirms its range covers every candidate. In these tests it matched exactly</td></tr>
+        <tr><td>Sampled</td><td class="t l">All 19 scenarios: 2,000 random corners, 2,000 random interior points and 1,000 points on the heat-balance boundary. Boundary points are found by moving a random point in a straight line toward all-max (or all-min) flow, or toward each unit's highest-heat (lowest-heat) corner, until heat equals demand. For FCC down and the FCC turnaround the header is always short, so no boundary exists. No theory assumed</td><td class="t l">No sample outside the reported envelope</td></tr>
+        <tr><td>Wobbe interior</td><td class="t l">(a) Synthetic 2-unit case (95% H₂ vs pure CH₄) built so the Wobbe extreme lies inside the flow range, not at a corner: 10 kmol/h grid, refined at 0.25 kmol/h around its best point, at demand 50, 400 and 700 GJ/h. (b) Pure H₂ at 300–10,000 kmol/h with CH₄ fixed at 100 kmol/h, demand 100 GJ/h, scanned at 0.01 kmol/h: the case an independent review found escaping the earlier Wobbe search (its minimum, 44.4707 at 439.9 kmol/h H₂, lay below the 44.6505 that search reported)</td><td class="t l">model.js reaches every scanned extreme and its proven bound contains it (e.g. 37.2172–51.9201 at demand 50; 44.4707–47.7320 for the review case)</td></tr>
+        <tr><td>Wobbe bound, random data</td><td class="t l">40 random synthetic datasets of 2–4 units (H₂-rich, pure H₂ and mixed analyses; some flow ranges very wide or starting at zero; random demand). The Wobbe min and max cases model.js reports are re-evaluated in Python, then 1,000 random points and 10 line scans of 201 points each are checked against the proven bound</td><td class="t l">Reported cases reproduce to 5e-16. No point outside the bound (closest 5.6e-12 inside). Every dataset certified</td></tr>
       </tbody>
     </table></div>
     <p class="note">Recommended before client use: run a few envelope cases in the client's process simulator (HYSYS, UniSim, Pro/II); replay a year of historian data through the model and compare with the header analyser; have the property table checked against a cited source.</p>
@@ -327,6 +328,7 @@ function envelope(){
       if (!lo || r.min[i].v < lo.v) lo = { v:r.min[i].v, r, c:r.min[i].case };
       if (!hi || r.max[i].v > hi.v) hi = { v:r.max[i].v, r, c:r.max[i].case };
     }
+    lo.cert = results.every(r => r.min[i].exact); hi.cert = results.every(r => r.max[i].exact);
     return { p, i, lo, hi, typ: TYP[i] };
   });
 }
@@ -357,7 +359,7 @@ function renderRange(){
     return ["",""];
   };
   $("envTbl").innerHTML = `<thead><tr><th>Property</th><th>Min</th><th>Typical</th><th>Max</th><th class="l">Range</th><th class="l">Lowest in</th><th class="l">Highest in</th></tr></thead><tbody>`+
-    env.map(e => { const [cl,ch] = cls(e); return `<tr><td>${e.p.label} <span class="u">${e.p.unit}${e.p.kind==="search"?" · searched":""}</span></td>`+
+    env.map(e => { const [cl,ch] = cls(e); return `<tr><td>${e.p.label} <span class="u">${e.p.unit}${e.p.kind==="search"&&!(e.lo.cert&&e.hi.cert)?" · not certified":""}</span></td>`+
       `<td class="${cl}">${fmt(e.lo.v,e.p.d)}</td><td>${fmt(e.typ,e.p.d)}</td><td class="${ch}">${fmt(e.hi.v,e.p.d)}</td><td class="l">${rangeBar(e)}</td>`+
       `<td class="l">${caseLink(e.lo.r.scenario.name, e.lo.c, `${e.p.label} minimum (${fmt(e.lo.v,e.p.d)} ${e.p.unit}) in ${e.lo.r.scenario.name}`)}</td>`+
       `<td class="l">${caseLink(e.hi.r.scenario.name, e.hi.c, `${e.p.label} maximum (${fmt(e.hi.v,e.p.d)} ${e.p.unit}) in ${e.hi.r.scenario.name}`)}</td></tr>`; }).join("")+`</tbody>`;
@@ -366,7 +368,8 @@ function renderRange(){
   const w = g("wobbe"), wt = wobbeRef();
   const pct = v => (v>=0?"+":"−")+fmt(Math.abs(v),1)+"%";
   const nW = results.filter(r => r.min[idx("wobbe")].v < wl || r.max[idx("wobbe")].v > wh).length;
-  fl.push([nW?"":"ok", `Wobbe index ranges ${fmt(w.lo.v,1)} to ${fmt(w.hi.v,1)} MJ/Nm³, ${pct((w.lo.v/wt-1)*100)} to ${pct((w.hi.v/wt-1)*100)} from ${wobbeRefName()}. ${nW ? `${nW} of ${results.length} scenarios can leave the ±${L().wobbe_band_pct}% band.` : `All scenarios stay inside ±${L().wobbe_band_pct}%.`}`]);
+  const nU = results.filter(r => !r.min[idx("wobbe")].exact || !r.max[idx("wobbe")].exact).length;
+  fl.push([nW||nU?"":"ok", `Wobbe index ranges ${fmt(w.lo.v,1)} to ${fmt(w.hi.v,1)} MJ/Nm³, ${pct((w.lo.v/wt-1)*100)} to ${pct((w.hi.v/wt-1)*100)} from ${wobbeRefName()}. ${nW ? `${nW} of ${results.length} scenarios can leave the ±${L().wobbe_band_pct}% band.` : nU ? `No scenario was found leaving ±${L().wobbe_band_pct}%.` : `All scenarios stay inside ±${L().wobbe_band_pct}%.`}${nU ? ` The Wobbe range is not certified in ${nU} scenario${nU>1?"s":""}, so a case outside it cannot be ruled out there.` : ""}`]);
   const h = g("h2s"), nH = results.filter(r => r.max[idx("h2s")].v > L().h2s_ppmv_max).length;
   fl.push([nH?"bad":"ok", `H₂S reaches ${fmt(h.hi.v,0)} ppmv at most (limit ${L().h2s_ppmv_max}). ${nH ? `${nH} scenarios can exceed the limit; the highest is ${esc(h.hi.r.scenario.name)}.` : "No scenario exceeds the limit."}`]);
   const n = g("ng"), nN = results.filter(r => r.max[idx("ng")].v > DATA.makeup.max_kmol_h).length;
@@ -381,6 +384,7 @@ function renderRange(){
   $("scnTbl").innerHTML = `<thead><tr><th>Scenario</th><th>Wobbe MJ/Nm³</th><th>H₂ mol%</th><th>H₂S max ppmv</th><th>NG max kmol/h</th><th>Flare max GJ/h</th><th class="l">Status</th><th></th></tr></thead><tbody>`+
     results.map((r,ri) => {
       const v = { min:r.min.map(o=>o.v), max:r.max.map(o=>o.v) }, fg = flagsFor(v);
+      if (!r.min[W].exact || !r.max[W].exact) fg.push(["chk","Wobbe range not certified"]);
       const sev = fg.some(x=>x[0]==="bad") ? "bad" : fg.length ? "chk" : "ok";
       const wc = (v.min[W]<wl||v.max[W]>wh) ? "cell-chk" : "";
       const custom = r.scenario.custom ? ` <button class="linkbtn" data-del="${ri}" type="button" aria-label="Remove ${esc(r.scenario.name)}">remove</button>` : "";

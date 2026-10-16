@@ -39,10 +39,16 @@ the page is published.
 
 Ideal-gas molar mixing; header heat held at demand (NG make-up when short, flare when long).
 Every property except Wobbe is solved exactly as a linear-fractional program (Dinkelbach's
-method, one-constraint LP via its dual). Wobbe is searched (discrete moves plus continuous line
-searches), so its range is an estimate. The envelope is a worst-case bound: every unit at its
-own worst setting at once. Full basis, assumptions and
-verification results are on the page under "Technical basis for engineering review".
+method, one-constraint LP via its dual). Wobbe is bounded from both sides: on each side of the
+heat balance the reachable (HHV, MW) pairs form a convex set, which is enclosed between an
+inner polygon of reachable cases and an outer polygon of exact support lines until the two
+agree within 1e-9 relative. The reported Wobbe min/max are reachable cases and the outer value
+is a proven bound; a scenario that does not reach that agreement is flagged on the page.
+
+The range is a bound over the **input envelope** (each unit anywhere in its stated flow range
+and any blend of its stated analyses, all at once), not a physical worst case: flows and
+analyses outside the stated ranges are not covered. Full basis, assumptions and verification
+results are on the page under "Technical basis for engineering review".
 
 ## Replacing the example data
 
@@ -50,5 +56,7 @@ When the historical data arrives (see `data_request/README.md`), it is reduced t
 JSON shape: per unit, flow min / normal / max, any number of named analyses ("normal"
 required), and fuel use. A different number of units, scenarios or analyses needs no code
 changes; the data is checked on load (unknown unit ids in a scenario, missing "normal"
-analysis, wrong number of components, flows out of order). New components (butenes, CO, O2)
+analysis, wrong number of components, missing, negative or all-zero analyses, flows that are
+not numbers or out of order, negative fuel use, a make-up gas with no heating value, and a
+base fuel demand that is not positive, which would allow an empty header). New components (butenes, CO, O2)
 need a property row in the JSON and a group mapping in `model.js` / `index.html`.

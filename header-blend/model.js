@@ -13,12 +13,27 @@
     // Each unit has any number of named analyses ("normal" required), e.g. lean / normal / rich,
     // or engineer-selected samples such as "max_h2s". Its analysis range is every blend of them.
     const ids = new Set(data.units.map(u => u.id)), problems = [];
+    const num = v => typeof v === "number" && isFinite(v);
+    // an analysis must have one finite, non-negative value per component and a positive total
+    const checkY = (y, what) => {
+      if (!Array.isArray(y) || y.length !== nc) return problems.push(`${what} has ${Array.isArray(y) ? y.length : "no"} values, expected ${nc}`);
+      if (!y.every(v => num(v) && v >= 0)) return problems.push(`${what} has a missing, negative or non-numeric value`);
+      if (!(y.reduce((s, v) => s + v, 0) > 0)) problems.push(`${what} is all zero`);
+    };
+    for (const c of comps) if (!(num(c.mw) && c.mw > 0 && num(c.q_gross_kj_mol) && c.q_gross_kj_mol >= 0 && num(c.n_h2o) && c.n_h2o >= 0))
+      problems.push(`component ${c.id} needs mw > 0, q_gross_kj_mol >= 0 and n_h2o >= 0`);
     for (const u of data.units) {
       if (!u.analysis_mol_pct.normal) problems.push(`unit ${u.id} has no "normal" analysis`);
-      for (const [a, y] of Object.entries(u.analysis_mol_pct))
-        if (y.length !== nc) problems.push(`unit ${u.id} analysis ${a} has ${y.length} values, expected ${nc}`);
-      const f = u.flow_kmol_h; if (!(f.min >= 0 && f.min <= f.normal && f.normal <= f.max)) problems.push(`unit ${u.id} flow min/normal/max out of order`);
+      for (const [a, y] of Object.entries(u.analysis_mol_pct)) checkY(y, `unit ${u.id} analysis ${a}`);
+      const f = u.flow_kmol_h; if (!([f.min, f.normal, f.max].every(num) && f.min >= 0 && f.min <= f.normal && f.normal <= f.max)) problems.push(`unit ${u.id} flow min/normal/max must be numbers with 0 <= min <= normal <= max`);
+      if (!(num(u.fuel_use_gj_h) && u.fuel_use_gj_h >= 0)) problems.push(`unit ${u.id} fuel_use_gj_h must be a number >= 0`);
     }
+    checkY(data.makeup.analysis_mol_pct, "make-up gas analysis");
+    if (!(num(data.makeup.max_kmol_h) && data.makeup.max_kmol_h >= 0)) problems.push("make-up max_kmol_h must be a number >= 0");
+    // A positive base demand keeps the header from ever being empty: when no unit gas flows,
+    // make-up gas fills it. With zero base demand and every unit down there would be no gas at all.
+    if (!(num(data.other_consumers.fuel_use_gj_h) && data.other_consumers.fuel_use_gj_h > 0))
+      problems.push("other_consumers fuel_use_gj_h must be a number > 0");
     for (const sc of data.scenarios) for (const d of sc.down)
       if (!ids.has(d)) problems.push(`scenario "${sc.name}" names unknown unit "${d}"`);
     if (problems.length) throw new Error("Data problems: " + problems.join("; "));
@@ -33,6 +48,7 @@
     // corners of a unit's operating range: flow min/max x each named analysis
     for (const u of units) u.corners = [].concat(...["min", "max"].map(fk => u.keys.map(a => packet(u, u.flow_kmol_h[fk], { [a]: 1 }))));
     const ngY = norm(data.makeup.analysis_mol_pct), ngQ = qOf(ngY);
+    if (!(ngQ > 0)) throw new Error("Data problems: make-up gas analysis has no net heating value, so it cannot make up a fuel shortfall");
     return { data, VM, AIR: b.air_mw, comps, nc, idx, units, ngY, ngQ, qn, qg, mw, packet };
   }
 
@@ -44,12 +60,14 @@
     if (heat < demand) ng = (demand - heat) * 1000 / M.ngQ; else flare = heat - demand;
     const tot = n.slice(); for (let j = 0; j < M.nc; j++) tot[j] += ng * M.ngY[j];
     const Ft = F + ng;
-    const x = Ft > 0 ? tot.map(v => v / Ft) : tot.map(() => 0);
+    // An empty header (no flow at all) has no composition: report NaN, never zeros that read as a gas.
+    // build() rules this out for loaded data by requiring a positive base demand.
+    const x = Ft > 0 ? tot.map(v => v / Ft) : tot.map(() => NaN);
     let mwm = 0, lhv = 0, hhv = 0;
     for (let j = 0; j < M.nc; j++) { mwm += x[j] * M.mw[j]; lhv += x[j] * M.qn[j]; hhv += x[j] * M.qg[j]; }
     lhv /= M.VM; hhv /= M.VM;
     const sg = mwm / M.AIR;
-    return { x, F: Ft, mw: mwm, sg, lhv, hhv, wobbe: sg > 0 ? hhv / Math.sqrt(sg) : 0,
+    return { x, F: Ft, empty: !(Ft > 0), mw: mwm, sg, lhv, hhv, wobbe: hhv / Math.sqrt(sg),
       supply: heat, demand, ng, ngOverLimit: ng > M.data.makeup.max_kmol_h, flare, ...extra };
   }
 
@@ -131,7 +149,7 @@
     return { t };
   }
 
-  function scenarioRange(M, scen, opt = {}) {
+  function scenarioRange(M, scen) {
     const P = props(M), nc = M.nc;
     const down = new Set(scen.down);
     const run = M.units.filter(u => !down.has(u.id));
@@ -151,23 +169,27 @@
       let wy = 0; for (let j = 0; j < nc; j++) wy += w[j] * M.ngY[j]; return [D * K * wy, D * K]; };
     const solveSide = (side, valFn) => { solves++;
       return lp1(PK.map(ps => ps.map(valFn)), PK.map(ps => ps.map(p => side.s * p.heat)), side.s * D); };
+    // maximise dir * sum_j w_j x_j on one side of the heat balance; unit weights, or null if infeasible
+    const ratioOpt = (w, dir, side) => {
+      const [a0, b0] = const_(w, side);
+      const A = PK.map(ps => ps.map(p => dir * lin(w, side, p))), B = PK.map(ps => ps.map(p => tot(side, p)));
+      const ratioOf = tt => { let a = dir * a0, b = b0; tt.forEach((ws, u) => ws.forEach(([m, x]) => { a += x * A[u][m]; b += x * B[u][m]; })); return a / b; };
+      let t = solveSide(side, () => 0); if (!t) return null; t = t.t;
+      let lam = ratioOf(t);
+      for (let it = 0; it < 60; it++) {        // Dinkelbach: max a - lam*b until it reaches 0
+        const r = lp1(A.map((au, u) => au.map((a, m) => a - lam * B[u][m])), PK.map(ps => ps.map(p => side.s * p.heat)), side.s * D); solves++;
+        const nl = ratioOf(r.t);
+        if (nl <= lam + 1e-13 * Math.max(1, Math.abs(lam))) { if (nl > lam) t = r.t; break; }
+        t = r.t; lam = nl;
+      }
+      return t;
+    };
     const extreme = (prop, dir) => {           // dir +1 max, -1 min
       let best = null;
       for (const side of sides) {
         let t;
-        if (prop.kind === "ratio") {
-          const w = prop.w, [a0, b0] = const_(w, side);
-          const A = PK.map(ps => ps.map(p => dir * lin(w, side, p))), B = PK.map(ps => ps.map(p => tot(side, p)));
-          const ratioOf = tt => { let a = dir * a0, b = b0; tt.forEach((ws, u) => ws.forEach(([m, x]) => { a += x * A[u][m]; b += x * B[u][m]; })); return a / b; };
-          t = solveSide(side, () => 0); if (!t) continue; t = t.t;
-          let lam = ratioOf(t);
-          for (let it = 0; it < 60; it++) {    // Dinkelbach: max a - lam*b until it reaches 0
-            const r = lp1(A.map((au, u) => au.map((a, m) => a - lam * B[u][m])), PK.map(ps => ps.map(p => side.s * p.heat)), side.s * D); solves++;
-            const nl = ratioOf(r.t);
-            if (nl <= lam + 1e-13 * Math.max(1, Math.abs(lam))) { if (nl > lam) t = r.t; break; }
-            t = r.t; lam = nl;
-          }
-        } else if (prop.kind === "ng" || prop.kind === "flare") {
+        if (prop.kind === "ratio") { t = ratioOpt(prop.w, dir, side); if (!t) continue; }
+        else if (prop.kind === "ng" || prop.kind === "flare") {
           if ((prop.kind === "ng") !== side.short) { const r = solveSide(side, () => 0); if (!r) continue; t = r.t; }
           else { const r = solveSide(side, p => dir * (prop.kind === "ng" ? -p.heat : p.heat)); if (!r) continue; t = r.t; }
         } else continue;
@@ -184,108 +206,87 @@
       return c; };
     const typical = P.map(p => p.f(evaluate(M, { down: [...down] })));
     const lo = [], hi = [];
-    const found = [];                          // every optimum found, used to seed the Wobbe search
     P.forEach((p, i) => {
       if (p.kind === "search") return;
       for (const dir of [-1, 1]) { const e = extreme(p, dir); if (!e) continue;
-        (dir < 0 ? lo : hi)[i] = { v: e.v, t: e.t, exact: true }; found.push(e.t); }
+        (dir < 0 ? lo : hi)[i] = { v: e.v, t: e.t, exact: true }; }
     });
     // Wobbe (gross) = HHV/sqrt(SG) is not linear-fractional, and its extreme can sit inside an
-    // edge of the operating range (an H2/CH4 blend has a lower Wobbe than either gas alone).
-    // Search: discrete moves (one unit to any corner or balance point) alternate with continuous
-    // line searches (one unit moving toward any of its corners; on the heat-balance boundary the
-    // move is paired with the balancing unit so heat stays at demand) until neither improves.
-    // HHV and MW extremes are exact, so HHVmin/sqrt(SGmax) .. HHVmax/sqrt(SGmin) is a proven
-    // outer bound on Wobbe, reported alongside the searched values.
-    const wi = P.findIndex(p => p.kind === "search"), rand = mulberry32(opt.seed || 12345);
-    const k = run.length, NM = PK.map(ps => ps.length);
-    const toW = t => t.map((ws, u) => { const w = new Float64Array(NM[u]); ws.forEach(([m, x]) => w[m] += x); return w; });
-    const fromW = W => Array.from(W, w => { const ws = []; w.forEach((x, m) => { if (x > 1e-13) ws.push([m, x]); }); return ws; });
-    const hU = (W, u) => W[u].reduce((s, x, m) => s + x * PK[u][m].heat, 0);
-    const evalW = W => { const n = new Array(nc).fill(0); let F = 0, H = 0;
-      for (let u = 0; u < k; u++) { const w = W[u], ps = PK[u];
-        for (let m = 0; m < w.length; m++) { const x = w[m]; if (!x) continue; const p = ps[m];
-          for (let j = 0; j < nc; j++) n[j] += x * p.n[j]; F += x * p.F; H += x * p.heat; } }
-      return finish(M, n, F, H, D, {}); };
-    const discrete = (W, dir, cur) => {          // one pass of single-unit corner / balance moves
-      let improved = false;
-      for (let u = 0; u < k; u++) {
-        const need = D - W.reduce((s, _, v) => v === u ? s : s + hU(W, v), 0), keep = W[u];
-        const opts = [];
-        for (let m = 0; m < NM[u]; m++) { const w = new Float64Array(NM[u]); w[m] = 1; opts.push(w); }
-        for (let m1 = 0; m1 < NM[u]; m1++) for (let m2 = m1 + 1; m2 < NM[u]; m2++) {
-          const h1 = PK[u][m1].heat, h2 = PK[u][m2].heat; if (h1 === h2) continue;
-          const x = (need - h2) / (h1 - h2);
-          if (x > 0 && x < 1) { const w = new Float64Array(NM[u]); w[m1] = x; w[m2] = 1 - x; opts.push(w); }
+    // edge of the operating range (an H2/CH4 blend has a lower Wobbe than either gas alone), so
+    // it is bounded from both sides instead. On each side of the heat balance the reachable
+    // (HHV, MW) pairs form a convex set: a linear-fractional image of a polytope. For a direction
+    // c, the exact optimiser above gives the point of that set maximising c1*HHV + c2*MW. Those
+    // support points span an inner polygon whose every point is a reachable case (the two
+    // settings blended); their support lines enclose an outer polygon that contains the whole
+    // set. Wobbe = HHV*sqrt(AIR/MW) is quasiconvex in (HHV, MW), so over a polygon its maximum is
+    // at a vertex and its minimum on an edge (unimodal along it). Directions are added where
+    // inner and outer values differ until they agree within 0.5e-9 relative (1e-9 after the
+    // rounding margin below). The reported min/max are reachable cases; the outer values are a
+    // proven bound (wobbeBound).
+    const wi = P.findIndex(p => p.kind === "search"), iH = P.findIndex(p => p.key === "hhv"), iM = P.findIndex(p => p.key === "mw");
+    const golden = fn => { const g = (Math.sqrt(5) - 1) / 2; let a = 0, b = 1, x1 = b - g, x2 = g, f1 = fn(x1), f2 = fn(x2);
+      for (let it = 0; it < 90; it++) {
+        if (f1 < f2) { b = x2; x2 = x1; f2 = f1; x1 = b - g * (b - a); f1 = fn(x1); }
+        else { a = x1; x1 = x2; f1 = f2; x2 = a + g * (b - a); f2 = fn(x2); } }
+      return [[0, fn(0)], [1, fn(1)], [x1, f1], [x2, f2]].reduce((p, q) => q[1] < p[1] ? q : p); };
+    const wob = (h, m) => h * Math.sqrt(M.AIR / m);
+    const blendT = (ta, tb, mu) => ta.map((ws, u) => [...ws.map(([m, x]) => [m, (1 - mu) * x]), ...tb[u].map(([m, x]) => [m, mu * x])]);
+    let wobbeBound = null;
+    if (lo[iH]) {
+      const sH = Math.max(hi[iH].v - lo[iH].v, 1e-6 * Math.abs(hi[iH].v), 1e-9);
+      const sM = Math.max(hi[iM].v - lo[iM].v, 1e-6 * Math.abs(hi[iM].v), 1e-9);
+      const tol = 1e-9 * Math.max(1, typical[wi]);
+      const support = (side, th) => {
+        const c1 = Math.cos(th) / sH, c2 = Math.sin(th) / sM;   // direction in scaled (HHV, MW)
+        const t = ratioOpt(M.qg.map((q, j) => c1 * q / M.VM + c2 * M.mw[j]), 1, side); if (!t) return null;
+        const r = evalT(t);
+        return { th, t, h: r.hhv, m: r.mw, x: r.hhv / sH, y: r.mw / sM, W: r.wobbe };
+      };
+      const span = (A, B) => {                 // the boundary between neighbouring support points
+        // outer vertex v: walk along A's support line until B's is reached. Written as
+        // n_B.(B - A) / sin(angle) so nearly parallel lines (fine angles near a flat face) stay
+        // accurate; a plain 2x2 solve loses digits as the angle shrinks.
+        const bx = B.x - A.x, by = B.y - A.y, same = Math.hypot(bx, by) < 1e-12;
+        const sn = Math.sin((B.th - A.th + 2 * Math.PI) % (2 * Math.PI));
+        const tau = same || !(sn > 0) ? 0 : (Math.cos(B.th) * bx + Math.sin(B.th) * by) / sn;
+        const v = { h: (A.x - tau * Math.sin(A.th)) * sH, m: (A.y + tau * Math.cos(A.th)) * sM };
+        const iv = { A, B, v };
+        if (!(v.m > 0 && v.h >= 0)) { iv.outMax = Infinity; iv.outMin = -Infinity; }
+        else { const seg = (p, q) => golden(s => wob(p.h + s * (q.h - p.h), p.m + s * (q.m - p.m)))[1];
+          iv.outMax = Math.max(A.W, B.W, wob(v.h, v.m)); iv.outMin = same ? Math.min(A.W, B.W) : Math.min(seg(A, v), seg(v, B)); }
+        const r = same ? (A.W <= B.W ? [0, A.W] : [1, B.W]) : golden(mu => evalT(blendT(A.t, B.t, mu)).wobbe);
+        iv.inMin = { v: r[1], t: blendT(A.t, B.t, r[0]) };
+        return iv;
+      };
+      const solveSideW = side => {
+        const pts = [0, 1, 2, 3, 4, 5, 6, 7].map(i => support(side, i * Math.PI / 4));
+        if (pts.some(p => !p)) return null;
+        let ivs = pts.map((A, i) => span(A, pts[(i + 1) % 8])), dirs = 8;
+        for (;;) {
+          let iMax = 0, iMin = 0;
+          ivs.forEach((iv, i) => { if (iv.outMax > ivs[iMax].outMax) iMax = i; if (iv.outMin < ivs[iMin].outMin) iMin = i; });
+          const inMax = ivs.reduce((b, iv) => [iv.A, iv.B].reduce((p, q) => q.W > p.W ? q : p, b), ivs[0].A);
+          const inMin = ivs.reduce((b, iv) => iv.inMin.v < b.v ? iv.inMin : b, ivs[0].inMin);
+          const res = { max: { v: inMax.W, t: inMax.t }, min: inMin, bound: [ivs[iMin].outMin, ivs[iMax].outMax], dirs };
+          const split = [...new Set([res.bound[1] - inMax.W > tol / 2 ? iMax : -1, inMin.v - res.bound[0] > tol / 2 ? iMin : -1])]
+            .filter(i => i >= 0 && ((ivs[i].B.th - ivs[i].A.th + 2 * Math.PI) % (2 * Math.PI)) > 1e-10).sort((a, b) => b - a);
+          if (!split.length || dirs >= 600) return res;
+          for (const i of split) { const { A, B } = ivs[i];
+            const C = support(side, A.th + ((B.th - A.th + 2 * Math.PI) % (2 * Math.PI)) / 2); dirs++;
+            ivs.splice(i, 1, span(A, C), span(C, B)); }
         }
-        let pick = null;
-        for (const o of opts) { W[u] = o; const v = dir * P[wi].f(evalW(W)); if (v > cur + 1e-12) { cur = v; pick = o; } }
-        W[u] = pick || keep; if (pick) improved = true;
-      }
-      return { cur, improved };
-    };
-    const lineMax = (fn, cur) => {               // maximise fn(s) on [0,1]: grid, then golden section
-      const N = 16; let bi = -1, bv = cur;
-      for (let i = 1; i <= N; i++) { const v = fn(i / N); if (v > bv + 1e-12) { bv = v; bi = i; } }
-      if (bi < 0) return null;
-      let a = (bi - 1) / N, b = Math.min(1, (bi + 1) / N); const g = (Math.sqrt(5) - 1) / 2;
-      let x1 = b - g * (b - a), x2 = a + g * (b - a), f1 = fn(x1), f2 = fn(x2);
-      for (let it = 0; it < 40; it++) {
-        if (f1 > f2) { b = x2; x2 = x1; f2 = f1; x1 = b - g * (b - a); f1 = fn(x1); }
-        else { a = x1; x1 = x2; f1 = f2; x2 = a + g * (b - a); f2 = fn(x2); }
-      }
-      const cands = [[bi / N, bv], [x1, f1], [x2, f2]].sort((p, q) => q[1] - p[1]);
-      return cands[0][1] > cur + 1e-12 ? cands[0] : null;
-    };
-    const continuous = (W, dir, cur) => {
-      let improved = false;
-      const H = W.reduce((s, _, u) => s + hU(W, u), 0), onBoundary = Math.abs(H - D) <= 1e-9 * Math.max(1, D);
-      const bal = onBoundary ? W.findIndex(w => w.filter(x => x > 1e-13).length === 2) : -1;
-      for (let u = 0; u < k; u++) for (let m = 0; m < NM[u]; m++) {
-        const base = W[u], tgt = new Float64Array(NM[u]); tgt[m] = 1;
-        const mixU = sv => base.map((x, i) => (1 - sv) * x + sv * tgt[i]);
-        let fn;
-        if (bal >= 0 && bal !== u) {             // keep heat at demand by moving the balancing unit
-          const bw = W[bal], [m1, m2] = [...bw.keys()].filter(i => bw[i] > 1e-13), h1 = PK[bal][m1].heat, h2 = PK[bal][m2].heat;
-          const hu0 = hU(W, u), dh = PK[u][m].heat - hu0;
-          fn = sv => { const x = bw[m1] - sv * dh / (h1 - h2); if (!(x >= 0 && x <= 1)) return -Infinity;
-            const nb = new Float64Array(NM[bal]); nb[m1] = x; nb[m2] = 1 - x;
-            const keepU = W[u], keepB = W[bal]; W[u] = mixU(sv); W[bal] = nb;
-            const v = dir * P[wi].f(evalW(W)); W[u] = keepU; W[bal] = keepB; return v; };
-          const r = lineMax(fn, cur);
-          if (r) { const x = bw[m1] - r[0] * dh / (h1 - h2), nb = new Float64Array(NM[bal]); nb[m1] = x; nb[m2] = 1 - x;
-            W[u] = mixU(r[0]); W[bal] = nb; cur = r[1]; improved = true; }
-        }
-        fn = sv => { const keep = W[u]; W[u] = mixU(sv); const v = dir * P[wi].f(evalW(W)); W[u] = keep; return v; };
-        const r = lineMax(fn, cur);
-        if (r) { W[u] = mixU(r[0]); cur = r[1]; improved = true; }
-      }
-      return { cur, improved };
-    };
-    for (const dir of [-1, 1]) {
-      const starts = found.map(toW);
-      for (let r = 0; r < (opt.random ?? 40); r++)
-        starts.push(run.map((_, u) => { const w = new Float64Array(NM[u]); w[(rand() * NM[u]) | 0] = 1; return w; }));
-      const done = starts.map(W => { let cur = dir * P[wi].f(evalW(W)), pass = 0, d;
-        do { d = discrete(W, dir, cur); cur = d.cur; } while (d.improved && ++pass < 30);
-        return { W, cur }; }).sort((p, q) => q.cur - p.cur);
-      let best = null;
-      for (const s0 of done.slice(0, 3)) {      // continuous refinement of the three best
-        let { W, cur } = s0, pass = 0, more = true;
-        while (more && pass++ < 20) { const c = continuous(W, dir, cur), d = discrete(W, dir, c.cur); cur = d.cur; more = c.improved || d.improved; }
-        if (!best || cur > best.cur) best = { cur, W };
-      }
-      if (best) (dir < 0 ? lo : hi)[wi] = { v: dir * best.cur, t: fromW(best.W), exact: false };
+      };
+      for (const side of sides) { const r = solveSideW(side); if (!r) continue;
+        if (!lo[wi] || r.min.v < lo[wi].v) lo[wi] = { v: r.min.v, t: r.min.t };
+        if (!hi[wi] || r.max.v > hi[wi].v) hi[wi] = { v: r.max.v, t: r.max.t };
+        wobbeBound = wobbeBound ? [Math.min(wobbeBound[0], r.bound[0]), Math.max(wobbeBound[1], r.bound[1])] : r.bound; }
+      wobbeBound = [wobbeBound[0] * (1 - 1e-11), wobbeBound[1] * (1 + 1e-11)];   // floating-point margin
+      lo[wi].exact = lo[wi].v - wobbeBound[0] <= tol; hi[wi].exact = wobbeBound[1] - hi[wi].v <= tol;
     }
-    const iH = P.findIndex(p => p.key === "hhv"), iM = P.findIndex(p => p.key === "mw");
-    const wobbeBound = lo[iH] && hi[iH] ? [lo[iH].v / Math.sqrt(hi[iM].v / M.AIR), hi[iH].v / Math.sqrt(lo[iM].v / M.AIR)] : null;
     return { scenario: scen, typical, solves, wobbeBound,
       min: lo.map(o => ({ v: o.v, exact: o.exact, case: caseOf(o.t) })),
       max: hi.map(o => ({ v: o.v, exact: o.exact, case: caseOf(o.t) })) };
   }
-
-  function mulberry32(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
   const api = { build, evaluate, props, scenarioRange };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.HeaderBlend = api;

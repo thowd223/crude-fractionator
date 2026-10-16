@@ -1,2 +1,4 @@
-scenario_id,scenario_name,units_down_semicolon_separated,units_at_reduced_rate_semicolon_separated,how_likely,notes
-TA-CCR,Reformer turnaround,CCR;NHT;BSU,,every 3 years,linked units shut down together
+scenario_id,scenario_name,units_down_semicolon_separated,units_at_reduced_rate_unit_pct,units_on_hot_standby_unit_gj_h_net,other_consumer_demand_change_gj_h_net,how_likely,notes
+TA-CCR,Reformer turnaround,CCR;NHT;BSU,,,0,every 3 years,linked units shut down together
+FCC-60,FCC at 60% rate after wet gas compressor trip,,FCC:60,,0,1-2 times a year,give the FCC off-gas flow and fuel use at this rate if known
+HCU-HSB,Hydrocracker trip to hot standby,HCU,,HCU:25,0,once a year,heaters stay on minimum fire; off-gas stops
