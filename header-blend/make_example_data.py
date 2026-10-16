@@ -49,7 +49,7 @@ data=dict(
  units=units,
  other_consumers=dict(name="Utility boilers and offsites",fuel_use_gj_h=ext),
  makeup=dict(id="ng",name="Natural gas import",max_kmol_h=2500,analysis_mol_pct=norm(ng)),
- limits=dict(wobbe_band_pct=5,h2s_ppmv_max=160),
+ limits=dict(wobbe_band_pct=5,wobbe_reference_mj_nm3=None,h2s_ppmv_max=160),
  scenarios=[dict(id="normal",name="Normal operation",down=[])]+
    [dict(id="down-"+u[0],name=SHORT[u[0]]+" down",down=[u[0]]) for u in U]+
    [dict(id="ta-crude",name="Crude turnaround (crude + vacuum)",down=["cdu","vdu"]),

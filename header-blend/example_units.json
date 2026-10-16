@@ -903,6 +903,7 @@
  },
  "limits": {
   "wobbe_band_pct": 5,
+  "wobbe_reference_mj_nm3": null,
   "h2s_ppmv_max": 160
  },
  "scenarios": [

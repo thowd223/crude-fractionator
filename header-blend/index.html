@@ -133,6 +133,7 @@ code{font-family:var(--f-mono);font-size:.85em}
     <h2>Header envelope across all scenarios</h2>
     <div class="tbl"><table id="envTbl"></table></div>
     <p class="note" style="margin-top:8px">Bar: shaded span is min to max, dark tick is typical (normal operation, every unit at normal flow and analysis). Green band is the allowed Wobbe swing; dashed line is a limit. Click a scenario name to open that exact case.</p>
+    <p class="note"><b>Read these as worst-case bounds, not expected values.</b> Each extreme can need every running unit at its own worst flow and analysis at the same time, which is unlikely. The real study should pair this envelope with a replay of the historian data to show how often the header comes near it.</p>
   </div>
   <div class="panel"><h2>Findings</h2><div class="alerts" id="findings"></div></div>
   <div class="panel">
@@ -198,8 +199,9 @@ Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
     <p>For each scenario, every running unit may sit anywhere in its operating range: any flow between min and max, and any blend of its lean, normal and rich analyses. The envelope is the lowest and highest value of each property over all those combinations, then over all scenarios.</p>
     <ul>
       <li><b>Exact for every property except Wobbe.</b> On each side of the heat balance (short or long), each property is a ratio a/b with a and b linear in the unit flows. That is a linear-fractional program. It is solved exactly with Dinkelbach's method. Each step is a linear program with one coupling constraint (header heat), solved through its one-variable dual. The extreme is either a corner (every unit at min or max flow with a pure analysis) or a balance point (one unit between its limits so heat exactly meets demand).</li>
-      <li><b>Wobbe is searched.</b> HHV/√SG is not linear-fractional, so its extremes come from a local search. The search starts from every optimum found for the other properties plus random corners, and moves one unit at a time to any corner or balance point while Wobbe improves. The sampling checks below have not found a point outside the searched range.</li>
-      <li>Runtime is about 1.5 s for 19 scenarios in a browser.</li>
+      <li><b>Wobbe is searched, so its range is an estimate.</b> HHV/√SG is not linear-fractional. Its extreme can lie part-way along a unit's range rather than at a corner: a hydrogen and methane blend has a lower Wobbe than either gas alone. The search starts from every optimum found for the other properties plus random corners. It alternates single-unit moves to any corner or balance point with continuous line searches, including paired moves that keep heat at demand, until neither improves. It matches a brute-force grid on a two-unit hydrogen/methane test built to have an interior minimum. A proven but much wider bound is HHV<sub>min</sub>/√SG<sub>max</sub> to HHV<sub>max</sub>/√SG<sub>min</sub>, from the exact HHV and MW extremes.</li>
+      <li>Each unit's analysis range is every blend of its named analyses. The example data uses lean, normal and rich. Real data can add engineer-selected samples, such as the highest-H₂S or highest-H₂ sample on record, without code changes, so that H₂S and H₂ extremes are not tied to MW.</li>
+      <li>Runtime is about 2 s for 19 scenarios in a browser.</li>
     </ul>
   </div>
 
@@ -207,31 +209,33 @@ Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
     <h3>3. Reference conditions and assumptions</h3>
     <ul>
       <li>Normal conditions 0 °C, 101.325 kPa. Ideal-gas molar volume 22.414 Nm³/kmol, Z = 1. Air MW 28.964.</li>
-      <li>Heats of combustion at 25 °C. Net = gross − n(H₂O) × 44.01 kJ/mol. The temperature correction to 0 °C combustion is ignored, which is about 0.1%.</li>
+      <li>Heats of combustion at 25 °C. Net = gross − n(H₂O) × 44.01 kJ/mol. The correction to a 0 °C or 15 °C combustion basis is ignored: about 0.3% on gross values (HHV, Wobbe), under 0.05% on net.</li>
       <li>Wobbe is reported on a gross (HHV) basis, the usual burner-vendor convention. Confirm the client's reference conditions; ISO 6976 tables at 15 °C give different absolute values.</li>
       <li>C4s are lumped as n-butane and C5+ as n-pentane. A heavier C5+ cut raises MW and heating value.</li>
       <li>Each unit's fuel use is fixed at its normal value while running; it does not scale with throughput.</li>
-      <li>The analysis range of a unit is every blend of its lean, normal and rich analyses. Real analyses may fall outside that if the data does not capture the extremes.</li>
-      <li>Wobbe swing limit ±5% of typical, H₂S limit 160 ppmv and NG import capacity 2,500 kmol/h are placeholders.</li>
+      <li>The analysis range of a unit is every blend of its named analyses. Real analyses fall outside it if the selected samples miss the extremes, so the selection must be checked against the history.</li>
+      <li>A unit that is down burns no fuel. That holds for a turnaround, not for a trip to hot standby with heaters on minimum fire.</li>
+      <li>Wobbe swing limit ±5%, H₂S limit 160 ppmv and NG import capacity 2,500 kmol/h are placeholders. The Wobbe band is centred on the typical header value because no burner design Wobbe is given; set <code>wobbe_reference_mj_nm3</code> in the data once the burner design value is known.</li>
     </ul>
   </div>
 
   <div class="panel">
     <h3>4. Component properties used</h3>
-    <p class="note">Molecular weights and gross molar heats of combustion are standard values entered by hand. <span class="flag">They have not yet been checked against a cited reference.</span> Check against GPSA Engineering Data Book Section 23, ISO 6976 or the NIST Chemistry WebBook. Net and volumetric values are calculated from the gross column.</p>
+    <p class="note">Molecular weights and gross molar heats of combustion are standard values entered by hand. An independent review found them consistent with ISO 6976 and NIST values (methane 890.56 against ISO 890.63 kJ/mol, 0.01%). <span class="flag">That review worked from memory, so the values still need checking against the published document</span> (GPSA Engineering Data Book Section 23, ISO 6976 or the NIST Chemistry WebBook). Net and volumetric values are calculated from the gross column.</p>
     <div class="tbl"><table id="propTbl"></table></div>
   </div>
 
   <div class="panel">
     <h3>5. Verification carried out</h3>
-    <p>Run <code>python3 verify.py</code>. It is written separately in Python from the data file, not translated from the JavaScript. Latest run: all checks passed.</p>
+    <p>Run <code>python3 verify.py</code> (about 80 s). The Python is written from the data file, not translated from the JavaScript. Latest run: all checks passed. <b>Limit:</b> the same author wrote both, from the same equations, so the checks test the <i>implementation</i>. They do not show the <i>model</i> is right for this plant. That needs the checks in the note below.</p>
     <div class="tbl"><table>
       <thead><tr><th>Check</th><th class="l">What it tests</th><th class="l">Result</th></tr></thead>
       <tbody>
-        <tr><td>Single case</td><td class="t l">Normal operation recalculated in Python: flow, MW, LHV, HHV, Wobbe, NG make-up</td><td class="t l">Matches model.js to 4 decimal places</td></tr>
-        <tr><td>Closure</td><td class="t l">Σ x = 1 and Σ component flow = total flow, in every evaluation</td><td class="t l">Holds in every case</td></tr>
-        <tr><td>Exhaustive</td><td class="t l">Three 5-unit test scenarios that cross from short to long. Every corner (6⁵ = 7,776 each) and every balance point (978, 1,892 and 16,799) evaluated</td><td class="t l">model.js min and max equal the exhaustive answer to 1e-15 for all properties, including Wobbe</td></tr>
-        <tr><td>Sampled</td><td class="t l">All 19 scenarios: 2,000 random corners, 2,000 random interior points and up to 1,000 points forced onto the heat-balance boundary. No theory assumed</td><td class="t l">No sample outside the reported envelope</td></tr>
+        <tr><td>Single case</td><td class="t l">Normal operation recalculated in Python: flow, MW, LHV, HHV, Wobbe, NG make-up, H₂S and all 11 mole fractions</td><td class="t l">Matches model.js to 4 decimal places; mole fractions identical</td></tr>
+        <tr><td>Closure</td><td class="t l">Σ x = 1 and Σ component flow = total flow, asserted in every evaluation</td><td class="t l">Holds in every case</td></tr>
+        <tr><td>Exhaustive</td><td class="t l">Three 5-unit test scenarios that cross from short to long. Every corner (6⁵ = 7,776 each) and every balance point (978, 1,892 and 16,799) evaluated</td><td class="t l">Pass threshold 1e-6. Largest gap seen 3.3e-15 for all properties except Wobbe. Wobbe is searched, not solved, so this check only confirms its range covers every candidate. In these tests it matched exactly</td></tr>
+        <tr><td>Sampled</td><td class="t l">All 19 scenarios: 2,000 random corners, 2,000 random interior points and 1,000 points on the heat-balance boundary. For FCC down and the FCC turnaround the header is always short, so no boundary exists. For coker down, the boundary is reached only at extreme corners, and the random boundary search found none. No theory assumed</td><td class="t l">No sample outside the reported envelope</td></tr>
+        <tr><td>Wobbe interior</td><td class="t l">Synthetic 2-unit case (95% H₂ vs pure CH₄) built so the Wobbe extreme lies inside the flow range, not at a corner. Compared with a 1 kmol/h grid search at demand 0, 400 and 700 GJ/h</td><td class="t l">model.js equal to or more extreme than the grid in every case (e.g. 37.2172–51.9201 at demand 0)</td></tr>
       </tbody>
     </table></div>
     <p class="note">Recommended before client use: run a few envelope cases in the client's process simulator (HYSYS, UniSim, Pro/II); replay a year of historian data through the model and compare with the header analyser; have the property table checked against a cited source.</p>
@@ -244,7 +248,8 @@ Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
       <li>Transients during a trip: pressure swing, controller response, the delay before make-up catches up.</li>
       <li>Meter error. Differential-pressure meters on fuel gas read wrong when MW changes; plant flows must be density-corrected before use.</li>
       <li>Links between units beyond the scenario list, for example hydrotreaters cutting rate when the reformer is down and hydrogen is short.</li>
-      <li>Components outside the list: CO, O₂, NH₃, mercaptans, COS, H₂O.</li>
+      <li>Components outside the list: CO, O₂ (air leakage, for example vacuum ejector gas), NH₃, mercaptans, COS, H₂O. Butenes and other new components need a property row and a group mapping in the code before they count toward "Olefins" or "C4 and heavier".</li>
+      <li>Fuel use that changes with unit throughput, swing fuels (fuel oil, LPG vaporiser), flare gas recovery returning gas to the header, and amine-unit upsets as their own cause of high H₂S.</li>
     </ul>
   </div>
 
@@ -254,14 +259,14 @@ Wobbe (gross) = HHV / √SG        H₂S ppmv = 10⁶ · x_H2S</div>
     <div class="tbl"><table>
       <thead><tr><th>Item</th><th class="l">Detail</th><th class="l">Used for</th></tr></thead>
       <tbody>
-        <tr><td>Stream register</td><td class="t l">Every stream into the header: flow tag, meter type, design MW/P/T, compensated or not, analyser tag or lab point, the unit's own fuel use tag, PFD/P&amp;ID reference</td><td class="t l">Defines the 15 inputs; converts indicated flow to true kmol/h</td></tr>
-        <tr><td>Flow history</td><td class="t l">12–24 months, hourly averages, every flow and fuel use tag, with quality flags</td><td class="t l">Min, normal, max flow (P5/P50/P95 while running); unit fuel use</td></tr>
-        <tr><td>Analysis history</td><td class="t l">All online GC and lab results per stream in mol%, full component list including CO, O₂, H₂S</td><td class="t l">Lean, normal, rich analysis per unit</td></tr>
-        <tr><td>Header history</td><td class="t l">Header flow, pressure, analyser or calorimeter (Wobbe, HHV), NG import and any other make-up</td><td class="t l">Validation against measured header</td></tr>
-        <tr><td>Unit status and outages</td><td class="t l">Start and end of every shutdown, trip and turnaround in the period, planned or not</td><td class="t l">Exclude down periods from unit statistics; real outages to validate against</td></tr>
+        <tr><td>Stream register</td><td class="t l">Every stream into the header: flow tag, meter type, design MW/P/T, compensated or not, analyser tag or lab point, sweet or sour (before or after amine treating), the unit's own fuel use and throughput tags, PFD/P&amp;ID reference</td><td class="t l">Defines the 15 inputs; converts indicated flow to true kmol/h</td></tr>
+        <tr><td>Flow history</td><td class="t l">12–24 months, hourly averages, every flow and fuel use tag, with quality flags</td><td class="t l">Min, normal, max flow (P5/P50/P95 while running); unit fuel use and how it scales with throughput</td></tr>
+        <tr><td>Analysis history</td><td class="t l">All online GC and lab results per stream in mol%, full component list including CO, O₂, H₂S</td><td class="t l">Lean, normal, rich analysis per unit, plus the highest-H₂S and highest-H₂ samples on record</td></tr>
+        <tr><td>Header history</td><td class="t l">Header flow, pressure, temperature, analyser or calorimeter (Wobbe, HHV), NG import flow and analysis, any other make-up or flare gas recovery return, knock-out drum data</td><td class="t l">Validation against measured header</td></tr>
+        <tr><td>Unit status and outages</td><td class="t l">Start and end of every shutdown, trip, hot standby and turnaround in the period, planned or not, and amine-unit upsets</td><td class="t l">Exclude down periods from unit statistics; real outages to validate against</td></tr>
         <tr><td>Scenarios</td><td class="t l">Outage cases to study, including units that always go down together and units forced to reduced rate</td><td class="t l">The scenario list in the range view</td></tr>
-        <tr><td>Limits and basis</td><td class="t l">Burner Wobbe tolerance, H₂S permit limit and averaging period, any H₂ limit, NG import capacity, heating-value standard and reference conditions</td><td class="t l">Pass/fail criteria; property basis</td></tr>
-        <tr><td>Operating philosophy</td><td class="t l">Is the header normally short or long? What is the make-up source? Which other consumers are on it? Which burners are most sensitive?</td><td class="t l">Header balance rules in section 1</td></tr>
+        <tr><td>Limits and basis</td><td class="t l">Burner design Wobbe and tolerance for each consumer group, H₂S permit limit and averaging period, any H₂ limit, NG import capacity, heating-value standard and reference conditions (combustion and metering temperature)</td><td class="t l">Pass/fail criteria; property basis</td></tr>
+        <tr><td>Operating philosophy</td><td class="t l">Is the header normally short or long? What is the make-up source? What happens when it is long (flare, curtail, swing fuels)? Which other consumers are on it? Which burners are most sensitive? Do tripped units keep heaters on minimum fire?</td><td class="t l">Header balance rules in section 1</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -287,7 +292,9 @@ $("tab-case").onclick = () => showTab("case");
 
 // ---------- limits ----------
 const L = () => DATA.limits;
-function wobbeBand(){ const t = TYP[idx("wobbe")]; return [t*(1-L().wobbe_band_pct/100), t*(1+L().wobbe_band_pct/100)]; }
+const wobbeRef = () => L().wobbe_reference_mj_nm3 || TYP[idx("wobbe")];
+const wobbeRefName = () => L().wobbe_reference_mj_nm3 ? "the burner design value" : "typical";
+function wobbeBand(){ const t = wobbeRef(); return [t*(1-L().wobbe_band_pct/100), t*(1+L().wobbe_band_pct/100)]; }
 const idx = k => P.findIndex(p => p.key===k);
 function flagsFor(r){ // r: {min:[], max:[]} values per property
   const f = [], [wl, wh] = wobbeBand();
@@ -298,13 +305,16 @@ function flagsFor(r){ // r: {min:[], max:[]} values per property
 }
 
 // ---------- range view ----------
+let busy = false;
+function setBusy(b){ busy = b; $("addBtn").disabled = b; $("saveScn").disabled = b; if (b) $("addMsg").textContent = "Scenarios can be added once solving finishes."; else if ($("addMsg").textContent.startsWith("Scenarios can")) $("addMsg").textContent = ""; }
 function computeAll(){
-  const scns = DATA.scenarios; results = []; let i = 0; const t0 = performance.now();
+  const scns = DATA.scenarios.slice(); results = []; let i = 0; const t0 = performance.now(); setBusy(true);
   const step = () => {
     if (i < scns.length) {
       $("status").textContent = `Solving scenario ${i+1} of ${scns.length}: ${scns[i].name}…`;
       results.push(HB.scenarioRange(M, scns[i])); i++; setTimeout(step, 0); return;
     }
+    setBusy(false);
     $("status").textContent = `${scns.length} scenarios × ${M.units.length} units solved in ${fmt((performance.now()-t0)/1000,1)} s. Each running unit varies over its full flow and analysis range.`;
     renderRange();
   };
@@ -353,18 +363,18 @@ function renderRange(){
       `<td class="l">${caseLink(e.hi.r.scenario.name, e.hi.c, `${e.p.label} maximum (${fmt(e.hi.v,e.p.d)} ${e.p.unit}) in ${e.hi.r.scenario.name}`)}</td></tr>`; }).join("")+`</tbody>`;
   // findings
   const g = k => env[idx(k)], fl = [];
-  const w = g("wobbe"), wt = w.typ;
+  const w = g("wobbe"), wt = wobbeRef();
   const pct = v => (v>=0?"+":"−")+fmt(Math.abs(v),1)+"%";
   const nW = results.filter(r => r.min[idx("wobbe")].v < wl || r.max[idx("wobbe")].v > wh).length;
-  fl.push([nW?"":"ok", `Wobbe index ranges ${fmt(w.lo.v,1)} to ${fmt(w.hi.v,1)} MJ/Nm³, ${pct((w.lo.v/wt-1)*100)} to ${pct((w.hi.v/wt-1)*100)} from typical. ${nW ? `${nW} of ${results.length} scenarios can leave the ±${L().wobbe_band_pct}% band.` : `All scenarios stay inside ±${L().wobbe_band_pct}%.`}`]);
+  fl.push([nW?"":"ok", `Wobbe index ranges ${fmt(w.lo.v,1)} to ${fmt(w.hi.v,1)} MJ/Nm³, ${pct((w.lo.v/wt-1)*100)} to ${pct((w.hi.v/wt-1)*100)} from ${wobbeRefName()}. ${nW ? `${nW} of ${results.length} scenarios can leave the ±${L().wobbe_band_pct}% band.` : `All scenarios stay inside ±${L().wobbe_band_pct}%.`}`]);
   const h = g("h2s"), nH = results.filter(r => r.max[idx("h2s")].v > L().h2s_ppmv_max).length;
-  fl.push([nH?"bad":"ok", `H₂S reaches ${fmt(h.hi.v,0)} ppmv at most (limit ${L().h2s_ppmv_max}). ${nH ? `${nH} scenarios can exceed the limit; the highest is ${h.hi.r.scenario.name}.` : "No scenario exceeds the limit."}`]);
+  fl.push([nH?"bad":"ok", `H₂S reaches ${fmt(h.hi.v,0)} ppmv at most (limit ${L().h2s_ppmv_max}). ${nH ? `${nH} scenarios can exceed the limit; the highest is ${esc(h.hi.r.scenario.name)}.` : "No scenario exceeds the limit."}`]);
   const n = g("ng"), nN = results.filter(r => r.max[idx("ng")].v > DATA.makeup.max_kmol_h).length;
-  fl.push([nN?"bad":"ok", `NG make-up peaks at ${fmt(n.hi.v,0)} kmol/h in ${n.hi.r.scenario.name} (import capacity ${fmt(DATA.makeup.max_kmol_h,0)}). ${nN ? `${nN} scenarios need more than the import can supply.` : "Capacity is enough in every scenario."}`]);
+  fl.push([nN?"bad":"ok", `NG make-up peaks at ${fmt(n.hi.v,0)} kmol/h in ${esc(n.hi.r.scenario.name)} (import capacity ${fmt(DATA.makeup.max_kmol_h,0)}). ${nN ? `${nN} scenarios need more than the import can supply.` : "Capacity is enough in every scenario."}`]);
   const hy = g("h2");
-  fl.push(["", `Hydrogen ranges ${fmt(hy.lo.v,1)} to ${fmt(hy.hi.v,1)} mol% (typical ${fmt(hy.typ,1)}). Check burner H₂ limits against the maximum, reached in ${hy.hi.r.scenario.name}.`]);
+  fl.push(["", `Hydrogen ranges ${fmt(hy.lo.v,1)} to ${fmt(hy.hi.v,1)} mol% (typical ${fmt(hy.typ,1)}). Check burner H₂ limits against the maximum, reached in ${esc(hy.hi.r.scenario.name)}.`]);
   const f = g("flare");
-  if (f.hi.v > 0) fl.push(["", `The header can run long: up to ${fmt(f.hi.v,0)} GJ/h of surplus gas would go to flare, highest in ${f.hi.r.scenario.name}.`]);
+  if (f.hi.v > 0) fl.push(["", `The header can run long: up to ${fmt(f.hi.v,0)} GJ/h of surplus gas would go to flare, highest in ${esc(f.hi.r.scenario.name)}.`]);
   $("findings").innerHTML = fl.map(([c,t]) => `<div class="alert ${c}">${t}</div>`).join("");
   // scenario table
   const W = idx("wobbe"), H2 = idx("h2"), S = idx("h2s"), N = idx("ng"), F = idx("flare");
@@ -389,6 +399,7 @@ document.addEventListener("click", e => {
 
 // ---------- add scenario ----------
 function addScenario(name, down){
+  if (busy) return false;
   if (!down.length) { $("addMsg").textContent = "Pick at least one unit to take down."; return false; }
   const key = [...down].sort().join("+");
   if (DATA.scenarios.some(s => [...s.down].sort().join("+") === key)) { $("addMsg").textContent = "A scenario with exactly these units down already exists."; return false; }
@@ -400,6 +411,7 @@ $("addBtn").onclick = () => {
   const down = [...document.querySelectorAll("#addChips input:checked")].map(i => i.value);
   if (addScenario($("addName").value.trim(), down)) { document.querySelectorAll("#addChips input").forEach(i => i.checked=false); $("addName").value=""; }
 };
+$("resetBtn").onclick = () => loadCase({ down: [] }, "");
 $("saveScn").onclick = () => {
   const down = M.units.filter(u => !st.on[u.id]).map(u => u.id);
   addScenario("", down); showTab("range");
@@ -420,7 +432,7 @@ function buildUnits(){
      <div class="ctrl">
        <input type="range" id="f-${u.id}" min="${u.flow_kmol_h.min}" max="${u.flow_kmol_h.max}" step="any" aria-label="${esc(u.name)} flow">
        <span class="fv" id="fv-${u.id}"></span>
-       <select id="a-${u.id}" aria-label="${esc(u.name)} analysis"><option value="lean">Lean</option><option value="normal">Normal</option><option value="rich">Rich</option><option value="blend" disabled>Blend</option></select>
+       <select id="a-${u.id}" aria-label="${esc(u.name)} analysis">${u.keys.map(k => `<option value="${esc(k)}">${esc(k[0].toUpperCase()+k.slice(1).replace(/_/g," "))}</option>`).join("")}<option value="blend" disabled>Blend</option></select>
      </div>
    </div>`).join("");
   for (const u of M.units) {
@@ -474,9 +486,9 @@ function renderCase(){
   $("balance").innerHTML = `Running units supply <b>${fmt(r.supply,0)} GJ/h</b> against a demand of <b>${fmt(r.demand,0)} GJ/h</b> (running units' own fuel use plus ${fmt(DATA.other_consumers.fuel_use_gj_h,0)} GJ/h for ${esc(DATA.other_consumers.name.toLowerCase())}). `+
     (r.ng > 0 ? `The header is short, so natural gas import makes up <b>${fmt(r.ng,0)} kmol/h</b>.` : r.flare > 0 ? `The header is long, so <b>${fmt(r.flare,0)} GJ/h</b> of blended gas goes to flare and no natural gas is imported.` : `Supply exactly meets demand.`);
   $("bars").innerHTML = `<div class="barrow">Normal<div class="bar">${bar(b.x)}</div></div><div class="barrow">This case<div class="bar">${bar(r.x)}</div></div>`;
-  const al = [], [wl, wh] = wobbeBand(), wd = (r.wobbe/b.wobbe-1)*100;
-  if (r.wobbe < wl || r.wobbe > wh) al.push(["chk", `Wobbe index ${fmt(r.wobbe,2)} MJ/Nm³ is ${fmt(wd,1)}% from typical, outside the ±${L().wobbe_band_pct}% band.`]);
-  else al.push(["ok", `Wobbe index within ±${L().wobbe_band_pct}% of typical (${wd>=0?"+":""}${fmt(wd,1)}%).`]);
+  const al = [], [wl, wh] = wobbeBand(), wd = (r.wobbe/wobbeRef()-1)*100;
+  if (r.wobbe < wl || r.wobbe > wh) al.push(["chk", `Wobbe index ${fmt(r.wobbe,2)} MJ/Nm³ is ${fmt(wd,1)}% from ${wobbeRefName()}, outside the ±${L().wobbe_band_pct}% band.`]);
+  else al.push(["ok", `Wobbe index within ±${L().wobbe_band_pct}% of ${wobbeRefName()} (${wd>=0?"+":""}${fmt(wd,1)}%).`]);
   const h2s = r.x[M.idx.H2S]*1e6;
   al.push([h2s > L().h2s_ppmv_max ? "bad" : "ok", `H₂S ${fmt(h2s,0)} ppmv against a ${L().h2s_ppmv_max} ppmv example limit.`]);
   if (r.ngOverLimit) al.push(["bad", `NG make-up of ${fmt(r.ng,0)} kmol/h exceeds the ${fmt(DATA.makeup.max_kmol_h,0)} kmol/h import capacity. The header could not hold pressure.`]);
@@ -496,5 +508,5 @@ fetch("example_units.json").then(r => { if (!r.ok) throw new Error(r.status); re
     M.comps.map(c => `<tr><td>${c.name}</td><td>${c.id}</td><td>${fmt(c.mw,3)}</td><td>${fmt(c.q_gross_kj_mol,2)}</td><td>${c.n_h2o}</td><td>${fmt(c.q_net_kj_mol,2)}</td><td>${fmt(c.q_gross_kj_mol/M.VM,2)}</td><td>${fmt(c.q_net_kj_mol/M.VM,2)}</td></tr>`).join("")+`</tbody>`;
   buildUnits(); loadCase({ down: [] }, ""); computeAll();
   if (location.hash === "#case") showTab("case");
-}).catch(err => { $("status").textContent = "Could not load example_units.json ("+err.message+"). Open the page through a web server, for example: python3 -m http.server"; });
+}).catch(err => { $("status").textContent = err.message.startsWith("Data problems") ? err.message : "Could not load example_units.json ("+err.message+"). Open the page through a web server, for example: python3 -m http.server"; });
 </script>

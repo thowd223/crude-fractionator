@@ -3,22 +3,32 @@
 Written separately in Python from the data file, not translated from the JS.
 Run:  python3 verify.py        (needs Node on PATH to run model.js for comparison)
 
-Operating range of each running unit: any flow from min to max, and any blend of its lean,
-normal and rich analyses. Header: heat short of demand is made up with NG; heat above demand
+Operating range of each running unit: any flow from min to max, and any blend of its named
+analyses (lean / normal / rich in the example data; any number is allowed). Header: heat short of demand is made up with NG; heat above demand
 is flared and does not change the composition.
 
 Checks
- 1. Single case: normal operation computed here matches model.js.
+ 1. Single case: normal operation computed here matches model.js (flow, MW, LHV, HHV, Wobbe,
+    NG make-up, H2S and every component mole fraction).
  2. Closure, inside every evaluation: mol fractions sum to 1, component flows sum to total.
  3. Exhaustive: for test scenarios with 5 running units, evaluate every candidate extreme:
-    all 6^5 corners (flow min/max x lean/normal/rich) and every balance point (one unit
+    all 6^5 corners (flow min/max x each analysis) and every balance point (one unit
     blending two of its corners so header heat equals demand exactly, the others at corners).
     Linear-programming theory says the extremes of every property except Wobbe are among
-    these points. Compare the true min/max with model.js. Test sets are chosen so that the
-    header crosses from short to long within the range, so balance points are exercised.
+    these points. Compare the true min/max with model.js (pass threshold 1e-6 relative).
+    Test sets are chosen so the header crosses from short to long, so balance points exist.
+    For Wobbe this only checks that model.js covers these points; its true extreme can lie
+    elsewhere (see check 5).
  4. Sampled, no theory assumed: for every scenario, random corners, random points anywhere
-    inside the range, and random points forced onto the heat-balance boundary must all lie
-    within the model.js envelope. This is the main check on Wobbe, which is searched.
+    inside the range, and random points on the heat-balance boundary (where reachable) must
+    all lie within the model.js envelope.
+ 5. Wobbe interior extremes: two-unit test (95% H2 stream and pure CH4) where the Wobbe
+    minimum lies inside an edge, not at a corner. model.js must match a fine grid search,
+    with the header always long, and with demands that make it cross short/long.
+
+Same author, same equations, same property table and assumptions: these checks test that
+model.js implements the stated model correctly. They do not test the model against a plant
+or a simulator.
 """
 import itertools, json, os, random, subprocess, sys, tempfile
 
@@ -45,9 +55,9 @@ def demand(down):
     return EXT + sum(UNITS[u]["fuel_use_gj_h"] for u in ALL if u not in down)
 
 def blend(u, w):
-    """Analysis for blend weights w = (lean, normal, rich)."""
-    t = sum(w)
-    return [(w[0] * Y[u]["lean"][j] + w[1] * Y[u]["normal"][j] + w[2] * Y[u]["rich"][j]) / t for j in range(NC)]
+    """Analysis for blend weights w = {analysis name: weight}."""
+    t = sum(w.values())
+    return [sum(x * Y[u][a][j] for a, x in w.items()) / t for j in range(NC)]
 
 def heat(f, y):
     return f * sum(y[j] * QN[j] for j in range(NC)) / 1000              # GJ/h
@@ -68,20 +78,19 @@ def header(streams, dem):
     hhv = sum(x[j] * QG[j] for j in range(NC)) / VM
     s = lambda *ids: 100 * sum(x[IDS.index(i)] for i in ids)
     g = lambda grp: 100 * sum(x[j] for j in range(NC) if GROUP[j] == grp)
-    return dict(F=F, h2=s("H2"), c1=s("CH4"), c2=g("c2"), olef=s("C2H4", "C3H6"), c3=g("c3"),
+    return dict(F=F, x=x, h2=s("H2"), c1=s("CH4"), c2=g("c2"), olef=s("C2H4", "C3H6"), c3=g("c3"),
                 c4p=s("C4", "C5+"), inert=g("inert"), h2s=x[IDS.index("H2S")] * 1e6, mw=mw,
                 lhv=sum(x[j] * QN[j] for j in range(NC)) / VM, hhv=hhv,
                 wobbe=hhv / (mw / AIR) ** 0.5, ng=ng, flare=flare)
 
-PURE = [(1, 0, 0), (0, 1, 0), (0, 0, 1)]
 def corners(u):
     fl = UNITS[u]["flow_kmol_h"]
-    return [(fl[fk], blend(u, w)) for fk in ("min", "max") for w in PURE]
+    return [(fl[fk], blend(u, {a: 1})) for fk in ("min", "max") for a in Y[u]]
 
-def run_js(extra):
+def run_js(extra, data_path=os.path.join(HERE, "example_units.json")):
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
         json.dump(extra, f); path = f.name
-    out = subprocess.run(["node", os.path.join(HERE, "search_cli.js"), os.path.join(HERE, "example_units.json"), path],
+    out = subprocess.run(["node", os.path.join(HERE, "search_cli.js"), data_path, path],
                          capture_output=True, text=True, check=True).stdout
     os.unlink(path); return json.loads(out)
 
@@ -100,12 +109,15 @@ while len(tests) < 3:
 JS = run_js(tests)
 jsS = {s["id"]: s["props"] for s in JS["scenarios"]}
 KEYS = list(next(iter(jsS.values())).keys())
+SCAL = [k for k in KEYS]
 
 print("1. Normal operation, single case")
 py = header([(UNITS[u]["flow_kmol_h"]["normal"], Y[u]["normal"]) for u in ALL], demand([]))
-for k in ["F", "mw", "lhv", "hhv", "wobbe", "ng"]:
+for k in ["F", "mw", "lhv", "hhv", "wobbe", "ng", "h2s"]:
     report(f"{k:6} python {py[k]:10.4f}   model.js {JS['normal'][k]:10.4f}",
            abs(py[k] - JS["normal"][k]) < 1e-6 * max(1, abs(py[k])))
+dx = max(abs(a - b) for a, b in zip(py["x"], JS["normal"]["x"]))
+report(f"all {NC} component mole fractions", dx < 1e-12, f"largest difference {dx:.1e}")
 
 print("\n2. Closure (sum x = 1, sum n = F) is asserted inside every evaluation below")
 
@@ -143,30 +155,74 @@ for t in tests:
     report(f"{t['id']} Wobbe: model.js range covers every candidate point", covered,
            f"exhaustive {lo['wobbe']:.4f}-{hi['wobbe']:.4f}, model.js {js['wobbe']['min']:.4f}-{js['wobbe']['max']:.4f}")
 
-print("\n4. Sampled per scenario: 2,000 corners + 2,000 interior + up to 1,000 on the heat-balance boundary")
+print("\n4. Sampled per scenario: 2,000 corners + 2,000 interior + 1,000 on the heat-balance boundary where reachable")
 def random_setting(u):
-    fl = UNITS[u]["flow_kmol_h"]; w = [rnd.random() for _ in range(3)]
-    return [fl["min"] + rnd.random() * (fl["max"] - fl["min"]), blend(u, w)]
+    fl = UNITS[u]["flow_kmol_h"]
+    return [fl["min"] + rnd.random() * (fl["max"] - fl["min"]), blend(u, {a: rnd.random() for a in Y[u]})]
+def boundary_setting(keep, dem):
+    """Random point inside the range, moved in a straight line toward all-max or all-min flow
+    (same analyses) until header heat equals demand. None if that line never reaches demand."""
+    for _ in range(50):
+        st = [random_setting(u) for u in keep]
+        fl = [UNITS[u]["flow_kmol_h"] for u in keep]
+        h0 = sum(heat(f, y) for f, y in st)
+        end = [f["max"] if h0 < dem else f["min"] for f in fl]
+        h = lambda lam: sum(heat(f + lam * (e - f), y) for (f, y), e in zip(st, end))
+        if (h(1) - dem) * (h0 - dem) > 0: continue
+        lo_, hi_ = 0.0, 1.0
+        for _ in range(80):
+            mid = (lo_ + hi_) / 2
+            if (h(mid) - dem) * (h0 - dem) > 0: lo_ = mid
+            else: hi_ = mid
+        return [(f + hi_ * (e - f), y) for (f, y), e in zip(st, end)]
+    return None
 for s in D["scenarios"]:
     down = set(s["down"]); keep = [u for u in ALL if u not in down]; dem = demand(down)
     js = jsS[s["id"]]; worst, wk = 0.0, ""
     samples = [header([rnd.choice(corners(u)) for u in keep], dem) for _ in range(2000)]
     samples += [header([random_setting(u) for u in keep], dem) for _ in range(2000)]
-    nb = tries = 0
-    while nb < 1000 and tries < 50000:
-        tries += 1
-        st = [random_setting(u) for u in keep]; i = rnd.randrange(len(st)); u = keep[i]
-        need = dem - sum(heat(f, y) for j, (f, y) in enumerate(st) if j != i)
-        f = need * 1000 / sum(st[i][1][j] * QN[j] for j in range(NC))
-        fl = UNITS[u]["flow_kmol_h"]
-        if fl["min"] <= f <= fl["max"]:
-            st[i][0] = f; samples.append(header(st, dem)); nb += 1
+    hmin = sum(min(heat(f, y) for f, y in corners(u)) for u in keep)
+    hmax = sum(max(heat(f, y) for f, y in corners(u)) for u in keep)
+    nb = 0
+    if hmin <= dem <= hmax:
+        for _ in range(1000):
+            st = boundary_setting(keep, dem)
+            if st: samples.append(header(st, dem)); nb += 1
+        where = f"{nb:,} on boundary"
+    else:
+        where = "header always " + ("short" if hmax < dem else "long") + ", no boundary"
     for r in samples:
-        for k in KEYS:
+        for k in SCAL:
+            if k == "x": continue
             over = max(js[k]["min"] - r[k], r[k] - js[k]["max"], 0) / max(1.0, abs(r[k]))
             if over > worst: worst, wk = over, k
-    report(f"{s['name']} ({len(samples):,} samples, {nb:,} on boundary)", worst < 1e-6,
+    report(f"{s['name']} ({len(samples):,} samples, {where})", worst < 1e-6,
            "all inside envelope" if worst < 1e-6 else f"sample outside by {worst:.1e} on {wk}")
+
+print("\n5. Wobbe interior extremes: 95% H2 + pure CH4, flows 100-1000 kmol/h each, vs grid search")
+synth = json.loads(json.dumps(D))
+z = lambda **kw: [kw.get(i.replace("+", "p"), 0) for i in IDS]
+synth["units"] = [dict(id=i, name=i, short=i, fuel_use_gj_h=0, flow_kmol_h=dict(min=100, normal=500, max=1000),
+                       analysis_mol_pct=dict(normal=y)) for i, y in (("a", z(H2=95, N2=5)), ("b", z(CH4=100)))]
+synth["scenarios"] = [dict(id="s", name="s", down=[])]
+for dem in (0, 400, 700):
+    synth["other_consumers"]["fuel_use_gj_h"] = dem
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+        json.dump(synth, f); sp = f.name
+    js = run_js([], sp)["scenarios"][0]["props"]["wobbe"]; os.unlink(sp)
+    ya, yb = frac(synth["units"][0]["analysis_mol_pct"]["normal"]), frac(synth["units"][1]["analysis_mol_pct"]["normal"])
+    def wob(fa, fb):
+        return header([(fa, ya), (fb, yb)], dem)["wobbe"]
+    grid = [(wob(a, b), a, b) for a in range(100, 1001, 10) for b in range(100, 1001, 10)]
+    res = []
+    for pick in (min, max):
+        v, a0, b0 = pick(grid)
+        fine = [wob(a0 + i / 4, b0 + j / 4) for i in range(-40, 41) for j in range(-40, 41)
+                if 100 <= a0 + i / 4 <= 1000 and 100 <= b0 + j / 4 <= 1000]
+        res.append(pick(fine))
+    gap = max(js["min"] - res[0], res[1] - js["max"])
+    report(f"demand {dem:>3} GJ/h: model.js {js['min']:.4f}-{js['max']:.4f}, grid {res[0]:.4f}-{res[1]:.4f}",
+           gap < 1e-6 * res[1], "model.js at least as extreme as the grid")
 
 print("\nALL CHECKS PASSED" if ok else "\nSOME CHECKS FAILED")
 sys.exit(0 if ok else 1)

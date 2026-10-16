@@ -2,7 +2,6 @@
 // Data shape: see example_units.json. Flows kmol/h, heat GJ/h (net), analyses mol%.
 (function (root) {
   "use strict";
-  const ANALYSES = ["lean", "normal", "rich"];
 
   function build(data) {
     const b = data.basis, VM = b.molar_volume_nm3_kmol, LAT = b.latent_heat_water_kj_mol;
@@ -11,15 +10,28 @@
     const norm = a => { const t = a.reduce((s, v) => s + v, 0); return a.map(v => v / t); };
     const qn = comps.map(c => c.q_net_kj_mol), qg = comps.map(c => c.q_gross_kj_mol), mw = comps.map(c => c.mw);
     const qOf = y => y.reduce((s, v, j) => s + v * qn[j], 0); // net kJ/mol
-    const units = data.units.map(u => ({ ...u, Y: Object.fromEntries(ANALYSES.map(a => [a, norm(u.analysis_mol_pct[a])])) }));
+    // Each unit has any number of named analyses ("normal" required), e.g. lean / normal / rich,
+    // or engineer-selected samples such as "max_h2s". Its analysis range is every blend of them.
+    const ids = new Set(data.units.map(u => u.id)), problems = [];
+    for (const u of data.units) {
+      if (!u.analysis_mol_pct.normal) problems.push(`unit ${u.id} has no "normal" analysis`);
+      for (const [a, y] of Object.entries(u.analysis_mol_pct))
+        if (y.length !== nc) problems.push(`unit ${u.id} analysis ${a} has ${y.length} values, expected ${nc}`);
+      const f = u.flow_kmol_h; if (!(f.min >= 0 && f.min <= f.normal && f.normal <= f.max)) problems.push(`unit ${u.id} flow min/normal/max out of order`);
+    }
+    for (const sc of data.scenarios) for (const d of sc.down)
+      if (!ids.has(d)) problems.push(`scenario "${sc.name}" names unknown unit "${d}"`);
+    if (problems.length) throw new Error("Data problems: " + problems.join("; "));
+    const units = data.units.map(u => ({ ...u, keys: Object.keys(u.analysis_mol_pct),
+      Y: Object.fromEntries(Object.entries(u.analysis_mol_pct).map(([a, y]) => [a, norm(y)])) }));
     // analysis from blend weights {lean, normal, rich}
     const yOf = (u, mix) => { const y = new Array(nc).fill(0); let t = 0;
-      for (const a of ANALYSES) { const w = mix[a] || 0; t += w; for (let j = 0; j < nc; j++) y[j] += w * u.Y[a][j]; }
-      return y.map(v => v / t); };
+      for (const a of u.keys) { const w = mix[a] || 0; t += w; for (let j = 0; j < nc; j++) y[j] += w * u.Y[a][j]; }
+      return t > 0 ? y.map(v => v / t) : u.Y.normal.slice(); };
     // a packet is one unit at one flow and analysis: component kmol/h, total kmol/h, net heat GJ/h
     const packet = (u, f, mix) => { const y = yOf(u, mix); return { n: y.map(v => f * v), F: f, heat: f * qOf(y) / 1000, f, mix }; };
-    // the six corners of a unit's operating range: flow min/max x lean/normal/rich analysis
-    for (const u of units) u.corners = [].concat(...["min", "max"].map(fk => ANALYSES.map(a => packet(u, u.flow_kmol_h[fk], { [a]: 1 }))));
+    // corners of a unit's operating range: flow min/max x each named analysis
+    for (const u of units) u.corners = [].concat(...["min", "max"].map(fk => u.keys.map(a => packet(u, u.flow_kmol_h[fk], { [a]: 1 }))));
     const ngY = norm(data.makeup.analysis_mol_pct), ngQ = qOf(ngY);
     return { data, VM, AIR: b.air_mw, comps, nc, idx, units, ngY, ngQ, qn, qg, mw, packet };
   }
@@ -151,9 +163,9 @@
           let lam = ratioOf(t);
           for (let it = 0; it < 60; it++) {    // Dinkelbach: max a - lam*b until it reaches 0
             const r = lp1(A.map((au, u) => au.map((a, m) => a - lam * B[u][m])), PK.map(ps => ps.map(p => side.s * p.heat)), side.s * D); solves++;
-            const nl = ratioOf(r.t); t = r.t;
-            if (nl <= lam + 1e-13 * Math.max(1, Math.abs(lam))) break;
-            lam = nl;
+            const nl = ratioOf(r.t);
+            if (nl <= lam + 1e-13 * Math.max(1, Math.abs(lam))) { if (nl > lam) t = r.t; break; }
+            t = r.t; lam = nl;
           }
         } else if (prop.kind === "ng" || prop.kind === "flare") {
           if ((prop.kind === "ng") !== side.short) { const r = solveSide(side, () => 0); if (!r) continue; t = r.t; }
@@ -167,7 +179,7 @@
     const caseOf = t => { const c = { down: [...down], flow: {}, mix: {} };
       t.forEach((ws, u) => { let f = 0; const mix = {};
         ws.forEach(([m, w]) => { const p = PK[u][m]; f += w * p.f; for (const a in p.mix) mix[a] = (mix[a] || 0) + w * p.f; });
-        for (const a in mix) mix[a] /= f;
+        if (f > 0) for (const a in mix) mix[a] /= f; else { for (const a in mix) delete mix[a]; mix.normal = 1; }
         c.flow[run[u].id] = f; c.mix[run[u].id] = mix; });
       return c; };
     const typical = P.map(p => p.f(evaluate(M, { down: [...down] })));
@@ -178,37 +190,96 @@
       for (const dir of [-1, 1]) { const e = extreme(p, dir); if (!e) continue;
         (dir < 0 ? lo : hi)[i] = { v: e.v, t: e.t, exact: true }; found.push(e.t); }
     });
-    // Wobbe: not a linear-fractional property, so search. Start from every optimum found above
-    // plus random corners; move one unit at a time to any corner or any balance point (a blend
-    // of two of its corners that puts header heat exactly at demand) while Wobbe improves.
+    // Wobbe (gross) = HHV/sqrt(SG) is not linear-fractional, and its extreme can sit inside an
+    // edge of the operating range (an H2/CH4 blend has a lower Wobbe than either gas alone).
+    // Search: discrete moves (one unit to any corner or balance point) alternate with continuous
+    // line searches (one unit moving toward any of its corners; on the heat-balance boundary the
+    // move is paired with the balancing unit so heat stays at demand) until neither improves.
+    // HHV and MW extremes are exact, so HHVmin/sqrt(SGmax) .. HHVmax/sqrt(SGmin) is a proven
+    // outer bound on Wobbe, reported alongside the searched values.
     const wi = P.findIndex(p => p.kind === "search"), rand = mulberry32(opt.seed || 12345);
-    const k = run.length;
-    for (const dir of [-1, 1]) {
-      let best = null;
-      const starts = found.slice();
-      for (let r = 0; r < (opt.random ?? 40); r++) starts.push(run.map((_, u) => [[(rand() * 6) | 0, 1]]));
-      for (const s0 of starts) {
-        let t = s0.map(ws => ws.map(x => x.slice())), cur = dir * P[wi].f(evalT(t)), improved = true, pass = 0;
-        while (improved && pass++ < 30) { improved = false;
-          for (let u = 0; u < k; u++) {
-            const Hothers = t.reduce((s, ws, v) => v === u ? s : s + ws.reduce((q, [m, w]) => q + w * PK[v][m].heat, 0), 0);
-            const opts = [];
-            for (let m = 0; m < 6; m++) opts.push([[m, 1]]);
-            for (let m1 = 0; m1 < 6; m1++) for (let m2 = m1 + 1; m2 < 6; m2++) {
-              const h1 = PK[u][m1].heat, h2 = PK[u][m2].heat, need = D - Hothers;
-              if (h1 === h2) continue; const w = (need - h2) / (h1 - h2);
-              if (w > 0 && w < 1) opts.push([[m1, w], [m2, 1 - w]]);
-            }
-            const keep = t[u]; let pick = null;
-            for (const o of opts) { t[u] = o; const v = dir * P[wi].f(evalT(t)); if (v > cur + 1e-12) { cur = v; pick = o; } }
-            t[u] = pick || keep; if (pick) improved = true;
-          }
+    const k = run.length, NM = PK.map(ps => ps.length);
+    const toW = t => t.map((ws, u) => { const w = new Float64Array(NM[u]); ws.forEach(([m, x]) => w[m] += x); return w; });
+    const fromW = W => Array.from(W, w => { const ws = []; w.forEach((x, m) => { if (x > 1e-13) ws.push([m, x]); }); return ws; });
+    const hU = (W, u) => W[u].reduce((s, x, m) => s + x * PK[u][m].heat, 0);
+    const evalW = W => { const n = new Array(nc).fill(0); let F = 0, H = 0;
+      for (let u = 0; u < k; u++) { const w = W[u], ps = PK[u];
+        for (let m = 0; m < w.length; m++) { const x = w[m]; if (!x) continue; const p = ps[m];
+          for (let j = 0; j < nc; j++) n[j] += x * p.n[j]; F += x * p.F; H += x * p.heat; } }
+      return finish(M, n, F, H, D, {}); };
+    const discrete = (W, dir, cur) => {          // one pass of single-unit corner / balance moves
+      let improved = false;
+      for (let u = 0; u < k; u++) {
+        const need = D - W.reduce((s, _, v) => v === u ? s : s + hU(W, v), 0), keep = W[u];
+        const opts = [];
+        for (let m = 0; m < NM[u]; m++) { const w = new Float64Array(NM[u]); w[m] = 1; opts.push(w); }
+        for (let m1 = 0; m1 < NM[u]; m1++) for (let m2 = m1 + 1; m2 < NM[u]; m2++) {
+          const h1 = PK[u][m1].heat, h2 = PK[u][m2].heat; if (h1 === h2) continue;
+          const x = (need - h2) / (h1 - h2);
+          if (x > 0 && x < 1) { const w = new Float64Array(NM[u]); w[m1] = x; w[m2] = 1 - x; opts.push(w); }
         }
-        if (!best || cur > best.cur) best = { cur, t };
+        let pick = null;
+        for (const o of opts) { W[u] = o; const v = dir * P[wi].f(evalW(W)); if (v > cur + 1e-12) { cur = v; pick = o; } }
+        W[u] = pick || keep; if (pick) improved = true;
       }
-      if (best) (dir < 0 ? lo : hi)[wi] = { v: dir * best.cur, t: best.t, exact: false };
+      return { cur, improved };
+    };
+    const lineMax = (fn, cur) => {               // maximise fn(s) on [0,1]: grid, then golden section
+      const N = 16; let bi = -1, bv = cur;
+      for (let i = 1; i <= N; i++) { const v = fn(i / N); if (v > bv + 1e-12) { bv = v; bi = i; } }
+      if (bi < 0) return null;
+      let a = (bi - 1) / N, b = Math.min(1, (bi + 1) / N); const g = (Math.sqrt(5) - 1) / 2;
+      let x1 = b - g * (b - a), x2 = a + g * (b - a), f1 = fn(x1), f2 = fn(x2);
+      for (let it = 0; it < 40; it++) {
+        if (f1 > f2) { b = x2; x2 = x1; f2 = f1; x1 = b - g * (b - a); f1 = fn(x1); }
+        else { a = x1; x1 = x2; f1 = f2; x2 = a + g * (b - a); f2 = fn(x2); }
+      }
+      const cands = [[bi / N, bv], [x1, f1], [x2, f2]].sort((p, q) => q[1] - p[1]);
+      return cands[0][1] > cur + 1e-12 ? cands[0] : null;
+    };
+    const continuous = (W, dir, cur) => {
+      let improved = false;
+      const H = W.reduce((s, _, u) => s + hU(W, u), 0), onBoundary = Math.abs(H - D) <= 1e-9 * Math.max(1, D);
+      const bal = onBoundary ? W.findIndex(w => w.filter(x => x > 1e-13).length === 2) : -1;
+      for (let u = 0; u < k; u++) for (let m = 0; m < NM[u]; m++) {
+        const base = W[u], tgt = new Float64Array(NM[u]); tgt[m] = 1;
+        const mixU = sv => base.map((x, i) => (1 - sv) * x + sv * tgt[i]);
+        let fn;
+        if (bal >= 0 && bal !== u) {             // keep heat at demand by moving the balancing unit
+          const bw = W[bal], [m1, m2] = [...bw.keys()].filter(i => bw[i] > 1e-13), h1 = PK[bal][m1].heat, h2 = PK[bal][m2].heat;
+          const hu0 = hU(W, u), dh = PK[u][m].heat - hu0;
+          fn = sv => { const x = bw[m1] - sv * dh / (h1 - h2); if (!(x >= 0 && x <= 1)) return -Infinity;
+            const nb = new Float64Array(NM[bal]); nb[m1] = x; nb[m2] = 1 - x;
+            const keepU = W[u], keepB = W[bal]; W[u] = mixU(sv); W[bal] = nb;
+            const v = dir * P[wi].f(evalW(W)); W[u] = keepU; W[bal] = keepB; return v; };
+          const r = lineMax(fn, cur);
+          if (r) { const x = bw[m1] - r[0] * dh / (h1 - h2), nb = new Float64Array(NM[bal]); nb[m1] = x; nb[m2] = 1 - x;
+            W[u] = mixU(r[0]); W[bal] = nb; cur = r[1]; improved = true; }
+        }
+        fn = sv => { const keep = W[u]; W[u] = mixU(sv); const v = dir * P[wi].f(evalW(W)); W[u] = keep; return v; };
+        const r = lineMax(fn, cur);
+        if (r) { W[u] = mixU(r[0]); cur = r[1]; improved = true; }
+      }
+      return { cur, improved };
+    };
+    for (const dir of [-1, 1]) {
+      const starts = found.map(toW);
+      for (let r = 0; r < (opt.random ?? 40); r++)
+        starts.push(run.map((_, u) => { const w = new Float64Array(NM[u]); w[(rand() * NM[u]) | 0] = 1; return w; }));
+      const done = starts.map(W => { let cur = dir * P[wi].f(evalW(W)), pass = 0, d;
+        do { d = discrete(W, dir, cur); cur = d.cur; } while (d.improved && ++pass < 30);
+        return { W, cur }; }).sort((p, q) => q.cur - p.cur);
+      let best = null;
+      for (const s0 of done.slice(0, 3)) {      // continuous refinement of the three best
+        let { W, cur } = s0, pass = 0, more = true;
+        while (more && pass++ < 20) { const c = continuous(W, dir, cur), d = discrete(W, dir, c.cur); cur = d.cur; more = c.improved || d.improved; }
+        if (!best || cur > best.cur) best = { cur, W };
+      }
+      if (best) (dir < 0 ? lo : hi)[wi] = { v: dir * best.cur, t: fromW(best.W), exact: false };
     }
-    return { scenario: scen, typical, solves,
+    const iH = P.findIndex(p => p.key === "hhv"), iM = P.findIndex(p => p.key === "mw");
+    const wobbeBound = lo[iH] && hi[iH] ? [lo[iH].v / Math.sqrt(hi[iM].v / M.AIR), hi[iH].v / Math.sqrt(lo[iM].v / M.AIR)] : null;
+    return { scenario: scen, typical, solves, wobbeBound,
       min: lo.map(o => ({ v: o.v, exact: o.exact, case: caseOf(o.t) })),
       max: hi.map(o => ({ v: o.v, exact: o.exact, case: caseOf(o.t) })) };
   }
@@ -216,6 +287,6 @@
   function mulberry32(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a);
     t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
-  const api = { build, evaluate, props, scenarioRange, ANALYSES };
+  const api = { build, evaluate, props, scenarioRange };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.HeaderBlend = api;
 })(typeof window !== "undefined" ? window : globalThis);

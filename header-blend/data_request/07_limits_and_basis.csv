@@ -1,4 +1,5 @@
 item,min,max,units,source,notes
+"Burner design Wobbe index (gross), per consumer group",,,MJ/Nm3,burner vendor data sheet,"design value, not only the tolerance band"
 Wobbe index (gross),,,MJ/Nm3,burner vendor data sheet,state reference conditions and gross/net basis
 H2S in fuel gas,,,ppmv,site air permit,averaging period
 H2 in fuel gas,,,mol%,burner vendor,

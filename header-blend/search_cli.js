@@ -9,4 +9,4 @@ const out = [...data.scenarios, ...extra].map(s => {
   return { id: s.id, solves: r.solves, props: Object.fromEntries(P.map((p, i) => [p.key, { min: r.min[i].v, typical: r.typical[i], max: r.max[i].v }])) };
 });
 const normal = HB.evaluate(M, { down: [] });
-console.log(JSON.stringify({ normal: { F: normal.F, mw: normal.mw, lhv: normal.lhv, hhv: normal.hhv, wobbe: normal.wobbe, ng: normal.ng, flare: normal.flare, x: normal.x }, scenarios: out }));
+console.log(JSON.stringify({ normal: { h2s: normal.x[M.idx.H2S] * 1e6, F: normal.F, mw: normal.mw, lhv: normal.lhv, hhv: normal.hhv, wobbe: normal.wobbe, ng: normal.ng, flare: normal.flare, x: normal.x }, scenarios: out }));
