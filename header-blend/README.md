@@ -41,9 +41,11 @@ Ideal-gas molar mixing; header heat held at demand (NG make-up when short, flare
 Every property except Wobbe is solved exactly as a linear-fractional program (Dinkelbach's
 method, one-constraint LP via its dual). Wobbe is bounded from both sides: on each side of the
 heat balance the reachable (HHV, MW) pairs form a convex set, which is enclosed between an
-inner polygon of reachable cases and an outer polygon of exact support lines until the two
-agree within 1e-9 relative. The reported Wobbe min/max are reachable cases and the outer value
-is a proven bound; a scenario that does not reach that agreement is flagged on the page.
+inner polygon of feasible cases and an outer polygon of exact support lines until the two
+agree within 1e-9 x max(1, typical Wobbe). The reported Wobbe min/max are feasible cases in
+the input envelope and the outer value is a numerically certified bound: the construction is a
+mathematical bound, computed in floating point with a fixed 1e-11 rounding margin rather than
+rigorous interval arithmetic. A scenario that does not reach that agreement is flagged on the page.
 
 The range is a bound over the **input envelope** (each unit anywhere in its stated flow range
 and any blend of its stated analyses, all at once), not a physical worst case: flows and

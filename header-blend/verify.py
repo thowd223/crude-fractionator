@@ -28,12 +28,12 @@ Checks
     its best point, at a demand that keeps the header long and two that make it cross
     short/long. (b) Pure H2 over a wide flow range with fixed CH4: the case an independent
     review found escaping the earlier Wobbe search. model.js must reach or beat the scan and
-    its proven bound must contain it.
+    its certified bound must contain it.
  6. Wobbe bound on random synthetic data: datasets of 2-4 units with random flows (some very
     wide or starting at zero) and random analyses (H2-rich, pure H2, mixed). For each,
     model.js's reported Wobbe min/max cases are re-evaluated here (they must be reachable and
     give the reported value), and random points plus fine line scans must stay inside
-    model.js's proven Wobbe bound.
+    model.js's certified Wobbe bound.
 
 Same author, same equations, same property table and assumptions: these checks test that
 model.js implements the stated model correctly. They do not test the model against a plant
@@ -220,7 +220,7 @@ def synth_run(units, dem):
     r = run_js([], sp)["scenarios"][0]; os.unlink(sp); return r
 
 def wobbe_report(name, js, lo, hi):
-    """model.js must reach the scanned extremes (lo, hi) and its proven bound must contain them."""
+    """model.js must reach the scanned extremes (lo, hi) and its certified bound must contain them."""
     w, (bl, bh) = js["props"]["wobbe"], js["wobbe"]["bound"]
     reach = w["min"] <= lo + 1e-9 * hi and w["max"] >= hi - 1e-9 * hi
     inside = bl <= lo and hi <= bh
@@ -309,9 +309,9 @@ for case in range(40):
         v = header(st, dem)["wobbe"]
         worst_out = max(worst_out, (bl - v) / bh, (v - bh) / bh)
 report("reported Wobbe min/max cases are reachable (re-evaluated here)", worst_reach < 1e-9, f"largest difference {worst_reach:.1e}")
-report("no random point or line-scan point outside the proven bound (120,400 points)", worst_out <= 0,
+report("no random point or line-scan point outside the certified bound (120,400 points)", worst_out <= 0,
        f"largest excursion {worst_out:.1e} (negative = inside)")
-report("every dataset certified (inner and outer Wobbe agree within 1e-9)", uncert == 0, f"{uncert} not certified")
+report("every dataset certified (inner and outer Wobbe agree within 1e-9 x typical Wobbe)", uncert == 0, f"{uncert} not certified")
 
 print("\nALL CHECKS PASSED" if ok else "\nSOME CHECKS FAILED")
 sys.exit(0 if ok else 1)

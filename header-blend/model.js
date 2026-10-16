@@ -216,13 +216,15 @@
     // it is bounded from both sides instead. On each side of the heat balance the reachable
     // (HHV, MW) pairs form a convex set: a linear-fractional image of a polytope. For a direction
     // c, the exact optimiser above gives the point of that set maximising c1*HHV + c2*MW. Those
-    // support points span an inner polygon whose every point is a reachable case (the two
+    // support points span an inner polygon whose every point is a feasible case (the two
     // settings blended); their support lines enclose an outer polygon that contains the whole
     // set. Wobbe = HHV*sqrt(AIR/MW) is quasiconvex in (HHV, MW), so over a polygon its maximum is
     // at a vertex and its minimum on an edge (unimodal along it). Directions are added where
-    // inner and outer values differ until they agree within 0.5e-9 relative (1e-9 after the
-    // rounding margin below). The reported min/max are reachable cases; the outer values are a
-    // proven bound (wobbeBound).
+    // inner and outer values differ until they agree within tol/2, tol = 1e-9 x max(1, typical
+    // Wobbe), i.e. scaled to the typical value, not to each extreme (tol after the rounding margin
+    // below). The reported min/max are feasible cases in the input envelope; the outer values are
+    // a numerically certified bound (wobbeBound): the construction is a bound, but it is computed
+    // in floating point with a fixed margin, not interval arithmetic.
     const wi = P.findIndex(p => p.kind === "search"), iH = P.findIndex(p => p.key === "hhv"), iM = P.findIndex(p => p.key === "mw");
     const golden = fn => { const g = (Math.sqrt(5) - 1) / 2; let a = 0, b = 1, x1 = b - g, x2 = g, f1 = fn(x1), f2 = fn(x2);
       for (let it = 0; it < 90; it++) {
