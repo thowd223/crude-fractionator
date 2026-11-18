@@ -1,0 +1,913 @@
+<title>Your Unit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --surface2:#eceff1; --line:#d4dbe0; --ink:#13202a; --dim:#5a6a76; --faint:#8e9ca6;
+  --good:#1d8a4e; --warn:#b7791f; --bad:#c83a32;
+  --teal:#0e7c8b; --orange:#d35f0b; --violet:#5b3fc4; --green:#1f8a4c;
+  --accent:var(--green);
+  /* product colours: cool and light for light ends, warm and dark for the heavy end */
+  --c-crude:#8a5a2b; --c-ar:#9a4a3a; --c-lpg:#4f86cf; --c-ln:#2196b3; --c-hn:#1b8a78; --c-kero:#7c9a1e; --c-diesel:#b8901a;
+  --c-ago:#cf7a26; --c-lvgo:#c45a2a; --c-hvgo:#a5422f; --c-slop:#7e3b33; --c-vr:#3f2c27;
+  --f-display:"Archivo","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b1015; --surface:#121a21; --surface2:#18222b; --line:#26333e; --ink:#dde6ec; --dim:#8a9ba7; --faint:#5d6e7a;
+  --good:#4fd18a; --warn:#f0b54a; --bad:#ff6b5f;
+  --teal:#3cc4d4; --orange:#ff8a2b; --violet:#a08bff; --green:#52d58e; color-scheme:dark;
+  --c-crude:#d79a5a; --c-ar:#d9826a; --c-lpg:#8db8ff; --c-ln:#5fd0e6; --c-hn:#4fd1b5; --c-kero:#b9d84a; --c-diesel:#f0cb4a;
+  --c-ago:#ffa04a; --c-lvgo:#ff7d4f; --c-hvgo:#ec6450; --c-slop:#c9776b; --c-vr:#a98b80; } }
+:root[data-theme="dark"]{
+  --bg:#0b1015; --surface:#121a21; --surface2:#18222b; --line:#26333e; --ink:#dde6ec; --dim:#8a9ba7; --faint:#5d6e7a;
+  --good:#4fd18a; --warn:#f0b54a; --bad:#ff6b5f;
+  --teal:#3cc4d4; --orange:#ff8a2b; --violet:#a08bff; --green:#52d58e; color-scheme:dark;
+  --c-crude:#d79a5a; --c-ar:#d9826a; --c-lpg:#8db8ff; --c-ln:#5fd0e6; --c-hn:#4fd1b5; --c-kero:#b9d84a; --c-diesel:#f0cb4a;
+  --c-ago:#ffa04a; --c-lvgo:#ff7d4f; --c-hvgo:#ec6450; --c-slop:#c9776b; --c-vr:#a98b80; }
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:var(--f-body);font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.tag{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+
+#app{min-height:100vh;display:flex;flex-direction:column;gap:10px;padding-top:10px;padding-bottom:10px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:1100px){ #app{height:100vh;min-height:620px} }
+
+/* header */
+.top{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;min-width:0}
+#suiteHome{font-size:12px;color:var(--dim);text-decoration:none;white-space:nowrap;border:1px solid var(--line);border-radius:4px;padding:3px 8px}
+#suiteHome:hover{color:var(--ink);border-color:var(--dim)}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0;flex-wrap:wrap}
+.brand h1{margin:0;font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:.01em;line-height:1}
+.brand h1 b{color:var(--accent);font-weight:800}
+.brand .sub{color:var(--dim);font-size:12.5px}
+.spacer{flex:1}
+.btn{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:5px 10px;font-size:12.5px;color:var(--ink);cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--dim)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+.btn.on{border-color:var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* glance */
+.glance{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.kv{padding:8px 12px;border-right:1px solid var(--line);min-width:0}
+.kv:last-child{border-right:0}
+.kv .k{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.kv .v{font-family:var(--f-display);font-weight:700;font-size:19px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kv .v small{font-family:var(--f-mono);font-weight:400;font-size:11px;color:var(--dim);margin-left:3px}
+.kv .s{font-size:11.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* main */
+.grid{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 452px;gap:10px;min-height:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;min-width:0}
+.viewer{position:relative;overflow:hidden;min-height:420px;background:var(--bg)}
+#gl{display:block;width:100%;height:100%;outline:none;touch-action:none;cursor:grab}
+#gl.drag{cursor:grabbing}
+#gl.pick{cursor:pointer}
+.nogl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);padding:24px;text-align:center}
+#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;font-family:var(--f-mono);font-size:11px;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  padding:1px 5px;border-radius:3px;white-space:nowrap;transform-origin:0 0;will-change:transform;opacity:.92}
+.lbl.f{border-color:var(--accent);color:var(--accent)}
+.vtools{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 20px)}
+.vtools .btn{padding:3px 8px;font-size:12px}
+.legend{position:absolute;left:10px;top:44px;display:flex;flex-direction:column;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:6px 8px;font-size:11.5px}
+.legend .h{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
+.sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+#tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:3px 7px;border-radius:3px;white-space:nowrap;z-index:5}
+#tip .tag{font-weight:500}
+
+/* tour bar */
+.tour{position:absolute;left:10px;bottom:10px;width:min(600px,calc(100% - 20px));background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--accent);border-radius:5px;padding:10px 12px 9px;z-index:3}
+.tour .row1{display:flex;align-items:center;gap:8px}
+.tour .step{font-family:var(--f-mono);font-size:11px;color:var(--dim)}
+.tour h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:15px;flex:1;min-width:0}
+.tour p{margin:5px 0 7px;font-size:13px;line-height:1.5;min-height:3em}
+.tour .ctl{display:flex;align-items:center;gap:6px}
+.dots{display:flex;gap:4px;flex:1;flex-wrap:wrap}
+.dots button{width:14px;height:6px;border-radius:2px;border:0;background:var(--line);cursor:pointer;padding:0}
+.dots button.on{background:var(--accent)}
+.tour .btn{padding:3px 9px;font-size:12px}
+
+/* equipment card */
+#card{position:absolute;right:10px;top:10px;width:350px;max-height:calc(100% - 20px);overflow:auto;background:var(--surface);
+  border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:5px;padding:12px 14px;z-index:4;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+#card .hd{display:flex;align-items:flex-start;gap:8px}
+#card .tg{font-family:var(--f-mono);font-size:20px;font-weight:500;line-height:1.1}
+#card .ty{font-size:11px;color:var(--dim);letter-spacing:.05em;text-transform:uppercase;margin-top:3px}
+#card .svc{font-size:14px;font-weight:600;margin:6px 0 8px}
+#card .x{margin-left:auto;background:none;border:1px solid var(--line);border-radius:4px;width:26px;height:26px;cursor:pointer;color:var(--dim);font-size:15px;line-height:1}
+#card dl{display:grid;grid-template-columns:96px minmax(0,1fr);gap:3px 10px;margin:0 0 8px;font-size:12.5px}
+#card dt{color:var(--dim)}
+#card dd{margin:0;min-width:0;overflow-wrap:anywhere}
+#card h3{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin:10px 0 4px;font-weight:600;border-top:1px solid var(--line);padding-top:8px}
+.srow{display:grid;grid-template-columns:34px 22px minmax(0,1fr);gap:0 6px;font-size:12px;padding:3px 0;align-items:baseline;border-bottom:1px solid var(--surface2)}
+.srow .d{color:var(--dim);font-family:var(--f-mono);font-size:11px}
+.srow .n{font-family:var(--f-mono);color:var(--dim)}
+.srow .q{grid-column:3;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:11.5px;color:var(--ink)}
+.srow .w{color:var(--dim)}
+#card .note{font-size:11px;color:var(--faint);margin-top:8px}
+#card .fly{margin-top:8px}
+
+/* side */
+.side{display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:2px}
+.sec{padding:12px 14px}
+.sec h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:15px}
+.sec .hint{font-size:11.5px;color:var(--dim);margin:2px 0 8px}
+.ill{display:inline-block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--warn);border:1px solid var(--warn);border-radius:3px;padding:0 4px;margin-left:6px;vertical-align:2px;font-family:var(--f-body);font-weight:600}
+.flash{animation:flash 1.6s ease-out 1}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+table{border-collapse:collapse;width:100%}
+.yt th{font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);text-align:right;padding:3px 4px;border-bottom:1px solid var(--line)}
+.yt th:first-child{text-align:left}
+.yt td{padding:2px 4px;border-bottom:1px solid var(--line);font-size:12.5px}
+.yt td:first-child{white-space:nowrap}
+.yt tr.tot td{border-bottom:0;font-weight:600;padding-top:5px}
+.yt .dl{font-size:10.5px;color:var(--dim);display:block;line-height:1}
+.yt .dl.up{color:var(--good)} .yt .dl.dn{color:var(--bad)}
+input[type=number]{width:62px;background:var(--surface2);border:1px solid var(--line);border-radius:3px;padding:2px 4px;text-align:right;
+  font-family:var(--f-mono);font-size:12px;font-variant-numeric:tabular-nums}
+input[type=number]:hover{border-color:var(--dim)}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:4px 0 10px;font-size:12.5px}
+.ctrl label{color:var(--dim)}
+.ctrl .f{display:flex;align-items:center;gap:6px}
+select{background:var(--surface2);border:1px solid var(--line);border-radius:3px;padding:2px 4px;font-size:12.5px}
+input[type=range]{accent-color:var(--accent);width:120px}
+.big{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:5px;margin:10px 0 8px}
+.big>div{padding:7px 10px;border-right:1px solid var(--line)}
+.big>div:last-child{border-right:0}
+.big .k{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--dim)}
+.big .v{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.15;font-variant-numeric:tabular-nums}
+.big .u{font-family:var(--f-mono);font-size:11px;color:var(--dim)}
+.big .acc .v{color:var(--accent)}
+.big .neg .v{color:var(--bad)}
+#bars{display:block;width:100%;height:auto;margin:4px 0 2px}
+#bars text{font-family:var(--f-mono);font-size:10px;fill:var(--dim)}
+.chk{display:flex;gap:8px;align-items:baseline;font-size:12px;padding:5px 8px;border-radius:4px;background:var(--surface2);margin-top:6px}
+.chk b{font-family:var(--f-mono);font-weight:500}
+.chk.warn{color:var(--warn)}
+details{font-size:12px;color:var(--dim);margin-top:8px}
+details summary{cursor:pointer;color:var(--ink)}
+details table td,details table th{font-family:var(--f-mono);font-size:11px;padding:1px 4px;text-align:right;border-bottom:1px solid var(--line)}
+details table td:first-child,details table th:first-child{text-align:left;font-family:var(--f-body)}
+.et td{padding:3px 4px;border-bottom:1px solid var(--line);font-size:12.5px;vertical-align:baseline}
+.et td .s{display:block;font-size:11px;color:var(--dim)}
+.et tr.tot td{border-bottom:0;font-weight:600}
+.hr{display:flex;gap:10px;align-items:center;margin-top:8px;font-size:12px;color:var(--dim)}
+.hr .bar{flex:1;height:8px;border-radius:2px;background:var(--surface2);overflow:hidden;display:flex}
+.hr .bar i{display:block;height:100%}
+.src{font-size:11px;color:var(--faint);display:flex;gap:6px 16px;flex-wrap:wrap}
+
+@media (max-width:1400px){ .glance{grid-template-columns:repeat(4,minmax(0,1fr))} .kv:nth-child(4){border-right:0} .kv:nth-child(-n+4){border-bottom:1px solid var(--line)} }
+@media (max-width:1099px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .viewer{height:68vh;min-height:440px}
+  .side{overflow:visible}
+}
+@media (max-width:700px){
+  .brand h1{font-size:20px}
+  .glance{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kv{border-right:0;border-bottom:1px solid var(--line)}
+  .kv:nth-child(odd){border-right:1px solid var(--line)}
+  .kv:last-child{grid-column:1/-1;border-bottom:0}
+  .kv .v{font-size:17px}
+  .viewer{height:74vh;min-height:520px}
+  .legend{display:none}
+  .tour{left:6px;bottom:6px;width:calc(100% - 12px);padding:8px 10px}
+  .tour p{font-size:12.5px}
+  #card{position:fixed;left:max(8px,env(safe-area-inset-left,0px));right:max(8px,env(safe-area-inset-right,0px));top:auto;bottom:8px;width:auto;max-height:62vh;z-index:20}
+  .big .v{font-size:17px}
+  .sec{padding:10px}
+  input[type=number]{width:54px}
+}
+@media (prefers-reduced-motion: reduce){ .flash{animation:none} }
+</style>
+
+<div id="app">
+  <header class="top">
+    <a id="suiteHome" href="index.html">← One Plant, Four Lenses</a>
+    <div class="brand"><h1>Your <b>Unit</b></h1><span class="sub" id="subTitle">CDU/VDU walkthrough and value story · FEED Rev A</span></div>
+    <div class="spacer"></div>
+    <button class="btn primary" id="tourBtn" type="button">Follow the barrel</button>
+    <button class="btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme">Theme</button>
+  </header>
+
+  <section class="glance" id="glance" aria-label="Unit at a glance"></section>
+
+  <main class="grid">
+    <section class="panel viewer" id="viewer" aria-label="3D plant model">
+      <canvas id="gl" tabindex="0" aria-label="3D model of the unit. Drag to orbit, right-drag or shift-drag to pan, scroll to zoom, arrow keys orbit."></canvas>
+      <div id="labels" aria-hidden="true"></div>
+      <div class="vtools" role="toolbar" aria-label="View">
+        <button class="btn" type="button" data-view="all">Overview</button>
+        <button class="btn" type="button" data-view="cdu">CDU</button>
+        <button class="btn" type="button" data-view="vdu">VDU</button>
+        <button class="btn" type="button" data-view="pre">Preheat</button>
+        <button class="btn on" type="button" id="flowBtn" aria-pressed="true">Flow</button>
+        <button class="btn on" type="button" id="lblBtn" aria-pressed="true">Labels</button>
+        <button class="btn on" type="button" id="spinBtn" aria-pressed="true">Spin</button>
+      </div>
+      <div class="legend" id="legend"></div>
+      <div id="tip" hidden></div>
+      <aside id="card" hidden aria-live="polite"></aside>
+      <div class="tour" id="tour" aria-live="polite">
+        <div class="row1"><span class="step" id="tStep"></span><h2 id="tTitle"></h2></div>
+        <p id="tText"></p>
+        <div class="ctl">
+          <button class="btn" id="tPrev" type="button" aria-label="Previous stop">‹ Prev</button>
+          <button class="btn" id="tPlay" type="button">Play</button>
+          <button class="btn" id="tNext" type="button" aria-label="Next stop">Next ›</button>
+          <div class="dots" id="tDots" role="tablist" aria-label="Tour stops"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="panel sec" id="valuePanel" aria-labelledby="vH">
+        <h2 id="vH">What a barrel is worth here <span class="ill">Illustrative prices</span></h2>
+        <div class="hint">Yields are the FEED heat and material balance. Prices are placeholders: type your own.</div>
+        <div class="ctrl">
+          <div class="f"><label for="crudePx">Crude</label><input type="number" id="crudePx" step="0.5" min="0" value="75"><span class="mono">USD/bbl</span></div>
+          <div class="f"><label for="days">Stream days</label><input type="number" id="days" step="1" min="1" max="366" value="350"></div>
+        </div>
+        <div class="ctrl" style="margin-top:-2px">
+          <div class="f"><label for="slate">Blend in</label>
+            <select id="slate"><option value="none">nothing (design crude)</option><option value="light">lighter crude, 39 API</option><option value="heavy">heavier crude, 27.7 API</option></select></div>
+          <div class="f"><label for="blend">at</label><input type="range" id="blend" min="0" max="50" step="5" value="0" disabled><span class="mono" id="blendV">0 %</span></div>
+          <div class="f" id="diffF" hidden><label for="diff">its price vs design</label><input type="number" id="diff" step="0.5" value="0"><span class="mono">USD/bbl</span></div>
+        </div>
+        <table class="yt" id="yt" aria-label="Product yields and value">
+          <thead><tr><th>Product</th><th>BPSD</th><th>wt %</th><th><label for="px0">USD/bbl</label></th><th>USD k/d</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="big" id="big"></div>
+        <svg id="bars" viewBox="0 0 420 92" role="img" aria-label="Product value per barrel against crude cost, energy and margin"></svg>
+        <div id="chk"></div>
+        <details><summary>Crude slate rules (illustrative)</summary>
+          <p>The blend is a straight volume average of yield vectors (LV % of crude). The design column is the package H&amp;MB.
+          The lighter and heavier columns are illustrative assays, not simulated; the heavier one uses the BOD check-crude gravity (27.7 API).
+          Product prices do not change with sulfur. H-201 fired duty scales with vacuum feed volume; everything else stays at design.
+          Hydraulic check: vacuum feed and overhead naphtha loads are compared with design, flagged above the BOD 10 % margin.</p>
+          <table id="rulesT"></table>
+        </details>
+      </section>
+
+      <section class="panel sec" id="energyPanel" aria-labelledby="eH">
+        <h2 id="eH">Energy per barrel <span class="ill">Illustrative prices</span></h2>
+        <div class="hint">Duties and steam from the H&amp;MB and process design report; power is the electrical maximum demand.</div>
+        <div class="ctrl">
+          <div class="f"><label for="fuelPx">Fuel</label><input type="number" id="fuelPx" step="0.25" min="0" value="3.5"><span class="mono">USD/MMBtu</span></div>
+          <div class="f"><label for="steamPx">Steam</label><input type="number" id="steamPx" step="1" min="0" value="18"><span class="mono">USD/t</span></div>
+          <div class="f"><label for="powerPx">Power</label><input type="number" id="powerPx" step="5" min="0" value="70"><span class="mono">USD/MWh</span></div>
+        </div>
+        <table class="et" id="et"></table>
+        <div class="hr" id="hrec"></div>
+        <details><summary>Steam balance detail</summary><table id="steamT"></table></details>
+      </section>
+      <div class="src" id="src"></div>
+    </aside>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const DATA=/*DATA:BEGIN*/{"src":"FEED Rev A: data/*.json + CFU-000-PM-EST-001","glance":{"bpsd":100000,"kg_h":567873.56,"api":33.4,"S":1.8,"crude":"Arab Light","n_products":10,"fired_h101":67.42,"fired_h201":17.49,"n_equip":82,"n_placed":118,"n_instr":694,"io_used":860,"n_loops":108,"n_sif":15,"n_psv":15,"tic":252,"pec":56.8,"cls":"Class 4","acc":"-30 % / +50 %","per_bpsd":"2,520","plot":[230,150]},"geo":{"frame":{"plot_x":230,"plot_y":150,"origin":"SW corner of unit plot","north":"+y","grade_el":100,"wind":"prevailing from SSE (157.5 deg)","units":"m; elevations EL m (grade = EL 100.000)"},"rack":{"id":"PR-100","x0":0,"x1":216,"y0":70,"y1":80,"bents_x":[0,12,18,24,30,36,42,48,54,60,66,72,78,84,90,96,102,108,114,120,126,132,138,144,150,156,162,168,174,180,186,192,198,204,210,216],"tiers":[{"level":1,"el":106,"service":"Hot process lines (B2/B3), crude, residue, pumparounds"},{"level":2,"el":108.5,"service":"Product, cold HC, sour water, OSBL product lines"},{"level":3,"el":111,"service":"Utilities: steam/condensate, CW, FG, N2, IA, flare header"}],"air_cooler_deck":{"el":115,"fan_deck_el":113,"note":"forced-draft air coolers on structure above tier 3"}},"platforms":[{"tag":"C-101","el":110.36,"r_in":1.85,"r_out":3.05,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":119.54,"r_in":3.55,"r_out":4.75,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":123.96,"r_in":3.55,"r_out":4.75,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":126.09,"r_in":3.55,"r_out":4.75,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":131.73,"r_in":3.55,"r_out":4.75,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":133.86,"r_in":3.55,"r_out":4.75,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":138.28,"r_in":3.55,"r_out":4.75,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-101","el":142.5,"r_in":3.55,"r_out":4.75,"arc":[0,360],"ladder_side_deg":135},{"tag":"C-102","el":108.6,"r_in":0.95,"r_out":2.15,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-102","el":112.7,"r_in":0.95,"r_out":2.15,"arc":[0,360],"ladder_side_deg":135},{"tag":"C-103","el":108.6,"r_in":1.05,"r_out":2.25,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-103","el":112.7,"r_in":1.05,"r_out":2.25,"arc":[0,360],"ladder_side_deg":135},{"tag":"C-104","el":108.6,"r_in":0.8,"r_out":2,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-104","el":112.7,"r_in":0.8,"r_out":2,"arc":[0,360],"ladder_side_deg":135},{"tag":"C-106","el":111.9,"r_in":1.65,"r_out":2.85,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-106","el":117.8,"r_in":1.65,"r_out":2.85,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-106","el":123.7,"r_in":1.65,"r_out":2.85,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-106","el":129.6,"r_in":1.65,"r_out":2.85,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-106","el":135,"r_in":1.65,"r_out":2.85,"arc":[0,360],"ladder_side_deg":135},{"tag":"C-105","el":110,"r_in":1.15,"r_out":2.35,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-105","el":116,"r_in":1.15,"r_out":2.35,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-105","el":121.5,"r_in":1.15,"r_out":2.35,"arc":[0,360],"ladder_side_deg":135},{"tag":"C-201","el":115.061,"r_in":1.6,"r_out":2.8,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-201","el":119.525,"r_in":3.4,"r_out":4.6,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-201","el":123.576,"r_in":3.4,"r_out":4.6,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-201","el":133.374,"r_in":3.4,"r_out":4.6,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-201","el":137.919,"r_in":2.3,"r_out":3.5,"arc":[20,250],"ladder_side_deg":135},{"tag":"C-201","el":145.5,"r_in":2.3,"r_out":3.5,"arc":[0,360],"ladder_side_deg":135}],"ejector":{"id":"ST-201","x0":190,"y0":92,"x1":202,"y1":100,"levels":[112,115,120],"top":124},"roads":[{"id":"RD-W","kind":"perimeter road","x0":3,"y0":22,"x1":9,"y1":147},{"id":"RD-N","kind":"perimeter road","x0":3,"y0":141,"x1":227,"y1":147},{"id":"RD-E","kind":"perimeter road","x0":221,"y0":3,"x1":227,"y1":147},{"id":"RD-S","kind":"perimeter road","x0":67,"y0":3,"x1":227,"y1":9},{"id":"RD-SW","kind":"perimeter road (deviated north of SS-100/FAR-100)","x0":3,"y0":22,"x1":73,"y1":28},{"id":"RD-SC","kind":"perimeter road (connector)","x0":67,"y0":3,"x1":73,"y1":28},{"id":"RD-INT","kind":"internal fire/maintenance access road","x0":137,"y0":9,"x1":143,"y1":66}],"buildings":[{"id":"SS-100","name":"Unit substation","x0":10,"y0":5,"x1":40,"y1":20,"height":8,"classification":"non-classified, pressurised"},{"id":"FAR-100","name":"Field auxiliary room / satellite instrument house","x0":45,"y0":5,"x1":65,"y1":17,"height":5,"classification":"non-classified, pressurised, blast-assessed"}],"areas":[{"id":"BP-1","kind":"bundle pull / maintenance aisle","x0":9,"y0":96.2,"x1":46,"y1":104.8,"note":"shared pull aisle for preheat shells (bundle 7.5 m), opens to RD-W"},{"id":"LD-1","kind":"laydown","x0":12,"y0":116,"x1":44,"y1":138,"note":"exchanger bundle laydown / cleaning"},{"id":"CR-1","kind":"crane area","x0":46,"y0":111,"x1":72,"y1":138,"note":"C-105/C-106 erection & maintenance crane"},{"id":"CR-2","kind":"crane area","x0":84,"y0":106,"x1":112,"y1":138,"note":"C-101 erection crane (main lift) + tailing crane"},{"id":"LD-2","kind":"laydown","x0":114,"y0":104,"x1":150,"y1":120,"note":"column internals / trays laydown"},{"id":"CR-3","kind":"crane area","x0":158,"y0":110,"x1":188,"y1":138,"note":"C-201 erection & packing replacement"},{"id":"LD-3","kind":"laydown","x0":205,"y0":116,"x1":219,"y1":138,"note":"VDU / ejector maintenance laydown"},{"id":"CR-4","kind":"crane area","x0":86,"y0":45,"x1":110,"y1":62,"note":"H-101 tube / burner maintenance (keep clear: no HC equipment)"},{"id":"CR-5","kind":"crane area","x0":164,"y0":45,"x1":180,"y1":62,"note":"H-201 tube / burner maintenance"},{"id":"LD-4","kind":"laydown","x0":10,"y0":30,"x1":19,"y1":62,"note":"desalter internals / grid laydown"}],"items":[{"tag":"C-101","parent_tag":"C-101","type":"Column","shape":"vcyl","x":95,"y":98,"z_base":100.3,"rotation":0,"L":6.9,"W":6.9,"height":44.425,"top_el":144.725,"D":6.9,"bottom_tl":106,"top_tl":143,"skirt_h":4.825,"body":[[106,115.41,3.5],[116.91,143,6.9]],"cone":[115.41,116.91],"service":"Atmospheric crude fractionator","noz":{"overhead":[95,98,144.725],"bottoms":[95,98,105.125],"reflux_return":[93.542,94.873,141.35],"tpa_return":[96.458,94.873,141.45],"tpa_draw":[95,94.55,139.23],"kero_draw":[98.242,96.82,134.81],"kero_vapour_return":[98.398,98.599,135.37],"diesel_draw":[98.242,96.82,127.04],"diesel_vapour_return":[98.398,98.599,127.6],"ago_draw":[98.242,96.82,120.49],"ago_vapour_return":[98.398,98.599,121.05],"mpa_draw":[95,94.55,132.68],"mpa_return":[96.458,94.873,134.9],"bpa_draw":[95,94.55,124.91],"bpa_return":[96.458,94.873,127.13],"feed":[95,94.55,116.61],"stripping_steam":[96.125,96.659,111.26]}},{"tag":"C-102","parent_tag":"C-102","type":"Column","shape":"vcyl","x":106.5,"y":98,"z_base":100.3,"rotation":0,"L":1.7,"W":1.7,"height":13.325,"top_el":113.625,"D":1.7,"bottom_tl":104,"top_tl":113.2,"skirt_h":3.275,"body":[[104,113.2,1.7]],"service":"Kero side stripper","noz":{"bottoms":[106.5,98,103.575],"feed":[105.65,98,112.3],"vapour_return":[106.5,98,113.625],"stripping_steam":[106.5,97.15,104.9]}},{"tag":"C-103","parent_tag":"C-103","type":"Column","shape":"vcyl","x":112.5,"y":98,"z_base":100.3,"rotation":0,"L":1.9,"W":1.9,"height":13.375,"top_el":113.675,"D":1.9,"bottom_tl":104,"top_tl":113.2,"skirt_h":3.225,"body":[[104,113.2,1.9]],"service":"Diesel side stripper","noz":{"bottoms":[112.5,98,103.525],"feed":[111.55,98,112.3],"vapour_return":[112.5,98,113.675],"stripping_steam":[112.5,97.05,104.9]}},{"tag":"C-104","parent_tag":"C-104","type":"Column","shape":"vcyl","x":118.5,"y":98,"z_base":100.3,"rotation":0,"L":1.4,"W":1.4,"height":13.25,"top_el":113.55,"D":1.4,"bottom_tl":104,"top_tl":113.2,"skirt_h":3.35,"body":[[104,113.2,1.4]],"service":"Ago side stripper","noz":{"bottoms":[118.5,98,103.65],"feed":[117.8,98,112.3],"vapour_return":[118.5,98,113.55],"stripping_steam":[118.5,97.3,104.9]}},{"tag":"D-102","parent_tag":"D-102","type":"Drum","shape":"hcyl","x":79,"y":90,"z_base":105,"rotation":0,"L":13.7,"W":3.4,"height":3.4,"top_el":108.4,"D":3.4,"z_axis":106.7,"TT":12,"boot":{"D":1.5,"H":3,"u":3.5},"service":"Atm. overhead reflux drum (3-phase)","noz":{"inlet":[74,90,108.4],"vapour_outlet":[84.2,90,108.4],"liquid_outlet":[83.5,90,105],"water_outlet":[82.5,90,102.3]}},{"tag":"E-115A","parent_tag":"E-115","type":"Shell & tube","shape":"hcyl","x":79,"y":95.5,"z_base":100.9,"rotation":0,"L":6.5,"W":1.2,"height":1.2,"top_el":102.1,"D":1.2,"z_axis":101.5,"channel_end":-1,"service":"Atm. overhead trim condenser"},{"tag":"E-115B","parent_tag":"E-115","type":"Shell & tube","shape":"hcyl","x":79,"y":98.5,"z_base":100.9,"rotation":0,"L":6.5,"W":1.2,"height":1.2,"top_el":102.1,"D":1.2,"z_axis":101.5,"channel_end":-1,"service":"Atm. overhead trim condenser"},{"tag":"X-103","parent_tag":"X-103","type":"Package","shape":"box","x":76,"y":104,"z_base":100.3,"rotation":0,"L":3,"W":2,"height":2.5,"top_el":102.8,"service":"Neutraliser / filming amine package (atm OH)"},{"tag":"P-103A","parent_tag":"P-103A/B","type":"Pump","shape":"box","x":72.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Atm. reflux"},{"tag":"P-103B","parent_tag":"P-103A/B","type":"Pump","shape":"box","x":75.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Atm. reflux"},{"tag":"P-104A","parent_tag":"P-104A/B","type":"Pump","shape":"box","x":79,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Unstabilised naphtha"},{"tag":"P-104B","parent_tag":"P-104A/B","type":"Pump","shape":"box","x":82,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Unstabilised naphtha"},{"tag":"P-105A","parent_tag":"P-105A/B","type":"Pump","shape":"box","x":85.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Overhead sour water"},{"tag":"P-105B","parent_tag":"P-105A/B","type":"Pump","shape":"box","x":88.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Overhead sour water"},{"tag":"P-112A","parent_tag":"P-112A/B","type":"Pump","shape":"box","x":92,"y":83.5,"z_base":100.3,"rotation":90,"L":5,"W":2,"height":1.5,"top_el":101.8,"service":"Atm. residue / vacuum heater charge"},{"tag":"P-112B","parent_tag":"P-112A/B","type":"Pump","shape":"box","x":95,"y":83.5,"z_base":100.3,"rotation":90,"L":5,"W":2,"height":1.5,"top_el":101.8,"service":"Atm. residue / vacuum heater charge"},{"tag":"P-108A","parent_tag":"P-108A/B","type":"Pump","shape":"box","x":98.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"BPA pumparound"},{"tag":"P-108B","parent_tag":"P-108A/B","type":"Pump","shape":"box","x":101.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"BPA pumparound"},{"tag":"P-109A","parent_tag":"P-109A/B","type":"Pump","shape":"box","x":105,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Kero product"},{"tag":"P-109B","parent_tag":"P-109A/B","type":"Pump","shape":"box","x":108,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Kero product"},{"tag":"P-110A","parent_tag":"P-110A/B","type":"Pump","shape":"box","x":111.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Diesel product"},{"tag":"P-110B","parent_tag":"P-110A/B","type":"Pump","shape":"box","x":114.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Diesel product"},{"tag":"P-111A","parent_tag":"P-111A/B","type":"Pump","shape":"box","x":118,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Ago product"},{"tag":"P-111B","parent_tag":"P-111A/B","type":"Pump","shape":"box","x":121,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Ago product"},{"tag":"P-106A","parent_tag":"P-106A/B","type":"Pump","shape":"box","x":124.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"TPA pumparound"},{"tag":"P-106B","parent_tag":"P-106A/B","type":"Pump","shape":"box","x":127.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"TPA pumparound"},{"tag":"P-107A","parent_tag":"P-107A/B","type":"Pump","shape":"box","x":131,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"MPA pumparound"},{"tag":"P-107B","parent_tag":"P-107A/B","type":"Pump","shape":"box","x":134,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"MPA pumparound"},{"tag":"C-106","parent_tag":"C-106","type":"Column","shape":"vcyl","x":52,"y":100,"z_base":100.3,"rotation":0,"L":3.1,"W":3.1,"height":35.975,"top_el":136.275,"D":3.1,"bottom_tl":106,"top_tl":135.5,"skirt_h":4.925,"body":[[106,135.5,3.1]],"service":"Naphtha splitter","noz":{"overhead":[52,100,136.275],"bottoms":[52,100,105.225],"reflux_return":[52,98.45,133.85],"feed":[50.45,100,121],"reboiler_return":[52,101.55,107],"reboiler_draw":[52,101.55,106.2]}},{"tag":"C-105","parent_tag":"C-105","type":"Column","shape":"vcyl","x":64,"y":100,"z_base":100.3,"rotation":0,"L":2.1,"W":2.1,"height":22.225,"top_el":122.525,"D":2.1,"bottom_tl":104,"top_tl":122,"skirt_h":3.175,"body":[[104,122,2.1]],"service":"Naphtha stabiliser (debutaniser)","noz":{"overhead":[64,100,122.525],"bottoms":[64,100,103.475],"reflux_return":[64,98.95,120.35],"feed":[65.05,100,112.38],"reboiler_return":[64,101.05,105],"reboiler_draw":[64,101.05,104.2]}},{"tag":"D-106","parent_tag":"D-106","type":"Drum","shape":"hcyl","x":54,"y":90.5,"z_base":104.5,"rotation":0,"L":9.85,"W":2.7,"height":2.7,"top_el":107.2,"D":2.7,"z_axis":105.85,"TT":8.5,"service":"Splitter reflux drum"},{"tag":"D-105","parent_tag":"D-105","type":"Drum","shape":"hcyl","x":65.5,"y":90.5,"z_base":104,"rotation":0,"L":6.35,"W":1.7,"height":1.7,"top_el":105.7,"D":1.7,"z_axis":104.85,"TT":5.5,"boot":{"D":0.6,"H":1.5,"u":0.25},"service":"Stabiliser reflux drum"},{"tag":"E-117","parent_tag":"E-117","type":"Shell & tube","shape":"hcyl","x":52,"y":106,"z_base":106.55,"rotation":0,"L":6.5,"W":0.9,"height":0.9,"top_el":107.45,"D":0.9,"z_axis":107,"channel_end":-1,"service":"Splitter reboiler (MP steam)"},{"tag":"E-116","parent_tag":"E-116","type":"Shell & tube","shape":"hcyl","x":64,"y":105.5,"z_base":101.05,"rotation":0,"L":6.5,"W":0.9,"height":0.9,"top_el":101.95,"D":0.9,"z_axis":101.5,"channel_end":1,"service":"Stabiliser reboiler (HP steam)"},{"tag":"E-114","parent_tag":"E-114","type":"Shell & tube","shape":"hcyl","x":70,"y":100,"z_base":101.05,"rotation":90,"L":6.5,"W":0.9,"height":0.9,"top_el":101.95,"D":0.9,"z_axis":101.5,"channel_end":1,"service":"Stabiliser feed / bottoms"},{"tag":"P-116A","parent_tag":"P-116A/B","type":"Pump","shape":"box","x":50,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Splitter reflux / LN"},{"tag":"P-116B","parent_tag":"P-116A/B","type":"Pump","shape":"box","x":53,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Splitter reflux / LN"},{"tag":"P-117A","parent_tag":"P-117A/B","type":"Pump","shape":"box","x":56.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Heavy naphtha product"},{"tag":"P-117B","parent_tag":"P-117A/B","type":"Pump","shape":"box","x":59.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Heavy naphtha product"},{"tag":"P-115A","parent_tag":"P-115A/B","type":"Pump","shape":"box","x":63,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Stabiliser reflux / LPG"},{"tag":"P-115B","parent_tag":"P-115A/B","type":"Pump","shape":"box","x":66,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Stabiliser reflux / LPG"},{"tag":"E-106A","parent_tag":"E-106","type":"Shell & tube","shape":"hcyl","x":12.5,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / Middle (kero) pumparound"},{"tag":"E-106B","parent_tag":"E-106","type":"Shell & tube","shape":"hcyl","x":16,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / Middle (kero) pumparound"},{"tag":"E-107","parent_tag":"E-107","type":"Shell & tube","shape":"hcyl","x":19.5,"y":92,"z_base":100.95,"rotation":90,"L":7.5,"W":1.1,"height":1.1,"top_el":102.05,"D":1.1,"z_axis":101.5,"channel_end":1,"service":"Crude / Diesel product"},{"tag":"E-108A","parent_tag":"E-108","type":"Shell & tube","shape":"hcyl","x":23,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / HVGO pumparound/product"},{"tag":"E-108B","parent_tag":"E-108","type":"Shell & tube","shape":"hcyl","x":26.5,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / HVGO pumparound/product"},{"tag":"E-108C","parent_tag":"E-108","type":"Shell & tube","shape":"hcyl","x":30,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / HVGO pumparound/product"},{"tag":"E-108D","parent_tag":"E-108","type":"Shell & tube","shape":"hcyl","x":33.5,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / HVGO pumparound/product"},{"tag":"E-109","parent_tag":"E-109","type":"Shell & tube","shape":"hcyl","x":37,"y":92,"z_base":100.95,"rotation":90,"L":7.5,"W":1.1,"height":1.1,"top_el":102.05,"D":1.1,"z_axis":101.5,"channel_end":1,"service":"Crude / AGO product"},{"tag":"E-110A","parent_tag":"E-110","type":"Shell & tube","shape":"hcyl","x":40.5,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / Bottom (diesel) pumparound"},{"tag":"E-110B","parent_tag":"E-110","type":"Shell & tube","shape":"hcyl","x":44,"y":92,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":1,"service":"Crude / Bottom (diesel) pumparound"},{"tag":"E-111A","parent_tag":"E-111","type":"Shell & tube","shape":"hcyl","x":12.5,"y":109,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":-1,"service":"Crude / Vacuum residue"},{"tag":"E-111B","parent_tag":"E-111","type":"Shell & tube","shape":"hcyl","x":16,"y":109,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":-1,"service":"Crude / Vacuum residue"},{"tag":"E-101","parent_tag":"E-101","type":"Shell & tube","shape":"hcyl","x":19.5,"y":109,"z_base":100.95,"rotation":90,"L":7.5,"W":1.1,"height":1.1,"top_el":102.05,"D":1.1,"z_axis":101.5,"channel_end":-1,"service":"Crude / Top pumparound"},{"tag":"E-102","parent_tag":"E-102","type":"Shell & tube","shape":"hcyl","x":23,"y":109,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":-1,"service":"Crude / Kerosene product"},{"tag":"E-103A","parent_tag":"E-103","type":"Shell & tube","shape":"hcyl","x":26.5,"y":109,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":-1,"service":"Crude / LVGO pumparound/product"},{"tag":"E-103B","parent_tag":"E-103","type":"Shell & tube","shape":"hcyl","x":30,"y":109,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":-1,"service":"Crude / LVGO pumparound/product"},{"tag":"E-104","parent_tag":"E-104","type":"Shell & tube","shape":"hcyl","x":33.5,"y":109,"z_base":100.95,"rotation":90,"L":7.5,"W":1.1,"height":1.1,"top_el":102.05,"D":1.1,"z_axis":101.5,"channel_end":-1,"service":"Crude / Diesel product"},{"tag":"E-105","parent_tag":"E-105","type":"Shell & tube","shape":"hcyl","x":37,"y":109,"z_base":100.8,"rotation":90,"L":7.5,"W":1.4,"height":1.4,"top_el":102.2,"D":1.4,"z_axis":101.5,"channel_end":-1,"service":"Crude / Vacuum residue"},{"tag":"E-113","parent_tag":"E-113","type":"Shell & tube","shape":"hcyl","x":40.5,"y":109,"z_base":101.05,"rotation":90,"L":6.5,"W":0.9,"height":0.9,"top_el":101.95,"D":0.9,"z_axis":101.5,"channel_end":-1,"service":"BPA / MP steam generator (kettle)"},{"tag":"E-201","parent_tag":"E-201","type":"Shell & tube","shape":"hcyl","x":44,"y":109,"z_base":101.05,"rotation":90,"L":6.5,"W":0.9,"height":0.9,"top_el":101.95,"D":0.9,"z_axis":101.5,"channel_end":-1,"service":"VR / LP steam generator (kettle)"},{"tag":"P-101A","parent_tag":"P-101A/B","type":"Pump","shape":"box","x":14,"y":83.5,"z_base":100.3,"rotation":90,"L":5,"W":2,"height":1.5,"top_el":101.8,"service":"Crude charge"},{"tag":"P-101B","parent_tag":"P-101A/B","type":"Pump","shape":"box","x":18.5,"y":83.5,"z_base":100.3,"rotation":90,"L":5,"W":2,"height":1.5,"top_el":101.8,"service":"Crude charge"},{"tag":"D-104","parent_tag":"D-104","type":"Drum","shape":"hcyl","x":135,"y":128,"z_base":100.6,"rotation":0,"L":7.55,"W":2.1,"height":2.1,"top_el":102.7,"D":2.1,"z_axis":101.65,"TT":6.5,"service":"Flare knock-out drum (unit)"},{"tag":"P-119A","parent_tag":"P-119A/B","type":"Pump","shape":"box","x":132,"y":122,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Flare KO drum pump-out"},{"tag":"P-119B","parent_tag":"P-119A/B","type":"Pump","shape":"box","x":135,"y":122,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Flare KO drum pump-out"},{"tag":"D-101A","parent_tag":"D-101A","type":"Desalter","shape":"hcyl","x":36,"y":52,"z_base":101.5,"rotation":0,"L":31.9,"W":3.8,"height":3.8,"top_el":105.3,"D":3.8,"z_axis":103.4,"TT":30,"transformers":3,"service":"Electrostatic desalter, 1st stage","noz":{"inlet":[34,52,101.5],"outlet":[38,52,105.3],"brine_outlet":[42,52,101.5],"mud_wash":[30,52.8,101.6]}},{"tag":"D-101B","parent_tag":"D-101B","type":"Desalter","shape":"hcyl","x":36,"y":42,"z_base":101.5,"rotation":0,"L":31.9,"W":3.8,"height":3.8,"top_el":105.3,"D":3.8,"z_axis":103.4,"TT":30,"transformers":3,"service":"Electrostatic desalter, 2nd stage","noz":{"inlet":[34,42,101.5],"outlet":[38,42,105.3],"brine_outlet":[42,42,101.5],"mud_wash":[30,42.8,101.6]}},{"tag":"E-118","parent_tag":"E-118","type":"Shell & tube","shape":"hcyl","x":58.5,"y":47,"z_base":101.05,"rotation":0,"L":6.5,"W":0.9,"height":0.9,"top_el":101.95,"D":0.9,"z_axis":101.5,"channel_end":1,"service":"Desalter wash water / brine"},{"tag":"X-101","parent_tag":"X-101","type":"Package","shape":"box","x":58,"y":55,"z_base":100.3,"rotation":0,"L":3,"W":2,"height":2.5,"top_el":102.8,"service":"Demulsifier injection package"},{"tag":"X-102","parent_tag":"X-102","type":"Package","shape":"box","x":58,"y":59.5,"z_base":100.3,"rotation":0,"L":3,"W":2,"height":2.5,"top_el":102.8,"service":"Caustic injection package (desalted crude)"},{"tag":"P-114A","parent_tag":"P-114A/B","type":"Pump","shape":"box","x":25,"y":65.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Desalter wash water"},{"tag":"P-114B","parent_tag":"P-114A/B","type":"Pump","shape":"box","x":28,"y":65.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Desalter wash water"},{"tag":"P-118","parent_tag":"P-118","type":"Pump","shape":"box","x":31.5,"y":65.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Desalter mud-wash / recycle"},{"tag":"P-102A","parent_tag":"P-102A/B","type":"Pump","shape":"box","x":46,"y":65.5,"z_base":100.3,"rotation":270,"L":5,"W":2,"height":1.5,"top_el":101.8,"service":"Desalted crude booster"},{"tag":"P-102B","parent_tag":"P-102A/B","type":"Pump","shape":"box","x":50.5,"y":65.5,"z_base":100.3,"rotation":270,"L":5,"W":2,"height":1.5,"top_el":101.8,"service":"Desalted crude booster"},{"tag":"H-101","parent_tag":"H-101","type":"Fired heater","shape":"heater","x":98,"y":36,"z_base":100,"rotation":0,"L":21.9,"W":25.4,"height":38,"top_el":138,"radiant":{"z0":102,"z1":119.1,"L":21.9,"W":25.4},"convection":{"z0":119.1,"z1":127.46,"L":13.14,"W":5},"stack":{"x":98,"y":36,"D":3.2,"z0":127.46,"z1":138},"cells":2,"service":"Atmospheric crude charge heater","noz":{"inlet":[103.475,48.7,126.66],"outlet":[98,48.7,103],"fuel_gas":[88.05,48.7,101],"stack_top":[98,36,138]}},{"tag":"H-201","parent_tag":"H-201","type":"Fired heater","shape":"heater","x":172,"y":36,"z_base":100,"rotation":0,"L":21.9,"W":11.1,"height":32,"top_el":132,"radiant":{"z0":102,"z1":116.4,"L":21.9,"W":11.1},"convection":{"z0":116.4,"z1":123.44,"L":13.14,"W":5},"stack":{"x":172,"y":36,"D":2.2,"z0":123.44,"z1":132},"cells":1,"service":"Vacuum heater","noz":{"inlet":[177.475,41.55,122.64],"outlet":[172,41.55,103],"fuel_gas":[162.05,41.55,101],"stack_top":[172,36,132]}},{"tag":"E-120","parent_tag":"E-120","type":"Air preheater","shape":"box","x":92,"y":22,"z_base":100.3,"rotation":0,"L":8,"W":6,"height":10,"top_el":110.3,"service":"H-101 cast-iron/glass-tube air preheater"},{"tag":"K-101A","parent_tag":"K-101A/B","type":"Fan","shape":"box","x":102,"y":20.5,"z_base":100.3,"rotation":0,"L":6,"W":3,"height":4,"top_el":104.3,"service":"H-101 forced-draft fan"},{"tag":"K-101B","parent_tag":"K-101A/B","type":"Fan","shape":"box","x":102,"y":24,"z_base":100.3,"rotation":0,"L":6,"W":3,"height":4,"top_el":104.3,"service":"H-101 forced-draft fan"},{"tag":"K-102A","parent_tag":"K-102A/B","type":"Fan","shape":"box","x":109,"y":20.5,"z_base":100.3,"rotation":0,"L":6,"W":3,"height":4,"top_el":104.3,"service":"H-101 induced-draft fan"},{"tag":"K-102B","parent_tag":"K-102A/B","type":"Fan","shape":"box","x":109,"y":24,"z_base":100.3,"rotation":0,"L":6,"W":3,"height":4,"top_el":104.3,"service":"H-101 induced-draft fan"},{"tag":"D-103","parent_tag":"D-103","type":"Drum","shape":"vcyl","x":146,"y":22,"z_base":100.3,"rotation":0,"L":0.9,"W":0.9,"height":3.95,"top_el":104.25,"D":0.9,"bottom_tl":101.3,"top_tl":103.8,"body":[[101.3,103.8,0.9]],"service":"Fuel gas knock-out drum","noz":{"inlet":[146.45,22,102.8],"vapour_outlet":[146,22,104.025],"liquid_outlet":[146,22,101.075]}},{"tag":"C-201","parent_tag":"C-201","type":"Column","shape":"vcyl","x":175,"y":98,"z_base":100.3,"rotation":0,"L":6.6,"W":6.6,"height":46.8,"top_el":147.1,"D":6.6,"bottom_tl":110,"top_tl":146,"skirt_h":8.95,"body":[[110,118.025,3],[119.025,137.119,6.6],[138.719,146,4.4]],"service":"Vacuum column (wet, packed)","noz":{"overhead":[175,98,147.1],"bottoms":[175,98,109.25],"lvgo_pa_return":[175,95.8,143.37],"lvgo_draw":[175,94.7,138.519],"hvgo_pa_return":[173.871,94.899,133.774],"hvgo_draw":[176.129,94.899,133.974],"wash_oil_return":[173.871,94.899,127.713],"slop_wax_draw":[176.129,94.899,124.176],"feed":[175,94.7,121.05],"stripping_steam":[175.75,96.701,115.761],"quench_return":[174.25,96.701,114.561]}},{"tag":"E-204","parent_tag":"E-204","type":"Shell & tube","shape":"hcyl","x":196,"y":97.5,"z_base":112.4,"rotation":0,"L":6.5,"W":0.9,"height":0.9,"top_el":113.3,"D":0.9,"z_axis":112.85,"channel_end":1,"service":"Ejector aftercondenser"},{"tag":"J-203","parent_tag":"J-203","type":"Ejector","shape":"hcyl","x":196,"y":94,"z_base":112.5,"rotation":0,"L":4,"W":0.6,"height":0.6,"top_el":113.1,"D":0.6,"z_axis":112.8,"service":"Steam ejector (330 -> 1100 mbar(a))"},{"tag":"E-203","parent_tag":"E-203","type":"Shell & tube","shape":"hcyl","x":196,"y":97.5,"z_base":115.4,"rotation":0,"L":6.5,"W":0.9,"height":0.9,"top_el":116.3,"D":0.9,"z_axis":115.85,"channel_end":1,"service":"2nd-stage ejector intercondenser"},{"tag":"J-202","parent_tag":"J-202","type":"Ejector","shape":"hcyl","x":196,"y":94,"z_base":115.5,"rotation":0,"L":4,"W":0.6,"height":0.6,"top_el":116.1,"D":0.6,"z_axis":115.8,"service":"Steam ejector (120 -> 350 mbar(a))"},{"tag":"E-202","parent_tag":"E-202","type":"Shell & tube","shape":"hcyl","x":196,"y":97.5,"z_base":120.4,"rotation":0,"L":6.5,"W":1.2,"height":1.2,"top_el":121.6,"D":1.2,"z_axis":121,"channel_end":1,"service":"1st-stage ejector intercondenser"},{"tag":"J-201","parent_tag":"J-201","type":"Ejector","shape":"hcyl","x":196,"y":94,"z_base":120.5,"rotation":0,"L":4,"W":0.6,"height":0.6,"top_el":121.1,"D":0.6,"z_axis":120.8,"service":"Steam ejector (20 -> 130 mbar(a))","noz":{"suction":[194,94,120.8],"discharge":[198,94,120.8],"motive_steam":[194.4,94,121.1]}},{"tag":"D-201","parent_tag":"D-201","type":"Drum","shape":"hcyl","x":196,"y":106,"z_base":100.6,"rotation":0,"L":6.15,"W":1.3,"height":1.3,"top_el":101.9,"D":1.3,"z_axis":101.25,"TT":5.5,"service":"Ejector hotwell / sour water separator"},{"tag":"D-202","parent_tag":"D-202","type":"Drum","shape":"vcyl","x":203,"y":106,"z_base":100.3,"rotation":0,"L":0.6,"W":0.6,"height":3.3,"top_el":103.6,"D":0.6,"bottom_tl":101.3,"top_tl":103.3,"body":[[101.3,103.3,0.6]],"service":"Vacuum off-gas knock-out drum","noz":{"inlet":[203.3,106,102.5],"vapour_outlet":[203,106,103.45],"liquid_outlet":[203,106,101.15]}},{"tag":"X-104","parent_tag":"X-104","type":"Package","shape":"box","x":209,"y":106,"z_base":100.3,"rotation":0,"L":3,"W":2,"height":2.5,"top_el":102.8,"service":"Corrosion inhibitor package (VDU OH)"},{"tag":"P-204A","parent_tag":"P-204A/B","type":"Pump","shape":"box","x":172,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Vacuum residue (incl. quench)"},{"tag":"P-204B","parent_tag":"P-204A/B","type":"Pump","shape":"box","x":175,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Vacuum residue (incl. quench)"},{"tag":"P-203A","parent_tag":"P-203A/B","type":"Pump","shape":"box","x":178.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Slop wax"},{"tag":"P-203B","parent_tag":"P-203A/B","type":"Pump","shape":"box","x":181.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Slop wax"},{"tag":"P-202A","parent_tag":"P-202A/B","type":"Pump","shape":"box","x":185,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"HVGO pumparound / product"},{"tag":"P-202B","parent_tag":"P-202A/B","type":"Pump","shape":"box","x":188,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"HVGO pumparound / product"},{"tag":"P-201A","parent_tag":"P-201A/B","type":"Pump","shape":"box","x":191.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"LVGO pumparound / product"},{"tag":"P-201B","parent_tag":"P-201A/B","type":"Pump","shape":"box","x":194.5,"y":83.5,"z_base":100.3,"rotation":90,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"LVGO pumparound / product"},{"tag":"P-205A","parent_tag":"P-205A/B","type":"Pump","shape":"box","x":193,"y":111.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Hotwell sour water"},{"tag":"P-205B","parent_tag":"P-205A/B","type":"Pump","shape":"box","x":196,"y":111.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Hotwell sour water"},{"tag":"P-206A","parent_tag":"P-206A/B","type":"Pump","shape":"box","x":199.5,"y":111.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Hotwell slop oil"},{"tag":"P-206B","parent_tag":"P-206A/B","type":"Pump","shape":"box","x":202.5,"y":111.5,"z_base":100.3,"rotation":270,"L":3,"W":1.2,"height":1.5,"top_el":101.8,"service":"Hotwell slop oil"},{"tag":"A-107-B1","parent_tag":"A-107","type":"Air cooler","shape":"box","x":45,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Splitter overhead condenser"},{"tag":"A-107-B2","parent_tag":"A-107","type":"Air cooler","shape":"box","x":51,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Splitter overhead condenser"},{"tag":"A-106","parent_tag":"A-106","type":"Air cooler","shape":"box","x":57,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Stabiliser overhead condenser"},{"tag":"A-108","parent_tag":"A-108","type":"Air cooler","shape":"box","x":63,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Heavy naphtha product cooler"},{"tag":"A-101-B1","parent_tag":"A-101","type":"Air cooler","shape":"box","x":75,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Atm. overhead condenser","noz":{"inlet":[75,80.8,116.6],"outlet":[75,80.8,115.3]}},{"tag":"A-101-B2","parent_tag":"A-101","type":"Air cooler","shape":"box","x":81,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Atm. overhead condenser"},{"tag":"A-101-B3","parent_tag":"A-101","type":"Air cooler","shape":"box","x":87,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Atm. overhead condenser"},{"tag":"A-103","parent_tag":"A-103","type":"Air cooler","shape":"box","x":111,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Kero cooler"},{"tag":"A-104","parent_tag":"A-104","type":"Air cooler","shape":"box","x":117,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Diesel cooler"},{"tag":"A-105","parent_tag":"A-105","type":"Air cooler","shape":"box","x":123,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Ago cooler"},{"tag":"A-201","parent_tag":"A-201","type":"Air cooler","shape":"box","x":159,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Lvgo cooler"},{"tag":"A-202","parent_tag":"A-202","type":"Air cooler","shape":"box","x":165,"y":75,"z_base":115,"rotation":90,"L":12,"W":6,"height":2.5,"top_el":117.5,"fan_deck_el":113,"fans":2,"service":"Hvgo Product cooler"}]},"cards":{"C-101":{"type":"Column","service":"Atmospheric crude fractionator","size":"ID 6.9 m (top/main) / 3.5 m (stripping) x 37.0 m T/T","internals":"41 valve trays (2/4-pass), 410S; Monel-lined top 5 trays","op_P":"1.19 / 1.47","op_T":"134 / 361","des_P":3.5,"des_T":390,"moc":"CS + 410S clad below tray 10; Monel 400 lined top head & trays 1-5","wt_e":329.6,"wt_o":405,"cost_k":3566,"s_in":["7","10","20"],"s_out":["8","13","14","15"],"psv":["PSV-1001: Reflux failure / blocked OH (total OH vapour), 4 x T, set 2.4 barg"],"key":"Heat removal 47.6 MW: TPA 8.1, MPA 12.8, BPA 12.4 MW; flash zone 361 °C, top 134 °C"},"C-102":{"type":"Column","service":"Kero side stripper","size":"ID 1.7 m x 9.2 m T/T","internals":"6 valve trays, 410S","op_P":"1.26","op_T":"220","des_P":3.5,"des_T":250,"moc":"CS","wt_e":19.9,"wt_o":22.9,"cost_k":143,"s_in":["20"],"s_out":[],"psv":[]},"C-103":{"type":"Column","service":"Diesel side stripper","size":"ID 1.9 m x 9.2 m T/T","internals":"6 valve trays, 410S","op_P":"1.36","op_T":"302","des_P":3.5,"des_T":330,"moc":"CS + 410S clad","wt_e":26.5,"wt_o":30.1,"cost_k":303,"s_in":["20"],"s_out":[],"psv":[]},"C-104":{"type":"Column","service":"Ago side stripper","size":"ID 1.4 m x 9.2 m T/T","internals":"6 valve trays, 410S","op_P":"1.44","op_T":"343","des_P":3.5,"des_T":375,"moc":"CS + 410S clad","wt_e":18.4,"wt_o":20.4,"cost_k":224,"s_in":["20"],"s_out":[],"psv":[]},"C-105":{"type":"Column","service":"Naphtha stabiliser (debutaniser)","size":"ID 2.1 m x 18.0 m T/T","internals":"19 valve trays, feed tray 13","op_P":"10.8","op_T":"79 / 203","des_P":13,"des_T":235,"moc":"CS (HIC-resistant plate, NACE MR0103)","wt_e":48.1,"wt_o":53.9,"cost_k":334,"s_in":[],"s_out":["31"],"psv":["PSV-1005: Reflux failure (reboiler duty), 1 x R, set 13.0 barg"],"key":"Reboiler 10.8 MW, condenser 2.1 MW; 19 trays, R = 1.89"},"C-106":{"type":"Column","service":"Naphtha splitter","size":"ID 3.1 m x 29.5 m T/T","internals":"38 valve trays, feed tray 21","op_P":"1.1","op_T":"84 / 152","des_P":3.5,"des_T":185,"moc":"CS","wt_e":108.7,"wt_o":129.7,"cost_k":718,"s_in":["31"],"s_out":[],"psv":["PSV-1007: Reflux failure (reboiler duty), 1 x T, set 3.5 barg"],"key":"Reboiler 6.8 MW, condenser 9.6 MW; 38 trays, R = 2.08"},"C-201":{"type":"Column","service":"Vacuum column (wet, packed)","size":"ID 4.4 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T","internals":"4 packed beds (structured 250Y/grid), 4 stripping trays, vapour horn","op_P":"20 / 60 mbar(a)","op_T":"70 / 386","des_P":"FV / 3.5","des_T":415,"moc":"CS + 410S clad (317L clad flash/wash zone)","wt_e":320.5,"wt_o":366.9,"cost_k":6363,"s_in":["21"],"s_out":["22"],"psv":["PSV-2001: Loss of vacuum / fire (blocked outlet to ejectors), 1 x R, set 3.5 barg"],"key":"Heat removal 22.6 MW: LVGO PA 9.0, HVGO PA 13.6 MW; flash zone 386 °C at 60 mbar(a)"},"H-101":{"type":"Fired heater","service":"Atmospheric crude charge heater","size":"60.7 MW abs. / 67.4 MW fired; 2-cell cabin, 8 passes, 144 rad. tubes 6\" x 18.3 m","op_P":"2.37 outlet","op_T":"274 -> 366","des_P":38.5,"des_T":545,"moc":"Tubes A335 P9 (9Cr-1Mo); convection P5 / CS studded","duty_kw":60678.2,"wt_e":1077.3,"wt_o":1106.1,"cost_k":14455,"s_in":["6","34"],"s_out":["7","20"],"psv":[],"key":"67.4 MW fired, 60.7 MW absorbed, eff. 90 % (LHV); fuel gas 5,164 kg/h"},"H-201":{"type":"Fired heater","service":"Vacuum heater","size":"14.7 MW abs. / 17.5 MW fired; 1-cell cabin, 4 passes, 44 rad. tubes 6\" x 18.3 m","op_P":"-0.70 outlet","op_T":"349 -> 398","des_P":19.8,"des_T":580,"moc":"Tubes A335 P9 (9Cr-1Mo); convection P5 / CS studded","duty_kw":14692.3,"wt_e":340.5,"wt_o":349.3,"cost_k":4788,"s_in":["19","28","34"],"s_out":["21"],"psv":[],"key":"17.5 MW fired, 14.7 MW absorbed, eff. 84 % (LHV); fuel gas 1,340 kg/h"},"K-101A/B":{"type":"Fan","service":"H-101 forced-draft fan","size":"96 t/h flue gas","motor_kw":90,"absorbed_kw":73.7,"wt_e":null,"wt_o":null,"cost_k":125,"s_in":[],"s_out":[],"psv":[]},"K-102A/B":{"type":"Fan","service":"H-101 induced-draft fan","size":"96 t/h flue gas","motor_kw":200,"absorbed_kw":170.1,"wt_e":null,"wt_o":null,"cost_k":208,"s_in":[],"s_out":[],"psv":[]},"E-120":{"type":"Air preheater","service":"H-101 cast-iron/glass-tube air preheater","size":"Flue gas 380 -> 160 C","des_T":450,"moc":"Cast iron / borosilicate","wt_e":null,"wt_o":null,"cost_k":236,"s_in":[],"s_out":[],"psv":[]},"E-101":{"type":"Shell & tube","service":"Crude / Top pumparound","size":"359 m2 total; 1S x 1P shells","op_T":"H 153->83 / C 30->56","des_P":"35 / 20","des_T":185,"moc":"CS shell / CS tubes","tema":"AES","shellside":"Crude","tubeside":"Top pumparound","area_m2":358.5,"duty_kw":8089.3,"wt_e":19.4,"wt_o":25,"cost_k":174,"s_in":[],"s_out":[],"psv":[]},"E-102":{"type":"Shell & tube","service":"Crude / Kerosene product","size":"438 m2 total; 1S x 1P shells","op_T":"H 212->76 / C 56->75","des_P":"35 / 20","des_T":240,"moc":"CS shell / CS tubes","tema":"AES","shellside":"Crude","tubeside":"Kerosene product","area_m2":437.6,"duty_kw":6552.1,"wt_e":23.6,"wt_o":30.2,"cost_k":208,"s_in":[],"s_out":[],"psv":[]},"E-103":{"type":"Shell & tube","service":"Crude / LVGO pumparound/product","size":"804 m2 total; 2S x 1P shells","op_T":"H 224->95 / C 75->108","des_P":"35 / 20","des_T":255,"moc":"CS shell / CS tubes","tema":"AES","shellside":"Crude","tubeside":"LVGO pumparound/product","area_m2":804.1,"duty_kw":11449.5,"wt_e":43.7,"wt_o":55.9,"cost_k":386,"s_in":[],"s_out":[],"psv":[]},"E-104":{"type":"Shell & tube","service":"Crude / Diesel product","size":"378 m2 total; 1S x 1P shells","op_T":"H 205->128 / C 108->121","des_P":"35 / 20","des_T":235,"moc":"CS shell / CS tubes","tema":"AES","shellside":"Crude","tubeside":"Diesel product","area_m2":377.8,"duty_kw":4436.7,"wt_e":20,"wt_o":25.5,"cost_k":183,"s_in":[],"s_out":[],"psv":[]},"E-105":{"type":"Shell & tube","service":"Crude / Vacuum residue","size":"431 m2 total; 1S x 1P shells","op_T":"H 255->175 / C 121->136","des_P":"35 / 20","des_T":285,"moc":"CS shell / 5Cr-1/2Mo tubes","tema":"AES (crude tubeside)","shellside":"Vacuum residue","tubeside":"Crude","area_m2":431.3,"duty_kw":5842.4,"wt_e":23.4,"wt_o":30,"cost_k":288,"s_in":[],"s_out":["2","26"],"psv":[]},"E-106":{"type":"Shell & tube","service":"Crude / Middle (kero) pumparound","size":"1001 m2 total; 2S x 1P shells","op_T":"H 240->160 / C 136->170","des_P":"45 / 20","des_T":270,"moc":"CS shell / 5Cr-1/2Mo tubes","tema":"AES","shellside":"Crude","tubeside":"Middle (kero) pumparound","area_m2":1000.7,"duty_kw":12847.8,"wt_e":54.6,"wt_o":68.7,"cost_k":661,"s_in":[],"s_out":[],"psv":[]},"E-107":{"type":"Shell & tube","service":"Crude / Diesel product","size":"324 m2 total; 1S x 1P shells","op_T":"H 294->205 / C 170->184","des_P":"45 / 20","des_T":325,"moc":"CS shell / 5Cr-1/2Mo tubes","tema":"AES","shellside":"Crude","tubeside":"Diesel product","area_m2":324,"duty_kw":5827.3,"wt_e":20,"wt_o":25.2,"cost_k":224,"s_in":[],"s_out":[],"psv":[]},"E-108":{"type":"Shell & tube","service":"Crude / HVGO pumparound/product","size":"2196 m2 total; 2S x 2P shells","op_T":"H 315->205 / C 184->234","des_P":"45 / 20","des_T":345,"moc":"1.25Cr shell / 9Cr-1Mo tubes","tema":"AES","shellside":"Crude","tubeside":"HVGO pumparound/product","area_m2":2195.8,"duty_kw":21141,"wt_e":120.3,"wt_o":150.6,"cost_k":1755,"s_in":[],"s_out":[],"psv":[]},"E-109":{"type":"Shell & tube","service":"Crude / AGO product","size":"263 m2 total; 1S x 1P shells","op_T":"H 335->254 / C 234->241","des_P":"45 / 20","des_T":365,"moc":"1.25Cr shell / 9Cr-1Mo tubes","tema":"AES","shellside":"Crude","tubeside":"AGO product","area_m2":263.3,"duty_kw":3108,"wt_e":15.5,"wt_o":19.4,"cost_k":231,"s_in":[],"s_out":[],"psv":[]},"E-110":{"type":"Shell & tube","service":"Crude / Bottom (diesel) pumparound","size":"886 m2 total; 1S x 2P shells","op_T":"H 314->261 / C 241->258","des_P":"45 / 20","des_T":345,"moc":"1.25Cr shell / 9Cr-1Mo tubes","tema":"AES","shellside":"Crude","tubeside":"Bottom (diesel) pumparound","area_m2":886,"duty_kw":7464.4,"wt_e":51.4,"wt_o":64.6,"cost_k":716,"s_in":[],"s_out":[],"psv":[]},"E-111":{"type":"Shell & tube","service":"Crude / Vacuum residue","size":"1094 m2 total; 1S x 2P shells","op_T":"H 366->278 / C 258->274","des_P":"45 / 20","des_T":395,"moc":"1.25Cr shell / 9Cr-1Mo tubes","tema":"AES (crude tubeside)","shellside":"Vacuum residue","tubeside":"Crude","area_m2":1094.3,"duty_kw":7576,"wt_e":62.2,"wt_o":77.4,"cost_k":875,"s_in":[],"s_out":["6"],"psv":[]},"E-113":{"type":"Shell & tube","service":"BPA / MP steam generator (kettle)","size":"223 m2; 1 shell(s)","op_T":"H 261->224 / C 186->186","des_P":"13 / 20","des_T":290,"moc":"CS","tema":"AKT","shellside":"BFW / MP steam","tubeside":"Bottom pumparound","area_m2":222.9,"duty_kw":4907.5,"wt_e":10.3,"wt_o":17,"cost_k":120,"s_in":[],"s_out":[],"psv":[]},"E-201":{"type":"Shell & tube","service":"VR / LP steam generator (kettle)","size":"84 m2; 1 shell(s)","op_T":"H 278->255 / C 148->148","des_P":"6 / 20","des_T":310,"moc":"CS shell / 5Cr tubes","tema":"AKT","shellside":"BFW / LP steam","tubeside":"Vacuum residue","area_m2":83.9,"duty_kw":1781.3,"wt_e":4.9,"wt_o":8.1,"cost_k":100,"s_in":[],"s_out":[],"psv":[]},"E-114":{"type":"Shell & tube","service":"Stabiliser feed / bottoms","size":"86 m2; 1 shell(s)","op_T":"H 203->163 / C 45->91","des_P":"20 / 20","des_T":235,"moc":"CS","tema":"AES","shellside":"Unstab. naphtha","tubeside":"Stabiliser bottoms","area_m2":86.1,"duty_kw":3378.7,"wt_e":5,"wt_o":6.7,"cost_k":72,"s_in":["11"],"s_out":[],"psv":[]},"E-115":{"type":"Shell & tube","service":"Atm. overhead trim condenser","size":"740 m2; 2 shell(s)","op_T":"H 60->45 / C 32->43","des_P":"3.5 / 7","des_T":90,"moc":"CS shell / Ti tubes","tema":"AEU","shellside":"OH vapour/condensate","tubeside":"Cooling water","area_m2":739.6,"duty_kw":5955.3,"wt_e":18,"wt_o":24.2,"cost_k":358,"s_in":[],"s_out":[],"psv":[]},"E-116":{"type":"Shell & tube","service":"Stabiliser reboiler (HP steam)","size":"242 m2; 1 shell(s)","op_T":"H 253->253 / C 193->203","des_P":"15 / 45","des_T":430,"moc":"CS","tema":"BKT","shellside":"Naphtha","tubeside":"HP steam","area_m2":241.9,"duty_kw":10826,"wt_e":12.9,"wt_o":19.7,"cost_k":127,"s_in":[],"s_out":[],"psv":["PSV-1008: Tube rupture (HP steam into naphtha), 1 x P, set 13.0 barg"]},"E-117":{"type":"Shell & tube","service":"Splitter reboiler (MP steam)","size":"225 m2; 1 shell(s)","op_T":"H 186->186 / C 144->152","des_P":"5 / 13","des_T":280,"moc":"CS","tema":"BXM (thermosyphon)","shellside":"Naphtha","tubeside":"MP steam","area_m2":224.7,"duty_kw":6832.7,"wt_e":8,"wt_o":10.2,"cost_k":121,"s_in":[],"s_out":[],"psv":[]},"E-118":{"type":"Shell & tube","service":"Desalter wash water / brine","size":"84 m2; 1 shell(s)","op_T":"H 131->106 / C 50->121","des_P":"20 / 20","des_T":160,"moc":"CS shell / duplex 2205 tubes","tema":"AEL","shellside":"Wash water","tubeside":"Brine","area_m2":83.8,"duty_kw":1617.5,"wt_e":4.7,"wt_o":6.1,"cost_k":71,"s_in":[],"s_out":[],"psv":[]},"E-202":{"type":"Shell & tube","service":"1st-stage ejector intercondenser","size":"549 m2; 1 shell(s)","op_T":"H 70->40 / C 32->43","des_P":"FV-3.5 / 7","des_T":100,"moc":"CS shell / 304L tubes","tema":"AXS (vacuum condenser)","shellside":"Steam / NCG","tubeside":"Cooling water","area_m2":549,"duty_kw":6945.7,"wt_e":18.6,"wt_o":23.2,"cost_k":335,"s_in":[],"s_out":[],"psv":[]},"E-203":{"type":"Shell & tube","service":"2nd-stage ejector intercondenser","size":"79 m2; 1 shell(s)","op_T":"H 70->40 / C 32->43","des_P":"FV-3.5 / 7","des_T":100,"moc":"CS shell / 304L tubes","tema":"AXS (vacuum condenser)","shellside":"Steam / NCG","tubeside":"Cooling water","area_m2":78.7,"duty_kw":996.3,"wt_e":3.5,"wt_o":4.5,"cost_k":90,"s_in":[],"s_out":[],"psv":[]},"E-204":{"type":"Shell & tube","service":"Ejector aftercondenser","size":"30 m2; 1 shell(s)","op_T":"H 70->40 / C 32->43","des_P":"FV-3.5 / 7","des_T":100,"moc":"CS shell / 304L tubes","tema":"AXS (vacuum condenser)","shellside":"Steam / NCG","tubeside":"Cooling water","area_m2":30.2,"duty_kw":382.6,"wt_e":1.9,"wt_o":2.4,"cost_k":72,"s_in":[],"s_out":[],"psv":[]},"A-101":{"type":"Air cooler","service":"Atm. overhead condenser","size":"1667 m2 bare; 3 bay(s) 6 m x 12 m, 6 fans","op_T":"134->60 (air 35->55)","des_P":9.7,"des_T":165,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":1667.2,"motor_kw":55,"duty_kw":33746.9,"wt_e":118.7,"wt_o":123.9,"cost_k":3053,"s_in":["8"],"s_out":[],"psv":[]},"A-103":{"type":"Air cooler","service":"Kero cooler","size":"184 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"76->45 (air 35->40)","des_P":9.7,"des_T":105,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":183.7,"motor_kw":11,"duty_kw":1267,"wt_e":23.8,"wt_o":24.4,"cost_k":388,"s_in":[],"s_out":["16"],"psv":[]},"A-104":{"type":"Air cooler","service":"Diesel cooler","size":"302 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"128->55 (air 35->50)","des_P":9.7,"des_T":160,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":302.5,"motor_kw":18.5,"duty_kw":3723.5,"wt_e":28.8,"wt_o":29.8,"cost_k":589,"s_in":[],"s_out":["17"],"psv":[]},"A-105":{"type":"Air cooler","service":"Ago cooler","size":"287 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"254->60 (air 35->55)","des_P":9.7,"des_T":285,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":286.6,"motor_kw":30,"duty_kw":6058,"wt_e":28.2,"wt_o":29.1,"cost_k":562,"s_in":[],"s_out":["18"],"psv":[]},"A-106":{"type":"Air cooler","service":"Stabiliser overhead condenser","size":"214 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"79->45 (air 35->40)","des_P":16.7,"des_T":110,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":213.9,"motor_kw":11,"duty_kw":2138.5,"wt_e":25.1,"wt_o":25.8,"cost_k":439,"s_in":[],"s_out":[],"psv":[]},"A-107":{"type":"Air cooler","service":"Splitter overhead condenser","size":"881 m2 bare; 2 bay(s) 6 m x 12 m, 4 fans","op_T":"84->50 (air 35->45)","des_P":9.7,"des_T":115,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":881.1,"motor_kw":30,"duty_kw":9625.6,"wt_e":69.4,"wt_o":72.1,"cost_k":1645,"s_in":[],"s_out":[],"psv":[]},"A-108":{"type":"Air cooler","service":"Heavy naphtha product cooler","size":"401 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"152->45 (air 35->40)","des_P":9.7,"des_T":185,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":401.5,"motor_kw":30,"duty_kw":5808.2,"wt_e":33,"wt_o":34.3,"cost_k":756,"s_in":[],"s_out":[],"psv":[]},"A-201":{"type":"Air cooler","service":"Lvgo cooler","size":"397 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"95->55 (air 35->50)","des_P":9.7,"des_T":125,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":396.6,"motor_kw":15,"duty_kw":3098.8,"wt_e":32.8,"wt_o":34.1,"cost_k":748,"s_in":[],"s_out":["23"],"psv":[]},"A-202":{"type":"Air cooler","service":"Hvgo Product cooler","size":"361 m2 bare; 1 bay(s) 6 m x 12 m, 2 fans","op_T":"205->90 (air 35->60)","des_P":9.7,"des_T":235,"moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)","area_m2":361.2,"motor_kw":37,"duty_kw":6640,"wt_e":31.3,"wt_o":32.5,"cost_k":688,"s_in":[],"s_out":["24"],"psv":[]},"D-101A":{"type":"Desalter","service":"Electrostatic desalter, 1st stage","size":"ID 3.8 m x 30.0 m T/T, AC/DC dual-polarity grids","op_P":"11.5","op_T":"136","des_P":17,"des_T":165,"moc":"CS","residence_min":27.7,"wt_e":137.4,"wt_o":414,"cost_k":1917,"s_in":["2","3"],"s_out":["4","5"],"psv":["PSV-1002: Fire (liquid full), 1 x M, set 15.5 barg"]},"D-101B":{"type":"Desalter","service":"Electrostatic desalter, 2nd stage","size":"ID 3.8 m x 30.0 m T/T, AC/DC dual-polarity grids","op_P":"11.5","op_T":"136","des_P":17,"des_T":165,"moc":"CS","residence_min":27.7,"wt_e":137.4,"wt_o":414,"cost_k":1917,"s_in":["2","3"],"s_out":["4","5"],"psv":["PSV-1003: Fire (liquid full), 1 x M, set 15.5 barg"]},"D-102":{"type":"Drum","service":"Atm. overhead reflux drum (3-phase)","size":"ID 3.4 m x 12.0 m T/T; boot ID 1.5 m x 3.0 m","op_P":"0.7","op_T":"45","des_P":3.5,"des_T":160,"moc":"CS (HIC-resistant), 6 mm CA","wt_e":19.4,"wt_o":63,"cost_k":219,"s_in":[],"s_out":["9"],"psv":["PSV-1004: Fire, 1 x P, set 2.4 barg"]},"D-103":{"type":"Drum","service":"Fuel gas knock-out drum","size":"ID 0.9 m x 2.5 m T/T","op_P":"3.5","op_T":"30","des_P":7,"des_T":90,"moc":"CS","wt_e":1.2,"wt_o":1.8,"cost_k":36,"s_in":[],"s_out":["34"],"psv":[]},"D-105":{"type":"Drum","service":"Stabiliser reflux drum","size":"ID 1.7 m x 5.5 m T/T; boot ID 0.6 m x 1.5 m","op_P":"10.5","op_T":"45","des_P":15.2,"des_T":95,"moc":"CS (HIC-resistant)","wt_e":6.2,"wt_o":11.2,"cost_k":91,"s_in":[],"s_out":["29"],"psv":["PSV-1006: Fire, 1 x H, set 15.2 barg"]},"D-106":{"type":"Drum","service":"Splitter reflux drum","size":"ID 2.7 m x 8.5 m T/T","op_P":"0.8","op_T":"50","des_P":3.5,"des_T":120,"moc":"CS","wt_e":8.9,"wt_o":27.8,"cost_k":120,"s_in":[],"s_out":[],"psv":[]},"D-201":{"type":"Drum","service":"Ejector hotwell / sour water separator","size":"ID 1.3 m x 5.5 m T/T; boot slop oil compartment","op_P":"0.05","op_T":"45","des_P":3.5,"des_T":100,"moc":"CS","wt_e":2.5,"wt_o":6.4,"cost_k":49,"s_in":[],"s_out":["27"],"psv":["PSV-2002: Fire, 1 x K, set 3.5 barg"]},"D-202":{"type":"Drum","service":"Vacuum off-gas knock-out drum","size":"ID 0.6 m x 2.0 m T/T","op_P":"0.05","op_T":"45","des_P":3.5,"des_T":100,"moc":"CS","wt_e":0.9,"wt_o":1.1,"cost_k":31,"s_in":[],"s_out":["28"],"psv":[]},"D-104":{"type":"Drum","service":"Flare knock-out drum (unit)","size":"ID 2.1 m x 6.5 m T/T","op_P":"0.2","op_T":"60","des_P":3.5,"des_T":280,"moc":"CS","wt_e":5.2,"wt_o":13.9,"cost_k":73,"s_in":[],"s_out":[],"psv":[]},"J-201":{"type":"Ejector","service":"Steam ejector (20 -> 130 mbar(a))","size":"load 3020 kg/h, motive MP steam 7852 kg/h (2 x 50 % parallel)","des_P":"FV / 3.5","des_T":250,"moc":"CS body / SS nozzle","wt_e":null,"wt_o":null,"cost_k":138,"s_in":["22"],"s_out":[],"psv":[]},"J-202":{"type":"Ejector","service":"Steam ejector (120 -> 350 mbar(a))","size":"load 486 kg/h, motive MP steam 1074 kg/h (2 x 50 % parallel)","des_P":"FV / 3.5","des_T":250,"moc":"CS body / SS nozzle","wt_e":null,"wt_o":null,"cost_k":138,"s_in":[],"s_out":[],"psv":[]},"J-203":{"type":"Ejector","service":"Steam ejector (330 -> 1100 mbar(a))","size":"load 173 kg/h, motive MP steam 426 kg/h (2 x 50 % parallel)","des_P":"FV / 3.5","des_T":250,"moc":"CS body / SS nozzle","wt_e":null,"wt_o":null,"cost_k":138,"s_in":[],"s_out":[],"psv":[]},"P-101A/B":{"type":"Pump","service":"Crude charge","size":"730 m3/h rated @ 261 m","op_T":"30","des_T":60,"moc":"S-6 (CS/12Cr)","flow_m3h":729.7,"head_m":261.1,"motor_kw":710,"absorbed_kw":616.7,"api610":"BB2","wt_e":12.9,"wt_o":12.9,"wt_each":true,"cost_k":457,"s_in":["1"],"s_out":[],"psv":[]},"P-102A/B":{"type":"Pump","service":"Desalted crude booster","size":"805 m3/h rated @ 263 m","op_T":"136","des_T":165,"moc":"S-6 (CS/12Cr)","flow_m3h":805.4,"head_m":262.9,"motor_kw":710,"absorbed_kw":615.9,"api610":"BB2","wt_e":12.9,"wt_o":12.9,"wt_each":true,"cost_k":470,"s_in":["5"],"s_out":[],"psv":[]},"P-103A/B":{"type":"Pump","service":"Atm. reflux","size":"159 m3/h rated @ 102 m","op_T":"45","des_T":75,"moc":"S-6 (CS/12Cr)","flow_m3h":158.6,"head_m":101.6,"motor_kw":55,"absorbed_kw":46,"api610":"OH2","wt_e":1,"wt_o":1,"wt_each":true,"cost_k":114,"s_in":[],"s_out":["10"],"psv":[]},"P-104A/B":{"type":"Pump","service":"Unstabilised naphtha","size":"180 m3/h rated @ 232 m","op_T":"45","des_T":75,"moc":"S-6 (CS/12Cr)","flow_m3h":179.9,"head_m":232.2,"motor_kw":160,"absorbed_kw":118.6,"api610":"OH2","wt_e":2.2,"wt_o":2.2,"wt_each":true,"cost_k":171,"s_in":[],"s_out":["11"],"psv":[]},"P-105A/B":{"type":"Pump","service":"Overhead sour water","size":"14 m3/h rated @ 51 m","op_T":"45","des_T":75,"moc":"S-6 (CS/12Cr)","flow_m3h":14.4,"head_m":51.5,"motor_kw":5.5,"absorbed_kw":3.4,"api610":"OH2","wt_e":0.4,"wt_o":0.4,"wt_each":true,"cost_k":45,"s_in":[],"s_out":["12"],"psv":[]},"P-106A/B":{"type":"Pump","service":"TPA pumparound","size":"293 m3/h rated @ 130 m","op_T":"153","des_T":185,"moc":"S-6 (CS/12Cr)","flow_m3h":292.6,"head_m":130.1,"motor_kw":110,"absorbed_kw":94,"api610":"OH2","wt_e":1.6,"wt_o":1.6,"wt_each":true,"cost_k":164,"s_in":["13"],"s_out":[],"psv":[]},"P-107A/B":{"type":"Pump","service":"MPA pumparound","size":"387 m3/h rated @ 138 m","op_T":"240","des_T":270,"moc":"C-6 (12Cr)","flow_m3h":387.4,"head_m":137.8,"motor_kw":160,"absorbed_kw":122.8,"api610":"BB2","wt_e":3.5,"wt_o":3.5,"wt_each":true,"cost_k":231,"s_in":["14"],"s_out":[],"psv":[]},"P-108A/B":{"type":"Pump","service":"BPA pumparound","size":"318 m3/h rated @ 142 m","op_T":"314","des_T":345,"moc":"A-8 (316)","flow_m3h":317.9,"head_m":142.2,"motor_kw":132,"absorbed_kw":101.8,"api610":"BB2","wt_e":3,"wt_o":3,"wt_each":true,"cost_k":205,"s_in":["15"],"s_out":[],"psv":[]},"P-109A/B":{"type":"Pump","service":"Kero product","size":"122 m3/h rated @ 148 m","op_T":"212","des_T":240,"moc":"S-6 (CS/12Cr)","flow_m3h":121.5,"head_m":147.8,"motor_kw":55,"absorbed_kw":46,"api610":"BB2","wt_e":1.7,"wt_o":1.7,"wt_each":true,"cost_k":125,"s_in":[],"s_out":[],"psv":[]},"P-110A/B":{"type":"Pump","service":"Diesel product","size":"151 m3/h rated @ 154 m","op_T":"294","des_T":325,"moc":"C-6 (12Cr)","flow_m3h":151,"head_m":154.3,"motor_kw":75,"absorbed_kw":56.5,"api610":"BB2","wt_e":2.1,"wt_o":2.1,"wt_each":true,"cost_k":143,"s_in":[],"s_out":[],"psv":[]},"P-111A/B":{"type":"Pump","service":"Ago product","size":"84 m3/h rated @ 153 m","op_T":"335","des_T":365,"moc":"A-8 (316)","flow_m3h":83.8,"head_m":152.5,"motor_kw":45,"absorbed_kw":32.4,"api610":"BB2","wt_e":1.6,"wt_o":1.6,"wt_each":true,"cost_k":110,"s_in":[],"s_out":[],"psv":[]},"P-112A/B":{"type":"Pump","service":"Atm. residue / vacuum heater charge","size":"398 m3/h rated @ 244 m","op_T":"349","des_T":380,"moc":"A-8 (316)","flow_m3h":397.8,"head_m":243.9,"motor_kw":315,"absorbed_kw":267.5,"api610":"BB2","wt_e":6.2,"wt_o":6.2,"wt_each":true,"cost_k":290,"s_in":[],"s_out":["19"],"psv":[]},"P-114A/B":{"type":"Pump","service":"Desalter wash water","size":"37 m3/h rated @ 144 m","op_T":"50","des_T":80,"moc":"S-6 (CS/12Cr)","flow_m3h":36.8,"head_m":144.2,"motor_kw":30,"absorbed_kw":23.1,"api610":"OH2","wt_e":0.7,"wt_o":0.7,"wt_each":true,"cost_k":76,"s_in":[],"s_out":["3"],"psv":[]},"P-115A/B":{"type":"Pump","service":"Stabiliser reflux / LPG","size":"39 m3/h rated @ 154 m","op_T":"45","des_T":75,"moc":"S-6 (CS/12Cr)","flow_m3h":38.8,"head_m":153.9,"motor_kw":18.5,"absorbed_kw":13.9,"api610":"OH2","wt_e":0.5,"wt_o":0.5,"wt_each":true,"cost_k":66,"s_in":[],"s_out":["30"],"psv":[]},"P-116A/B":{"type":"Pump","service":"Splitter reflux / LN","size":"146 m3/h rated @ 111 m","op_T":"50","des_T":80,"moc":"S-6 (CS/12Cr)","flow_m3h":146.3,"head_m":111.5,"motor_kw":55,"absorbed_kw":42.6,"api610":"OH2","wt_e":1,"wt_o":1,"wt_each":true,"cost_k":112,"s_in":[],"s_out":["32"],"psv":[]},"P-117A/B":{"type":"Pump","service":"Heavy naphtha product","size":"142 m3/h rated @ 98 m","op_T":"152","des_T":185,"moc":"S-6 (CS/12Cr)","flow_m3h":142.5,"head_m":98,"motor_kw":45,"absorbed_kw":35.6,"api610":"OH2","wt_e":0.8,"wt_o":0.8,"wt_each":true,"cost_k":104,"s_in":[],"s_out":["33"],"psv":[]},"P-118":{"type":"Pump","service":"Desalter mud-wash / recycle","size":"19 m3/h rated @ 64 m","op_T":"120","des_T":150,"moc":"S-6 (CS/12Cr)","flow_m3h":19.2,"head_m":64.4,"motor_kw":7.5,"absorbed_kw":5.4,"api610":"OH2","wt_e":0.4,"wt_o":0.4,"wt_each":true,"cost_k":24,"s_in":[],"s_out":[],"psv":[]},"P-119A/B":{"type":"Pump","service":"Flare KO drum pump-out","size":"21 m3/h rated @ 76 m","op_T":"60","des_T":90,"moc":"S-6 (CS/12Cr)","flow_m3h":20.6,"head_m":76.5,"motor_kw":7.5,"absorbed_kw":5.7,"api610":"OH2","wt_e":0.4,"wt_o":0.4,"wt_each":true,"cost_k":49,"s_in":[],"s_out":[],"psv":[]},"P-201A/B":{"type":"Pump","service":"LVGO pumparound / product","size":"198 m3/h rated @ 138 m","op_T":"224","des_T":255,"moc":"S-6 (CS/12Cr)","flow_m3h":198.3,"head_m":138.3,"motor_kw":110,"absorbed_kw":81.3,"api610":"BB2","wt_e":2.7,"wt_o":2.7,"wt_each":true,"cost_k":171,"s_in":[],"s_out":[],"psv":[]},"P-202A/B":{"type":"Pump","service":"HVGO pumparound / product","size":"391 m3/h rated @ 144 m","op_T":"315","des_T":345,"moc":"A-8 (316)","flow_m3h":391,"head_m":143.9,"motor_kw":200,"absorbed_kw":154.8,"api610":"BB2","wt_e":4.2,"wt_o":4.2,"wt_each":true,"cost_k":248,"s_in":[],"s_out":[],"psv":[]},"P-203A/B":{"type":"Pump","service":"Slop wax","size":"12 m3/h rated @ 114 m","op_T":"378","des_T":410,"moc":"A-8 (316)","flow_m3h":12.2,"head_m":114.2,"motor_kw":5.5,"absorbed_kw":4.7,"api610":"BB2","wt_e":0.9,"wt_o":0.9,"wt_each":true,"cost_k":55,"s_in":[],"s_out":["25"],"psv":[]},"P-204A/B":{"type":"Pump","service":"Vacuum residue (incl. quench)","size":"196 m3/h rated @ 187 m","op_T":"366","des_T":395,"moc":"A-8 (316)","flow_m3h":195.6,"head_m":187.5,"motor_kw":132,"absorbed_kw":112.3,"api610":"BB2","wt_e":3,"wt_o":3,"wt_each":true,"cost_k":182,"s_in":[],"s_out":[],"psv":[]},"P-205A/B":{"type":"Pump","service":"Hotwell sour water","size":"13 m3/h rated @ 51 m","op_T":"45","des_T":75,"moc":"S-6 (CS/12Cr)","flow_m3h":13.5,"head_m":51.5,"motor_kw":3.7,"absorbed_kw":3.2,"api610":"OH2","wt_e":0.3,"wt_o":0.3,"wt_each":true,"cost_k":41,"s_in":[],"s_out":[],"psv":[]},"P-206A/B":{"type":"Pump","service":"Hotwell slop oil","size":"1 m3/h rated @ 60 m","op_T":"45","des_T":75,"moc":"S-6 (CS/12Cr)","flow_m3h":0.6,"head_m":60,"motor_kw":0.8,"absorbed_kw":0.2,"api610":"API 674/675 PD","wt_e":0.3,"wt_o":0.3,"wt_each":true,"cost_k":31,"s_in":[],"s_out":[],"psv":[]},"X-101":{"type":"Package","service":"Demulsifier injection package","size":"Tank 2 m3 + 2 x 100 % metering pumps","moc":"SS316","motor_kw":0.8,"wt_e":null,"wt_o":null,"cost_k":185,"s_in":[],"s_out":[],"psv":[]},"X-102":{"type":"Package","service":"Caustic injection package (desalted crude)","size":"Tank 2 m3 + 2 x 100 % metering pumps","moc":"SS316","motor_kw":0.8,"wt_e":null,"wt_o":null,"cost_k":185,"s_in":[],"s_out":[],"psv":[]},"X-103":{"type":"Package","service":"Neutraliser / filming amine package (atm OH)","size":"Tank 2 m3 + 2 x 100 % metering pumps","moc":"SS316","motor_kw":0.8,"wt_e":null,"wt_o":null,"cost_k":185,"s_in":[],"s_out":[],"psv":[]},"X-104":{"type":"Package","service":"Corrosion inhibitor package (VDU OH)","size":"Tank 2 m3 + 2 x 100 % metering pumps","moc":"SS316","motor_kw":0.8,"wt_e":null,"wt_o":null,"cost_k":185,"s_in":[],"s_out":[],"psv":[]}},"streams":[{"no":"1","name":"Crude from tankage","frm":"TK (OSBL)","to":"P-101","T":30,"P":2,"ph":"L","kg":569859,"bpsd":100000,"api":33.4},{"no":"2","name":"Crude to desalter","frm":"E-105","to":"D-101","T":136.4,"P":13,"ph":"L","kg":569859,"bpsd":100000,"api":33.4},{"no":"3","name":"Desalter wash water","frm":"P-114","to":"D-101","T":121.4,"P":15,"ph":"W","kg":33089,"bpsd":null,"api":null},{"no":"4","name":"Desalter brine","frm":"D-101","to":"WWT (OSBL)","T":106.4,"P":5,"ph":"W","kg":33751,"bpsd":null,"api":null},{"no":"5","name":"Desalted crude","frm":"D-101","to":"P-102","T":136.4,"P":10,"ph":"L","kg":569197,"bpsd":100000,"api":33.4},{"no":"6","name":"Crude to heater (CIT)","frm":"E-111","to":"H-101","T":274,"P":17,"ph":"M","kg":569197,"bpsd":100000,"api":33.4},{"no":"7","name":"Heater outlet / transfer line","frm":"H-101","to":"C-101","T":365.7,"P":2.4,"ph":"M","kg":569197,"bpsd":100000,"api":33.4},{"no":"8","name":"Column overhead vapour","frm":"C-101","to":"A-101","T":133.8,"P":1.2,"ph":"V","kg":229224,"bpsd":45042,"api":63.6},{"no":"9","name":"Overhead drum off-gas (normally no flow)","frm":"D-102","to":"Fuel gas / FGR (OSBL)","T":45,"P":0.7,"ph":"V","kg":0,"bpsd":null,"api":null},{"no":"10","name":"Reflux","frm":"P-103","to":"C-101","T":45,"P":7,"ph":"L","kg":101310,"bpsd":21105,"api":63.6},{"no":"11","name":"Unstabilised naphtha","frm":"P-104","to":"E-114","T":45,"P":14,"ph":"L","kg":114910,"bpsd":23938,"api":63.6},{"no":"12","name":"Overhead sour water","frm":"P-105","to":"SWS (OSBL)","T":45,"P":5,"ph":"W","kg":13004,"bpsd":null,"api":null},{"no":"13","name":"TPA pumparound (draw)","frm":"C-101","to":"P-106","T":152.8,"P":8,"ph":"L","kg":166764,"bpsd":33584,"api":57.1},{"no":"14","name":"MPA pumparound (draw)","frm":"C-101","to":"P-107","T":240,"P":8,"ph":"L","kg":208349,"bpsd":39539,"api":46.2},{"no":"15","name":"BPA pumparound (draw)","frm":"C-101","to":"P-108","T":313.9,"P":8,"ph":"L","kg":165727,"bpsd":29853,"api":37.2},{"no":"16","name":"Kerosene product","frm":"A-103","to":"Storage / KHT","T":45,"P":5,"ph":"L","kg":68595,"bpsd":13017,"api":46.2},{"no":"17","name":"Diesel product","frm":"A-104","to":"Storage / DHT","T":55,"P":5,"ph":"L","kg":81613,"bpsd":14701,"api":37.2},{"no":"18","name":"AGO product","frm":"A-105","to":"DHT / FCC","T":60,"P":5,"ph":"L","kg":45847,"bpsd":7930,"api":30.5},{"no":"19","name":"Atmospheric residue","frm":"P-112","to":"H-201","T":348.7,"P":19,"ph":"L","kg":256909,"bpsd":40413,"api":15.8},{"no":"20","name":"Atm stripping steam (total)","frm":"H-101 SS coil","to":"C-101/C-102/C-103/C-104","T":350,"P":3.5,"ph":"V","kg":11681,"bpsd":null,"api":null},{"no":"21","name":"Vacuum heater outlet","frm":"H-201","to":"C-201","T":398.4,"P":-0.7,"ph":"M","kg":258055,"bpsd":40413,"api":15.8},{"no":"22","name":"Vacuum column overhead","frm":"C-201","to":"J-201","T":70,"P":-1,"ph":"V","kg":3020,"bpsd":null,"api":null},{"no":"23","name":"LVGO product","frm":"A-201","to":"Hydrocracker","T":55,"P":7,"ph":"L","kg":50356,"bpsd":8467,"api":25.9},{"no":"24","name":"HVGO product","frm":"A-202","to":"FCC / Hydrocracker","T":90,"P":7,"ph":"L","kg":90396,"bpsd":14553,"api":19.3},{"no":"25","name":"Slop wax (hot, traced)","frm":"P-203","to":"Delayed coker feed (hot)","T":378.4,"P":7,"ph":"L","kg":7894,"bpsd":1212,"api":12.3},{"no":"26","name":"Vacuum residue","frm":"E-105","to":"Delayed coker / storage","T":175,"P":9,"ph":"L","kg":108263,"bpsd":16181,"api":8.5},{"no":"27","name":"Ejector sour water","frm":"D-201","to":"SWS (OSBL)","T":45,"P":0.5,"ph":"W","kg":12141,"bpsd":null,"api":null},{"no":"28","name":"Vacuum off-gas (NCG + air)","frm":"D-202","to":"H-201 burners","T":45,"P":0,"ph":"V","kg":102,"bpsd":null,"api":null},{"no":"29","name":"Stabiliser off-gas (normally no flow)","frm":"D-105","to":"Fuel gas (OSBL)","T":45,"P":10.5,"ph":"V","kg":0,"bpsd":null,"api":null},{"no":"30","name":"LPG product","frm":"P-115","to":"LPG treating","T":45,"P":17,"ph":"L","kg":6468,"bpsd":1743,"api":120.8},{"no":"31","name":"Stabilised naphtha","frm":"C-105","to":"C-106","T":202.6,"P":11.3,"ph":"L","kg":108442,"bpsd":22195,"api":60.2},{"no":"32","name":"Light naphtha","frm":"P-116","to":"Isomerisation","T":50,"P":7,"ph":"L","kg":27607,"bpsd":5920,"api":69.3},{"no":"33","name":"Heavy naphtha","frm":"P-117","to":"NHT / Reformer","T":45,"P":7,"ph":"L","kg":80835,"bpsd":16275,"api":57},{"no":"34","name":"Fuel gas to heaters","frm":"D-103","to":"H-101/H-201","T":30,"P":3.5,"ph":"V","kg":6504,"bpsd":null,"api":null}],"products":[{"k":"LPG","name":"LPG","no":"30","bpsd":1743,"kg":6468,"wt":1.139,"api":120.8,"S":0.001,"T":45,"dest":"LPG treating","rho":562.435},{"k":"LN","name":"Light naphtha","no":"32","bpsd":5920,"kg":27607,"wt":4.861,"api":69.3,"S":0.018,"T":50,"dest":"Isomerisation","rho":704.26},{"k":"HN","name":"Heavy naphtha","no":"33","bpsd":16275,"kg":80835,"wt":14.235,"api":57,"S":0.055,"T":45,"dest":"NHT / Reformer","rho":749.861},{"k":"KERO","name":"Kerosene","no":"16","bpsd":13017,"kg":68595,"wt":12.079,"api":46.2,"S":0.238,"T":45,"dest":"Storage / KHT","rho":795.766},{"k":"DIESEL","name":"Diesel","no":"17","bpsd":14701,"kg":81613,"wt":14.372,"api":37.2,"S":0.948,"T":55,"dest":"Storage / DHT","rho":837.916},{"k":"AGO","name":"AGO","no":"18","bpsd":7930,"kg":45847,"wt":8.073,"api":30.5,"S":1.779,"T":60,"dest":"DHT / FCC","rho":873.276},{"k":"LVGO","name":"LVGO","no":"23","bpsd":8467,"kg":50356,"wt":8.867,"api":25.9,"S":2.295,"T":55,"dest":"Hydrocracker","rho":897.611},{"k":"HVGO","name":"HVGO","no":"24","bpsd":14553,"kg":90396,"wt":15.918,"api":19.3,"S":2.892,"T":90,"dest":"FCC / Hydrocracker","rho":937.718},{"k":"SLOP","name":"Slop wax","no":"25","bpsd":1212,"kg":7894,"wt":1.39,"api":12.3,"S":3.751,"T":378.4,"dest":"Delayed coker feed (hot)","rho":986.75},{"k":"VR","name":"Vacuum residue","no":"26","bpsd":16181,"kg":108263,"wt":19.065,"api":8.5,"S":4.022,"T":175,"dest":"Delayed coker / storage","rho":1009.916}],"P":{"crude":{"bpsd":100000,"kg_h":567873.56,"m3h":662.45,"api":33.4,"K":11.93},"S":1.8,"T_in":30,"cit":274.02,"T_desalter":136.35,"wash":33089.17,"brine":33751,"Q_cold":36370,"Q_hot":57964.54,"n_cold":5,"n_hot":6,"atm":{"T_fz":360.74,"cot":365.74,"P_fz_barg":1.47,"T_top":133.78,"T_bot":348.74,"T_draw":{"KERO":219.51,"DIESEL":301.54,"AGO":342.74},"reflux_kg_h":101309.81,"Q_tot_kw":47584.27,"Q_cond_kw":39702.27},"pa":{"TPA":8089.33,"MPA":12847.75,"BPA":12371.91},"strip_steam":11681,"vac":{"T_fz":386.44,"cot":398.44,"P_fz_mbar":60,"P_top_mbar":20,"T_top":70,"T_bot":366.44,"T_lvgo":223.71,"T_hvgo":314.99,"steam":2789.34,"Q_tot_kw":22588.23},"ejector_motive":9351.82,"H101":{"tag":"H-101","Q_proc_kw":59547.45,"Q_ss_kw":1130.74,"Q_abs_kw":60678.19,"eff":0.9,"Q_fired_kw":67420.21,"T_in":274.02,"T_out":365.74,"P_out":3.38,"vf_out":0.53,"flow":569197.12,"fuel_kg_h":5164.1,"radiant_kw":41683.21,"conv_kw":18994.97,"rad_area":1323.28,"rad_tubes":144,"passes":8,"mass_flux":1175.69,"burners":16,"cells":2,"firebox_m3":898.94},"H201":{"tag":"H-201","Q_proc_kw":14692.28,"Q_abs_kw":14692.28,"eff":0.84,"Q_fired_kw":17490.81,"T_in":348.74,"T_out":398.44,"P_out":0.31,"vf_out":0.26,"flow":258054.83,"fuel_kg_h":1339.72,"radiant_kw":10284.6,"conv_kw":4407.68,"rad_area":411.38,"rad_tubes":44,"passes":4,"mass_flux":1066.03,"burners":6,"cells":1,"firebox_m3":233.21},"ar_kg":256909,"ar_bpsd":40413,"ar_T":348.7,"oh_kg":229224,"A101_kw":33746.93,"stab_reb":10826,"split_reb":6832.66,"E113_kw":4907.49,"E201_kw":1781.34,"C101":{"D":6.9,"H":37,"trays":41},"C201":{"D":6.6,"H":36},"P101":{"flow":729.73,"head":261.07,"kw":710},"D101_res":27.7,"fuel_gas":6504},"energy":{"fired_kw":84911,"fuel_kg_h":6503.8,"lhv":47,"steam":[["Atmospheric stripping steam (C-101..C-104)","MP",11681,"H&MB stream 20"],["Vacuum stripping + coil steam (C-201, H-201)","MP",2789.3,"PDR §7"],["Ejector motive steam (J-201..J-203)","MP",9351.8,"PDR §7"],["Stabiliser reboiler E-116","HP",18558.9,"10.83 MW / 2,100 kJ/kg"],["Splitter reboiler E-117","MP",11467.4,"6.83 MW / 2,145 kJ/kg"],["BPA steam generator E-113 (credit)","MP",-7755.5,"4.91 MW / 2,278 kJ/kg"],["VR steam generator E-201 (credit)","LP",-2862.9,"1.78 MW / 2,240 kJ/kg"]],"power_kw":4524.3}}/*DATA:END*/;
+</script>
+<script>
+(function(){
+'use strict';
+const G=DATA.glance, P=DATA.P, GEO=DATA.geo, CARDS=DATA.cards, EN=DATA.energy;
+const $=s=>document.querySelector(s);
+const fmt=(n,d=0)=>(n==null||isNaN(n))?'–':Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SBY={}; DATA.streams.forEach(s=>SBY[s.no]=s);
+const PROD={}; DATA.products.forEach(p=>PROD[p.k]=p);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const PCOL={LPG:'--c-lpg',LN:'--c-ln',HN:'--c-hn',KERO:'--c-kero',DIESEL:'--c-diesel',AGO:'--c-ago',LVGO:'--c-lvgo',HVGO:'--c-hvgo',SLOP:'--c-slop',VR:'--c-vr',CRUDE:'--c-crude',AR:'--c-ar'};
+
+/* ------------------------------------------------------------------ header: unit at a glance */
+$('#subTitle').textContent=`${fmt(G.bpsd)} BPSD ${G.crude} CDU/VDU · walkthrough and value · FEED Rev A`;
+const glance=[
+  ['Capacity',`${fmt(G.bpsd)}<small>BPSD</small>`,`${fmt(G.kg_h/1000)} t/h crude charge`],
+  ['Crude',`${G.crude}`,`${G.api} API · ${G.S} wt% S`],
+  ['Products',`${G.n_products}`,'LPG to vacuum residue'],
+  ['Fired duty',`${fmt(G.fired_h101+G.fired_h201,1)}<small>MW</small>`,`H-101 ${fmt(G.fired_h101,1)} + H-201 ${fmt(G.fired_h201,1)} MW`],
+  ['Equipment',`${G.n_equip}<small>tags</small>`,`${G.n_placed} items placed on ${G.plot[0]} × ${G.plot[1]} m`],
+  ['Instruments',`${fmt(G.n_instr)}<small>tags</small>`,`${fmt(G.io_used)} I/O · ${G.n_loops} loops · ${G.n_sif} SIFs`],
+  ['CAPEX (ISBL)',`USD ${fmt(G.tic)}<small>M</small>`,`AACE ${G.cls} (${G.acc})`],
+];
+$('#glance').innerHTML=glance.map(([k,v,s])=>`<div class="kv"><div class="k">${k}</div><div class="v">${v}</div><div class="s" title="${esc(s)}">${s}</div></div>`).join('');
+$('#src').innerHTML=`<span>Source: ${esc(DATA.src)}</span><span>Regenerate: python sims/yourunit/extract.py</span>`;
+
+/* ------------------------------------------------------------------ VALUE PANEL */
+const DEF_PX={LPG:42,LN:70,HN:76,KERO:92,DIESEL:95,AGO:88,LVGO:80,HVGO:78,SLOP:68,VR:58};
+// Illustrative alternative crudes, LV% of crude (labelled in the page). Design column comes from the H&MB.
+const ALT={light:{name:'Lighter, 39 API',diff:2.0,y:{LPG:2.2,LN:7.4,HN:19.6,KERO:14.6,DIESEL:15.6,AGO:7.9,LVGO:7.9,HVGO:12.4,SLOP:1.0,VR:11.4}},
+           heavy:{name:'Heavier, 27.7 API',diff:-4.0,y:{LPG:1.3,LN:4.3,HN:12.3,KERO:10.8,DIESEL:12.9,AGO:7.6,LVGO:8.7,HVGO:15.6,SLOP:1.5,VR:25.0}}};
+const designLV={}; DATA.products.forEach(p=>designLV[p.k]=100*p.bpsd/G.bpsd);
+const VACK=['LVGO','HVGO','SLOP','VR'], NAPK=['LPG','LN','HN'];
+const tb=$('#yt tbody');
+tb.innerHTML=DATA.products.map((p,i)=>`<tr><td><span class="sw" style="background:var(${PCOL[p.k]})"></span>${p.name}</td>
+  <td class="num" id="b${i}"></td><td class="num" id="w${i}"></td>
+  <td class="num"><input type="number" id="px${i}" aria-label="${p.name} price, USD per barrel" step="0.5" min="0" value="${DEF_PX[p.k]}"></td>
+  <td class="num" id="v${i}"></td></tr>`).join('')+`<tr class="tot"><td>Total</td><td class="num" id="bT"></td><td class="num" id="wT"></td><td class="num" id="pT"></td><td class="num" id="vT"></td></tr>`;
+$('#rulesT').innerHTML='<tr><th>LV % of crude</th><th>Design</th><th>Lighter</th><th>Heavier</th></tr>'+
+  DATA.products.map(p=>`<tr><td>${p.name}</td><td>${fmt(designLV[p.k],2)}</td><td>${fmt(ALT.light.y[p.k],1)}</td><td>${fmt(ALT.heavy.y[p.k],1)}</td></tr>`).join('')+
+  `<tr><td>Price vs design crude</td><td>0</td><td>+${fmt(ALT.light.diff,1)}</td><td>${fmt(ALT.heavy.diff,1)}</td></tr>`;
+
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)?v:0};
+let VAL={};
+function steamNet(){return EN.steam.reduce((a,s)=>a+s[2],0)}
+function compute(){
+  const slate=$('#slate').value, f=slate==='none'?0:num('#blend')/100, alt=ALT[slate];
+  const crudePx=num('#crudePx')+(alt?f*num('#diff'):0), days=Math.max(1,num('#days'));
+  const lv={}; DATA.products.forEach(p=>lv[p.k]=(1-f)*designLV[p.k]+(alt?f*alt.y[p.k]:0));
+  const tot=Object.values(lv).reduce((a,b)=>a+b,0);
+  const mass={}; let mt=0; DATA.products.forEach(p=>{mass[p.k]=lv[p.k]*p.rho;mt+=mass[p.k]});
+  let pv=0; const rows=DATA.products.map((p,i)=>{const b=G.bpsd*lv[p.k]/tot,px=num('#px'+i),v=b*px;pv+=v;return {p,b,wt:100*mass[p.k]/mt,px,v,db:b-p.bpsd}});
+  const vacLoad=VACK.reduce((a,k)=>a+lv[k],0)/VACK.reduce((a,k)=>a+designLV[k],0);
+  const napLoad=NAPK.reduce((a,k)=>a+lv[k],0)/NAPK.reduce((a,k)=>a+designLV[k],0);
+  // energy
+  const fired=(G.fired_h101+G.fired_h201*vacLoad); // MW
+  const mmbtu_d=fired*3.41214*24, fuelUSDd=mmbtu_d*num('#fuelPx');
+  const steam_t_d=steamNet()/1000*24, steamUSDd=steam_t_d*num('#steamPx');
+  const mwh_d=EN.power_kw/1000*24, powerUSDd=mwh_d*num('#powerPx');
+  const energyBbl=(fuelUSDd+steamUSDd+powerUSDd)/G.bpsd;
+  const pvBbl=pv/G.bpsd, gross=pvBbl-crudePx, net=gross-energyBbl;
+  VAL={rows,pv,pvBbl,crudePx,gross,net,energyBbl,days,fired,fuelUSDd,steamUSDd,powerUSDd,mmbtu_d,steam_t_d,mwh_d,vacLoad,napLoad,f,alt};
+  return VAL;
+}
+function renderValue(){
+  const V=compute();
+  V.rows.forEach((r,i)=>{
+    const d=Math.round(r.db);
+    $('#b'+i).innerHTML=fmt(r.b)+(V.f>0&&Math.abs(d)>=1?`<span class="dl ${d>0?'up':'dn'}">${d>0?'+':''}${fmt(d)}</span>`:'');
+    $('#w'+i).textContent=fmt(r.wt,1); $('#v'+i).textContent=fmt(r.v/1000,0);
+  });
+  $('#bT').textContent=fmt(V.rows.reduce((a,r)=>a+r.b,0)); $('#wT').textContent='100.0';
+  $('#pT').textContent=fmt(V.pvBbl,2); $('#vT').textContent=fmt(V.pv/1000,0);
+  const M=x=>x*G.bpsd*V.days/1e6;
+  $('#big').innerHTML=`
+    <div><div class="k">Product value</div><div class="v">${fmt(V.pvBbl,2)}</div><div class="u">USD/bbl crude</div><div class="u">${fmt(V.pv/1e3,0)} USD k/d</div></div>
+    <div><div class="k">Crude cost</div><div class="v">${fmt(V.crudePx,2)}</div><div class="u">USD/bbl${V.f>0?' (blend)':''}</div><div class="u">${fmt(V.crudePx*G.bpsd/1e3,0)} USD k/d</div></div>
+    <div class="${V.gross>=0?'acc':'neg'}"><div class="k">Gross margin</div><div class="v">${fmt(V.gross,2)}</div><div class="u">USD/bbl</div><div class="u">${fmt(M(V.gross),0)} USD M/yr</div></div>`;
+  // bars
+  const W=420, x0=0, max=Math.max(V.pvBbl,V.crudePx+V.energyBbl+Math.max(0,V.net))*1.02||1, sx=v=>v/max*(W-2);
+  let x=x0, s='';
+  V.rows.forEach(r=>{const w=sx(r.v/G.bpsd);s+=`<rect x="${x.toFixed(1)}" y="14" width="${Math.max(0,w-0.6).toFixed(1)}" height="18" fill="var(${PCOL[r.p.k]})"><title>${r.p.name}: ${fmt(r.v/G.bpsd,2)} USD/bbl</title></rect>`;x+=w});
+  s+=`<text x="0" y="10">Product value by product, USD/bbl crude</text>`;
+  const cW=sx(V.crudePx), eW=sx(V.energyBbl), nW=sx(Math.max(0,V.net));
+  s+=`<rect x="0" y="52" width="${Math.max(0,cW-0.6).toFixed(1)}" height="18" fill="var(--faint)" opacity=".55"><title>Crude ${fmt(V.crudePx,2)}</title></rect>`;
+  s+=`<rect x="${cW.toFixed(1)}" y="52" width="${Math.max(0,eW-0.6).toFixed(1)}" height="18" fill="var(--warn)"><title>Energy ${fmt(V.energyBbl,2)}</title></rect>`;
+  if(nW>0) s+=`<rect x="${(cW+eW).toFixed(1)}" y="52" width="${nW.toFixed(1)}" height="18" fill="var(--accent)"><title>Net margin ${fmt(V.net,2)}</title></rect>`;
+  s+=`<text x="0" y="48">Crude ${fmt(V.crudePx,2)} · energy ${fmt(V.energyBbl,2)} · net after energy</text>`;
+  s+=`<text x="${W}" y="86" text-anchor="end" style="fill:var(--ink)">Net after energy ${fmt(V.net,2)} USD/bbl · ${fmt(M(V.net),0)} USD M/yr</text>`;
+  $('#bars').innerHTML=s;
+  // checks
+  const chk=(lbl,load)=>{const over=load>1.10;return `<div class="chk ${over?'warn':''}"><span>${lbl}</span><b>${fmt(load*100,0)} %</b><span>of design${over?': above the 10 % hydraulic margin, throughput would be limited here':''}</span></div>`};
+  $('#chk').innerHTML=V.f>0?chk('Vacuum section feed',V.vacLoad)+chk('Overhead naphtha + LPG',V.napLoad):
+    `<div class="chk"><span>Payback check</span><span>${V.net>0?`net margin after energy equals the USD ${fmt(G.tic)} M ISBL estimate in <b>${fmt(G.tic/M(V.net),1)}</b> years (before other opex, tax and OSBL)`:'net margin is negative at these prices'}</span></div>`;
+  renderEnergy();
+}
+function renderEnergy(){
+  const V=VAL, bb=v=>fmt(v/G.bpsd,3);
+  $('#et').innerHTML=`
+   <tr><td>Fuel gas<span class="s">${fmt(V.fired,1)} MW fired (LHV) · ${fmt(EN.fuel_kg_h)} kg/h at design · ${fmt(V.mmbtu_d)} MMBtu/d</span></td><td class="num">${bb(V.fuelUSDd)}</td></tr>
+   <tr><td>Steam, net import<span class="s">${fmt(steamNet()/1000,1)} t/h after ${fmt(-EN.steam.filter(s=>s[2]<0).reduce((a,s)=>a+s[2],0)/1000,1)} t/h generated in E-113 / E-201</span></td><td class="num">${bb(V.steamUSDd)}</td></tr>
+   <tr><td>Power<span class="s">${fmt(EN.power_kw/1000,2)} MW maximum demand · ${fmt(V.mwh_d)} MWh/d</span></td><td class="num">${bb(V.powerUSDd)}</td></tr>
+   <tr class="tot"><td>Energy cost, USD/bbl crude</td><td class="num">${fmt(V.energyBbl,3)}</td></tr>`;
+  const rec=P.Q_cold+P.Q_hot, need=rec+P.H101.Q_proc_kw, pct=100*rec/need;
+  $('#hrec').innerHTML=`<span>Preheat recovers <b class="mono">${fmt(rec/1000,1)} MW</b>, ${fmt(pct,0)} % of the crude's heat-up</span><span class="bar"><i style="width:${pct}%;background:var(--accent)"></i><i style="width:${100-pct}%;background:var(--orange)"></i></span>`;
+  $('#steamT').innerHTML='<tr><th>Use</th><th>Level</th><th>t/h</th></tr>'+EN.steam.map(s=>`<tr><td title="${esc(s[3])}">${esc(s[0])}</td><td>${s[1]}</td><td>${fmt(s[2]/1000,2)}</td></tr>`).join('')+
+    `<tr><td>Net import</td><td></td><td>${fmt(steamNet()/1000,2)}</td></tr>`;
+}
+document.querySelectorAll('#valuePanel input, #energyPanel input').forEach(el=>el.addEventListener('input',renderValue));
+$('#slate').addEventListener('change',()=>{
+  const s=$('#slate').value; $('#blend').disabled=s==='none'; $('#diffF').hidden=s==='none';
+  if(s!=='none'){ if(num('#blend')===0) $('#blend').value=30; $('#diff').value=ALT[s].diff; } else $('#blend').value=0;
+  $('#blendV').textContent=$('#blend').value+' %'; renderValue();
+});
+$('#blend').addEventListener('input',()=>{$('#blendV').textContent=$('#blend').value+' %';renderValue()});
+renderValue();
+
+/* ------------------------------------------------------------------ legend */
+const LEG=[['CRUDE','Crude'],['LPG','LPG'],['LN','Light naphtha'],['HN','Heavy naphtha'],['KERO','Kerosene'],['DIESEL','Diesel'],['AGO','AGO'],['AR','Atm. residue'],['LVGO','LVGO'],['HVGO','HVGO'],['SLOP','Slop wax'],['VR','Vacuum residue']];
+$('#legend').innerHTML='<div class="h">Flow by product</div>'+LEG.map(([k,n])=>`<div><span class="sw" style="background:var(${PCOL[k]})"></span>${n}</div>`).join('');
+
+/* ------------------------------------------------------------------ THEME */
+function effectiveDark(){const t=document.documentElement.getAttribute('data-theme');if(t)return t==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+$('#themeBtn').addEventListener('click',()=>{document.documentElement.setAttribute('data-theme',effectiveDark()?'light':'dark');applyTheme()});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>applyTheme());
+
+/* ------------------------------------------------------------------ 3D */
+const canvas=$('#gl'), viewer=$('#viewer');
+let renderer=null;
+try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'}); }catch(e){ renderer=null; }
+if(!renderer||typeof THREE==='undefined'){
+  const d=document.createElement('div');d.className='nogl';d.textContent='The 3D model needs WebGL, which this browser has turned off. The value and energy panels still work.';viewer.appendChild(d);
+}
+const CX=GEO.frame.plot_x/2, CY=GEO.frame.plot_y/2, GR=GEO.frame.grade_el;
+const W3=(x,y,el)=>new THREE.Vector3(x-CX,el-GR,-(y-CY));
+const ITEMS=GEO.items, IT={}; ITEMS.forEach(it=>IT[it.tag]=it);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(38,1,0.5,2000);
+const MAT={}; const itemMats={}; const groups={}; const pickables=[];
+const C=c=>new THREE.Color(c);
+function mix(a,b,t){return C(a).lerp(C(b),t)}
+
+function std(color,o){return new THREE.MeshStandardMaterial(Object.assign({color,roughness:.82,metalness:.05},o||{}))}
+function buildMaterials(){
+  ['vessel','column','heater','hx','drum','ac','pump','pkg','steel','plat','grade','road','area','bldg','skirt','pipe','pipeIns','stack','refr'].forEach(k=>{if(!MAT[k])MAT[k]=std(0xffffff)});
+}
+buildMaterials();
+function themeColors(){
+  const dark=effectiveDark();
+  const bg=css('--bg'),sf=css('--surface'),sf2=css('--surface2'),ln=css('--line'),ink=css('--ink'),dim=css('--dim');
+  const base=dark?mix(sf2,ink,.42):mix(sf,ink,.03);
+  const t=(tok,a)=>base.clone().lerp(C(css(tok)),a);
+  return {dark,bg:C(bg),base,
+    column:t('--teal',dark?.28:.22), heater:t('--orange',dark?.30:.26), hx:t('--warn',dark?.22:.2), drum:base.clone(),
+    ac:t('--teal',dark?.12:.1), pump:t('--violet',dark?.32:.28), pkg:mix(base,dim,.15), steel:dark?mix(sf2,ink,.3):mix(dim,sf,.35),
+    plat:t('--warn',dark?.42:.4), grade:dark?mix(bg,sf2,.9):mix(bg,ln,.45), road:dark?mix(bg,ln,.9):mix(bg,dim,.16),
+    area:dark?mix(bg,ln,.45):mix(bg,ln,.9), bldg:dark?mix(sf2,ink,.25):mix(sf,ln,.4), skirt:dark?mix(sf2,ink,.3):mix(sf,dim,.18),
+    pipe:dark?mix(sf2,ink,.36):mix(dim,sf,.5), pipeIns:dark?mix(sf2,ink,.55):mix(sf,ln,.6), stack:dark?mix(sf2,ink,.22):mix(dim,ink,.3),
+    refr:t('--orange',dark?.18:.14), grid:dark?mix(bg,ln,.7):mix(bg,ln,.9), frame:C(dim), accent:C(css('--accent'))};
+}
+let TC=null;
+
+/* geometry helpers */
+const tmpM=new THREE.Matrix4();
+function addMesh(geo,mat,parentTag,pick){
+  const m=new THREE.Mesh(geo,mat); m.castShadow=true; m.receiveShadow=true;
+  if(parentTag){ (groups[parentTag]=groups[parentTag]||[]).push(m); if(pick!==false){m.userData.tag=parentTag;pickables.push(m)} }
+  scene.add(m); return m;
+}
+function cyl(r0,r1,h,seg){return new THREE.CylinderGeometry(r0,r1,h,seg||28,1)}
+function boxAt(x,y,z0,L,Wd,h,rotDeg){ // plant-centred box, L along rot axis
+  const g=new THREE.BoxGeometry(L,h,Wd); const m=new THREE.Mesh(g);
+  return {g,pos:W3(x,y,z0+h/2),rot:(rotDeg||0)*Math.PI/180};
+}
+function place(mesh,pos,rotY){mesh.position.copy(pos);if(rotY)mesh.rotation.y=rotY;return mesh}
+function itemMat(tag,kind){ // per-item clone so it can be highlighted
+  const m=MAT[kind].clone(); m.userData.kind=kind; (itemMats[tag]=itemMats[tag]||[]).push(m); return m;
+}
+function frustumBox(L0,W0,L1,W1,h){
+  const g=new THREE.BufferGeometry();
+  const v=[[-L0/2,0,-W0/2],[L0/2,0,-W0/2],[L0/2,0,W0/2],[-L0/2,0,W0/2],[-L1/2,h,-W1/2],[L1/2,h,-W1/2],[L1/2,h,W1/2],[-L1/2,h,W1/2]];
+  const f=[[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7],[4,5,6,7],[3,2,1,0]];
+  const pos=[];f.forEach(q=>{[q[0],q[1],q[2],q[0],q[2],q[3]].forEach(i=>pos.push(...v[i]))});
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3)); g.computeVertexNormals(); return g;
+}
+const platformsBy={}; GEO.platforms.forEach(p=>(platformsBy[p.tag]=platformsBy[p.tag]||[]).push(p));
+
+function buildVcyl(it){
+  const tag=it.parent_tag, kind=it.type==='Column'?'column':'drum', mat=itemMat(tag,kind), sk=itemMat(tag,'skirt');
+  const body=(it.body&&it.body.length)?it.body:[[it.bottom_tl??it.z_base,it.top_tl??it.top_el,it.D]];
+  const b0=body[0][0];
+  if(b0>it.z_base+0.05){ const r=body[0][2]/2, h=b0-it.z_base; addMesh(cyl(r,r,h),it.skirt_h?sk:mat,tag).position.copy(W3(it.x,it.y,it.z_base+h/2)); }
+  body.forEach((s,i)=>{
+    const r=s[2]/2,h=s[1]-s[0]; addMesh(cyl(r,r,h),mat,tag).position.copy(W3(it.x,it.y,s[0]+h/2));
+    const n=body[i+1]; if(n&&n[0]>s[1]){const hh=n[0]-s[1];addMesh(cyl(n[2]/2,r,hh),mat,tag).position.copy(W3(it.x,it.y,s[1]+hh/2))}
+  });
+  const top=body[body.length-1], rT=top[2]/2, hd=Math.max(0.3,(it.top_el-top[1])||rT/2);
+  const head=addMesh(new THREE.SphereGeometry(rT,28,10,0,Math.PI*2,0,Math.PI/2),mat,tag); head.scale.y=hd/rT; head.position.copy(W3(it.x,it.y,top[1]));
+  if(it.skirt_h){ // base ring
+    const r=body[0][2]/2+0.25; addMesh(cyl(r,r,0.3),sk,tag,false).position.copy(W3(it.x,it.y,it.z_base+0.15));
+  }
+  // platforms + ladder
+  const pl=platformsBy[it.tag]||[];
+  pl.forEach(p=>{
+    const a0=p.arc[0]*Math.PI/180, a1=p.arc[1]*Math.PI/180;
+    const g=new THREE.RingGeometry(p.r_in,p.r_out,40,1,a0,a1-a0); const m=new THREE.Mesh(g,MAT.plat); m.rotation.x=-Math.PI/2;
+    m.position.copy(W3(it.x,it.y,p.el)); m.receiveShadow=true; m.castShadow=true; scene.add(m);
+    const pts=[]; for(let k=0;k<=24;k++){const a=a0+(a1-a0)*k/24; pts.push(new THREE.Vector3(Math.cos(a)*p.r_out,1.1,-Math.sin(a)*p.r_out))}
+    const rail=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),railMat); rail.position.copy(W3(it.x,it.y,p.el)); scene.add(rail);
+  });
+  if(pl.length){
+    const topEl=Math.max(...pl.map(p=>p.el)), a=pl[0].ladder_side_deg*Math.PI/180, rr=pl[0].r_in+0.45;
+    const lad=new THREE.Mesh(new THREE.BoxGeometry(0.7,topEl-GR,0.12),MAT.steel); lad.position.copy(W3(it.x+Math.cos(a)*rr,it.y+Math.sin(a)*rr,GR+(topEl-GR)/2)); lad.rotation.y=a+Math.PI/2; scene.add(lad);
+  }
+}
+function buildHcyl(it){
+  const tag=it.parent_tag;
+  const kind=it.type==='Shell & tube'?'hx':(it.type==='Ejector'?'pkg':'drum');
+  const mat=itemMat(tag,kind), D=it.D, r=D/2, zc=it.z_axis??(it.z_base+r);
+  const along=(it.rotation%180)!==0; // long axis along plant y
+  const bodyL=it.TT??Math.max(0.5,it.L-D/2), rotY=along?Math.PI/2:0;
+  const grp=new THREE.Group(); grp.position.copy(W3(it.x,it.y,zc)); grp.rotation.y=rotY; scene.add(grp);
+  const add=(g,m,pick)=>{const me=new THREE.Mesh(g,m);me.castShadow=true;me.receiveShadow=true;grp.add(me);(groups[tag]=groups[tag]||[]).push(me);if(pick!==false){me.userData.tag=tag;pickables.push(me)}return me};
+  const b=add(cyl(r,r,bodyL,24),mat); b.rotation.z=Math.PI/2;
+  [-1,1].forEach(sg=>{
+    if(it.channel_end&&sg===(it.channel_end>0?1:-1)){
+      const ch=add(cyl(r*1.06,r*1.06,0.9,24),itemMat(tag,'steel')); ch.rotation.z=Math.PI/2; ch.position.x=sg*(bodyL/2+0.45);
+      const cv=add(cyl(r*1.14,r*1.14,0.12,24),itemMat(tag,'steel')); cv.rotation.z=Math.PI/2; cv.position.x=sg*(bodyL/2+0.95);
+    } else {
+      const h=add(new THREE.SphereGeometry(r,24,10,0,Math.PI*2,0,Math.PI/2),mat); h.rotation.z=-sg*Math.PI/2; h.scale.y=0.5; h.position.x=sg*bodyL/2;
+    }
+  });
+  // saddles
+  const elev=it.z_base-GR, sh=elev>3?r*0.9:(zc-GR);
+  [-1,1].forEach(sg=>{const s=add(new THREE.BoxGeometry(0.35,sh,D*0.8),MAT.steel,false);s.position.set(sg*bodyL*0.3,-zc+GR+sh/2+(elev>3?zc-GR-r*0.9:0),0)});
+  if(it.boot){const bt=add(cyl(it.boot.D/2,it.boot.D/2,it.boot.H,18),mat);bt.position.set(it.boot.u||0,-r-it.boot.H/2+0.2,0)}
+  if(it.transformers){for(let k=0;k<it.transformers;k++){const t=add(new THREE.BoxGeometry(1.4,1.3,1.4),MAT.pkg,false);t.position.set((k-(it.transformers-1)/2)*bodyL/3.2,r+0.6,0)}}
+}
+function buildBox(it){
+  const tag=it.parent_tag, rot=-(it.rotation||0)*Math.PI/180;
+  if(it.type==='Pump'){
+    const m=itemMat(tag,'pump'), grp=new THREE.Group(); grp.position.copy(W3(it.x,it.y,it.z_base)); grp.rotation.y=rot; scene.add(grp);
+    const add=(g,mm,pick)=>{const me=new THREE.Mesh(g,mm);me.castShadow=true;me.receiveShadow=true;grp.add(me);(groups[tag]=groups[tag]||[]).push(me);if(pick!==false){me.userData.tag=tag;pickables.push(me)}return me};
+    add(new THREE.BoxGeometry(it.L,0.25,it.W),itemMat(tag,'steel')).position.y=0.125;
+    const mo=add(cyl(it.W*0.3,it.W*0.3,it.L*0.45,16),m); mo.rotation.z=Math.PI/2; mo.position.set(-it.L*0.2,0.25+it.W*0.3,0);
+    const ca=add(cyl(it.W*0.38,it.W*0.38,it.W*0.6,16),m); ca.rotation.x=Math.PI/2; ca.position.set(it.L*0.3,0.25+it.W*0.38,0);
+    return;
+  }
+  if(it.type==='Air cooler'){
+    const m=itemMat(tag,'ac'), grp=new THREE.Group(); grp.position.copy(W3(it.x,it.y,it.z_base)); grp.rotation.y=rot; scene.add(grp);
+    const add=(g,mm,pick)=>{const me=new THREE.Mesh(g,mm);me.castShadow=true;me.receiveShadow=true;grp.add(me);(groups[tag]=groups[tag]||[]).push(me);if(pick!==false){me.userData.tag=tag;pickables.push(me)}return me};
+    add(new THREE.BoxGeometry(it.L*0.92,0.8,it.W*0.96),m).position.y=1.0;
+    [-1,1].forEach(s=>{add(new THREE.BoxGeometry(0.5,2.2,it.W*0.96),m).position.set(s*(it.L/2-0.25),1.1,0)});
+    const fd=(it.fan_deck_el??it.z_base-2)-it.z_base;
+    add(frustumBox(it.L*0.8,it.W*0.8,it.L*0.92,it.W*0.96,Math.max(0.5,-fd+0.6)),itemMat(tag,'steel')).position.y=Math.min(-0.5,fd);
+    const nf=it.fans||2; for(let k=0;k<nf;k++){const f=add(cyl(1.9,1.9,0.5,24),itemMat(tag,'steel'));f.position.set((k-(nf-1)/2)*it.L/nf,Math.min(-0.5,fd)-0.25,0)}
+    return;
+  }
+  const kind=it.type==='Package'?'pkg':'pkg';
+  const g=new THREE.BoxGeometry(it.L,it.height,it.W); const me=addMesh(g,itemMat(tag,kind),tag); me.position.copy(W3(it.x,it.y,it.z_base+it.height/2)); me.rotation.y=rot;
+  if(it.type==='Fan'){const c=addMesh(cyl(it.W*0.45,it.W*0.45,it.W*0.5,20),itemMat(tag,'steel'),tag);c.rotation.x=Math.PI/2;c.position.copy(W3(it.x+it.L*0.25,it.y,it.z_base+it.height*0.55))}
+}
+function buildHeater(it){
+  const tag=it.parent_tag, m=itemMat(tag,'heater'), st=itemMat(tag,'stack'), R=it.radiant, Cv=it.convection, S=it.stack;
+  const pl=addMesh(new THREE.BoxGeometry(R.L-0.8,R.z0-GR,R.W-0.8),MAT.steel,tag,false); pl.position.copy(W3(it.x,it.y,GR+(R.z0-GR)/2));
+  const cells=it.cells||1, gap=cells>1?1.6:0, cw=(R.W-gap*(cells-1))/cells;
+  for(let c=0;c<cells;c++){const yy=it.y-R.W/2+cw/2+c*(cw+gap); addMesh(new THREE.BoxGeometry(R.L,R.z1-R.z0,cw),m,tag).position.copy(W3(it.x,yy,R.z0+(R.z1-R.z0)/2))}
+  const band=addMesh(new THREE.BoxGeometry(R.L+1.2,0.18,R.W+1.2),MAT.plat,tag,false); band.position.copy(W3(it.x,it.y,R.z1));
+  addMesh(frustumBox(Math.min(R.L,Cv.L+4),Math.min(R.W,Cv.W+3),Cv.L,Cv.W,1.4),m,tag).position.copy(W3(it.x,it.y,R.z1));
+  addMesh(new THREE.BoxGeometry(Cv.L,Cv.z1-Cv.z0-1.4,Cv.W),m,tag).position.copy(W3(it.x,it.y,Cv.z0+1.4+(Cv.z1-Cv.z0-1.4)/2));
+  addMesh(frustumBox(Cv.L*0.6,Cv.W,S.D*1.1,S.D*1.1,2.0),st,tag).position.copy(W3(S.x,S.y,Cv.z1));
+  addMesh(cyl(S.D/2,S.D/2*1.05,S.z1-S.z0-2,24),st,tag).position.copy(W3(S.x,S.y,S.z0+2+(S.z1-S.z0-2)/2));
+  const tp=addMesh(cyl(S.D/2+0.6,S.D/2+0.6,0.15,24),MAT.plat,tag,false); tp.position.copy(W3(S.x,S.y,S.z1-1.2));
+}
+
+let railMat=null, gridMat=null, frameMat=null, tubeMats=[], blobMat=null;
+let particleSys=null, PATHS=[];
+const labelsEl=$('#labels'); const LABELS=[];
+
+if(renderer){
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  railMat=new THREE.LineBasicMaterial({color:0x888888,transparent:true,opacity:.6});
+  gridMat=new THREE.LineBasicMaterial({color:0x888888,transparent:true,opacity:.5});
+  frameMat=new THREE.LineBasicMaterial({color:0x888888});
+
+  /* lights */
+  var hemi=new THREE.HemisphereLight(0xffffff,0x888888,.62); scene.add(hemi);
+  var sun=new THREE.DirectionalLight(0xffffff,.85); sun.position.set(-70,170,110); sun.castShadow=true;
+  sun.shadow.mapSize.set(2048,2048); Object.assign(sun.shadow.camera,{left:-150,right:150,top:110,bottom:-110,near:10,far:450}); sun.shadow.bias=-0.0006; sun.shadow.normalBias=0.4;
+  scene.add(sun); scene.add(sun.target);
+  var fill=new THREE.DirectionalLight(0xffffff,.22); fill.position.set(120,60,-90); scene.add(fill);
+
+  /* grade, roads, areas, grid, frame */
+  const PW=GEO.frame.plot_x, PH=GEO.frame.plot_y;
+  var grade=new THREE.Mesh(new THREE.PlaneGeometry(PW+60,PH+60),MAT.grade); grade.rotation.x=-Math.PI/2; grade.position.y=-0.02; grade.receiveShadow=true; scene.add(grade);
+  const flat=(r,mat,y)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(r.x1-r.x0,r.y1-r.y0),mat);m.rotation.x=-Math.PI/2;m.position.copy(W3((r.x0+r.x1)/2,(r.y0+r.y1)/2,GR+y));m.receiveShadow=true;scene.add(m)};
+  GEO.roads.forEach(r=>flat(r,MAT.road,0.01)); GEO.areas.forEach(r=>flat(r,MAT.area,0.005));
+  const gp=[]; for(let x=0;x<=PW;x+=10){gp.push(W3(x,0,GR+0.02),W3(x,PH,GR+0.02))} for(let y=0;y<=PH;y+=10){gp.push(W3(0,y,GR+0.02),W3(PW,y,GR+0.02))}
+  scene.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(gp),gridMat));
+  scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints([W3(0,0,GR+.05),W3(PW,0,GR+.05),W3(PW,PH,GR+.05),W3(0,PH,GR+.05)]),frameMat));
+  GEO.buildings.forEach(b=>{const m=addMesh(new THREE.BoxGeometry(b.x1-b.x0,b.height,b.y1-b.y0),MAT.bldg);m.position.copy(W3((b.x0+b.x1)/2,(b.y0+b.y1)/2,GR+b.height/2))});
+
+  /* pipe rack + ejector structure: instanced steel */
+  const RK=GEO.rack, tiers=RK.tiers.map(t=>t.el), topT=Math.max(...tiers);
+  const steelBoxes=[]; // [cx,cy,cz(el centre),sx,sy(h),sz]
+  RK.bents_x.forEach(x=>{[RK.y0,RK.y1].forEach(y=>steelBoxes.push([x,y,GR+(topT-GR)/2,0.4,topT-GR,0.4])); tiers.forEach(el=>steelBoxes.push([x,(RK.y0+RK.y1)/2,el,0.3,0.45,RK.y1-RK.y0]))});
+  for(let i=0;i<RK.bents_x.length-1;i++){const xa=RK.bents_x[i],xb=RK.bents_x[i+1];[RK.y0,RK.y1].forEach(y=>[tiers[0],topT].forEach(el=>steelBoxes.push([(xa+xb)/2,y,el,xb-xa,0.4,0.25])))}
+  ITEMS.filter(it=>it.type==='Air cooler').forEach(it=>{const fd=it.fan_deck_el||113;[[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([a,b])=>steelBoxes.push([it.x+a*2.8,it.y+b*5.6,topT+(fd-topT)/2,0.3,fd-topT,0.3]))});
+  const EJ=GEO.ejector;
+  [[EJ.x0,EJ.y0],[EJ.x1,EJ.y0],[EJ.x1,EJ.y1],[EJ.x0,EJ.y1]].forEach(([x,y])=>steelBoxes.push([x,y,GR+(EJ.top-GR)/2,0.4,EJ.top-GR,0.4]));
+  const inst=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),MAT.steel,steelBoxes.length); inst.castShadow=true; inst.receiveShadow=true;
+  steelBoxes.forEach((b,i)=>{const p=W3(b[0],b[1],b[2]);tmpM.compose(p,new THREE.Quaternion(),new THREE.Vector3(b[3],b[4],b[5]));inst.setMatrixAt(i,tmpM)}); scene.add(inst);
+  EJ.levels.forEach(el=>{const m=new THREE.Mesh(new THREE.BoxGeometry(EJ.x1-EJ.x0,0.15,EJ.y1-EJ.y0),MAT.plat);m.position.copy(W3((EJ.x0+EJ.x1)/2,(EJ.y0+EJ.y1)/2,el));m.receiveShadow=true;m.castShadow=true;scene.add(m)});
+  // pipes on the rack (suggestive, not from the line list)
+  const pipeSpec=[]; tiers.forEach((el,ti)=>{const n=[9,8,7][ti]||6;for(let k=0;k<n;k++){const d=[0.6,0.35,0.45,0.3,0.5,0.25,0.4,0.3,0.55][(k+ti*3)%9];pipeSpec.push([RK.y0+0.9+k*(RK.y1-RK.y0-1.8)/(n-1),el+0.23+d/2,d,(k+ti)%3===0])}});
+  ['pipe','pipeIns'].forEach(kind=>{
+    const ps=pipeSpec.filter(p=>(kind==='pipeIns')===p[3]); const im=new THREE.InstancedMesh(cyl(1,1,1,10),MAT[kind],ps.length); im.castShadow=true; im.receiveShadow=true;
+    const q=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),Math.PI/2);
+    ps.forEach((p,i)=>{tmpM.compose(W3((RK.x0+RK.x1)/2,p[0],p[1]),q,new THREE.Vector3(p[2]/2,RK.x1-RK.x0,p[2]/2));im.setMatrixAt(i,tmpM)}); scene.add(im);
+  });
+
+  /* equipment */
+  ITEMS.forEach(it=>{ if(it.shape==='vcyl')buildVcyl(it); else if(it.shape==='hcyl')buildHcyl(it); else if(it.shape==='heater')buildHeater(it); else buildBox(it); });
+
+  /* cheap ambient occlusion: soft contact blobs under the bigger items */
+  const bc=document.createElement('canvas'); bc.width=bc.height=64; const bx=bc.getContext('2d'); const gr=bx.createRadialGradient(32,32,4,32,32,32);
+  gr.addColorStop(0,'rgba(0,0,0,1)'); gr.addColorStop(1,'rgba(0,0,0,0)'); bx.fillStyle=gr; bx.fillRect(0,0,64,64);
+  blobMat=new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(bc),transparent:true,depthWrite:false,opacity:.22,color:0x000000});
+  ITEMS.forEach(it=>{ if(it.z_base-GR>4||it.type==='Pump')return; const L=(it.rotation%180)?it.W:it.L, Wd=(it.rotation%180)?it.L:it.W;
+    const m=new THREE.Mesh(new THREE.PlaneGeometry(L*1.5+2,Wd*1.5+2),blobMat); m.rotation.x=-Math.PI/2; m.position.copy(W3(it.x,it.y,GR+0.03)); m.renderOrder=1; scene.add(m) });
+
+  /* labels */
+  [['C-101','C-101'],['C-201','C-201'],['H-101','H-101'],['H-201','H-201'],['C-105','C-105'],['C-106','C-106'],['D-101A','D-101A/B'],['D-102','D-102'],['A-101-B2','A-101'],['E-108B','Preheat train'],['C-103','C-102/3/4'],['J-202','Ejectors']].forEach(([t,txt])=>{
+    const it=IT[t]; const el=document.createElement('div'); el.className='lbl'; el.textContent=txt; labelsEl.appendChild(el);
+    const top=(it.shape==='heater'?it.top_el:it.top_el)+2.5; LABELS.push({el,p:W3(it.x,it.y,top),tag:it.parent_tag});
+  });
+}
+
+/* ------------------------------------------------------------------ FLOW PATHS ("follow the barrel") */
+function A(tag,noz){
+  const it=IT[tag]; if(!it) throw new Error('no item '+tag);
+  if(noz&&it.noz&&it.noz[noz])return it.noz[noz].slice();
+  if(it.shape==='vcyl')return [it.x,it.y,(it.z_base+it.top_el)/2];
+  if(it.shape==='hcyl')return [it.x,it.y,it.z_axis??(it.z_base+it.D/2)];
+  if(it.type==='Pump')return [it.x,it.y,it.z_base+it.height+0.3];
+  if(it.type==='Air cooler')return [it.x,it.y,it.z_base+1.0];
+  return [it.x,it.y,it.z_base+it.height/2];
+}
+const TI=GEO.rack.tiers.map(t=>t.el), T1=TI[0], T2=TI[1];
+const EAST=GEO.frame.plot_x+6, WEST=-6;
+function route(spec){ // spec: array of [x,y,el] points and numbers (travel elevation for following legs)
+  let H=null, out=[]; let prev=null;
+  const push=p=>{const q=out[out.length-1];if(!q||Math.hypot(q[0]-p[0],q[1]-p[1],q[2]-p[2])>0.01)out.push(p)};
+  spec.forEach(s=>{
+    if(typeof s==='number'){H=s;return}
+    if(!prev){push(s);prev=s;return}
+    const a=prev,b=s, h=H==null?Math.max(a[2],b[2]):H;
+    if(Math.abs(a[2]-b[2])<0.01&&(Math.abs(a[0]-b[0])<0.01||Math.abs(a[1]-b[1])<0.01)){push(b)}
+    else{push([a[0],a[1],h]);push([b[0],a[1],h]);push([b[0],b[1],h]);push(b)}
+    prev=s;
+  });
+  return out;
+}
+const FLOW_DEF=[
+ // id, product colour, kg/h, stages, spec
+ ['crude','CRUDE',SBY['1'].kg,['crude'],[[WEST,72,T1],[14,72,T1],A('P-101A'),104,A('E-101')]],
+ ['cold','CRUDE',SBY['1'].kg,['cold'],[A('E-101'),103.2,A('E-102'),A('E-103A'),A('E-103B'),A('E-104'),A('E-105')]],
+ ['desalt','CRUDE',SBY['2'].kg,['desalt'],[A('E-105'),T1,A('D-101A','inlet'),A('D-101A','outlet'),106.5,A('D-101B','inlet'),A('D-101B','outlet'),T1,A('P-102A')]],
+ ['hot','CRUDE',SBY['5'].kg,['hot'],[A('P-102A'),T1,A('E-106A'),103.4,A('E-106B'),A('E-107'),A('E-108A'),A('E-108B'),A('E-108C'),A('E-108D'),A('E-109'),A('E-110A'),A('E-110B'),104,A('E-111A'),103.4,A('E-111B')]],
+ ['toH101','CRUDE',SBY['6'].kg,['hot','h101'],[A('E-111B'),T1,[16,72,T1],[98,72,T1],129,A('H-101','inlet')]],
+ ['transfer','CRUDE',SBY['7'].kg,['h101','c101'],[A('H-101','outlet'),T1+0.6,A('C-101','feed')]],
+ ['oh','HN',SBY['8'].kg,['light','c101'],[A('C-101','overhead'),[95,98,146.4],[95,92.6,146.4],118.6,[81,92.6,118.6],[81,77,118.6],A('A-101-B2'),110,A('D-102','inlet')]],
+ ['unstab','HN',SBY['11'].kg,['light'],[A('D-102','liquid_outlet'),104,A('P-104A'),112.38,A('C-105','feed')]],
+ ['lpg','LPG',PROD.LPG.kg,['light'],[A('C-105','overhead'),[64,100,123.6],123.6,A('A-106'),113,A('D-105'),104,A('P-115A'),T2,[63,71.5,T2],[WEST,71.5,T2]]],
+ ['stabN','HN',SBY['31'].kg,['light'],[A('C-105','bottoms'),[64,102.6,103.5],121,A('C-106','feed')]],
+ ['ln','LN',PROD.LN.kg,['light'],[A('C-106','overhead'),[52,100,137.4],137.4,A('A-107-B1'),113,A('D-106'),104,A('P-116A'),T2,[50,72.5,T2],[WEST,72.5,T2]]],
+ ['hn','HN',PROD.HN.kg,['light'],[A('C-106','bottoms'),[52,102.6,105.2],104,A('P-117A'),118.6,A('A-108'),[63,73.5,T2],[WEST,73.5,T2]]],
+ ['kero','KERO',PROD.KERO.kg,['side'],[A('C-101','kero_draw'),134.8,A('C-102','feed'),A('C-102','bottoms'),103.6,A('P-109A'),118.6,A('A-103'),[111,71.5,T2],[EAST,71.5,T2]]],
+ ['diesel','DIESEL',PROD.DIESEL.kg,['side'],[A('C-101','diesel_draw'),127,A('C-103','feed'),A('C-103','bottoms'),103.6,A('P-110A'),118.6,A('A-104'),[117,72.5,T2],[EAST,72.5,T2]]],
+ ['ago','AGO',PROD.AGO.kg,['side'],[A('C-101','ago_draw'),120.5,A('C-104','feed'),A('C-104','bottoms'),103.6,A('P-111A'),118.6,A('A-105'),[123,73.5,T2],[EAST,73.5,T2]]],
+ ['ar','AR',SBY['19'].kg,['h201'],[A('C-101','bottoms'),[95,92.4,105.1],104,A('P-112A'),T1,[92,78,T1],[172,78,T1],124.2,A('H-201','inlet')]],
+ ['vtransfer','AR',SBY['21'].kg,['h201','c201'],[A('H-201','outlet'),T1+0.6,A('C-201','feed')]],
+ ['lvgo','LVGO',PROD.LVGO.kg,['c201'],[A('C-201','lvgo_draw'),[175,92.2,138.5],104,A('P-201A'),118.6,A('A-201'),[159,74.5,T2],[EAST,74.5,T2]]],
+ ['hvgo','HVGO',PROD.HVGO.kg,['c201'],[A('C-201','hvgo_draw'),[176.1,92.2,134],104,A('P-202A'),118.6,A('A-202'),[165,75.5,T2],[EAST,75.5,T2]]],
+ ['slop','SLOP',PROD.SLOP.kg,['c201','vr'],[A('C-201','slop_wax_draw'),[176.1,92.2,124.2],104,A('P-203A'),T2,[178.5,76.5,T2],[EAST,76.5,T2]]],
+ ['vr','VR',PROD.VR.kg,['vr'],[A('C-201','bottoms'),[175,92.2,109.3],104,A('P-204A'),T1,[172,77.5,T1],[EAST,77.5,T1]]],
+];
+let flowOn=true;
+const sprite=(()=>{const c=document.createElement('canvas');c.width=c.height=32;const x=c.getContext('2d');const g=x.createRadialGradient(16,16,0,16,16,16);
+  g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.45,'rgba(255,255,255,.85)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(0,0,32,32);return c})();
+if(renderer){
+  let total=0;
+  FLOW_DEF.forEach(([id,col,kg,stages,spec])=>{
+    const pts=route(spec).map(p=>W3(p[0],p[1],p[2]));
+    const cum=[0]; for(let i=1;i<pts.length;i++)cum.push(cum[i-1]+pts[i].distanceTo(pts[i-1]));
+    const len=cum[cum.length-1]; const step=1; const samp=[];
+    for(let s=0,j=0;s<=len;s+=step){while(j<pts.length-2&&cum[j+1]<s)j++;const t=(s-cum[j])/Math.max(1e-6,cum[j+1]-cum[j]);samp.push(pts[j].clone().lerp(pts[j+1],Math.min(1,Math.max(0,t))))}
+    const n=Math.max(8,Math.round(len*(0.10+0.0006*kg/1000)));
+    // faint tube marking the route
+    const path=new THREE.CurvePath(); for(let i=1;i<pts.length;i++)path.add(new THREE.LineCurve3(pts[i-1],pts[i]));
+    const tm=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.3,depthWrite:false}); tubeMats.push(tm);
+    const tube=new THREE.Mesh(new THREE.TubeGeometry(path,Math.max(8,Math.ceil(len/1.5)),0.22,6,false),tm); scene.add(tube);
+    PATHS.push({id,col,stages,len,samp,n,tm,tube,emph:1,emphT:1}); total+=n;
+  });
+  const pos=new Float32Array(total*3), colr=new Float32Array(total*3), meta=[];
+  PATHS.forEach((p,pi)=>{for(let k=0;k<p.n;k++)meta.push([pi,(k/p.n)*p.len+Math.random()*0.6])});
+  const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(pos,3)); g.setAttribute('color',new THREE.BufferAttribute(colr,3));
+  const pm=new THREE.PointsMaterial({size:1.7,sizeAttenuation:true,vertexColors:true,map:new THREE.CanvasTexture(sprite),transparent:true,depthWrite:false,alphaTest:0.02});
+  particleSys=new THREE.Points(g,pm); particleSys.frustumCulled=false; particleSys.userData.meta=meta; scene.add(particleSys);
+}
+function updateParticles(t){
+  if(!particleSys)return;
+  const meta=particleSys.userData.meta, pos=particleSys.geometry.attributes.position.array, col=particleSys.geometry.attributes.color.array;
+  const sp=reduced?0:11; const bg=TC.bg;
+  for(let i=0;i<meta.length;i++){
+    const [pi,s0]=meta[i], p=PATHS[pi]; let s=(s0+t*sp)%p.len; const k=Math.floor(s), f=s-k;
+    const a=p.samp[Math.min(k,p.samp.length-1)], b=p.samp[Math.min(k+1,p.samp.length-1)];
+    pos[i*3]=a.x+(b.x-a.x)*f; pos[i*3+1]=a.y+(b.y-a.y)*f; pos[i*3+2]=a.z+(b.z-a.z)*f;
+    const c=p.c, e=p.emph; col[i*3]=bg.r+(c.r-bg.r)*e; col[i*3+1]=bg.g+(c.g-bg.g)*e; col[i*3+2]=bg.b+(c.b-bg.b)*e;
+  }
+  particleSys.geometry.attributes.position.needsUpdate=true; particleSys.geometry.attributes.color.needsUpdate=true;
+}
+
+/* ------------------------------------------------------------------ apply theme to 3D */
+function applyTheme(){
+  if(!renderer)return;
+  TC=themeColors();
+  scene.background=TC.bg.clone(); scene.fog=new THREE.Fog(TC.bg.clone(),420,900);
+  const set=(k,c)=>{MAT[k].color.copy(c)};
+  ['column','heater','hx','drum','ac','pump','pkg','steel','plat','grade','road','area','bldg','skirt','pipe','pipeIns','stack','refr'].forEach(k=>set(k,TC[k]||TC.base));
+  Object.keys(itemMats).forEach(tag=>itemMats[tag].forEach(m=>{m.color.copy(TC[m.userData.kind]||TC.base)}));
+  railMat.color.copy(TC.steel); gridMat.color.copy(TC.grid); frameMat.color.copy(TC.frame);
+  hemi.color.set(0xffffff); hemi.groundColor.copy(TC.grade); hemi.intensity=TC.dark?.55:.62; sun.intensity=TC.dark?.78:.85;
+  blobMat.opacity=TC.dark?.35:.2;
+  PATHS.forEach(p=>{p.c=C(css(PCOL[p.col])); p.tm.color.copy(p.c)});
+  particleSys.material.blending=TC.dark?THREE.AdditiveBlending:THREE.NormalBlending; particleSys.material.needsUpdate=true;
+  refreshHighlights();
+}
+
+/* ------------------------------------------------------------------ camera controls */
+const cam={t:new THREE.Vector3(0,8,0),r:250,th:0.62,ph:0.98}; let tween=null; let lastInteract=performance.now(); let spin=!reduced;
+function camApply(){const s=Math.sin(cam.ph);camera.position.set(cam.t.x+cam.r*s*Math.sin(cam.th),cam.t.y+cam.r*Math.cos(cam.ph),cam.t.z+cam.r*s*Math.cos(cam.th));camera.lookAt(cam.t)}
+function flyTo(v,dur){
+  const to={t:W3(v.t[0],v.t[1],v.t[2]),r:v.r,th:v.th??cam.th,ph:v.ph??cam.ph};
+  let dth=to.th-cam.th; dth=((dth+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI; to.th=cam.th+dth;
+  if(reduced||dur===0){Object.assign(cam,{t:to.t,r:to.r,th:to.th,ph:to.ph});tween=null;return}
+  tween={from:{t:cam.t.clone(),r:cam.r,th:cam.th,ph:cam.ph},to,t0:performance.now(),d:dur||1700};
+}
+function stepTween(now){
+  if(!tween)return; const k=Math.min(1,(now-tween.t0)/tween.d), e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2, f=tween.from,to=tween.to;
+  cam.t.lerpVectors(f.t,to.t,e); cam.r=f.r+(to.r-f.r)*e; cam.th=f.th+(to.th-f.th)*e; cam.ph=f.ph+(to.ph-f.ph)*e; if(k>=1)tween=null;
+}
+const ptrs=new Map(); let dragMode=null, moved=0, pinch0=null;
+function interact(){lastInteract=performance.now();tween=null;if(tour.playing)setPlay(false)}
+function pan(dx,dy){const s=cam.r*0.0016;const right=new THREE.Vector3(Math.cos(cam.th),0,-Math.sin(cam.th));const fwd=new THREE.Vector3(-Math.sin(cam.th),0,-Math.cos(cam.th));
+  cam.t.addScaledVector(right,-dx*s).addScaledVector(fwd,dy*s); cam.t.x=Math.max(-150,Math.min(150,cam.t.x)); cam.t.z=Math.max(-110,Math.min(110,cam.t.z))}
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});moved=0;
+  dragMode=(e.button===2||e.shiftKey)?'pan':'rot'; if(ptrs.size===2){const [a,b]=[...ptrs.values()];pinch0={d:Math.hypot(a.x-b.x,a.y-b.y),r:cam.r,mx:(a.x+b.x)/2,my:(a.y+b.y)/2}} canvas.classList.add('drag')});
+canvas.addEventListener('pointermove',e=>{
+  const p=ptrs.get(e.pointerId);
+  if(!p){hoverAt(e);return}
+  const dx=e.clientX-p.x, dy=e.clientY-p.y; p.x=e.clientX;p.y=e.clientY; moved+=Math.abs(dx)+Math.abs(dy);
+  if(moved>4)interact();
+  if(ptrs.size===2&&pinch0){const [a,b]=[...ptrs.values()];const d=Math.hypot(a.x-b.x,a.y-b.y);cam.r=Math.max(25,Math.min(520,pinch0.r*pinch0.d/Math.max(1,d)));
+    const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;pan(mx-pinch0.mx,my-pinch0.my);pinch0.mx=mx;pinch0.my=my;return}
+  if(dragMode==='pan')pan(dx,dy); else {cam.th-=dx*0.0055;cam.ph=Math.max(0.12,Math.min(1.48,cam.ph-dy*0.0045))}
+});
+const endPtr=e=>{const was=ptrs.has(e.pointerId);ptrs.delete(e.pointerId);if(ptrs.size<2)pinch0=null;canvas.classList.remove('drag');
+  if(was&&moved<5&&e.type==='pointerup'&&ptrs.size===0){const t=pickAt(e);if(t)select(t);else select(null)}};
+canvas.addEventListener('pointerup',endPtr); canvas.addEventListener('pointercancel',endPtr);
+canvas.addEventListener('pointerleave',()=>{setHover(null)});
+canvas.addEventListener('wheel',e=>{e.preventDefault();interact();cam.r=Math.max(25,Math.min(520,cam.r*Math.exp(e.deltaY*0.0011)))},{passive:false});
+canvas.addEventListener('keydown',e=>{const k=e.key;let h=true;
+  if(k==='ArrowLeft')cam.th+=0.08;else if(k==='ArrowRight')cam.th-=0.08;else if(k==='ArrowUp')cam.ph=Math.max(0.12,cam.ph-0.06);else if(k==='ArrowDown')cam.ph=Math.min(1.48,cam.ph+0.06);
+  else if(k==='+'||k==='=')cam.r=Math.max(25,cam.r*0.88);else if(k==='-')cam.r=Math.min(520,cam.r*1.12);else if(k==='Escape')select(null);else h=false;
+  if(h){e.preventDefault();interact()}});
+
+/* ------------------------------------------------------------------ picking + highlight */
+const ray=new THREE.Raycaster(), mv=new THREE.Vector2(); let hoverTag=null, selTag=null, focusTags=new Set();
+function pickAt(e){ if(!renderer)return null; const r=canvas.getBoundingClientRect(); mv.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);
+  ray.setFromCamera(mv,camera); const h=ray.intersectObjects(pickables,false); return h.length?h[0].object.userData.tag:null }
+let hoverQ=null;
+function hoverAt(e){hoverQ=e}
+function doHover(){ if(!hoverQ)return; const e=hoverQ; hoverQ=null; const t=pickAt(e); setHover(t,e) }
+const tip=$('#tip');
+function setHover(t,e){
+  if(t!==hoverTag){hoverTag=t;refreshHighlights();canvas.classList.toggle('pick',!!t)}
+  if(t&&e){const c=CARDS[t];const r=viewer.getBoundingClientRect();tip.hidden=false;tip.innerHTML=`<span class="tag">${esc(t)}</span> · ${esc(c?c.service:'')}`;
+    const x=Math.min(e.clientX-r.left+14,r.width-tip.offsetWidth-6);tip.style.left=x+'px';tip.style.top=(e.clientY-r.top+14)+'px'} else tip.hidden=true;
+}
+function refreshHighlights(){
+  if(!TC)return; const acc=TC.accent;
+  Object.keys(itemMats).forEach(tag=>{const on=tag===selTag?(TC.dark?0.30:0.36):tag===hoverTag?(TC.dark?0.2:0.26):focusTags.has(tag)?(TC.dark?0.17:0.22):0;
+    itemMats[tag].forEach(m=>{m.emissive.copy(acc).multiplyScalar(on)})});
+  LABELS.forEach(l=>l.el.classList.toggle('f',focusTags.has(l.tag)||l.tag===selTag));
+}
+
+/* ------------------------------------------------------------------ equipment card */
+const cardEl=$('#card');
+const unitP=v=>v==null?'–':(/[a-z]/i.test(String(v))?esc(v):esc(v)+' barg');
+function streamRow(no,dir){const s=SBY[no];if(!s)return'';
+  const q=[s.T!=null?fmt(s.T,0)+' °C':'',s.kg?fmt(s.kg/1000,1)+' t/h':'',s.bpsd?fmt(s.bpsd)+' BPSD':''].filter(Boolean).join(' · ');
+  return `<div class="srow"><span class="d">${dir==='in'?'→ in':'out →'}</span><span class="n">${esc(no)}</span><span>${esc(s.name)} <span class="w">${dir==='in'?'from':'to'} <span class="mono">${esc(dir==='in'?s.frm:s.to)}</span></span></span><span class="q">${q}</span></div>`}
+function select(tag){
+  selTag=tag; refreshHighlights(); tip.hidden=true;
+  if(!tag){cardEl.hidden=true;return}
+  const c=CARDS[tag]; if(!c){cardEl.hidden=true;return}
+  const rows=[];
+  const add=(k,v)=>{if(v!=null&&v!=='')rows.push(`<dt>${k}</dt><dd>${v}</dd>`)};
+  add('Size',esc(c.size||''));
+  if(c.internals)add('Internals',esc(c.internals));
+  if(c.shellside)add('Shell / tube',esc(c.shellside+' / '+c.tubeside)+(c.tema?` <span class="mono">(TEMA ${esc(c.tema)})</span>`:''));
+  if(c.op_P!=null||c.op_T!=null)add('Operating',`<span class="mono">${c.op_P!=null?unitP(c.op_P):''}${c.op_P!=null&&c.op_T!=null?' · ':''}${c.op_T!=null?esc(c.op_T)+' °C':''}</span>`);
+  if(c.des_P!=null||c.des_T!=null)add('Design',`<span class="mono">${c.des_P!=null?unitP(c.des_P):''}${c.des_P!=null&&c.des_T!=null?' · ':''}${c.des_T!=null?esc(c.des_T)+' °C':''}</span>`);
+  add('MOC',esc(c.moc||''));
+  if(c.wt_e)add('Weight',`<span class="mono">${fmt(c.wt_e,1)} t ${c.wt_each?'each':'empty'}${c.wt_o&&!c.wt_each?' · '+fmt(c.wt_o,1)+' t operating':''}</span>`);
+  if(c.key)add('Key duty',esc(c.key)); else if(c.duty_kw)add('Duty',`<span class="mono">${fmt(c.duty_kw/1000,2)} MW</span>`);
+  if(c.flow_m3h)add('Rated',`<span class="mono">${fmt(c.flow_m3h)} m³/h · ${fmt(c.head_m)} m · ${fmt(c.motor_kw)} kW motor</span>${c.api610?` <span class="mono">API 610 ${esc(c.api610)}</span>`:''}`);
+  else if(c.motor_kw)add('Motor',`<span class="mono">${fmt(c.motor_kw)} kW</span>`);
+  if(c.residence_min)add('Residence',`<span class="mono">${fmt(c.residence_min,1)} min</span>`);
+  if(c.cost_k)add('Purchased',`<span class="mono">USD ${fmt(c.cost_k/1000,2)} M</span> <span style="color:var(--dim)">(2026 USGC, ${esc(G.cls)})</span>`);
+  const sIn=(c.s_in||[]).map(n=>streamRow(n,'in')).join(''), sOut=(c.s_out||[]).map(n=>streamRow(n,'out')).join('');
+  cardEl.innerHTML=`<div class="hd"><div><div class="tg">${esc(tag)}</div><div class="ty">${esc(c.type)}</div></div><button class="x" type="button" aria-label="Close equipment card">×</button></div>
+    <div class="svc">${esc(c.service)}</div><dl>${rows.join('')}</dl>
+    ${sIn||sOut?`<h3>Heat and material balance streams</h3>${sIn}${sOut}`:''}
+    ${c.psv&&c.psv.length?`<h3>Relief</h3>${c.psv.map(p=>`<div class="srow" style="grid-template-columns:1fr"><span class="mono" style="font-size:11.5px">${esc(p)}</span></div>`).join('')}`:''}
+    <button class="btn fly" type="button">Fly to ${esc(tag)}</button>
+    <div class="note">From equipment list, mechanical calcs, H&amp;MB and cost estimate (FEED Rev A).</div>`;
+  cardEl.hidden=false;
+  cardEl.querySelector('.x').addEventListener('click',()=>{select(null);canvas.focus()});
+  cardEl.querySelector('.fly').addEventListener('click',()=>{interact();flyTo(viewFor([tag]),1400)});
+}
+function itemsOf(parent){return ITEMS.filter(i=>i.parent_tag===parent||i.tag===parent)}
+function viewFor(tags,opts){
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9,z0=1e9,z1=-1e9;
+  tags.forEach(t=>itemsOf(t).forEach(it=>{const hl=Math.max(it.L,it.W)/2;x0=Math.min(x0,it.x-hl);x1=Math.max(x1,it.x+hl);y0=Math.min(y0,it.y-hl);y1=Math.max(y1,it.y+hl);z0=Math.min(z0,it.z_base);z1=Math.max(z1,it.top_el)}));
+  const ext=Math.max(x1-x0,y1-y0,(z1-GR)*1.1,12);
+  return Object.assign({t:[(x0+x1)/2,(y0+y1)/2,GR+Math.min(14,(z1-GR)*0.42)],r:ext*2.1+22},opts||{});
+}
+
+/* ------------------------------------------------------------------ narrated tour */
+const pr=k=>PROD[k];
+const mw=kw=>fmt(kw/1000,1);
+const STOPS=[
+ {title:'Your unit at a glance',focus:[],stages:null,view:{t:[CX,CY+4,106],r:205,th:0.62,ph:0.97},
+  text:()=>`${fmt(G.bpsd)} BPSD of ${G.crude} (${G.api} API, ${G.S} wt% sulfur) on a ${G.plot[0]} × ${G.plot[1]} m plot. The coloured flow is one barrel's path, from crude to ${G.n_products} products. Drag to orbit, scroll to zoom, click any item for its card.`},
+ {title:'Crude in',focus:['P-101A/B'],stages:['crude'],view:{t:[20,80,103],r:70,th:0.35,ph:1.0},
+  text:()=>`Crude arrives from tankage at ${fmt(P.T_in)} °C: ${fmt(P.crude.kg_h/1000)} t/h. Charge pumps P-101A/B (one running, one spare) deliver ${fmt(P.P101.flow)} m³/h against ${fmt(P.P101.head)} m of head on ${fmt(P.P101.kw)} kW motors.`},
+ {title:'Cold preheat',focus:['E-101','E-102','E-103','E-104','E-105'],stages:['cold'],view:{t:[28,106,102],r:60,th:0.2,ph:0.95},
+  text:()=>`${P.n_cold} exchanger services take ${mw(P.Q_cold)} MW from the top pumparound, kerosene, LVGO, diesel and vacuum residue, warming the crude from ${fmt(P.T_in)} to ${fmt(P.T_desalter)} °C for the desalters.`},
+ {title:'Desalting',focus:['D-101A','D-101B'],stages:['desalt'],view:{t:[36,48,103],r:80,th:0.55,ph:0.95},
+  text:()=>`Two electrostatic desalters in series at ${fmt(P.T_desalter)} °C, ${fmt(P.D101_res,1)} min residence each, wash the salt out with ${fmt(P.wash/1000,1)} t/h of water. Less salt in the column means less HCl in the overhead and a longer run between turnarounds.`},
+ {title:'Hot preheat',focus:['E-106','E-107','E-108','E-109','E-110','E-111'],stages:['hot'],view:{t:[28,98,102],r:66,th:-0.25,ph:0.95},
+  text:()=>{const rec=P.Q_cold+P.Q_hot;return `${P.n_hot} more services recover ${mw(P.Q_hot)} MW from the pumparounds, gas oils and residue. Crude reaches the heater at ${fmt(P.cit)} °C. In total the train recovers ${mw(rec)} MW, ${fmt(100*rec/(rec+P.H101.Q_proc_kw))} % of all the heat the crude needs.`}},
+ {title:'H-101 crude heater',focus:['H-101'],stages:['h101'],view:{t:[98,40,112],r:95,th:0.75,ph:1.05},
+  text:()=>`H-101 heats ${fmt(P.H101.flow/1000)} t/h of crude from ${fmt(P.H101.T_in)} to ${fmt(P.H101.T_out)} °C using ${mw(P.H101.Q_fired_kw)} MW of fired duty: ${mw(P.H101.Q_abs_kw)} MW absorbed at ${fmt(P.H101.eff*100)} % efficiency with air preheat, on ${fmt(P.H101.fuel_kg_h)} kg/h of fuel gas. ${fmt(P.H101.vf_out*100)} % of the charge leaves as vapour.`},
+ {title:'C-101 atmospheric column',focus:['C-101'],stages:['c101'],view:{t:[98,95,121],r:118,th:0.5,ph:1.12},
+  text:()=>{const pa=P.pa.TPA+P.pa.MPA+P.pa.BPA;return `C-101 (${fmt(P.C101.D,1)} m ID, ${fmt(P.C101.H)} m tangent to tangent, ${P.C101.trays} trays) flashes the feed at ${fmt(P.atm.T_fz)} °C. Three pumparounds pull ${mw(pa)} MW out of the column and back into the crude; the overhead leaves at ${fmt(P.atm.T_top)} °C.`}},
+ {title:'Side products',focus:['C-102','C-103','C-104','A-103','A-104','A-105'],stages:['side'],view:{t:[112,88,110],r:78,th:0.15,ph:1.0},
+  text:()=>`Steam strips the light ends from each side draw in C-102, C-103 and C-104. Kerosene ${fmt(pr('KERO').bpsd)} BPSD drawn at ${fmt(P.atm.T_draw.KERO)} °C, diesel ${fmt(pr('DIESEL').bpsd)} at ${fmt(P.atm.T_draw.DIESEL)} °C, AGO ${fmt(pr('AGO').bpsd)} at ${fmt(P.atm.T_draw.AGO)} °C. Air coolers on the rack bring them to rundown temperature.`},
+ {title:'Overhead and light ends',focus:['A-101','D-102','C-105','C-106','A-106','A-107'],stages:['light'],view:{t:[68,92,112],r:95,th:-0.35,ph:1.02},
+  text:()=>`A-101 condenses ${fmt(P.oh_kg/1000)} t/h of overhead vapour (${mw(P.A101_kw)} MW). Stabiliser C-105 takes off LPG (${fmt(pr('LPG').bpsd)} BPSD); splitter C-106 cuts light naphtha (${fmt(pr('LN').bpsd)} BPSD) for isomerisation and heavy naphtha (${fmt(pr('HN').bpsd)} BPSD) for the reformer.`},
+ {title:'H-201 vacuum heater',focus:['H-201','P-112A/B'],stages:['h201'],view:{t:[150,55,110],r:120,th:0.55,ph:1.0},
+  text:()=>`Atmospheric residue, ${fmt(P.ar_kg/1000)} t/h at ${fmt(P.ar_T)} °C, goes by P-112A/B to H-201: ${mw(P.H201.Q_fired_kw)} MW fired, ${fmt(P.H201.T_in)} to ${fmt(P.H201.T_out)} °C at ${fmt(P.H201.P_out,2)} bar(a) outlet.`},
+ {title:'C-201 vacuum column',focus:['C-201','J-201','J-202','J-203'],stages:['c201'],view:{t:[182,96,122],r:95,th:0.6,ph:1.1},
+  text:()=>`C-201 holds ${fmt(P.vac.P_fz_mbar)} mbar(a) in the flash zone on three ejector stages using ${fmt(P.ejector_motive/1000,1)} t/h of steam. Gas oils that would crack at atmospheric pressure distil here at ${fmt(P.vac.T_fz)} °C: LVGO ${fmt(pr('LVGO').bpsd)} and HVGO ${fmt(pr('HVGO').bpsd)} BPSD for the hydrocracker and FCC.`},
+ {title:'Residue, and what it is worth',focus:['P-204A/B','C-201'],stages:['vr'],value:true,view:{t:[CX,CY,108],r:240,th:0.95,ph:0.95},
+  text:()=>`Vacuum residue, ${fmt(pr('VR').bpsd)} BPSD (${fmt(pr('VR').wt,1)} wt% of crude), goes to the coker. Across all ${G.n_products} products, at the prices on the right, each barrel earns ${fmt(VAL.gross,2)} USD gross, ${fmt(VAL.gross*G.bpsd*VAL.days/1e6)} USD M a year.`},
+];
+const tour={i:0,playing:false,timer:null};
+$('#tDots').innerHTML=STOPS.map((s,i)=>`<button type="button" role="tab" aria-label="Stop ${i+1}: ${esc(s.title)}"></button>`).join('');
+const dots=[...document.querySelectorAll('#tDots button')];
+dots.forEach((d,i)=>d.addEventListener('click',()=>{setPlay(false);go(i)}));
+function setEmph(stages){PATHS.forEach(p=>{p.emphT=!stages?1:(p.stages.some(s=>stages.includes(s))?1:0.16)})}
+function go(i,instant){
+  tour.i=(i+STOPS.length)%STOPS.length; const s=STOPS[tour.i];
+  $('#tStep').textContent=`${tour.i+1}/${STOPS.length}`; $('#tTitle').textContent=s.title; $('#tText').textContent=s.text();
+  dots.forEach((d,k)=>{d.classList.toggle('on',k===tour.i);d.setAttribute('aria-selected',k===tour.i)});
+  focusTags=new Set(s.focus.flatMap(t=>[t,...ITEMS.filter(it=>it.parent_tag===t).map(it=>it.parent_tag)])); refreshHighlights();
+  setEmph(s.stages);
+  if(renderer)flyTo(s.view,instant?0:1800);
+  if(s.value){const v=$('#valuePanel');v.classList.remove('flash');void v.offsetWidth;v.classList.add('flash');
+    if(window.innerWidth>=1100)v.scrollIntoView({block:'nearest',behavior:reduced?'auto':'smooth'})}
+}
+function setPlay(on){tour.playing=on;$('#tPlay').textContent=on?'Pause':'Play';clearInterval(tour.timer);
+  if(on){spin=false;$('#spinBtn').classList.remove('on');$('#spinBtn').setAttribute('aria-pressed','false');tour.timer=setInterval(()=>{if(tour.i>=STOPS.length-1){setPlay(false);return}go(tour.i+1)},reduced?11000:8500)}}
+$('#tPrev').addEventListener('click',()=>{setPlay(false);go(tour.i-1)});
+$('#tNext').addEventListener('click',()=>{setPlay(false);go(tour.i+1)});
+$('#tPlay').addEventListener('click',()=>{if(!tour.playing&&tour.i>=STOPS.length-1)go(0);setPlay(!tour.playing)});
+$('#tourBtn').addEventListener('click',()=>{select(null);go(0);setPlay(true);setTimeout(()=>{if(tour.playing&&tour.i===0)go(1)},2600)});
+// keep the last-stop caption live with the value panel
+document.querySelectorAll('#valuePanel input,#valuePanel select,#energyPanel input').forEach(el=>el.addEventListener('input',()=>{if(STOPS[tour.i].value)$('#tText').textContent=STOPS[tour.i].text()}));
+
+/* view buttons */
+const VIEWS={all:STOPS[0].view,cdu:{t:[80,85,112],r:150,th:0.45,ph:1.0},vdu:{t:[180,80,112],r:120,th:-0.5,ph:1.0},pre:{t:[30,90,102],r:95,th:0.15,ph:0.92}};
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{interact();setEmph(null);focusTags=new Set();refreshHighlights();flyTo(VIEWS[b.dataset.view],1400)}));
+const tog=(id,fn)=>{const b=$(id);b.addEventListener('click',()=>{const on=!b.classList.contains('on');b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);fn(on)})};
+tog('#flowBtn',on=>{flowOn=on;if(particleSys)particleSys.visible=on;PATHS.forEach(p=>p.tube.visible=on)});
+tog('#lblBtn',on=>{labelsEl.hidden=!on});
+tog('#spinBtn',on=>{spin=on;lastInteract=0});
+if(reduced){$('#spinBtn').classList.remove('on');$('#spinBtn').setAttribute('aria-pressed','false')}
+
+/* ------------------------------------------------------------------ render loop */
+function resize(){ if(!renderer)return; const r=viewer.getBoundingClientRect(); const w=Math.max(10,r.width),h=Math.max(10,r.height);
+  renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(viewer);
+const v2=new THREE.Vector3(); let tPrev=performance.now(), simT=0;
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(0.05,(now-tPrev)/1000); tPrev=now; simT+=dt;
+  if(spin&&!tween&&!tour.playing&&now-lastInteract>20000&&!ptrs.size)cam.th+=dt*0.035;
+  stepTween(now); camApply(); doHover();
+  PATHS.forEach(p=>{p.emph+=(p.emphT-p.emph)*Math.min(1,dt*4);p.tm.opacity=(TC&&TC.dark?.22:.3)*p.emph+0.03});
+  if(flowOn)updateParticles(simT);
+  if(!labelsEl.hidden){const r=viewer.getBoundingClientRect();LABELS.forEach(l=>{v2.copy(l.p).project(camera);
+    if(v2.z>1||Math.abs(v2.x)>1.1||Math.abs(v2.y)>1.1){l.el.style.display='none';return}
+    l.el.style.display='';l.el.style.transform=`translate(${((v2.x+1)/2*r.width-l.el.offsetWidth/2).toFixed(1)}px,${((1-v2.y)/2*r.height-20).toFixed(1)}px)`})}
+  renderer.render(scene,camera);
+}
+if(renderer){applyTheme();resize();camApply();lastInteract=performance.now()-20000;}
+const wantTour=/(^|[?&#])tour\b/.test(location.search+location.hash);
+go(0,true);
+if(renderer)requestAnimationFrame(frame);
+if(wantTour){setTimeout(()=>{setPlay(true);go(1)},900)}
+})();
+</script>
