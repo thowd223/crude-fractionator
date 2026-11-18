@@ -157,7 +157,8 @@ input[type=range]{accent-color:var(--accent);width:120px}
 #bars{display:block;width:100%;height:auto;margin:4px 0 2px}
 #bars text{font-family:var(--f-mono);font-size:10px;fill:var(--dim)}
 .chk{display:flex;gap:8px;align-items:baseline;font-size:12px;padding:5px 8px;border-radius:4px;background:var(--surface2);margin-top:6px}
-.chk b{font-family:var(--f-mono);font-weight:500}
+.chk b{font-family:var(--f-mono);font-weight:500;white-space:nowrap}
+.chk span:first-child{white-space:nowrap}
 .chk.warn{color:var(--warn)}
 details{font-size:12px;color:var(--dim);margin-top:8px}
 details summary{cursor:pointer;color:var(--ink)}
@@ -166,8 +167,8 @@ details table td:first-child,details table th:first-child{text-align:left;font-f
 .et td{padding:3px 4px;border-bottom:1px solid var(--line);font-size:12.5px;vertical-align:baseline}
 .et td .s{display:block;font-size:11px;color:var(--dim)}
 .et tr.tot td{border-bottom:0;font-weight:600}
-.hr{display:flex;gap:10px;align-items:center;margin-top:8px;font-size:12px;color:var(--dim)}
-.hr .bar{flex:1;height:8px;border-radius:2px;background:var(--surface2);overflow:hidden;display:flex}
+.hr{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:8px;font-size:12px;color:var(--dim)}
+.hr .bar{flex:1 1 120px;height:8px;border-radius:2px;background:var(--surface2);overflow:hidden;display:flex}
 .hr .bar i{display:block;height:100%}
 .src{font-size:11px;color:var(--faint);display:flex;gap:6px 16px;flex-wrap:wrap}
 
@@ -703,7 +704,7 @@ function updateParticles(t){
   const meta=particleSys.userData.meta, pos=particleSys.geometry.attributes.position.array, col=particleSys.geometry.attributes.color.array;
   const sp=reduced?0:11; const bg=TC.bg;
   for(let i=0;i<meta.length;i++){
-    const [pi,s0]=meta[i], p=PATHS[pi]; let s=(s0+t*sp)%p.len; const k=Math.floor(s), f=s-k;
+    const [pi,s0]=meta[i], p=PATHS[pi]; let s=((s0+t*sp)%p.len+p.len)%p.len; const k=Math.floor(s), f=s-k;
     const a=p.samp[Math.min(k,p.samp.length-1)], b=p.samp[Math.min(k+1,p.samp.length-1)];
     pos[i*3]=a.x+(b.x-a.x)*f; pos[i*3+1]=a.y+(b.y-a.y)*f; pos[i*3+2]=a.z+(b.z-a.z)*f;
     const c=p.c, e=p.emph; col[i*3]=bg.r+(c.r-bg.r)*e; col[i*3+1]=bg.g+(c.g-bg.g)*e; col[i*3+2]=bg.b+(c.b-bg.b)*e;
@@ -729,7 +730,7 @@ function applyTheme(){
 
 /* ------------------------------------------------------------------ camera controls */
 const cam={t:new THREE.Vector3(0,8,0),r:250,th:0.62,ph:0.98}; let tween=null; let lastInteract=performance.now(); let spin=!reduced;
-function camApply(){const s=Math.sin(cam.ph);camera.position.set(cam.t.x+cam.r*s*Math.sin(cam.th),cam.t.y+cam.r*Math.cos(cam.ph),cam.t.z+cam.r*s*Math.cos(cam.th));camera.lookAt(cam.t)}
+function camApply(){const s=Math.sin(cam.ph), R=cam.r*Math.min(1.7,Math.max(1,1.15/Math.max(0.1,camera.aspect)));camera.position.set(cam.t.x+R*s*Math.sin(cam.th),cam.t.y+R*Math.cos(cam.ph),cam.t.z+R*s*Math.cos(cam.th));camera.lookAt(cam.t)}
 function flyTo(v,dur){
   const to={t:W3(v.t[0],v.t[1],v.t[2]),r:v.r,th:v.th??cam.th,ph:v.ph??cam.ph};
   let dth=to.th-cam.th; dth=((dth+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI; to.th=cam.th+dth;
@@ -835,13 +836,13 @@ const mw=kw=>fmt(kw/1000,1);
 const STOPS=[
  {title:'Your unit at a glance',focus:[],stages:null,view:{t:[CX,CY+4,106],r:205,th:0.62,ph:0.97},
   text:()=>`${fmt(G.bpsd)} BPSD of ${G.crude} (${G.api} API, ${G.S} wt% sulfur) on a ${G.plot[0]} × ${G.plot[1]} m plot. The coloured flow is one barrel's path, from crude to ${G.n_products} products. Drag to orbit, scroll to zoom, click any item for its card.`},
- {title:'Crude in',focus:['P-101A/B'],stages:['crude'],view:{t:[20,80,103],r:70,th:0.35,ph:1.0},
+ {title:'Crude in',focus:['P-101A/B'],stages:['crude'],view:{t:[22,86,103],r:80,th:2.75,ph:0.88},
   text:()=>`Crude arrives from tankage at ${fmt(P.T_in)} °C: ${fmt(P.crude.kg_h/1000)} t/h. Charge pumps P-101A/B (one running, one spare) deliver ${fmt(P.P101.flow)} m³/h against ${fmt(P.P101.head)} m of head on ${fmt(P.P101.kw)} kW motors.`},
- {title:'Cold preheat',focus:['E-101','E-102','E-103','E-104','E-105'],stages:['cold'],view:{t:[28,106,102],r:60,th:0.2,ph:0.95},
+ {title:'Cold preheat',focus:['E-101','E-102','E-103','E-104','E-105'],stages:['cold'],view:{t:[28,106,102],r:66,th:2.95,ph:0.9},
   text:()=>`${P.n_cold} exchanger services take ${mw(P.Q_cold)} MW from the top pumparound, kerosene, LVGO, diesel and vacuum residue, warming the crude from ${fmt(P.T_in)} to ${fmt(P.T_desalter)} °C for the desalters.`},
  {title:'Desalting',focus:['D-101A','D-101B'],stages:['desalt'],view:{t:[36,48,103],r:80,th:0.55,ph:0.95},
   text:()=>`Two electrostatic desalters in series at ${fmt(P.T_desalter)} °C, ${fmt(P.D101_res,1)} min residence each, wash the salt out with ${fmt(P.wash/1000,1)} t/h of water. Less salt in the column means less HCl in the overhead and a longer run between turnarounds.`},
- {title:'Hot preheat',focus:['E-106','E-107','E-108','E-109','E-110','E-111'],stages:['hot'],view:{t:[28,98,102],r:66,th:-0.25,ph:0.95},
+ {title:'Hot preheat',focus:['E-106','E-107','E-108','E-109','E-110','E-111'],stages:['hot'],view:{t:[28,98,102],r:78,th:-2.85,ph:0.9},
   text:()=>{const rec=P.Q_cold+P.Q_hot;return `${P.n_hot} more services recover ${mw(P.Q_hot)} MW from the pumparounds, gas oils and residue. Crude reaches the heater at ${fmt(P.cit)} °C. In total the train recovers ${mw(rec)} MW, ${fmt(100*rec/(rec+P.H101.Q_proc_kw))} % of all the heat the crude needs.`}},
  {title:'H-101 crude heater',focus:['H-101'],stages:['h101'],view:{t:[98,40,112],r:95,th:0.75,ph:1.05},
   text:()=>`H-101 heats ${fmt(P.H101.flow/1000)} t/h of crude from ${fmt(P.H101.T_in)} to ${fmt(P.H101.T_out)} °C using ${mw(P.H101.Q_fired_kw)} MW of fired duty: ${mw(P.H101.Q_abs_kw)} MW absorbed at ${fmt(P.H101.eff*100)} % efficiency with air preheat, on ${fmt(P.H101.fuel_kg_h)} kg/h of fuel gas. ${fmt(P.H101.vf_out*100)} % of the charge leaves as vapour.`},
@@ -898,7 +899,7 @@ new ResizeObserver(resize).observe(viewer);
 const v2=new THREE.Vector3(); let tPrev=performance.now(), simT=0;
 function frame(now){
   requestAnimationFrame(frame);
-  const dt=Math.min(0.05,(now-tPrev)/1000); tPrev=now; simT+=dt;
+  const dt=Math.max(0,Math.min(0.05,(now-tPrev)/1000)); tPrev=now; simT+=dt;
   if(spin&&!tween&&!tour.playing&&now-lastInteract>20000&&!ptrs.size)cam.th+=dt*0.035;
   stepTween(now); camApply(); doHover();
   PATHS.forEach(p=>{p.emph+=(p.emphT-p.emph)*Math.min(1,dt*4);p.tm.opacity=(TC&&TC.dark?.22:.3)*p.emph+0.03});
