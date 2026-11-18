@@ -14,6 +14,18 @@ A real-time, browser-based simulator of the 100 kBPSD CDU/VDU designed in this r
 * **Cuts & quality**: where every barrel goes (product distribution by boiling point, with the overlap caused by
   imperfect fractionation), TBP slicing, C-101 temperature profile, product specifications with giveaway, yields
   against design and a margin breakdown.
+* **APC optimiser**: a real-time optimiser (`js/apc.js`) that every plant minute tests a one-step move of 17
+  handles, plus paired draw moves, on the steady-state model and keeps those that raise margin without crossing
+  one of 24 constraints (specs and equipment limits, each with a safety margin). It sheds to manual on a trip.
+  The panel shows the benefit since switch-on (per day, per year, per barrel), the constraints it is pushing
+  against and its recent moves. From the design point it finds about +$220k/day: the FEED case carries
+  deliberate giveaway (diesel 50 °C inside its 95 % point, for example), so this is the upper end of what APC earns.
+* **AI shift advisor** (`js/advisor.js`): Claude reads the live plant and answers questions about it. It has
+  three page tools: `get_plant_state`, `what_if` (tests setpoint changes on the model without touching the
+  plant) and `propose_moves` (shows an Apply card; nothing moves until the operator presses it). Alarm
+  explanations offer "Ask the advisor". It runs through the artifact's `sample` capability, so it works when
+  the page is opened at claude.ai and uses the viewer's own Claude account; opened as a local file, everything
+  else works and the advisor says it is unavailable.
 * **Learn**: concept cards, each with a one-click experiment, and an equipment index.
 * **Scenarios**: a 12-stop guided tour ("Follow a barrel") and four scored missions: margin optimisation, a crude
   switch to a heavy sour blend, a charge pump trip in real time (beat SIF-101), and a loss of vacuum.
@@ -51,6 +63,8 @@ illustrative.
 | `js/mimic.js` | Console SVG, built in code and bound to the model |
 | `js/charts.js` | Analysis charts and trend sparklines |
 | `js/field3d.js` | three.js field view |
+| `js/apc.js` | APC optimiser: constraints, manipulated variables, move search |
+| `js/advisor.js` | AI shift advisor: plant state, tools, chat panel |
 | `js/app.js` | Simulation loop, operator panel, alarms, missions, tour, sound |
 | `data/plant-data.js` | Generated: design point, layout, datasheets, loop tags |
 | `data/plant-model.js` | Generated: 3D model (base64) |

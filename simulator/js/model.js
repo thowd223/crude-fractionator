@@ -289,6 +289,7 @@
     const f2 = Math.min(f1 + keroLV, 0.995), c2 = tbpAt(sl, f2);
     const f3 = Math.min(f2 + dieselLV, 0.995), c3 = tbpAt(sl, f3);
     o.overflash = (o.vapLV - (f3 + agoLV)) * 100;
+    o.ofRaw = o.overflash; // before the draw-pan limit: what the requested draws leave
     if (o.overflash < 0.2) { agoLV = Math.max(0, o.vapLV - f3 - 0.002); o.agoLimited = true; } else o.agoLimited = false;
     if (f3 > o.vapLV - 0.002) o.dieselLimited = true; else o.dieselLimited = false;
     const f4 = Math.min(f3 + agoLV, 0.998), c4 = tbpAt(sl, f4);
@@ -633,6 +634,39 @@
       if (which === "h1") { this.ev.h1trip = false; this.ev.lowFlowTimer = 0; this.log("info", "H-101 SIS reset, burners relit (purge complete)"); }
       else { this.ev.h2trip = false; this.log("info", "H-201 SIS reset, burners relit"); }
       return true;
+    }
+    /* Steady-state prediction at a set of setpoints (current crude at the unit, current coke and fouling).
+     * Used by the APC optimiser and the advisor's what-if tool. Does not touch the running simulation. */
+    predict(spOverride) {
+      const sp = Object.assign({}, this.sp, spOverride || {});
+      const st = Object.assign({}, this.st);
+      const pumpsOK = (this.ev.p101A || this.ev.p101B) && !this.ev.esd;
+      const inp = Object.assign({}, sp, { feedAct: pumpsOK ? sp.feed : this.act.feed, CITact: this.act.CIT, cot1sp: sp.cot1,
+        COT1act: sp.cot1, ttopAct: sp.ttop, COT2act: sp.cot2, cot2sp: sp.cot2 });
+      let o = steady(inp, st);
+      inp.CITact = o.CIT; o = steady(inp, st);
+      const m_kgs = o.m_kgh / 3600;
+      let fired1 = o.firedReq1, fired2 = o.firedReq2;
+      if (o.firedReq1 > o.firedMax1 && m_kgs > 1) {
+        fired1 = o.firedMax1;
+        inp.COT1act = solveCOT(o.sl, m_kgs, inp.CITact, (fired1 - REF.ssCoil) * o.eff1, sp.sBot);
+        o = steady(inp, st); o.limited1 = true;
+      }
+      if (o.firedReq2 > o.firedMax2) {
+        fired2 = o.firedMax2;
+        const mAR = o.arKgh / 3600;
+        inp.COT2act = o.Tbot1 + (fired2 * o.eff2 * 1000 - REF.lam2 * mAR * o.vapFracAR) / (mAR * REF.cp2);
+        o = steady(inp, st); o.limited2 = true;
+      }
+      const Qabs1 = Math.max(0, fired1 - REF.ssCoil) * o.eff1;
+      const flux = (0.687 * Qabs1 * 1000) / H1.rad_area * 1.75;
+      const TMT1 = inp.COT1act + flux * (1.55 * Math.pow(Math.max(o.fr, 0.25), -0.8) + this.st.coke1 / 1.5);
+      const bpsd = o.bpsd;
+      const fuel = (fired1 + fired2) * 24 * 3.41214 * PRICES.fuel_usd_mmbtu;
+      const steamUSD = (o.steamKgh / 1000) * 24 * PRICES.steam_usd_t + (sp.motive / 100) * (D.ejector.motive_total / 1000) * 24 * PRICES.steam_usd_t;
+      const chem = bpsd * (0.0025 * sp.demul + 0.012 * sp.neut);
+      const margin = o.revenue - o.crudeCost - fuel - steamUSD - chem;
+      return { o, q: o.q, sp, margin, fuel, steamUSD, fired1, fired2, TMT1, COT1: inp.COT1act, COT2: inp.COT2act, CIT: inp.CITact };
     }
     snapshot() { // for trends
       const o = this.out, a = this.act;

@@ -14,6 +14,9 @@
 
   const sim = new Sim();
   window.sim = sim;
+  const apc = new window.APCmod.APC(sim);
+  window.apc = apc;
+  const APC_KEYS = new Set(window.APCmod.MVS.map((m) => m.k));
   let speed = 30, paused = false;
 
   // ================================================================ operator panel
@@ -40,6 +43,7 @@
     motive: ["Ejector motive steam", "PI-2050", (s) => `top ${f1(s.act.Ptop2)} mbar`],
   };
   const GROUPS = [
+    { id: "apc", t: "APC optimiser", keys: [], extra: "apc" },
     { id: "crude", t: "Crude & throughput", keys: ["feed", "blend"], extra: "crude" },
     { id: "heater", t: "H-101 charge heater", keys: ["cot1", "o2"], extra: "heater" },
     { id: "column", t: "C-101 cut points", keys: ["ttop", "kero", "diesel", "ago", "sBot"] },
@@ -58,6 +62,9 @@
       <span class="hint">${unit} · design ${window.CDU.DES[k]}</span></div>`;
   }
   function extraHTML(x) {
+    if (x === "apc") return `<div class="rd" style="padding-top:2px"><span style="grid-column:1/-1">A real-time optimiser that moves 17 handles a step each plant minute, using the process model to push every product and every piece of equipment to its limit, minus a safety margin.</span></div>
+      <div class="btnrow"><button class="btn" data-act="apc">Switch APC on</button><label style="display:flex;gap:6px;align-items:center;font-size:12.5px;color:var(--ink-2)"><input type="checkbox" id="apcFeed"> Push throughput to</label><input type="number" id="apcFeedMax" min="80" max="115" step="1" value="${apc.feedMax}" aria-label="APC maximum charge (kBPSD)" style="width:58px;background:var(--bg);border:1px solid var(--line-2);border-radius:6px;padding:2px 5px;font:500 12px var(--f-data);text-align:right;color:var(--accent)"><span style="font-size:12px;color:var(--mute)">kBPSD</span></div>
+      <div data-apc></div>`;
     if (x === "crude") return `<div class="ctl"><label for="selA">Tank 1</label><span></span><div class="row" style="grid-template-columns:1fr"><select class="sel" id="selA">${Object.entries(CRUDES).map(([k, c]) => `<option value="${k}">${c.name} · ${c.api}°API · $${c.price}</option>`).join("")}</select></div></div>
       <div class="ctl"><label for="selB">Tank 2</label><span></span><div class="row" style="grid-template-columns:1fr"><select class="sel" id="selB">${Object.entries(CRUDES).map(([k, c]) => `<option value="${k}">${c.name} · ${c.api}°API · $${c.price}</option>`).join("")}</select></div></div>
       <div class="rd" data-rd="pumps"></div><div class="btnrow"><button class="btn small" data-act="p101A">P-101A</button><button class="btn small" data-act="p101B">P-101B</button></div>`;
@@ -103,6 +110,8 @@
       set(sim.sp[k]);
       bound.push({ k, r, n, pv, set });
     }
+    const af = $("#apcFeed", body), afm = $("#apcFeedMax", body);
+    if (af) { af.checked = apc.pushFeed; af.onchange = () => { apc.pushFeed = af.checked; }; afm.onchange = () => { const v = +afm.value; if (isFinite(v)) apc.feedMax = Math.max(80, Math.min(115, v)); }; }
     const sa = $("#selA", body), sb = $("#selB", body);
     if (sa) { sa.value = sim.sp.crudeA; sb.value = sim.sp.crudeB; sa.onchange = () => { sim.sp.crudeA = sa.value; sim.slateKey = ""; }; sb.onchange = () => { sim.sp.crudeB = sb.value; sim.slateKey = ""; }; }
     $$(".price", body).forEach((inp) => inp.addEventListener("change", () => { const v = +inp.value; if (!isFinite(v)) return; if (inp.dataset.p === "fuel") PRICES.fuel_usd_mmbtu = v; else PRODUCTS.find((p) => p.key === inp.dataset.p).price = v; }));
@@ -112,6 +121,17 @@
   const EQTAG = { tanks: "P-101A", preheat: "E-108A", hottrain: "E-108A", desalter: "D-101A", h101: "H-101", c101: "C-101", pa: "C-101", strippers: "C-103", overhead: "D-102", lightends: "C-105", h201: "H-201", c201: "C-201", ejectors: "J-201", products: "A-104" };
   function datasheetFor(id) { const t = EQTAG[id]; const m = t && window.PLANT.layout[t]; return m && m.datasheet ? { tag: t, d: m.datasheet } : null; }
 
+  const ANNUAL = 350;
+  function apcHTML() {
+    const cons = apc.constraints().slice().sort((a, b) => (a.room / (Math.abs(a.lim) > 50 ? 5 : 1)) - (b.room / (Math.abs(b.lim) > 50 ? 5 : 1)));
+    const benefit = apc.on && apc.base !== null ? sim.out.econ.margin - apc.base : null;
+    let h = `<div class="rd">${benefit === null ? `<span>Benefit</span><b>switch on to measure</b>` : `<span>Benefit since switched on</span><b class="${benefit >= 0 ? "good" : "bad"}">${benefit >= 0 ? "+" : "−"}$${f0(Math.abs(benefit) / 1000)}k/day</b><span>Per year (${ANNUAL} days)</span><b class="${benefit >= 0 ? "good" : ""}">${benefit >= 0 ? "+" : "−"}$${f1(Math.abs(benefit) * ANNUAL / 1e6)} M</b><span>Per barrel</span><b>${benefit >= 0 ? "+" : "−"}$${f2(Math.abs(benefit) / Math.max(1, sim.act.feed * 1000))}</b>`}</div>`;
+    if (apc.shed) h += `<div class="rd"><b class="bad" style="grid-column:1/-1;text-align:left">${esc(apc.shed)}</b></div>`;
+    h += `<table class="q apc-t"><tr><th>Constraint</th><th style="text-align:right">Now</th><th style="text-align:right">APC limit</th><th></th></tr>` + cons.slice(0, 9).map((c) =>
+      `<tr><td>${esc(c.name)}</td><td class="n">${Math.abs(c.v) < 10 ? f2(c.v) : f1(c.v)}</td><td class="n" style="color:var(--mute)">${c.kind === "max" ? "≤" : "≥"} ${c.lim} ${esc(c.u)}</td><td>${c.viol ? `<span class="pill off">OVER</span>` : c.active ? `<span class="pill warn">AT LIMIT</span>` : ""}</td></tr>`).join("") + `</table>`;
+    if (apc.moves.length) h += `<div class="apc-log">${apc.moves.slice(0, 5).map((m) => `<div><span class="mono">${hhmm(m.t)}</span> ${m.moved.slice(0, 4).map((x) => `${esc(CTL[x.k] ? CTL[x.k][0] : x.k)} ${x.to > x.from ? "▲" : "▼"} ${+x.to.toFixed(2)}`).join(" · ")}${m.moved.length > 4 ? ` +${m.moved.length - 4} more` : ""}</div>`).join("")}</div>`;
+    return h;
+  }
   function rd(rows) { return rows.map(([l, v, c]) => `<span>${l}</span><b class="${c || ""}">${v}</b>`).join(""); }
   function readouts(key) {
     const s = sim, o = s.out, a = s.act, q = s.q;
@@ -138,12 +158,16 @@
       b.pv.textContent = CTL[b.k][2](sim);
       if (document.activeElement !== b.r && document.activeElement !== b.n && +b.r.value !== sim.sp[b.k]) b.set(sim.sp[b.k]);
     }
+    for (const b of bound) b.r.closest(".ctl").classList.toggle("apc", apc.on && (APC_KEYS.has(b.k) || (b.k === "feed" && apc.pushFeed)));
+    $$("[data-act=apc]").forEach((b) => { b.textContent = apc.on ? "Switch APC off" : "Switch APC on"; b.classList.toggle("primary", !apc.on); });
+    const ab = $("#apcBtn"); ab.textContent = apc.on ? "APC on" : "APC off"; ab.setAttribute("aria-pressed", apc.on ? "true" : "false");
+    $$("[data-apc]").forEach((e) => { const h = apcHTML(); if (e._h !== h) { e.innerHTML = h; e._h = h; } });
     $$("[data-rd]").forEach((e) => { const h = readouts(e.dataset.rd); if (e._h !== h) { e.innerHTML = h; e._h = h; } });
     $$("[data-act=p101A]").forEach((b) => { b.textContent = sim.ev.p101A ? "Stop P-101A" : "Start P-101A"; });
     $$("[data-act=p101B]").forEach((b) => { b.textContent = sim.ev.p101B ? "Stop P-101B" : "Start P-101B"; b.classList.toggle("primary", !sim.ev.p101A && !sim.ev.p101B); });
     $$("[data-act=reset1]").forEach((b) => { b.disabled = !sim.ev.h1trip; b.style.opacity = sim.ev.h1trip ? 1 : 0.45; b.classList.toggle("primary", sim.ev.h1trip && sim.canReset("h1")); });
     $$("[data-act=reset2]").forEach((b) => { b.disabled = !sim.ev.h2trip; b.style.opacity = sim.ev.h2trip ? 1 : 0.45; });
-    const st = { crude: `${f0(sim.act.feed)} kBPSD`, heater: sim.ev.h1trip ? "TRIPPED" : `COT ${f1(sim.act.COT1)} °C`, column: `OF ${f1(sim.out.overflash)} %`, pa: `${f1(sim.sp.tpa + sim.sp.mpa + sim.sp.bpa)} MW`,
+    const st = { apc: apc.on ? (apc.base !== null ? `ON ${sim.out.econ.margin - apc.base >= 0 ? "+" : "−"}$${f0(Math.abs(sim.out.econ.margin - apc.base) / 1000)}k/d` : "ON") : "off", crude: `${f0(sim.act.feed)} kBPSD`, heater: sim.ev.h1trip ? "TRIPPED" : `COT ${f1(sim.act.COT1)} °C`, column: `OF ${f1(sim.out.overflash)} %`, pa: `${f1(sim.sp.tpa + sim.sp.mpa + sim.sp.bpa)} MW`,
       strip: "", desalt: `${f2(sim.lag.saltOut)} PTB`, vac: `${f1(sim.act.Ptop2)} mbar`, econ: money(sim.out.econ.margin) + "/d", safety: sim.ev.esd ? "ESD ACTIVE" : "" };
     $$("details.grp").forEach((d) => { const e = $("[data-st]", d); if (e) e.textContent = st[d.dataset.g] || ""; });
   }
@@ -151,6 +175,7 @@
     const b = e.target.closest("[data-act]"); if (!b) return;
     const a = b.dataset.act, ev = sim.ev;
     if (a === "back") { window.Mimic.select(null); return; }
+    if (a === "apc") { apc.enable(!apc.on); }
     if (a === "p101A") { ev.p101A = !ev.p101A; sim.log("info", `P-101A ${ev.p101A ? "started" : "stopped"} by operator`); }
     if (a === "p101B") { ev.p101B = !ev.p101B; sim.log("info", `P-101B ${ev.p101B ? "started" : "stopped"} by operator`); }
     if (a === "reset1") { if (!sim.resetTrip("h1")) toast("H-101 cannot be relit: restore charge flow above 60 % first."); }
@@ -158,11 +183,11 @@
     if (a === "motive") { sim.sp.motive = 100; if (M) M.fixed = true; sim.log("info", "HP steam bypass lined up to ejector motive header"); }
     if (a === "esd") { if (b.dataset.armed) { ev.esd = true; sim.log("trip", "ESD-1 activated from HS-9000"); delete b.dataset.armed; b.textContent = "ESD-1 · HS-9000"; } else { b.dataset.armed = "1"; b.textContent = "Press again to trip the unit"; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = "ESD-1 · HS-9000"; } }, 4000); } }
     if (a === "esdreset") { if (ev.esd) { ev.esd = false; sim.log("info", "ESD-1 reset. Restart pumps, then reset the heater SIS."); } }
-    if (a === "resetall") { sim.reset(); M = null; renderMission(); trend.length = 0; alarmState.clear(); alarmLog.length = 0; renderPanel(window.Mimic.selected); }
+    if (a === "resetall") { apc.on = false; apc.moves = []; apc.base = null; sim.reset(); M = null; renderMission(); trend.length = 0; alarmState.clear(); alarmLog.length = 0; renderPanel(window.Mimic.selected); }
     updatePanel();
   });
 
-  window.Mimic.onSelect((id) => { renderPanel(id && EQUIP[id] ? id : null); if (id && window.Field) window.Field.focusId(id); });
+  window.Mimic.onSelect((id) => { if (window.Advisor) window.Advisor.close(); renderPanel(id && EQUIP[id] ? id : null); if (id && window.Field) window.Field.focusId(id); });
 
   // ================================================================ alarms
   const alarmState = new Map(); // id -> {t, pri, acked}
@@ -210,8 +235,10 @@
   $("#alarmBtn").addEventListener("click", () => { alarmLog.forEach((a) => (a.acked = true)); renderAlarms(); });
   function showWhy(a) {
     const ov = document.createElement("div"); ov.className = "overlay";
-    ov.innerHTML = `<div class="modal" style="width:min(560px,100%)"><header><p class="mono" style="margin:0;color:var(--accent)">${esc(a.tag)} · ${a.pri === "T" ? "TRIP" : a.pri}</p><h2>${esc(a.msg)}</h2></header><div class="brief"><p style="margin:0;color:var(--ink-2)">${esc(a.why)}</p><div><button class="btn primary" data-x>Got it</button></div></div></div>`;
-    document.body.appendChild(ov); ov.addEventListener("click", (e) => { if (e.target === ov || e.target.closest("[data-x]")) ov.remove(); });
+    ov.innerHTML = `<div class="modal" style="width:min(560px,100%)"><header><p class="mono" style="margin:0;color:var(--accent)">${esc(a.tag)} · ${a.pri === "T" ? "TRIP" : a.pri}</p><h2>${esc(a.msg)}</h2></header><div class="brief"><p style="margin:0;color:var(--ink-2)">${esc(a.why)}</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-x>Got it</button>${window.Advisor && window.Advisor.available() ? `<button class="btn" data-ask>Ask the advisor about this plant</button>` : ""}</div></div></div>`;
+    document.body.appendChild(ov); ov.addEventListener("click", (e) => {
+      if (e.target.closest("[data-ask]")) { ov.remove(); window.Advisor.ask(`Alarm ${a.tag}: "${a.msg}". Why is it on in this plant right now, and what should I change? Check your recommendation with what_if first.`); return; }
+      if (e.target === ov || e.target.closest("[data-x]")) ov.remove(); });
     a.acked = true; renderAlarms();
   }
   function toast(m) { const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 3500); }
@@ -292,6 +319,7 @@
   }
   function startMission(key, quiet) {
     endTour();
+    apc.on = false; apc.moves = []; apc.base = null; apc.shed = null;
     sim.reset(); trend.length = 0; alarmState.clear(); alarmLog.length = 0; lastEventIdx = 0; lastSample = -1e9;
     const m = MISSIONS[key];
     M = m.obj ? { key, m, t0: sim.t, base: sim.out.econ.margin, st: {}, done: false, alarms: 0 } : null;
@@ -342,6 +370,8 @@
     if (box._h !== html) { box.innerHTML = html; box._h = html; }
   }
   $("#scenBtn").addEventListener("click", openScenarios);
+  $("#apcBtn").addEventListener("click", () => { apc.enable(!apc.on); if (apc.on) setPanelGroupOpen("apc"); updatePanel(); });
+  function setPanelGroupOpen(id) { if (window.Advisor) window.Advisor.close(); const d = $(`details[data-g="${id}"]`); if (d) { d.open = true; d.scrollIntoView({ block: "nearest" }); } }
 
   // ================================================================ guided tour
   let tourI = -1, coach = null;
@@ -412,6 +442,8 @@
     if (kind === "tab") setTab(a);
     if (kind === "select") { setTab("console"); window.Mimic.select(a); }
     if (kind === "mission") brief(a);
+    if (kind === "apc") { setTab("console"); renderPanel(null); if (!apc.on) apc.enable(true); setPanelGroupOpen("apc"); toast("APC is on. Watch the margin in the top bar and the constraints in the APC group."); }
+    if (kind === "advisor") { if (window.Advisor) window.Advisor.open(); }
     if (kind === "nudge") {
       const [mn, mx] = LIMITS[a]; sim.sp[a] = Math.max(mn, Math.min(mx, +(sim.sp[a] + +b).toFixed(2)));
       setTab(["kero", "ago", "cot1"].includes(a) ? "cuts" : "console");
@@ -464,7 +496,7 @@
       let plant = dtReal * speed;
       const step = Math.max(0.5, Math.min(5, plant / 8));
       let n = 0;
-      while (plant > 1e-6 && n < 40) { const h = Math.min(step, plant); sim.lastDt = h; sim.step(h); missionTick(); plant -= h; n++; }
+      while (plant > 1e-6 && n < 40) { const h = Math.min(step, plant); sim.lastDt = h; sim.step(h); apc.tick(); missionTick(); plant -= h; n++; }
       sampleTrend();
     }
     window.Mimic.update(sim);
@@ -485,6 +517,9 @@
     if (slower > 1) { slower = 0; window.Charts.updateCuts(sim); }
     requestAnimationFrame(frame);
   }
+
+  window.App = { CTL, toast, hhmm, renderPanel: () => renderPanel(window.Mimic.selected), activeAlarms: () => [...alarmState.values()].map((a) => ({ tag: a.ent.tag, pri: a.pri, msg: a.ent.msg })),
+    mission: () => (M ? { name: M.m.t, objectives: M.m.obj.map((o) => ({ t: o.t, state: M.st[o.id] || "open" })), left_s: Math.round(M.m.dur - (sim.t - M.t0)) } : null) };
 
   // ================================================================ boot
   window.Charts.buildCuts($("#v-cuts"));
