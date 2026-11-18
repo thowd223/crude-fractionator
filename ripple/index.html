@@ -1,0 +1,664 @@
+<title>Ripple Change Tracer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: drawing title block on top, then one working column: pick a change, set when it is found, watch it cross the discipline swimlanes, read it as four audiences. */
+:root{
+  --bg:#EDF1F4; --surface:#FFFFFF; --surface2:#F4F7F9; --ink:#14273A; --muted:#54667A; --line:#C9D4DD;
+  --accent:#0A6C8C; --accent-ink:#FFFFFF; --accent-soft:#DCEEF4;
+  --paper:#9A5B00; --paper-bg:#FFF0D2; --rework:#B3261E; --rework-bg:#FBE2DF; --ok:#1B7447; --ok-bg:#DDF2E6;
+  --band:#14273A; --band-ink:#EAF1F6; --band-muted:#9FB3C4; --band-line:#34495C;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0E1821; --surface:#16232F; --surface2:#1B2B39; --ink:#E6EEF4; --muted:#9BB0C2; --line:#2F4355;
+  --accent:#55B9D8; --accent-ink:#06202B; --accent-soft:#17384A;
+  --paper:#F2B450; --paper-bg:#3A2C10; --rework:#FF8F85; --rework-bg:#451C19; --ok:#6FD3A0; --ok-bg:#143526;
+  --band:#0A121A; --band-ink:#EAF1F6; --band-muted:#8FA5B7; --band-line:#263A4B; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0E1821; --surface:#16232F; --surface2:#1B2B39; --ink:#E6EEF4; --muted:#9BB0C2; --line:#2F4355;
+  --accent:#55B9D8; --accent-ink:#06202B; --accent-soft:#17384A;
+  --paper:#F2B450; --paper-bg:#3A2C10; --rework:#FF8F85; --rework-bg:#451C19; --ok:#6FD3A0; --ok-bg:#143526;
+  --band:#0A121A; --band-ink:#EAF1F6; --band-muted:#8FA5B7; --band-line:#263A4B; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;margin:0;text-wrap:balance;line-height:1.1}
+.lab{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+
+/* title block */
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:22px 0}
+.band h1{font-size:clamp(34px,5vw,52px);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.band p{margin:8px 0 0;max-width:62ch;color:var(--band-muted);font-size:16px}
+.tb{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:20px;border-top:1px solid var(--band-line)}
+.tb div{padding:10px 14px 12px 0;min-width:0}
+.tb .lab{color:var(--band-muted);display:block}
+.tb b{font-family:var(--mono);font-weight:500;font-size:13px}
+
+main.wrap{padding-block:28px 56px;display:flex;flex-direction:column;gap:34px}
+section>header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:12px}
+section>header h2{font-size:26px;text-transform:uppercase}
+section>header p{margin:0;color:var(--muted);min-width:0}
+
+/* scenario picker */
+.scn{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.scn button{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
+.scn button:hover{border-color:var(--accent)}
+.scn button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.scn b{font-family:var(--display);font-size:20px;font-weight:600;line-height:1.15}
+.scn span{color:var(--muted);font-size:13px}
+.own{margin-top:10px;background:var(--surface);border:1px dashed var(--line);border-radius:4px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.own-row{display:flex;gap:10px;flex-wrap:wrap}
+.own textarea{flex:1 1 320px;min-width:0;min-height:62px;resize:vertical;background:var(--surface2);border:1px solid var(--line);border-radius:4px;padding:9px 11px}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:4px;padding:9px 16px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.note{color:var(--muted);font-size:13px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:13px;cursor:pointer}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* stage selector */
+.stages{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.stages button{background:transparent;border:0;border-right:1px solid var(--line);padding:10px 8px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stages button:last-child{border-right:0}
+.stages button b{font-weight:600;font-size:14px;line-height:1.2}
+.stages button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.stages button[aria-pressed="true"] .lab{color:inherit;opacity:.85}
+@media (max-width:760px){.stages{grid-template-columns:repeat(2,1fr)}.stages button{border-bottom:1px solid var(--line)}}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin-top:14px;border-top:2px solid var(--ink)}
+.kpi{padding:10px 14px 4px 0}
+.kpi .v{font-family:var(--display);font-weight:700;font-size:44px;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi .v.hot{color:var(--rework)}
+.cmp{margin:10px 0 0;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:4px}
+.cmp b{color:var(--rework)}
+.cmp b.good{color:var(--ok)}
+
+/* swimlane graph */
+.graph{background:var(--surface);border:1px solid var(--line);border-radius:4px}
+.gscroll{overflow-x:auto}
+.gscroll svg{display:block;width:100%;min-width:1120px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:10px;border:1.5px solid var(--line);vertical-align:-1px;margin-right:6px;border-radius:2px}
+.legend .p{background:var(--paper-bg);border-color:var(--paper)} .legend .r{background:var(--rework-bg);border-color:var(--rework)} .legend .o{border:2px dashed var(--accent)}
+svg .colh{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;fill:var(--muted)}
+svg .lane{fill:var(--surface2)}
+svg .eg{fill:none;stroke:var(--line);stroke-width:1}
+svg .eg.act{stroke:var(--accent);stroke-width:1.8;opacity:0;transition:opacity .35s;transition-delay:calc(var(--d,0ms)*var(--k,1))}
+svg.on .eg.act{opacity:1}
+svg .dot{fill:var(--accent);opacity:0;transition:opacity .35s;transition-delay:calc(var(--d,0ms)*var(--k,1))}
+svg.on .dot{opacity:1}
+svg .nd{cursor:pointer}
+svg .nd rect{fill:var(--surface);stroke:var(--line);stroke-width:1;transition:fill .35s,stroke .35s;transition-delay:calc(var(--d,0ms)*var(--k,1))}
+svg .nd .t1{font-family:var(--mono);font-size:10.5px;font-weight:600;fill:var(--ink)}
+svg .nd .t2{font-family:var(--body);font-size:9.6px;fill:var(--muted)}
+svg .nd.idle .t1{fill:var(--muted)}
+svg.on .nd.paper rect{fill:var(--paper-bg);stroke:var(--paper);stroke-width:1.5}
+svg.on .nd.rework rect{fill:var(--rework-bg);stroke:var(--rework);stroke-width:1.5}
+svg.on .nd.origin rect{stroke:var(--accent);stroke-width:2.5;stroke-dasharray:5 3}
+svg .nd.sel rect{stroke-width:3}
+svg .rv{opacity:0;transition:opacity .3s;transition-delay:calc(var(--d,0ms)*var(--k,1))}
+svg.on .rv{opacity:1}
+svg .rv path{fill:var(--surface);stroke:var(--ink);stroke-width:1}
+svg .rv text{font-family:var(--mono);font-size:8px;font-weight:600;fill:var(--ink);text-anchor:middle}
+@media (prefers-reduced-motion:reduce){svg *{transition:none!important}}
+.detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:8px 24px;padding:14px;border-top:1px solid var(--line)}
+@media (max-width:760px){.detail{grid-template-columns:1fr}}
+.detail h3{font-size:22px}
+.detail p{margin:4px 0 0}
+.chain{font-family:var(--mono);font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+.chain b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.pill.paper{background:var(--paper-bg);color:var(--paper);border-color:var(--paper)}
+.pill.rework{background:var(--rework-bg);color:var(--rework);border-color:var(--rework)}
+.pill.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
+
+/* lenses */
+.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid var(--ink)}
+.tabs button{background:transparent;border:0;padding:9px 18px;font-family:var(--display);font-size:20px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.lens{background:var(--surface);border:1px solid var(--line);border-top:0;border-radius:0 0 4px 4px;padding:18px}
+.lens h3{font-size:22px;margin-bottom:6px}
+.lens p{margin:0 0 10px;max-width:72ch}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tw.wide table{min-width:680px}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.grp td{font-family:var(--display);font-size:17px;font-weight:600;text-transform:uppercase;padding-top:14px;border-bottom:1px solid var(--ink)}
+td .mono{font-size:12.5px;font-weight:600;white-space:nowrap}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.two>div{min-width:0}
+.bars{display:flex;align-items:flex-end;gap:8px;height:190px;padding-top:22px;border-bottom:1px solid var(--ink)}
+.bars .b{flex:1;min-width:0;background:var(--line);position:relative;border-radius:2px 2px 0 0;min-height:2px}
+.bars .b.cur{background:var(--accent)}
+.bars .b span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;white-space:nowrap;padding-bottom:3px;color:var(--ink)}
+.barl{display:flex;gap:8px;margin-top:6px}
+.barl span{flex:1;min-width:0;font-size:11px;color:var(--muted);text-align:center;line-height:1.2;overflow-wrap:anywhere}
+.barl span.cur{color:var(--ink);font-weight:600}
+.letter{background:var(--surface2);border:1px solid var(--line);padding:22px;max-width:76ch;font-size:15px}
+.letter .hd{font-family:var(--mono);font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.letter ol{margin:0 0 10px;padding-left:20px}
+.rowb{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+ul.plain{margin:0 0 10px;padding-left:18px}
+
+/* ask */
+.ask{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ask input{flex:1 1 280px;min-width:0;background:var(--surface2);border:1px solid var(--line);border-radius:4px;padding:9px 11px}
+.answer{white-space:pre-wrap;background:var(--surface2);border-left:3px solid var(--accent);padding:12px 14px;max-width:80ch}
+footer{color:var(--muted);font-size:13px;max-width:80ch}
+</style>
+
+<div class="band"><div class="wrap">
+  <span class="lab" style="color:var(--band-muted)">Change impact tracer · demonstration</span>
+  <h1>Ripple</h1>
+  <p>One change on an EPC project never stays in one discipline. Pick a change, choose when the project finds out, and see what it touches, what it costs, and how to tell each audience.</p>
+  <div class="tb">
+    <div><span class="lab">Project</span><b>Calder Point Refinery · Unit 24 DHT Revamp</b></div>
+    <div><span class="lab">Scope</span><b>Diesel hydrotreater, 45,000 BPD</b></div>
+    <div><span class="lab">Contract</span><b>Lump-sum EPC · $412M TIC</b></div>
+    <div><span class="lab">Register</span><b id="tbReg">43 items · 9 disciplines</b></div>
+    <div><span class="lab">Status</span><b>Fictional project · modeled figures</b></div>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<section aria-labelledby="h-pick">
+  <header><h2 id="h-pick">1 · The change</h2><p>Four prepared examples, or describe your own.</p></header>
+  <div class="scn" id="scn"></div>
+  <div class="own" id="own">
+    <label class="lab" for="ownText">Describe a change in your own words</label>
+    <div class="own-row">
+      <textarea id="ownText" placeholder="e.g. Client wants the recycle gas compressor driver changed from electric motor to steam turbine"></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="btn" id="ownGo" disabled>Trace with Claude</button>
+        <button class="btn ghost" id="ownStop" hidden>Stop</button>
+      </div>
+    </div>
+    <div class="chips" id="ownChips"></div>
+    <p class="note" id="ownNote">Checking whether Claude is available in this view…</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-when">
+  <header><h2 id="h-when">2 · When the project finds out</h2><p>The scope of the change is the same. Only the timing moves.</p></header>
+  <div class="stages" id="stages" role="group" aria-label="Project stage when the change is found"></div>
+  <div class="kpis" id="kpis"></div>
+  <p class="cmp" id="cmp"></p>
+</section>
+
+<section aria-labelledby="h-graph">
+  <header><h2 id="h-graph">3 · What it touches</h2><p id="trig"></p></header>
+  <div class="graph">
+    <div class="gscroll"><svg id="svg" role="group" aria-label="Project register by discipline with affected items highlighted"></svg></div>
+    <div class="legend">
+      <span><i class="o"></i>Where the change starts</span>
+      <span><i class="p"></i>Revise on paper</span>
+      <span><i class="r"></i>Physical or commercial rework</span>
+      <span><i></i>Not affected</span>
+      <span>▲ number = how many steps from the origin</span>
+      <span>Select any item for its reason.</span>
+    </div>
+    <div class="detail" id="detail"></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-lens">
+  <header><h2 id="h-lens">4 · Same change, four audiences</h2><p>Each view is built from the same trace.</p></header>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="lens" id="lens" role="tabpanel"></div>
+</section>
+
+<section aria-labelledby="h-ask" id="askSec">
+  <header><h2 id="h-ask">Ask Claude about this change</h2><p>Claude reads the trace above, at the stage you selected.</p></header>
+  <div class="ask">
+    <div class="chips" id="askChips"></div>
+    <div class="own-row">
+      <input id="askText" type="text" placeholder="Ask anything about this change" aria-label="Question for Claude">
+      <button class="btn" id="askGo" disabled>Ask</button>
+      <button class="btn ghost" id="askStop" hidden>Stop</button>
+    </div>
+    <p class="note" id="askNote">Checking whether Claude is available in this view…</p>
+    <div class="answer" id="answer" hidden></div>
+  </div>
+</section>
+
+<footer>
+  <p><b>What is real here.</b> The project, tags, vendors and figures are invented for this demonstration. The four prepared traces were written in advance. Cost and schedule come from a simple model on this page: engineering hours at $165/hr with a stage multiplier, material deltas, and rework that switches on once an item is fabricated, poured or installed. A trace you request with “Trace with Claude” is produced live by Claude against the same 43-item register and has not been checked by an engineer.</p>
+</footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const DISC=["Process","Mechanical","Piping","Civil / Structural","Electrical","Instrumentation","Procurement","Construction","Turnover"];
+const N=[
+ ["HMB-2400","Heat & material balance",0],["HYD-2401","Feed circuit hydraulics",0],["PID-2412","P&ID reactor feed",0],["PID-2415","P&ID recycle gas",0],["RLF-2400","Relief & flare loads",0],["HAZ-2400","HAZOP / LOPA register",0],
+ ["P-2401A/B","Charge pumps",1],["E-2403","Feed/effluent exchanger",1],["H-2401","Charge heater",1],["K-2401","Recycle gas compressor",1],["PSV-2407","Feed relief valve",1],
+ ["LL-2400","Line list",2],["MOD-24A","3D model, area A",2],["ISO-24017","8 in feed isometrics",2],["STR-24017","Pipe stress analysis",2],["MTO-24","Piping material take-off",2],
+ ["FDN-P2401","Pump foundation",3],["FDN-E2403","Exchanger foundation",3],["PR-24-03","Pipe rack 3 steel",3],
+ ["ELL-2400","Electrical load list",4],["SLD-24B","Single-line, MCC-24B",4],["CBL-2400","Cable schedule",4],
+ ["IDX-2400","Instrument index",5],["FV-24012","Feed control valve",5],["CE-2400","Cause & effect matrix",5],["SIS-24","SIS logic & SIL verif.",5],["DCS-24","DCS configuration",5],
+ ["PO-4417","PO: charge pumps",6],["PO-4409","PO: exchangers",6],["PO-4432","PO: control valves",6],["PO-4451","PO: spool fabrication",6],["PO-4426","PO: structural steel",6],["PO-4440","PO: MCC & switchgear",6],
+ ["CWP-C02","Foundations, area A",7],["CWP-S03","Steel erection, rack 3",7],["CWP-M01","Equipment setting",7],["CWP-P05","Piping install, area A",7],["CWP-E03","Cable pull & termination",7],
+ ["TP-24-011","Hydrotest pack, feed",8],["LC-24","Loop checks",8],["SYS-24-03","Feed system turnover",8],["PSSR-24","Pre-startup safety review",8]
+].map(a=>({id:a[0],name:a[1],d:a[2]}));
+N.push({id:"MCC-24B",name:"MCC-24B lineup",d:4});
+const NODE=Object.fromEntries(N.map(n=>[n.id,n]));
+$("tbReg").textContent=N.length+" items · "+DISC.length+" disciplines";
+
+const STAGES=[["30%","Model review"],["60%","Model review"],["90% / IFC","Issued for construction"],["Fabrication","Shops cutting steel"],["Field","Installation under way"],["Pre-comm.","Testing & turnover"]];
+const STAGE_LONG=["the 30% model review","the 60% model review","the 90% review, at issue for construction","fabrication","field installation","pre-commissioning"];
+const MULT=[1,1.1,1.35,1.55,1.8,2.1], RATE=165;
+const BY={
+ client:{label:"Client-requested",ent:"Client-initiated scope change. Recoverable through a change order, provided notice goes out inside the contract window.",margin:"Neutral to margin if notice is on time."},
+ vendor:{label:"Vendor-driven",ent:"Vendor-caused. Under a lump-sum contract the EPC carries it, with partial recovery possible through a back-charge under the purchase order terms.",margin:"Comes out of contingency, less any back-charge."},
+ safety:{label:"Safety review",ent:"Arguable either way: design development under the lump sum, or a change if it exceeds the agreed basis of design. Expect a negotiation.",margin:"At risk until the commercial position is agreed."},
+ epc:{label:"Found by the EPC",ent:"An EPC coordination issue. Not recoverable from the client.",margin:"Comes straight out of contingency."}
+};
+const I=(n,via,o,note,hrs,mat,tiers)=>({n,via,o,note,hrs:hrs||0,mat:mat||0,tiers:(tiers||[]).map(t=>({from:t[0],cost:t[1],days:t[2],what:t[3]}))});
+
+const SC=[
+{id:"cap",title:"Client raises unit capacity 10%",short:"45,000 → 49,500 BPD after the 30% review",by:"client",
+ trigger:"The client instructs a charge rate increase from 45,000 to 49,500 BPD.",
+ plain:"You asked us to raise the unit's design charge rate from 45,000 to 49,500 barrels per day. The reactor and heater can take it. The feed pumps, one exchanger, the feed control valve, a relief valve and part of the feed piping cannot at their current size.",
+ options:["Proceed at 49,500 BPD with the full scope listed.","Stay at 45,000 BPD, but pre-invest in the items that are costly to change later: pump casing, 10 in feed line and the MCC bucket.","Defer the capacity step to the next turnaround."],
+ impacts:[
+  I("HMB-2400",null,0,"Re-run the heat and material balance at 49,500 BPD. 14 streams change.",120),
+  I("HYD-2401","HMB-2400",1,"Feed circuit pressure drop rises about 21%. Pump head is short by 38 ft.",60),
+  I("PID-2412","HMB-2400",1,"Line and valve sizes change on 3 sheets.",80),
+  I("RLF-2400","HMB-2400",1,"Blocked-outlet relief load rises. Flare header back-pressure check to API 521.",90),
+  I("HAZ-2400","PID-2412",2,"Management of change: revalidate HAZOP nodes 3 and 4.",40),
+  I("P-2401A/B","HYD-2401",2,"Larger impeller. Motor grows from 900 to 1,000 hp.",40,85e3),
+  I("E-2403","HMB-2400",2,"Duty up 9%. Add one shell or accept a lower approach temperature.",70,310e3),
+  I("H-2401","HMB-2400",2,"Firing rate stays inside 110% of design. Burner check only.",30),
+  I("FV-24012","HYD-2401",2,"Required Cv exceeds the trim at maximum flow. Body goes from 6 in to 8 in.",24,28e3),
+  I("PSV-2407","RLF-2400",2,"Orifice goes from P to Q. Recheck inlet line loss.",30,14e3),
+  I("LL-2400","PID-2412",2,"11 lines change. Two go from 8 in to 10 in.",40),
+  I("ISO-24017","LL-2400",3,"34 isometrics to revise and re-issue.",160),
+  I("STR-24017","ISO-24017",3,"Re-run stress on the 10 in lines. Check nozzle loads on E-2403.",60),
+  I("MTO-24","LL-2400",3,"Add 10 in pipe, fittings and flanges. 8 in becomes surplus.",20,46e3),
+  I("ELL-2400","P-2401A/B",3,"Motor load up 100 hp. MCC-24B bus stays within rating.",16),
+  I("CBL-2400","ELL-2400",3,"Pump feeder grows from 350 to 500 kcmil.",12,19e3),
+  I("FDN-P2401","P-2401A/B",3,"Larger motor frame changes the anchor bolt pattern.",30),
+  I("PO-4417","P-2401A/B",3,"Vendor re-rates the pump curve.",0,0,[[1,60e3,14,"Vendor change order to re-rate after order placement."],[3,140e3,35,"Impellers already cast. New pattern and castings."]]),
+  I("PO-4409","E-2403",3,"Thermal re-rating by the exchanger vendor.",0,0,[[1,45e3,10,"Vendor change order."],[3,420e3,45,"Bundles already tubed. The added shell becomes a new build."]]),
+  I("PO-4432","FV-24012",3,"Control valve body size changes.",0,0,[[2,18e3,21,"Change order on a placed valve order."],[3,52e3,56,"Body already cast. Replacement valve at full lead time."]]),
+  I("PO-4440","ELL-2400",3,"Starter bucket goes from size 5 to size 6.",0,0,[[2,22e3,28,"Bucket swap after MCC release for manufacture."]]),
+  I("PO-4451","ISO-24017",3,"Spools follow the revised isometrics.",0,0,[[3,280e3,21,"62 spools already fabricated at 8 in. Scrap and refabricate."]]),
+  I("CWP-C02","FDN-P2401",3,"Pump pedestals need the new bolt pattern.",0,0,[[4,95e3,12,"Pedestals already poured. Chip out and re-pour."]]),
+  I("CWP-P05","PO-4451",3,"Feed piping in area A changes size.",0,0,[[4,340e3,18,"Installed 8 in spools cut out, new spools welded and re-examined."]]),
+  I("CWP-E03","CBL-2400",3,"Pump feeder cable size changes.",0,0,[[4,60e3,6,"Pull back the installed feeder and pull the larger cable."]]),
+  I("TP-24-011","ISO-24017",3,"Test pack limits redrawn for the new line sizes.",10,0,[[5,70e3,8,"Feed circuit already tested. Re-hydrotest."]])
+ ]},
+{id:"vend",title:"Late vendor data, larger pump skid",short:"Certified drawings arrive 6 weeks late",by:"vendor",
+ trigger:"Certified drawings for charge pumps P-2401A/B arrive six weeks late: baseplate 14 in longer, suction nozzle moved 9 in, seal plan 53B added.",
+ plain:"The charge pump supplier's final drawings came in six weeks late and differ from the preliminary data we designed to. The pump skid is longer, a nozzle has moved, and the seal system brings eight extra instruments.",
+ options:["Incorporate the certified dimensions now and re-issue the affected drawings.","Hold release of the pump-area foundation and piping packages until the re-issue.","Notify the vendor of a back-charge for late and changed data."],
+ impacts:[
+  I("PO-4417",null,0,"Certified vendor drawings received late and changed.",8),
+  I("P-2401A/B","PO-4417",1,"Update the datasheet and general arrangement to certified data.",12),
+  I("FDN-P2401","P-2401A/B",2,"Pedestal lengthens 14 in. New anchor bolt layout.",36),
+  I("MOD-24A","P-2401A/B",2,"Re-model the suction and discharge piping to the moved nozzle.",40),
+  I("PID-2412","P-2401A/B",2,"Add the seal plan 53B instruments to the P&ID.",10),
+  I("ELL-2400","P-2401A/B",2,"Seal system auxiliaries added to the load list.",8),
+  I("ISO-24017","MOD-24A",3,"6 isometrics change at the pump.",48),
+  I("STR-24017","ISO-24017",3,"Recheck nozzle loads against API 610 allowables.",30),
+  I("IDX-2400","PID-2412",3,"8 new instruments from the seal system.",14),
+  I("DCS-24","IDX-2400",3,"8 I/O points added. Spare capacity is adequate.",16),
+  I("CBL-2400","ELL-2400",3,"Termination box moves. Gland sizes change.",6),
+  I("CWP-C02","FDN-P2401",3,"Pump foundation dimensions change.",0,0,[[3,110e3,15,"Pedestals already poured to the preliminary drawing. Demolish and re-pour."]]),
+  I("PO-4451","ISO-24017",3,"Pump suction and discharge spools change.",0,0,[[3,48e3,10,"9 spools already fabricated. Refabricate."]]),
+  I("CWP-M01","P-2401A/B",3,"Pump setting follows the certified baseplate.",0,0,[[4,30e3,5,"Pump already set and grouted. Lift and re-set."]]),
+  I("CWP-P05","PO-4451",3,"Pump-area piping follows the revised isometrics.",0,0,[[4,85e3,9,"Suction spools field-fitted to the moved nozzle."]]),
+  I("CWP-E03","CBL-2400",3,"Cable terminations move with the junction box.",0,0,[[4,12e3,2,"Re-terminate installed cables."]]),
+  I("LC-24","IDX-2400",3,"8 more loops to check.",0,0,[[5,9e3,2,"Added loops checked after the loop-check crew has demobilized."]])
+ ]},
+{id:"haz",title:"HAZOP adds a high-pressure trip",short:"New SIL 2 isolation valve on reactor feed",by:"safety",
+ trigger:"HAZOP action 47: add an independent high-pressure trip and automated isolation valve on the reactor feed, rated SIL 2.",
+ plain:"The safety review recommended an additional automatic shut-off on the reactor feed line to protect against overpressure. It needs a new valve, three pressure transmitters and safety-system logic.",
+ options:["Implement the SIL 2 trip and isolation valve as recommended.","Study an alternative: upgrade existing shutdown valve XV-24007 and take credit for it in the LOPA.","Accept the current design with a documented risk decision. The HAZOP team does not recommend this."],
+ impacts:[
+  I("HAZ-2400",null,0,"Action 47 raised. LOPA shows a gap of one protection layer.",24),
+  I("PID-2412","HAZ-2400",1,"Add XV-24031 and transmitters PT-24031A/B/C, voted 2oo3.",40),
+  I("CE-2400","HAZ-2400",1,"New cause and effect row for the high-pressure trip.",30),
+  I("RLF-2400","PID-2412",2,"Re-check the blocked-outlet case upstream of the new valve.",20),
+  I("SIS-24","CE-2400",2,"New safety function. SIL verification to IEC 61511.",80),
+  I("IDX-2400","PID-2412",2,"4 new tagged instruments.",12),
+  I("LL-2400","PID-2412",2,"Line break added at the new valve.",8),
+  I("DCS-24","IDX-2400",3,"Alarms and graphics for the new trip.",20),
+  I("CBL-2400","IDX-2400",3,"Home-run cables to the SIS cabinet.",14,22e3),
+  I("ISO-24017","LL-2400",3,"Valve inserted. 3 spools change.",36),
+  I("STR-24017","ISO-24017",3,"Valve and actuator weigh 2,900 lb. A support is added.",20),
+  I("PR-24-03","STR-24017",3,"New support steel at rack 3, grid C4.",24),
+  I("PO-4432","PID-2412",3,"8 in Class 900 on-off valve with actuator. 26-week lead.",0,96e3,[[2,0,40,"Ordered this late, the valve arrives after its need date."],[4,35e3,60,"Expedite fees, and the valve still arrives after the line is installed."]]),
+  I("PO-4426","PR-24-03",3,"Added support steel.",0,0,[[3,26e3,10,"Rack steel already fabricated. Supplementary order."]]),
+  I("PO-4451","ISO-24017",3,"3 spools change for the valve.",0,0,[[3,54e3,12,"Spools already fabricated. Cut and add flanges."]]),
+  I("CWP-P05","PO-4451",3,"Valve installed in the feed line.",0,0,[[4,120e3,10,"Cut into the installed line. Hot work permit and re-examination."]]),
+  I("CWP-E03","CBL-2400",3,"New instrument cables.",0,0,[[4,25e3,4,"Pull through cable trays that are already filled and banded."]]),
+  I("TP-24-011","ISO-24017",3,"Test pack boundary changes at the new valve.",6,0,[[5,55e3,7,"Feed circuit already tested. Re-test."]]),
+  I("LC-24","SIS-24",3,"Loop checks and a function test for the new trip.",12),
+  I("SYS-24-03","TP-24-011",3,"Turnover boundary drawing changes.",4,0,[[5,0,5,"Turnover package re-issued and re-walked."]]),
+  I("PSSR-24","HAZ-2400",3,"Action 47 must be closed before startup.",10)
+ ]},
+{id:"clash",title:"Feed line clashes with rack bracing",short:"8 in line vs. rack 3 steel at grid C4",by:"epc",
+ trigger:"The 8 in reactor feed line runs through vertical bracing on pipe rack 3 at grid C4.",
+ plain:"Our piping and structural designs conflict at one location on pipe rack 3. A brace sits where the feed line needs to run. This is ours to fix.",
+ options:["Move the brace one bay east. Needs a structural check.","Route the 8 in line under the brace with two added elbows."],
+ impacts:[
+  I("MOD-24A",null,0,"Hard clash between line 8\"-P-24017 and brace VB-7.",16),
+  I("PR-24-03","MOD-24A",1,"Move brace VB-7 one bay east. Re-check frame stability.",20),
+  I("ISO-24017","MOD-24A",1,"2 isometrics adjusted for clearance.",24),
+  I("STR-24017","ISO-24017",2,"Support spacing re-checked at the moved brace.",16),
+  I("PO-4426","PR-24-03",2,"Brace and gusset detail changes.",0,0,[[3,18e3,8,"Brace already fabricated. Refabricate gussets."]]),
+  I("PO-4451","ISO-24017",2,"2 spools change length.",0,0,[[3,22e3,7,"Spools already fabricated. Modify."]]),
+  I("CWP-S03","PO-4426",3,"Bracing erected in the new bay.",0,0,[[4,46e3,6,"Erected brace removed and re-erected. Crane remobilized."]]),
+  I("CWP-P05","PO-4451",3,"Feed line installed to the revised route.",0,0,[[4,64e3,8,"Pipe crew on standby. 4 spools modified in the field."]]),
+  I("TP-24-011","ISO-24017",3,"Test pack drawing updated.",0,0,[[5,12e3,2,"Test pack re-issued after walkdown."]])
+ ]}
+];
+
+/* ---------- model ---------- */
+function calc(sc,s){
+  let eng=0,mat=0,phys=0,hrs=0,maxDays=0,rework=0;
+  const rows=sc.impacts.map(im=>{
+    let tier=null; for(const t of im.tiers) if(t.from<=s) tier=t;
+    const e=im.hrs*RATE*MULT[s];
+    eng+=e; mat+=im.mat; hrs+=im.hrs*MULT[s];
+    if(tier){phys+=tier.cost; maxDays=Math.max(maxDays,tier.days); rework++;}
+    return {im,node:NODE[im.n],tier,cost:e+im.mat+(tier?tier.cost:0),state:tier?"rework":"paper"};
+  });
+  const engDays=Math.ceil(hrs/96);
+  return {rows,eng,mat,phys,total:eng+mat+phys,hrs:Math.round(hrs),days:engDays+maxDays,engDays,rework,
+    discs:new Set(rows.map(r=>r.node.d)).size};
+}
+const money=v=>v>=1e6?"$"+(v/1e6).toFixed(2)+"M":v>=1e3?"$"+Math.round(v/1e3)+"k":"$"+Math.round(v);
+
+/* ---------- state ---------- */
+let cur=SC[0], stage=1, lens="eng", sel=null, sample=null;
+const LENSES=[["eng","Engineering"],["con","Construction"],["exec","Executive"],["client","Client"]];
+
+/* ---------- pickers ---------- */
+function drawScn(){
+  $("scn").innerHTML=SC.map(s=>`<button type="button" data-id="${esc(s.id)}" aria-pressed="${s===cur}"><span class="lab">${esc(BY[s.by].label)}${s.live?" · traced live by Claude":""}</span><b>${esc(s.title)}</b><span>${esc(s.short)}</span></button>`).join("");
+}
+$("scn").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cur=SC.find(s=>s.id===b.dataset.id);sel=null;drawAll(true);});
+function drawStages(){
+  $("stages").innerHTML=STAGES.map((s,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===stage}"><b>${s[0]}</b><span class="lab">${s[1]}</span></button>`).join("");
+}
+$("stages").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;stage=+b.dataset.i;drawAll(false);});
+$("tabs").innerHTML=LENSES.map(l=>`<button type="button" role="tab" data-l="${l[0]}">${l[1]}</button>`).join("");
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lens=b.dataset.l;drawLens();drawAskChips();});
+
+/* ---------- KPIs ---------- */
+function drawKpis(c){
+  $("kpis").innerHTML=[
+    ["Cost impact",money(c.total),c.phys>0],
+    ["Schedule, working days",c.days,c.rework>0],
+    ["Items touched",c.rows.length+" / "+N.length,false],
+    ["Already built or bought",c.rework,c.rework>0]
+  ].map(k=>`<div class="kpi"><span class="lab">${k[0]}</span><div class="v${k[2]?" hot":""}">${k[1]}</div></div>`).join("");
+  const other=stage<4?4:1, o=calc(cur,other);
+  $("cmp").innerHTML=stage<4
+    ?`Found at <b class="good">${esc(STAGE_LONG[stage])}</b>, ${c.rework?c.rework+" item"+(c.rework>1?"s have":" has")+" a commercial or physical consequence":"every impact is still a drawing revision"}. The same change found during field installation is modeled at <b>${money(o.total)} and ${o.days} days</b>, ${(o.total/c.total).toFixed(1)}× the cost.`
+    :`Found during <b>${esc(STAGE_LONG[stage])}</b>, ${c.rework} items are rework on things already bought, fabricated or installed. At the 60% model review the same change was <b class="good">${money(o.total)} and ${o.days} days</b>.`;
+}
+
+/* ---------- graph ---------- */
+const CW=134,NW=122,NH=36,TOP=40,PITCH=45;
+const POS={};(function(){const cnt=Array(DISC.length).fill(0);N.forEach(n=>{POS[n.id]={x:n.d*CW+(CW-NW)/2,y:TOP+cnt[n.d]++*PITCH};});})();
+const ROWS=Math.max(...DISC.map((_,d)=>N.filter(n=>n.d===d).length));
+const GW=CW*DISC.length, GH=TOP+ROWS*PITCH+6;
+function edgePath(a,b){
+  const A=POS[a],B=POS[b],da=NODE[a].d,db=NODE[b].d,ya=A.y+NH/2,yb=B.y+NH/2;
+  if(db>da){const x1=A.x+NW,x2=B.x,k=Math.max(24,(x2-x1)*.5);return{d:`M${x1},${ya} C${x1+k},${ya} ${x2-k},${yb} ${x2},${yb}`,ex:x2,ey:yb};}
+  if(db<da){const x1=A.x,x2=B.x+NW,k=Math.max(24,(x1-x2)*.5);return{d:`M${x1},${ya} C${x1-k},${ya} ${x2+k},${yb} ${x2},${yb}`,ex:x2,ey:yb};}
+  const x=A.x+NW;return{d:`M${x},${ya} C${x+15},${ya} ${x+15},${yb} ${x},${yb}`,ex:x,ey:yb};
+}
+const BASE=new Set();SC.forEach(s=>s.impacts.forEach(i=>{if(i.via)BASE.add(i.via+">"+i.n);}));
+function drawGraph(c,animate){
+  const svg=$("svg");svg.setAttribute("viewBox",`0 0 ${GW} ${GH}`);svg.classList.remove("on");svg.style.setProperty("--k",animate?1:0);
+  const by=Object.fromEntries(c.rows.map(r=>[r.im.n,r]));
+  const active=new Set(cur.impacts.filter(i=>i.via).map(i=>i.via+">"+i.n));
+  let h="";
+  DISC.forEach((d,i)=>{h+=`<rect class="lane" x="${i*CW+2}" y="26" width="${CW-4}" height="${GH-28}" rx="3"/><text class="colh" x="${i*CW+CW/2}" y="17" text-anchor="middle">${esc(d)}</text>`;});
+  BASE.forEach(k=>{if(active.has(k))return;const[a,b]=k.split(">");h+=`<path class="eg" d="${edgePath(a,b).d}"/>`;});
+  cur.impacts.forEach((im,idx)=>{if(!im.via)return;const p=edgePath(im.via,im.n),dl=im.o*380+idx*25;
+    h+=`<path class="eg act" style="--d:${dl}ms" d="${p.d}"/><circle class="dot" style="--d:${dl}ms" cx="${p.ex}" cy="${p.ey}" r="2.6"/>`;});
+  N.forEach(n=>{const p=POS[n.id],r=by[n.id];
+    const cls=r?(r.state+(r.im.o===0?" origin":"")):"idle";
+    const dl=r?r.im.o*380+cur.impacts.indexOf(r.im)*25+120:0;
+    h+=`<g class="nd ${cls}${sel===n.id?" sel":""}" data-id="${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.id+", "+n.name+(r?", affected":", not affected"))}" style="--d:${dl}ms">
+      <rect x="${p.x}" y="${p.y}" width="${NW}" height="${NH}" rx="3"/>
+      <text class="t1" x="${p.x+7}" y="${p.y+14.5}">${esc(n.id)}</text><text class="t2" x="${p.x+7}" y="${p.y+27.5}">${esc(n.name)}</text>
+      ${r&&r.im.o>0?`<g class="rv" style="--d:${dl}ms"><path d="M${p.x+NW-15},${p.y+13} l6.5,-11 l6.5,11 z"/><text x="${p.x+NW-8.5}" y="${p.y+11.2}">${r.im.o}</text></g>`:""}
+    </g>`;});
+  svg.innerHTML=h;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>svg.classList.add("on")));
+}
+function pick(e){const g=e.target.closest(".nd");if(!g)return;sel=g.dataset.id;$("svg").querySelectorAll(".nd.sel").forEach(x=>x.classList.remove("sel"));g.classList.add("sel");drawDetail(calc(cur,stage));}
+$("svg").addEventListener("click",pick);
+$("svg").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(e);}});
+function drawDetail(c){
+  const id=sel||cur.impacts.find(i=>i.o===0).n, n=NODE[id], r=c.rows.find(x=>x.im.n===id);
+  if(!r){$("detail").innerHTML=`<div><span class="lab">${esc(DISC[n.d])}</span><h3><span class="mono">${esc(n.id)}</span> ${esc(n.name)}</h3></div><div><span class="pill ok">Not affected</span><p>This change does not reach this item. It can proceed on its current revision.</p></div>`;return;}
+  const chain=[];let x=r.im,guard=0;while(x&&guard++<12){chain.unshift(x.n);x=x.via?cur.impacts.find(i=>i.n===x.via):null;}
+  $("detail").innerHTML=`<div><span class="lab">${esc(DISC[n.d])}</span><h3><span class="mono">${esc(n.id)}</span> ${esc(n.name)}</h3>
+    <p class="chain">${chain.map((t,i)=>i===chain.length-1?`<b>${esc(t)}</b>`:esc(t)).join(" → ")}</p></div>
+    <div><span class="pill ${r.state}">${r.im.o===0?"Origin · ":""}${r.tier?"Rework":"Revise on paper"}</span>
+    <p>${esc(r.im.note)}</p>${r.tier?`<p><b>At this stage:</b> ${esc(r.tier.what)}</p>`:""}
+    <p class="note num">${[r.im.hrs?Math.round(r.im.hrs*MULT[stage])+" engineering hours":"",r.im.mat?money(r.im.mat)+" material":"",r.tier&&r.tier.cost?money(r.tier.cost)+" rework":"",r.tier&&r.tier.days?r.tier.days+" days":""].filter(Boolean).join(" · ")||"No direct cost at this stage."}</p></div>`;
+}
+
+/* ---------- lenses ---------- */
+function lensEng(c){
+  let h=`<h3>Deliverables to revise</h3><p>${c.rows.filter(r=>r.node.d<6).length} engineering deliverables across ${new Set(c.rows.filter(r=>r.node.d<6).map(r=>r.node.d)).size} disciplines, ${c.hrs.toLocaleString()} hours at this stage. The number in the triangle is the step from the origin, so squad checks can run in that order.</p><div class="tw wide"><table><thead><tr><th>Step</th><th>Tag</th><th>Deliverable</th><th>Action</th><th>Driven by</th><th class="r">Hours</th></tr></thead><tbody>`;
+  DISC.slice(0,6).forEach((d,di)=>{const rs=c.rows.filter(r=>r.node.d===di).sort((a,b)=>a.im.o-b.im.o);if(!rs.length)return;
+    h+=`<tr class="grp"><td colspan="5">${esc(d)}</td><td class="r num">${Math.round(rs.reduce((s,r)=>s+r.im.hrs*MULT[stage],0))}</td></tr>`;
+    rs.forEach(r=>{h+=`<tr><td class="num">${r.im.o===0?"origin":"▲"+r.im.o}</td><td><span class="mono">${esc(r.node.id)}</span></td><td>${esc(r.node.name)}</td><td>${esc(r.im.note)}</td><td><span class="mono">${esc(r.im.via||"—")}</span></td><td class="r">${Math.round(r.im.hrs*MULT[stage])||"—"}</td></tr>`;});});
+  return h+`</tbody></table></div>`;
+}
+function lensCon(c){
+  const by=Object.fromEntries(c.rows.map(r=>[r.im.n,r]));
+  const held=c.rows.filter(r=>r.node.d>=7&&r.tier), watch=c.rows.filter(r=>r.node.d>=7&&!r.tier);
+  let h=`<h3>${held.length?"Stop work on "+held.length+" package"+(held.length>1?"s":""):"No field rework"}</h3><p>${held.length
+    ?"These packages have work in place that this change undoes. Everything marked clear can keep going."
+    :(watch.length?watch.length+" package"+(watch.length>1?"s get":" gets")+" revised drawings before release. Do not build from the superseded revisions.":"This change does not reach the field at this stage.")}</p><div class="tw wide"><table><thead><tr><th>Package</th><th>Scope</th><th>Status</th><th>What to know</th><th class="r">Days</th></tr></thead><tbody>`;
+  [[7,"Construction work packages"],[8,"Testing & turnover"],[6,"Material & deliveries"]].forEach(([di,label])=>{
+    h+=`<tr class="grp"><td colspan="5">${label}</td></tr>`;
+    N.filter(n=>n.d===di).forEach(n=>{const r=by[n.id];
+      const st=!r?`<span class="pill ok">Clear</span>`:r.tier?`<span class="pill rework">${di===6?"Re-order":"Hold"}</span>`:`<span class="pill paper">Revised dwgs</span>`;
+      h+=`<tr><td><span class="mono">${esc(n.id)}</span></td><td>${esc(n.name.replace(/^PO: /,""))}</td><td>${st}</td><td>${r?esc(r.tier?r.tier.what:r.im.note):"Proceed on current revision."}</td><td class="r">${r&&r.tier&&r.tier.days?r.tier.days:"—"}</td></tr>`;});});
+  return h+`</tbody></table></div>`;
+}
+function lensExec(c){
+  const all=STAGES.map((_,i)=>calc(cur,i)), max=Math.max(...all.map(a=>a.total)), b=BY[cur.by];
+  const rec=c.rework===0?"Decide now. Every impact is still a drawing revision, and this is the cheapest the change will ever be."
+    :stage<=3?"Decide this week. Commitments are already being hit, and each stage that passes adds rework on fabricated material."
+    :"Contain it. Hold the affected packages, protect the unaffected crews, and settle the commercial position before more work is undone.";
+  return `<div class="two"><div>
+    <h3>Cost of this change, by when it is found</h3>
+    <div class="bars" role="img" aria-label="Modeled cost at each stage">${all.map((a,i)=>`<div class="b${i===stage?" cur":""}" style="height:${Math.max(2,a.total/max*100)}%"><span>${money(a.total)}</span></div>`).join("")}</div>
+    <div class="barl">${STAGES.map((s,i)=>`<span class="${i===stage?"cur":""}">${s[0]}</span>`).join("")}</div>
+    <p class="note" style="margin-top:10px">Highlighted bar is the selected stage. Modeled figures.</p>
+  </div><div>
+    <h3>Position at ${esc(STAGES[stage][0])}</h3>
+    <div class="tw"><table><tbody>
+      <tr><td>Engineering rework</td><td class="r">${c.hrs.toLocaleString()} hrs</td><td class="r">${money(c.eng)}</td></tr>
+      <tr><td>Added material and equipment</td><td class="r"></td><td class="r">${money(c.mat)}</td></tr>
+      <tr><td>Vendor changes and field rework</td><td class="r">${c.rework} items</td><td class="r">${money(c.phys)}</td></tr>
+      <tr><td><b>Total</b></td><td class="r"><b>${c.days} days</b></td><td class="r"><b>${money(c.total)}</b></td></tr>
+    </tbody></table></div>
+    <p style="margin-top:14px"><span class="pill">${esc(b.label)}</span></p>
+    <p><b>Entitlement.</b> ${esc(b.ent)} ${esc(b.margin)}</p>
+    <p><b>Recommendation.</b> ${rec}</p>
+  </div></div>`;
+}
+function letterText(c){
+  const eng=c.rows.filter(r=>r.node.d<6).length, po=c.rows.filter(r=>r.node.d===6).length, cw=c.rows.filter(r=>r.node.d>=7).length;
+  const later=calc(cur,Math.min(5,Math.max(stage+2,4)));
+  const price=cur.by==="client"?`The modeled impact is ${money(c.total)} and ${c.days} working days on mechanical completion. We will confirm both in a formal change order proposal.`
+    :cur.by==="safety"?`The modeled impact is ${money(c.total)} and ${c.days} working days on mechanical completion. Commercial treatment is to be agreed between us.`
+    :`This does not change your contract price. We are telling you because it could move mechanical completion by up to ${c.days} working days, and we would rather you hear it from us now.`;
+  return {eng,po,cw,price,
+    timing:stage<4?`These figures hold if we act at the current stage. Actioned during ${STAGE_LONG[Math.min(5,Math.max(stage+2,4))]}, the same change is modeled at ${money(later.total)} and ${later.days} days.`
+      :"Work is already installed, so part of this is rework in the field. We are holding the affected packages and keeping all other crews working."};
+}
+function lensClient(c){
+  const L=letterText(c);
+  return `<div class="letter" id="letter">
+    <div class="hd"><span>CHANGE NOTICE · DRAFT</span><span>CN-024-${String(31+SC.indexOf(cur)).padStart(3,"0")}</span><span>Unit 24 DHT Revamp</span><span>Not issued</span></div>
+    <p><b>Subject: ${esc(cur.title)}</b></p>
+    <p>${esc(cur.plain)}</p>
+    <p><b>What it touches.</b> ${L.eng} engineering deliverables, ${L.po} purchase orders and ${L.cw} construction and testing packages, across ${c.discs} disciplines.</p>
+    <p><b>Cost and schedule.</b> ${esc(L.price)}</p>
+    <p><b>Why timing matters.</b> ${esc(L.timing)}</p>
+    <p><b>Your options.</b></p><ol>${cur.options.map(o=>`<li>${esc(o)}</li>`).join("")}</ol>
+    <p><b>What we need from you.</b> A decision within five working days, so the affected packages are not released on superseded drawings.</p>
+    <p class="note">Draft for project manager review before issue.</p>
+  </div><div class="rowb"><button class="btn ghost" type="button" id="copyBtn">Copy draft</button><span class="note" id="copyNote"></span></div>`;
+}
+function drawLens(){
+  const c=calc(cur,stage);
+  $("tabs").querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected",b.dataset.l===lens));
+  $("lens").innerHTML={eng:lensEng,con:lensCon,exec:lensExec,client:lensClient}[lens](c);
+  const cb=$("copyBtn");
+  if(cb)cb.onclick=()=>{const t=$("letter").innerText;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{$("copyNote").textContent="Copied.";})
+      .catch(()=>{const r=document.createRange();r.selectNodeContents($("letter"));const s=getSelection();s.removeAllRanges();s.addRange(r);$("copyNote").textContent="Selected. Press Ctrl or Cmd + C to copy.";});};
+}
+function drawAll(animate){
+  const c=calc(cur,stage);
+  drawScn();drawStages();drawKpis(c);
+  $("trig").textContent=cur.trigger;
+  drawGraph(c,animate);drawDetail(c);drawLens();drawAskChips();
+}
+
+/* ---------- Claude ---------- */
+const ERR={rate_limited:"Claude is busy or a usage limit was reached. Try again in a little while.",session_expired:"Sign in to Claude again, then retry.",refused:"Claude declined that request. Try rephrasing it.",invalid_json:"Claude's answer did not come back in the expected shape. Try again.",empty_completion:"Claude returned nothing. Try a more specific description.",prompt_too_large:"That description is too long."};
+const errCopy=c=>ERR[c]||"Something went wrong reaching Claude. Try again.";
+const GONE=["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"];
+function claudeOff(msg){sample=null;$("ownGo").disabled=true;$("askGo").disabled=true;$("ownNote").textContent=msg;$("askNote").textContent=msg;$("ownChips").hidden=true;$("askChips").hidden=true;}
+
+const OWN_EX=["Client changes the recycle gas compressor driver from motor to steam turbine","Metallurgy upgrade on the reactor feed line from 1¼Cr to 321 stainless","Site reports the exchanger foundation was poured 6 in off grid","Flare study shows the existing header cannot take the new relief load"];
+$("ownChips").innerHTML=OWN_EX.map(t=>`<button type="button">${esc(t)}</button>`).join("");
+$("ownChips").addEventListener("click",e=>{const b=e.target.closest("button");if(b){$("ownText").value=b.textContent;$("ownText").focus();}});
+
+function tracePrompt(text){
+  return `You are a senior EPC project engineer. Trace how one change ripples through a refinery project, using only the project register below.
+
+PROJECT (fictional): Calder Point Refinery, Unit 24 diesel hydrotreater revamp, 45,000 BPD, lump-sum EPC, about $412M total installed cost.
+
+REGISTER (id | name | discipline):
+${N.map(n=>n.id+" | "+n.name+" | "+DISC[n.d]).join("\n")}
+
+STAGES (index: name): ${STAGES.map((s,i)=>i+": "+s[0]+" "+s[1]).join("; ")}
+
+THE CHANGE, in the user's words:
+"""${text.slice(0,1200)}"""
+
+Reply with only one JSON object of this shape:
+{"title": string (max 7 words), "short": string (max 9 words), "by": "client"|"vendor"|"safety"|"epc", "trigger": string (one sentence stating the change), "plain": string (2 sentences for a refinery owner who is not an engineer), "options": [2 or 3 short option strings for the client],
+ "impacts": [{"n": register id, "via": register id of the item that drives this one or null for the origin, "o": integer steps from origin (0 for the origin), "note": string (one specific sentence: what changes on this item, with realistic numbers, sizes or code references), "hrs": engineering hours to revise on paper (0-200), "mat": added material or equipment cost in USD (0 if none), "tiers": [{"from": stage index 0-5 at which this consequence starts, "cost": USD, "days": working days of delay, "what": string (one sentence: what physical or commercial rework happens)}]}]}
+
+Rules: exactly one impact has o=0 and via=null. Every other "via" must be the id of another impact with a smaller "o". Use 8 to 22 impacts and only ids from the register; include only items that would really be affected. Engineering documents normally have empty tiers. Purchase orders get tiers from about stage 1-3, construction packages from stage 4, test and turnover items from stage 5. Keep costs realistic for a project this size. If the text does not describe a plausible change to this kind of project, reply {"error": "one sentence saying why"}.`;
+}
+function normalize(d){
+  if(!d||typeof d!=="object"||!Array.isArray(d.impacts))return null;
+  const seen=new Set(), num=(v,lo,hi)=>Math.min(hi,Math.max(lo,Number(v)||0));
+  let imps=d.impacts.filter(i=>i&&NODE[i.n]&&!seen.has(i.n)&&seen.add(i.n)).slice(0,26).map(i=>({
+    n:i.n,via:i.via,o:Math.round(num(i.o,0,6)),note:String(i.note||"Affected."),hrs:num(i.hrs,0,400),mat:num(i.mat,0,5e6),
+    tiers:(Array.isArray(i.tiers)?i.tiers:[]).filter(t=>t&&typeof t==="object").map(t=>({from:Math.round(num(t.from,0,5)),cost:num(t.cost,0,5e6),days:Math.round(num(t.days,0,180)),what:String(t.what||"Rework.")})).sort((a,b)=>a.from-b.from)}));
+  if(imps.length<2)return null;
+  let origin=imps.find(i=>i.o===0)||imps[0];
+  imps.forEach(i=>{if(i===origin){i.o=0;i.via=null;return;}if(i.o<1)i.o=1;if(!seen.has(i.via)||i.via===i.n)i.via=origin.n;});
+  imps.sort((a,b)=>a.o-b.o);
+  const opts=(Array.isArray(d.options)?d.options:[]).map(String).filter(Boolean).slice(0,3);
+  return {id:"live"+Date.now(),live:true,title:String(d.title||"Your change").slice(0,70),short:String(d.short||"Traced live").slice(0,90),by:BY[d.by]?d.by:"epc",
+    trigger:String(d.trigger||""),plain:String(d.plain||d.trigger||""),options:opts.length?opts:["Proceed with the change.","Hold and study alternatives."],impacts:imps};
+}
+let ownCtl=null;
+$("ownGo").onclick=async()=>{
+  const text=$("ownText").value.trim();
+  if(!sample)return; if(text.length<12){$("ownNote").textContent="Describe the change in a sentence first.";return;}
+  ownCtl=new AbortController();$("ownGo").disabled=true;$("ownStop").hidden=false;
+  $("ownNote").textContent="Claude is tracing this change through the 43-item register. This usually takes 20 to 60 seconds.";
+  try{
+    const d=await sample.json(tracePrompt(text),{signal:ownCtl.signal,onText:({text})=>{$("ownNote").textContent="Claude is writing the trace… "+text.length.toLocaleString()+" characters so far.";}});
+    if(d&&d.error){$("ownNote").textContent=String(d.error);}
+    else{const sc=normalize(d);
+      if(!sc)$("ownNote").textContent=errCopy("invalid_json");
+      else{const i=SC.findIndex(s=>s.live);if(i>=0)SC.splice(i,1);SC.push(sc);cur=sc;sel=null;drawAll(true);
+        $("ownNote").textContent="Traced live by Claude: "+sc.impacts.length+" items. Not checked by an engineer.";$("h-when").scrollIntoView({behavior:"smooth",block:"start"});}}
+  }catch(e){
+    if(GONE.includes(e&&e.code))claudeOff("Claude is not enabled for this page in this view. The four prepared examples still work.");
+    else $("ownNote").textContent=e&&e.code==="cancelled"?"Stopped.":errCopy(e&&e.code);
+  }finally{$("ownStop").hidden=true;if(sample)$("ownGo").disabled=false;}
+};
+$("ownStop").onclick=()=>ownCtl&&ownCtl.abort();
+
+const ASK={eng:["Which three checks should the squad do first, and why?","What would you verify with the vendors before re-issuing?"],
+  con:["Write tomorrow's toolbox note for the affected crews.","What can I keep building, and what should I resequence?"],
+  exec:["Give me a 100-word board-level summary.","What is the commercial exposure and how do we protect it?"],
+  client:["Explain this to the plant manager without jargon.","What questions will the client ask, and how should we answer?"]};
+function drawAskChips(){$("askChips").innerHTML=ASK[lens].map(t=>`<button type="button">${esc(t)}</button>`).join("");}
+$("askChips").addEventListener("click",e=>{const b=e.target.closest("button");if(b){$("askText").value=b.textContent;ask();}});
+function askPrompt(q){
+  const c=calc(cur,stage);
+  return `You are advising an EPC contractor's project team. Answer the question using the change trace below. The project and figures are a fictional demonstration and the numbers are modeled estimates; say so only if it matters to the answer.
+
+PROJECT: Calder Point Refinery, Unit 24 diesel hydrotreater revamp, lump-sum EPC, about $412M.
+CHANGE: ${cur.title}. ${cur.trigger}
+ORIGINATOR: ${BY[cur.by].label}. ${BY[cur.by].ent}
+FOUND AT: ${STAGE_LONG[stage]}.
+MODELED TOTAL: ${money(c.total)} and ${c.days} working days. Engineering ${c.hrs} hours (${money(c.eng)}), material ${money(c.mat)}, vendor and field rework ${money(c.phys)} on ${c.rework} items.
+AFFECTED ITEMS (tag | name | discipline | steps from origin | what changes | consequence at this stage):
+${c.rows.map(r=>[r.node.id,r.node.name,DISC[r.node.d],r.im.o,r.im.note,r.tier?("REWORK: "+r.tier.what+" "+money(r.tier.cost)+", "+r.tier.days+" days"):"paper revision"].join(" | ")).join("\n")}
+NOT AFFECTED: ${N.filter(n=>!c.rows.some(r=>r.node===n)).map(n=>n.id).join(", ")}
+
+AUDIENCE: ${{eng:"the engineering discipline leads",con:"the construction manager and field superintendents",exec:"the contractor's executives",client:"the refinery owner's project representative"}[lens]}.
+QUESTION: ${q.slice(0,600)}
+
+Write plain text with no markdown symbols. Stay under 180 words. Use the tag numbers. Be direct and practical.`;
+}
+let askCtl=null;
+async function ask(){
+  const q=$("askText").value.trim(); if(!sample||!q)return;
+  askCtl=new AbortController();$("askGo").disabled=true;$("askStop").hidden=false;$("askNote").textContent="";
+  const out=$("answer");out.hidden=false;out.textContent="Thinking…";
+  try{
+    const r=await sample(askPrompt(q),{signal:askCtl.signal,cache:false,onText:({text})=>{out.textContent=text;}});
+    if(r.truncated)$("askNote").textContent="The answer was cut short. Ask for less at a time.";
+  }catch(e){
+    out.textContent=(e&&e.text)||"";out.hidden=!out.textContent;
+    if(GONE.includes(e&&e.code))claudeOff("Claude is not enabled for this page in this view. The four prepared examples still work.");
+    else if(!e||e.code!=="cancelled")$("askNote").textContent=errCopy(e&&e.code);
+  }finally{$("askStop").hidden=true;if(sample)$("askGo").disabled=false;}
+}
+$("askGo").onclick=ask;
+$("askText").addEventListener("keydown",e=>{if(e.key==="Enter")ask();});
+$("askStop").onclick=()=>askCtl&&askCtl.abort();
+
+drawAll(true);
+(async()=>{
+  let s=null;try{s=window.claude&&window.claude.use?await window.claude.use("sample"):null;}catch(_){}
+  if(!s){claudeOff("Live tracing and questions work when this page is opened in Claude. The four prepared examples work everywhere.");return;}
+  sample=s;$("ownGo").disabled=false;$("askGo").disabled=false;
+  $("ownNote").textContent="Claude traces your change against the same 43-item register, live. It uses your Claude account and asks before the first request.";
+  $("askNote").textContent="";
+})();
+})();
+</script>
