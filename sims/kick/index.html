@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KICK Well Control Simulator</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600&display=swap">
+<style>
+/* Layout: a driller's cabin console. Wellbore + bottom-hole lens | instruments & logs | driller and choke controls.
+   Deliberately single dark theme (control-room glass), set explicitly. */
+:root{
+  --bg:#090e12; --panel:#0f161c; --panel2:#141d24; --line:#22303a; --line2:#2d3e4a;
+  --ink:#dce5eb; --dim:#8396a3; --faint:#4b5c68;
+  --amber:#ffb23f; --mud:#3cb4a5; --kill:#d98a4b; --gas:#f3efcf;
+  --alarm:#ff4f4a; --warn:#ffd04a; --ok:#6bd38e; --pore:#5ea8ff; --frac:#ff7461;
+  --f-display:"Chakra Petch","Bahnschrift","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:14px;line-height:1.4;overflow:hidden}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+#app{height:100%;display:grid;grid-template-rows:auto 1fr;
+  padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));padding-block:8px;gap:8px}
+
+/* header */
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-width:0}
+.brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:26px;letter-spacing:.14em;margin:0;color:var(--amber);line-height:1}
+.brand .well{font-family:var(--f-mono);font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{font-family:var(--f-display);font-weight:600;letter-spacing:.12em;font-size:12px;padding:4px 10px;border-radius:3px;border:1px solid var(--line2);color:var(--ink);background:var(--panel2);text-transform:uppercase}
+.pill.warn{border-color:var(--warn);color:var(--warn)}
+.pill.alarm{border-color:var(--alarm);color:#fff;background:var(--alarm);animation:blink 1s steps(2) infinite}
+.pill.ok{border-color:var(--ok);color:var(--ok)}
+@keyframes blink{50%{opacity:.55}}
+.spacer{flex:1}
+.clock{font-family:var(--f-mono);font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.seg{display:flex;border:1px solid var(--line2);border-radius:4px;overflow:hidden}
+.seg button{background:var(--panel);border:0;border-right:1px solid var(--line2);padding:5px 9px;font-family:var(--f-mono);font-size:12px;color:var(--dim);cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--amber);color:#1a1205;font-weight:600}
+.tbtn{background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:5px 10px;font-size:12px;color:var(--dim);cursor:pointer}
+.tbtn:hover{color:var(--ink)}
+.tbtn.on{color:var(--amber);border-color:var(--amber)}
+
+/* main grid */
+.grid{display:grid;grid-template-columns:minmax(330px,31vw) minmax(0,1fr) 352px;gap:8px;min-height:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-height:0;min-width:0;position:relative}
+.well{overflow:hidden}
+.well canvas,.cv canvas{display:block;width:100%;height:100%}
+.mid{container-type:inline-size;display:grid;grid-template-rows:auto auto minmax(0,1.25fr) minmax(0,1fr);gap:8px;min-height:0;min-width:0}
+.cv{position:relative;overflow:hidden}
+.side{overflow-y:auto;display:flex;flex-direction:column;gap:8px;min-height:0;padding-right:2px}
+
+/* narrator */
+.narr{display:flex;gap:12px;align-items:flex-start;padding:9px 12px;border-left:3px solid var(--amber);background:linear-gradient(90deg,rgba(255,178,63,.09),transparent 70%);border-radius:4px;min-height:52px}
+.narr .who{font-family:var(--f-display);font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--amber);padding-top:2px;white-space:nowrap}
+.narr p{margin:0;font-size:14.5px;max-width:95ch;text-wrap:pretty}
+.narr.alarm{border-left-color:var(--alarm);background:linear-gradient(90deg,rgba(255,79,74,.14),transparent 70%)}
+.narr.alarm .who{color:var(--alarm)}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:7px 9px 6px;min-width:0;position:relative}
+.tile::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:2px;border-radius:2px;background:transparent}
+.tile.warn::before{background:var(--warn)}
+.tile.alarm::before{background:var(--alarm)}
+.tile.alarm{border-color:rgba(255,79,74,.6)}
+.tile .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .v{font-family:var(--f-mono);font-weight:500;font-size:21px;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap}
+.tile .v small{font-size:11px;color:var(--dim);margin-left:3px;font-weight:400}
+.tile .s{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile.alarm .v{color:var(--alarm)} .tile.warn .v{color:var(--warn)}
+
+/* cards */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px 12px}
+.card h2{font-family:var(--f-display);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.card h2 .tag{margin-left:auto;font-family:var(--f-mono);letter-spacing:0;font-size:11px;color:var(--faint);text-transform:none}
+.ctl{display:grid;grid-template-columns:62px 1fr 74px;align-items:center;gap:8px;margin:6px 0}
+.ctl label{font-size:12px;color:var(--dim)}
+.ctl output{font-family:var(--f-mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line2);border-radius:2px}
+input[type=range]::-moz-range-track{height:4px;background:var(--line2);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:20px;margin-top:-8px;border-radius:2px;background:var(--ink);border:2px solid var(--bg)}
+input[type=range]::-moz-range-thumb{width:12px;height:18px;border-radius:2px;background:var(--ink);border:2px solid var(--bg)}
+input[type=range].amber::-webkit-slider-thumb{background:var(--amber)}
+input[type=range].amber::-moz-range-thumb{background:var(--amber)}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--panel2);border:1px solid var(--line2);border-radius:4px;padding:7px 11px;cursor:pointer;font-size:13px;color:var(--ink)}
+.btn:hover{border-color:var(--dim)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.on{border-color:var(--mud);color:var(--mud)}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#1a1205;font-weight:600}
+.bop{width:100%;padding:11px;font-family:var(--f-display);font-weight:700;letter-spacing:.14em;font-size:15px;border-radius:5px;cursor:pointer;border:2px solid var(--alarm);background:rgba(255,79,74,.12);color:#ffd9d7}
+.bop:hover{background:rgba(255,79,74,.25)}
+.bop.closed{border-color:var(--ok);background:rgba(107,211,142,.1);color:var(--ok)}
+.mw{display:flex;align-items:center;gap:6px}
+.mw .val{font-family:var(--f-mono);font-size:16px;min-width:74px;text-align:center;font-variant-numeric:tabular-nums}
+.mw .btn{padding:4px 10px}
+.note{font-size:12px;color:var(--dim);margin:6px 0 0}
+.dials{height:150px;margin:6px 0 2px}
+.meta{font-family:var(--f-mono);font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.meta b{color:var(--ink);font-weight:500}
+
+/* kill sheet */
+.ks{width:100%;border-collapse:collapse;font-size:12.5px}
+.ks td{padding:3px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ks td:first-child{color:var(--dim)}
+.ks td:last-child{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ks tr.hi td:last-child{color:var(--amber);font-weight:600}
+.ks .f{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--faint)}
+.sched{height:120px;margin-top:8px}
+.stage{margin-top:8px;padding:8px 10px;background:var(--panel2);border-radius:4px;font-size:12.5px}
+.stage b{font-family:var(--f-display);letter-spacing:.08em;color:var(--amber);font-weight:600}
+.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--dim);cursor:pointer}
+.chk input{accent-color:var(--amber)}
+
+/* signs + log */
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.chip{font-size:11.5px;padding:5px 7px;border-radius:3px;border:1px solid var(--line2);color:var(--faint);text-align:center;line-height:1.2}
+.chip.lit{color:#1a1205;background:var(--warn);border-color:var(--warn);font-weight:600}
+.chip.lit.red{background:var(--alarm);border-color:var(--alarm);color:#fff}
+.log{list-style:none;margin:8px 0 0;padding:0;max-height:190px;overflow-y:auto;font-size:12px}
+.log li{display:grid;grid-template-columns:60px 1fr;gap:6px;padding:3px 0;border-bottom:1px dashed var(--line)}
+.log li span{font-family:var(--f-mono);color:var(--faint);font-size:11px}
+.log li.a{color:#ffc6c3} .log li.g{color:var(--ok)}
+
+/* modals */
+.modal{position:fixed;inset:0;background:rgba(4,7,9,.78);backdrop-filter:blur(4px);display:grid;place-items:center;z-index:50;padding:16px;overflow-y:auto}
+.sheet{width:min(860px,100%);background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:28px 30px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.sheet .eyebrow{font-family:var(--f-mono);font-size:12px;color:var(--dim)}
+.sheet h2{font-family:var(--f-display);font-weight:700;font-size:54px;letter-spacing:.1em;margin:4px 0 2px;color:var(--amber);line-height:1}
+.sheet h3{font-family:var(--f-display);font-weight:600;font-size:20px;margin:0 0 14px;color:var(--ink);text-wrap:balance}
+.sheet p{max-width:70ch;color:#c1ccd3;margin:0 0 10px}
+.brief{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;margin-top:14px}
+.facts{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);border-radius:5px;padding:10px 12px;background:var(--panel2)}
+.facts div{display:flex;justify-content:space-between;gap:10px;padding:2px 0}
+.facts div span:first-child{color:var(--dim)}
+.howto{margin:12px 0 0;padding-left:18px;color:#c1ccd3;font-size:13px}
+.howto li{margin:3px 0}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.cta .btn{padding:11px 18px;font-size:14px}
+.score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}
+.score>div{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:10px}
+.score .k{font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.score .v{font-family:var(--f-mono);font-size:20px}
+.score .g{font-size:11.5px}
+.score .good{color:var(--ok)} .score .meh{color:var(--warn)} .score .bad{color:var(--alarm)}
+.lessons{margin:4px 0 0;padding-left:18px;color:#c1ccd3}
+.lessons li{margin:4px 0}
+
+.kbd{font-family:var(--f-mono);font-size:11px;color:var(--faint)}
+
+@container (max-width:1150px){ .tiles{grid-template-columns:repeat(4,minmax(0,1fr))} }
+@media (max-width:1100px){
+  body{overflow:auto}
+  #app{height:auto}
+  .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .well{height:78vh;min-height:520px}
+  .mid{grid-template-rows:auto auto 420px 300px}
+  .side{grid-column:1 / -1;overflow:visible;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .well{height:82vh}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .side{grid-template-columns:minmax(0,1fr)}
+  .brief{grid-template-columns:minmax(0,1fr)}
+  .score{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sheet{padding:20px 18px}
+  .sheet h2{font-size:40px}
+  .brand .well{display:none}
+}
+@media (prefers-reduced-motion:reduce){ .pill.alarm{animation:none} }
+</style>
+
+<div id="app">
+  <header class="top">
+    <div class="brand"><h1>KICK</h1><span class="well">Well A-3 · Block 214 · 8½″ hole · jackup, 280 ft water</span></div>
+    <span class="pill" id="status">Standby</span>
+    <div class="spacer"></div>
+    <span class="clock" id="clock">Day 1 · 14:00:00</span>
+    <div class="seg" id="warp" role="group" aria-label="Simulation speed">
+      <button data-w="0" title="Pause (Space)">II</button>
+      <button data-w="1">1×</button>
+      <button data-w="5">5×</button>
+      <button data-w="20">20×</button>
+      <button data-w="60" class="on">60×</button>
+      <button data-w="120">120×</button>
+    </div>
+    <button class="tbtn" id="sndBtn" title="Rig sounds and alarms">Sound off</button>
+    <button class="tbtn" id="briefBtn">Briefing</button>
+  </header>
+
+  <main class="grid">
+    <section class="panel well"><canvas id="cvWell" aria-label="Wellbore cross-section with bottom-hole close-up"></canvas></section>
+
+    <section class="mid">
+      <div class="narr" id="narr"><span class="who" id="narrWho">TOOLPUSHER</span><p id="narrTxt">Pick a mode in the briefing to start the tour.</p></div>
+      <div class="tiles" id="tiles"></div>
+      <div class="panel cv"><canvas id="cvPress" aria-label="Pressure window and mud log"></canvas></div>
+      <div class="panel cv"><canvas id="cvTrend" aria-label="Drilling trends"></canvas></div>
+    </section>
+
+    <aside class="side">
+      <div class="card" id="cardDrill">
+        <h2>Driller <span class="tag" id="drillTag">rotary drilling</span></h2>
+        <div class="row"><button class="btn on" id="btmBtn">On bottom</button><span class="note" id="drillNote" style="margin:0">Bit on bottom, drilling</span></div>
+        <div class="ctl"><label for="wob">WOB</label><input type="range" id="wob" min="0" max="50" step="1" value="30"><output id="wobO">30 klb</output></div>
+        <div class="ctl"><label for="rpm">Rotary</label><input type="range" id="rpm" min="0" max="180" step="5" value="140"><output id="rpmO">140 rpm</output></div>
+        <div class="ctl"><label for="spm">Pumps</label><input type="range" id="spm" class="amber" min="0" max="140" step="1" value="120"><output id="spmO">120 spm</output></div>
+        <div class="row" style="justify-content:space-between;margin-top:8px">
+          <span style="font-size:12px;color:var(--dim)">Pit mud weight</span>
+          <div class="mw"><button class="btn" id="mwDn" aria-label="Lower mud weight">−</button><span class="val" id="mwV">10.4 ppg</span><button class="btn" id="mwUp" aria-label="Raise mud weight">+</button><button class="btn" id="mwGo">Weight up</button></div>
+        </div>
+        <p class="note" id="mwNote">Hole is full of 10.4 ppg mud.</p>
+      </div>
+
+      <div class="card" id="cardChoke">
+        <h2>BOP &amp; remote choke <span class="tag kbd">X shuts in</span></h2>
+        <button class="bop" id="bopBtn">SHUT IN WELL</button>
+        <div class="dials cv"><canvas id="cvDials" aria-label="Drill pipe and casing pressure gauges"></canvas></div>
+        <div class="ctl"><label for="choke">Choke</label><input type="range" id="choke" class="amber" min="0" max="100" step="1" value="0"><output id="chokeO">0 %</output></div>
+        <div class="meta"><span>Strokes <b id="stkO">0</b> <button class="tbtn" id="stkReset" style="padding:1px 6px;font-size:11px">zero</button></span><span>Flare <b id="flareO">—</b></span></div>
+      </div>
+
+      <div class="card" id="cardKill" hidden>
+        <h2>Kill sheet <span class="tag" id="ksTag">API RP 59 style</span></h2>
+        <div id="ksBody"></div>
+      </div>
+
+      <div class="card" id="cardCoach">
+        <h2>Kick warning signs</h2>
+        <div class="chips" id="chips"></div>
+        <ul class="log" id="log"></ul>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<div class="modal" id="intro">
+  <div class="sheet">
+    <div class="eyebrow">WELL A-3 · BLOCK 214 · 8½″ HOLE SECTION · 14:00 TOUR CHANGE</div>
+    <h2>KICK</h2>
+    <h3>You have the brake. The offset well took a gas kick from the sand just below you.</h3>
+    <div class="brief">
+      <div>
+        <p>The 9⅝″ casing is set at 8,000 ft and tested to a 15.0 ppg leak-off. You're drilling 10.4 ppg mud through a shale whose pore pressure is starting to ramp up. The offset well A-1 took a gas kick from the M-4 sand at about 10,600 ft.</p>
+        <p><b style="color:var(--ink)">Your job:</b> drill to section TD at 10,900 ft. If the well kicks, catch it early, shut it in, and circulate the gas out through the choke without breaking down the casing shoe.</p>
+        <ul class="howto">
+          <li><b>Left:</b> the whole well, with a live close-up of the bottom of the hole.</li>
+          <li><b>Pressure window:</b> keep the orange well-pressure line between pore pressure (blue) and fracture pressure (red).</li>
+          <li><b>Trends:</b> pit gain and flow out are your fastest kick alarms.</li>
+          <li><b>Controls:</b> the BOP button shuts the well in. After that, the kill sheet walks you through the kill.</li>
+        </ul>
+      </div>
+      <div class="facts">
+        <div><span>Rig</span><span>Jackup, surface BOP</span></div>
+        <div><span>Water depth</span><span>280 ft</span></div>
+        <div><span>Last casing</span><span>9⅝″ @ 8,000 ft</span></div>
+        <div><span>Leak-off test</span><span>15.0 ppg EMW</span></div>
+        <div><span>Bit</span><span>8½″ PDC @ 10,520 ft</span></div>
+        <div><span>String</span><span>5″ DP + 600 ft 6½″ BHA</span></div>
+        <div><span>Mud</span><span>10.4 ppg synthetic-base</span></div>
+        <div><span>Pumps</span><span>Triplex, 0.100 bbl/stk</span></div>
+        <div><span>Slow circ. rate</span><span>30 spm</span></div>
+        <div><span>Section TD</span><span>10,900 ft</span></div>
+      </div>
+    </div>
+    <div class="cta">
+      <button class="btn primary" id="goManual">Take the brake</button>
+      <button class="btn" id="goAuto">Watch the autopilot (narrated, ~5 min)</button>
+    </div>
+    <p class="note" style="margin-top:12px">Keys: Space pause · 1–5 speed · X shut in. You can take over from the autopilot by touching any control. Everything is simulated with simplified, physically based hydraulics; it is a training aid, not an engineering tool.</p>
+  </div>
+</div>
+
+<div class="modal" id="debrief" hidden>
+  <div class="sheet">
+    <div class="eyebrow" id="dbEyebrow">DEBRIEF</div>
+    <h2 id="dbTitle">WELL DEAD</h2>
+    <h3 id="dbSub"></h3>
+    <div class="score" id="dbScore"></div>
+    <ul class="lessons" id="dbLessons"></ul>
+    <div class="cta">
+      <button class="btn primary" id="dbAgain">Drill it again</button>
+      <button class="btn" id="dbAuto">Watch the autopilot</button>
+      <button class="btn" id="dbStay">Look at the final state</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+/* ====================================================================
+   KICK: well-control simulator
+   Oilfield units: ft, ppg, psi, bbl, spm. Gauge pressures unless noted.
+   Model: single-phase mud U-tube + Boyle's-law gas slugs, closed-well
+   compressibility, choke orifice flow, Darcy-like influx from exposed sands.
+   ==================================================================== */
+const $ = s => document.querySelector(s);
+const clamp = (x,a,b) => x<a?a:x>b?b:x;
+const lerp = (a,b,t) => a+(b-a)*t;
+const fmt = (x,d=0) => (x==null||!isFinite(x)) ? '—' : x.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---------------- well & fluid constants ----------------
+const SHOE = 8000, LOT = 15.0, BHA = 600, ZMAX = 11000, SECTION_TD = 10900;
+const CA_CSG = 0.0489, CA_OH = 0.0459, CA_DC = 0.0291;  // annular capacity bbl/ft
+const CS_DP = 0.01776, CS_DC = 0.0077;                  // string capacity bbl/ft
+const BBL_STK = 0.1, KSYS = 3000, CV = 0.65, GASF = 3.2, SLIP = 0.28;
+const KILL_SPM = 30, PI_K = 2.0e-6, LOSS_K = 0.02/60, GAS_G = 0.1;
+
+const FM = [
+  {top:0,     bot:100,   name:'Air gap', lith:'air', pp:0},
+  {top:100,   bot:380,   name:'Sea water', lith:'water', pp:8.6},
+  {top:380,   bot:2600,  name:'Pleistocene sands & clays', lith:'inter', pp:8.6, kf:200},
+  {top:2600,  bot:5200,  name:'Pliocene shale', lith:'shale', pp:[8.7,8.8], kf:90},
+  {top:5200,  bot:6100,  name:'Pliocene sand', lith:'sand', pp:8.8, kf:160},
+  {top:6100,  bot:8000,  name:'Upper Miocene shale', lith:'shale', pp:[8.9,9.0], kf:60},
+  {top:8000,  bot:9950,  name:'Middle Miocene shale', lith:'shale', pp:[9.0,9.1], kf:55, gas:[6,8]},
+  {top:9950,  bot:10150, name:'M-2 sand (brine)', lith:'sand', pp:9.1, kf:150, gas:[10,10]},
+  {top:10150, bot:10400, name:'Middle Miocene shale', lith:'shale', pp:[9.1,9.6], kf:[56,62], gas:[8,12]},
+  {top:10400, bot:10620, name:'Transition zone shale', lith:'shale', pp:[9.6,10.9], kf:[66,122], gas:[14,95], over:true},
+  {top:10620, bot:10700, name:'M-4 gas sand', lith:'sand', pp:11.1, kf:300, perm:1, gas:[480,480], kick:true},
+  {top:10700, bot:12000, name:'Lower Miocene shale', lith:'shale', pp:[11.0,11.1], kf:52, gas:[70,45], over:true},
+];
+const fmAt = z => { for (const f of FM) if (z>=f.top && z<f.bot) return f; return FM[FM.length-1]; };
+const rngv = (v,z,f) => v==null ? null : (typeof v==='number' ? v : lerp(v[0],v[1],clamp((z-f.top)/(f.bot-f.top),0,1)));
+const ppEMW = z => rngv(fmAt(z).pp, z, fmAt(z)) || 8.6;
+const fgEMW = z => z<SHOE ? 11.2 + 3.6*z/SHOE : LOT + (z-SHOE)*0.00028;
+const LOTP = 0.052*LOT*SHOE;
+const noise = z => 1 + 0.08*Math.sin(z/6.7) + 0.05*Math.sin(z/2.3+1.3) + 0.04*Math.sin(z/17.1+0.4);
+
+// ---------------- state ----------------
+let W, F, K, AP;
+function newState(){
+  return {
+    t:0, td:10520, onBottom:true, wob:30, rpm:140, pumpCmd:120, pump:120,
+    choke:0, bop:false, Pc:0, space:0, slugs:[], mud:{old:10.4, neu:10.4, pumped:0}, pitMW:10.4,
+    pit0:480, pit:480, strokes:0, stkZero:0,
+    apl:0, pstr:0, spp:0, bhp:0, ecd:0, hs:0, rop:0, gasGen:8, gasRead:10,
+    flowOut:0, flowPct:100, influxRate:0, influxTotal:0, ventTotal:0, lossRate:0, lossTotal:0, gasExit:0,
+    kickT:null, shutT:null, shutGain:null, maxShoeP:0, minMargin:Infinity, secInflux:0, schedErr:0, schedN:0,
+    maxPc:0, result:null, ended:false, nid:1,
+    logPts:[], gasQ:[], signs:{}, lastLog:-1, ropHist:[]
+  };
+}
+
+// ---------------- geometry helpers ----------------
+const Ca = z => z<SHOE ? CA_CSG : (z>W.td-BHA ? CA_DC : CA_OH);
+const Vs = () => (W.td-BHA)*CS_DP + BHA*CS_DC;
+const Va = () => SHOE*CA_CSG + (W.td-BHA-SHOE)*CA_OH + BHA*CA_DC;
+function strDepth(v){ const dp=W.td-BHA; if (v<=dp*CS_DP) return v/CS_DP; return Math.min(W.td, dp+(v-dp*CS_DP)/CS_DC); }
+function annHeight(v){
+  const a1=BHA*CA_DC; if (v<=a1) return v/CA_DC;
+  v-=a1; const oh=W.td-BHA-SHOE, a2=oh*CA_OH; if (v<=a2) return BHA+v/CA_OH;
+  v-=a2; return Math.min(W.td, BHA+oh+v/CA_CSG);
+}
+function updateFronts(){
+  const m=W.mud, gO=0.052*m.old, gN=0.052*m.neu;
+  if (m.old===m.neu){ F={zs:0, zk:W.td, gO, gN:gO, active:false}; return; }
+  const vs=Vs(); const zs=strDepth(Math.min(m.pumped,vs)); const hk=m.pumped>vs?annHeight(m.pumped-vs):0;
+  F={zs, zk:W.td-hk, gO, gN, active:true};
+}
+const mudHyd = z => z<=F.zk ? F.gO*z : F.gO*F.zk + F.gN*(z-F.zk);
+const gradAt = z => z>F.zk ? F.gN : F.gO;
+const Hs = () => F.gN*F.zs + F.gO*(W.td-F.zs);
+
+// ---------------- gas slugs (Boyle) ----------------
+function geom(Pc, open, commit){
+  const S=W.slugs; S.sort((a,b)=>a.zc-b.zc);
+  let deficit=0; const td=W.td, apl=W.apl;
+  for (let i=0;i<S.length;i++){
+    const s=S[i]; let zc=s.zc, h=0, b=0.4, ca=CA_OH;
+    for (let pass=0; pass<2; pass++){
+      const gm=gradAt(zc); b=gm-GAS_G; ca=Ca(zc); const q=s.m/ca;
+      const A = Math.max(20, Pc + mudHyd(zc) - deficit + apl*zc/td + 14.7);
+      const disc = A*A - 2*b*q;
+      let noEq=false;
+      if (disc>0) h=(A-Math.sqrt(disc))/b; else { h=s.m/14.7/ca; noEq=true; }   // no equilibrium: expands to atmospheric
+      if (!open && i===0 && zc - h/2 < 0){            // gas cap under the BOP
+        const B=Pc+14.7; h=(-B+Math.sqrt(B*B+0.2*q))/0.1; zc=h/2; noEq=false;
+      }
+      if (!noEq && zc + h/2 > td) { zc = Math.max(h/2, td-h/2); if (pass===0) continue; }
+      break;
+    }
+    h=Math.max(h,1e-3); s.h=h; s.b=b; s.V=h*ca; s.P=s.m/s.V-14.7; if (commit) s.zc=zc;
+    deficit += h*b;
+  }
+}
+const sumV = () => W.slugs.reduce((a,s)=>a+s.V,0);
+function pressureAt(z){
+  let p = W.Pc + mudHyd(z) + W.apl*z/W.td;
+  for (const s of W.slugs){ const top=s.zc-s.h/2; if (z>top) p -= Math.min(z-top, s.h)*s.b; }
+  return p;
+}
+function solvePc(){
+  geom(0,false,false); const v0=sumV();
+  if (v0 <= W.space){ W.space=v0; W.Pc=0; geom(0,false,true); return; }
+  let lo=0, hi=20000;
+  for (let k=0;k<44;k++){ const mid=(lo+hi)/2; geom(mid,false,false); if (sumV()-mid/KSYS > W.space) lo=mid; else hi=mid; }
+  W.Pc=(lo+hi)/2; geom(W.Pc,false,true);
+}
+function addGas(z, dm){
+  for (const s of W.slugs) if (Math.abs(s.zc-z) < (s.h||0)/2+150){ s.m+=dm; return; }
+  W.slugs.push({id:W.nid++, m:dm, zc:z, h:0.5, b:0.4, V:0, P:0});
+}
+function mergeSlugs(){
+  const S=W.slugs; S.sort((a,b)=>a.zc-b.zc);
+  const join=(i)=>{ const a=S[i], b=S[i+1]; const top=a.zc-a.h/2; const V=a.V+b.V; a.m+=b.m; a.h=Math.max(a.h, V/Ca(a.zc)); a.zc=top+a.h/2; S.splice(i+1,1); };
+  for (let i=0;i<S.length-1;i++){ const a=S[i], b=S[i+1]; if (b.zc-b.h/2 <= a.zc+a.h/2+30){ join(i); i--; } }
+  while (S.length>14){ let bi=0, bg=Infinity; for (let i=0;i<S.length-1;i++){ const g=(S[i+1].zc-S[i+1].h/2)-(S[i].zc+S[i].h/2); if (g<bg){bg=g;bi=i;} } join(bi); }
+  for (let i=S.length-1;i>=0;i--) if (S[i].m<0.3) S.splice(i,1);
+}
+const gasAtChoke = () => W.bop && W.slugs.length && (W.slugs[0].zc - W.slugs[0].h/2) <= 1.5;
+const rhoTop = () => gradAt(1)/0.052;
+
+// ---------------- mud ----------------
+function setPitMW(x){
+  const m=W.mud; x=Math.round(x*10)/10; W.pitMW=x;
+  if (x===m.neu) return;
+  if (m.old!==m.neu && m.pumped>Vs()) m.old=m.neu;
+  m.neu=x; m.pumped=0; if (m.old===m.neu) m.pumped=0;
+  updateFronts();
+}
+
+// ---------------- drilling ----------------
+function ropAt(z, ecd, wob, rpm, pump){
+  const f=fmAt(z); const kf=rngv(f.kf,z,f)||60; const pp=ppEMW(z);
+  const ob = Math.min(Math.exp(-0.35*(ecd-pp)), 1.15);
+  return kf*Math.pow(Math.max(wob,0)/30,0.85)*Math.pow(Math.max(rpm,0)/140,0.6)*ob*(pump>=80?1:0.55+0.45*pump/80)*noise(z);
+}
+function dcExp(rop, rpm, wob, ecd){
+  if (rop<1||rpm<5||wob<2) return null;
+  const d = Math.log10(rop/(60*rpm)) / Math.log10(12*wob*1000/(1e6*8.5));
+  return d*9.0/ecd;
+}
+function gasGenAt(z, rop){ const f=fmAt(z); const g=rngv(f.gas,z,f)||6; return g*(0.45+0.55*Math.min(rop,200)/110)*noise(z*1.7); }
+
+function prefill(){
+  // synthetic log for the interval drilled earlier in the tour, plus the gas-lag queue
+  const ecd=10.73; let t=-(W.td-10150)/90*3600;
+  for (let z=10150; z<=W.td; z+=2){
+    const rop=ropAt(z,ecd,30,140,120); const g=gasGenAt(z,rop);
+    W.logPts.push({z, rop, gas:g, dc:dcExp(rop,140,30,ecd), lith:fmAt(z).lith});
+    W.gasQ.push({t, g}); t += 2/rop*3600;
+  }
+  // re-time queue so that the last entry is t=0
+  const off = W.gasQ[W.gasQ.length-1].t; W.gasQ.forEach(e=>e.t-=off);
+}
+const dcNormal = z => 1.47*(1+(z-10150)*0.00004);
+
+// ---------------- main physics step ----------------
+function step(dt){
+  if (W.ended) return;
+  W.t += dt;
+  W.pump += clamp(W.pumpCmd-W.pump, -15*dt, 15*dt);
+  if (W.pump<0.05 && W.pumpCmd===0) W.pump=0;
+  const Qbs = W.pump*BBL_STK/60, Qgpm = W.pump*BBL_STK*42;
+  W.strokes += W.pump/60*dt; if (K) K.strokes += W.pump/60*dt;
+
+  // mud displacement front
+  if (W.mud.old!==W.mud.neu){
+    W.mud.pumped += Qbs*dt;
+    if (W.mud.pumped >= Vs()+Va()){ W.mud.old=W.mud.neu; W.mud.pumped=0; event(`${W.mud.neu.toFixed(1)} ppg mud is now all the way around the well.`,'g'); }
+  }
+  updateFronts();
+  const td=W.td, mwA=mudHyd(td)/(0.052*td), mwS=Hs()/(0.052*td);
+  W.apl  = Qgpm>0 ? 190*(td/1e4)*(mwA/11)*Math.pow(Qgpm/500,1.8) : 0;
+  W.pstr = Qgpm>0 ? (1900*(td/1e4)+1300)*(mwS/11)*Math.pow(Qgpm/500,1.86) : 0;
+
+  // drilling
+  const drilling = !W.bop && W.onBottom && W.pump>=40 && W.rpm>10 && W.wob>2 && W.td<11990;
+  const ecdBit = W.bhp>0 ? W.bhp/(0.052*td) : 10.4;
+  if (drilling){
+    W.rop = ropAt(td, ecdBit, W.wob, W.rpm, W.pump);
+    W.td += W.rop/3600*dt;
+    if (W.td - W.lastLog >= 2){
+      W.lastLog=W.td; const g=gasGenAt(W.td,W.rop);
+      W.logPts.push({z:W.td, rop:W.rop, gas:g, dc:dcExp(W.rop,W.rpm,W.wob,ecdBit), lith:fmAt(W.td).lith});
+      if (W.logPts.length>1200) W.logPts.shift();
+    }
+    W.gasGen = gasGenAt(W.td, W.rop);
+  } else { W.rop = 0; W.gasGen = 3; }
+
+  // gas-lag queue (what the mud logger sees at the shakers)
+  if (!W.gasQ.length || W.t - W.gasQ[W.gasQ.length-1].t > 6) { W.gasQ.push({t:W.t, g:W.gasGen}); if (W.gasQ.length>5000) W.gasQ.shift(); }
+  if (Qbs>0.01){
+    const lag = Va()/Qbs; const tt=W.t-lag; let g=W.gasQ[0].g;
+    for (let i=W.gasQ.length-1;i>=0;i--) if (W.gasQ[i].t<=tt){ g=W.gasQ[i].g; break; }
+    let surf=0; if (W.slugs.length){ const s=W.slugs[0]; const top=s.zc-s.h/2; if (top<600) surf = 2500*clamp(1-top/600,0,1); }
+    W.gasRead += ((g+surf) - W.gasRead)*Math.min(1, dt/20);
+  } else W.gasRead *= Math.exp(-dt/300);
+
+  // gas advection: carried by the mud + slip velocity
+  for (const s of W.slugs) s.zc -= (Qbs/Ca(s.zc) + SLIP)*dt;
+
+  // influx from exposed permeable zones
+  W.influxRate = 0;
+  for (const f of FM){
+    if (!f.perm || f.top>=td) continue;
+    const th=Math.min(td,f.bot)-f.top, zm=f.top+th/2, Pa=pressureAt(zm), Pp=0.052*f.pp*zm;
+    if (Pp>Pa){
+      const q=Math.min(PI_K*th*(Pp-Pa), 0.25); W.influxRate+=q;
+      addGas(zm, q*dt*(Pa+14.7)); W.influxTotal += q*dt;
+      if (K && K.circulating) W.secInflux += q*dt;
+    }
+  }
+  if (W.kickT==null && W.influxTotal>0.5) W.kickT=W.t;
+
+  // losses at the casing shoe
+  const pShoe = pressureAt(SHOE);
+  W.lossRate = pShoe>LOTP ? (pShoe-LOTP)*LOSS_K : 0; W.lossTotal += W.lossRate*dt;
+  W.maxShoeP = Math.max(W.maxShoeP, pShoe);
+  mergeSlugs();
+
+  // surface boundary
+  W.gasExit=0;
+  if (!W.bop){
+    W.Pc=0; geom(0,true,true);
+    const s=W.slugs[0];
+    if (s && s.zc-s.h/2<0){                       // gas breaking out at the rotary
+      const frac=clamp((s.h/2-s.zc)/s.h,0,1); W.ventTotal += s.V*frac; W.gasExit = s.V*frac/dt; s.m*=(1-frac);
+      if (s.m<0.3) W.slugs.shift(); geom(0,true,true);
+    }
+    const ns=sumV(); const dS=ns-W.space; W.space=ns;
+    const ret = Qbs*dt + dS - W.lossRate*dt;
+    W.pit += ret - Qbs*dt;
+    W.flowOut = lerp(W.flowOut, Math.max(0,ret/dt*60), Math.min(1,dt/4));
+  } else {
+    let qMud=0;
+    if (gasAtChoke()){
+      const s=W.slugs[0]; const qg=CV*GASF*W.choke*Math.sqrt(W.Pc+15)/60;
+      const dm=Math.min(s.m, qg*dt*(W.Pc+14.7)); s.m-=dm; W.gasExit=qg; if (s.m<0.3) W.slugs.shift();
+    } else qMud = CV*W.choke*Math.sqrt(Math.max(0,W.Pc)/(rhoTop()/8.33))/60;
+    W.space += (-Qbs + qMud + W.lossRate)*dt;
+    solvePc();
+    W.pit += (qMud-Qbs)*dt;
+    W.flowOut = lerp(W.flowOut, qMud*60, Math.min(1,dt/2));
+  }
+  W.flowPct = W.pump>1 ? W.flowOut/(W.pump*BBL_STK)*100 : 0;
+
+  // derived readings
+  W.hs = Hs();
+  W.bhp = pressureAt(td);
+  W.spp = Math.max(0, W.bhp - W.hs + W.pstr);
+  W.ecd = W.bhp/(0.052*td);
+  W.maxPc = Math.max(W.maxPc, W.Pc);
+
+  if (K) killStep(dt);
+  if (AP) apStep(dt);
+  checkEnd();
+}
+
+// ---------------- kill engine ----------------
+function sandMargin(){
+  const f=FM.find(f=>f.kick); if (W.td<=f.top) return W.bhp - 0.052*ppEMW(W.td)*W.td;
+  const th=Math.min(W.td,f.bot)-f.top, zm=f.top+th/2; return pressureAt(zm) - 0.052*f.pp*zm;
+}
+function recordKill(){
+  const omw=W.mud.old===W.mud.neu?W.mud.old:W.mud.old, tvd=W.td;
+  const sidpp=W.spp, sicp=W.Pc, gain=W.pit-W.pit0;
+  const q=126; const mwr=omw/11;
+  const scr=(1900*(tvd/1e4)+1300)*mwr*Math.pow(q/500,1.86) + 190*(tvd/1e4)*mwr*Math.pow(q/500,1.8);
+  const kmw=Math.ceil((omw + sidpp/(0.052*tvd))*10 - 1e-9)/10;
+  const icp=sidpp+scr, fcp=scr*kmw/omw;
+  const stb=Vs()/BBL_STK, bu=Va()/BBL_STK;
+  const hk=Math.max(gain,0.5)/CA_DC; const grad=0.052*omw - (sicp-sidpp)/hk;
+  const maasp=(LOT-omw)*0.052*SHOE;
+  return {omw,tvd,sidpp,sicp,gain,scr,kmw,icp,fcp,stb,bu,grad,maasp};
+}
+function startKill(method){
+  const rec=recordKill();
+  const st = method==='ww'
+    ? [{type:'wait',dur:900,weight:true},{type:'startup'},{type:'schedule'},{type:'shutdown'},{type:'check'}]
+    : [{type:'startup'},{type:'hold'},{type:'shutdown'},{type:'wait',dur:600,weight:true},{type:'startup'},{type:'schedule'},{type:'shutdown'},{type:'check'}];
+  K={method, rec, stages:st, i:0, st:0, strokes:0, assist: $('#assistChk') ? $('#assistChk').checked : true, circulating:false, pc0:W.Pc, icpObs:rec.icp, target:null, t0:W.t};
+  event(`${method==='ww'?'Wait & Weight':"Driller's Method"} kill started. KMW ${rec.kmw.toFixed(1)} ppg, ICP ${fmt(rec.icp)} psi, FCP ${fmt(rec.fcp)} psi.`,'g');
+  enterStage();
+  renderKill(true);
+}
+function enterStage(){
+  K.st=0; K.pc0=W.Pc; K.ci=0; const s=K.stages[K.i];
+  if (!s) return;
+  if (s.type==='startup') K.strokes=0;
+  const msg={
+    wait: s.weight ? `Mixing ${K.rec.kmw.toFixed(1)} ppg kill mud in the pits. Gas keeps migrating while you wait. Bleed small volumes at the choke to hold drill pipe pressure near SIDPP (volumetric method).` : 'Waiting.',
+    startup: `Pump start-up. Bring the pumps to ${KILL_SPM} spm while the choke holds casing pressure at ${fmt(W.Pc)} psi. That keeps bottom-hole pressure constant.`,
+    hold: `First circulation. Hold drill pipe pressure at ICP while original mud carries the gas up to the choke.`,
+    schedule: `Kill mud is going down the string. Drill pipe pressure should fall from ICP to FCP on the schedule. The choke follows the schedule; the casing gauge goes wherever the gas takes it.`,
+    shutdown: `Pump shutdown. Slow the pumps while the choke holds casing pressure, then close the choke.`,
+    check: `Flow check on the choke. With kill mud all the way round, both gauges should read zero.`
+  }[s.type];
+  say(msg, 'WELL SITE LEADER');
+  renderKill(true);
+}
+function nextStage(){ K.i++; if (K.i>=K.stages.length) return; enterStage(); }
+function schedTarget(){
+  const r=K.rec, f=clamp(K.strokes/r.stb,0,1);
+  const off=(K.icpObs-r.icp)*(1-f);
+  return lerp(r.icp, r.fcp, f) + off;
+}
+function chokeCtl(kind, target, dt, bleedOnly){
+  const meas = kind==='spp' ? W.spp : W.Pc; const e = meas-target;
+  const Qin = W.pump*BBL_STK;
+  const cap = gasAtChoke() ? CV*GASF*Math.sqrt(W.Pc+15) : CV*Math.sqrt(Math.max(W.Pc,1)/(rhoTop()/8.33));
+  let Qd;
+  if (bleedOnly) Qd = Math.max(0, 0.01*e);
+  else {
+    const sat = (W.choke>=0.999 && e>0) || (W.choke<=0.001 && e<0);
+    if (!sat) K.ci = clamp((K.ci||0) + 0.0006*e*dt, -4, 12);
+    Qd = Math.max(0, Qin + 0.02*e + K.ci);
+  }
+  const c = clamp(Qd/cap, 0, 1);
+  W.choke += clamp(c-W.choke, -0.3*dt, 0.3*dt);
+}
+function killStep(dt){
+  const s=K.stages[K.i]; if (!s) return; K.st+=dt;
+  const A=K.assist;
+  K.circulating = (s.type==='hold'||s.type==='schedule');
+  if (K.circulating){ W.minMargin=Math.min(W.minMargin, sandMargin()); }
+  switch (s.type){
+    case 'wait': {
+      const tgt=K.rec.sidpp+60; K.target={kind:'spp', val:tgt, label:'Drill pipe ≤'};
+      if (A){ W.pumpCmd=0; chokeCtl('spp', tgt, dt, true); }
+      if (K.st>=s.dur){ if (s.weight){ setPitMW(K.rec.kmw); event(`Pits weighted up to ${K.rec.kmw.toFixed(1)} ppg.`,'g'); } if (A) W.choke=0; nextStage(); }
+      break; }
+    case 'startup': {
+      K.target={kind:'pc', val:K.pc0, label:'Casing hold'};
+      if (A){ W.pumpCmd=Math.min(KILL_SPM, K.st/70*KILL_SPM); chokeCtl('pc', K.pc0, dt); }
+      if (W.pump>=KILL_SPM-0.7 && K.st>20){ K.strokes=0; K.icpObs=W.spp; event(`At kill rate. Observed ICP ${fmt(W.spp)} psi (calculated ${fmt(K.rec.icp)}).`); nextStage(); }
+      break; }
+    case 'hold': {
+      const tgt=K.icpObs; K.target={kind:'spp', val:tgt, label:'Hold DP at ICP'};
+      if (A){ W.pumpCmd=KILL_SPM; chokeCtl('spp', tgt, dt); }
+      W.schedErr+=Math.abs(W.spp-tgt)*dt; W.schedN+=dt;
+      if (K.strokes>=K.rec.bu*1.15 && sumV()<0.2){ event('First circulation complete: annulus is clean of gas.','g'); nextStage(); }
+      break; }
+    case 'schedule': {
+      const tgt=schedTarget(); K.target={kind:'spp', val:tgt, label:'DP schedule'};
+      if (A){ W.pumpCmd=KILL_SPM; chokeCtl('spp', tgt, dt); }
+      W.schedErr+=Math.abs(W.spp-tgt)*dt; W.schedN+=dt;
+      if ((W.mud.old===K.rec.kmw && W.mud.neu===K.rec.kmw && sumV()<0.2) || K.strokes>=(K.rec.stb+K.rec.bu)*1.25){ event('Kill mud is back at surface.','g'); nextStage(); }
+      break; }
+    case 'shutdown': {
+      K.target={kind:'pc', val:K.pc0, label:'Casing hold'};
+      if (A){ W.pumpCmd=Math.max(0, KILL_SPM*(1-K.st/60)); chokeCtl('pc', K.pc0, dt); }
+      if (W.pump<=0.01 && K.st>10){ if (A) W.choke=0; nextStage(); }
+      break; }
+    case 'check': {
+      K.target=null;
+      if (A){ W.pumpCmd=0; if (K.st<1) K.bleed = W.Pc<120 && sumV()<0.3; W.choke = (K.bleed && K.st<40) ? 1 : 0; }
+      const dead = W.pump<0.01 && W.Pc<25 && W.spp<25 && sumV()<0.3;
+      if (K.st>130 && dead) finish('killed');
+      else if (A && K.st>130 && !dead){
+        event('Pressure still on the well. Circulating again.','a');
+        K.stages.splice(K.i+1,0,{type:'startup'},{type:'hold'},{type:'shutdown'},{type:'check'});
+        nextStage();
+      }
+      break; }
+  }
+}
+
+// ---------------- endings ----------------
+function checkEnd(){
+  if (W.ended) return;
+  if (W.ventTotal>20 || (!W.bop && W.pit-W.pit0>90)) return finish('blowout');
+  if (W.lossTotal>30) return finish('shoe');
+  if (W.td>=SECTION_TD && W.influxTotal<1.5 && !W.bop) return finish('clean');
+  if (!K && W.bop && W.pump<0.01 && W.Pc<20 && W.spp<20 && sumV()<0.2 && W.mud.old>=10.9 && W.mud.old===W.mud.neu && W.shutT!=null) return finish('killed');
+}
+function finish(kind){
+  W.ended=true; W.result=kind;
+  if (kind==='blowout'){ blow.t=performance.now(); say('Gas is at the rig floor. The well is flowing uncontrolled.', 'ALARM', true); }
+  if (kind==='shoe') say('Casing shoe has broken down. Mud is being lost to the formation and an underground blowout has started.', 'ALARM', true);
+  if (kind==='killed') say('Both gauges read zero with the choke shut. Kill mud is all the way round. The well is dead.', 'WELL SITE LEADER');
+  if (kind==='clean') say('Section TD reached with no influx. You saw the pressure coming and weighted up in time.', 'TOOLPUSHER');
+  setTimeout(showDebrief, kind==='blowout'?3200:1600);
+}
+
+// ---------------- warning signs ----------------
+const SIGNS = [
+  ['gas','Gas units ↑'],['dc','d-exponent ↓'],['brk','Drilling break'],
+  ['flow','Flow out ↑'],['pit','Pit gain'],['spp','SPP ↓ / U-tube']
+];
+const SIGN_MSG = {
+  gas:'Background gas at the shakers is climbing. In shale, rising gas usually means pore pressure is closing in on the mud weight.',
+  dc:'The corrected d-exponent has fallen below the normal compaction trend. The shale is under-compacted, which means pore pressure is rising.',
+  brk:'Drilling break: penetration rate has jumped. The bit may be in a porous sand. Standard practice is to stop and flow check.',
+  flow:'Flow out is higher than pump output. Something is pushing mud out of the hole.',
+  pit:'Pit volume is rising. Gaining pits are the definitive kick sign: stop drilling, space out, stop the pumps and shut in.',
+  spp:'Standpipe pressure is drifting down at a constant pump rate. Lighter fluid in the annulus is U-tubing against the string.'
+};
+function evalSigns(){
+  const s=W.signs, lp=W.logPts, n=lp.length;
+  const lit = {};
+  lit.gas = W.gasRead>45;
+  const recent = lp.slice(-8).filter(p=>p.dc); const dcAvg = recent.length? recent.reduce((a,p)=>a+p.dc,0)/recent.length : 99;
+  lit.dc = recent.length>4 && dcAvg < 0.86*dcNormal(W.td);
+  if (W.rop>0 && n>30){ const prev=lp.slice(-30,-6); const r0=prev.reduce((a,p)=>a+p.rop,0)/prev.length; lit.brk = W.rop>1.8*r0 && W.rop>150; } else lit.brk = s.brk && W.rop>0;
+  lit.flow = (W.pump>20 && W.flowPct>106) || (W.pump<1 && !W.bop && W.flowOut>0.25);
+  lit.pit = W.pit-W.pit0 >= 3;
+  lit.spp = W.pump>20 && W.slugs.reduce((a,x)=>a+x.h*x.b,0) > 40;
+  for (const [k] of SIGNS){
+    if (lit[k] && !s[k]){ event(SIGN_MSG[k], k==='pit'||k==='flow'?'a':''); if (!AP) say(SIGN_MSG[k], 'MUD LOGGER', k==='pit'||k==='flow'); }
+    s[k]=lit[k];
+  }
+}
+
+// ---------------- autopilot (narrated demo) ----------------
+function apStart(){
+  AP={ph:'drill', t0:W.t, said:{}};
+  setWarp(60);
+  say('Autopilot has the brake. Watch the instruments. Pore pressure is ramping through this shale, and the gas sand that kicked on the offset well is about 100 ft below the bit.', 'AUTOPILOT');
+}
+function apSay(key, txt, alarm){ if (AP.said[key]) return; AP.said[key]=1; say(txt,'AUTOPILOT',alarm); event(txt, alarm?'a':''); }
+function apStep(dt){
+  const a=AP, t=W.t-a.t0;
+  switch (a.ph){
+    case 'drill':
+      W.onBottom=true; W.wob=32; W.rpm=140; W.pumpCmd=120;
+      if (W.signs.dc) apSay('dc','The d-exponent is falling away from the normal trend: under-compacted shale and rising pore pressure. A careful driller would ask for a mud weight increase now. I am going to drill on to show a kick.');
+      if (W.signs.gas) apSay('gas','Gas units at the shakers are climbing. The ECD still holds the shale back, but the margin is shrinking.');
+      if (W.signs.brk) apSay('brk','Drilling break! The rate of penetration just tripled. The bit has entered the M-4 sand, at 11.1 ppg pore pressure against 10.7 ppg ECD.', true);
+      if (W.pit-W.pit0>=4 || W.flowPct>110){ a.ph='react'; a.t0=W.t; setWarp(5);
+        apSay('kick',`Kick indicators: flow out ${fmt(W.flowPct)} %, pit gain ${(W.pit-W.pit0).toFixed(1)} bbl. Stopping the rotary and picking up off bottom.`, true); }
+      break;
+    case 'react':
+      W.onBottom=false; W.rpm=0;
+      if (t>25){ W.pumpCmd=0; }
+      if (t>25 && W.pump<0.5){ a.ph='flow'; a.t0=W.t; apSay('fc','Pumps off. Flow check: with the pumps stopped, the well should be static. It is not.', true); }
+      break;
+    case 'flow':
+      if (t>30){ shutIn(); a.ph='stab'; a.t0=W.t; setWarp(10);
+        apSay('si',`Hard shut-in on the annular. Pit gain at shut-in: ${(W.pit-W.pit0).toFixed(1)} bbl. Pressures are building while the formation and the well equalise.`); }
+      break;
+    case 'stab':
+      if (t>180){ a.ph='kill'; a.t0=W.t; openKillSheet();
+        const r=recordKill();
+        apSay('rec',`Stabilised: SIDPP ${fmt(r.sidpp)} psi, SICP ${fmt(r.sicp)} psi. Kill mud weight = ${r.omw} + ${fmt(r.sidpp)} ÷ (0.052 × ${fmt(r.tvd)}) → ${r.kmw.toFixed(1)} ppg. Starting Wait & Weight with the auto-choke.`);
+        startKill('ww'); setWarp(120); }
+      break;
+    case 'kill': {
+      const s=K && K.stages[K.i]; if (!s) break;
+      const top = W.slugs.length ? W.slugs[0].zc - W.slugs[0].h/2 : 99999;
+      if (s.type==='schedule'||s.type==='hold') setWarp(top<2600 && top>0 ? 20 : (gasAtChoke()?20:120));
+      else if (s.type==='startup'||s.type==='shutdown') setWarp(20); else setWarp(120);
+      if (top<3500 && W.slugs.length) apSay('exp','The gas is near the top and expanding fast (Boyle\'s law). Watch casing pressure climb while drill pipe pressure stays on schedule. Bottom-hole pressure is constant.');
+      if (gasAtChoke()) apSay('choke','Gas at the choke! It flows much faster than mud, so the choke pinches in to hold drill pipe pressure. Watch the flare.', true);
+      break; }
+  }
+}
+
+// ---------------- UI plumbing ----------------
+let warp=60, lastWarp=60, running=false;
+function setWarp(w){ warp=w; if (w>0) lastWarp=w; document.querySelectorAll('#warp button').forEach(b=>b.classList.toggle('on', +b.dataset.w===w)); }
+function takeOver(){ if (AP){ AP=null; say('You have the brake. Autopilot is disengaged.','TOOLPUSHER'); event('Manual control taken.'); } }
+function say(txt, who='TOOLPUSHER', alarm=false){ $('#narrTxt').textContent=txt; $('#narrWho').textContent=who; $('#narr').classList.toggle('alarm', !!alarm); }
+function clockStr(t){ const s=Math.floor(14*3600+t); const d=1+Math.floor(s/86400); const r=s%86400; const h=Math.floor(r/3600), m=Math.floor(r%3600/60), ss=r%60; return `Day ${d} · ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`; }
+function event(txt, cls=''){
+  const li=document.createElement('li'); if (cls) li.className=cls;
+  li.innerHTML=`<span>${clockStr(W.t).slice(8,13)}</span><div></div>`; li.lastChild.textContent=txt;
+  const ul=$('#log'); ul.prepend(li); while (ul.children.length>60) ul.lastChild.remove();
+}
+
+function shutIn(){
+  if (W.bop) return;
+  W.bop=true; W.choke=0; W.rpm=0; W.space=sumV(); W.Pc=0;
+  if (W.shutT==null){ W.shutT=W.t; W.shutGain=W.pit-W.pit0; }
+  syncControls();
+  event(`Annular closed, choke shut. Pit gain ${(W.pit-W.pit0).toFixed(1)} bbl.`, 'a');
+  if (W.onBottom) event('Bit was on bottom when you shut in. Space out first so a tool joint is not in the BOP.', 'a');
+  if (!AP) say('Well is shut in. Let the pressures settle for a few minutes, then record SIDPP, SICP and pit gain on the kill sheet. Pressures that keep rising slowly are gas migrating.','WELL SITE LEADER');
+  openKillSheet();
+}
+function openBop(){
+  if (!W.bop) return;
+  if (W.Pc>50) event(`BOP opened with ${fmt(W.Pc)} psi trapped. Everything below the gas is now unloading.`, 'a');
+  W.bop=false; W.Pc=0; geom(0,true,true); W.space=sumV(); W.choke=0;
+  if (K){ K=null; renderKill(true); }
+  syncControls();
+}
+function openKillSheet(){ $('#cardKill').hidden=false; renderKill(true); }
+
+// ---------------- controls ----------------
+const ui = {};
+function bindControls(){
+  const wob=$('#wob'), rpm=$('#rpm'), spm=$('#spm'), ch=$('#choke');
+  wob.oninput=()=>{ takeOver(); W.wob=+wob.value; };
+  rpm.oninput=()=>{ takeOver(); W.rpm=W.bop?0:+rpm.value; };
+  spm.oninput=()=>{ takeOver(); W.pumpCmd=+spm.value; if (K && K.assist){ K.assist=false; renderKill(true); event('Kill assist off: you have the pumps and choke.'); } };
+  ch.oninput=()=>{ takeOver(); W.choke=+ch.value/100; if (K && K.assist){ K.assist=false; renderKill(true); event('Kill assist off: you have the pumps and choke.'); } };
+  $('#btmBtn').onclick=()=>{ takeOver(); if (W.bop) return; W.onBottom=!W.onBottom; syncControls(); };
+  $('#mwUp').onclick=()=>{ ui.mwSel=Math.min(16, (ui.mwSel??W.pitMW)+0.1); syncControls(); };
+  $('#mwDn').onclick=()=>{ ui.mwSel=Math.max(9, (ui.mwSel??W.pitMW)-0.1); syncControls(); };
+  $('#mwGo').onclick=()=>{ takeOver(); const x=Math.round((ui.mwSel??W.pitMW)*10)/10; if (x===W.pitMW) return; setPitMW(x); event(`Pits changed to ${x.toFixed(1)} ppg. New mud follows the pumps down the string.`, 'g'); syncControls(); };
+  $('#bopBtn').onclick=()=>{ takeOver(); W.bop?openBop():shutIn(); };
+  $('#stkReset').onclick=()=>{ W.stkZero=W.strokes; };
+  document.querySelectorAll('#warp button').forEach(b=>b.onclick=()=>setWarp(+b.dataset.w));
+  $('#briefBtn').onclick=()=>{ $('#intro').hidden=false; };
+  $('#goManual').onclick=()=>begin(false);
+  $('#goAuto').onclick=()=>begin(true);
+  $('#dbAgain').onclick=()=>{ $('#debrief').hidden=true; begin(false); };
+  $('#dbAuto').onclick=()=>{ $('#debrief').hidden=true; begin(true); };
+  $('#dbStay').onclick=()=>{ $('#debrief').hidden=true; };
+  $('#sndBtn').onclick=toggleSound;
+  addEventListener('keydown', e=>{
+    if (e.target.tagName==='INPUT' && e.target.type!=='range') return;
+    if (e.code==='Space'){ e.preventDefault(); setWarp(warp?0:lastWarp); }
+    const map={Digit1:1,Digit2:5,Digit3:20,Digit4:60,Digit5:120}; if (map[e.code]) setWarp(map[e.code]);
+    if (e.key==='x'||e.key==='X'){ takeOver(); shutIn(); }
+  });
+  // tiles
+  const T=[['depth','Bit depth'],['spp','Standpipe'],['csg','Casing'],['pit','Pit gain'],['flow','Flow out'],['gas','Gas'],['bhp','Bottom hole'],['margin','Kick margin']];
+  $('#tiles').innerHTML=T.map(([k,l])=>`<div class="tile" id="t_${k}"><div class="k">${l}</div><div class="v"></div><div class="s"></div></div>`).join('');
+  $('#chips').innerHTML=SIGNS.map(([k,l])=>`<div class="chip" id="c_${k}">${l}</div>`).join('');
+}
+function syncControls(){
+  $('#wob').value=W.wob; $('#wobO').textContent=`${fmt(W.wob)} klb`;
+  $('#rpm').value=W.rpm; $('#rpmO').textContent=`${fmt(W.rpm)} rpm`;
+  $('#spm').value=Math.round(W.pumpCmd); $('#spmO').textContent=`${fmt(W.pumpCmd)} spm`;
+  $('#choke').value=Math.round(W.choke*100); $('#chokeO').textContent=`${fmt(W.choke*100)} %`;
+  const b=$('#btmBtn'); b.textContent=W.onBottom?'On bottom':'Off bottom'; b.classList.toggle('on',W.onBottom); b.disabled=W.bop;
+  const sel=ui.mwSel??W.pitMW; $('#mwV').textContent=`${sel.toFixed(1)} ppg`;
+  $('#mwGo').disabled = Math.abs(sel-W.pitMW)<0.05;
+  const bop=$('#bopBtn'); bop.textContent=W.bop?'BOP CLOSED · OPEN WELL':'SHUT IN WELL'; bop.classList.toggle('closed',W.bop);
+}
+
+// ---------------- kill sheet panel ----------------
+let ksLast=0;
+function renderKill(force){
+  const now=performance.now(); if (!force && now-ksLast<250) return; ksLast=now;
+  const body=$('#ksBody');
+  if (!W.bop && !K){ $('#cardKill').hidden = true; return; }
+  const r = K ? K.rec : recordKill();
+  const live = !K;
+  const kind = r.grad<0.25?'gas':r.grad<0.38?'oil / gas-cut':'water';
+  const rows = [
+    ['SIDPP', `${fmt(r.sidpp)} psi`, live?'live reading':'recorded'],
+    ['SICP', `${fmt(r.sicp)} psi`, ''],
+    ['Pit gain', `${r.gain.toFixed(1)} bbl`, ''],
+    ['SCR @ 30 spm', `${fmt(r.scr)} psi`, 'slow circulating rate'],
+    ['Kill mud weight', `${r.kmw.toFixed(1)} ppg`, `${r.omw} + SIDPP ÷ (0.052 × ${fmt(r.tvd)})`, 1],
+    ['ICP', `${fmt(r.icp)} psi`, 'SIDPP + SCR', 1],
+    ['FCP', `${fmt(r.fcp)} psi`, 'SCR × KMW ÷ OMW', 1],
+    ['Surface → bit', `${fmt(r.stb)} stk`, `${fmt(r.stb/KILL_SPM)} min at 30 spm`],
+    ['Bottoms up', `${fmt(r.bu)} stk`, `${fmt(r.bu/KILL_SPM)} min`],
+    ['MAASP', `${fmt(r.maasp)} psi`, `(${LOT} − ${r.omw}) × 0.052 × ${fmt(SHOE)}`],
+    ['Influx gradient', `${r.grad.toFixed(2)} psi/ft`, `${kind}`],
+  ];
+  let html = `<table class="ks">${rows.map(([k,v,f,hi])=>`<tr${hi?' class="hi"':''}><td>${k}${f?`<span class="f">${f}</span>`:''}</td><td>${v}</td></tr>`).join('')}</table>`;
+  if (!K){
+    html += `<p class="note">Let the pressures stabilise (a few minutes) before you start. The kill uses the readings at the moment you press a method.</p>
+      <div class="row" style="margin-top:8px"><button class="btn primary" id="ksWW">Wait &amp; Weight</button><button class="btn" id="ksDM">Driller's Method</button></div>
+      <label class="chk" style="margin-top:8px"><input type="checkbox" id="assistChk" checked> Kill assist (auto pumps + auto choke)</label>`;
+  } else {
+    const s=K.stages[K.i]||{type:'done'};
+    const names={wait:'Weight up / wait',startup:'Pump start-up',hold:'Circulation 1: hold ICP',schedule:'Kill mud down string',shutdown:'Pump shutdown',check:'Flow check',done:'Complete'};
+    let extra='';
+    if (s.type==='wait') extra=`${fmt((s.dur-K.st)/60)} min left`;
+    if (K.target) extra+=` · target ${K.target.label} <b style="color:var(--ink)">${fmt(K.target.val)} psi</b>`;
+    html += `<div class="sched cv"><canvas id="cvSched" aria-label="Drill pipe pressure schedule"></canvas></div>
+      <div class="stage"><b>${K.method==='ww'?'W&W':'DRILLER\'S'} · ${K.i+1}/${K.stages.length} · ${names[s.type]}</b><br><span id="stgTxt">${extra}</span></div>
+      <label class="chk" style="margin-top:8px"><input type="checkbox" id="assistChk" ${K.assist?'checked':''}> Kill assist (auto pumps + auto choke)</label>`;
+  }
+  if (force || !K){ body.innerHTML=html; }
+  else { const st=$('#stgTxt'); if (st){ const s=K.stages[K.i]||{}; let extra=''; if (s.type==='wait') extra=`${fmt((s.dur-K.st)/60)} min left`; if (K.target) extra+=` · target ${K.target.label} <b style="color:var(--ink)">${fmt(K.target.val)} psi</b>`; st.innerHTML=extra; } }
+  const ww=$('#ksWW'), dm=$('#ksDM'), ac=$('#assistChk');
+  if (ww) ww.onclick=()=>{ takeOver(); if (W.pump>1){ say('Stop the pumps before you record shut-in pressures.','WELL SITE LEADER'); return; } startKill('ww'); };
+  if (dm) dm.onclick=()=>{ takeOver(); if (W.pump>1){ say('Stop the pumps before you record shut-in pressures.','WELL SITE LEADER'); return; } startKill('dm'); };
+  if (ac) ac.onchange=()=>{ if (K){ K.assist=ac.checked; if (!ac.checked) event('Kill assist off: you have the pumps and choke. Follow the amber target on the drill pipe gauge.'); } };
+  if (K) $('#cardKill').hidden=false;
+}
+
+// ---------------- canvases ----------------
+const COL = {};
+function readCols(){ const cs=getComputedStyle(document.documentElement); for (const k of ['bg','panel','panel2','line','line2','ink','dim','faint','amber','mud','kill','gas','alarm','warn','ok','pore','frac']) COL[k]=cs.getPropertyValue('--'+k).trim(); }
+function fit(cv){
+  const r=cv.getBoundingClientRect(), d=Math.min(2, devicePixelRatio||1);
+  const w=Math.max(10,Math.round(r.width*d)), h=Math.max(10,Math.round(r.height*d));
+  if (cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; }
+  const c=cv.getContext('2d'); c.setTransform(d,0,0,d,0,0); return {c, w:r.width, h:r.height};
+}
+const LITH = {
+  air:'#0c1218', water:'#0d2a3d', inter:'#5b5440', shale:'#33404b', sand:'#a8864f', silt:'#6d6650'
+};
+let patt={};
+function makePatterns(c){
+  const mk=(bg, draw)=>{ const o=document.createElement('canvas'); o.width=o.height=24; const x=o.getContext('2d'); x.fillStyle=bg; x.fillRect(0,0,24,24); draw(x); return c.createPattern(o,'repeat'); };
+  patt.shale=mk(LITH.shale, x=>{ x.strokeStyle='rgba(255,255,255,.08)'; x.lineWidth=1; for (let i=0;i<3;i++){ x.beginPath(); x.moveTo(i%2?2:8, i*8+4); x.lineTo(i%2?14:20, i*8+4); x.stroke(); } });
+  patt.sand=mk(LITH.sand, x=>{ x.fillStyle='rgba(40,25,5,.35)'; for (let i=0;i<9;i++){ x.beginPath(); x.arc((i*7.3)%24,(i*11.7)%24,1.1,0,7); x.fill(); } });
+  patt.inter=mk(LITH.inter, x=>{ x.fillStyle='rgba(0,0,0,.25)'; x.fillRect(0,12,24,6); x.fillStyle='rgba(255,230,180,.12)'; for (let i=0;i<5;i++){ x.fillRect((i*5)%24,(i*9)%10,1.5,1.5); } });
+  patt.water=LITH.water; patt.air=LITH.air;
+}
+
+// particles
+const PART = { str:[], ann:[], lens:[], cut:[], infl:[], blow:[] };
+for (let i=0;i<70;i++){ PART.str.push(Math.random()); PART.ann.push({z:Math.random(), side:i%2, x:Math.random()}); }
+for (let i=0;i<120;i++) PART.lens.push({z:Math.random(), x:Math.random(), side:i%2});
+const blow={t:0};
+
+function drawWell(){
+  const cv=$('#cvWell'); const {c,w,h}=fit(cv);
+  if (!patt.shale) makePatterns(c);
+  c.fillStyle=COL.bg; c.fillRect(0,0,w,h);
+  const y0=Math.max(118, h*0.18), yB=h-12;
+  const leftW=Math.min(w*0.46, 230);
+  const cx=leftW*0.52;
+  const yz = z => y0 + z/ZMAX*(yB-y0);
+  const now=performance.now()/1000;
+
+  // sky
+  const g=c.createLinearGradient(0,0,0,y0); g.addColorStop(0,'#05080b'); g.addColorStop(1,'#0e1a24'); c.fillStyle=g; c.fillRect(0,0,w,y0);
+  // formations (full well)
+  for (const f of FM){
+    const a=yz(f.top), b=yz(Math.min(f.bot,ZMAX)); if (b<=a) continue;
+    c.fillStyle=patt[f.lith]||LITH[f.lith]; c.fillRect(0,a,leftW,b-a+0.5);
+    if (f.pp && f.lith!=='water'){ const op=clamp((ppEMW((f.top+f.bot)/2)-9.2)/2.2,0,1)*0.38; if (op>0){ c.fillStyle=`rgba(255,80,60,${op})`; c.fillRect(0,a,leftW,b-a+0.5);} }
+  }
+  // hole
+  const hw=clamp(leftW*0.06,8,13), sw=2.2;
+  const tdY=yz(W.td);
+  // annulus fluid (old vs new mud)
+  c.fillStyle='rgba(60,180,165,.55)'; c.fillRect(cx-hw, y0, hw*2, tdY-y0);
+  if (F.active){ c.fillStyle='rgba(217,138,75,.85)'; const ky=yz(F.zk); c.fillRect(cx-hw, ky, hw*2, tdY-ky); }
+  // casing strings
+  const casing=[[1200,hw+9],[4500,hw+5],[SHOE,hw+1.5]];
+  c.strokeStyle='#9fb0bb'; c.lineWidth=1.4;
+  for (const [d,o] of casing){ const yy=yz(d); c.beginPath(); c.moveTo(cx-o,y0); c.lineTo(cx-o,yy); c.moveTo(cx+o,y0); c.lineTo(cx+o,yy); c.stroke();
+    c.fillStyle='#9fb0bb'; c.beginPath(); c.moveTo(cx-o,yy); c.lineTo(cx-o-4,yy); c.lineTo(cx-o,yy-5); c.fill(); c.beginPath(); c.moveTo(cx+o,yy); c.lineTo(cx+o+4,yy); c.lineTo(cx+o,yy-5); c.fill(); }
+  // gas slugs (full well)
+  for (const s of W.slugs){
+    const a=yz(Math.max(0,s.zc-s.h/2)), b=yz(Math.min(W.td,s.zc+s.h/2)); const hh=Math.max(3,b-a);
+    c.fillStyle='rgba(243,239,207,.85)'; c.fillRect(cx-hw, a, hw*2, hh);
+    c.fillStyle='rgba(255,255,255,.9)'; const n=Math.min(40, hh/2);
+    for (let i=0;i<n;i++){ const r=(Math.sin(i*12.9898+s.id*7.1)*43758.5)%1; const rr=Math.abs(r); c.beginPath(); c.arc(cx-hw+rr*hw*2, a+((i/n+now*0.05*(1+rr))%1)*hh, 1+rr*1.3,0,7); c.fill(); }
+  }
+  // string
+  const dpY=yz(W.td-BHA), bitY=yz(W.td - (W.onBottom?0:30));
+  c.fillStyle='#c7d2d9'; c.fillRect(cx-sw, y0-30, sw*2, dpY-y0+30);
+  c.fillStyle='#e2e8ec'; c.fillRect(cx-sw-1.3, dpY, sw*2+2.6, bitY-dpY);
+  // string fluid
+  c.fillStyle='rgba(60,180,165,.9)'; c.fillRect(cx-0.8, y0, 1.6, bitY-y0);
+  if (F.active){ c.fillStyle=COL.kill; c.fillRect(cx-0.9, y0, 1.8, yz(F.zs)-y0); }
+  // bit
+  c.fillStyle=COL.amber; c.beginPath(); c.moveTo(cx-hw+1,bitY); c.lineTo(cx+hw-1,bitY); c.lineTo(cx,bitY+5); c.fill();
+  // particles in full well
+  const Qbs=W.pump*BBL_STK/60; const v=Math.min(Qbs/0.0459*warp, 1600)/ZMAX;
+  c.fillStyle='rgba(220,255,250,.55)';
+  for (let i=0;i<PART.ann.length;i++){ const p=PART.ann[i]; p.z-=v*frameDt; if (p.z<0) p.z+=1; const z=p.z*W.td; const yy=yz(z); const xx=p.side? cx+sw+1+p.x*(hw-sw-2) : cx-hw+1+p.x*(hw-sw-2); c.fillRect(xx,yy,1.5,1.5); }
+  // influx arrows
+  if (W.influxRate>0.0005){ const f=FM.find(f=>f.kick); const zz=yz((f.top+Math.min(W.td,f.bot))/2); const pulse=(now*2)%1; c.strokeStyle=COL.alarm; c.lineWidth=2; for (const sgn of [-1,1]){ const x0=cx+sgn*(hw+18-pulse*8); c.beginPath(); c.moveTo(x0,zz-4); c.lineTo(x0-sgn*5,zz); c.lineTo(x0,zz+4); c.stroke(); } }
+  if (W.lossRate>0){ const yy=yz(SHOE); c.strokeStyle=COL.alarm; c.lineWidth=2; const p=(now*2)%1; for (const sgn of [-1,1]){ const x0=cx+sgn*(hw+6+p*10); c.beginPath(); c.moveTo(x0,yy-6); c.lineTo(x0+sgn*5,yy-2); c.lineTo(x0,yy+2); c.stroke(); } }
+
+  // depth ticks
+  c.font='10px "IBM Plex Mono", monospace'; c.fillStyle=COL.dim; c.textAlign='left';
+  for (let d=2000; d<=10000; d+=2000){ const yy=yz(d); c.fillRect(0,yy,5,1); c.fillText(fmt(d), 7, yy+3.5); }
+  c.textAlign='right'; c.fillStyle='#c6d1d8';
+  c.fillText('9⅝″ shoe', cx-hw-8, yz(SHOE)-3); c.fillStyle=COL.dim; c.fillText('LOT 15.0', cx-hw-8, yz(SHOE)+9);
+
+  // lens window + connectors
+  const lx=leftW+18, lw=w-lx-8, lensTop=W.td-560, lensBot=W.td+80;
+  const ly = z => y0 + (z-lensTop)/(lensBot-lensTop)*(yB-y0);
+  const wa=yz(lensTop), wb=yz(lensBot);
+  c.strokeStyle='rgba(255,178,63,.75)'; c.lineWidth=1; c.strokeRect(cx-hw-14, wa, (hw+14)*2, Math.max(4,wb-wa));
+  c.beginPath(); c.moveTo(cx+hw+14, wa); c.lineTo(lx, y0); c.moveTo(cx+hw+14, wa+Math.max(4,wb-wa)); c.lineTo(lx, yB); c.strokeStyle='rgba(255,178,63,.28)'; c.stroke();
+  if (lw>120) drawLens(c, lx, y0, lw, yB-y0, lensTop, lensBot, ly, now);
+
+  drawRig(c, cx, y0, w, leftW, lx, lw, now);
+
+  // blowout plume
+  if (W.result==='blowout' || (!W.bop && W.gasExit>0.02)){
+    const intensity = W.result==='blowout'?1:clamp(W.gasExit*4,0.1,0.8);
+    for (let i=0;i<(RM?4:10)*intensity;i++) PART.blow.push({x:cx+(Math.random()-0.5)*6, y:y0-40, vx:(Math.random()-0.5)*90, vy:-(150+Math.random()*260), life:1, mud:Math.random()<0.5});
+  }
+  for (let i=PART.blow.length-1;i>=0;i--){ const p=PART.blow[i]; p.x+=p.vx*frameDt; p.y+=p.vy*frameDt; p.vy+=260*frameDt; p.life-=frameDt*0.7; if (p.life<=0||p.y>y0){ PART.blow.splice(i,1); continue; } c.fillStyle=p.mud?`rgba(90,140,120,${p.life})`:`rgba(243,239,207,${p.life*0.7})`; c.beginPath(); c.arc(p.x,p.y,p.mud?2:3.5,0,7); c.fill(); }
+  if (W.result==='blowout' && !RM){ const a=0.18+0.12*Math.sin(now*12); c.fillStyle=`rgba(255,60,40,${a})`; c.fillRect(0,0,w,h); }
+}
+
+function drawRig(c, cx, y0, w, leftW, lx, lw, now){
+  const floor=y0-34;
+  // sea + legs
+  c.fillStyle='#0d2a3d'; c.fillRect(0, y0+ (100/ZMAX)*(0), leftW, 0);
+  c.strokeStyle='#5f6f7a'; c.lineWidth=3;
+  for (const dx of [-38,38]){ c.beginPath(); c.moveTo(cx+dx, floor+18); c.lineTo(cx+dx, y0+ (380/ZMAX)*((c.canvas.height/Math.min(2,devicePixelRatio||1))-12-y0)); c.stroke(); }
+  // hull
+  c.fillStyle='#2a3640'; c.fillRect(cx-60, floor+6, 120, 14); c.fillStyle='#3b4a55'; c.fillRect(cx-60, floor+6, 120, 3);
+  // derrick
+  c.strokeStyle='#8a9aa5'; c.lineWidth=1.2; const top=Math.max(8, floor-82);
+  c.beginPath(); c.moveTo(cx-20,floor); c.lineTo(cx-5,top); c.lineTo(cx+5,top); c.lineTo(cx+20,floor); c.stroke();
+  c.lineWidth=0.7; for (let i=1;i<6;i++){ const t=i/6; const yy=lerp(floor,top,t); const xl=lerp(cx-20,cx-5,t), xr=lerp(cx+20,cx+5,t); const t2=(i+1)/6, y2=lerp(floor,top,t2); c.beginPath(); c.moveTo(xl,yy); c.lineTo(xr,yy); c.moveTo(xl,yy); c.lineTo(lerp(cx+20,cx+5,t2),y2); c.stroke(); }
+  // floor
+  c.fillStyle='#55656f'; c.fillRect(cx-30, floor, 60, 4);
+  // BOP stack
+  const by=floor+6; c.fillStyle=W.bop?COL.alarm:'#7d1f1c'; c.fillRect(cx-9, by, 18, 22);
+  c.fillStyle='rgba(0,0,0,.35)'; c.fillRect(cx-9,by+7,18,1.5); c.fillRect(cx-9,by+14,18,1.5);
+  c.fillStyle='#d9dfe3'; c.font='600 9px "Chakra Petch", sans-serif'; c.textAlign='right'; c.fillText(W.bop?'BOP SHUT':'BOP', cx-12, by+14);
+  // choke line → manifold → MGS → flare
+  const chx=Math.max(cx+70, lx+10), chy=by+16;
+  c.strokeStyle=W.bop?'#c7d2d9':'#4c5b66'; c.lineWidth=2; c.beginPath(); c.moveTo(cx+9,chy); c.lineTo(chx,chy); c.stroke();
+  c.fillStyle='#22303a'; c.strokeStyle='#8a9aa5'; c.lineWidth=1; c.fillRect(chx,chy-9,30,18); c.strokeRect(chx,chy-9,30,18);
+  c.fillStyle=COL.amber; c.fillRect(chx+3, chy+5, 24*W.choke, 2);
+  c.fillStyle=COL.dim; c.font='9px "IBM Plex Mono", monospace'; c.textAlign='center'; c.fillText('CHOKE', chx+15, chy-12);
+  const mgx=chx+52; c.strokeStyle='#4c5b66'; c.lineWidth=2; c.beginPath(); c.moveTo(chx+30,chy); c.lineTo(mgx,chy); c.stroke();
+  c.fillStyle='#22303a'; c.strokeStyle='#8a9aa5'; c.lineWidth=1; c.beginPath(); c.roundRect?c.roundRect(mgx,chy-28,16,38,6):c.rect(mgx,chy-28,16,38); c.fill(); c.stroke();
+  c.fillStyle=COL.dim; c.fillText('MGS', mgx+8, chy+22);
+  // flare boom
+  const fx=Math.min(w-18, mgx+70), fy=Math.max(14, floor-44);
+  c.strokeStyle='#6c7c87'; c.lineWidth=2; c.beginPath(); c.moveTo(mgx+8,chy-28); c.lineTo(mgx+8,fy+18); c.lineTo(fx,fy); c.stroke();
+  const fl = W.gasExit>0 && W.bop ? clamp(Math.sqrt(W.gasExit*60)*9,6,70) : 3;
+  const flick = 1+0.15*Math.sin(now*31)+0.1*Math.sin(now*17);
+  const gr=c.createRadialGradient(fx,fy-fl*0.4,1,fx,fy-fl*0.4,fl*flick);
+  gr.addColorStop(0,'rgba(255,250,220,.95)'); gr.addColorStop(0.35,'rgba(255,170,60,.85)'); gr.addColorStop(1,'rgba(255,80,20,0)');
+  c.fillStyle=gr; c.beginPath(); c.ellipse(fx, fy-fl*0.45, fl*0.45*flick, fl*flick, 0.3, 0, 7); c.fill();
+  // flowline & pits
+  const px=Math.max(6, cx-104), py=floor+4;
+  c.strokeStyle=!W.bop?'#7fa9a2':'#4c5b66'; c.lineWidth=2; c.beginPath(); c.moveTo(cx-9,by+4); c.lineTo(px+34,by+4); c.stroke();
+  c.fillStyle='#22303a'; c.strokeStyle='#8a9aa5'; c.lineWidth=1; c.fillRect(px,py-20,34,26); c.strokeRect(px,py-20,34,26);
+  const gain=W.pit-W.pit0; const lvl=clamp(0.5+gain/60,0.05,0.98);
+  c.fillStyle=gain>5?COL.alarm:(F.active?COL.kill:COL.mud); c.fillRect(px+2, py+4-22*lvl, 30, 22*lvl);
+  c.fillStyle=COL.dim; c.fillText('PITS', px+17, py-23);
+  c.strokeStyle='rgba(255,255,255,.4)'; c.beginPath(); c.moveTo(px, py+4-11); c.lineTo(px+34, py+4-11); c.stroke();
+}
+
+function drawLens(c, x, y, w, h, z0, z1, ly, now){
+  c.save(); c.beginPath(); c.rect(x,y,w,h); c.clip();
+  // formations
+  for (const f of FM){
+    if (f.bot<z0||f.top>z1) continue;
+    const a=ly(Math.max(f.top,z0)), b=ly(Math.min(f.bot,z1));
+    c.fillStyle=patt[f.lith]||LITH[f.lith]; c.fillRect(x,a,w,b-a+0.5);
+    if (f.top>z0){ c.fillStyle='rgba(0,0,0,.4)'; c.fillRect(x,a,w,1); }
+    const op=clamp((ppEMW((Math.max(f.top,z0)+Math.min(f.bot,z1))/2)-9.2)/2.2,0,1)*0.3; if (op>0){ c.fillStyle=`rgba(255,80,60,${op})`; c.fillRect(x,a,w,b-a+0.5); }
+  }
+  const cx=x+w*0.44, hw=Math.min(w*0.2, 52), dpw=hw*0.36, dcw=hw*0.62;
+  const tdY=ly(W.td), bitY=ly(W.td-(W.onBottom?0:30)), dcY=ly(W.td-BHA);
+  // hole (rugose wall)
+  c.fillStyle='rgba(60,180,165,.42)';
+  c.beginPath(); c.moveTo(cx-hw, y);
+  for (let yy=y; yy<=tdY; yy+=6){ const z=lerp(z0,z1,(yy-y)/h); c.lineTo(cx-hw-2*Math.sin(z*0.37)-1.5*Math.sin(z*0.11), yy); }
+  c.lineTo(cx-hw+6, tdY+8); c.lineTo(cx+hw-6, tdY+8);
+  for (let yy=tdY; yy>=y; yy-=6){ const z=lerp(z0,z1,(yy-y)/h); c.lineTo(cx+hw+2*Math.sin(z*0.29+1)+1.5*Math.sin(z*0.13), yy); }
+  c.closePath(); c.fill();
+  // kill mud in lens
+  if (F.active && F.zk<z1){ c.fillStyle='rgba(217,138,75,.75)'; const a=ly(Math.max(F.zk,z0)); c.fillRect(cx-hw, a, hw*2, tdY-a+6); }
+  // casing shoe if visible
+  if (SHOE>z0 && SHOE<z1){ const sy=ly(SHOE); c.fillStyle='#9fb0bb'; c.fillRect(cx-hw-6,y,4,sy-y); c.fillRect(cx+hw+2,y,4,sy-y); }
+  // influx streams from exposed sand
+  const kf=FM.find(f=>f.kick);
+  if (W.influxRate>0.0004 && W.td>kf.top){
+    const a=ly(kf.top), b=ly(Math.min(W.td,kf.bot)); const n=RM?8:Math.min(60, 10+W.influxRate*900);
+    for (let i=0;i<n;i++){ const r=Math.abs(Math.sin(i*91.7)*1000)%1; const ph=(now*(0.6+r*0.6)+r)%1; const side=i%2?1:-1; const yy=lerp(a,b,(r*7.13)%1);
+      const xx = cx + side*(hw + (1-ph)*w*0.36); c.fillStyle=`rgba(255,240,200,${0.3+0.6*ph})`; c.beginPath(); c.arc(xx,yy,1.5+ph*2,0,7); c.fill(); }
+    c.fillStyle=COL.alarm; c.font='600 11px "Chakra Petch", sans-serif'; c.textAlign='left'; c.fillText(`INFLUX ${(W.influxRate*60).toFixed(2)} bbl/min`, x+8, ly(kf.top)-6);
+  }
+  // annulus particles (mud + cuttings)
+  const Qbs=W.pump*BBL_STK/60; const vft = Qbs/CA_OH; const vis = Math.min(vft*Math.max(warp,1), 140);
+  for (const p of PART.lens){
+    p.z -= vis*frameDt/(z1-z0); if (p.z<0){ p.z+=1; p.x=Math.random(); }
+    const z=lerp(z0, W.td, p.z); const yy=ly(z); const wall=z>W.td-BHA?dcw:dpw;
+    const xx = p.side ? cx+wall+2+p.x*(hw-wall-4) : cx-hw+2+p.x*(hw-wall-4);
+    const inKill = F.active && z>F.zk;
+    c.fillStyle = inKill?'rgba(255,210,170,.7)':'rgba(210,255,248,.5)'; c.fillRect(xx,yy,2,2);
+  }
+  if (W.rop>0){ c.fillStyle='rgba(200,190,160,.85)'; for (let i=0;i<22;i++){ const r=Math.abs(Math.sin(i*33.3))%1; const ph=((now*0.35+r)%1); const yy=tdY-ph*h*0.8; const side=i%2?1:-1; c.fillRect(cx+side*(dcw+3+r*(hw-dcw-6)), yy, 3, 2); } }
+  // gas in lens
+  for (const s of W.slugs){
+    const a=s.zc-s.h/2, b=s.zc+s.h/2; if (b<z0||a>z1) continue;
+    const ya=ly(Math.max(a,z0)), yb=ly(Math.min(b,z1,W.td)); const hh=Math.max(4,yb-ya);
+    c.fillStyle='rgba(243,239,207,.35)'; c.fillRect(cx-hw, ya, hw*2, hh);
+    const n=Math.min(160, hh*1.2); for (let i=0;i<n;i++){ const r=Math.abs(Math.sin(i*12.99+s.id*3.3)*4375.5)%1; const r2=Math.abs(Math.sin(i*78.2+s.id)*9631.1)%1; const side=i%2?1:-1; const wall=dcw;
+      const yy=ya+((r2 + now*0.06*(0.5+r))%1)*hh; const xx=cx+side*(wall+2+r*(hw-wall-4)); c.fillStyle=`rgba(255,255,240,${0.5+r*0.5})`; c.beginPath(); c.arc(xx,yy,1.2+r*2.6,0,7); c.fill(); }
+  }
+  // drill string
+  const grd=c.createLinearGradient(cx-dcw,0,cx+dcw,0); grd.addColorStop(0,'#6f7c85'); grd.addColorStop(0.5,'#e6ecef'); grd.addColorStop(1,'#59656e');
+  c.fillStyle=grd; c.fillRect(cx-dpw, y, dpw*2, Math.max(0,dcY-y)); c.fillRect(cx-dcw, Math.max(y,dcY), dcw*2, bitY-Math.max(y,dcY));
+  // tool joints
+  c.fillStyle='rgba(0,0,0,.25)'; for (let z=Math.ceil(z0/31)*31; z<W.td; z+=31){ const yy=ly(z); if (yy>y && yy<bitY) c.fillRect(cx-(z>W.td-BHA?dcw:dpw)-1, yy, (z>W.td-BHA?dcw:dpw)*2+2, 3); }
+  // string bore fluid
+  c.fillStyle='rgba(60,180,165,.8)'; c.fillRect(cx-dpw*0.45, y, dpw*0.9, bitY-y);
+  if (F.active && F.zs>z0){ c.fillStyle=COL.kill; c.fillRect(cx-dpw*0.45, y, dpw*0.9, Math.min(ly(F.zs),bitY)-y); }
+  // bit (PDC, rotating cutters)
+  const ang = W.rpm>0 ? now*W.rpm/60*Math.PI*2*0.15 : 0;
+  c.fillStyle='#b8c3ca'; c.beginPath(); c.moveTo(cx-hw+3, bitY); c.lineTo(cx+hw-3, bitY); c.lineTo(cx+hw*0.6, bitY+10); c.lineTo(cx-hw*0.6, bitY+10); c.closePath(); c.fill();
+  c.fillStyle=COL.amber; for (let i=0;i<7;i++){ const p=((i/7 + ang/(Math.PI*2))%1); const xx=cx+Math.cos(p*Math.PI*2)*(hw-6); const vis2=Math.sin(p*Math.PI*2)>0; if (vis2){ c.beginPath(); c.arc(xx, bitY+7, 2.4,0,7); c.fill(); } }
+  // labels
+  c.font='10px "IBM Plex Mono", monospace'; c.fillStyle='#c6d1d8'; c.textAlign='right';
+  for (let d=Math.ceil(z0/100)*100; d<z1; d+=100){ const yy=ly(d); c.fillStyle='rgba(255,255,255,.18)'; c.fillRect(x+w-8,yy,8,1); c.fillStyle=COL.dim; c.fillText(fmt(d), x+w-11, yy+3.5); }
+  c.textAlign='left'; c.font='600 11px "Chakra Petch", sans-serif';
+  for (const f of FM){ if (f.bot<z0||f.top>z1) continue; const a=ly(Math.max(f.top,z0)), b=ly(Math.min(f.bot,z1)); if (b-a<16) continue; c.fillStyle='rgba(230,236,240,.75)'; c.fillText(f.name, x+8, a+14); c.font='10px "IBM Plex Mono", monospace'; c.fillStyle=COL.dim; c.fillText(`Pp ${ppEMW((Math.max(f.top,z0)+Math.min(f.bot,z1))/2).toFixed(1)} ppg`, x+8, a+27); c.font='600 11px "Chakra Petch", sans-serif'; }
+  c.fillStyle=COL.amber; c.textAlign='left'; c.font='600 11px "Chakra Petch", sans-serif'; c.fillText(`BIT ${fmt(W.td)} ft`, cx+hw+8, bitY+4);
+  c.restore();
+  c.strokeStyle='rgba(255,178,63,.5)'; c.lineWidth=1; c.strokeRect(x+0.5,y+0.5,w-1,h-1);
+  c.fillStyle=COL.amber; c.font='600 10px "Chakra Petch", sans-serif'; c.textAlign='right'; c.fillText('BOTTOM-HOLE LENS', x+w-8, y+h-8);
+}
+
+// pressure window + mud log
+function drawPress(){
+  const cv=$('#cvPress'); const {c,w,h}=fit(cv);
+  c.fillStyle=COL.panel; c.fillRect(0,0,w,h);
+  const split = w>620 ? w*0.58 : w;
+  const L=46, R=split-14, T=28, B=h-26;
+  const x0=8.5, x1=16.5, zA=7600, zB=Math.max(11000, W.td+200);
+  const X = v => L + (v-x0)/(x1-x0)*(R-L), Y = z => T + (z-zA)/(zB-zA)*(B-T);
+  c.font='10px "IBM Plex Mono", monospace';
+  // grid
+  c.strokeStyle=COL.line; c.lineWidth=1; c.fillStyle=COL.dim; c.textAlign='center';
+  for (let v=9; v<=16; v++){ const xx=X(v); c.beginPath(); c.moveTo(xx,T); c.lineTo(xx,B); c.stroke(); c.fillText(v, xx, B+13); }
+  c.textAlign='right';
+  for (let z=8000; z<=zB; z+=500){ const yy=Y(z); c.beginPath(); c.moveTo(L,yy); c.lineTo(R,yy); c.stroke(); c.fillText(fmt(z), L-5, yy+3.5); }
+  c.textAlign='center'; c.fillText('equivalent mud weight, ppg', (L+R)/2, h-3);
+  // fill between pore and frac = window
+  c.beginPath(); for (let z=SHOE; z<=zB; z+=20) c.lineTo(X(ppEMW(z)),Y(z)); for (let z=zB; z>=SHOE; z-=20) c.lineTo(X(fgEMW(z)),Y(z)); c.closePath();
+  c.fillStyle='rgba(107,211,142,.06)'; c.fill();
+  // pore pressure
+  c.strokeStyle=COL.pore; c.lineWidth=2; c.beginPath(); for (let z=zA; z<=zB; z+=10) c.lineTo(X(ppEMW(z)),Y(z)); c.stroke();
+  // permeable zones highlight
+  for (const f of FM) if (f.perm){ c.fillStyle='rgba(168,134,79,.25)'; c.fillRect(L, Y(f.top), R-L, Y(f.bot)-Y(f.top)); c.fillStyle=COL.dim; c.textAlign='left'; c.fillText('M-4 gas sand', L+4, Y(f.top)+11); }
+  // frac
+  c.strokeStyle=COL.frac; c.setLineDash([5,4]); c.beginPath(); for (let z=SHOE; z<=zB; z+=20) c.lineTo(X(fgEMW(z)),Y(z)); c.stroke(); c.setLineDash([]);
+  // shoe
+  c.fillStyle=COL.frac; c.beginPath(); c.arc(X(LOT),Y(SHOE),4,0,7); c.fill();
+  c.textAlign='right'; c.fillStyle=COL.dim; c.fillText('shoe LOT 15.0', X(LOT)-7, Y(SHOE)+4);
+  // static mud weight
+  c.strokeStyle='rgba(60,180,165,.8)'; c.setLineDash([2,3]); c.lineWidth=1.5; c.beginPath();
+  for (let z=zA; z<=W.td; z+=20) c.lineTo(X(mudHyd(z)/(0.052*z)), Y(z)); c.stroke(); c.setLineDash([]);
+  // live well pressure profile
+  c.lineWidth=2.5; let prev=null;
+  for (let z=zA; z<=W.td; z+=15){
+    const emw=pressureAt(z)/(0.052*z); const xx=X(clamp(emw,x0-0.3,x1+0.3)), yy=Y(z);
+    const f=fmAt(z); const under = emw < ppEMW(z) && f.perm;
+    if (prev){ c.strokeStyle=under?COL.alarm:COL.amber; c.beginPath(); c.moveTo(prev[0],prev[1]); c.lineTo(xx,yy); c.stroke(); }
+    prev=[xx,yy];
+  }
+  // bit marker
+  c.strokeStyle='rgba(255,178,63,.5)'; c.setLineDash([1,3]); c.beginPath(); c.moveTo(L,Y(W.td)); c.lineTo(R,Y(W.td)); c.stroke(); c.setLineDash([]);
+  // legend
+  c.textAlign='left'; c.font='600 11px "Chakra Petch", sans-serif'; c.fillStyle=COL.ink; c.fillText('PRESSURE WINDOW', L, 16);
+  const lg=[[COL.pore,'pore'],[COL.frac,'fracture'],['rgba(60,180,165,.9)','mud (static)'],[COL.amber,'well pressure (live)']];
+  let lx=L+128; c.font='10px "IBM Plex Mono", monospace';
+  for (const [col,t] of lg){ if (lx+90>R) break; c.fillStyle=col; c.fillRect(lx,10,12,3); c.fillStyle=COL.dim; c.fillText(t,lx+16,15); lx+=c.measureText(t).width+30; }
+
+  if (split<w) drawMudLog(c, split+4, 0, w-split-8, h);
+}
+function drawMudLog(c, x, y, w, h){
+  const T=28, B=h-26; const z0=W.td-320, z1=W.td+30;
+  const Y=z=>T+(z-z0)/(z1-z0)*(B-T);
+  const tracks=[['LITH',0.12],['ROP ft/hr',0.29],['GAS units',0.29],['dc-EXP',0.30]];
+  let tx=x; const tw=tracks.map(t=>t[1]*w);
+  c.font='600 11px "Chakra Petch", sans-serif'; c.fillStyle=COL.ink; c.textAlign='left'; c.fillText('MUD LOG', x, 16);
+  c.font='9.5px "IBM Plex Mono", monospace';
+  for (let i=0;i<tracks.length;i++){ c.strokeStyle=COL.line; c.strokeRect(tx+0.5,T+0.5,tw[i]-1,B-T); c.fillStyle=COL.dim; c.fillText(tracks[i][0], tx+3, T-4); tracks[i].x=tx; tracks[i].w=tw[i]; tx+=tw[i]; }
+  c.save(); c.beginPath(); c.rect(x,T,w,B-T); c.clip();
+  // depth gridlines
+  for (let z=Math.ceil(z0/50)*50; z<z1; z+=50){ const yy=Y(z); c.strokeStyle=COL.line; c.beginPath(); c.moveTo(x,yy); c.lineTo(x+w,yy); c.stroke(); if (z%100===0){ c.fillStyle=COL.faint; c.fillText(fmt(z), tracks[1].x+2, yy-2);} }
+  const pts=W.logPts.filter(p=>p.z>=z0-4);
+  // lith
+  const t0=tracks[0]; for (const p of pts){ c.fillStyle=patt[p.lith]||LITH[p.lith]; c.fillRect(t0.x+1, Y(p.z)-1, t0.w-2, Math.max(1,(B-T)/(z1-z0)*2+0.5)); }
+  const line=(tr, key, max, col, log)=>{ c.strokeStyle=col; c.lineWidth=1.4; c.beginPath(); let first=true;
+    for (const p of pts){ if (p[key]==null) continue; let v=p[key]; let f = log ? Math.log10(Math.max(v,1))/Math.log10(max) : v/max; const xx=tr.x+2+clamp(f,0,1)*(tr.w-4); const yy=Y(p.z); if (first){c.moveTo(xx,yy); first=false;} else c.lineTo(xx,yy);} c.stroke(); };
+  line(tracks[1],'rop',400,COL.ink);
+  line(tracks[2],'gas',1000,'#e8c75a',true);
+  // dc track: 0.6..1.8
+  const t3=tracks[3]; const dX=v=>t3.x+2+clamp((v-0.6)/1.2,0,1)*(t3.w-4);
+  c.strokeStyle='rgba(94,168,255,.6)'; c.setLineDash([4,3]); c.beginPath(); c.moveTo(dX(dcNormal(z0)),Y(z0)); c.lineTo(dX(dcNormal(z1)),Y(z1)); c.stroke(); c.setLineDash([]);
+  c.fillStyle=COL.pore; for (const p of pts){ if (p.dc==null) continue; c.fillRect(dX(p.dc)-1, Y(p.z)-1, 2.2, 2.2); }
+  c.restore();
+  c.fillStyle=COL.faint; c.font='9px "IBM Plex Mono", monospace'; c.fillText('normal trend - - -', t3.x+3, B+12);
+  const by=Y(W.td); c.strokeStyle=COL.amber; c.beginPath(); c.moveTo(x,by); c.lineTo(x+w,by); c.stroke();
+}
+
+// trends
+const TR=[]; let trLast=0;
+function sampleTrend(){
+  TR.push({t:W.t, spp:W.spp, pc:W.Pc, pit:W.pit-W.pit0, flow:W.pump>1?W.flowPct:(W.flowOut>0.05&&!W.bop?100+W.flowOut*10:0), m:sandMargin()});
+  if (TR.length>700) TR.shift();
+}
+function drawTrend(){
+  const cv=$('#cvTrend'); const {c,w,h}=fit(cv);
+  c.fillStyle=COL.panel; c.fillRect(0,0,w,h);
+  const L=54, R=w-12, T=22, B=h-18;
+  c.font='600 11px "Chakra Petch", sans-serif'; c.fillStyle=COL.ink; c.textAlign='left'; c.fillText('TRENDS', 10, 15);
+  c.font='10px "IBM Plex Mono", monospace'; c.fillStyle=COL.faint; c.textAlign='right';
+  if (TR.length>1){ const span=(TR[TR.length-1].t-TR[0].t)/60; c.fillText(`last ${fmt(span)} min of well time`, R, 15); }
+  const lanes=[
+    {k:'pressures', series:[['spp',COL.ink,'standpipe'],['pc',COL.amber,'casing']], unit:'psi', min:0},
+    {k:'pit', series:[['pit',COL.mud,'pit gain']], unit:'bbl', zero:true, alarm:5},
+    {k:'flow', series:[['flow','#e8c75a','flow out']], unit:'%', fixed:[0,200], ref:100},
+    {k:'m', series:[['m',COL.pore,'BHP − Pp at sand']], unit:'psi', zero:true, neg:true}
+  ];
+  const lh=(B-T)/lanes.length;
+  lanes.forEach((ln,i)=>{
+    const top=T+i*lh+4, bot=T+(i+1)*lh-4;
+    let mn=Infinity, mx=-Infinity; for (const p of TR) for (const [k] of ln.series){ mn=Math.min(mn,p[k]); mx=Math.max(mx,p[k]); }
+    if (!isFinite(mn)){ mn=0; mx=1; }
+    if (ln.fixed){ mn=ln.fixed[0]; mx=Math.max(ln.fixed[1], mx); }
+    if (ln.zero){ mn=Math.min(mn,-5); mx=Math.max(mx,10); }
+    const pad=(mx-mn)*0.12||1; mn-=ln.fixed?0:pad*0.3; mx+=pad;
+    if (ln.min!=null) mn=Math.max(mn, ln.min);
+    const Y=v=>bot-(v-mn)/(mx-mn)*(bot-top);
+    c.strokeStyle=COL.line; c.strokeRect(L+0.5, top+0.5, R-L, bot-top);
+    if (ln.zero || ln.ref){ const r=ln.ref||0; c.strokeStyle= ln.neg? 'rgba(255,79,74,.6)':COL.line2; c.setLineDash([3,3]); c.beginPath(); c.moveTo(L,Y(r)); c.lineTo(R,Y(r)); c.stroke(); c.setLineDash([]); }
+    if (ln.alarm){ c.strokeStyle='rgba(255,208,74,.4)'; c.setLineDash([2,4]); c.beginPath(); c.moveTo(L,Y(ln.alarm)); c.lineTo(R,Y(ln.alarm)); c.stroke(); c.setLineDash([]); }
+    c.fillStyle=COL.dim; c.textAlign='right'; c.fillText(fmt(mx), L-5, top+9); c.fillText(fmt(mn), L-5, bot);
+    c.textAlign='left'; let lx=L+6;
+    for (const [k,col,lab] of ln.series){
+      if (TR.length>1){ const t0=TR[0].t, t1=TR[TR.length-1].t||1; c.strokeStyle=col; c.lineWidth=1.5; c.beginPath();
+        TR.forEach((p,j)=>{ const xx=L+(p.t-t0)/Math.max(1,t1-t0)*(R-L); const yy=Y(p[k]); j?c.lineTo(xx,yy):c.moveTo(xx,yy); }); c.stroke();
+        const lp=TR[TR.length-1]; c.fillStyle=col; c.beginPath(); c.arc(R, Y(lp[k]), 2.6, 0, 7); c.fill(); }
+      c.fillStyle=col; c.fillText(`${lab} (${ln.unit})`, lx, top+11); lx+=c.measureText(`${lab} (${ln.unit})`).width+14;
+    }
+  });
+}
+
+// choke panel dials
+function drawDials(){
+  const cv=$('#cvDials'); const {c,w,h}=fit(cv);
+  c.fillStyle=COL.panel; c.fillRect(0,0,w,h);
+  const r=Math.min(w/4-8, h/2-14);
+  const dial=(cx,cy,val,max,label,target,redFrom)=>{
+    c.fillStyle='#0b1014'; c.beginPath(); c.arc(cx,cy,r,0,7); c.fill(); c.strokeStyle=COL.line2; c.lineWidth=2; c.stroke();
+    const a0=Math.PI*0.75, a1=Math.PI*2.25; const A=v=>a0+(clamp(v,0,max)/max)*(a1-a0);
+    if (redFrom!=null && redFrom<max){ c.strokeStyle='rgba(255,79,74,.75)'; c.lineWidth=5; c.beginPath(); c.arc(cx,cy,r-6,A(redFrom),a1); c.stroke(); }
+    c.strokeStyle=COL.dim; c.lineWidth=1;
+    for (let i=0;i<=10;i++){ const a=a0+i/10*(a1-a0); c.beginPath(); c.moveTo(cx+Math.cos(a)*(r-3),cy+Math.sin(a)*(r-3)); c.lineTo(cx+Math.cos(a)*(r-(i%5?8:12)),cy+Math.sin(a)*(r-(i%5?8:12))); c.stroke(); }
+    c.fillStyle=COL.faint; c.font='8.5px "IBM Plex Mono", monospace'; c.textAlign='center';
+    for (let i=0;i<=max;i+=max/5){ const a=A(i); c.fillText(i>=1000?(i/1000)+'k':i, cx+Math.cos(a)*(r-20), cy+Math.sin(a)*(r-20)+3); }
+    if (target!=null){ const a=A(target); c.strokeStyle=COL.amber; c.lineWidth=3; c.beginPath(); c.moveTo(cx+Math.cos(a)*(r-14),cy+Math.sin(a)*(r-14)); c.lineTo(cx+Math.cos(a)*(r-2),cy+Math.sin(a)*(r-2)); c.stroke(); }
+    const a=A(val); c.strokeStyle='#f2f5f7'; c.lineWidth=2; c.beginPath(); c.moveTo(cx-Math.cos(a)*8,cy-Math.sin(a)*8); c.lineTo(cx+Math.cos(a)*(r-10),cy+Math.sin(a)*(r-10)); c.stroke();
+    c.fillStyle='#f2f5f7'; c.beginPath(); c.arc(cx,cy,3,0,7); c.fill();
+    c.fillStyle=COL.ink; c.font='500 15px "IBM Plex Mono", monospace'; c.fillText(fmt(val), cx, cy+r*0.52);
+    c.fillStyle=COL.dim; c.font='600 9.5px "Chakra Petch", sans-serif'; c.fillText(label, cx, cy+r+12);
+  };
+  const tgtSpp = K && K.target && K.target.kind==='spp' ? K.target.val : null;
+  const tgtPc  = K && K.target && K.target.kind==='pc' ? K.target.val : null;
+  const sppMax = W.spp>2500||W.pump>60 ? 5000 : 1500;
+  const maasp=(LOT - (F.zk<SHOE?F.gN:F.gO)/0.052)*0.052*SHOE;
+  dial(w*0.25, h/2-4, W.spp, sppMax, 'DRILL PIPE  psi', tgtSpp, null);
+  dial(w*0.75, h/2-4, W.Pc, 2500, 'CASING  psi', tgtPc, maasp);
+}
+
+// schedule chart
+function drawSched(){
+  const cv=$('#cvSched'); if (!cv||!K) return; const {c,w,h}=fit(cv);
+  c.fillStyle=COL.panel2; c.fillRect(0,0,w,h);
+  const r=K.rec, L=36, R=w-8, T=10, B=h-18; const sMax=r.stb*1.3; const pMax=Math.max(r.icp, W.spp)*1.15+50;
+  const X=s=>L+s/sMax*(R-L), Y=p=>B-p/pMax*(B-T);
+  c.strokeStyle=COL.line; c.strokeRect(L,T,R-L,B-T);
+  c.font='9.5px "IBM Plex Mono", monospace'; c.fillStyle=COL.dim; c.textAlign='right'; c.fillText(fmt(pMax),L-3,T+8); c.fillText('0',L-3,B);
+  c.textAlign='center'; c.fillText(`strokes · ${fmt(r.stb)} to bit`, (L+R)/2, h-4);
+  c.strokeStyle=COL.amber; c.lineWidth=2; c.beginPath(); c.moveTo(X(0),Y(r.icp)); c.lineTo(X(r.stb),Y(r.fcp)); c.lineTo(X(sMax),Y(r.fcp)); c.stroke();
+  c.fillStyle=COL.amber; c.textAlign='left'; c.fillText(`ICP ${fmt(r.icp)}`, X(0)+4, Y(r.icp)-4); c.textAlign='right'; c.fillText(`FCP ${fmt(r.fcp)}`, R-2, Y(r.fcp)-5);
+  const s=K.stages[K.i]; if (s && (s.type==='schedule'||s.type==='hold')){ const sx=X(Math.min(K.strokes,sMax)); c.fillStyle='#fff'; c.beginPath(); c.arc(sx, Y(W.spp), 3.5,0,7); c.fill(); }
+}
+
+// tiles & side text
+function updateTiles(){
+  const set=(k,v,s,st)=>{ const el=$('#t_'+k); el.querySelector('.v').innerHTML=v; el.querySelector('.s').textContent=s; el.className='tile'+(st?' '+st:''); };
+  const gain=W.pit-W.pit0, margin=sandMargin();
+  set('depth', `${fmt(W.td)}<small>ft</small>`, `ROP ${fmt(W.rop)} ft/hr`, '');
+  set('spp', `${fmt(W.spp)}<small>psi</small>`, `${fmt(W.pump)} spm · ${fmt(W.pump*BBL_STK*42)} gpm`, '');
+  const maasp=(LOT - (F.zk<SHOE?F.gN:F.gO)/0.052)*0.052*SHOE;
+  set('csg', `${fmt(W.Pc)}<small>psi</small>`, `MAASP ${fmt(maasp)}`, W.Pc>maasp?'alarm':W.Pc>0.8*maasp?'warn':'');
+  set('pit', `${gain>=0?'+':''}${gain.toFixed(1)}<small>bbl</small>`, `active ${fmt(W.pit)} bbl`, gain>=5?'alarm':gain>=2?'warn':'');
+  const fo = W.pump>1 ? `${fmt(W.flowPct)}<small>%</small>` : `${W.flowOut.toFixed(1)}<small>bbl/m</small>`;
+  set('flow', fo, W.pump>1?`${W.flowOut.toFixed(1)} bbl/min out`: (W.bop?'well shut in':'pumps off'), (W.pump>1&&W.flowPct>110)||(W.pump<1&&!W.bop&&W.flowOut>0.2)?'alarm':(W.pump>1&&W.flowPct>104)?'warn':'');
+  set('gas', `${fmt(W.gasRead)}<small>u</small>`, W.pump>1?`lag ${fmt(Va()/(W.pump*BBL_STK))} min`:'no returns', W.gasRead>200?'alarm':W.gasRead>45?'warn':'');
+  set('bhp', `${fmt(W.bhp)}<small>psi</small>`, `ECD ${W.ecd.toFixed(2)} ppg`, '');
+  set('margin', `${margin>=0?'+':''}${fmt(margin)}<small>psi</small>`, margin>=0?'overbalanced':'UNDERBALANCED: influx', margin<0?'alarm':margin<100?'warn':'');
+  for (const [k] of SIGNS){ const el=$('#c_'+k); el.className='chip'+(W.signs[k]?' lit'+(k==='pit'||k==='flow'?' red':''):''); }
+  // status
+  let st='Drilling', cls='';
+  if (W.ended) { st={blowout:'Blowout',shoe:'Shoe failure',killed:'Well dead',clean:'Section TD'}[W.result]; cls=W.result==='killed'||W.result==='clean'?'ok':'alarm'; }
+  else if (W.bop && K){ st=K.stages[K.i]?({wait:'Shut in · weighting up',startup:'Kill · pump start-up',hold:'Kill · circulation 1',schedule:'Kill · circulating',shutdown:'Kill · pump shutdown',check:'Kill · flow check'})[K.stages[K.i].type]:'Kill'; cls='warn'; }
+  else if (W.bop){ st='Shut in'; cls='warn'; }
+  else if (W.influxRate>0.002 && (W.signs.pit||W.signs.flow)){ st='Kick'; cls='alarm'; }
+  else if (W.rop>0) st='Drilling'; else if (W.pump>1) st='Circulating'; else st='Static';
+  const p=$('#status'); p.textContent=st; p.className='pill '+cls;
+  $('#clock').textContent=clockStr(W.t);
+  $('#stkO').textContent=fmt(W.strokes-W.stkZero);
+  $('#flareO').textContent = W.bop && W.gasExit>0 ? `${(W.gasExit*60).toFixed(1)} bbl/min gas` : '—';
+  const dn = W.bop ? 'Well shut in on the annular' : (W.onBottom ? (W.rop>0?'Bit on bottom, drilling':'On bottom, not drilling') : 'Spaced out off bottom');
+  $('#drillNote').textContent=dn;
+  $('#drillTag').textContent = W.rop>0?'rotary drilling':(W.pump>1?'circulating':'idle');
+  let mn = F.active ? (W.mud.pumped<Vs() ? `${W.mud.neu.toFixed(1)} ppg front is ${fmt(W.mud.pumped/Vs()*100)} % of the way to the bit.` : `${W.mud.neu.toFixed(1)} ppg front is in the annulus, ${fmt(W.td-F.zk)} ft above the bit.`) : `Hole is full of ${W.mud.old.toFixed(1)} ppg mud.`;
+  $('#mwNote').textContent=mn;
+  // keep sliders in sync when automation moves them
+  if (document.activeElement!==$('#choke')){ $('#choke').value=Math.round(W.choke*100); $('#chokeO').textContent=`${fmt(W.choke*100)} %`; }
+  if (document.activeElement!==$('#spm')){ $('#spm').value=Math.round(W.pumpCmd); $('#spmO').textContent=`${fmt(W.pumpCmd)} spm`; }
+  if (AP){ $('#wob').value=W.wob; $('#wobO').textContent=`${fmt(W.wob)} klb`; $('#rpm').value=W.rpm; $('#rpmO').textContent=`${fmt(W.rpm)} rpm`; const b=$('#btmBtn'); b.textContent=W.onBottom?'On bottom':'Off bottom'; b.classList.toggle('on',W.onBottom); }
+  const bop=$('#bopBtn'); bop.textContent=W.bop?'BOP CLOSED · OPEN WELL':'SHUT IN WELL'; bop.classList.toggle('closed',W.bop); $('#btmBtn').disabled=W.bop;
+}
+
+// ---------------- debrief ----------------
+function showDebrief(){
+  const r=W.result; const D=$('#debrief');
+  const titles={killed:['WELL DEAD','Kick circulated out. Primary well control restored.'],clean:['SECTION TD','No influx. You read the pressure ramp and weighted up in time.'],blowout:['BLOWOUT','Gas reached the rig floor with the BOP open.'],shoe:['SHOE BROKEN','Casing shoe fractured: underground blowout.']};
+  $('#dbTitle').textContent=titles[r][0]; $('#dbTitle').style.color = (r==='killed'||r==='clean')?COL.ok:COL.alarm;
+  $('#dbSub').textContent=titles[r][1];
+  $('#dbEyebrow').textContent=`DEBRIEF · ${clockStr(W.t)} · ${AP?'AUTOPILOT RUN':'YOUR RUN'}`;
+  const grade=(v,good,ok,lowerBetter=true)=>{ if (v==null||!isFinite(v)) return 'meh'; return lowerBetter ? (v<=good?'good':v<=ok?'meh':'bad') : (v>=good?'good':v>=ok?'meh':'bad'); };
+  const kick=W.shutGain, react=W.kickT!=null&&W.shutT!=null? (W.shutT-W.kickT)/60 : null;
+  const shoeEMW=W.maxShoeP/(0.052*SHOE); const err=W.schedN>0?W.schedErr/W.schedN:null;
+  const items=[
+    ['Kick size at shut-in', kick==null?'—':`${kick.toFixed(1)} bbl`, grade(kick,10,20), 'under 10 bbl is a good catch'],
+    ['Influx → shut-in', react==null?'—':`${fmt(react)} min`, grade(react,12,25), 'well time from first influx'],
+    ['Peak shoe pressure', `${shoeEMW.toFixed(2)} ppg`, grade(shoeEMW,14.2,15.0), `leak-off is ${LOT.toFixed(1)} ppg`],
+    ['Peak casing pressure', `${fmt(W.maxPc)} psi`, grade(W.maxPc,1200,1800), 'higher with bigger kicks'],
+    ['Drill pipe tracking', err==null?'—':`± ${fmt(err)} psi`, grade(err,40,120), 'mean error vs schedule'],
+    ['Secondary influx', `${W.secInflux.toFixed(2)} bbl`, grade(W.secInflux,0.2,2), 'gas taken during the kill'],
+  ];
+  $('#dbScore').innerHTML=items.map(([k,v,g,n])=>`<div><div class="k">${k}</div><div class="v ${g}">${v}</div><div class="g" style="color:var(--dim)">${n}</div></div>`).join('');
+  const L=[];
+  if (r==='blowout') L.push('Gas expands enormously in the last few thousand feet (Boyle\'s law). A small kick left open at the bottom becomes hundreds of barrels at surface and empties the hole. Shut in as soon as pits gain or flow out rises.');
+  if (r==='shoe') L.push('The casing shoe is usually the weakest point in the well. Keep casing pressure below MAASP. A bigger kick or letting gas migrate while shut in eats that margin.');
+  if (r==='clean') L.push('Rising background gas and a falling d-exponent warned you before the sand was reached. Weighting up ahead of a permeable zone is the cheapest kill there is.');
+  if (kick!=null && kick>15) L.push(`You took ${kick.toFixed(0)} bbl before shutting in. Every extra barrel raises SICP and peak shoe pressure. Shut in on the first firm indicator; flow checks are cheap.`);
+  if (W.secInflux>0.5) L.push('Bottom-hole pressure dropped below pore pressure during the kill, so you took a second influx. Hold drill pipe pressure on schedule; the casing gauge is not your control variable while kill mud goes down the string.');
+  if (r==='killed') L.push('Constant bottom-hole pressure: the choke holds drill pipe pressure on the ICP→FCP schedule, and casing pressure rises and falls with the gas.');
+  if (W.signs.dc || W.signs.gas) L.push('The d-exponent and background gas trends showed the pressure ramp before the drilling break. Mud loggers and drillers who read them together catch kicks early.');
+  $('#dbLessons').innerHTML=L.map(x=>`<li>${x}</li>`).join('');
+  D.hidden=false;
+}
+
+// ---------------- audio ----------------
+let AC=null, AU={};
+function toggleSound(){
+  if (!AC){ try{ AC=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; }
+    const buf=AC.createBuffer(1, AC.sampleRate*2, AC.sampleRate); const d=buf.getChannelData(0); let last=0; for (let i=0;i<d.length;i++){ const wn=Math.random()*2-1; last=(last+0.02*wn)/1.02; d[i]=last*3.5; }
+    const mk=(type,freq,q)=>{ const s=AC.createBufferSource(); s.buffer=buf; s.loop=true; const f=AC.createBiquadFilter(); f.type=type; f.frequency.value=freq; if (q) f.Q.value=q; const g=AC.createGain(); g.gain.value=0; s.connect(f); f.connect(g); g.connect(AC.destination); s.start(); return g; };
+    AU.pump=mk('lowpass',160); AU.flare=mk('bandpass',420,0.7); AU.blow=mk('lowpass',900);
+    const o=AC.createOscillator(); o.type='square'; const g=AC.createGain(); g.gain.value=0; const f=AC.createBiquadFilter(); f.type='lowpass'; f.frequency.value=2400; o.connect(f); f.connect(g); g.connect(AC.destination); o.start(); AU.alarm=g; AU.osc=o;
+    AU.on=true;
+  } else { AU.on=!AU.on; if (AU.on) AC.resume(); else AC.suspend(); }
+  $('#sndBtn').textContent=AU.on?'Sound on':'Sound off'; $('#sndBtn').classList.toggle('on',AU.on);
+}
+function updateAudio(){
+  if (!AC||!AU.on) return; const t=AC.currentTime;
+  const stroke = Math.sin(performance.now()/1000*Math.PI*2*W.pump/60*3);
+  AU.pump.gain.setTargetAtTime(W.pump>0 ? 0.05+0.18*W.pump/140*(0.75+0.25*stroke) : 0, t, 0.05);
+  AU.flare.gain.setTargetAtTime(W.bop && W.gasExit>0 ? clamp(W.gasExit*60*0.04,0.05,0.35) : 0, t, 0.2);
+  AU.blow.gain.setTargetAtTime(W.result==='blowout' || (!W.bop&&W.gasExit>0.02) ? 0.6 : 0, t, 0.3);
+  const alarm = !W.ended && !W.bop && (W.pit-W.pit0>=5 || (W.pump>1&&W.flowPct>110));
+  AU.osc.frequency.setValueAtTime(Math.floor(performance.now()/350)%2?740:988, t);
+  AU.alarm.gain.setTargetAtTime(alarm?0.035:0, t, 0.02);
+}
+
+// ---------------- loop ----------------
+let frameDt=0.016, lastT=performance.now(), slow=0, acc=0;
+function begin(auto){
+  W=newState(); K=null; AP=null; ui.mwSel=undefined; TR.length=0; PART.blow.length=0;
+  updateFronts(); prefill(); W.lastLog=W.td;
+  // settle hydraulics at the starting operating point
+  for (let i=0;i<40;i++) step(0.05);
+  W.pit0=W.pit;
+  $('#log').innerHTML=''; $('#cardKill').hidden=true; $('#intro').hidden=true; $('#debrief').hidden=true;
+  syncControls();
+  event('Tour change. Drilling ahead at 10,520 ft with 10.4 ppg mud.');
+  if (auto) apStart(); else { setWarp(60); say('You have the brake. Drill ahead and watch the mud log, pits and flow. Shut the well in the moment it kicks.','TOOLPUSHER'); }
+  running=true;
+}
+function frame(now){
+  frameDt=Math.min(0.05,(now-lastT)/1000); lastT=now;
+  if (running && W && !W.ended && warp>0){
+    let simDt=frameDt*warp; const h=0.05; let n=Math.min(400, Math.ceil(simDt/h));
+    const dt=simDt/n; for (let i=0;i<n;i++) step(dt);
+  }
+  if (W){
+    slow+=frameDt;
+    if (slow>0.1){ slow=0; evalSigns(); updateTiles(); renderKill(false); }
+    if (now-trLast>220 && running && warp>0 && !W.ended){ trLast=now; sampleTrend(); }
+    drawWell(); drawPress(); drawTrend(); drawDials(); drawSched(); updateAudio();
+  }
+  requestAnimationFrame(frame);
+}
+
+function boot(){
+  readCols(); bindControls();
+  W=newState(); updateFronts(); prefill(); W.lastLog=W.td; for (let i=0;i<40;i++) step(0.05); W.pit0=W.pit; syncControls();
+  requestAnimationFrame(frame);
+  // test hook
+  window.__kick = { get W(){return W;}, get K(){return K;}, get AP(){return AP;}, begin, step, setWarp, shutIn, startKill, recordKill,
+    run(sec){ const h=0.05; for (let i=0;i<sec/h && !W.ended;i++){ step(h); if (i%4===0) evalSigns(); } return W; } };
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{});
+boot();
+})();
+</script>
+
+</html>

@@ -23,6 +23,12 @@ construction). `python -m cfu.wrapup.depmap --trace` runs the full build with fi
 `data/dataflow.json`, and checks that every data file a module reads comes from an upstream activity. Run it after
 adding a module or a data file; the report (CFU-000-PM-DEP-001, section 8) lists anything the map does not cover.
 
+## Well-control simulator (`sims/kick/`)
+
+`sims/kick/index.html` is a standalone interactive drilling and well-control simulator (KICK). You drill into an
+over-pressured gas sand, catch the kick, shut in, and circulate it out on a remote choke panel with live
+hydraulics. See `sims/kick/README.md`.
+
 ## Design summary
 
 | Item | Value |
