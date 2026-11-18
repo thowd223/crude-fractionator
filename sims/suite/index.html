@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}</style>
+<title>One Plant, Four Lenses</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one plot plan as the hero, four lenses as a row of instrument cards beneath it. */
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --surface2:#eceff1; --line:#d4dbe0; --ink:#13202a; --dim:#5a6a76; --faint:#8e9ca6;
+  --good:#1d8a4e; --warn:#b7791f; --bad:#c83a32;
+  --teal:#0e7c8b; --orange:#d35f0b; --violet:#5b3fc4; --green:#1f8a4c;
+  --f-display:"Archivo","Arial Narrow",sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --hi:var(--ink);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b1015; --surface:#121a21; --surface2:#18222b; --line:#26333e; --ink:#dde6ec; --dim:#8a9ba7; --faint:#5d6e7a;
+  --good:#4fd18a; --warn:#f0b54a; --bad:#ff6b5f; --teal:#3cc4d4; --orange:#ff8a2b; --violet:#a08bff; --green:#52d58e; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0b1015; --surface:#121a21; --surface2:#18222b; --line:#26333e; --ink:#dde6ec; --dim:#8a9ba7; --faint:#5d6e7a;
+  --good:#4fd18a; --warn:#f0b54a; --bad:#ff6b5f; --teal:#3cc4d4; --orange:#ff8a2b; --violet:#a08bff; --green:#52d58e; color-scheme:dark }
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 40px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;color:var(--dim)}
+.hero{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.25fr);gap:40px;align-items:center}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(40px,5.4vw,76px);line-height:.95;letter-spacing:-.02em;margin:10px 0 18px;text-wrap:balance}
+h1 span{color:var(--dim);font-weight:700}
+.lede{font-size:17px;max-width:54ch;color:var(--ink);margin:0 0 18px}
+.lede + p{color:var(--dim);max-width:58ch;margin:0}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:26px;border-top:1px solid var(--line)}
+.facts div{padding:10px 12px 0 0}
+.facts b{display:block;font-family:var(--f-display);font-weight:700;font-size:24px;font-variant-numeric:tabular-nums}
+.facts span{font-size:12px;color:var(--dim)}
+.plotwrap{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.plothead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px;color:var(--dim);margin-bottom:8px}
+.plot{width:100%;height:auto;display:block}
+.plot .frame{fill:var(--surface2);stroke:var(--line);stroke-width:.5}
+.plot .grid{stroke:var(--line);stroke-width:.15}
+.plot .road{fill:var(--line);opacity:.6}
+.plot .rack{fill:none;stroke:var(--faint);stroke-width:.5}
+.plot .bent{stroke:var(--faint);stroke-width:.25}
+.plot .eq{fill:var(--surface);stroke:var(--dim);stroke-width:.35;transition:fill .25s,stroke .25s,opacity .25s}
+.plot .eq.col{fill:var(--ink);stroke:none}
+.plot .eq.htr{fill:var(--dim);stroke:none}
+.plot .eq.ac{fill:none;stroke:var(--faint)}
+.plot .lbl{font-family:var(--f-mono);font-size:3.4px;fill:var(--ink)}
+.plot .north{font-family:var(--f-mono);font-size:4px;fill:var(--dim);text-anchor:end}
+.plot .liftmark{opacity:0;transition:opacity .3s}
+.plot .liftmark circle{fill:var(--orange)}
+.plot .liftmark .rad{fill:none;stroke:var(--orange);stroke-width:.5;stroke-dasharray:1.5 1}
+.plot .liftmark line{stroke:var(--orange);stroke-width:.5}
+/* lens highlights */
+body[data-lens="ripple"] .plot .eq{stroke:var(--teal);fill:color-mix(in srgb,var(--teal) 22%,var(--surface))}
+body[data-lens="ripple"] .plot .eq.col{fill:var(--teal)}
+body[data-lens="biglift"] .plot .eq:not(.lift){opacity:.35}
+body[data-lens="biglift"] .plot .eq.lift{fill:var(--orange)}
+body[data-lens="biglift"] .plot .liftmark{opacity:1}
+body[data-lens="p80"] .plot .eq:not(.ll){opacity:.35}
+body[data-lens="p80"] .plot .eq.ll{fill:var(--violet)}
+body[data-lens="yourunit"] .plot .eq.col,body[data-lens="yourunit"] .plot .eq.htr,body[data-lens="yourunit"] .plot .eq.drm{fill:var(--green);stroke:var(--green)}
+
+.lenses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.lens{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 18px 16px;text-decoration:none;min-width:0;position:relative;transition:border-color .2s,transform .2s}
+.lens::before{content:"";position:absolute;left:18px;right:18px;top:0;height:3px;background:var(--c);border-radius:0 0 2px 2px}
+.lens:hover,.lens:focus-visible{border-color:var(--c);transform:translateY(-2px)}
+.lens .who{font-family:var(--f-mono);font-size:11.5px;color:var(--c);letter-spacing:.06em;text-transform:uppercase}
+.lens h2{font-family:var(--f-display);font-weight:800;font-size:30px;line-height:1;margin:0;letter-spacing:-.01em}
+.lens .q{font-size:15px;font-weight:500;margin:0;text-wrap:balance}
+.lens ul{margin:0;padding-left:16px;color:var(--dim);font-size:13.5px}
+.lens li{margin:2px 0}
+.lens .go{margin-top:auto;font-family:var(--f-mono);font-size:12.5px;color:var(--c)}
+.r{--c:var(--teal)} .b{--c:var(--orange)} .p{--c:var(--violet)} .u{--c:var(--green)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
+.foot a{color:var(--ink)}
+.src{font-family:var(--f-mono);font-size:12px}
+@media (max-width:1100px){ .hero{grid-template-columns:minmax(0,1fr)} .lenses{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:640px){ .lenses{grid-template-columns:minmax(0,1fr)} .facts{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (prefers-reduced-motion:reduce){ .lens,.plot .eq{transition:none} }
+</style>
+
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">CFU-100/200 · 100,000 BPSD CDU/VDU · ARAB LIGHT · FEED REV A</div>
+      <h1>One plant.<br><span>Four lenses.</span></h1>
+      <p class="lede">Every view here is computed from the same engineering model: the heat and material balance, equipment list, line list, layout and estimate of one crude unit.</p>
+      <p>Engineering sees how a change ripples through the design. Construction plans the heaviest lift on the plot. Management sees what the estimate is really worth at P80. The client walks through the unit and its margin. One source of truth, so all four views agree.</p>
+      <div class="facts">
+        <div><b>568 t/h</b><span>crude charge</span></div>
+        <div><b>82</b><span>equipment items</span></div>
+        <div><b>245</b><span>process lines</span></div>
+        <div><b>252</b><span>USD M installed, ISBL</span></div>
+      </div>
+    </div>
+    <figure class="plotwrap" style="margin:0">
+      <div class="plothead"><span>PLOT PLAN · 230 × 150 m · from data/layout.json</span><span id="lensNote">hover a lens to see what it looks at</span></div>
+<!--PLOT:BEGIN-->
+<svg class="plot" viewBox="-4 -4 238.0 158.0" role="img" aria-label="Plot plan of the CDU/VDU unit, 230 by 150 m, drawn from the layout data">
+<rect class="frame" x="0" y="0" width="230.0" height="150.0"/>
+<line class="grid" x1="0" y1="0" x2="0" y2="150.0"/>
+<line class="grid" x1="10" y1="0" x2="10" y2="150.0"/>
+<line class="grid" x1="20" y1="0" x2="20" y2="150.0"/>
+<line class="grid" x1="30" y1="0" x2="30" y2="150.0"/>
+<line class="grid" x1="40" y1="0" x2="40" y2="150.0"/>
+<line class="grid" x1="50" y1="0" x2="50" y2="150.0"/>
+<line class="grid" x1="60" y1="0" x2="60" y2="150.0"/>
+<line class="grid" x1="70" y1="0" x2="70" y2="150.0"/>
+<line class="grid" x1="80" y1="0" x2="80" y2="150.0"/>
+<line class="grid" x1="90" y1="0" x2="90" y2="150.0"/>
+<line class="grid" x1="100" y1="0" x2="100" y2="150.0"/>
+<line class="grid" x1="110" y1="0" x2="110" y2="150.0"/>
+<line class="grid" x1="120" y1="0" x2="120" y2="150.0"/>
+<line class="grid" x1="130" y1="0" x2="130" y2="150.0"/>
+<line class="grid" x1="140" y1="0" x2="140" y2="150.0"/>
+<line class="grid" x1="150" y1="0" x2="150" y2="150.0"/>
+<line class="grid" x1="160" y1="0" x2="160" y2="150.0"/>
+<line class="grid" x1="170" y1="0" x2="170" y2="150.0"/>
+<line class="grid" x1="180" y1="0" x2="180" y2="150.0"/>
+<line class="grid" x1="190" y1="0" x2="190" y2="150.0"/>
+<line class="grid" x1="200" y1="0" x2="200" y2="150.0"/>
+<line class="grid" x1="210" y1="0" x2="210" y2="150.0"/>
+<line class="grid" x1="220" y1="0" x2="220" y2="150.0"/>
+<line class="grid" x1="230" y1="0" x2="230" y2="150.0"/>
+<line class="grid" x1="0" y1="0" x2="230.0" y2="0"/>
+<line class="grid" x1="0" y1="10" x2="230.0" y2="10"/>
+<line class="grid" x1="0" y1="20" x2="230.0" y2="20"/>
+<line class="grid" x1="0" y1="30" x2="230.0" y2="30"/>
+<line class="grid" x1="0" y1="40" x2="230.0" y2="40"/>
+<line class="grid" x1="0" y1="50" x2="230.0" y2="50"/>
+<line class="grid" x1="0" y1="60" x2="230.0" y2="60"/>
+<line class="grid" x1="0" y1="70" x2="230.0" y2="70"/>
+<line class="grid" x1="0" y1="80" x2="230.0" y2="80"/>
+<line class="grid" x1="0" y1="90" x2="230.0" y2="90"/>
+<line class="grid" x1="0" y1="100" x2="230.0" y2="100"/>
+<line class="grid" x1="0" y1="110" x2="230.0" y2="110"/>
+<line class="grid" x1="0" y1="120" x2="230.0" y2="120"/>
+<line class="grid" x1="0" y1="130" x2="230.0" y2="130"/>
+<line class="grid" x1="0" y1="140" x2="230.0" y2="140"/>
+<line class="grid" x1="0" y1="150" x2="230.0" y2="150"/>
+<rect class="road" x="3" y="3.0" width="6" height="125"/>
+<rect class="road" x="3" y="3.0" width="224" height="6"/>
+<rect class="road" x="221" y="3.0" width="6" height="144"/>
+<rect class="road" x="67" y="141.0" width="160" height="6"/>
+<rect class="road" x="3" y="122.0" width="70" height="6"/>
+<rect class="road" x="67" y="122.0" width="6" height="25"/>
+<rect class="road" x="137" y="84.0" width="6" height="57"/>
+<rect class="rack" x="0.0" y="70.0" width="216.0" height="10.0"/>
+<line class="bent" x1="0.0" y1="70.0" x2="0.0" y2="80.0"/>
+<line class="bent" x1="12.0" y1="70.0" x2="12.0" y2="80.0"/>
+<line class="bent" x1="18.0" y1="70.0" x2="18.0" y2="80.0"/>
+<line class="bent" x1="24.0" y1="70.0" x2="24.0" y2="80.0"/>
+<line class="bent" x1="30.0" y1="70.0" x2="30.0" y2="80.0"/>
+<line class="bent" x1="36.0" y1="70.0" x2="36.0" y2="80.0"/>
+<line class="bent" x1="42.0" y1="70.0" x2="42.0" y2="80.0"/>
+<line class="bent" x1="48.0" y1="70.0" x2="48.0" y2="80.0"/>
+<line class="bent" x1="54.0" y1="70.0" x2="54.0" y2="80.0"/>
+<line class="bent" x1="60.0" y1="70.0" x2="60.0" y2="80.0"/>
+<line class="bent" x1="66.0" y1="70.0" x2="66.0" y2="80.0"/>
+<line class="bent" x1="72.0" y1="70.0" x2="72.0" y2="80.0"/>
+<line class="bent" x1="78.0" y1="70.0" x2="78.0" y2="80.0"/>
+<line class="bent" x1="84.0" y1="70.0" x2="84.0" y2="80.0"/>
+<line class="bent" x1="90.0" y1="70.0" x2="90.0" y2="80.0"/>
+<line class="bent" x1="96.0" y1="70.0" x2="96.0" y2="80.0"/>
+<line class="bent" x1="102.0" y1="70.0" x2="102.0" y2="80.0"/>
+<line class="bent" x1="108.0" y1="70.0" x2="108.0" y2="80.0"/>
+<line class="bent" x1="114.0" y1="70.0" x2="114.0" y2="80.0"/>
+<line class="bent" x1="120.0" y1="70.0" x2="120.0" y2="80.0"/>
+<line class="bent" x1="126.0" y1="70.0" x2="126.0" y2="80.0"/>
+<line class="bent" x1="132.0" y1="70.0" x2="132.0" y2="80.0"/>
+<line class="bent" x1="138.0" y1="70.0" x2="138.0" y2="80.0"/>
+<line class="bent" x1="144.0" y1="70.0" x2="144.0" y2="80.0"/>
+<line class="bent" x1="150.0" y1="70.0" x2="150.0" y2="80.0"/>
+<line class="bent" x1="156.0" y1="70.0" x2="156.0" y2="80.0"/>
+<line class="bent" x1="162.0" y1="70.0" x2="162.0" y2="80.0"/>
+<line class="bent" x1="168.0" y1="70.0" x2="168.0" y2="80.0"/>
+<line class="bent" x1="174.0" y1="70.0" x2="174.0" y2="80.0"/>
+<line class="bent" x1="180.0" y1="70.0" x2="180.0" y2="80.0"/>
+<line class="bent" x1="186.0" y1="70.0" x2="186.0" y2="80.0"/>
+<line class="bent" x1="192.0" y1="70.0" x2="192.0" y2="80.0"/>
+<line class="bent" x1="198.0" y1="70.0" x2="198.0" y2="80.0"/>
+<line class="bent" x1="204.0" y1="70.0" x2="204.0" y2="80.0"/>
+<line class="bent" x1="210.0" y1="70.0" x2="210.0" y2="80.0"/>
+<line class="bent" x1="216.0" y1="70.0" x2="216.0" y2="80.0"/>
+<circle class="eq col ll lift" data-tag="C-101" cx="95.0" cy="52.0" r="3.45"><title>C-101 · Atmospheric crude fractionator</title></circle>
+<circle class="eq col" data-tag="C-102" cx="106.5" cy="52.0" r="0.85"><title>C-102 · Kero side stripper</title></circle>
+<circle class="eq col" data-tag="C-103" cx="112.5" cy="52.0" r="0.95"><title>C-103 · Diesel side stripper</title></circle>
+<circle class="eq col" data-tag="C-104" cx="118.5" cy="52.0" r="0.7"><title>C-104 · Ago side stripper</title></circle>
+<rect class="eq drm" data-tag="D-102" x="72.15" y="58.3" width="13.699999999999989" height="3.4000000000000057"><title>D-102 · Atm. overhead reflux drum (3-phase)</title></rect>
+<rect class="eq hx" data-tag="E-115" x="75.75" y="53.900000000000006" width="6.5" height="1.1999999999999886"><title>E-115 · Atm. overhead trim condenser</title></rect>
+<rect class="eq hx" data-tag="E-115" x="75.75" y="50.900000000000006" width="6.5" height="1.1999999999999886"><title>E-115 · Atm. overhead trim condenser</title></rect>
+<rect class="eq oth" data-tag="X-103" x="74.5" y="45.0" width="3.0" height="2.0"><title>X-103 · Neutraliser / filming amine package (atm OH)</title></rect>
+<rect class="eq pmp" data-tag="P-103A/B" x="71.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-103A/B · Atm. reflux</title></rect>
+<rect class="eq pmp" data-tag="P-103A/B" x="74.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-103A/B · Atm. reflux</title></rect>
+<rect class="eq pmp" data-tag="P-104A/B" x="78.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-104A/B · Unstabilised naphtha</title></rect>
+<rect class="eq pmp" data-tag="P-104A/B" x="81.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-104A/B · Unstabilised naphtha</title></rect>
+<rect class="eq pmp" data-tag="P-105A/B" x="84.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-105A/B · Overhead sour water</title></rect>
+<rect class="eq pmp" data-tag="P-105A/B" x="87.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-105A/B · Overhead sour water</title></rect>
+<rect class="eq pmp" data-tag="P-112A/B" x="91.0" y="64.0" width="2.0" height="5.0"><title>P-112A/B · Atm. residue / vacuum heater charge</title></rect>
+<rect class="eq pmp" data-tag="P-112A/B" x="94.0" y="64.0" width="2.0" height="5.0"><title>P-112A/B · Atm. residue / vacuum heater charge</title></rect>
+<rect class="eq pmp" data-tag="P-108A/B" x="97.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-108A/B · BPA pumparound</title></rect>
+<rect class="eq pmp" data-tag="P-108A/B" x="100.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-108A/B · BPA pumparound</title></rect>
+<rect class="eq pmp" data-tag="P-109A/B" x="104.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-109A/B · Kero product</title></rect>
+<rect class="eq pmp" data-tag="P-109A/B" x="107.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-109A/B · Kero product</title></rect>
+<rect class="eq pmp" data-tag="P-110A/B" x="110.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-110A/B · Diesel product</title></rect>
+<rect class="eq pmp" data-tag="P-110A/B" x="113.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-110A/B · Diesel product</title></rect>
+<rect class="eq pmp" data-tag="P-111A/B" x="117.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-111A/B · Ago product</title></rect>
+<rect class="eq pmp" data-tag="P-111A/B" x="120.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-111A/B · Ago product</title></rect>
+<rect class="eq pmp" data-tag="P-106A/B" x="123.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-106A/B · TPA pumparound</title></rect>
+<rect class="eq pmp" data-tag="P-106A/B" x="126.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-106A/B · TPA pumparound</title></rect>
+<rect class="eq pmp" data-tag="P-107A/B" x="130.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-107A/B · MPA pumparound</title></rect>
+<rect class="eq pmp" data-tag="P-107A/B" x="133.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-107A/B · MPA pumparound</title></rect>
+<circle class="eq col" data-tag="C-106" cx="52.0" cy="50.0" r="1.55"><title>C-106 · Naphtha splitter</title></circle>
+<circle class="eq col" data-tag="C-105" cx="64.0" cy="50.0" r="1.05"><title>C-105 · Naphtha stabiliser (debutaniser)</title></circle>
+<rect class="eq drm" data-tag="D-106" x="49.075" y="58.150000000000006" width="9.849999999999994" height="2.6999999999999886"><title>D-106 · Splitter reflux drum</title></rect>
+<rect class="eq drm" data-tag="D-105" x="62.325" y="58.650000000000006" width="6.349999999999994" height="1.6999999999999886"><title>D-105 · Stabiliser reflux drum</title></rect>
+<rect class="eq hx" data-tag="E-117" x="48.75" y="43.55" width="6.5" height="0.9000000000000057"><title>E-117 · Splitter reboiler (MP steam)</title></rect>
+<rect class="eq hx" data-tag="E-116" x="60.75" y="44.05" width="6.5" height="0.9000000000000057"><title>E-116 · Stabiliser reboiler (HP steam)</title></rect>
+<rect class="eq hx" data-tag="E-114" x="69.55" y="46.75" width="0.9000000000000057" height="6.5"><title>E-114 · Stabiliser feed / bottoms</title></rect>
+<rect class="eq pmp" data-tag="P-116A/B" x="49.4" y="65.0" width="1.2000000000000028" height="3.0"><title>P-116A/B · Splitter reflux / LN</title></rect>
+<rect class="eq pmp" data-tag="P-116A/B" x="52.4" y="65.0" width="1.2000000000000028" height="3.0"><title>P-116A/B · Splitter reflux / LN</title></rect>
+<rect class="eq pmp" data-tag="P-117A/B" x="55.9" y="65.0" width="1.2000000000000028" height="3.0"><title>P-117A/B · Heavy naphtha product</title></rect>
+<rect class="eq pmp" data-tag="P-117A/B" x="58.9" y="65.0" width="1.2000000000000028" height="3.0"><title>P-117A/B · Heavy naphtha product</title></rect>
+<rect class="eq pmp" data-tag="P-115A/B" x="62.4" y="65.0" width="1.2000000000000028" height="3.0"><title>P-115A/B · Stabiliser reflux / LPG</title></rect>
+<rect class="eq pmp" data-tag="P-115A/B" x="65.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-115A/B · Stabiliser reflux / LPG</title></rect>
+<rect class="eq hx" data-tag="E-106" x="11.8" y="54.25" width="1.3999999999999986" height="7.5"><title>E-106 · Crude / Middle (kero) pumparound</title></rect>
+<rect class="eq hx" data-tag="E-106" x="15.3" y="54.25" width="1.3999999999999986" height="7.5"><title>E-106 · Crude / Middle (kero) pumparound</title></rect>
+<rect class="eq hx" data-tag="E-107" x="18.95" y="54.25" width="1.1000000000000014" height="7.5"><title>E-107 · Crude / Diesel product</title></rect>
+<rect class="eq hx" data-tag="E-108" x="22.3" y="54.25" width="1.3999999999999986" height="7.5"><title>E-108 · Crude / HVGO pumparound/product</title></rect>
+<rect class="eq hx" data-tag="E-108" x="25.8" y="54.25" width="1.3999999999999986" height="7.5"><title>E-108 · Crude / HVGO pumparound/product</title></rect>
+<rect class="eq hx" data-tag="E-108" x="29.3" y="54.25" width="1.3999999999999986" height="7.5"><title>E-108 · Crude / HVGO pumparound/product</title></rect>
+<rect class="eq hx" data-tag="E-108" x="32.8" y="54.25" width="1.4000000000000057" height="7.5"><title>E-108 · Crude / HVGO pumparound/product</title></rect>
+<rect class="eq hx" data-tag="E-109" x="36.45" y="54.25" width="1.0999999999999943" height="7.5"><title>E-109 · Crude / AGO product</title></rect>
+<rect class="eq hx" data-tag="E-110" x="39.8" y="54.25" width="1.4000000000000057" height="7.5"><title>E-110 · Crude / Bottom (diesel) pumparound</title></rect>
+<rect class="eq hx" data-tag="E-110" x="43.3" y="54.25" width="1.4000000000000057" height="7.5"><title>E-110 · Crude / Bottom (diesel) pumparound</title></rect>
+<rect class="eq hx" data-tag="E-111" x="11.8" y="37.25" width="1.3999999999999986" height="7.5"><title>E-111 · Crude / Vacuum residue</title></rect>
+<rect class="eq hx" data-tag="E-111" x="15.3" y="37.25" width="1.3999999999999986" height="7.5"><title>E-111 · Crude / Vacuum residue</title></rect>
+<rect class="eq hx" data-tag="E-101" x="18.95" y="37.25" width="1.1000000000000014" height="7.5"><title>E-101 · Crude / Top pumparound</title></rect>
+<rect class="eq hx" data-tag="E-102" x="22.3" y="37.25" width="1.3999999999999986" height="7.5"><title>E-102 · Crude / Kerosene product</title></rect>
+<rect class="eq hx" data-tag="E-103" x="25.8" y="37.25" width="1.3999999999999986" height="7.5"><title>E-103 · Crude / LVGO pumparound/product</title></rect>
+<rect class="eq hx" data-tag="E-103" x="29.3" y="37.25" width="1.3999999999999986" height="7.5"><title>E-103 · Crude / LVGO pumparound/product</title></rect>
+<rect class="eq hx" data-tag="E-104" x="32.95" y="37.25" width="1.0999999999999943" height="7.5"><title>E-104 · Crude / Diesel product</title></rect>
+<rect class="eq hx" data-tag="E-105" x="36.3" y="37.25" width="1.4000000000000057" height="7.5"><title>E-105 · Crude / Vacuum residue</title></rect>
+<rect class="eq hx" data-tag="E-113" x="40.05" y="37.75" width="0.9000000000000057" height="6.5"><title>E-113 · BPA / MP steam generator (kettle)</title></rect>
+<rect class="eq hx" data-tag="E-201" x="43.55" y="37.75" width="0.9000000000000057" height="6.5"><title>E-201 · VR / LP steam generator (kettle)</title></rect>
+<rect class="eq pmp" data-tag="P-101A/B" x="13.0" y="64.0" width="2.0" height="5.0"><title>P-101A/B · Crude charge</title></rect>
+<rect class="eq pmp" data-tag="P-101A/B" x="17.5" y="64.0" width="2.0" height="5.0"><title>P-101A/B · Crude charge</title></rect>
+<rect class="eq drm" data-tag="D-104" x="131.225" y="20.94999999999999" width="7.550000000000011" height="2.1000000000000085"><title>D-104 · Flare knock-out drum (unit)</title></rect>
+<rect class="eq pmp" data-tag="P-119A/B" x="131.4" y="26.5" width="1.1999999999999886" height="3.0"><title>P-119A/B · Flare KO drum pump-out</title></rect>
+<rect class="eq pmp" data-tag="P-119A/B" x="134.4" y="26.5" width="1.1999999999999886" height="3.0"><title>P-119A/B · Flare KO drum pump-out</title></rect>
+<rect class="eq drm" data-tag="D-101A" x="20.05" y="96.1" width="31.900000000000002" height="3.799999999999997"><title>D-101A · Electrostatic desalter, 1st stage</title></rect>
+<rect class="eq drm" data-tag="D-101B" x="20.05" y="106.1" width="31.900000000000002" height="3.799999999999997"><title>D-101B · Electrostatic desalter, 2nd stage</title></rect>
+<rect class="eq hx" data-tag="E-118" x="55.25" y="102.55" width="6.5" height="0.9000000000000057"><title>E-118 · Desalter wash water / brine</title></rect>
+<rect class="eq oth" data-tag="X-101" x="56.5" y="94.0" width="3.0" height="2.0"><title>X-101 · Demulsifier injection package</title></rect>
+<rect class="eq oth" data-tag="X-102" x="56.5" y="89.5" width="3.0" height="2.0"><title>X-102 · Caustic injection package (desalted crude)</title></rect>
+<rect class="eq pmp" data-tag="P-114A/B" x="24.4" y="83.0" width="1.2000000000000028" height="3.0"><title>P-114A/B · Desalter wash water</title></rect>
+<rect class="eq pmp" data-tag="P-114A/B" x="27.4" y="83.0" width="1.2000000000000028" height="3.0"><title>P-114A/B · Desalter wash water</title></rect>
+<rect class="eq pmp" data-tag="P-118" x="30.9" y="83.0" width="1.2000000000000028" height="3.0"><title>P-118 · Desalter mud-wash / recycle</title></rect>
+<rect class="eq pmp" data-tag="P-102A/B" x="45.0" y="82.0" width="2.0" height="5.0"><title>P-102A/B · Desalted crude booster</title></rect>
+<rect class="eq pmp" data-tag="P-102A/B" x="49.5" y="82.0" width="2.0" height="5.0"><title>P-102A/B · Desalted crude booster</title></rect>
+<rect class="eq htr ll" data-tag="H-101" x="87.05" y="101.3" width="21.900000000000006" height="25.400000000000002"><title>H-101 · Atmospheric crude charge heater</title></rect>
+<rect class="eq htr ll" data-tag="H-201" x="161.05" y="108.45" width="21.899999999999977" height="11.099999999999998"><title>H-201 · Vacuum heater</title></rect>
+<rect class="eq htr" data-tag="E-120" x="88.0" y="125.0" width="8.0" height="6.0"><title>E-120 · H-101 cast-iron/glass-tube air preheater</title></rect>
+<rect class="eq oth" data-tag="K-101A/B" x="99.0" y="128.0" width="6.0" height="3.0"><title>K-101A/B · H-101 forced-draft fan</title></rect>
+<rect class="eq oth" data-tag="K-101A/B" x="99.0" y="124.5" width="6.0" height="3.0"><title>K-101A/B · H-101 forced-draft fan</title></rect>
+<rect class="eq oth" data-tag="K-102A/B" x="106.0" y="128.0" width="6.0" height="3.0"><title>K-102A/B · H-101 induced-draft fan</title></rect>
+<rect class="eq oth" data-tag="K-102A/B" x="106.0" y="124.5" width="6.0" height="3.0"><title>K-102A/B · H-101 induced-draft fan</title></rect>
+<circle class="eq drm" data-tag="D-103" cx="146.0" cy="128.0" r="0.6"><title>D-103 · Fuel gas knock-out drum</title></circle>
+<circle class="eq col ll" data-tag="C-201" cx="175.0" cy="52.0" r="3.3"><title>C-201 · Vacuum column (wet, packed)</title></circle>
+<rect class="eq hx" data-tag="E-204" x="192.75" y="52.05" width="6.5" height="0.9000000000000057"><title>E-204 · Ejector aftercondenser</title></rect>
+<rect class="eq oth" data-tag="J-203" x="194.0" y="55.7" width="4.0" height="0.5999999999999943"><title>J-203 · Steam ejector (330 -> 1100 mbar(a))</title></rect>
+<rect class="eq hx" data-tag="E-203" x="192.75" y="52.05" width="6.5" height="0.9000000000000057"><title>E-203 · 2nd-stage ejector intercondenser</title></rect>
+<rect class="eq oth" data-tag="J-202" x="194.0" y="55.7" width="4.0" height="0.5999999999999943"><title>J-202 · Steam ejector (120 -> 350 mbar(a))</title></rect>
+<rect class="eq hx" data-tag="E-202" x="192.75" y="51.900000000000006" width="6.5" height="1.1999999999999886"><title>E-202 · 1st-stage ejector intercondenser</title></rect>
+<rect class="eq oth" data-tag="J-201" x="194.0" y="55.7" width="4.0" height="0.5999999999999943"><title>J-201 · Steam ejector (20 -> 130 mbar(a))</title></rect>
+<rect class="eq drm" data-tag="D-201" x="192.925" y="43.349999999999994" width="6.149999999999977" height="1.3000000000000114"><title>D-201 · Ejector hotwell / sour water separator</title></rect>
+<circle class="eq drm" data-tag="D-202" cx="203.0" cy="44.0" r="0.6"><title>D-202 · Vacuum off-gas knock-out drum</title></circle>
+<rect class="eq oth" data-tag="X-104" x="207.5" y="43.0" width="3.0" height="2.0"><title>X-104 · Corrosion inhibitor package (VDU OH)</title></rect>
+<rect class="eq pmp" data-tag="P-204A/B" x="171.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-204A/B · Vacuum residue (incl. quench)</title></rect>
+<rect class="eq pmp" data-tag="P-204A/B" x="174.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-204A/B · Vacuum residue (incl. quench)</title></rect>
+<rect class="eq pmp" data-tag="P-203A/B" x="177.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-203A/B · Slop wax</title></rect>
+<rect class="eq pmp" data-tag="P-203A/B" x="180.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-203A/B · Slop wax</title></rect>
+<rect class="eq pmp" data-tag="P-202A/B" x="184.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-202A/B · HVGO pumparound / product</title></rect>
+<rect class="eq pmp" data-tag="P-202A/B" x="187.4" y="65.0" width="1.1999999999999886" height="3.0"><title>P-202A/B · HVGO pumparound / product</title></rect>
+<rect class="eq pmp" data-tag="P-201A/B" x="190.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-201A/B · LVGO pumparound / product</title></rect>
+<rect class="eq pmp" data-tag="P-201A/B" x="193.9" y="65.0" width="1.1999999999999886" height="3.0"><title>P-201A/B · LVGO pumparound / product</title></rect>
+<rect class="eq pmp" data-tag="P-205A/B" x="192.4" y="37.0" width="1.1999999999999886" height="3.0"><title>P-205A/B · Hotwell sour water</title></rect>
+<rect class="eq pmp" data-tag="P-205A/B" x="195.4" y="37.0" width="1.1999999999999886" height="3.0"><title>P-205A/B · Hotwell sour water</title></rect>
+<rect class="eq pmp" data-tag="P-206A/B" x="198.9" y="37.0" width="1.1999999999999886" height="3.0"><title>P-206A/B · Hotwell slop oil</title></rect>
+<rect class="eq pmp" data-tag="P-206A/B" x="201.9" y="37.0" width="1.1999999999999886" height="3.0"><title>P-206A/B · Hotwell slop oil</title></rect>
+<rect class="eq ac" data-tag="A-107" x="42.0" y="69.0" width="6.0" height="12.0"><title>A-107 · Splitter overhead condenser</title></rect>
+<rect class="eq ac" data-tag="A-107" x="48.0" y="69.0" width="6.0" height="12.0"><title>A-107 · Splitter overhead condenser</title></rect>
+<rect class="eq ac" data-tag="A-106" x="54.0" y="69.0" width="6.0" height="12.0"><title>A-106 · Stabiliser overhead condenser</title></rect>
+<rect class="eq ac" data-tag="A-108" x="60.0" y="69.0" width="6.0" height="12.0"><title>A-108 · Heavy naphtha product cooler</title></rect>
+<rect class="eq ac" data-tag="A-101" x="72.0" y="69.0" width="6.0" height="12.0"><title>A-101 · Atm. overhead condenser</title></rect>
+<rect class="eq ac" data-tag="A-101" x="78.0" y="69.0" width="6.0" height="12.0"><title>A-101 · Atm. overhead condenser</title></rect>
+<rect class="eq ac" data-tag="A-101" x="84.0" y="69.0" width="6.0" height="12.0"><title>A-101 · Atm. overhead condenser</title></rect>
+<rect class="eq ac" data-tag="A-103" x="108.0" y="69.0" width="6.0" height="12.0"><title>A-103 · Kero cooler</title></rect>
+<rect class="eq ac" data-tag="A-104" x="114.0" y="69.0" width="6.0" height="12.0"><title>A-104 · Diesel cooler</title></rect>
+<rect class="eq ac" data-tag="A-105" x="120.0" y="69.0" width="6.0" height="12.0"><title>A-105 · Ago cooler</title></rect>
+<rect class="eq ac" data-tag="A-201" x="156.0" y="69.0" width="6.0" height="12.0"><title>A-201 · Lvgo cooler</title></rect>
+<rect class="eq ac" data-tag="A-202" x="162.0" y="69.0" width="6.0" height="12.0"><title>A-202 · Hvgo Product cooler</title></rect>
+<g class="liftmark"><circle cx="73.0" cy="44.0" r="3"/><circle class="rad" cx="73.0" cy="44.0" r="23.4"/><line x1="73.0" y1="44.0" x2="95.0" y2="52.0"/></g>
+<text class="lbl" x="100.0" y="47.0">C-101</text>
+<text class="lbl" x="103.0" y="116.0">H-101</text>
+<text class="lbl" x="177.0" y="116.0">H-201</text>
+<text class="lbl" x="180.0" y="54.0">C-201</text>
+<text class="north" x="224.0" y="10">N ↑</text>
+</svg>
+<!--PLOT:END-->
+    </figure>
+  </section>
+
+  <nav class="lenses" aria-label="Choose a lens">
+    <a class="lens r" href="ripple.html" data-lens="ripple">
+      <span class="who">Engineering</span>
+      <h2>Ripple</h2>
+      <p class="q">The client wants 10 % more throughput. What does that touch?</p>
+      <ul><li>The design network lights up hop by hop</li><li>Equipment and lines that change size, from the real data</li><li>Documents to re-issue, hours, weeks, USD</li></ul>
+      <span class="go">Open change explorer →</span>
+    </a>
+    <a class="lens b" href="biglift.html" data-lens="biglift">
+      <span class="who">Construction</span>
+      <h2>Big Lift</h2>
+      <p class="q">Can we set the 258 t atmospheric column from where the crane can stand?</p>
+      <ul><li>Crane, radius, rigging, ground bearing, wind</li><li>Live load-chart utilisation and clash check</li><li>4D build sequence, week by week</li></ul>
+      <span class="go">Open lift planner →</span>
+    </a>
+    <a class="lens p" href="p80.html" data-lens="p80">
+      <span class="who">Executive management</span>
+      <h2>P80</h2>
+      <p class="q">Does USD 42 M of contingency get us to P80, and what price do we bid?</p>
+      <ul><li>Live Monte Carlo on cost and schedule</li><li>Drivers ranked, re-ranked as you move them</li><li>Bid margin vs probability of loss</li></ul>
+      <span class="go">Open risk room →</span>
+    </a>
+    <a class="lens u" href="yourunit.html" data-lens="yourunit">
+      <span class="who">Clients</span>
+      <h2>Your Unit</h2>
+      <p class="q">What are we buying, how does it run, and what does it earn?</p>
+      <ul><li>3D walkthrough of the unit</li><li>Follow a barrel from desalter to vacuum residue</li><li>Yields, prices and margin per barrel</li></ul>
+      <span class="go">Open plant walkthrough →</span>
+    </a>
+  </nav>
+
+  <footer class="foot">
+    <span>Source: <span class="src">data/*.json · deliverables/ · cfu/</span>. Built by Claude from the FEED package in this repository. Risk ranges, prices and crane charts are illustrative and labelled where used.</span>
+    <a href="kick.html">Bonus: KICK well-control simulator →</a>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const notes = {
+    ripple: 'Ripple: every item can change when the basis moves',
+    biglift: 'Big Lift: C-101 (258 t fabricated) and the main crane radius',
+    p80: 'P80: long-lead items driving cost and schedule risk',
+    yourunit: 'Your Unit: the path a barrel takes through the unit'
+  };
+  const note = document.getElementById('lensNote');
+  document.querySelectorAll('.lens').forEach(a => {
+    const on = () => { document.body.dataset.lens = a.dataset.lens; note.textContent = notes[a.dataset.lens]; };
+    const off = () => { delete document.body.dataset.lens; note.textContent = 'hover a lens to see what it looks at'; };
+    a.addEventListener('mouseenter', on); a.addEventListener('focus', on);
+    a.addEventListener('mouseleave', off); a.addEventListener('blur', off);
+  });
+})();
+</script>
+
+</html>
