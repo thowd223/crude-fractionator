@@ -21,7 +21,7 @@ upstream, and what it affects downstream.
 `simulator/index.html` is a real-time, browser-based simulator of this unit, calibrated at start-up against the
 heat and material balance in `data/`. It has a live console, a 3D field view on the project's plant model, cut and
 quality analysis, an APC optimiser, an AI shift advisor (Claude, with what-if testing on the model), a guided tour and four scored scenarios (margin optimisation, crude switch, charge pump trip,
-loss of vacuum). See `simulator/README.md`.
+loss of vacuum). `simulator/dist/CDU-LIVE.html` is a single-file copy that opens offline anywhere. See `simulator/README.md`.
 
 ## Design dependency map
 

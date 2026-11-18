@@ -69,6 +69,20 @@ illustrative.
 | `data/plant-data.js` | Generated: design point, layout, datasheets, loop tags |
 | `data/plant-model.js` | Generated: 3D model (base64) |
 
+## Sharing outside Claude
+
+`dist/CDU-LIVE.html` is the whole simulator in one file (about 2 MB): page, scripts, design data, 3D model and
+three.js. Send it by email, Teams or SharePoint; it opens offline in Chrome, Edge, Firefox or Safari by
+double-clicking. Fonts come from Google Fonts when online and fall back to system fonts offline. The AI advisor
+needs Claude, so in this file it shows as unavailable; everything else, APC and the 3D view included, works.
+Rebuild it after any change:
+
+```bash
+python simulator/build_standalone.py
+```
+
+three.js r128 is vendored in `vendor/three-r128/` (MIT licence, file included) so the build needs no network.
+
 Regenerate the data bundles after a rebuild of the design package:
 
 ```bash
