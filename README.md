@@ -16,6 +16,13 @@ Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 1
 `deliverables/06-wrapup/portal/dependencies.html` maps the design steps: the order they run in, what each needs from
 upstream, and what it affects downstream.
 
+## CDU LIVE operator training simulator
+
+`simulator/index.html` is a real-time, browser-based simulator of this unit, calibrated at start-up against the
+heat and material balance in `data/`. It has a live console, a 3D field view on the project's plant model, cut and
+quality analysis, a guided tour and four scored scenarios (margin optimisation, crude switch, charge pump trip,
+loss of vacuum). See `simulator/README.md`.
+
 ## Design dependency map
 
 The activity network lives in `cfu/wrapup/activities.py` (45 activities, including the ones still needed before
