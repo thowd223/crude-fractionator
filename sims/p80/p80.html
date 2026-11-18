@@ -1,0 +1,1099 @@
+<title>P80 Risk Room</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --surface2:#eceff1; --line:#d4dbe0; --ink:#13202a; --dim:#5a6a76; --faint:#8e9ca6;
+  --good:#1d8a4e; --warn:#b7791f; --bad:#c83a32;
+  --teal:#0e7c8b; --orange:#d35f0b; --violet:#5b3fc4; --green:#1f8a4c;
+  --accent:var(--violet);
+  --f-display:"Archivo","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b1015; --surface:#121a21; --surface2:#18222b; --line:#26333e; --ink:#dde6ec; --dim:#8a9ba7; --faint:#5d6e7a;
+  --good:#4fd18a; --warn:#f0b54a; --bad:#ff6b5f;
+  --teal:#3cc4d4; --orange:#ff8a2b; --violet:#a08bff; --green:#52d58e; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0b1015; --surface:#121a21; --surface2:#18222b; --line:#26333e; --ink:#dde6ec; --dim:#8a9ba7; --faint:#5d6e7a;
+  --good:#4fd18a; --warn:#f0b54a; --bad:#ff6b5f;
+  --teal:#3cc4d4; --orange:#ff8a2b; --violet:#a08bff; --green:#52d58e; color-scheme:dark }
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:13.5px;line-height:1.45}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.tag{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+
+.wrap{max-width:1720px;margin:0 auto;padding:10px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
+
+/* header */
+.top{display:flex;align-items:center;gap:12px 16px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid var(--line)}
+#suiteHome{font-size:12px;color:var(--dim);text-decoration:none;white-space:nowrap}
+#suiteHome:hover{color:var(--accent)}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0;flex-wrap:wrap}
+.brand h1{margin:0;font-family:var(--f-display);font-weight:800;font-size:26px;letter-spacing:.02em;color:var(--accent);line-height:1}
+.brand .sub{color:var(--dim);font-size:13px}
+.brand .sub b{color:var(--ink);font-weight:500}
+.spacer{flex:1}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:6px 12px;font-size:12.5px;color:var(--dim);cursor:pointer;border-right:1px solid var(--line);white-space:nowrap}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:6px 11px;font-size:12.5px;color:var(--dim);cursor:pointer;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+
+.scen{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;padding:10px 0 8px}
+.scen .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.scen .seg button{padding:6px 12px}
+#perf{margin-left:auto;font-size:11.5px;color:var(--faint)}
+
+/* summary strip */
+.strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:9px 12px 8px;min-width:0;position:relative}
+.tile .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .v{font-family:var(--f-display);font-weight:700;font-size:25px;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tile .v small{font-family:var(--f-mono);font-weight:400;font-size:11.5px;color:var(--dim);margin-left:4px}
+.tile .s{font-family:var(--f-mono);font-size:11.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile.key{border-color:var(--accent)}
+.tile.key .v{color:var(--accent)}
+.tile.bad .v{color:var(--bad)} .tile.good .v{color:var(--good)}
+
+.verdict{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:8px 0 10px;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px}
+.verdict .chip{font-family:var(--f-mono);font-size:11.5px;font-weight:500;padding:3px 8px;border-radius:4px;border:1px solid currentColor;letter-spacing:.04em}
+.verdict .chip.bad{color:var(--bad)} .verdict .chip.good{color:var(--good)}
+.verdict .main{font-family:var(--f-display);font-weight:700;font-size:19px;line-height:1.25}
+.verdict .rest{color:var(--dim);font-size:13px;flex-basis:100%}
+.verdict .rest b{color:var(--ink);font-weight:500}
+
+/* layout */
+.layout{display:grid;grid-template-columns:312px minmax(0,1fr);gap:10px;align-items:start}
+.rail{position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px 12px;scrollbar-width:thin}
+.content{display:flex;flex-direction:column;gap:10px;min-width:0}
+#bidRow{order:-1}
+.row{display:grid;gap:10px;min-width:0}
+.r1{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.r2{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 14px 12px;min-width:0;position:relative}
+.card h2{margin:0 0 6px;font-family:var(--f-display);font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card h2 .tag{font-family:var(--f-mono);font-weight:400;letter-spacing:0;text-transform:none;color:var(--faint);font-size:11px}
+.card h2 .seg{margin-left:auto}
+.card h2 .seg button{padding:3px 9px;font-size:11.5px;font-family:var(--f-body);letter-spacing:0;text-transform:none}
+.cap{font-size:12px;color:var(--dim);margin:2px 0 0}
+.ex{display:none;margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--surface2);font-size:13px;color:var(--ink);border-left:2px solid var(--accent)}
+body.explain .ex{display:block}
+svg.chart{display:block;width:100%;overflow:visible}
+svg text{font-family:var(--f-mono);font-size:10.5px;fill:var(--dim)}
+svg .ax{stroke:var(--line);stroke-width:1}
+svg .grid{stroke:var(--line);stroke-width:1;opacity:.6}
+svg .axt{fill:var(--faint);font-size:10px}
+svg .hist{fill:var(--accent);opacity:.18}
+svg .cdf{fill:none;stroke:var(--accent);stroke-width:2}
+svg .pdot{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+svg .plbl,svg .tbad,svg .tgood,svg .tink,svg .twarn,svg .exn{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+svg .plbl{fill:var(--ink);font-size:11px}
+svg .plbl.k{fill:var(--accent);font-weight:500}
+svg .vbase{stroke:var(--dim);stroke-dasharray:4 3}
+svg .vbud{stroke:var(--ink);stroke-width:1.5}
+svg .vbid{stroke:var(--warn);stroke-width:1.5}
+svg .lead{fill:none;stroke:var(--accent);stroke-dasharray:3 3;opacity:.8}
+svg .gapbad{fill:var(--bad);opacity:.10} svg .gapgood{fill:var(--good);opacity:.10}
+svg .tbad{fill:var(--bad)} svg .tgood{fill:var(--good)} svg .tink{fill:var(--ink)} svg .twarn{fill:var(--warn)}
+svg .exn{fill:var(--accent);font-family:var(--f-body);font-size:11.5px}
+svg .exl{stroke:var(--accent);fill:none;stroke-width:1}
+svg .gbase{fill:none;stroke:var(--faint);stroke-width:1;stroke-dasharray:3 2}
+svg .gfab{fill:var(--faint);opacity:.45} svg .gfld{fill:var(--faint);opacity:.85} svg .geng{fill:var(--dim);opacity:.35}
+svg .crit .gfab{fill:var(--accent);opacity:.45} svg .crit .gfld{fill:var(--accent);opacity:1}
+svg .glbl{fill:var(--ink);font-family:var(--f-body);font-size:11.5px}
+svg .crit .glbl{fill:var(--accent);font-weight:600}
+svg .gci{font-size:10.5px}
+svg .ms{fill:var(--ink)} svg .ms0{fill:none;stroke:var(--dim);stroke-width:1.2}
+svg .pw{fill:none;stroke:var(--accent);stroke-width:2}
+svg .pl{fill:none;stroke:var(--bad);stroke-width:2}
+svg .ep{fill:none;stroke:var(--ink);stroke-width:2}
+svg .epz{stroke:var(--line)}
+svg .opt{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+
+/* tornado */
+.torn{position:relative;margin-top:4px}
+.trow{position:absolute;left:0;right:0;height:26px;display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr) 92px;align-items:center;gap:8px;transition:top .35s ease}
+.trow .nm{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trow .nm .tag{color:var(--faint);font-size:11px;margin-right:4px}
+.trow .tr{height:14px;background:var(--surface2);border-radius:2px;position:relative;overflow:hidden}
+.trow .bar{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:2px;transition:width .3s ease}
+.trow .bar.neg{background:var(--good)}
+.trow .vv{font-family:var(--f-mono);font-size:11.5px;text-align:right;white-space:nowrap}
+.trow .vv span{color:var(--faint)}
+.thead{display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr) 92px;gap:8px;font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em}
+.thead span:last-child{text-align:right}
+
+/* rail controls */
+.rail h3{margin:12px 0 4px;font-family:var(--f-display);font-weight:700;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);display:flex;align-items:baseline;gap:8px}
+.rail h3:first-of-type{margin-top:6px}
+.rail h3 .tag{margin-left:auto;font-weight:400;letter-spacing:0;text-transform:none;color:var(--faint);font-size:10.5px}
+.note{font-size:11.5px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:6px 8px;margin:0}
+.ctl{margin:5px 0 7px}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:12.5px}
+.ctl label .val{font-family:var(--f-mono);font-size:12px;color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ctl input[type=range]{width:100%;margin:3px 0 0;accent-color:var(--accent);height:18px}
+.ctl .hint{font-size:11px;color:var(--faint);line-height:1.3}
+.rail.off .ctl,.rail.off .evt{opacity:.4}
+.evt{display:grid;grid-template-columns:18px 1fr;gap:4px 6px;align-items:start;margin:6px 0;font-size:12px}
+.evt input{margin:2px 0 0;accent-color:var(--accent)}
+.evt label{cursor:pointer}
+.evt .m{grid-column:2;font-family:var(--f-mono);font-size:10.5px;color:var(--faint);margin-top:-3px}
+.chk{display:grid;grid-template-columns:18px 1fr;gap:6px;font-size:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.chk input{accent-color:var(--accent);margin:2px 0 0}
+
+/* schedule / scatter / bid */
+#gantt{margin-top:6px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--dim);margin-top:4px}
+.legend i{display:inline-block;width:14px;height:8px;border-radius:1px;margin-right:5px;vertical-align:0}
+.cvwrap{position:relative}
+.cvwrap canvas{display:block;width:100%}
+.bidgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.bidgrid .tile .v{font-size:21px}
+.optline{margin-top:10px;font-size:13px;color:var(--dim)}
+.optline b{color:var(--ink);font-weight:500}
+
+/* basis table */
+table.basis{width:100%;border-collapse:collapse;font-size:12.5px}
+table.basis th{font-weight:500;color:var(--dim);text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--line);padding:5px 6px}
+table.basis td{border-bottom:1px solid var(--line);padding:4px 6px;vertical-align:middle}
+table.basis td.n,table.basis th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.basis tr.tot td{font-weight:600;border-bottom:0}
+.rng{position:relative;height:10px;min-width:90px;background:var(--surface2);border-radius:2px}
+.rng i{position:absolute;top:0;bottom:0;background:var(--accent);opacity:.55;border-radius:2px}
+.rng b{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
+.tblwrap{overflow-x:auto}
+.ll{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:12px;color:var(--dim)}
+.ll .tag{color:var(--ink)}
+footer{margin-top:12px;font-size:11.5px;color:var(--faint);line-height:1.5}
+
+/* tour */
+.tour{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:16px;width:min(380px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:12px 14px;z-index:50;box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.tour .ttl{font-family:var(--f-display);font-weight:700;font-size:14px;margin-bottom:4px;color:var(--accent)}
+.tour p{margin:0 0 10px;font-size:13px}
+.tour .tb{display:flex;gap:8px;align-items:center}
+.tour .tb .ct{margin-right:auto;font-family:var(--f-mono);font-size:11px;color:var(--faint)}
+.tour-hi{outline:2px solid var(--accent);outline-offset:3px}
+
+@media (max-width:1280px){
+  .strip{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .r1,.r2{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static;max-height:none;order:2}
+  .content{order:1}
+}
+@media (max-width:560px){
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tile .v{font-size:21px}
+  .brand h1{font-size:22px}
+  .verdict .main{font-size:16px}
+  #perf{margin-left:0;flex-basis:100%}
+  .trow{grid-template-columns:minmax(0,52%) minmax(0,1fr) 74px}
+  .thead{grid-template-columns:minmax(0,52%) minmax(0,1fr) 74px}
+  .bidgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #presets{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  #presets button{white-space:normal;border-bottom:1px solid var(--line)}
+  .tile .s{white-space:normal}
+  .thead span:nth-child(2){visibility:hidden}
+}
+@media (prefers-reduced-motion:reduce){ .trow,.trow .bar{transition:none} }
+</style>
+
+<div class="wrap">
+<header class="top">
+  <a id="suiteHome" href="index.html">← One Plant, Four Lenses</a>
+  <div class="brand">
+    <h1>P80</h1>
+    <span class="sub">Cost &amp; schedule risk room · <b>100,000 BPSD CDU/VDU</b> · ISBL · <span class="mono">CFU-000-PM-EST-001</span> · AACE Class 4</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="seg" role="group" aria-label="Mode">
+    <button id="modeRisk" aria-pressed="true">Risk</button>
+    <button id="modeBid" aria-pressed="false">Bid</button>
+  </div>
+  <button class="btn" id="explainBtn" aria-pressed="false">Explain this</button>
+  <button class="btn" id="tourBtn">Tour</button>
+  <button class="btn" id="themeBtn" aria-label="Colour theme">Theme: auto</button>
+</header>
+
+<div class="scen">
+  <span class="lbl" id="scenLbl">Scenario</span>
+  <div class="seg" role="group" aria-labelledby="scenLbl" id="presets">
+    <button data-p="base" aria-pressed="true">Base (as estimated)</button>
+    <button data-p="hot" aria-pressed="false">Hot market 2027</button>
+    <button data-p="shock" aria-pressed="false">Supply-chain shock</button>
+    <button data-p="class3" aria-pressed="false">Mature design (Class 3)</button>
+  </div>
+  <span id="perf" class="mono"></span>
+</div>
+
+<section class="strip" id="strip" aria-label="Summary"></section>
+<p class="ex" id="exStrip"></p>
+<div class="verdict" id="verdict" aria-live="polite"></div>
+
+<div class="layout">
+  <aside class="rail" id="rail" aria-label="Risk settings">
+    <p class="note">Every range, probability and impact on this page is <b>illustrative and user-set</b>. Only the base estimate lines come from the package (CFU-000-PM-EST-001); none of the risk inputs are company data.</p>
+    <div id="ctls"></div>
+    <h3>Discrete risk events <span class="tag">illustrative p, impact</span></h3>
+    <div id="evts"></div>
+    <div class="chk"><input type="checkbox" id="zero"><label for="zero">Deterministic check: all ranges, events and shifts off. P10, P50 and P80 must equal the base estimate.</label></div>
+  </aside>
+
+  <main class="content">
+    <div class="row r1">
+      <section class="card" id="costCard">
+        <h2>Total installed cost, S-curve <span class="tag" id="costTag"></span></h2>
+        <svg class="chart" id="cdf" role="img" aria-label="Cumulative cost distribution with histogram"></svg>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Cumulative probability</span><span><i style="background:var(--accent);opacity:.25"></i>Histogram</span><span><i style="background:var(--dim);height:2px"></i>Base estimate</span><span><i style="background:var(--ink);height:2px"></i>Base + contingency held</span><span id="bidLeg" hidden><i style="background:var(--warn);height:2px"></i>Bid price</span></div>
+        <p class="ex" id="exCost"></p>
+      </section>
+      <section class="card" id="tornadoCard">
+        <h2>Risk drivers <span class="tag" id="tornTag">share of variance</span>
+          <span class="seg" role="group" aria-label="Tornado measure"><button id="tCost" aria-pressed="true">Cost</button><button id="tSched" aria-pressed="false">Finish date</button></span></h2>
+        <div class="thead"><span>Driver</span><span id="thMid">Contribution to cost variance</span><span>Share · ±1σ</span></div>
+        <div class="torn" id="torn"></div>
+        <p class="cap" id="tornCap"></p>
+        <p class="ex" id="exTorn"></p>
+      </section>
+    </div>
+
+    <div class="row r2" id="riskRow">
+      <section class="card" id="schedCard">
+        <h2>Mechanical completion <span class="tag" id="schedTag"></span></h2>
+        <svg class="chart" id="sdist" role="img" aria-label="Finish date distribution"></svg>
+        <svg class="chart" id="gantt" role="img" aria-label="Schedule paths, plan versus P80 case"></svg>
+        <div class="legend"><span><i style="border:1px dashed var(--faint);background:none"></i>Plan (no risk)</span><span><i style="background:var(--faint);opacity:.5"></i>Fabrication / delivery</span><span><i style="background:var(--faint)"></i>Site work</span><span><i style="background:var(--accent)"></i>Critical in P80 runs</span><span class="mono">CI = criticality index</span></div>
+        <p class="ex" id="exSched"></p>
+      </section>
+      <section class="card" id="scatterCard">
+        <h2>Joint cost and schedule <span class="tag" id="jointTag"></span></h2>
+        <div class="cvwrap"><canvas id="scatter" role="img" aria-label="Scatter of cost against finish date"></canvas></div>
+        <p class="cap" id="jointCap"></p>
+        <p class="ex" id="exJoint"></p>
+      </section>
+    </div>
+
+    <div class="row r2" id="bidRow" hidden>
+      <section class="card" id="bidCard">
+        <h2>Bid: margin against win probability <span class="tag">win curve illustrative, user-set</span></h2>
+        <svg class="chart" id="bidc" role="img" aria-label="Probability of win, probability of loss and expected profit against margin"></svg>
+        <div class="legend"><span><i style="background:var(--accent)"></i>P(win)</span><span><i style="background:var(--bad)"></i>P(loss | win)</span><span><i style="background:var(--ink)"></i>Expected profit (right axis)</span><span><i style="background:var(--warn);height:2px"></i>Chosen bid</span></div>
+        <p class="ex" id="exBid"></p>
+      </section>
+      <section class="card" id="bidCtl">
+        <h2>Set the price</h2>
+        <div class="ctl"><label for="bidM">Margin on estimate incl. contingency <span class="val" id="v-bidM"></span></label><input type="range" id="bidM" min="-5" max="30" step="0.5" value="5"><div class="hint">Bid price = USD <span id="budTxt"></span> M × (1 + margin)</div></div>
+        <div class="ctl"><label for="comp">Competitive pressure <span class="val" id="v-comp"></span></label><input type="range" id="comp" min="0" max="100" step="1" value="50"><div class="hint">Moves the margin at which we win half the time (illustrative logistic curve)</div></div>
+        <div class="bidgrid" id="bidTiles"></div>
+        <p class="optline" id="optLine"></p>
+      </section>
+    </div>
+
+    <section class="card" id="basisCard">
+      <h2>Estimate basis and modelled range <span class="tag">lines from CFU-000-PM-EST-001 · ranges illustrative</span></h2>
+      <div class="tblwrap"><table class="basis" id="basis"></table></div>
+      <div class="ll" id="ll"></div>
+    </section>
+  </main>
+</div>
+
+<footer id="foot"></footer>
+</div>
+
+<div class="tour" id="tour" hidden role="dialog" aria-labelledby="tourTtl">
+  <div class="ttl" id="tourTtl"></div>
+  <p id="tourTxt"></p>
+  <div class="tb"><span class="ct" id="tourCt"></span><button class="btn" id="tourBack">Back</button><button class="btn" id="tourNext">Next</button><button class="btn" id="tourEnd">Close</button></div>
+</div>
+
+<script>
+const D = /*DATA:BEGIN*/{"doc":"CFU-000-PM-EST-001","basis":"AACE Class 4 (-30 % / +50 %), ISBL, USGC, 2026 USD, CEPCI 820","summary":{"pec":56.791,"isbl":168.016,"eng":42.004,"cont":42.004,"tic":252.024},"issued":{"pec":56.8,"isbl":168.0,"eng":42.0,"cont":42.0,"tic":252.0},"ce_items":82,"factors":{"fer":0.3,"fp":0.8,"fi":0.3,"fel":0.2,"fc":0.3,"fs":0.2,"fl":0.1},"lines":[{"k":"heater","n":"Fired heaters","kind":"eq","b":19.244,"cnt":2},{"k":"column","n":"Columns","kind":"eq","b":11.651,"cnt":7},{"k":"aircooler","n":"Air coolers","kind":"eq","b":8.869,"cnt":9},{"k":"stx","n":"Shell & tube exchangers","kind":"eq","b":7.167,"cnt":21},{"k":"desalter","n":"Desalters","kind":"eq","b":3.834,"cnt":2},{"k":"pump","n":"Pumps","kind":"eq","b":3.685,"cnt":24},{"k":"othereq","n":"Drums, ejectors, fans, packages","kind":"eq","b":2.341,"cnt":17},{"k":"piping","n":"Piping (material + erection)","kind":"inst","b":52.248,"f":0.92},{"k":"erection","n":"Equipment erection","kind":"inst","b":12.638,"f":0.3},{"k":"elec","n":"Electrical","kind":"inst","b":8.425,"f":0.2},{"k":"instr","n":"Instrumentation","kind":"inst","b":12.638,"f":0.3},{"k":"civil","n":"Civil & foundations","kind":"inst","b":12.638,"f":0.3},{"k":"struct","n":"Structures & pipe rack","kind":"inst","b":8.425,"f":0.2},{"k":"lagging","n":"Insulation & paint","kind":"inst","b":4.213,"f":0.1},{"k":"eng","n":"Design & engineering (25 %)","kind":"eng","b":42.004}],"longlead":[{"tag":"H-101","svc":"Atmospheric crude charge heater","ce":14.455,"size":"60.7 MW abs. / 67.4 MW fired; 2-cell cabin, 8 passes, 144 rad. tubes 6\" x 18.3 m","moc":"Tubes A335 P9 (9Cr-1Mo); convection P5 / CS studded"},{"tag":"H-201","svc":"Vacuum heater","ce":4.788,"size":"14.7 MW abs. / 17.5 MW fired; 1-cell cabin, 4 passes, 44 rad. tubes 6\" x 18.3 m","moc":"Tubes A335 P9 (9Cr-1Mo); convection P5 / CS studded"},{"tag":"C-101","svc":"Atmospheric crude fractionator","ce":3.566,"size":"ID 6.9 m (top/main) / 3.5 m (stripping) x 37.0 m T/T","moc":"CS + 410S clad below tray 10; Monel 400 lined top head & trays 1-5"},{"tag":"C-201","svc":"Vacuum column (wet, packed)","ce":6.363,"size":"ID 4.4 m (top) / 6.6 m (main) / 3.0 m (boot) x 36.0 m T/T","moc":"CS + 410S clad (317L clad flash/wash zone)"},{"tag":"D-101A","svc":"Electrostatic desalter, 1st stage","ce":1.917,"size":"ID 3.8 m x 30.0 m T/T, AC/DC dual-polarity grids","moc":"CS"},{"tag":"D-101B","svc":"Electrostatic desalter, 2nd stage","ce":1.917,"size":"ID 3.8 m x 30.0 m T/T, AC/DC dual-polarity grids","moc":"CS"},{"tag":"E-108","svc":"Crude / HVGO pumparound/product","ce":1.755,"size":"2196 m2 total; 2S x 2P shells","moc":"1.25Cr shell / 9Cr-1Mo tubes"},{"tag":"A-101","svc":"Atm. overhead condenser","ce":3.053,"size":"1667 m2 bare; 3 bay(s) 6 m x 12 m, 6 fans","moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)"},{"tag":"A-107","svc":"Splitter overhead condenser","ce":1.645,"size":"881 m2 bare; 2 bay(s) 6 m x 12 m, 4 fans","moc":"CS tubes, Al fins (A-101: CS + inlet ferrules, Ti optional)"}],"activities":[{"id":"PRJ-01","n":"Design basis (BOD)","d":"Project","s":"done","after":[],"note":"Every other activity reads the basis; a change here re-opens the whole package."},{"id":"PRJ-02","n":"Crude assay characterisation","d":"Process","s":"partial","after":["PRJ-01"],"note":"Uses a published Arab Light assay with pseudo-components, not a lab assay."},{"id":"PRC-00","n":"Rigorous simulation and model calibration","d":"Process","s":"open","after":["PRJ-02"],"note":"Replaces the ideal-VLE shortcut model; expect 5-10 C changes in draw temperatures."},{"id":"PRC-01","n":"Heat and material balance","d":"Process","s":"partial","after":["PRJ-01","PRJ-02","PRC-00"],"note":""},{"id":"PRC-02","n":"Process equipment sizing","d":"Process","s":"done","after":["PRC-01"],"note":"Equipment list is the hub: mechanical, layout, electrical, I&C and cost all read it."},{"id":"PRC-03","n":"Relief load and PSV sizing (unit)","d":"Process","s":"done","after":["PRC-01","PRC-02"],"note":""},{"id":"PRC-04","n":"Control loops and SIF definition","d":"Process","s":"done","after":["PRC-01","PRC-02"],"note":""},{"id":"PRC-05","n":"Block flow diagram","d":"Process","s":"done","after":["PRC-01"],"note":""},{"id":"PRC-06","n":"Process flow diagrams","d":"Process","s":"done","after":["PRC-01","PRC-02","PRC-04"],"note":""},{"id":"PRC-07","n":"Process design report","d":"Process","s":"done","after":["PRC-01","PRC-02","PRC-03"],"note":""},{"id":"PIP-01","n":"Piping material classes","d":"Piping","s":"done","after":["PRJ-01","PRC-01"],"note":"Defined in CONVENTIONS.md; summary issued with the P&IDs."},{"id":"PRC-08","n":"P&IDs, line list, instrument index","d":"Process","s":"done","after":["PRC-02","PRC-03","PRC-04","PRC-06","PIP-01","LAY-01"],"note":"Line list and instrument index feed piping, I&C and electrical; P&ID revisions ripple widely."},{"id":"SAF-01","n":"Preliminary HAZOP","d":"Safety","s":"done","after":["PRC-08","PRC-04","PRC-03"],"note":""},{"id":"SAF-02","n":"Global flare load study","d":"Safety","s":"open","after":["PRC-03"],"note":"Governing case (C-101 reflux failure, about 220 t/h) needs power and cooling-water failure cases."},{"id":"SAF-03","n":"Formal HAZOP and LOPA workshop","d":"Safety","s":"open","after":["PRC-08","SAF-01","ICS-02"],"note":""},{"id":"SAF-04","n":"Siting study, QRA, F&G mapping","d":"Safety","s":"open","after":["LAY-01","SAF-01","ELE-02"],"note":"API 752/753 siting, QRA, fire and gas mapping and fireproofing; may move buildings or equipment."},{"id":"MEC-01","n":"Mechanical design calculations","d":"Mechanical","s":"done","after":["PRC-02","PRC-01","PRC-03"],"note":""},{"id":"MEC-02","n":"Equipment datasheets","d":"Mechanical","s":"done","after":["MEC-01","PRC-02","PRC-03"],"note":""},{"id":"MEC-03","n":"Equipment GA drawings","d":"Mechanical","s":"done","after":["MEC-01"],"note":""},{"id":"VEN-01","n":"Vendor enquiries and vendor data","d":"Mechanical","s":"open","after":["MEC-02"],"note":"Vendor data revises weights, nozzles, motor ratings and I/O; plan for one full update cycle."},{"id":"LAY-01","n":"Plot plan and equipment layout","d":"Layout","s":"done","after":["PRC-02","PRC-01","PRJ-01"],"note":""},{"id":"LAY-02","n":"Sections and 3D layout model","d":"Layout","s":"done","after":["LAY-01","PRC-02"],"note":""},{"id":"LAY-03","n":"3D model reviews and constructability","d":"Layout","s":"open","after":["PIP-02","LAY-02","CIV-01"],"note":"30/60/90 % model reviews."},{"id":"PIP-02","n":"Piping routing and 3D model","d":"Piping","s":"done","after":["PRC-08","LAY-01","PRC-03","MEC-01"],"note":""},{"id":"PIP-03","n":"Pipe stress and supports (screening)","d":"Piping","s":"partial","after":["PIP-02","MEC-01"],"note":"Screening only; CAESAR II analysis is PIP-05."},{"id":"PIP-04","n":"Isometrics and piping MTO","d":"Piping","s":"done","after":["PIP-02","PIP-01"],"note":""},{"id":"PIP-05","n":"Detailed pipe stress (CAESAR II)","d":"Piping","s":"open","after":["PIP-03","VEN-01"],"note":"Includes nozzle-load agreement with equipment vendors."},{"id":"CIV-01","n":"Geotechnical, civil and structural design","d":"Civil","s":"open","after":["LAY-01","MEC-01","PIP-03"],"note":"No civil deliverables in this package: foundations, pipe rack and structures are still to do."},{"id":"ICS-01","n":"Control philosophy and schemes","d":"I&C","s":"done","after":["PRC-04","PRC-01","PRC-02"],"note":""},{"id":"ICS-02","n":"SIF list and SIL determination (LOPA)","d":"I&C","s":"partial","after":["PRC-04","SAF-01"],"note":"LOPA frequencies are FEED judgements pending SAF-03."},{"id":"ICS-03","n":"Cause and effect matrix","d":"I&C","s":"done","after":["PRC-04","PRC-03","PRC-02","ICS-02"],"note":""},{"id":"ICS-04","n":"Control valve sizing","d":"I&C","s":"done","after":["PRC-01","PRC-02","PRC-04","PRC-08"],"note":""},{"id":"ICS-05","n":"I/O list","d":"I&C","s":"done","after":["PRC-08","PRC-04","PRC-02","LAY-01"],"note":""},{"id":"ICS-06","n":"Loop diagrams","d":"I&C","s":"done","after":["ICS-05"],"note":""},{"id":"ICS-07","n":"ICS architecture","d":"I&C","s":"done","after":["ICS-05","ELE-03"],"note":""},{"id":"ICS-08","n":"SIL verification and SRS","d":"I&C","s":"open","after":["ICS-02","SAF-03","VEN-01"],"note":"PFDavg calculations and the safety requirements specification (IEC 61511)."},{"id":"ELE-01","n":"Electrical load list","d":"Electrical","s":"done","after":["PRC-02"],"note":""},{"id":"ELE-02","n":"Hazardous area classification","d":"Electrical","s":"done","after":["LAY-01","PRC-02","PRC-04"],"note":""},{"id":"ELE-03","n":"Electrical sizing, single-line diagrams","d":"Electrical","s":"done","after":["ELE-01"],"note":""},{"id":"ELE-04","n":"Cable schedule","d":"Electrical","s":"done","after":["ELE-01","ELE-03","LAY-01","ELE-02"],"note":""},{"id":"ELE-05","n":"Power system studies and protection","d":"Electrical","s":"open","after":["ELE-03","VEN-01"],"note":"Load flow, short circuit, motor starting, arc flash, relay coordination."},{"id":"CST-01","n":"Class 4 cost estimate","d":"Cost","s":"done","after":["PRC-02","MEC-01"],"note":""},{"id":"CST-02","n":"Class 3 cost estimate","d":"Cost","s":"open","after":["CST-01","VEN-01","PIP-04","ELE-04","CIV-01"],"note":""},{"id":"PRJ-03","n":"Document register and portal","d":"Project","s":"done","after":["CST-01","SAF-01","PIP-04","ICS-06","ICS-07","ELE-04","MEC-03","LAY-02","PRC-05","PRC-07","ICS-01","ICS-03","ICS-04","MEC-02","PIP-03"],"note":""},{"id":"PRJ-04","n":"PE review, seal and IFC issue","d":"Project","s":"open","after":["PRJ-03","SAF-03","ICS-08","PIP-05","ELE-05","CST-02","LAY-03","SAF-04","SAF-02"],"note":"Nothing in this package is sealed; this is the gate before any use for construction."}],"act_counts":{"done":29,"partial":4,"open":12}}/*DATA:END*/;
+</script>
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const N = 10000, SEED = 2026;
+const WK_MO = 4.345;
+const NTP = Date.UTC(2027, 2, 1);                 // assumed notice to proceed, 1 Mar 2027 (illustrative)
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ---------------- data from the package ---------------- */
+const LINES = D.lines, NL = LINES.length;
+const BASE = LINES.reduce((a, l) => a + l.b, 0);             // installed ISBL + D&E, excl. contingency
+const CONT = D.summary.cont, BUDGET = BASE + CONT;
+const PEC = LINES.filter(l => l.kind === 'eq').reduce((a, l) => a + l.b, 0);
+// Illustrative line parameters: estimate range (Class 4, fraction of line), steel/alloy elasticity, field-labour share
+const LP = {
+  heater:   {lo:.15, hi:.45, g:0, st:.55, lab:0,   why:'9Cr tubes, API 560 scope; factored method runs low'},
+  column:   {lo:.15, hi:.35, g:0, st:.55, lab:0,   why:'clad shells, C-201 packing'},
+  aircooler:{lo:.15, hi:.35, g:0, st:.45, lab:0,   why:'bare area from H&MB'},
+  stx:      {lo:.15, hi:.35, g:0, st:.50, lab:0,   why:'1.25Cr/9Cr hot bank'},
+  desalter: {lo:.15, hi:.35, g:0, st:.40, lab:0,   why:'vendor internals'},
+  pump:     {lo:.12, hi:.30, g:0, st:.25, lab:0,   why:'API 610 trains'},
+  othereq:  {lo:.15, hi:.35, g:0, st:.35, lab:0,   why:'small items'},
+  piping:   {lo:.20, hi:.50, g:1, st:.32, lab:.55, sc:1, why:'factored, MTO not yet in estimate'},
+  erection: {lo:.15, hi:.35, g:1, st:0,   lab:.90, sc:1, why:'heavy lifts C-101, C-201'},
+  elec:     {lo:.15, hi:.40, g:1, st:.18, lab:.50, sc:1, why:'factored'},
+  instr:    {lo:.15, hi:.40, g:1, st:.15, lab:.45, sc:1, why:'factored'},
+  civil:    {lo:.20, hi:.60, g:1, st:.12, lab:.60, sc:1, why:'no geotech survey (CIV-01 open)'},
+  struct:   {lo:.15, hi:.40, g:1, st:.40, lab:.50, sc:1, why:'factored'},
+  lagging:  {lo:.15, hi:.40, g:1, st:.10, lab:.70, sc:1, why:'factored'},
+  eng:      {lo:.10, hi:.30, g:2, st:0,   lab:0,   why:'25 % of ISBL'}
+};
+const LAB = LINES.reduce((a, l) => a + l.b * LP[l.k].lab, 0);
+const STW = LINES.reduce((a, l) => a + l.b * LP[l.k].st, 0);
+const BULK = LINES.reduce((a, l) => a + (LP[l.k].sc ? l.b : 0), 0);
+const ACT = Object.fromEntries(D.activities.map(a => [a.id, a]));
+const EVENTS = [
+  {k:'ven', act:'VEN-01', n:'Vendor data cycle revises layout and piping', p:.50, c:[1, 2, 4],   d:[3, 6, 10], tgt:'pip'},
+  {k:'geo', act:'CIV-01', n:'Ground conditions need piling (no geotech yet)', p:.25, c:[2, 4, 8], d:[4, 8, 14], tgt:'civ'},
+  {k:'haz', act:'SAF-03', n:'Formal HAZOP and siting actions revise P&IDs', p:.35, c:[1, 2.5, 6], d:[2, 5, 10], tgt:'pip'},
+  {k:'sim', act:'PRC-00', n:'Rigorous simulation re-rates hot exchangers', p:.30, c:[.5, 1.5, 3.5], d:[2, 4, 8], tgt:'exch'}
+];
+
+/* ---------------- controls ---------------- */
+const pct0 = v => (v > 0 ? '+' : '') + v + ' %';
+const CTRL = [
+  {g:'Market', tag:'user-set', items:[
+    {k:'steel', l:'Steel & alloy price index', min:-10, max:40, step:1, f:pct0, h:'Expected change vs the 2026 basis; spread widens as it rises'}]},
+  {g:'Craft labour', tag:'user-set', items:[
+    {k:'prod', l:'Craft productivity factor', min:.85, max:1.5, step:.01, f:v => v.toFixed(2) + ' ×', h:'Most likely hours vs estimate norms (above 1 = slower); skewed range'},
+    {k:'rate', l:'Craft labour rate', min:-5, max:25, step:1, f:pct0},
+    {k:'rho', l:'Labour–schedule correlation ρ', min:0, max:1, step:.05, f:v => v.toFixed(2), h:'How much of a productivity overrun shows up as field delay'}]},
+  {g:'Supply chain', tag:'user-set', items:[
+    {k:'fxShare', l:'Imported equipment share', min:0, max:90, step:5, f:v => v + ' %'},
+    {k:'fxVol', l:'FX volatility (annual σ, unhedged)', min:0, max:30, step:1, f:v => v + ' %'},
+    {k:'slipP', l:'H-101/H-201 delivery slip, probability', min:0, max:100, step:5, f:v => v + ' %'},
+    {k:'slipW', l:'Heater slip if it happens', min:0, max:40, step:1, f:v => v + ' wk', h:'Most likely; range 0.5× to 1.8×'}]},
+  {g:'Site and estimate', tag:'user-set', items:[
+    {k:'storm', l:'Hurricane stand-down, per season', min:0, max:80, step:5, f:v => v + ' %', h:'Two Gulf Coast seasons fall in the field window'},
+    {k:'mat', l:'Design maturity', min:0, max:100, step:5, f:v => v === 0 ? 'Class 4' : v === 100 ? 'Class 3' : 'Class 4→3 ' + v + ' %', h:'Vendor quotes and MTOs narrow every estimate range by up to half'},
+    {k:'scope', l:'Scope growth on bulks (mean)', min:0, max:15, step:.5, f:v => v.toFixed(1) + ' %'},
+    {k:'delayRate', l:'Time-related cost of delay', min:.5, max:3, step:.1, f:v => v.toFixed(1) + ' M/mo', h:'Field indirects, supervision, rentals per month past plan MC'}]}
+];
+const PRESETS = {
+  base:   {steel:0,  prod:1.00, rate:0, rho:.6,  fxShare:35, fxVol:8,  slipP:30, slipW:12, storm:20, mat:0,   scope:3, delayRate:1.4, ev:{ven:1, geo:1, haz:1, sim:1}},
+  hot:    {steel:12, prod:1.12, rate:8, rho:.7,  fxShare:35, fxVol:8,  slipP:50, slipW:16, storm:20, mat:0,   scope:4, delayRate:1.7, ev:{ven:1, geo:1, haz:1, sim:1}},
+  shock:  {steel:22, prod:1.05, rate:4, rho:.6,  fxShare:55, fxVol:15, slipP:80, slipW:26, storm:20, mat:0,   scope:3, delayRate:1.6, ev:{ven:1, geo:1, haz:1, sim:1}},
+  class3: {steel:0,  prod:1.00, rate:0, rho:.6,  fxShare:35, fxVol:8,  slipP:15, slipW:8,  storm:20, mat:100, scope:1, delayRate:1.4, ev:{ven:0, geo:0, haz:1, sim:0}}
+};
+const P = JSON.parse(JSON.stringify(PRESETS.base));
+P.zero = false; P.bidM = 5; P.comp = 50;
+let preset = 'base', mode = 'risk', tmode = 'cost';
+
+function buildControls() {
+  let h = '';
+  for (const g of CTRL) {
+    h += `<h3>${g.g} <span class="tag">${g.tag}</span></h3>`;
+    for (const c of g.items) h += `<div class="ctl"><label for="${c.k}">${c.l} <span class="val" id="v-${c.k}"></span></label>` +
+      `<input type="range" id="${c.k}" min="${c.min}" max="${c.max}" step="${c.step}">` + (c.h ? `<div class="hint">${c.h}</div>` : '') + '</div>';
+  }
+  $('#ctls').innerHTML = h;
+  $('#evts').innerHTML = EVENTS.map(e => {
+    const a = ACT[e.act];
+    return `<div class="evt" title="${(a && a.note || '').replace(/"/g, '&quot;')}"><input type="checkbox" id="ev-${e.k}"><label for="ev-${e.k}"><span class="tag">${e.act}</span> ${e.n}</label>` +
+      `<span class="m">p ${Math.round(e.p * 100)} % · USD ${e.c[0]}–${e.c[2]} M · ${e.d[0]}–${e.d[2]} wk · ${a ? a.s : ''}</span></div>`;
+  }).join('');
+  for (const g of CTRL) for (const c of g.items) $('#' + c.k).addEventListener('input', ev => { P[c.k] = +ev.target.value; setPreset(null); syncLabels(); queue(); });
+  for (const e of EVENTS) $('#ev-' + e.k).addEventListener('change', ev => { P.ev[e.k] = ev.target.checked ? 1 : 0; setPreset(null); queue(); });
+  $('#zero').addEventListener('change', ev => { P.zero = ev.target.checked; $('#rail').classList.toggle('off', P.zero); queue(); });
+  $('#bidM').addEventListener('input', ev => { P.bidM = +ev.target.value; syncLabels(); queue(); });
+  $('#comp').addEventListener('input', ev => { P.comp = +ev.target.value; syncLabels(); queue(); });
+}
+function syncControls() {
+  for (const g of CTRL) for (const c of g.items) $('#' + c.k).value = P[c.k];
+  for (const e of EVENTS) $('#ev-' + e.k).checked = !!P.ev[e.k];
+  $('#bidM').value = P.bidM; $('#comp').value = P.comp;
+  syncLabels();
+}
+function syncLabels() {
+  for (const g of CTRL) for (const c of g.items) $('#v-' + c.k).textContent = c.f(P[c.k]);
+  $('#v-bidM').textContent = pct0(P.bidM);
+  $('#v-comp').textContent = P.comp < 25 ? 'soft market' : P.comp < 60 ? 'normal' : P.comp < 85 ? 'tight' : 'distressed';
+}
+function setPreset(k) {
+  preset = k;
+  document.querySelectorAll('#presets button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.p === k)));
+}
+function applyPreset(k) {
+  const s = PRESETS[k];
+  Object.assign(P, JSON.parse(JSON.stringify(s)));
+  P.zero = false; $('#zero').checked = false; $('#rail').classList.remove('off');
+  setPreset(k); syncControls(); queue();
+}
+
+/* ---------------- random numbers (seeded, common random numbers across recomputes) ---------------- */
+function sfc32(a, b, c, d) {
+  return function () {
+    a |= 0; b |= 0; c |= 0; d |= 0;
+    const t = (a + b | 0) + d | 0; d = d + 1 | 0;
+    a = b ^ b >>> 9; b = c + (c << 3) | 0; c = (c << 21 | c >>> 11); c = c + t | 0;
+    return (t >>> 0) / 4294967296;
+  };
+}
+function Phi(x) {   // standard normal CDF, Abramowitz-Stegun 7.1.26 (|err| < 1.5e-7)
+  const z = Math.abs(x) / Math.SQRT2, t = 1 / (1 + 0.3275911 * z);
+  const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-z * z);
+  return x >= 0 ? (1 + y) / 2 : (1 - y) / 2;
+}
+const rnd = sfc32(0x9E3779B9, 0x243F6A88, 0xB7E15162, SEED);
+for (let i = 0; i < 32; i++) rnd();
+const gauss = (() => { let spare = null; return () => {
+  if (spare !== null) { const s = spare; spare = null; return s; }
+  let u = 0; while (u <= 1e-12) u = rnd();
+  const v = rnd(), r = Math.sqrt(-2 * Math.log(u));
+  spare = r * Math.sin(2 * Math.PI * v); return r * Math.cos(2 * Math.PI * v);
+}; })();
+// Normals: steel, rate, fx, field noise.  Uniforms: see U_* indices.
+const NZ = 4, Z_S = 0, Z_R = 1, Z_FX = 2, Z_F = 3;
+const U_P = 0, U_G = 1, U_DH = 2, U_DC = 3, U_DX = 4, U_DB = 5, U_SB = 6, U_SW = 7, U_ST = 8, U_EV = 14, NU = 14 + 3 * EVENTS.length;
+const Z = new Float32Array(N * NZ), U = new Float32Array(N * NU), UL = new Float32Array(N * NL);
+const GRPW = 0.5, OWNW = Math.sqrt(1 - GRPW * GRPW);   // estimate errors: 50 % shared within equipment / bulks / engineering
+for (let i = 0; i < N; i++) {
+  const zg = [gauss(), gauss(), gauss()];
+  for (let l = 0; l < NL; l++) UL[i * NL + l] = Phi(GRPW * zg[LP[LINES[l].k].g] + OWNW * gauss());
+  for (let k = 0; k < NZ; k++) Z[i * NZ + k] = gauss();
+  for (let k = 0; k < NU; k++) U[i * NU + k] = rnd();
+}
+function tri(u, a, c, b) {
+  if (b - a <= 1e-12) return c;
+  const fc = (c - a) / (b - a);
+  return u < fc ? a + Math.sqrt(u * (b - a) * (c - a)) : b - Math.sqrt((1 - u) * (b - a) * (b - c));
+}
+
+/* ---------------- schedule network (weeks from NTP) ---------------- */
+// Durations are illustrative FEED-stage norms for a grassroots 100 kBPSD CDU/VDU on the US Gulf Coast.
+const PATHS = [
+  {k:'A', n:'Fired heaters', lc:'the fired heaters', tags:'H-101, H-201'},
+  {k:'B', n:'Columns', lc:'the columns', tags:'C-101, C-201'},
+  {k:'C', n:'Bulks, piping, E&I', lc:'civil, bulks, piping and E&I', tags:'CIV-01, PIP-05'},
+  {k:'D', n:'Exchangers, coolers, pumps', lc:'exchangers, coolers and pumps', tags:'E-1xx, A-1xx'}
+];
+const SK = ['hPO','hDel','hDone','cPO','cDel','cDone','xPO','xDel','xDone','civIFC','civDone','rack','pipIFC','bulk','pStart','ei','endMax','wk','mc'];
+function net(o, i, Ef, Dh, Dc, Dx, Db, Ff, slip, wk, dVen, dGeo, dHaz, dSim) {
+  const enq = 8 * Ef;                                   // VEN-01: enquiry packages for long leads
+  const hPO = enq + 6, hDel = hPO + 78 * Dh + slip, hDone = hDel + 28 * Ff;
+  const cPO = enq + 8, cDel = cPO + 62 * Dc, cDone = cDel + 6 + 20 * Ff;
+  const xPO = enq + 12 + dSim, xDel = xPO + 50 * Dx, xDone = xDel + 4 + 14 * Ff;
+  const civIFC = 26 * Ef, civDone = civIFC + 24 * Ff + dGeo, rack = civDone + 22 * Ff;
+  const pipIFC = 44 * Ef + dVen + dHaz, bulk = pipIFC + 26 * Db, pStart = Math.max(rack, bulk);
+  const ei = pStart + 52 * Ff + 6 * Ff;
+  let endMax = ei, crit = 2;
+  if (hDone > endMax) { endMax = hDone; crit = 0; }
+  if (cDone > endMax) { endMax = cDone; crit = 1; }
+  if (xDone > endMax) { endMax = xDone; crit = 3; }
+  const mc = endMax + wk + 12;                            // pre-commissioning and punch to MC
+  o.hPO[i] = hPO; o.hDel[i] = hDel; o.hDone[i] = hDone; o.cPO[i] = cPO; o.cDel[i] = cDel; o.cDone[i] = cDone;
+  o.xPO[i] = xPO; o.xDel[i] = xDel; o.xDone[i] = xDone; o.civIFC[i] = civIFC; o.civDone[i] = civDone; o.rack[i] = rack;
+  o.pipIFC[i] = pipIFC; o.bulk[i] = bulk; o.pStart[i] = pStart; o.ei[i] = ei; o.endMax[i] = endMax; o.wk[i] = wk; o.mc[i] = mc;
+  o.crit[i] = crit;
+  return mc;
+}
+const mkSched = n => { const o = {}; for (const k of SK) o[k] = new Float64Array(n); o.crit = new Uint8Array(n); return o; };
+const PLAN = mkSched(1);
+const MC0 = net(PLAN, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+
+/* ---------------- Monte Carlo ---------------- */
+const CD = [   // cost drivers (additive impacts, so Euler allocation of variance sums to 100 %)
+  {k:'eqEst', n:'Equipment pricing range'}, {k:'bulkEst', n:'Bulk quantities range'}, {k:'engEst', n:'Engineering hours range'},
+  {k:'steel', n:'Steel & alloy index'}, {k:'prod', n:'Craft productivity'}, {k:'rate', n:'Craft labour rate'},
+  {k:'fx', n:'FX on imported equipment'}, {k:'scope', n:'Scope growth on bulks'}, {k:'slip', n:'Heater slip, expediting', tag:'H-101'},
+  {k:'storm', n:'Hurricane stand-downs'}, {k:'delay', n:'Time-related cost of delay'},
+  ...EVENTS.map(e => ({k:'ev_' + e.k, n:e.n, tag:e.act}))
+];
+const SD = [   // schedule drivers (inputs correlated with MC date)
+  {k:'Ef', n:'Engineering productivity'}, {k:'Dh', n:'Heater fabrication time', tag:'H-101'}, {k:'slipW', n:'Heater delivery slip', tag:'H-101'},
+  {k:'Dc', n:'Column fabrication time', tag:'C-201'}, {k:'Dx', n:'Exchanger, pump deliveries'}, {k:'Db', n:'Bulk material deliveries'},
+  {k:'Ff', n:'Field productivity'}, {k:'wk', n:'Hurricane stand-downs'},
+  ...EVENTS.map(e => ({k:'d_' + e.k, n:e.n, tag:e.act}))
+];
+const IMP = Object.fromEntries(CD.map(d => [d.k, new Float32Array(N)]));
+const SIN = Object.fromEntries(SD.map(d => [d.k, new Float32Array(N)]));
+const S = mkSched(N);
+const COST = new Float64Array(N), LC = new Float32Array(N * NL);
+const evC = new Float64Array(EVENTS.length), evD = new Float64Array(EVENTS.length);
+
+function simulate() {
+  const t0 = performance.now();
+  const Zo = P.zero;
+  const w = Zo ? 0 : 1 - 0.5 * P.mat / 100;
+  const sMu = Zo ? 0 : P.steel / 100, sSd = Zo ? 0 : 0.05 + 0.25 * Math.max(sMu, 0);
+  const rMu = Zo ? 0 : P.rate / 100, rSd = Zo ? 0 : 0.025 + 0.15 * Math.max(rMu, 0);
+  const pm = Zo ? 1 : P.prod, pLo = pm - 0.08 * w, pHi = pm + 0.30 * w;
+  const fxS = Zo ? 0 : P.fxShare / 100, fxSd = Zo ? 0 : P.fxVol / 100 * Math.sqrt(1.5);
+  const gMu = Zo ? 0 : P.scope / 100;
+  const rho = P.rho, rhoC = Math.sqrt(1 - rho * rho);
+  const slipP = Zo ? 0 : P.slipP / 100, slipW = P.slipW;
+  const stP = Zo ? 0 : P.storm / 100;
+  const evOn = EVENTS.map(e => !Zo && !!P.ev[e.k]);
+  const dRate = P.delayRate;
+  for (let i = 0; i < N; i++) {
+    const zi = i * NZ, ui = i * NU, li = i * NL;
+    // estimate ranges by line, plus market and labour drivers
+    const s = sMu + sSd * Z[zi + Z_S];
+    const Pf = tri(U[ui + U_P], pLo, pm, pHi);
+    const r = rMu + rSd * Z[zi + Z_R];
+    const X = fxSd > 0 ? Math.exp(fxSd * Z[zi + Z_FX] - fxSd * fxSd / 2) - 1 : 0;
+    const g = gMu > 0 ? tri(U[ui + U_G], 0, 0.5 * gMu, 2.5 * gMu) : 0;
+    let eqE = 0, buE = 0, enE = 0, eEng = 0;
+    for (let l = 0; l < NL; l++) {
+      const L = LINES[l], p = LP[L.k];
+      const e = tri(UL[li + l], -p.lo * w, 0, p.hi * w);
+      const imp = L.b * e;
+      if (p.g === 0) eqE += imp; else if (p.g === 1) buE += imp; else { enE += imp; eEng = e; }
+      LC[li + l] = L.b * (1 + e + p.st * s + p.lab * (Pf - 1 + r) + (p.sc ? g : 0) + (L.kind === 'eq' ? fxS * X : 0));
+    }
+    // schedule inputs
+    const Ef = 1 + 0.7 * eEng;
+    const Dh = 1 + tri(U[ui + U_DH], -0.05 * w, 0, 0.15 * w), Dc = 1 + tri(U[ui + U_DC], -0.05 * w, 0, 0.15 * w);
+    const Dx = 1 + tri(U[ui + U_DX], -0.05 * w, 0, 0.15 * w), Db = 1 + tri(U[ui + U_DB], -0.05 * w, 0, 0.2 * w);
+    const Ff = Math.max(0.75, 1 + rho * (Pf - 1) + rhoC * 0.06 * w * Z[zi + Z_F]);
+    const slip = U[ui + U_SB] < slipP ? tri(U[ui + U_SW], 0.5 * slipW, slipW, 1.8 * slipW) : 0;
+    let wk = 0, stc = 0;
+    for (let k = 0; k < 2; k++) if (U[ui + U_ST + 3 * k] < stP) {
+      wk += tri(U[ui + U_ST + 3 * k + 1], 1, 2.5, 5); stc += tri(U[ui + U_ST + 3 * k + 2], 0.8, 2, 5);
+    }
+    let dVen = 0, dGeo = 0, dHaz = 0, dSim = 0;
+    for (let k = 0; k < EVENTS.length; k++) {
+      const E = EVENTS[k], b = ui + U_EV + 3 * k;
+      if (evOn[k] && U[b] < E.p) { evC[k] = tri(U[b + 1], ...E.c); evD[k] = tri(U[b + 2], ...E.d); } else { evC[k] = 0; evD[k] = 0; }
+    }
+    dVen = evD[0]; dGeo = evD[1]; dHaz = evD[2]; dSim = evD[3];
+    const mc = net(S, i, Ef, Dh, Dc, Dx, Db, Ff, slip, wk, dVen, dGeo, dHaz, dSim);
+    const delay = Math.max(0, mc - MC0) / WK_MO * dRate;
+    // impacts
+    IMP.eqEst[i] = eqE; IMP.bulkEst[i] = buE; IMP.engEst[i] = enE;
+    IMP.steel[i] = STW * s; IMP.prod[i] = LAB * (Pf - 1); IMP.rate[i] = LAB * r;
+    IMP.fx[i] = PEC * fxS * X; IMP.scope[i] = BULK * g; IMP.slip[i] = 0.03 * slip; IMP.storm[i] = stc; IMP.delay[i] = delay;
+    let tot = BASE + eqE + buE + enE + STW * s + LAB * (Pf - 1) + LAB * r + PEC * fxS * X + BULK * g + 0.03 * slip + stc + delay;
+    for (let k = 0; k < EVENTS.length; k++) { IMP['ev_' + EVENTS[k].k][i] = evC[k]; tot += evC[k]; }
+    COST[i] = tot;
+    SIN.Ef[i] = Ef; SIN.Dh[i] = Dh; SIN.slipW[i] = slip; SIN.Dc[i] = Dc; SIN.Dx[i] = Dx; SIN.Db[i] = Db; SIN.Ff[i] = Ff; SIN.wk[i] = wk;
+    SIN.d_ven[i] = dVen; SIN.d_geo[i] = dGeo; SIN.d_haz[i] = dHaz; SIN.d_sim[i] = dSim;
+  }
+  const t1 = performance.now();
+  const R = analyse();
+  R.ms = performance.now() - t0; R.msSim = t1 - t0;
+  return R;
+}
+
+function pct(s, p) { const x = p * (s.length - 1), i = Math.floor(x), f = x - i; return i + 1 < s.length ? s[i] + (s[i + 1] - s[i]) * f : s[s.length - 1]; }
+function cdfAt(s, v) { let lo = 0, hi = s.length; while (lo < hi) { const m = (lo + hi) >> 1; if (s[m] <= v + 1e-9) lo = m + 1; else hi = m; } return lo / s.length; }
+function meanSd(a) { let m = 0; for (let i = 0; i < N; i++) m += a[i]; m /= N; let v = 0; for (let i = 0; i < N; i++) { const d = a[i] - m; v += d * d; } return [m, Math.sqrt(v / N)]; }
+
+function analyse() {
+  const R = {};
+  R.sc = Float64Array.from(COST).sort(); R.ss = Float64Array.from(S.mc).sort();
+  R.p = {}; R.d = {};
+  for (const q of [.1, .5, .8, .9]) { R.p[q] = pct(R.sc, q); R.d[q] = pct(R.ss, q); }
+  const [mC, sdC] = meanSd(COST); R.mean = mC; R.sd = sdC;
+  R.covers = cdfAt(R.sc, BUDGET);
+  // Euler allocation of cost variance
+  const varT = sdC * sdC;
+  R.tc = CD.map(d => {
+    const a = IMP[d.k]; let m = 0; for (let i = 0; i < N; i++) m += a[i]; m /= N;
+    let cv = 0, vv = 0; for (let i = 0; i < N; i++) { const x = a[i] - m; cv += x * (COST[i] - mC); vv += x * x; }
+    return {k:d.k, n:d.n, tag:d.tag, share: varT > 1e-9 ? cv / N / varT : 0, sd: Math.sqrt(vv / N)};
+  });
+  // schedule: squared correlation with MC date, normalised
+  const [mS, sdS] = meanSd(S.mc); R.mS = mS;
+  const r2 = SD.map(d => {
+    const a = SIN[d.k]; let m = 0; for (let i = 0; i < N; i++) m += a[i]; m /= N;
+    let cv = 0, vv = 0; for (let i = 0; i < N; i++) { const x = a[i] - m; cv += x * (S.mc[i] - mS); vv += x * x; }
+    const r = (vv > 1e-12 && sdS > 1e-9) ? cv / N / Math.sqrt(vv / N) / sdS : 0;
+    return {k:d.k, n:d.n, tag:d.tag, r, r2: r * r, sd: sdS * Math.abs(r)};
+  });
+  const sr2 = r2.reduce((a, x) => a + x.r2, 0);
+  R.ts = r2.map(x => ({...x, share: sr2 > 1e-12 ? x.r2 / sr2 * Math.sign(x.r || 1) : 0}));
+  // criticality index (all runs) and the P80 case (runs whose MC falls in the P75-P85 band)
+  const ci = [0, 0, 0, 0];
+  for (let i = 0; i < N; i++) ci[S.crit[i]]++;
+  R.ci = ci.map(c => c / N);
+  const lo = pct(R.ss, .75) - 1e-9, hi = pct(R.ss, .85) + 1e-9;
+  const avg = Object.fromEntries(SK.map(k => [k, 0])); const cc = [0, 0, 0, 0]; let n = 0;
+  for (let i = 0; i < N; i++) if (S.mc[i] >= lo && S.mc[i] <= hi) { n++; cc[S.crit[i]]++; for (const k of SK) avg[k] += S[k][i]; }
+  for (const k of SK) avg[k] /= Math.max(n, 1);
+  R.p80case = avg; R.p80crit = cc.indexOf(Math.max(...cc)); R.p80critShare = Math.max(...cc) / Math.max(n, 1);
+  // joint
+  let j = 0; const c80 = R.p[.8], d80 = R.d[.8];
+  for (let i = 0; i < N; i++) if (COST[i] <= c80 + 1e-9 && S.mc[i] <= d80 + 1e-9) j++;
+  R.joint = j / N;
+  // bid
+  const m0 = 0.18 - 0.18 * P.comp / 100, sp = 0.035;
+  const pwin = m => 1 / (1 + Math.exp((m - m0) / sp));
+  R.bid = []; let best = null;
+  for (let m = -0.05; m <= 0.300001; m += 0.0025) {
+    const B = BUDGET * (1 + m), pw = pwin(m), pl = 1 - cdfAt(R.sc, B), ep = pw * (B - mC);
+    const o = {m, B, pw, pl, ep}; R.bid.push(o); if (!best || ep > best.ep) best = o;
+  }
+  R.best = best;
+  const m = P.bidM / 100, B = BUDGET * (1 + m);
+  R.chosen = {m, B, pw: pwin(m), pl: 1 - cdfAt(R.sc, B), ewin: B - mC, ep: pwin(m) * (B - mC), down: B - R.p[.9]};
+  return R;
+}
+
+/* ---------------- formatting ---------------- */
+const f1 = v => (Math.round(v * 10) / 10).toFixed(1);
+const fM = v => f1(v);
+const sgn = v => (v >= 0 ? '+' : '−') + f1(Math.abs(v));
+const dateOf = w => new Date(NTP + w * 7 * 864e5);
+const fD = w => { const d = dateOf(w); return MON[d.getUTCMonth()] + ' ' + d.getUTCFullYear(); };
+const fDd = w => { const d = dateOf(w); return d.getUTCDate() + ' ' + MON[d.getUTCMonth()] + ' ' + d.getUTCFullYear(); };
+const fDs = w => { const d = dateOf(w); return MON[d.getUTCMonth()] + " '" + String(d.getUTCFullYear()).slice(2); };
+const mo = w => (w / WK_MO);
+const pc = v => Math.round(v * 100) + ' %';
+function nice(lo, hi, n) {
+  const span = Math.max(hi - lo, 1e-9), s0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(s0))), f = s0 / mag;
+  const step = (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10) * mag, t = [];
+  for (let v = Math.ceil(lo / step - 1e-9) * step; v <= hi + 1e-9; v += step) t.push(+v.toFixed(10));
+  return t;
+}
+function dateTicks(w0, w1, maxT) {
+  const d0 = dateOf(w0), d1 = dateOf(w1);
+  const months = (d1.getUTCFullYear() - d0.getUTCFullYear()) * 12 + d1.getUTCMonth() - d0.getUTCMonth();
+  const st = [1, 2, 3, 6, 12].find(s => months / s <= maxT) || 12;
+  let y = d0.getUTCFullYear(), m = d0.getUTCMonth() + 1;
+  while (m % st) m++;
+  const out = [];
+  for (let g = 0; g < 200; g++) {
+    const yy = y + Math.floor(m / 12), mm = m % 12;
+    const w = (Date.UTC(yy, mm, 1) - NTP) / (7 * 864e5);
+    if (w > w1) break;
+    if (w >= w0) out.push({w, l: MON[mm] + " '" + String(yy).slice(2)});
+    m += st;
+  }
+  return out;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+/* ---------------- rendering ---------------- */
+let R = null;
+function txt(x, y, s, cls = '', anchor = 'start', extra = '') { return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" class="${cls}" ${extra}>${s}</text>`; }
+function ln(x1, y1, x2, y2, cls) { return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="${cls}"/>`; }
+function sizeSvg(svg, W, H) { svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('height', H); }
+
+function renderStrip() {
+  const p50 = R.p[.5], p80 = R.p[.8], gap = p80 - BUDGET;
+  const tiles = [
+    {k:'Base estimate', v:fM(BASE), u:'USD M', s:'before contingency'},
+    {k:'P50 cost', v:fM(p50), u:'USD M', s:sgn((p50 / BASE - 1) * 100).replace('.0', '') + ' % on base'},
+    {k:'P80 cost', v:fM(p80), u:'USD M', s:sgn((p80 / BASE - 1) * 100) + ' % on base', c:'key'},
+    {k:'Contingency held', v:fM(CONT), u:'USD M', s:f1(CONT / BASE * 100) + ' % · covers P' + Math.round(R.covers * 100)},
+    {k:gap > 0 ? 'Gap to P80' : 'Spare above P80', v:fM(Math.abs(gap)), u:'USD M', s:'P80 needs ' + fM(p80 - BASE) + ' cont.', c:gap > 0.05 ? 'bad' : 'good'},
+    {k:'P80 finish (MC)', v:fD(R.d[.8]), u:'', s:'P50 ' + fDs(R.d[.5]) + ' · plan ' + fDs(MC0)},
+    {k:'P(loss) at bid', v:Math.round(R.chosen.pl * 100) + '', u:'%', s:'bid ' + fM(R.chosen.B) + ' · win ' + pc(R.chosen.pw), c:R.chosen.pl > .25 ? 'bad' : ''}
+  ];
+  $('#strip').innerHTML = tiles.map(t => `<div class="tile ${t.c || ''}"><div class="k">${t.k}</div><div class="v">${t.v}<small>${t.u}</small></div><div class="s">${t.s}</div></div>`).join('');
+}
+
+function renderVerdict() {
+  const p80 = R.p[.8], gap = p80 - BUDGET, cov = Math.round(R.covers * 100), need = p80 - BASE;
+  const short = gap > 0.05;
+  const main = short ? `Contingency covers P${cov}: short USD ${fM(gap)} M to P80.` : `Contingency covers P${cov}: USD ${fM(-gap)} M above P80.`;
+  const crit = PATHS[R.p80crit];
+  const slipMo = mo(R.d[.8] - MC0);
+  $('#verdict').innerHTML = `<span class="chip ${short ? 'bad' : 'good'}">${short ? 'UNDER-FUNDED AT P80' : 'FUNDED AT P80'}</span>` +
+    `<span class="main">${main}</span>` +
+    `<span class="rest">Recommended contingency for P80: <b>USD ${fM(need)} M (${f1(need / BASE * 100)} % of base)</b> against USD ${fM(CONT)} M carried (${f1(CONT / BASE * 100)} %). ` +
+    `P80 mechanical completion <b>${fD(R.d[.8])}</b>, ${slipMo >= 0.05 ? f1(slipMo) + ' months after' : 'on'} the plan date of ${fD(MC0)}; in P80 runs the finish is set by <b>${crit.lc}</b> (<span class="mono">${crit.tags}</span>) ${pc(R.p80critShare)} of the time.</span>`;
+}
+
+function drawCost() {
+  const svg = $('#cdf'), W = Math.max(280, svg.clientWidth || svg.parentNode.clientWidth), H = W < 560 ? 250 : 335;
+  sizeSvg(svg, W, H);
+  const m = {l:44, r:46, t:30, b:34}, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const s = R.sc;
+  let lo = Math.min(BASE, s[0]), hi = Math.max(BUDGET, pct(s, .999));
+  if (mode === 'bid') hi = Math.max(hi, R.chosen.B);
+  if (hi - lo < 40) { const c = (hi + lo) / 2; lo = Math.min(lo, c - 20); hi = Math.max(hi, c + 20); }
+  const pad = (hi - lo) * .04; lo -= pad; hi += pad;
+  const X = v => m.l + (v - lo) / (hi - lo) * pw, Y = p => m.t + (1 - p) * ph;
+  let o = '';
+  // grid + axes
+  for (let p = 0; p <= 1.0001; p += .2) { o += ln(m.l, Y(p), m.l + pw, Y(p), 'grid'); o += txt(m.l - 6, Y(p) + 3.5, Math.round(p * 100) + '%', '', 'end'); }
+  const xt = nice(lo, hi, Math.max(3, Math.floor(pw / 80)));
+  for (const v of xt) { o += ln(X(v), m.t + ph, X(v), m.t + ph + 4, 'ax'); o += txt(X(v), m.t + ph + 16, v, '', 'middle'); }
+  o += ln(m.l, m.t + ph, m.l + pw, m.t + ph, 'ax');
+  o += txt(m.l + pw, H - 2, 'USD M, 2026, ISBL', 'axt', 'end');
+  o += txt(m.l - 6, m.t - 18, 'cumulative', 'axt', 'start');
+  // histogram
+  const nb = Math.max(24, Math.min(64, Math.round(pw / 11))), bw = (hi - lo) / nb, cnt = new Uint32Array(nb);
+  for (let i = 0; i < N; i++) { const k = Math.floor((COST[i] - lo) / bw); if (k >= 0 && k < nb) cnt[k]++; }
+  let cmax = 0; for (const c of cnt) cmax = Math.max(cmax, c);
+  const hTop = cmax / N * 100 / 0.62;
+  const hT = nice(0, hTop, 3).filter(v => v <= hTop);
+  const YH = v => m.t + ph - v / hTop * ph;
+  for (const v of hT) o += txt(m.l + pw + 6, YH(v) + 3.5, v + '%', 'axt', 'start');
+  o += txt(m.l + pw + 44, m.t - 18, 'runs per bin', 'axt', 'end');
+  for (let k = 0; k < nb; k++) if (cnt[k]) { const x0 = X(lo + k * bw), h = cnt[k] / N * 100 / hTop * ph; o += `<rect class="hist" x="${(x0 + .5).toFixed(1)}" y="${(m.t + ph - h).toFixed(1)}" width="${Math.max(1, pw / nb - 1).toFixed(1)}" height="${h.toFixed(1)}"/>`; }
+  // gap shading between budget and P80
+  const p80 = R.p[.8], gx0 = X(Math.min(BUDGET, p80)), gx1 = X(Math.max(BUDGET, p80)), short = p80 > BUDGET;
+  o += `<rect class="${short ? 'gapbad' : 'gapgood'}" x="${gx0.toFixed(1)}" y="${m.t}" width="${(gx1 - gx0).toFixed(1)}" height="${ph}"/>`;
+  o += txt(gx1 + 5, m.t + ph - 8, (short ? 'short ' : 'spare ') + fM(Math.abs(p80 - BUDGET)), short ? 'tbad' : 'tgood', 'start');
+  // base and budget lines
+  o += ln(X(BASE), m.t - 8, X(BASE), m.t + ph, 'vbase');
+  o += X(BASE) < m.l + 90 ? txt(X(BASE) + 4, m.t - 10, 'Base ' + fM(BASE), '', 'start') : txt(X(BASE) - 4, m.t - 10, 'Base ' + fM(BASE), '', 'end');
+  o += ln(X(BUDGET), m.t - 8, X(BUDGET), m.t + ph, 'vbud');
+  o += txt(X(BUDGET) + 4, m.t - 10, 'Base + contingency ' + fM(BUDGET), 'tink', 'start');
+  if (mode === 'bid') {
+    o += ln(X(R.chosen.B), m.t + 14, X(R.chosen.B), m.t + ph, 'vbid');
+    o += txt(X(R.chosen.B) + 4, m.t + 24, 'Bid ' + fM(R.chosen.B), 'twarn', 'start');
+  }
+  // CDF
+  let d = `M${X(lo).toFixed(1)},${Y(0).toFixed(1)}`;
+  for (let k = 0; k <= 400; k++) { const p = k / 400; d += `L${X(Math.min(hi, Math.max(lo, pct(s, p)))).toFixed(1)},${Y(p).toFixed(1)}`; }
+  d += `L${X(hi).toFixed(1)},${Y(1).toFixed(1)}`;
+  o += `<path class="cdf" d="${d}"/>`;
+  // P80 leader
+  o += `<path class="lead" d="M${m.l},${Y(.8).toFixed(1)}H${X(p80).toFixed(1)}V${(m.t + ph).toFixed(1)}"/>`;
+  // percentile markers (labels to the upper left, where the CDF leaves space)
+  for (const q of [.1, .5, .8, .9]) {
+    const x = X(R.p[q]), y = Y(q), k = q === .8;
+    o += `<circle class="pdot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${k ? 4.5 : 3.5}"/>`;
+    o += txt(x - 9, y + (q === .9 ? -4 : 4), `P${q * 100} ${fM(R.p[q])}`, 'plbl' + (k ? ' k' : ''), 'end');
+  }
+  // explain annotations
+  if (document.body.classList.contains('explain')) {
+    const xa = X(p80) + 10, ya = Y(.8) + 30;
+    o += `<path class="exl" d="M${(X(p80) + 4).toFixed(1)},${(Y(.8) + 5).toFixed(1)} L${xa.toFixed(1)},${(ya - 10).toFixed(1)}"/>`;
+    o += txt(xa + 2, ya, '8 in 10 runs cost less than this', 'exn', xa > W - 200 ? 'end' : 'start');
+    const xb = X(BUDGET);
+    o += txt(xb - 6, Y(.97), `money held covers ${Math.round(R.covers * 100)} in 100 runs`, 'exn', 'end');
+  }
+  svg.innerHTML = o;
+  $('#costTag').textContent = `${N.toLocaleString('en-US')} runs · mean ${fM(R.mean)} · σ ${fM(R.sd)} USD M`;
+}
+
+function drawTornado() {
+  const list = (tmode === 'cost' ? R.tc : R.ts).slice().sort((a, b) => Math.abs(b.share) - Math.abs(a.share));
+  const top = list.slice(0, 11), rest = list.slice(11);
+  const rows = top.slice();
+  if (rest.length) rows.push({k:'_other', n:'All other drivers', share: rest.reduce((a, x) => a + x.share, 0), sd: Math.sqrt(rest.reduce((a, x) => a + x.sd * x.sd, 0))});
+  const box = $('#torn'), rh = 26, mx = Math.max(.01, ...rows.map(r => Math.abs(r.share)));
+  box.style.height = rows.length * rh + 'px';
+  const seen = new Set();
+  rows.forEach((r, i) => {
+    const id = 't-' + tmode + '-' + r.k; seen.add(id);
+    let el = document.getElementById(id);
+    if (!el) {
+      el = document.createElement('div'); el.className = 'trow'; el.id = id; el.style.top = (i * rh) + 'px';
+      el.innerHTML = `<span class="nm">${r.tag ? `<span class="tag">${r.tag}</span>` : ''}${esc(r.n)}</span><span class="tr"><span class="bar"></span></span><span class="vv"></span>`;
+      box.appendChild(el);
+    }
+    el.style.top = (i * rh) + 'px';
+    const b = el.querySelector('.bar'); b.style.width = (Math.abs(r.share) / mx * 100).toFixed(1) + '%'; b.classList.toggle('neg', r.share < 0);
+    const unit = tmode === 'cost' ? '' : ' wk';
+    el.querySelector('.vv').innerHTML = `${(r.share * 100).toFixed(0)}% <span>±${r.sd < 10 ? r.sd.toFixed(1) : r.sd.toFixed(0)}${unit}</span>`;
+    el.title = `${r.n}: ${(r.share * 100).toFixed(1)} % of ${tmode === 'cost' ? 'cost' : 'finish-date'} variance`;
+  });
+  [...box.children].forEach(c => { if (!seen.has(c.id)) c.remove(); });
+  $('#thMid').textContent = tmode === 'cost' ? 'Contribution to cost variance' : 'Share of finish-date variance';
+  $('#tornTag').textContent = tmode === 'cost' ? 'Euler allocation, sums to 100 %' : 'r² with MC date, normalised';
+  $('#tornCap').textContent = tmode === 'cost'
+    ? `±1σ in USD M. Total σ ${fM(R.sd)} USD M. Ranks change as you move the settings.`
+    : `±1σ in weeks of MC date attributable to the driver. Total σ ${f1(Math.sqrt(R.ts.reduce((a, x) => a + x.sd * x.sd, 0)))} wk (sum of parts).`;
+  if (R.sd < 1e-6) $('#tornCap').textContent = 'No spread: every range and event is off, so no driver contributes.';
+}
+
+function drawSched() {
+  // distribution
+  const svg = $('#sdist'), W = Math.max(280, svg.clientWidth || svg.parentNode.clientWidth), H = 150;
+  sizeSvg(svg, W, H);
+  const m = {l:44, r:46, t:22, b:28}, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const s = R.ss;
+  let lo = Math.min(MC0, s[0]) - 3, hi = Math.max(pct(s, .998), MC0) + 3;
+  if (hi - lo < 26) hi = lo + 26;
+  const X = w => m.l + (w - lo) / (hi - lo) * pw, Y = p => m.t + (1 - p) * ph;
+  let o = '';
+  for (let p = 0; p <= 1.0001; p += .5) { o += ln(m.l, Y(p), m.l + pw, Y(p), 'grid'); o += txt(m.l - 6, Y(p) + 3.5, Math.round(p * 100) + '%', '', 'end'); }
+  for (const t of dateTicks(lo, hi, Math.max(3, Math.floor(pw / 70)))) { o += ln(X(t.w), m.t + ph, X(t.w), m.t + ph + 4, 'ax'); o += txt(X(t.w), m.t + ph + 15, t.l, '', 'middle'); }
+  o += ln(m.l, m.t + ph, m.l + pw, m.t + ph, 'ax');
+  const nb = Math.max(1, Math.ceil(hi - lo)), cnt = new Uint32Array(nb);
+  for (let i = 0; i < N; i++) { const k = Math.floor(S.mc[i] - lo); if (k >= 0 && k < nb) cnt[k]++; }
+  let cmax = 0; for (const c of cnt) cmax = Math.max(cmax, c);
+  const hTop = cmax / N * 100 / 0.62;
+  for (const v of nice(0, hTop, 2).filter(v => v <= hTop && v > 0)) o += txt(m.l + pw + 6, m.t + ph - v / hTop * ph + 3.5, v + '%', 'axt');
+  o += txt(m.l + pw + 44, m.t - 10, 'runs per week', 'axt', 'end');
+  for (let k = 0; k < nb; k++) if (cnt[k]) { const h = cnt[k] / N * 100 / hTop * ph; o += `<rect class="hist" x="${(X(lo + k) + .5).toFixed(1)}" y="${(m.t + ph - h).toFixed(1)}" width="${Math.max(1, pw / (hi - lo) - 1).toFixed(1)}" height="${h.toFixed(1)}"/>`; }
+  let d = '';
+  for (let k = 0; k <= 200; k++) { const p = k / 200; d += (k ? 'L' : 'M') + X(Math.min(hi, Math.max(lo, pct(s, p)))).toFixed(1) + ',' + Y(p).toFixed(1); }
+  o += `<path class="cdf" d="${d}"/>`;
+  o += ln(X(MC0), m.t - 6, X(MC0), m.t + ph, 'vbase'); o += txt(X(MC0) - 4, m.t - 8, 'Plan ' + fD(MC0), '', 'end');
+  for (const q of [.5, .8]) {
+    const x = X(R.d[q]), y = Y(q);
+    o += `<circle class="pdot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${q === .8 ? 4.5 : 3.5}"/>`;
+    o += txt(x - 9, y + 4, `P${q * 100} ${fD(R.d[q])}`, 'plbl' + (q === .8 ? ' k' : ''), 'end');
+  }
+  svg.innerHTML = o;
+  $('#schedTag').textContent = `NTP ${fDd(0)} (assumed) · plan ${f1(mo(MC0))} months · P80 ${f1(mo(R.d[.8]))} months`;
+  drawGantt();
+}
+
+function drawGantt() {
+  const svg = $('#gantt'), W = Math.max(280, svg.clientWidth || svg.parentNode.clientWidth);
+  const narrow = W < 520;
+  const lw = narrow ? 118 : 178, rw = narrow ? 44 : 56, rh = narrow ? 24 : 22, top = 18;
+  const A = R.p80case, Pn = PLAN;
+  const g = k => A[k], p = k => Pn[k][0];
+  const rows = [
+    {n:'Engineering to IFC', t:'', path:-1, segs:[['geng', 0, g('pipIFC')]], base:[0, p('pipIFC')]},
+    {n:'Fired heaters', t:'H-101/201', path:0, segs:[['gfab', g('hPO'), g('hDel')], ['gfld', g('hDel'), g('hDone')]], base:[p('hPO'), p('hDone')]},
+    {n:'Columns', t:'C-101/201', path:1, segs:[['gfab', g('cPO'), g('cDel')], ['gfld', g('cDel'), g('cDone')]], base:[p('cPO'), p('cDone')]},
+    {n:'Exch., coolers, pumps', t:'', path:3, segs:[['gfab', g('xPO'), g('xDel')], ['gfld', g('xDel'), g('xDone')]], base:[p('xPO'), p('xDone')]},
+    {n:'Civil, foundations, rack', t:'CIV-01', path:2, segs:[['gfld', g('civIFC'), g('rack')]], base:[p('civIFC'), p('rack')]},
+    {n:'Piping bulks, erection, E&I', t:'', path:2, ci:1, segs:[['gfab', g('pipIFC'), g('bulk')], ['gfld', g('pStart'), g('ei')]], base:[p('pipIFC'), p('ei')]},
+    {n:'Pre-comm. to MC', t:'', path:-2, segs:[['gfld', g('endMax'), g('mc')]], base:[p('endMax'), p('mc')]}
+  ];
+  const H = top + rows.length * rh + 26;
+  sizeSvg(svg, W, H);
+  const hi = Math.max(g('mc'), pct(R.ss, .99)) + 4;
+  const pw = W - lw - rw, X = w => lw + w / hi * pw;
+  let o = '';
+  for (const t of dateTicks(0, hi, Math.max(3, Math.floor(pw / 64)))) { o += ln(X(t.w), top - 4, X(t.w), top + rows.length * rh, 'grid'); o += txt(X(t.w), top - 7, t.l, 'axt', 'middle'); }
+  rows.forEach((r, i) => {
+    const y = top + i * rh, crit = r.path === R.p80crit || (r.path === -2);
+    o += `<g class="${crit && r.path >= 0 ? 'crit' : ''}">`;
+    o += txt(4, y + rh / 2 + 4, esc(r.n) + (r.t && !narrow ? ` <tspan class="axt">${r.t}</tspan>` : ''), 'glbl');
+    o += `<rect class="gbase" x="${X(r.base[0]).toFixed(1)}" y="${(y + 3).toFixed(1)}" width="${Math.max(1, X(r.base[1]) - X(r.base[0])).toFixed(1)}" height="${rh - 6}"/>`;
+    for (const [c, a, b] of r.segs) if (b > a) o += `<rect class="${c}" x="${X(a).toFixed(1)}" y="${(y + 6).toFixed(1)}" width="${Math.max(1, X(b) - X(a)).toFixed(1)}" height="${rh - 12}" rx="1"/>`;
+    if (r.path >= 0 && !(r.path === 2 && !r.ci)) o += txt(W - 2, y + rh / 2 + 4, 'CI ' + pc(R.ci[r.path]), 'gci' + (crit ? ' plbl k' : ''), 'end');
+    o += '</g>';
+  });
+  // milestones
+  const yb = top + rows.length * rh + 4;
+  const dm = (x, cls) => `<path class="${cls}" d="M${x.toFixed(1)},${yb} l5,6 l-5,6 l-5,-6z"/>`;
+  o += dm(X(MC0), 'ms0') + dm(X(g('mc')), 'ms');
+  o += txt(4, yb + 10, `MC: ◇ plan ${fDs(MC0)}  ◆ P80 case ${fDs(g('mc'))}`, 'glbl');
+  svg.innerHTML = o;
+}
+
+let TK = null;
+function tokens() {
+  const cs = getComputedStyle(document.documentElement), g = n => cs.getPropertyValue(n).trim();
+  TK = {line:g('--line'), ink:g('--ink'), dim:g('--dim'), faint:g('--faint'), acc:g('--violet'), bad:g('--bad'), good:g('--good'), warn:g('--warn'), surface:g('--surface'), surface2:g('--surface2')};
+}
+function hexA(h, a) {
+  h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  const n = parseInt(h, 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`;
+}
+function drawScatter() {
+  const cv = $('#scatter'), W = Math.max(280, cv.parentNode.clientWidth), H = W < 560 ? 260 : 330, dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.height = H + 'px';
+  const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+  const m = {l:46, r:14, t:16, b:34}, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  let x0 = Math.min(pct(R.ss, .001), MC0) - 2, x1 = Math.max(pct(R.ss, .999), MC0) + 2;
+  if (x1 - x0 < 26) x1 = x0 + 26;
+  let y0 = Math.min(pct(R.sc, .001), BASE) - 3, y1 = Math.max(pct(R.sc, .999), BUDGET) + 3;
+  if (y1 - y0 < 40) y1 = y0 + 40;
+  const X = w => m.l + (w - x0) / (x1 - x0) * pw, Y = v => m.t + (1 - (v - y0) / (y1 - y0)) * ph;
+  c.font = '10.5px "IBM Plex Mono", ui-monospace, monospace'; c.lineWidth = 1;
+  c.strokeStyle = TK.line; c.fillStyle = TK.dim;
+  c.textAlign = 'right';
+  for (const v of nice(y0, y1, 5)) { c.globalAlpha = .6; c.beginPath(); c.moveTo(m.l, Y(v) + .5); c.lineTo(m.l + pw, Y(v) + .5); c.stroke(); c.globalAlpha = 1; c.fillText(v, m.l - 6, Y(v) + 3.5); }
+  c.textAlign = 'center';
+  for (const t of dateTicks(x0, x1, Math.max(3, Math.floor(pw / 70)))) { c.beginPath(); c.moveTo(X(t.w) + .5, m.t + ph); c.lineTo(X(t.w) + .5, m.t + ph + 4); c.stroke(); c.fillText(t.l, X(t.w), m.t + ph + 15); }
+  c.beginPath(); c.moveTo(m.l, m.t + ph + .5); c.lineTo(m.l + pw, m.t + ph + .5); c.stroke();
+  c.fillStyle = TK.faint; c.textAlign = 'right'; c.fillText('MC date →', m.l + pw, H - 3); c.textAlign = 'left'; c.fillText('USD M', 2, m.t - 4);
+  // P80 box
+  const c80 = R.p[.8], d80 = R.d[.8];
+  c.fillStyle = hexA(TK.acc, .07); c.fillRect(m.l, Y(c80), X(d80) - m.l, m.t + ph - Y(c80));
+  // dots
+  const sz = W < 560 ? 1.6 : 2;
+  c.fillStyle = hexA(TK.faint, .35);
+  for (let i = 0; i < N; i++) if (!(COST[i] <= c80 && S.mc[i] <= d80)) c.fillRect(X(S.mc[i]) - sz / 2, Y(COST[i]) - sz / 2, sz, sz);
+  c.fillStyle = hexA(TK.acc, .30);
+  for (let i = 0; i < N; i++) if (COST[i] <= c80 && S.mc[i] <= d80) c.fillRect(X(S.mc[i]) - sz / 2, Y(COST[i]) - sz / 2, sz, sz);
+  // lines
+  c.setLineDash([4, 3]); c.strokeStyle = TK.acc; c.lineWidth = 1.2;
+  c.beginPath(); c.moveTo(m.l, Y(c80)); c.lineTo(m.l + pw, Y(c80)); c.moveTo(X(d80), m.t); c.lineTo(X(d80), m.t + ph); c.stroke();
+  c.setLineDash([]); c.strokeStyle = TK.ink; c.lineWidth = 1.2;
+  c.beginPath(); c.moveTo(m.l, Y(BUDGET)); c.lineTo(m.l + pw, Y(BUDGET)); c.stroke();
+  c.font = '11px "IBM Plex Mono", ui-monospace, monospace';
+  c.fillStyle = TK.ink; c.textAlign = 'right'; c.fillText('base + contingency ' + fM(BUDGET), m.l + pw - 4, Y(BUDGET) + (Y(BUDGET) < Y(c80) ? -5 : 13));
+  c.fillStyle = TK.acc; c.fillText('P80 cost ' + fM(c80), m.l + pw - 4, Y(c80) + (Y(BUDGET) < Y(c80) ? 13 : -5));
+  c.textAlign = X(d80) > m.l + pw - 120 ? 'right' : 'left';
+  c.fillText('P80 date ' + fD(d80), X(d80) + (c.textAlign === 'left' ? 5 : -5), m.t + 10);
+  // plan point
+  c.strokeStyle = TK.ink; c.lineWidth = 1.5; const px = X(MC0), py = Y(BASE);
+  c.beginPath(); c.moveTo(px - 5, py - 5); c.lineTo(px + 5, py + 5); c.moveTo(px - 5, py + 5); c.lineTo(px + 5, py - 5); c.stroke();
+  c.fillStyle = TK.ink; c.textAlign = 'left'; c.fillText('plan', px + 8, py + 4);
+  $('#jointTag').textContent = `${N.toLocaleString('en-US')} runs`;
+  $('#jointCap').innerHTML = `Shaded box: cost ≤ P80 and MC ≤ P80. <b>${pc(R.joint)}</b> of runs meet both, so "P80 on cost and on time" is a ${pc(R.joint)} proposition, not 80 %.`;
+}
+
+function drawBid() {
+  const svg = $('#bidc'), W = Math.max(280, svg.clientWidth || svg.parentNode.clientWidth), H = W < 560 ? 250 : 300;
+  sizeSvg(svg, W, H);
+  const m = {l:44, r:52, t:22, b:36}, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const xs = R.bid, xlo = -0.05, xhi = 0.30;
+  const X = v => m.l + (v - xlo) / (xhi - xlo) * pw, Y = p => m.t + (1 - p) * ph;
+  const eps = xs.map(o => o.ep);
+  let elo = Math.min(0, ...eps), ehi = Math.max(1, ...eps);
+  const et = nice(elo, ehi, 4); elo = Math.min(elo, et[0]); ehi = Math.max(ehi, et[et.length - 1]);
+  const YE = v => m.t + (1 - (v - elo) / (ehi - elo)) * ph;
+  let o = '';
+  for (let p = 0; p <= 1.0001; p += .2) { o += ln(m.l, Y(p), m.l + pw, Y(p), 'grid'); o += txt(m.l - 6, Y(p) + 3.5, Math.round(p * 100) + '%', '', 'end'); }
+  for (const v of et) o += txt(m.l + pw + 6, YE(v) + 3.5, v, 'axt');
+  o += txt(m.l + pw + 50, m.t - 9, 'exp. profit USD M', 'axt', 'end');
+  for (let v = -0.05; v <= 0.3001; v += 0.05) { o += ln(X(v), m.t + ph, X(v), m.t + ph + 4, 'ax'); o += txt(X(v), m.t + ph + 15, Math.round(v * 100) + '%', '', 'middle'); }
+  o += txt(m.l + pw, H - 2, 'margin on USD ' + fM(BUDGET) + ' M; bid = ' + fM(BUDGET * 0.95) + '…' + fM(BUDGET * 1.3), 'axt', 'end');
+  o += ln(m.l, m.t + ph, m.l + pw, m.t + ph, 'ax');
+  if (elo < 0) o += ln(m.l, YE(0), m.l + pw, YE(0), 'epz');
+  const path = (f, Yf) => xs.map((o2, k) => (k ? 'L' : 'M') + X(o2.m).toFixed(1) + ',' + Yf(f(o2)).toFixed(1)).join('');
+  o += `<path class="pw" d="${path(z => z.pw, Y)}"/><path class="pl" d="${path(z => z.pl, Y)}"/><path class="ep" d="${path(z => z.ep, YE)}"/>`;
+  const ch = R.chosen, b = R.best;
+  o += ln(X(ch.m), m.t, X(ch.m), m.t + ph, 'vbid');
+  o += `<circle class="pdot" cx="${X(ch.m).toFixed(1)}" cy="${Y(ch.pw).toFixed(1)}" r="3.5"/>`;
+  o += `<circle cx="${X(ch.m).toFixed(1)}" cy="${Y(ch.pl).toFixed(1)}" r="3.5" style="fill:var(--surface);stroke:var(--bad);stroke-width:2"/>`;
+  o += txt(X(ch.m) + 6, Y(ch.pw) - 6, 'P(win) ' + pc(ch.pw), 'plbl k');
+  o += txt(X(ch.m) + 6, Y(ch.pl) + 14, 'P(loss) ' + pc(ch.pl), 'tbad');
+  o += `<circle class="opt" cx="${X(b.m).toFixed(1)}" cy="${YE(b.ep).toFixed(1)}" r="4.5"/>`;
+  o += txt(X(b.m), YE(b.ep) - 9, 'max E[profit] ' + fM(b.ep), 'plbl', 'middle');
+  svg.innerHTML = o;
+
+  const tiles = [
+    {k:'Bid price', v:fM(ch.B), u:'USD M', s:sgn((ch.B / BASE - 1) * 100) + ' % on base'},
+    {k:'P(win)', v:Math.round(ch.pw * 100), u:'%', s:'illustrative curve'},
+    {k:'P(loss | win)', v:Math.round(ch.pl * 100), u:'%', s:'cost exceeds price', c:ch.pl > .25 ? 'bad' : ''},
+    {k:'Profit if won (mean)', v:fM(ch.ewin), u:'USD M', s:'P90 cost case ' + sgn(ch.down)},
+    {k:'Expected profit', v:fM(ch.ep), u:'USD M', s:'P(win) × mean profit', c:'key'},
+    {k:'Margin at P50 cost', v:f1((ch.B / R.p[.5] - 1) * 100), u:'%', s:'on P50 ' + fM(R.p[.5])}
+  ];
+  $('#bidTiles').innerHTML = tiles.map(t => `<div class="tile ${t.c || ''}"><div class="k">${t.k}</div><div class="v">${t.v}<small>${t.u}</small></div><div class="s">${t.s}</div></div>`).join('');
+  $('#optLine').innerHTML = `Highest expected profit at <b>${sgn(b.m * 100)} % margin</b> (bid USD ${fM(b.B)} M): P(win) ${pc(b.pw)}, P(loss | win) ${pc(b.pl)}, expected profit USD ${fM(b.ep)} M.`;
+  $('#budTxt').textContent = fM(BUDGET);
+}
+
+let basisTimer = 0;
+function renderBasis() {
+  const rowsH = [];
+  const sorted = new Float32Array(N);
+  let maxHi = 0; const stats = [];
+  for (let l = 0; l < NL; l++) {
+    for (let i = 0; i < N; i++) sorted[i] = LC[i * NL + l];
+    sorted.sort();
+    const st = {p10: pct(sorted, .1), p50: pct(sorted, .5), p90: pct(sorted, .9)};
+    stats.push(st); maxHi = Math.max(maxHi, st.p90 / LINES[l].b);
+  }
+  const span = Math.max(1.6, maxHi * 1.05);
+  LINES.forEach((L, l) => {
+    const st = stats[l], p = LP[L.k];
+    const a = st.p10 / L.b / span * 100, b = st.p90 / L.b / span * 100, base = 1 / span * 100;
+    rowsH.push(`<tr><td>${esc(L.n)}${L.cnt ? ` <span class="tag" style="color:var(--faint)">${L.cnt} items</span>` : ''}</td><td class="n">${f1(L.b)}</td><td class="n">${f1(L.b / BASE * 100)} %</td>` +
+      `<td class="n">${f1(st.p10)}</td><td class="n">${f1(st.p90)}</td>` +
+      `<td><div class="rng" title="P10 to P90 relative to base"><i style="left:${a.toFixed(1)}%;width:${Math.max(.5, b - a).toFixed(1)}%"></i><b style="left:${base.toFixed(1)}%"></b></div></td>` +
+      `<td class="n">−${Math.round(p.lo * 100)}/+${Math.round(p.hi * 100)}</td><td style="color:var(--dim);font-size:12px">${esc(p.why)}</td></tr>`);
+  });
+  $('#basis').innerHTML = `<thead><tr><th>Line</th><th class="n">Base USD M</th><th class="n">Share</th><th class="n">P10</th><th class="n">P90</th><th>P10–P90 vs base (bar mark)</th><th class="n">Class 4 range %</th><th>Basis note</th></tr></thead><tbody>${rowsH.join('')}` +
+    `<tr class="tot"><td>Base estimate (excl. contingency)</td><td class="n">${f1(BASE)}</td><td class="n">100 %</td><td class="n">${f1(R.p[.1])}</td><td class="n">${f1(R.p[.9])}</td><td colspan="3" style="color:var(--dim);font-weight:400;font-size:12px">Total P10/P90 also include delay cost and discrete events. Contingency held ${f1(CONT)}, total ${f1(BUDGET)} (issued: ${D.issued.tic.toFixed(1)}).</td></tr></tbody>`;
+  $('#ll').innerHTML = '<span>Long-lead items in the schedule model:</span>' + D.longlead.map(x => `<span title="${esc(x.size)}"><span class="tag">${x.tag}</span> ${esc(x.svc)} · ${f1(x.ce)} M</span>`).join('');
+}
+
+function renderExplain() {
+  const tc = R.tc.slice().sort((a, b) => b.share - a.share);
+  const t2 = tc[0].share + tc[1].share;
+  $('#exStrip').textContent = `Read the strip left to right. The base estimate is the engineer's best single number. P50 is a coin toss: half the simulated projects cost more. P80 is the budget most boards approve: 8 in 10 simulated projects cost less. The money we hold is base plus contingency, USD ${fM(BUDGET)} M.`;
+  $('#exCost').textContent = `Each of the ${N.toLocaleString('en-US')} runs prices the unit once, with every risk on the left drawn at random. The curve shows the share of runs at or below each cost. Read across from 80 % to the curve and down: there is an 8 in 10 chance the unit costs USD ${fM(R.p[.8])} M or less. What we hold, USD ${fM(BUDGET)} M, is enough in ${Math.round(R.covers * 100)} runs out of 100.`;
+  $('#exTorn').textContent = R.sd < 1e-6 ? 'All ranges are off, so nothing varies.' : `Bars show where the uncertainty comes from: a long bar moves the total most. ${tc[0].n} and ${tc[1].n.toLowerCase()} explain ${Math.round(t2 * 100)} % of the spread, so those are the first things to buy down (fix the price, get a quote, or carry them explicitly).`;
+  $('#exSched').textContent = `Same reading for the finish date. Below, the dashed outline is the plan with no risk and the filled bars are a typical P80 run. The coloured row is the chain of work that sets the finish in those runs: ${PATHS[R.p80crit].lc}. Shortening any other row does not bring the date in.`;
+  $('#exJoint').textContent = `Each dot is one simulated project: finish date across, cost up. Late projects tend to cost more because the site crew and overheads stay longer. Dots in the shaded box hit both the P80 cost and the P80 date; that is only ${pc(R.joint)} of runs.`;
+  $('#exBid').textContent = `A higher margin earns more if we win but wins less often. The expected-profit curve multiplies the two; its peak is the best risk-neutral price. The red curve is the chance that, having won, the job costs more than the price. At the chosen bid that is ${pc(R.chosen.pl)}.`;
+}
+
+/* ---------------- update loop ---------------- */
+let pending = false;
+function queue() { if (!pending) { pending = true; requestAnimationFrame(update); } }
+function update() {
+  pending = false;
+  R = simulate();
+  const t0 = performance.now();
+  renderStrip(); renderVerdict(); drawCost(); drawTornado();
+  if (mode === 'risk') { drawSched(); drawScatter(); } else drawBid();
+  renderExplain();
+  const tr = performance.now() - t0;
+  $('#perf').textContent = `${N.toLocaleString('en-US')} iterations · simulate ${R.ms.toFixed(0)} ms · draw ${tr.toFixed(0)} ms · seed ${SEED}`;
+  clearTimeout(basisTimer); basisTimer = setTimeout(renderBasis, 140);
+  window.__p80 = {P, R: {p10: R.p[.1], p50: R.p[.5], p80: R.p[.8], p90: R.p[.9], mean: R.mean, sd: R.sd, covers: R.covers,
+    d50: R.d[.5], d80: R.d[.8], mc0: MC0, base: BASE, budget: BUDGET, joint: R.joint, ci: R.ci, p80crit: R.p80crit, ms: R.ms,
+    chosen: R.chosen, best: R.best}};
+}
+function redrawAll() { if (!R) return; drawCost(); if (mode === 'risk') { drawSched(); drawScatter(); } else drawBid(); }
+
+function setMode(m) {
+  mode = m;
+  $('#modeRisk').setAttribute('aria-pressed', String(m === 'risk')); $('#modeBid').setAttribute('aria-pressed', String(m === 'bid'));
+  $('#riskRow').hidden = m !== 'risk'; $('#bidRow').hidden = m !== 'bid'; $('#bidLeg').hidden = m !== 'bid';
+  queue();
+}
+
+/* ---------------- tour ---------------- */
+const TOUR = [
+  {sel:'#strip', t:'The headline', x:'Base estimate from CFU-000-PM-EST-001 (USD 210.0 M before contingency), what the simulation says at P50 and P80, the USD 42.0 M contingency carried, and the finish date at P80.', a:() => { applyPreset('base'); setMode('risk'); }},
+  {sel:'#costCard', t:'The S-curve', x:'Ten thousand priced versions of the same unit. Read across at 80 % and down to the cost. The black line is the money we hold; the red band is the gap to P80.'},
+  {sel:'#verdict', t:'The verdict', x:'One line for the board: which percentile our contingency buys, the gap to P80, and what contingency P80 would need.'},
+  {sel:'#tornadoCard', t:'What drives the spread', x:'Each bar is a driver\'s share of cost variance (Euler allocation, so the bars add to 100 %). Watch it re-rank as the settings change.'},
+  {sel:'#strip', t:'Supply-chain shock', x:'Alloy prices up 22 %, more imported content and FX swing, and an 80 % chance the fired heaters slip about six months. P80 moves up and the heaters become the critical path.', a:() => applyPreset('shock')},
+  {sel:'#schedCard', t:'Critical path at P80', x:'Dashed outline: the plan. Filled bars: a typical P80 run. The violet row sets the finish date in those runs; CI is how often each chain is critical across all runs.'},
+  {sel:'#scatterCard', t:'Cost and time together', x:'Delay costs money (field indirects per month), so late runs sit high. Fewer runs meet both P80 targets than either one alone.'},
+  {sel:'#bidRow', t:'Bid mode', x:'Pick a margin. Win probability falls as price rises; the cost risk gives the chance of losing money if we win. The expected-profit curve peaks at the best risk-neutral bid.', a:() => { applyPreset('base'); setMode('bid'); }},
+  {sel:'#verdict', t:'Buying down risk', x:'Mature design (Class 3): vendor quotes for H-101, H-201, C-101, C-201 and the desalters, a geotech survey and the rigorous simulation done. Ranges narrow and the same contingency buys a higher percentile.', a:() => { setMode('risk'); applyPreset('class3'); }}
+];
+let ti = -1;
+function tourShow(i) {
+  document.querySelectorAll('.tour-hi').forEach(e => e.classList.remove('tour-hi'));
+  if (i < 0 || i >= TOUR.length) { $('#tour').hidden = true; ti = -1; return; }
+  ti = i; const s = TOUR[i];
+  if (s.a) s.a();
+  $('#tour').hidden = false; $('#tourTtl').textContent = s.t; $('#tourTxt').textContent = s.x;
+  $('#tourCt').textContent = (i + 1) + ' / ' + TOUR.length;
+  $('#tourBack').disabled = i === 0; $('#tourNext').textContent = i === TOUR.length - 1 ? 'Finish' : 'Next';
+  requestAnimationFrame(() => { const el = $(s.sel); if (el) { el.classList.add('tour-hi'); el.scrollIntoView({block:'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); } });
+}
+
+/* ---------------- wiring ---------------- */
+function init() {
+  tokens();
+  buildControls(); syncControls();
+  $('#foot').innerHTML = `Base estimate lines: ${esc(D.doc)} (${esc(D.basis)}), recomputed from data/equipment.json and data/mech.json by sims/p80/extract.py: PEC ${f1(D.summary.pec)}, installed ISBL ${f1(D.summary.isbl)}, D&amp;E ${f1(D.summary.eng)}, contingency ${f1(D.summary.cont)}, total ${f1(D.summary.tic)} USD M. ` +
+    `Schedule logic follows cfu/wrapup/activities.py (${D.act_counts.done} done, ${D.act_counts.partial} partial, ${D.act_counts.open} open activities); durations, risk ranges, probabilities, the NTP date and the win curve are illustrative and user-set, not company data. ` +
+    `Cost impacts are added (first order); the time-related cost applies only to finish dates past the plan MC. Excludes OSBL, owner's costs and escalation beyond 2026 USD, as the estimate does. Seeded RNG (seed ${SEED}): the same settings always give the same answer.`;
+  document.querySelectorAll('#presets button').forEach(b => b.addEventListener('click', () => applyPreset(b.dataset.p)));
+  $('#modeRisk').addEventListener('click', () => setMode('risk'));
+  $('#modeBid').addEventListener('click', () => setMode('bid'));
+  $('#tCost').addEventListener('click', () => { tmode = 'cost'; $('#tCost').setAttribute('aria-pressed', 'true'); $('#tSched').setAttribute('aria-pressed', 'false'); drawTornado(); });
+  $('#tSched').addEventListener('click', () => { tmode = 'sched'; $('#tSched').setAttribute('aria-pressed', 'true'); $('#tCost').setAttribute('aria-pressed', 'false'); drawTornado(); });
+  $('#explainBtn').addEventListener('click', e => { const on = document.body.classList.toggle('explain'); e.currentTarget.setAttribute('aria-pressed', String(on)); redrawAll(); });
+  const themes = ['auto', 'light', 'dark'];
+  $('#themeBtn').addEventListener('click', e => {
+    const cur = document.documentElement.dataset.theme || 'auto', nx = themes[(themes.indexOf(cur) + 1) % 3];
+    if (nx === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = nx;
+    e.currentTarget.textContent = 'Theme: ' + nx; tokens(); redrawAll();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { tokens(); redrawAll(); });
+  $('#tourBtn').addEventListener('click', () => tourShow(0));
+  $('#tourNext').addEventListener('click', () => tourShow(ti + 1));
+  $('#tourBack').addEventListener('click', () => tourShow(ti - 1));
+  $('#tourEnd').addEventListener('click', () => tourShow(-1));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && ti >= 0) tourShow(-1); });
+  let rw = 0;
+  new ResizeObserver(() => { const w = document.documentElement.clientWidth; if (w !== rw) { rw = w; redrawAll(); } }).observe(document.body);
+  update();
+  if (/[?&]tour\b/.test(location.search) || location.hash === '#tour') setTimeout(() => tourShow(0), 300);
+}
+init();
+})();
+</script>
