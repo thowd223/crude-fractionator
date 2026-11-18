@@ -112,7 +112,7 @@ input[type=range]::-moz-range-thumb{width:12px;height:16px;border-radius:3px;bac
 .kpi .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kpi .v{font-family:var(--f-display);font-weight:700;font-size:25px;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap}
 .kpi .v small{font-family:var(--f-mono);font-weight:400;font-size:11.5px;color:var(--dim);margin-left:4px}
-.kpi .s{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .s{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);line-height:1.3}
 
 /* network */
 .nethd{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;padding:10px 12px 6px}
@@ -134,7 +134,7 @@ input[type=range]::-moz-range-thumb{width:12px;height:16px;border-radius:3px;bac
 #net.dimidle .edge{opacity:.75}
 #net .edge.hot{stroke:var(--accent);stroke-width:1.3;opacity:.6}
 #net .edge.hot.flow{stroke-dasharray:3 5;animation:dash 1.4s linear infinite}
-#net .edge.crit{stroke:var(--accent);stroke-width:3.2;opacity:1;stroke-dasharray:none;animation:none}
+#net .edge.crit,#net .edge.hot.flow.crit{stroke:var(--accent);stroke-width:3.2;opacity:1;stroke-dasharray:none;animation:none}
 #net .edge.focus{stroke:var(--ink);stroke-width:1.6;opacity:.9}
 @keyframes dash{to{stroke-dashoffset:-16}}
 #net .loop{fill:none;stroke:var(--faint);stroke-width:1;stroke-dasharray:2 3;opacity:.55}
@@ -173,7 +173,9 @@ input[type=range]::-moz-range-thumb{width:12px;height:16px;border-radius:3px;bac
 table.t{width:100%;border-collapse:collapse;font-size:12.5px}
 table.t th{font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
 table.t td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-table.t td.num,table.t th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.num,table.t th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+table.t th.num{white-space:nowrap}
+table.t td{padding:5px 6px}
 table.t td.m{font-family:var(--f-mono);font-size:12px;white-space:nowrap}
 table.t tr.how td{background:var(--surface2);padding:8px 10px 10px 30px}
 table.t tr.how ul{margin:0;padding-left:16px;font-family:var(--f-mono);font-size:11.5px;color:var(--ink);line-height:1.55}
@@ -184,7 +186,7 @@ table.t tr.how li::marker{color:var(--faint)}
 .chip{display:inline-block;font-size:10.5px;letter-spacing:.04em;padding:1px 6px;border-radius:3px;border:1px solid var(--line);color:var(--dim);white-space:nowrap;font-weight:600}
 .chip.new,.chip.s3{border-color:var(--bad);color:var(--bad)}
 .chip.resize,.chip.s2{border-color:var(--warn);color:var(--warn)}
-.chip.rerate,.chip.s1{border-color:var(--accent);color:var(--accent)}
+.chip.rerate,.chip.basis,.chip.s1{border-color:var(--accent);color:var(--accent)}
 .chip.ok,.chip.s0{color:var(--dim)}
 .chip.st{font-weight:500}
 .sub-h{font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:14px 0 6px}
@@ -244,7 +246,12 @@ table.t tr.how li::marker{color:var(--faint)}
   .brand h1{font-size:22px}
   .brand .meta{display:none}
   .kpi .v{font-size:21px}
+  .scn label span{display:none}
+  .scn{flex-direction:row;flex-wrap:wrap}
+  .scn label{padding:6px 9px}
 }
+.nethint{display:none;font-size:11.5px;color:var(--faint);padding:0 12px 4px}
+@media (max-width:920px){.nethint{display:block}}
 </style>
 
 <div class="app">
@@ -294,6 +301,7 @@ table.t tr.how li::marker{color:var(--faint)}
           <label class="opt" for="optLoops"><input type="checkbox" id="optLoops" checked> Iteration loops</label>
           <label class="opt" for="optCrit"><input type="checkbox" id="optCrit" checked> Critical chain</label>
         </div>
+        <div class="nethint">Scroll the network sideways; tap a node for detail.</div>
         <div class="netwrap"><svg id="net" role="img" aria-label="Activity network by discipline lane and design wave"></svg></div>
         <div class="ticker"><span class="t" id="tickT">hop 0</span><span class="m" id="tickM"></span></div>
       </section>
@@ -499,7 +507,10 @@ function evalProcess(F) {
   const g = F.g, rows = [], changed = new Set(), resized = new Set(), why = {};
   const W = (id, s) => (why[id] = why[id] || []).push(s);
   let mechResize = false, plotChange = false, gaTags = new Set();
-  const add = r => { rows.push(r); if (r.chg) changed.add(base(r.tag)); if (r.v === 'resize' || r.v === 'new') { resized.add(base(r.tag)); } };
+  const add = r => {
+    if (r.fm !== undefined && r.fm < 0.995 && !(F.c101 && F.c101.tall && r.tag === 'C-101')) { r.v = 'ok'; r.dc = 0; r.sev = 0; r.b = r.a + ' (spare)'; r.how.push('Load falls: the Rev A item keeps spare capacity and is not downsized at Rev B'); }
+    else if (r.fm !== undefined && r.v === 'rerate' && r.fm < 1.005) r.v = 'ok';
+    rows.push(r); if (r.chg) changed.add(base(r.tag)); if (r.v === 'resize' || r.v === 'new') { resized.add(base(r.tag)); } };
   const nearly1 = x => Math.abs(x - 1) < 0.005;
   D.eq.forEach(e => { delete e._bays1; });
 
@@ -530,9 +541,9 @@ function evalProcess(F) {
         `Operating weight (breakdown scaled: shell, heads, internals, liquid ∝ D²; platforms, insulation ∝ D): ${fmt(wo0, 1)} → ${fmt(wo1, 1)} t`,
         `Cost: six-tenths on shell weight${tall ? ' + 30 % tray share × added trays' : ''}: ${sgn(dc / 1e6, 2)} USD M purchased`];
       if (tall) how.splice(1, 0, `+4 trays × 0.61 m: T/T ${e.H} → ${(e.H + addL).toFixed(1)} m, trays 41 → 45`);
-      add({tag: 'C-101', svc: e.service, par: tall && !res ? 'T/T height, trays' : 'Shell ID (main)', a: tall && !res ? `${e.H} m, 41 trays` : `${e.D.toFixed(1)} m`,
+      add({fm: Math.max(...sf), tag: 'C-101', svc: e.service, par: tall && !res ? 'T/T height, trays' : 'Shell ID (main)', a: tall && !res ? `${e.H} m, 41 trays` : `${e.D.toFixed(1)} m`,
         b: tall && !res ? `${(e.H + addL).toFixed(1)} m, 45 trays` : `${Dm.toFixed(1)} m${tall ? ', 45 trays' : ', trays unchanged'}`,
-        d: `shell ${pc(sh.r)}`, v: res || tall ? 'resize' : 'rerate', chg: true, how, dc, sev: res || tall ? 3 : 2});
+        d: `${(flood1 * 100).toFixed(0)} % flood @ ${e.D} m`, v: res || tall ? 'resize' : 'rerate', chg: true, how, dc, sev: res || tall ? 3 : 2});
       if (res || tall) { mechResize = true; gaTags.add('C-101'); W('MEC-01', `C-101 shell ${res ? e.D + ' → ' + Dm.toFixed(1) + ' m ID' : 'taller by ' + addL.toFixed(2) + ' m'}, shell weight ${pc(sh.r)}`); W('PRC-02', `C-101 ${gov.n} at ${(flood1 * 100).toFixed(0)} % flood on ${e.D} m: ${res ? 'diameter ' + Dm.toFixed(1) + ' m' : 'within diameter'}`); }
       if (tall) W('CIV-01', `C-101 taller: wind overturning moment up about ${pc(((e.H + addL + 6.5) / (e.H + 6.5)) ** 2)}`);
       F.c101 = {Dm, res, tall, addL};
@@ -542,7 +553,7 @@ function evalProcess(F) {
   [['C-102', g.KERO], ['C-103', g.DIESEL], ['C-104', g.AGO]].forEach(([t, f]) => {
     if (nearly1(f)) return; const e = EQ[t], d1 = Math.max(ru(e.D * Math.sqrt(f), 0.1), e.D), res = d1 > e.D + 1e-6;
     const sh = colShell(t, {[e.D * 1000]: d1 / e.D}, 0), dc = sixTenths(COSTI[t][0] * 1000, sh.r);
-    add({tag: t, svc: e.service, par: 'Shell ID', a: `${e.D.toFixed(1)} m`, b: `${d1.toFixed(1)} m`, d: `draw ${pc(f)}`, v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
+    add({fm: f, tag: t, svc: e.service, par: 'Shell ID', a: `${e.D.toFixed(1)} m`, b: `${d1.toFixed(1)} m`, d: `draw ${pc(f)}`, v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
       how: [`Draw and stripping steam × ${f.toFixed(3)} (${GNAME[{'C-102': 'KERO', 'C-103': 'DIESEL', 'C-104': 'AGO'}[t]]})`,
         `Rev A ID is liquid/vapour-limited and stored rounded; scaled conservatively: ${e.D} × √${f.toFixed(3)} = ${(e.D * Math.sqrt(f)).toFixed(3)} → ${d1.toFixed(1)} m`,
         ...(res ? sh.t : []), `Cost: six-tenths on shell weight: ${sgn(dc / 1e6, 3)} USD M`]});
@@ -552,7 +563,7 @@ function evalProcess(F) {
     if (nearly1(ft) && nearly1(fb)) return; const e = EQ[t];
     const dt = c.top * Math.sqrt(ft), db = c.bot * Math.sqrt(fb), d1 = Math.max(ru(Math.max(dt, db), 0.1), e.D), res = d1 > e.D + 1e-6;
     const sh = colShell(t, {[e.D * 1000]: d1 / e.D}, 0), dc = sixTenths(COSTI[t][0] * 1000, sh.r);
-    add({tag: t, svc: e.service, par: 'Shell ID', a: `${e.D.toFixed(1)} m`, b: `${d1.toFixed(1)} m`, d: `vapour ${pc(Math.max(ft, fb))}`, v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
+    add({fm: Math.max(ft, fb), tag: t, svc: e.service, par: 'Shell ID', a: `${e.D.toFixed(1)} m`, b: `${d1.toFixed(1)} m`, d: `vapour ${pc(Math.max(ft, fb))}`, v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
       how: [`Top section D_calc ${c.top.toFixed(3)} × √${ft.toFixed(3)} = ${dt.toFixed(3)} m; bottom ${c.bot.toFixed(3)} × √${fb.toFixed(3)} = ${db.toFixed(3)} m`,
         `ID = round-up(max, 0.1 m) = ${d1.toFixed(1)} m (Rev A ${e.D} m)`, ...(res ? sh.t : []), `Cost: six-tenths on shell weight: ${sgn(dc / 1e6, 3)} USD M`]});
     if (res) { mechResize = true; gaTags.add(t); }
@@ -567,7 +578,7 @@ function evalProcess(F) {
       const res = mid > e.D + 1e-6 || bot > e.D2 + 1e-6 || top > e.D3 + 1e-6;
       const sh = colShell('C-201', {6600: mid / e.D, 3000: bot / e.D2, 4400: top / e.D3}, 0), dc = sixTenths(COSTI['C-201'][0] * 1000, sh.r);
       const pk = (mid / e.D) ** 2;
-      add({tag: 'C-201', svc: e.service, par: 'ID top / main / boot', a: `${e.D3.toFixed(1)} / ${e.D.toFixed(1)} / ${e.D2.toFixed(1)} m`, b: `${top.toFixed(1)} / ${mid.toFixed(1)} / ${bot.toFixed(1)} m`,
+      add({fm: Math.max(...sf), tag: 'C-201', svc: e.service, par: 'ID top / main / boot', a: `${e.D3.toFixed(1)} / ${e.D.toFixed(1)} / ${e.D2.toFixed(1)} m`, b: `${top.toFixed(1)} / ${mid.toFixed(1)} / ${bot.toFixed(1)} m`,
         d: `shell ${pc(sh.r)}`, v: res ? 'resize' : 'rerate', chg: true, dc: dc + (res ? COSTI['C-201'][0] * 1000 * 0.35 * (pk - 1) : 0), sev: res ? 3 : 2,
         how: [`Rule: packed-bed D ∝ √(vapour load) at constant capacity factor (sizing.py packing_diameter); beds carry VGO + slop wax vapour, stripping trays carry VR steam`,
           ...sec.map(s => `${s.n.padEnd(24)} ×${s.f.toFixed(3)}  D_calc ${s.d0.toFixed(3)} → ${s.d1.toFixed(3)} m`),
@@ -609,7 +620,7 @@ function evalProcess(F) {
     if (nearly1(f)) return;
     const abs1 = e.absorbed_kw * f, m1 = motor(abs1), res = m1 !== e.motor_kw, dc = sixTenths(COSTI[e.tag] ? COSTI[e.tag][0] * 1000 : 0, f);
     const cross = m1 > D.el.mv_thr && e.motor_kw <= D.el.mv_thr;
-    add({tag: e.tag, svc: e.service, par: 'Motor', a: `${fmt(e.motor_kw, e.motor_kw < 10 ? 1 : 0)} kW`, b: `${fmt(m1, m1 < 10 ? 1 : 0)} kW`, d: `abs. ${pc(f)}`, v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 2 : 1,
+    add({fm: f, tag: e.tag, svc: e.service, par: 'Motor', a: `${fmt(e.motor_kw, Number.isInteger(e.motor_kw) ? 0 : 1)} kW`, b: `${fmt(m1, Number.isInteger(m1) ? 0 : 1)} kW`, d: `abs. ${pc(f)}`, v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 2 : 1,
       how: [`Flow ∝ ${GNAME[gname]} × ${f.toFixed(3)}; head held (control valve absorbs; ΔP rise from friction checked in ICS-04)`,
         e.flow_m3h ? `Rated flow (normal × ${D.meta.margin}) ${fmt(e.flow_m3h)} → ${fmt(e.flow_m3h * f)} m³/h at ${fmt(e.head_m)} m` : `Flue-gas flow ∝ fired duty`,
         `Absorbed ${fmt(e.absorbed_kw, 1)} → ${fmt(abs1, 1)} kW; motor = next standard ≥ 1.15 × absorbed (sizing.py motor): ${e.motor_kw} → ${m1} kW`,
@@ -622,7 +633,7 @@ function evalProcess(F) {
     const gname = AC_G[e.tag], f = g[gname]; if (nearly1(f)) return;
     const A1 = e.area_m2 * f, bays = Math.max(1, Math.ceil(A1 / R.bayArea)), res = bays > e.bays, dc = sixTenths(COSTI[e.tag][0] * 1000, f);
     if (res) { plotChange = true; }
-    add({tag: e.tag, svc: e.service, par: 'Bare area, bays', a: `${fmt(e.area_m2)} m², ${e.bays} bay${e.bays > 1 ? 's' : ''}`, b: `${fmt(A1)} m², ${bays} bay${bays > 1 ? 's' : ''}`, d: pc(f), v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
+    add({fm: f, tag: e.tag, svc: e.service, par: 'Bare area, bays', a: `${fmt(e.area_m2)} m², ${e.bays} bay${e.bays > 1 ? 's' : ''}`, b: `${fmt(A1)} m², ${bays} bay${bays > 1 ? 's' : ''}`, d: pc(f), v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
       how: [`Duty ∝ ${GNAME[gname]} × ${f.toFixed(3)}; U and MTD held, so area ∝ duty`, `Bays = ceil(area / ${R.bayArea} m²) (sizing.py): ${e.bays} → ${bays}; fans 2 per bay: ${e.fans} → ${2 * bays}`,
         ...(res ? [`Added bay 6 m × 12 m on the rack: plot plan and rack structure change`] : []), `Cost: six-tenths on area: ${sgn(dc / 1e3, 0)} kUSD`]});
     if (res) W('LAY-01', `${e.tag} needs ${bays} bays (Rev A ${e.bays}): +${(bays - e.bays) * 6} m of rack-top space`);
@@ -633,7 +644,7 @@ function evalProcess(F) {
     const gname = HX_G[e.hot] || HX_G[e.tag]; if (!gname) return; const f = g[gname]; if (nearly1(f)) return;
     const N = e.series || 1, sh0 = e.shells || D.mech[e.tag]?.shells || Math.max(1, Math.ceil(e.area_m2 / R.hxMax));
     const A1 = e.area_m2 * f, sh1 = Math.max(sh0, N * Math.max(1, Math.ceil(A1 / N / R.hxMax))), res = sh1 > sh0, dc = sixTenths(COSTI[e.tag] ? COSTI[e.tag][0] * 1000 : 0, f);
-    add({tag: e.tag, svc: e.service, par: 'Area, shells', a: `${fmt(e.area_m2)} m², ${sh0} sh`, b: `${fmt(A1)} m², ${sh1} sh`, d: pc(f), v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 2 : 1,
+    add({fm: f, tag: e.tag, svc: e.service, par: 'Area, shells', a: `${fmt(e.area_m2)} m², ${sh0} sh`, b: `${fmt(A1)} m², ${sh1} sh`, d: pc(f), v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 2 : 1,
       how: [`Duty ∝ ${GNAME[gname]} × ${f.toFixed(3)} (terminal temperatures held, so LMTD and F unchanged; U by service as Rev A)`,
         `Area ${fmt(e.area_m2, 1)} → ${fmt(A1, 1)} m²; shells = ${N} in series × ceil(A / ${N} / ${R.hxMax} m²) (sizing.py size_exchanger): ${sh0} → ${sh1}`,
         `Cost: six-tenths on area: ${sgn(dc / 1e3, 0)} kUSD`]});
@@ -643,7 +654,7 @@ function evalProcess(F) {
   if (!nearly1(F.volF)) {
     ['D-101A', 'D-101B'].forEach(t => {
       const e = EQ[t], rt = e.residence_min / F.volF, res = rt < R.desalMin, L1 = res ? ru(30 * F.volF, 0.5) : 30, dc = res ? sixTenths(COSTI[t][0] * 1000, L1 / 30) : 0;
-      add({tag: t, svc: e.service, par: 'Residence, T/T', a: `${e.residence_min} min, 30.0 m`, b: `${rt.toFixed(1)} min${res ? ', ' + L1.toFixed(1) + ' m' : ''}`, d: pc(1 / F.volF), v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
+      add({fm: F.volF, tag: t, svc: e.service, par: 'Residence, T/T', a: `${e.residence_min} min, 30.0 m`, b: `${rt.toFixed(1)} min${res ? ', ' + L1.toFixed(1) + ' m' : ''}`, d: pc(1 / F.volF), v: res ? 'resize' : 'rerate', chg: true, dc, sev: res ? 3 : 1,
         how: [`Residence ∝ 1 / volumetric charge: ${e.residence_min} / ${F.volF.toFixed(3)} = ${rt.toFixed(1)} min; minimum ${R.desalMin} min (assumed vendor guidance)`,
           res ? `Restore Rev A residence: T/T 30.0 → ${L1.toFixed(1)} m at ID 3.8 m; footprint grows ${(L1 - 30).toFixed(1)} m` : 'Above minimum: same vessel, transformer and grid loading re-checked by vendor',
           `Cost: six-tenths on volume: ${sgn(dc / 1e3, 0)} kUSD`]});
@@ -681,6 +692,7 @@ function evalPSV(psvF, rows, changed, why) {
       const L = psvLetter(A1); b = L ? `1 × ${L[0]}` : '> T, split'; if (!L || L[0] !== orif) { v = 'resize'; sev = 2; resize = true; }
       how.push(`Required ${fmt(area)} → ${fmt(A1)} mm²: orifice ${orif} → ${b}`);
     }
+    if (f < 1) { v = 'ok'; sev = 0; how.push('Load falls: installed orifice kept'); }
     change = true; changed.add(prot === 'C-102/103/104' ? 'C-102' : base(prot));
     rows.push({ex: true, tag, svc: `${prot}: ${cs}`, par: 'Orifice', a: `${n} × ${orif}`, b, d: pc(f), v, chg: true, dc: v === 'resize' ? 60e3 : 0, sev, how: [...how, v === 'resize' ? 'Cost: allowance USD 60 k per added or upsized valve (assumed)' : 'No cost change']});
     (why['PRC-03'] = why['PRC-03'] || []).push(`${tag}: ${fmt(load / 1000, 0)} → ${fmt(load * f / 1000, 0)} t/h, ${b}`);
@@ -709,7 +721,7 @@ function evalElec(pumpAbs, addLoads) {
     const f = pumpAbs[base(eq)] ?? 1; if (Math.abs(f - 1) < 0.005) return;
     const d = inp * (f - 1) * (div[duty] ?? 1);
     if (volt > 1000) dMV += d; else dLV += d;
-    if (!seenEq[eq]) { seenEq[eq] = 1; const m1 = motor(abs * f); if (m1 !== rated) frames++; }
+    if (!seenEq[eq]) { seenEq[eq] = 1; const m1 = motor(abs * f); if (m1 > rated) frames++; }
   });
   // added air-cooler fan motors (new bays)
   D.eq.filter(e => e.type === 'Air cooler' && e._bays1 > e.bays).forEach(e => { const nf = (e._bays1 - e.bays) * 2; const each = e.fan_kw / 0.92; dLV += nf * each * (pumpAbs[e.tag] || 1); det.push(`${e.tag}: +${nf} fan motors × ${e.motor_kw} kW`); });
@@ -753,6 +765,15 @@ function evaluate(sc) {
     else W('ELE-03', `TR-103/104 contingency ${trL.pct.toFixed(0)} → ${trL.pct1.toFixed(0)} % of ONAN; TR-101/102 ${trM.pct.toFixed(0)} → ${trM.pct1.toFixed(0)} %`);
     W('ELE-01', `Max demand ${fmt(md0)} → ${fmt(el.md1)} kW; ${el.frames} motor frame change(s)`);
     if (out.lines.up.length) W('PRC-08', `${out.lines.up.length} lines jump a pipe size on the line list`), W('PIP-02', `${out.lines.up.length} lines re-routed at larger size (${fmt(out.lines.up.reduce((s, x) => s + (x.len || 0), 0))} m routed)`);
+    if (sc !== 'thru') {
+      const tot0 = CUTS.reduce((s, k) => s + F.b[k], 0), tot1 = CUTS.reduce((s, k) => s + F.m[k], 0);
+      const big = CUTS.slice().sort((a, b) => Math.abs(F.m[b] - F.b[b]) - Math.abs(F.m[a] - F.b[a]))[0];
+      const how = CUTS.map(k => `${(k + ' (stream ' + D.cuts[k].stream + ')').padEnd(20)} ${fmt(F.b[k] / 1000, 1).padStart(6)} → ${fmt(F.m[k] / 1000, 1).padStart(6)} t/h  ${pc(F.m[k] / F.b[k])}`);
+      how.unshift(`Crude ${fmt(tot0 / 1000, 1)} → ${fmt(tot1 / 1000, 1)} t/h${sc === 'heavy' ? `, ${F.api.toFixed(1)} API, ${F.S.toFixed(2)} wt% S` : ''}`);
+      if (sc === 'diesel') { const t95 = D.cuts.DIESEL.tbp95 + (p.cut - 320); how.push(`Diesel TBP 95 %: ${D.cuts.DIESEL.tbp95} → ${t95} °C (follows the cut 1:1, assumed); spec ${D.meta.diesel_spec}`, `AGO lighter and smaller: DHT/FCC feed balance changes outside the unit`); }
+      if (sc === 'heavy') how.push(`More vacuum residue to the coker, less naphtha to the reformer: downstream unit balances change (outside this package)`);
+      out.rows.push({ex: true, sys: true, tag: 'H&MB', svc: 'Product slate (H&MB product streams)', par: 'Yields', a: `${big} ${fmt(F.b[big] / 1000, 1)} t/h`, b: `${fmt(F.m[big] / 1000, 1)} t/h`, d: pc(F.m[big] / F.b[big]), v: 'basis', chg: false, dc: 0, sev: 3, how});
+    }
     const nRes = out.rows.filter(r => r.v === 'resize' || r.v === 'new').length;
     W('PRC-01', F.info[0]); W('PRJ-01', sc === 'thru' ? 'Capacity in the BOD changes' : sc === 'heavy' ? 'Crude slate in the BOD changes (Arab Heavy becomes a design crude)' : 'Diesel product cut point changes in the BOD');
     W('CST-01', 'Equipment line items re-factored');
@@ -1062,7 +1083,7 @@ function light(id, Rp, ring) {
   const s = Rp.sev[id], a = ACT[id];
   NODE[id].setAttribute('class', `node ${a.s} lit s${s}${sel === id ? ' sel' : ''}`);
   if (ring && !REDUCED.matches) { const p = POS[id]; const c = el('circle', {class: 'ring s' + s, cx: p.x, cy: p.y, r: 9}, gRing); setTimeout(() => c.remove(), 950); }
-  if (ring) { $('#tickT').textContent = `hop ${Rp.hop[id]}`; const w = (EV.why[id] || [])[0]; $('#tickM').innerHTML = `<span class="tag">${id}</span> ${esc(a.n)}: <b>${SEVL[s]}</b>${w ? ' · ' + esc(w) : a.s === 'open' ? ' · not started, input changes' : ''}`; }
+  if (ring) { $('#tickT').textContent = `hop ${Rp.hop[id]}`; const w = (EV.why[id] || [])[0]; $('#tickM').innerHTML = `<span class="tag">${id}</span> ${esc(a.n)}: <b>${a.s === "open" ? "Not started" : SEVL[s]}</b>${w ? ' · ' + esc(w) : a.s === 'open' ? ' · not started, input changes' : ''}`; }
 }
 function critical(Rp) {
   $$('.edge.crit', $('#net')).forEach(e => e.classList.remove('crit'));
@@ -1083,17 +1104,17 @@ function kpis() {
   const ln = EV.lines.up.length, al = EV.lines.alloy.length, ad = EV.lines.added.length;
   const T = [
     ['Activities hit', nAct, 'of 45', `${nAbs} absorbed · ${RP.loopsOn.length} loops`],
-    ['Documents re-issued', RP.nRe, 'of 104', `${RP.nCk} more checked`],
-    ['Equipment resized', resized, 'of 82', `${rer} re-rated in place`],
+    ['Docs re-issued', RP.nRe, 'of 104', `${RP.nCk} more checked`],
+    [cur === 'hazop' ? 'Items modified' : cur === 'wind' ? 'Anchor bolts' : 'Equip. resized', resized, 'of 82', cur === 'hazop' ? `${EV.io.inst} instruments, +${EV.io.nio} I/O` : `${rer} re-rated in place`],
     ['Lines resized', ln, 'of 245', al ? `${al} alloy upgrades` : ad ? `${ad} new lines` : `${fmt(EV.lines.up.reduce((s, x) => s + (x.len || 0), 0))} m routed`],
     ['Cost delta', (CS.total / 1e6).toFixed(1), 'USD M', `${(CS.total / 1e6 / D.cost.total * 100).toFixed(1)} % of ${D.cost.total} M TIC`],
-    ['Rev B re-issue', RP.weeks.toFixed(1), 'weeks', `critical chain ${RP.chain.length} steps`],
-    ['Engineering', fmt(RP.H), 'h', `USD ${(CS.eng / 1e6).toFixed(2)} M at ${R.rate}/h`]];
+    ['Rev B time', RP.weeks.toFixed(1), 'wk', `chain of ${RP.chain.length} activities`],
+    ['Eng. hours', fmt(RP.H), 'h', `USD ${(CS.eng / 1e6).toFixed(2)} M at ${R.rate}/h`]];
   $('#kpis').innerHTML = T.map(([k, v, u, s], i) => `<div class="kpi${(+String(v).replace(/,/g, '')) > 0 ? ' hot' : ''}"><div class="k">${k}</div><div class="v">${v}<small>${u}</small></div><div class="s">${esc(s)}</div></div>`).join('');
 }
 function chgPanel() {
-  const rows = EV.rows.slice().sort((a, b) => ((b.v === 'new') - (a.v === 'new')) || ((b.v === 'resize') - (a.v === 'resize')) || (b.sev - a.sev) || ((b.dc || 0) - (a.dc || 0)));
-  const vl = {new: 'New / replace', resize: 'Resize', rerate: 'Re-rate', ok: 'No change'};
+  const rows = EV.rows.slice().sort((a, b) => ((b.v === 'basis') - (a.v === 'basis')) || ((b.v === 'new') - (a.v === 'new')) || ((b.v === 'resize') - (a.v === 'resize')) || (b.sev - a.sev) || ((b.dc || 0) - (a.dc || 0)));
+  const vl = {new: 'New / replace', resize: 'Resize', rerate: 'Re-rate', ok: 'No change', basis: 'New basis'};
   $('#n-chg').textContent = rows.length;
   const cost = `<div class="sub-h">Cost delta build-up</div><table class="t"><tbody>
     <tr><td>Purchased equipment, six-tenths rule on changed line items</td><td class="num">${sgn(CS.eqUSD / 1e6, 2)}</td></tr>
@@ -1261,8 +1282,8 @@ const TOUR = [
   {t: 'A client change lands after FEED Rev A: capacity from 100 to 115 kBPSD. Ripple applies it to the package as issued.', f: () => { setScn('thru', {bpsd: 115}); }, el: '#scnCard'},
   {t: 'The change enters at the design basis (Δ on PRJ-01) and travels hop by hop along the real "after" links of the 45-activity network. Colour is severity, computed from the numbers below.', el: '#netCard', f: () => run(true)},
   {t: 'Dashed amber arcs are iteration loops that close inside the change: mechanical results revising equipment sizing, piping routing moving the plot plan. Each adds a confirmation pass to the schedule.', el: '#netCard', f: () => select('MEC-01')},
-  {t: 'C-101: the BPA section already sets the 6.9 m shell at 80 % flood. At 115 kBPSD it needs 7.4 m; tray count is unchanged. Open the row for the section-by-section numbers.', el: '#chgT', f: () => { tabShow($('#tab-chg')); openRow('C-101'); }},
-  {t: 'H-101 is the expensive one: average radiant flux rises from 31.5 to 36.2 kW/m², inside the assumed limit, so it is a re-rate with more burners rather than a new heater. Push the slider past about 120 kBPSD and it flips to a new heater.', el: '#chgT', f: () => { openRow('H-101'); }},
+  {t: 'C-101: the BPA pumparound section sets the 6.9 m shell (79 % of flood). At 115 kBPSD it would run at 91 %, so the shell goes to 7.4 m; tray count is unchanged. The open row shows the section-by-section numbers.', el: '#chgT tr[data-tag="C-101"]', f: () => { tabShow($('#tab-chg')); openRow('C-101'); }},
+  {t: 'H-101 is the expensive one: average radiant flux rises from 31.5 to 36.2 kW/m², inside the assumed limit, so it is a re-rate with more burners rather than a new heater. Push the slider past about 120 kBPSD and it flips to a new heater.', el: '#chgT tr[data-tag="H-101"]', f: () => { openRow('H-101'); }},
   {t: 'Lines: the same velocity rule the P&ID generator used, applied to scaled flows. Only lines already close to their limit jump a size.', el: '#tabsCard', f: () => tabShow($('#tab-lines'))},
   {t: 'Documents: re-issued only when something on them changed; the rest are checked. Hours per document type are stated and editable in the source.', el: '#tabsCard', f: () => tabShow($('#tab-docs'))},
   {t: 'Schedule: the critical chain of rework through the network, plus loop passes and client review, gives the Rev B time.', el: '#tabsCard', f: () => tabShow($('#tab-sched'))},
