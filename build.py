@@ -36,6 +36,7 @@ STAGES = [
     ("piping", "cfu.piping:build"),
     ("elec", "cfu.elec:build"),
     ("ic", "cfu.ic:build"),
+    ("training", "cfu.training:build"),   # before wrapup: the register and portal index it
     ("wrapup", "cfu.wrapup:build"),
 ]
 

@@ -17,6 +17,7 @@ cfu/                     Python package - single source of truth
 data/                    Generated master data (JSON) - read by downstream generators
 deliverables/
   00-basis/  01-process/  02-equipment/  03-layout-piping/  04-instrumentation/  05-electrical/  06-wrapup/
+  07-training/
 build.py                 Regenerates everything:  python build.py
 ```
 Each generator module exposes `build()` and is registered in `build.py`. Generators must be
@@ -28,7 +29,7 @@ duplicates of process numbers).
 * area: `000` general, `100` CDU (desalting, preheat, H-101, C-101..C-106), `200` VDU, `900` unit utilities
 * disc: `PR` process, `ME` mechanical, `PI` piping, `PL` plant layout, `IC` instrumentation/control,
   `EL` electrical, `PM` project management
-* type: `BFD PFD PID HMB LST DS CAL GA PLT ELV 3DM ISO LL IDX IOL CE LD SLD HAC LDL CBL RPT REG EST`
+* type: `BFD PFD PID HMB LST DS CAL GA PLT ELV 3DM ISO LL IDX IOL CE LD SLD HAC LDL CBL RPT REG EST TRN`
 Files: `<docno>_<Short-Title>.<ext>`; drawings saved as `.svg` + `.pdf` via `Sheet.save()`.
 Rev A = "Issued for review (FEED)", date 2026-10-02, drawn "CLAUDE CODE".
 

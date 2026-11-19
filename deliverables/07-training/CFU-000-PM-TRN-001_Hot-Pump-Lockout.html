@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--PAGE-->
+<title>Hot Pump Lockout</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the portal's drawing-register language (title-block header, ruled sheets). One live isolation
+   schematic spans the sheet; the trainee works it from a device panel below, then answers judgment calls. */
+:root {
+  --paper: #f6f7f5; --sheet: #ffffff; --ink: #1d2b36; --muted: #5b6b77; --rule: #d3dade;
+  --line: #2f5d7c; --flame: #c8501e; --chip: #e8eef2; --lane: #eef2f4;
+  --ok: #2e7d4f; --warn: #a86b00; --dead: #8b979f;
+  --lock: #c22d2d; --tag: #f2c230; --tag-ink: #2a2206; --ok-bg: #e6f2ea; --bad-bg: #fbe9e6; --warn-bg: #fdf3d9;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121a20; --sheet: #182229; --ink: #e3e9ed; --muted: #95a6b2; --rule: #2c3a44;
+  --line: #7fb2d6; --flame: #f08a52; --chip: #22313b; --lane: #1c2830;
+  --ok: #6cc28f; --warn: #e0a83a; --dead: #66747d;
+  --lock: #ef6b63; --tag: #f2c230; --tag-ink: #2a2206; --ok-bg: #173226; --bad-bg: #3a1e1c; --warn-bg: #33290f;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #121a20; --sheet: #182229; --ink: #e3e9ed; --muted: #95a6b2; --rule: #2c3a44;
+  --line: #7fb2d6; --flame: #f08a52; --chip: #22313b; --lane: #1c2830;
+  --ok: #6cc28f; --warn: #e0a83a; --dead: #66747d;
+  --lock: #ef6b63; --tag: #f2c230; --tag-ink: #2a2206; --ok-bg: #173226; --bad-bg: #3a1e1c; --warn-bg: #33290f;
+  color-scheme: dark }
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+html, body { margin: 0 }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 56px }
+.wrap { max-width: 1180px; margin: 0 auto }
+button { font: inherit; color: inherit }
+a { color: var(--line) }
+button:focus-visible, input:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--flame); outline-offset: 2px }
+.mono { font-family: var(--f-mono); font-size: .86em }
+
+/* title block */
+header.tb { margin-top: 18px; border: 1.5px solid var(--ink); background: var(--sheet); display: grid; grid-template-columns: 1fr auto }
+.tb .main { padding: 18px 22px; min-width: 0 }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.tb h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 5.4vw, 54px); line-height: 1; margin: 6px 0 10px;
+  text-wrap: balance; letter-spacing: .01em; text-transform: uppercase }
+.tb h1 em { font-style: normal; color: var(--lock) }
+.tb p { margin: 0; max-width: 68ch; color: var(--muted) }
+.tb p b { color: var(--ink); font-weight: 600 }
+.tb .cells { border-left: 1.5px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; min-width: 280px }
+.tb .cell { padding: 8px 14px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule) }
+.tb .cell b { display: block; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--muted); font-weight: 500 }
+.tb .cell span { font-family: var(--f-display); font-size: 23px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap }
+.tb .cell.hot span { color: var(--flame) }
+@media (max-width: 800px) { header.tb { grid-template-columns: 1fr } .tb .cells { border-left: 0; border-top: 1.5px solid var(--ink); min-width: 0 } }
+
+/* part tabs */
+.tabs { display: flex; flex-wrap: wrap; border: 1.5px solid var(--ink); margin-top: 18px; background: var(--sheet) }
+.tabs button { flex: 1 1 150px; text-align: left; padding: 10px 14px; border: 0; background: transparent; cursor: pointer;
+  border-right: 1px solid var(--rule); display: grid; gap: 1px }
+.tabs button:last-child { border-right: 0 }
+.tabs .n { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; color: var(--muted) }
+.tabs .t { font: 600 19px/1.1 var(--f-display); letter-spacing: .05em; text-transform: uppercase }
+.tabs .s { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--sheet) }
+.tabs button[aria-selected="true"] .n, .tabs button[aria-selected="true"] .s { color: inherit; opacity: .75 }
+.tabs .s.done::before { content: "\2713\00a0" }
+
+section.part { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px }
+.lead { max-width: 74ch; margin: 0 }
+h2 { font: 700 26px/1.1 var(--f-display); letter-spacing: .03em; text-transform: uppercase; margin: 0 }
+h3 { font: 600 17px/1.15 var(--f-display); letter-spacing: .06em; text-transform: uppercase; margin: 0 }
+
+/* schematic */
+.sheet { border: 1.5px solid var(--ink); background: var(--sheet) }
+.sch-scroll { overflow-x: auto }
+#sch { display: block; width: 100%; min-width: 780px; height: auto }
+#sch text { font-family: var(--f-mono); font-size: 11.5px; fill: var(--muted) }
+#sch text.tag { fill: var(--ink); font-weight: 500; font-size: 12.5px }
+#sch text.big { font-family: var(--f-display); font-size: 20px; font-weight: 600; fill: var(--ink) }
+#sch .eq { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.6 }
+#sch .ghost { stroke: var(--dead); stroke-width: 1.4; fill: none; stroke-dasharray: 2 4 }
+#sch .pipe { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke: var(--dead); transition: stroke .5s }
+#sch .pipe.thin { stroke-width: 2 }
+#sch .pipe.hot { stroke: var(--flame) }
+#sch .pipe.flow { stroke-dasharray: 9 7; animation: flow 1s linear infinite }
+#sch .pipe.flow.rev { animation-direction: reverse }
+@keyframes flow { to { stroke-dashoffset: -16 } }
+#sch .wire { fill: none; stroke: var(--dead); stroke-width: 1.6; stroke-dasharray: 5 4; transition: stroke .4s }
+#sch .wire.armed { stroke: var(--line) }
+#sch .wire.live { stroke: var(--lock); stroke-dasharray: none; stroke-width: 2.4 }
+#sch .valve path { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.6; transition: fill .3s }
+#sch .valve.closed path { fill: var(--ink) }
+#sch .dev { cursor: pointer }
+#sch .dev:hover .halo, #sch .dev.sel .halo { opacity: 1 }
+#sch .halo { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: 0; transition: opacity .2s }
+#sch .lockbadge > g { opacity: 0; transform: scale(.4); transition: opacity .25s, transform .35s cubic-bezier(.3,1.6,.5,1) }
+#sch .lockbadge.on > g { opacity: 1; transform: scale(1) }
+#sch .lockbadge .body { fill: var(--lock) } #sch .lockbadge .sh { fill: none; stroke: var(--lock); stroke-width: 2.6 }
+#sch .lockbadge .tg { fill: var(--tag); stroke: var(--tag-ink); stroke-width: .8 }
+#sch .lockbadge text { fill: var(--tag-ink); font-size: 6.5px; font-weight: 600 }
+#sch .needle { stroke: var(--lock); stroke-width: 2.2; stroke-linecap: round; transition: transform .25s linear; transform-origin: 625px 322px }
+#sch .rotor { transform-origin: 560px 420px }
+#sch .rotor.spin { animation: spin .5s linear infinite }
+@keyframes spin { to { transform: rotate(360deg) } }
+#sch .level { fill: var(--flame); opacity: .22 }
+#sch .hs { cursor: pointer }
+#sch .hs circle.r { fill: var(--sheet); stroke: var(--lock); stroke-width: 2 }
+#sch .hs circle.p { fill: none; stroke: var(--lock); stroke-width: 1.5; opacity: .7; animation: pulse 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center }
+#sch .hs text { fill: var(--lock); font-family: var(--f-display); font-size: 15px; font-weight: 700; text-anchor: middle }
+#sch .hs.right circle.r { fill: var(--ok); stroke: var(--ok) } #sch .hs.wrong circle.r { fill: var(--warn); stroke: var(--warn) }
+#sch .hs.right text, #sch .hs.wrong text { fill: var(--sheet) }
+#sch .hs.right circle.p, #sch .hs.wrong circle.p { display: none }
+#sch .hs.cur circle.r { stroke-width: 4 }
+@keyframes pulse { from { transform: scale(1); opacity: .7 } to { transform: scale(2); opacity: 0 } }
+#sch[data-mode="sim"] .hs, #sch[data-mode="hunt"] .lockbadge { display: none }
+#sch[data-mode="hunt"] .dev { pointer-events: none }
+#sch .readout rect { fill: var(--ink) } #sch .readout text { fill: var(--sheet); font-size: 13px; font-weight: 500 }
+@media (prefers-reduced-motion: reduce) { #sch .pipe.flow, #sch .rotor.spin, #sch .hs circle.p { animation: none } }
+
+/* six-step strip */
+.steps { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1.5px solid var(--ink) }
+.steps div { padding: 7px 10px; border-right: 1px solid var(--rule); min-width: 0 }
+.steps div:last-child { border-right: 0 }
+.steps b { display: block; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--muted); font-weight: 500 }
+.steps span { font: 600 16px/1.1 var(--f-display); letter-spacing: .05em; text-transform: uppercase; color: var(--muted) }
+.steps .on { background: var(--ok-bg) } .steps .on span { color: var(--ok) } .steps .on b::after { content: " \2713"; color: var(--ok) }
+@media (max-width: 700px) { .steps { grid-template-columns: repeat(3, 1fr) } .steps div { border-bottom: 1px solid var(--rule) } }
+
+/* coach line + incident */
+.coach { border: 1.5px solid var(--ink); background: var(--sheet); padding: 12px 16px; display: grid; gap: 4px; border-left-width: 8px }
+.coach .k { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.coach p { margin: 0; max-width: 90ch }
+.coach.ok { border-left-color: var(--ok) } .coach.ok .k { color: var(--ok) }
+.coach.strike { border-left-color: var(--warn); background: var(--warn-bg) } .coach.strike .k { color: var(--warn) }
+.coach.bad { border-color: var(--lock); background: var(--bad-bg) } .coach.bad .k { color: var(--lock) }
+.coach.win { border-color: var(--ok); background: var(--ok-bg) } .coach.win .k { color: var(--ok) }
+.coach h3 { font-size: 24px } .coach ul { margin: 4px 0 0; padding-left: 20px } .coach li { margin: 2px 0 }
+.coach .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px }
+
+/* device panel */
+.panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start }
+@media (max-width: 980px) { .panel { grid-template-columns: 1fr } }
+.zone { border: 1.5px solid var(--ink); background: var(--sheet); min-width: 0 }
+.zone > h3 { padding: 8px 14px; border-bottom: 1.5px solid var(--ink); background: var(--lane) }
+.devrow { padding: 10px 14px; border-bottom: 1px solid var(--rule); display: grid; gap: 7px; transition: background .3s }
+.devrow:last-child { border-bottom: 0 }
+.devrow.sel { background: var(--chip) }
+.devrow .hd { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap }
+.devrow .nm { font-weight: 600 } .devrow .nm small { display: block; font: 400 11.5px var(--f-mono); color: var(--muted) }
+.pill { font: 500 11px var(--f-mono); letter-spacing: .05em; text-transform: uppercase; padding: 2px 8px; border: 1px solid currentColor; white-space: nowrap; color: var(--muted) }
+.pill.live { color: var(--lock) } .pill.safe { color: var(--ok) } .pill.mid { color: var(--warn) }
+.acts { display: flex; flex-wrap: wrap; gap: 6px }
+.btn { border: 1.5px solid var(--ink); background: var(--sheet); padding: 6px 11px; cursor: pointer; font-weight: 500; font-size: 14px; text-align: left }
+.btn:hover { background: var(--chip) }
+.btn[disabled] { border-color: var(--rule); color: var(--muted); cursor: default; background: transparent }
+.btn.done { border-color: var(--ok); color: var(--ok); background: var(--ok-bg); cursor: default }
+.btn.done::before { content: "\2713\00a0" }
+.btn.lk::before { content: ""; display: inline-block; width: 9px; height: 8px; background: var(--lock); margin-right: 7px; border-radius: 1px; box-shadow: 0 -4px 0 -2px var(--sheet), 0 -4px 0 0 var(--lock) }
+.btn.lk.done::before { content: "\2713\00a0"; width: auto; height: auto; background: none; box-shadow: none; margin: 0 }
+.btn.primary { background: var(--ink); color: var(--sheet); border-color: var(--ink) }
+.btn.primary:hover { opacity: .9; background: var(--ink) }
+.btn.go { background: var(--lock); border-color: var(--lock); color: #fff; font: 700 20px/1.1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; padding: 12px 16px; width: 100% }
+.btn.go:hover { background: var(--lock); filter: brightness(1.1) }
+.tally { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums }
+.tally b { color: var(--ink); font-weight: 500 }
+.log { margin: 0; padding: 8px 14px; list-style: none; font-family: var(--f-mono); font-size: 12px; color: var(--muted); max-height: 150px; overflow-y: auto }
+.log li { padding: 1px 0 } .log li.s { color: var(--warn) } .log li.b { color: var(--lock) }
+
+/* hunt */
+.hunt { display: grid; grid-template-columns: 1fr; gap: 14px }
+.belief { border: 1.5px solid var(--ink); background: var(--sheet); padding: 14px 18px; display: grid; gap: 8px; min-height: 150px; align-content: start }
+.belief blockquote { margin: 0; font: 600 24px/1.2 var(--f-display); letter-spacing: .01em; text-wrap: balance; max-width: 40ch }
+.belief blockquote::before { content: "\201C" } .belief blockquote::after { content: "\201D" }
+.belief .verdict { font: 700 15px var(--f-display); letter-spacing: .08em; text-transform: uppercase }
+.belief .verdict.right { color: var(--ok) } .belief .verdict.wrong { color: var(--warn) }
+.belief p { margin: 0; max-width: 80ch } .belief .fact { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted) }
+.dots { display: flex; gap: 6px; flex-wrap: wrap }
+.dots button { width: 30px; height: 30px; border: 1.5px solid var(--ink); background: var(--sheet); cursor: pointer; font: 700 15px var(--f-display); border-radius: 50%; padding: 0 }
+.dots button.right { background: var(--ok); border-color: var(--ok); color: var(--sheet) } .dots button.wrong { background: var(--warn); border-color: var(--warn); color: var(--sheet) }
+.dots button.cur { outline: 2px solid var(--flame); outline-offset: 2px }
+
+/* judgment calls */
+.q { border: 1.5px solid var(--ink); background: var(--sheet) }
+.q .qh { padding: 12px 18px; border-bottom: 1px solid var(--rule); display: grid; gap: 4px }
+.q .qh p { margin: 0; max-width: 78ch }
+.q .opts { display: grid }
+.q .opts button { text-align: left; padding: 10px 18px; border: 0; border-bottom: 1px solid var(--rule); background: transparent; cursor: pointer; display: grid; grid-template-columns: 22px 1fr; gap: 8px }
+.q .opts button:last-child { border-bottom: 0 }
+.q .opts button:hover:not([disabled]) { background: var(--chip) }
+.q .opts button[disabled] { cursor: default }
+.q .opts .mk { font-family: var(--f-mono); color: var(--muted) }
+.q .opts button.right { background: var(--ok-bg) } .q .opts button.right .mk { color: var(--ok) }
+.q .opts button.wrong { background: var(--bad-bg) } .q .opts button.wrong .mk { color: var(--lock) }
+.q .why { padding: 12px 18px; border-top: 1.5px solid var(--ink); background: var(--lane) }
+.q .why p { margin: 0; max-width: 80ch } .q .why .ref { font-family: var(--f-mono); font-size: 12px; color: var(--muted); margin-top: 4px }
+
+/* record */
+.record { border: 1.5px solid var(--ink); background: var(--sheet); display: grid; grid-template-columns: 1fr 1fr }
+.record > div { padding: 16px 20px; min-width: 0 } .record .res { border-left: 1.5px solid var(--ink); display: grid; gap: 10px; align-content: start }
+@media (max-width: 760px) { .record { grid-template-columns: 1fr } .record .res { border-left: 0; border-top: 1.5px solid var(--ink) } }
+.stamp { display: inline-block; font: 700 34px/1 var(--f-display); letter-spacing: .08em; padding: 6px 14px; border: 3px solid currentColor; transform: rotate(-3deg); justify-self: start }
+.stamp.pass { color: var(--ok) } .stamp.open { color: var(--muted) }
+.rtab { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums }
+.rtab td { padding: 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top } .rtab td:last-child { text-align: right; font-family: var(--f-mono); font-size: 13px }
+.field { display: grid; gap: 4px; margin-top: 12px } .field label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.field input { font: 15px var(--f-body); padding: 8px 10px; border: 1.5px solid var(--ink); background: var(--sheet); color: var(--ink); max-width: 22em }
+.ref6 { margin: 0; padding-left: 20px } .ref6 li { margin: 4px 0 }
+footer { margin-top: 36px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 12px; max-width: 100ch }
+</style>
+<!--/PAGE-->
+</head>
+<body>
+<!--PAGE-->
+<div class="wrap">
+<header class="tb">
+  <div class="main">
+    <div class="eyebrow"><span id="docno"></span> · Energy isolation training · Operations and construction</div>
+    <h1>Hot pump <em>lockout</em></h1>
+    <p>The job: pull the mechanical seal on <b id="h-pump"></b>, the standby atmospheric-residue pump. It is not running.
+    It is still connected to a <b id="h-kv"></b> breaker, a column full of <b id="h-t"></b> residue and a
+    <b id="h-p"></b> discharge header. Find every energy source, isolate and lock them, prove zero, then open the casing.</p>
+  </div>
+  <div class="cells">
+    <div class="cell"><b>ASSET</b><span id="c-asset"></span></div>
+    <div class="cell"><b>MOTOR</b><span id="c-motor"></span></div>
+    <div class="cell hot"><b>FLUID</b><span id="c-fluid"></span></div>
+    <div class="cell hot"><b>HEADER</b><span id="c-head"></span></div>
+    <div class="cell"><b>REFERENCE P&amp;ID</b><span id="c-pid" style="font-size:17px"></span></div>
+    <div class="cell"><b>TIME</b><span>about 20 min</span></div>
+  </div>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Training parts">
+  <button role="tab" id="tab-hunt" data-part="hunt"><span class="n">PART 1</span><span class="t">Find the energy</span><span class="s" id="s-hunt"></span></button>
+  <button role="tab" id="tab-sim" data-part="sim"><span class="n">PART 2</span><span class="t">Isolate the pump</span><span class="s" id="s-sim"></span></button>
+  <button role="tab" id="tab-quiz" data-part="quiz"><span class="n">PART 3</span><span class="t">Judgment calls</span><span class="s" id="s-quiz"></span></button>
+  <button role="tab" id="tab-rec" data-part="rec"><span class="n">SIGN-OFF</span><span class="t">Training record</span><span class="s" id="s-rec"></span></button>
+</div>
+
+<section class="part" id="part-hunt">
+  <p class="lead">Nine things people say at this pump. Pick a numbered marker on the drawing, decide whether the statement is
+  true or false, and see what the design data says.</p>
+  <div id="sch-home-hunt"></div>
+  <div class="dots" id="dots" aria-label="Statements"></div>
+  <div class="belief" id="belief" aria-live="polite"></div>
+</section>
+
+<section class="part" id="part-sim" hidden>
+  <p class="lead">You are the isolating authority. Operate the devices in the panel below (or pick them on the drawing).
+  The drawing, gauge and casing temperature respond to what you do. When you believe the pump is at zero energy, break containment.
+  Mistakes cost a strike; opening a live pump is an incident.</p>
+  <div id="sch-home-sim"></div>
+  <div class="coach" id="coach" aria-live="polite"></div>
+  <div class="tally" id="tally"></div>
+  <div class="panel" id="panel"></div>
+  <div class="zone"><h3>Isolation log</h3><ol class="log" id="log"></ol></div>
+</section>
+
+<section class="part" id="part-quiz" hidden>
+  <p class="lead">Seven situations from the same job. None of them is about a valve; all of them have hurt people.
+  Your first answer counts.</p>
+  <div id="quiz" style="display:grid;gap:14px"></div>
+</section>
+
+<section class="part" id="part-rec" hidden>
+  <div class="record">
+    <div>
+      <h2>The sequence, every time</h2>
+      <ol class="ref6">
+        <li><b>Prepare.</b> Permit, isolation list checked against the P&amp;ID, everyone affected told.</li>
+        <li><b>Shut down.</b> Normal stop, and take away every remote or automatic start.</li>
+        <li><b>Isolate.</b> Operate the real energy-isolating devices: the breaker and the manual block valves.</li>
+        <li><b>Lock and tag.</b> One lock per isolation, keys in the lockbox, one personal lock per person.</li>
+        <li><b>Release stored energy.</b> Vent, drain, cool. Check it cannot build up again.</li>
+        <li><b>Verify.</b> Try the start. Prove zero at an open vent. Then, and only then, start work.</li>
+      </ol>
+      <div class="field"><label for="who">Name for the record</label><input id="who" type="text" autocomplete="name" placeholder="Your name"></div>
+    </div>
+    <div class="res">
+      <span class="stamp open" id="stamp">In progress</span>
+      <table class="rtab" id="rtab"></table>
+      <div class="acts"><button class="btn primary" id="copy">Copy record</button><button class="btn" id="resetall">Start over</button></div>
+      <div class="mono" id="copied" style="color:var(--muted)"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Training aid generated from the FEED design data of the <span id="f-proj"></span> (<span id="f-doc"></span>). Line conditions, motor and
+  switchgear data, instrument tags and the standby/duty assignment come from the line list, load list and instrument index.
+  Individual block-valve, drain and lockbox details are typical and are not tagged at FEED level. This page does not replace the site
+  energy-isolation procedure, the permit to work or the isolation certificate for the job. US references: 29 CFR 1910.147 and 1910.333, NFPA 70E.
+</footer>
+</div>
+
+<script>
+const D = {"doc":{"no":"CFU-000-PM-TRN-001","rev":"A","project":"100 kBPSD Crude & Vacuum Distillation Unit","client":"Generic Refinery - Gulf Coast","stage":"FEED","pid":"CFU-100-PR-PID-006","loadlist":"CFU-000-EL-LDL-001"},"pump":{"tag":"P-112A","twin":"P-112B","service":"Atm. residue / vacuum heater charge","api610":"BB2","seal":"API 682 Plan 53B","moc":"A-8 (316)","flow":398,"head":244,"opT":349,"desT":380,"duty":"standby","twin_duty":"duty"},"motor":{"kW":315,"V":4160,"kV":4.16,"bus":"SWG-102A","twin_bus":"SWG-102B","starter":"VCB-DOL","flc":52.6,"relays":"50/51, 50G, 46, 49, 27, 66, 86","cable":"CBL-P-112A","cable_m":155,"device":"VCB 1200 A, DOL","remote":["start","stop"],"zone":"Zone 2"},"suction":{"no":"14\"-P-100-084-B2-H","nps":14,"cls":"B2","service":"Atmospheric residue to P-112 (EIV-1121)","opP":1.7,"opT":349,"desP":3.5,"desT":390,"pid":"CFU-100-PR-PID-006"},"discharge":{"no":"10\"-P-100-085-B2-H","nps":10,"cls":"B2","service":"Atmospheric residue to H-201 (FV-1083, XV-1083)","opP":19.0,"opT":349,"desP":24.0,"desT":380,"pid":"CFU-100-PR-PID-006, CFU-200-PR-PID-012"},"spill":{"no":"6\"-P-100-086-B2-H","nps":6,"cls":"B2","service":"P-112 minimum-flow spillback (RO)","opP":19.0,"opT":349,"desP":24.0,"desT":380,"pid":"CFU-100-PR-PID-006"},"gauge":{"tag":"PI-1238","range":"0-30","units":"barg"},"eiv":{"tag":"EIV-1121","sif":"SIF-204","sil":"SIL 1","function":"Pump P-112/P-204 hot-pump emergency isolation (fire)"},"fluid":{"no":"19","name":"Atmospheric residue","sulfur":3.3,"T":349,"kgph":257,"dest":"H-201"},"limits":{"touch":60,"ambient":35}};
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const P = D.pump, M = D.motor, HP = D.discharge.opP, SP = D.suction.opP, HOT = P.opT, TOUCH = D.limits.touch, AMB = D.limits.ambient;
+const store = { get() { try { return JSON.parse(localStorage.getItem("loto-p112") || "{}") } catch (e) { return {} } },
+  set(v) { try { localStorage.setItem("loto-p112", JSON.stringify(v)) } catch (e) {} } };
+let saved = store.get();
+saved.hunt = saved.hunt || {}; saved.quiz = saved.quiz || {}; saved.sim = saved.sim || null; saved.name = saved.name || "";
+const save = () => store.set(saved);
+
+/* ---------- header ---------- */
+$("#docno").textContent = `${D.doc.no} Rev ${D.doc.rev}`;
+$("#h-pump").textContent = P.tag; $("#h-kv").textContent = `${M.kV} kV`; $("#h-t").textContent = `${HOT} °C`; $("#h-p").textContent = `${HP} barg`;
+$("#c-asset").textContent = P.tag; $("#c-motor").textContent = `${M.kW} kW · ${M.kV} kV`;
+$("#c-fluid").textContent = `${HOT} °C residue`; $("#c-head").textContent = `${HP} barg`; $("#c-pid").textContent = D.doc.pid;
+$("#f-proj").textContent = D.doc.project; $("#f-doc").textContent = `${D.doc.no}, Rev ${D.doc.rev}, ${D.doc.stage}`;
+
+/* ---------- schematic ---------- */
+function valve(id, x, y, vert, label, lx, ly, anchor) {
+  const p = vert ? `M${x - 9} ${y - 13}H${x + 9}L${x} ${y}Z M${x - 9} ${y + 13}H${x + 9}L${x} ${y}Z`
+                 : `M${x - 13} ${y - 9}V${y + 9}L${x} ${y}Z M${x + 13} ${y - 9}V${y + 9}L${x} ${y}Z`;
+  return `<g class="dev valve" data-dev="${id}" id="v-${id}" tabindex="0" role="button" aria-label="${label}">
+    <circle class="halo" cx="${x}" cy="${y}" r="22"/><path d="${p}"/>
+    <text x="${lx}" y="${ly}" text-anchor="${anchor || "start"}">${label}</text></g>`;
+}
+function badge(id, x, y) {
+  return `<g class="lockbadge" id="lb-${id}" transform="translate(${x} ${y})"><g>
+    <path class="sh" d="M-5 -2V-7a5 5 0 0 1 10 0V-2"/><rect class="body" x="-8" y="-3" width="16" height="13" rx="2"/>
+    <path class="tg" d="M11 -6h32v15h-32l-4 -7.5z"/><text x="13" y="0">DO NOT</text><text x="13" y="7">OPERATE</text></g></g>`;
+}
+function hotspot(n, x, y) {
+  return `<g class="hs" data-n="${n}" tabindex="0" role="button" aria-label="Statement ${n}">
+    <circle class="p" cx="${x}" cy="${y}" r="13"/><circle class="r" cx="${x}" cy="${y}" r="13"/><text x="${x}" y="${y + 5}">${n}</text></g>`;
+}
+const SCH = `<div class="sheet"><div class="sch-scroll"><svg id="sch" viewBox="0 0 960 545" data-mode="hunt" role="img" aria-label="Isolation schematic of pump ${P.tag}">
+  <path class="level" d="M41 150V280Q41 319 85 319Q129 319 129 280V150Z"/>
+  <path class="eq" d="M40 24V280Q40 320 85 320Q130 320 130 280V24" fill="none"/>
+  <path class="ghost" d="M40 24l15 -8 15 8 15 -8 15 8 15 -8 15 8"/>
+  <text class="big" x="85" y="70" text-anchor="middle">C-101</text><text x="85" y="88" text-anchor="middle">bottom</text>
+  <text x="85" y="200" text-anchor="middle">${HOT} °C</text><text x="85" y="216" text-anchor="middle">${SP} barg</text>
+
+  <path class="pipe hot" d="M85 320V420H387"/><path class="pipe hot flow" d="M200 420V505"/>
+  <text x="212" y="500">to ${P.twin} (running)</text>
+  <path class="pipe" id="p-suc" d="M413 420H532"/>
+  <text x="250" y="410">${esc(D.suction.no)}</text>
+
+  <g id="eiv"><path class="eq" d="M76 357H94L85 370Z M76 383H94L85 370Z"/><path class="eq" d="M85 370H104"/><rect class="eq" x="104" y="361" width="16" height="18"/>
+    <text class="tag" x="126" y="368">${D.eiv.tag}</text><text x="126" y="382">remote, ${D.eiv.sif}</text></g>
+
+  <path class="pipe hot flow" d="M560 137V90H935"/><path class="pipe hot flow" d="M700 150V90"/>
+  <path d="M935 90l-10 -6v12z" fill="var(--flame)"/>
+  <text x="690" y="150" text-anchor="end">from ${P.twin}</text><text x="935" y="76" text-anchor="end">${HP} barg to H-201 via FV-1083</text>
+  <text x="572" y="80">${esc(D.discharge.no)}</text>
+  <path class="pipe" id="p-dis" d="M560 392V163"/>
+  <path class="pipe thin" id="p-byp" d="M560 190H592V240H560"/>
+  <g><path class="eq" d="M551 205H569L560 225Z"/><path class="eq" d="M551 225H569"/><text x="470" y="212">check valve</text>
+     <path class="eq" d="M586 209H598L592 215Z M586 221H598L592 215Z"/><text x="604" y="212">warm-up</text><text x="604" y="226">bypass</text></g>
+
+  <path class="pipe hot" d="M317 275H130"/><path class="pipe" id="p-spl" d="M560 275H343"/>
+  <path class="eq" d="M236 263V287M244 263V287"/><text x="240" y="304" text-anchor="middle">RO</text>
+  <text x="150" y="265">${esc(D.spill.no)}</text>
+
+  <path class="eq" d="M560 322H598"/><circle class="eq" cx="625" cy="322" r="27"/>
+  <path d="M606 335A23 23 0 1 1 644 335" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <line class="needle" id="needle" x1="625" y1="322" x2="625" y2="302"/><circle cx="625" cy="322" r="2.5" fill="var(--ink)"/>
+  <text class="tag" x="625" y="364" text-anchor="middle">${D.gauge.tag}</text>
+  <g class="readout"><rect x="660" y="298" width="92" height="22"/><text id="ro-p" x="706" y="313" text-anchor="middle"></text>
+     <rect x="660" y="324" width="92" height="22"/><text id="ro-t" x="706" y="339" text-anchor="middle"></text></g>
+
+  <path class="pipe thin" id="p-drn" d="M560 448V467"/><path class="pipe thin" id="p-drn2" d="M560 493V525H500"/>
+  <path d="M500 525l10 -5v10z" fill="var(--dead)"/><text x="494" y="529" text-anchor="end">closed drain</text>
+  <path class="pipe thin" id="p-seal" d="M538 438L468 470"/>
+  <g class="dev" data-dev="barrier" tabindex="0" role="button" aria-label="Seal barrier accumulator"><circle class="halo" cx="456" cy="480" r="26"/>
+    <rect class="eq" id="acc" x="446" y="462" width="20" height="40" rx="10"/><text x="436" y="478" text-anchor="end">Plan 53B</text><text x="436" y="492" text-anchor="end">barrier</text></g>
+
+  <g class="dev" data-dev="pump"><circle class="eq" cx="560" cy="420" r="28"/>
+    <g class="rotor" id="rotor"><path d="M560 400V440M540 420H580" stroke="var(--ink)" stroke-width="1.6"/></g>
+    <text class="tag" x="560" y="466" text-anchor="start" dx="34">${P.tag}</text></g>
+  <rect class="eq" x="588" y="414" width="37" height="12"/>
+  <rect class="eq" x="625" y="394" width="118" height="52"/><text class="big" x="684" y="417" text-anchor="middle">M</text>
+  <text x="684" y="436" text-anchor="middle">${M.kW} kW</text>
+
+  <path class="wire" id="w-cab" d="M743 420H850V332"/><text x="858" y="380">${M.cable}</text><text x="858" y="394">${M.cable_m} m</text>
+  <g class="dev" data-dev="brk" tabindex="0" role="button" aria-label="Switchgear cubicle"><rect class="halo" x="764" y="194" width="172" height="142"/>
+    <rect class="eq" x="770" y="200" width="160" height="130"/><text class="tag" x="782" y="220">${M.bus}</text><text x="782" y="235">${M.kV} kV · ${M.starter}</text>
+    <path class="wire live" d="M790 252H910" /><text x="912" y="248" text-anchor="end">bus</text>
+    <g id="brk-g"><path id="brk-top" class="eq" d="M850 252V266" fill="none"/><path id="brk-arm" class="eq" d="M850 266V292" fill="none"/>
+      <path class="eq" d="M850 300V330" fill="none"/><path d="M843 262l7 6 7 -6M843 304l7 -6 7 6" class="eq" fill="none"/></g>
+    <text id="brk-t" x="778" y="290"></text></g>
+  <path class="wire armed" id="w-dcs" d="M850 180V200"/>
+  <g class="dev" data-dev="auto" tabindex="0" role="button" aria-label="DCS standby selector"><rect class="halo" x="764" y="130" width="172" height="56"/>
+    <rect class="eq" x="770" y="136" width="160" height="44" rx="4"/><text class="tag" x="782" y="155">DCS · ${P.tag}</text><text id="dcs-t" x="782" y="170"></text></g>
+  <path class="wire armed" id="w-lcs" d="M700 446V474"/>
+  <g class="dev" data-dev="lcs" tabindex="0" role="button" aria-label="Local control station"><rect class="halo" x="644" y="468" width="112" height="50"/>
+    <rect class="eq" x="650" y="474" width="100" height="38" rx="3"/><text class="tag" x="659" y="491">LCS</text><text x="659" y="505">start / stop</text></g>
+
+  ${valve("dis", 560, 150, true, "discharge block", 540, 154, "end")}
+  ${valve("suc", 400, 420, false, "suction block", 400, 448, "middle")}
+  ${valve("spl", 330, 275, false, "spillback block", 330, 304, "middle")}
+  ${valve("drn", 560, 480, true, "drain/vent", 576, 484)}
+  ${badge("brk", 872, 304)}${badge("dis", 520, 128)}${badge("suc", 392, 392)}${badge("spl", 322, 248)}
+  ${hotspot(1, 850, 276)}${hotspot(2, 930, 136)}${hotspot(3, 560, 215)}${hotspot(4, 330, 275)}${hotspot(5, 85, 370)}
+  ${hotspot(6, 456, 482)}${hotspot(7, 560, 420)}${hotspot(8, 560, 480)}${hotspot(9, 606, 420)}
+</svg></div><div class="steps" id="steps"></div></div>`;
+const schHost = document.createElement("div"); schHost.innerHTML = SCH;
+const sch = () => $("#sch", schHost);
+const STEPS = ["Prepare", "Shut down", "Isolate", "Lock and tag", "Stored energy", "Verify"];
+$("#steps", schHost).innerHTML = STEPS.map((s, i) => `<div><b>STEP ${i + 1}</b><span>${s}</span></div>`).join("");
+
+/* ---------- simulator ---------- */
+let st, raf, lastT;
+const fresh = () => ({ permit: false, auto: true, brk: "racked-in", brkLock: false, dis: true, disLock: false, suc: true, sucLock: false,
+  spl: true, splLock: false, barrier: true, drn: false, proven: false, tried: false, crew: false, P: SP, T: HOT, min: 0, run: 0,
+  strikes: 0, incidents: 0, hit: {}, done: false, log: [] });
+const isolated = () => !st.dis && !st.suc && !st.spl;
+const clock = () => { const m = Math.round(st.min); return `${String(6 + Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}` };
+function log(msg, cls) { st.log.unshift({ t: clock(), msg, cls }); }
+function coach(kind, title, body) { st.coach = { kind, title, body } }
+function ok(title, body) { st.min += 3; log(title); coach("ok", title, body) }
+function strike(id, title, body) { if (!st.hit[id]) { st.hit[id] = 1; st.strikes++ } log("STRIKE: " + title, "s"); coach("strike", "Strike · " + title, body) }
+function needPermit() { if (st.permit) return false;
+  strike("permit", "No permit, no touching", `Nothing on this pump moves until the permit is issued and the board operator knows. ${P.tag} is the unit's only spare for ${P.twin}; the control room has to agree to lose it.`); return true }
+
+const ACT = {
+  permit() { st.permit = true; ok("Permit issued, control room and area told", `Isolation list checked against ${D.doc.pid}. The board operator has accepted running ${P.twin} with no spare. That is step 1: prepare.`) },
+  auto() { if (needPermit()) return; st.auto = false; ok("Standby auto-start disabled at the DCS", `${P.tag} can no longer start when ${P.twin} trips. This stops a surprise start but it is a control action, not an isolation: the breaker is still racked in.`) },
+  brkRack() { if (needPermit()) return; st.brk = "racked-out"; ok(`Breaker racked out to DISCONNECTED at ${M.bus}`, `The ${M.kV} kV breaker is withdrawn from the bus by a qualified electrical person. The circuit cannot be closed from the DCS, the relay or the local station.`) },
+  brkLock() { if (needPermit()) return;
+    if (st.brk !== "racked-out") return strike("lockopen", "A lock on a racked-in breaker isolates nothing", `The breaker is open but still connected to the bus and its control supply. A start command closes it. Rack it out to DISCONNECTED first, then lock the cubicle in that position.`);
+    st.brkLock = true; ok("Cubicle locked and tagged", `Lock on the racking mechanism, tag showing who, why and when. Key goes to the lockbox.`) },
+  valve(v) { if (needPermit()) return; const name = { dis: "Discharge block valve", suc: "Suction block valve", spl: "Spillback block valve" }[v];
+    if (st[v + "Lock"]) return;
+    st[v] = !st[v]; st.proven = false;
+    if (st[v]) return ok(name + " reopened", "The pump is connected to the process again on that path.");
+    if (v === "suc" && st.dis) return strike("overp", "Suction closed against an open discharge", `The warm-up bypass now feeds header pressure into the casing with nowhere to go: ${D.gauge.tag} is climbing to ${HP} barg. The suction line is designed for ${D.suction.desP} barg. Close the high-pressure side first, then the suction.`);
+    ok(name + " closed", v === "dis" ? `The header and the warm-up bypass can no longer reach the pump. A closed valve is not yet a locked valve.` : v === "suc" ? `The column inventory is shut off on this path. Check the drawing: is that every path?` : `The minimum-flow line back to C-101 is shut. This is the path people forget.`) },
+  vlock(v) { if (needPermit()) return; const name = { dis: "Discharge block valve", suc: "Suction block valve", spl: "Spillback block valve" }[v];
+    if (st[v]) return strike("lockopen", "You cannot lock a valve you have not closed", `A lock holds a device in the position it is in. Close the valve, confirm it is seated, then chain and lock the handwheel.`);
+    st[v + "Lock"] = true; ok(name + " chained, locked and tagged", "Key goes to the lockbox.") },
+  barrier() { if (needPermit()) return; st.barrier = false; ok("Seal barrier isolated and vented", `The ${P.seal.replace("API 682 ", "")} accumulator held nitrogen-charged barrier fluid above seal-chamber pressure. It is now blocked in and bled to zero, so the seal can be pulled without the barrier discharging.`) },
+  drn() { if (needPermit()) return; st.drn = !st.drn; st.proven = false;
+    if (!st.drn) return ok("Casing drain and vent closed", "Anything left in the casing is trapped again.");
+    if (!isolated()) return strike("drain", "Draining a pump that is still connected", `With a process valve open you are draining the column or the header into the closed drain, at ${HOT} °C, and the casing will never reach zero. Isolate every path first.`);
+    ok("Casing drain and vent open to the closed drain", `Pressure is bleeding off to a closed system, not to grade: this residue is above its auto-ignition temperature. Leave the vent open so pressure cannot build again. Watch ${D.gauge.tag}.`) },
+  prove() { if (needPermit()) return;
+    if (!isolated() || !st.drn || st.P > 0.15) return strike("prove", "Nothing proven", `Proving zero means an open path to a safe place with nothing coming out. Right now ${!isolated() ? "the pump is still connected to the process" : !st.drn ? "the drain and vent are shut, so you are reading a gauge on a blocked-in casing" : "the casing is still depressurising"}.`);
+    st.proven = true; ok("Zero pressure proven at the open vent", `${D.gauge.tag} reads zero and the open vent and drain show no flow. Two independent indications, because a gauge tapping in residue service can plug solid.`) },
+  tryStart() { if (needPermit()) return;
+    if (st.brk !== "racked-out") { st.run = 2.5; st.tried = false;
+      return strike("try", "The motor started", `You pressed start and ${M.kW} kW answered. This is exactly what the try step is for, and it has just shown the electrical isolation is not in place. Imagine the coupling guard off. Rack out and lock the breaker, then try again.`) }
+    st.tried = true; ok("Try-start: nothing happened. Switch returned to OFF", `Start pressed at the local station with everyone clear. No start, no breaker close. The isolation is proven on the equipment itself, not on paper.`) },
+  crew() { if (needPermit()) return;
+    if (!(st.brkLock && st.disLock && st.sucLock && st.splLock)) return strike("box", "The lockbox is not ready", `The lockbox holds the key to every isolation lock. There are four isolation points on this job and not all of them are locked yet.`);
+    st.crew = true; ok("Keys in the lockbox, three personal locks on it", `Operator, fitter and fitter's mate each hang their own lock and keep their own key. Nobody can unlock an isolation while any one of them is still on the job.`) },
+  open() { if (needPermit()) return;
+    const gaps = [];
+    const elec = st.brk !== "racked-out";
+    if (elec) gaps.push([`Breaker racked in${st.auto ? " and the pump still in AUTO standby" : ""}`, st.auto
+      ? `${P.twin} trips on a process upset. The DCS starts the standby pump, as designed. ${P.tag} runs up with the seal out and the casing unbolted.`
+      : `Someone restoring the unit presses start. The breaker closes onto a pump with its seal out and people at the coupling.`]);
+    else if (!st.brkLock) gaps.push(["Breaker racked out but not locked", "An electrician clearing a different job racks the breaker back in. Nothing told them not to."]);
+    const paths = [["dis", "Discharge", `${HP} barg`], ["suc", "Suction", `C-101 bottoms at ${SP} barg`], ["spl", "Spillback", `C-101 bottoms through the minimum-flow line`]];
+    paths.forEach(([v, n, src]) => { if (st[v]) gaps.push([`${n} block valve open`, `The casing is connected to ${src}. Residue at ${HOT} °C is above its auto-ignition temperature: it lights when it meets air.`]);
+      else if (!st[v + "Lock"]) gaps.push([`${n} block valve closed but not locked`, `At shift change the outside operator lines the spare pump up for service and opens it. No lock, no tag, no reason not to.`]) });
+    if (isolated() && st.P > 0.15) gaps.push([`Trapped pressure: ${st.P.toFixed(1)} barg in the casing`, `The first bolts come out and the joint lets go. The casing empties through the gap.`]);
+    if (isolated() && st.P <= 0.15 && !st.proven) gaps.push(["Zero pressure never proven", `The gauge reads zero. Nobody checked the vent. A plugged tapping reads zero at any pressure.`]);
+    if (st.T > TOUCH) gaps.push([`Casing at ${Math.round(st.T)} °C`, `Hot residue in the casing and metal far above ${TOUCH} °C. Burns, and vapour that can light on the hot surface when air gets in.`]);
+    if (st.barrier) gaps.push(["Seal barrier still pressurised", `The seal gland is unbolted and the accumulator discharges its barrier fluid through the opening.`]);
+    if (!elec && !st.tried) gaps.push(["Try-start never done", `The breaker was racked out and locked. Was it the right cubicle? Nobody pressed start to find out.`]);
+    if (!st.crew) gaps.push(["No personal locks on the lockbox", `The people doing the work have no control over the isolation. Whoever holds the keys can remove it while they are inside the pump.`]);
+    if (!gaps.length) { st.done = true; st.min += 10; log("Containment broken at zero energy");
+      const score = Math.max(0, 100 - 10 * st.strikes - 25 * st.incidents);
+      if (!saved.sim || score > saved.sim.score) { saved.sim = { score, strikes: st.strikes, incidents: st.incidents, clock: clock() }; save() }
+      st.coach = { kind: "win", title: "Zero energy. The casing is open and nothing happened.", body: `Four isolation points locked, stored energy released, the start tried and zero proven, with each person's own lock on the box. Finished at ${clock()} with ${st.strikes} strike${st.strikes === 1 ? "" : "s"} and ${st.incidents} incident${st.incidents === 1 ? "" : "s"}. Score ${score}.`,
+        btns: [["Go to the judgment calls", "quiz", "primary"], ["Run it again", "reset", ""]] };
+      return }
+    st.incidents++; log("INCIDENT: containment broken with energy present", "b");
+    st.coach = { kind: "bad", title: "Incident (simulated): the pump was not at zero energy", body: gaps[0][1], gaps, btns: [["Back to the pump: fix it", "dismiss", "primary"]] };
+  },
+};
+
+const PANEL = [
+  ["Control room and substation", [
+    ["permit", "Permit and notifications", "Permit to work, isolation list", s => s.permit ? ["issued", "safe"] : ["not issued", "live"],
+      s => [["permit", "Get the permit and brief the board operator", s.permit]]],
+    ["auto", `DCS standby selector`, `${P.tag} auto-start on ${P.twin} trip`, s => s.auto ? ["auto standby", "live"] : ["manual, off", "safe"],
+      s => [["auto", "Take out of AUTO standby", !s.auto]]],
+    ["brk", `${M.bus} cubicle`, `${M.kV} kV ${M.starter}, ${M.flc} A full load`, s => s.brk !== "racked-out" ? ["open, racked in", "live"] : s.brkLock ? ["racked out, locked", "safe"] : ["racked out", "mid"],
+      s => [["brkRack", "Rack out to DISCONNECTED", s.brk === "racked-out"], ["brkLock", "Lock and tag", s.brkLock, "lk"]]],
+  ]],
+  ["Pump skid", [
+    ...[["dis", "Discharge block valve", D.discharge], ["suc", "Suction block valve", D.suction], ["spl", "Spillback block valve", D.spill]].map(([v, n, ln]) =>
+      [v, n, `${ln.nps}" class ${ln.cls}, design ${ln.desP} barg / ${ln.desT} °C`, s => s[v] ? ["open", "live"] : s[v + "Lock"] ? ["closed, locked", "safe"] : ["closed", "mid"],
+        s => [[`valve:${v}`, s[v] ? "Close" : "Reopen", false, "", s[v + "Lock"]], [`vlock:${v}`, "Lock and tag", s[v + "Lock"], "lk"]]]),
+    ["barrier", "Seal barrier accumulator", P.seal, s => s.barrier ? ["pressurised", "live"] : ["vented", "safe"], s => [["barrier", "Isolate and vent", !s.barrier]]],
+    ["drn", "Casing drain and vent", `to closed drain · ${D.gauge.tag} ${D.gauge.range} ${D.gauge.units}`, s => s.drn ? (s.proven ? ["open, zero proven", "safe"] : ["open", "mid"]) : ["shut", "live"],
+      s => [["drn", s.drn ? "Close drain and vent" : "Open drain and vent", false], ["prove", "Prove zero at the open vent", s.proven]]],
+    ["lcs", "Local control station", "start / stop at the pump", s => s.tried ? ["tried, off", "safe"] : ["not tried", "mid"], s => [["tryStart", "Try-start, then return to OFF", s.tried]]],
+  ]],
+  ["Lockbox and the job", [
+    ["crew", "Group lockbox", "isolation keys inside, one lock per person", s => s.crew ? ["3 personal locks", "safe"] : ["empty", "live"],
+      s => [["crew", "Keys in the box; everyone hangs a personal lock", s.crew, "lk"]]],
+    ["open", "Break containment", "unbolt the casing and pull the seal", s => s.done ? ["open, safe", "safe"] : ["bolted", ""], s => [["open", "Break containment", s.done, "go"]]],
+  ]],
+];
+
+function renderPanel() {
+  $("#panel").innerHTML = PANEL.map(([zone, rows]) => `<div class="zone"><h3>${zone}</h3>${rows.map(([id, name, sub, pill, acts]) => {
+    const [pt, pc] = pill(st);
+    return `<div class="devrow" data-dev="${id}"><div class="hd"><div class="nm">${esc(name)}<small>${esc(sub)}</small></div><span class="pill ${pc}">${pt}</span></div>
+      <div class="acts">${acts(st).map(([a, label, done, cls, dis]) => cls === "go"
+        ? `<button class="btn go" id="b-${a}" data-act="${a}" ${done || st.coach.kind === "bad" ? "disabled" : ""}>${label}</button>`
+        : `<button class="btn ${cls || ""} ${done ? "done" : ""}" id="b-${a.replace(":", "-")}" data-act="${a}" ${done || dis || st.done ? "disabled" : ""}>${label}</button>`).join("")}</div></div>` }).join("")}</div>`).join("");
+}
+function renderCoach() {
+  const c = st.coach, el = $("#coach"); el.className = "coach " + c.kind;
+  el.innerHTML = c.kind === "bad" || c.kind === "win"
+    ? `<span class="k">${c.kind === "bad" ? "Stop" : "Complete"}</span><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p>
+       ${c.gaps ? `<p style="margin-top:6px"><b>What was still wrong (${c.gaps.length}):</b></p><ul>${c.gaps.map(g => `<li>${esc(g[0])}</li>`).join("")}</ul>` : ""}
+       <div class="row">${c.btns.map(([l, a, k]) => `<button class="btn ${k}" data-coach="${a}">${l}</button>`).join("")}</div>`
+    : `<span class="k">${esc(c.title)}</span><p>${esc(c.body)}</p>`;
+}
+function renderSim() {
+  renderPanel(); renderCoach();
+  $("#tally").innerHTML = `<span>Site clock <b>${clock()}</b></span><span>Strikes <b>${st.strikes}</b></span><span>Incidents <b>${st.incidents}</b></span>
+    <span>Isolations locked <b>${[st.brkLock, st.disLock, st.sucLock, st.splLock].filter(Boolean).length} of 4</b></span>
+    <button class="btn" data-coach="reset" style="padding:2px 9px;font-size:12.5px">Reset the pump</button>`;
+  $("#log").innerHTML = st.log.length ? st.log.map(l => `<li class="${l.cls || ""}">${l.t}  ${esc(l.msg)}</li>`).join("") : "<li>06:00  Shift start. Nothing done yet.</li>";
+  drawState(); tabs();
+}
+function drawState() {
+  const s = sch(); if (!s) return;
+  const sim = s.dataset.mode === "sim", v = sim ? st : fresh();
+  const hotIn = v.P > 0.15 || v.T > TOUCH;
+  const cls = (id, on, flow, rev) => { const e = $("#" + id, s); e.classList.toggle("hot", on); e.classList.toggle("flow", !!flow); e.classList.toggle("rev", !!rev) };
+  const warm = v.dis && v.suc;
+  cls("p-suc", hotIn, warm, true); cls("p-dis", hotIn, warm, true); cls("p-byp", hotIn, warm, true); cls("p-spl", hotIn, v.spl && v.run > 0);
+  cls("p-drn", hotIn); cls("p-drn2", v.drn && v.P > 0.15, v.drn && v.P > 0.15);
+  cls("p-seal", v.barrier);
+  $("#acc", s).style.fill = v.barrier ? "var(--flame)" : "var(--sheet)";
+  ["dis", "suc", "spl", "drn"].forEach(k => $("#v-" + k, s).classList.toggle("closed", !v[k]));
+  ["brk", "dis", "suc", "spl"].forEach(k => $("#lb-" + k, s).classList.toggle("on", !!v[k + "Lock"]));
+  const out = v.brk === "racked-out", run = v.run > 0;
+  $("#brk-arm", s).setAttribute("d", run ? "M850 266V300" : "M850 266L866 290");
+  $("#brk-g", s).setAttribute("transform", out ? "translate(0 8)" : "");
+  $("#brk-top", s).style.opacity = out ? 0 : 1;
+  $("#brk-t", s).textContent = out ? "RACKED OUT" : run ? "CLOSED" : "RACKED IN";
+  $("#w-cab", s).setAttribute("class", "wire" + (run ? " live" : out ? "" : " armed"));
+  $("#w-dcs", s).setAttribute("class", "wire" + (v.auto && !out ? " armed" : ""));
+  $("#w-lcs", s).setAttribute("class", "wire" + (!out ? " armed" : ""));
+  $("#dcs-t", s).textContent = v.auto ? "AUTO standby: armed" : "manual, off";
+  $("#rotor", s).classList.toggle("spin", run);
+  $("#needle", s).style.transform = `rotate(${-125 + Math.min(v.P, 30) / 30 * 250}deg)`;
+  $("#ro-p", s).textContent = v.P.toFixed(1) + " barg"; $("#ro-t", s).textContent = Math.round(v.T) + " °C";
+  const on = sim ? [st.permit, !st.auto, out && isolated(), st.brkLock && st.disLock && st.sucLock && st.splLock && st.crew,
+    !st.barrier && isolated() && st.P <= 0.15 && st.T <= TOUCH, st.tried && st.proven] : [];
+  $$("#steps div", schHost).forEach((d, i) => d.classList.toggle("on", !!on[i]));
+}
+function tick(now) {
+  raf = requestAnimationFrame(tick);
+  const dt = Math.min(.1, (now - (lastT || now)) / 1000); lastT = now;
+  if (!st || sch().dataset.mode !== "sim") return;
+  const P0 = st.P, T0 = st.T;
+  let target = null;
+  if (st.run > 0) { st.run -= dt; target = HP + 1; if (st.run <= 0) { st.run = 0; renderSim() } }
+  else if (st.dis) target = st.suc || st.spl ? SP : HP;
+  else if (st.suc || st.spl) target = SP;
+  else if (st.drn) target = 0;
+  if (target !== null) st.P += (target - st.P) * Math.min(1, dt * (target === 0 ? 1.1 : 1.8));
+  if (st.P < 0.02) st.P = 0;
+  const cooling = isolated();
+  st.T += ((cooling ? AMB : HOT) - st.T) * Math.min(1, dt / (cooling ? 5 : 2.5));
+  if (cooling && st.T > TOUCH && !st.done) st.min += dt * 20;
+  if (Math.abs(st.P - P0) > .001 || Math.abs(st.T - T0) > .01) {
+    drawState();
+    if ((T0 > TOUCH) !== (st.T > TOUCH) || (P0 > .15) !== (st.P > .15)) { if (st.T <= TOUCH && T0 > TOUCH) log(`Casing below ${TOUCH} °C`); renderSim() }
+  }
+}
+function act(a) {
+  if (st.done && a !== "reset") return;
+  const [fn, arg] = a.split(":"); ACT[fn](arg); renderSim();
+  const b = document.getElementById("b-" + a.replace(":", "-")); if (b && !b.disabled) b.focus({ preventScroll: true });
+  if (st.coach.kind === "bad" || st.coach.kind === "win") $("#coach").scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+function resetSim() { st = fresh(); coach("ok", "06:00 · Start of shift", `${P.tag} is stopped, hot and in AUTO standby. ${P.twin} is carrying the unit. The fitters are waiting at the pump with a new seal. Where do you start?`); renderSim() }
+$("#part-sim").addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (b && !b.disabled) return act(b.dataset.act);
+  const c = e.target.closest("[data-coach]"); if (!c) return;
+  const a = c.dataset.coach;
+  if (a === "reset") resetSim();
+  else if (a === "quiz") show("quiz");
+  else { coach("strike", "Back at the pump", "The casing is bolted again in this simulation; out there it would not be. Close the gaps in the list, then try again."); renderSim() }
+});
+function pick(dev) {
+  if (dev === "pump") dev = "open";
+  $$(".devrow").forEach(r => r.classList.toggle("sel", r.dataset.dev === dev));
+  $$("#sch .dev").forEach(d => d.classList.toggle("sel", d.dataset.dev === dev));
+  const row = $(`.devrow[data-dev="${dev}"]`); if (!row) return;
+  row.scrollIntoView({ block: "nearest", behavior: "smooth" }); const b = $("button:not([disabled])", row); if (b) b.focus({ preventScroll: true });
+}
+
+/* ---------- part 1: beliefs ---------- */
+const BELIEFS = [
+  ["The pump is stopped, so the motor circuit is safe.", false,
+    `Stopped only means the breaker is open. It is still racked in at ${M.bus} with its control supply on, and any start command closes it onto a ${M.kW} kW motor. The circuit is safe when the breaker is racked out and locked.`,
+    `${D.doc.loadlist}: ${P.tag}, ${M.V} V, ${M.starter}, ${M.flc} A, cable ${M.cable} ${M.cable_m} m, relays ${M.relays}`],
+  ["Nobody will start it by accident. The start button is right here at the pump.", false,
+    `The DCS has its own start output, and ${P.tag} is the ${P.duty} pump: it starts by itself when ${P.twin} trips. The person who starts it may be a control loop that has never heard of your job.`,
+    `Load list duty: ${P.tag} ${P.duty}, ${P.twin} ${P.twin_duty}. DCS outputs to the breaker: ${M.remote.join(", ")}`],
+  ["The check valve stops the discharge header feeding back into the pump.", false,
+    `A check valve is not an isolation: they pass, and on a hot standby pump there is a warm-up bypass around it on purpose, to keep the casing at temperature. That is why a pump that is not running is at ${HOT} °C. The header behind it is at ${HP} barg.`,
+    `${D.discharge.no}: operating ${D.discharge.opP} barg / ${D.discharge.opT} °C, design ${D.discharge.desP} barg / ${D.discharge.desT} °C`],
+  ["There are three process paths into this pump, not two.", true,
+    `Suction, discharge and the minimum-flow spillback back to the column. The spillback leaves between the pump and the check valve, so with suction and discharge shut the casing is still open to C-101. It needs its own closed, locked valve.`,
+    `${D.spill.no}: ${D.spill.service}, design ${D.spill.desP} barg / ${D.spill.desT} °C`],
+  [`The control room can close ${D.eiv.tag} on the suction for me, but that does not count as my isolation.`, true,
+    `${D.eiv.tag} is a remotely operated emergency valve driven by the safety system. A signal can open it again, so it cannot be your lockout point. It also sits on the common suction: closing it takes the running pump ${P.twin} off line and stops feed to the vacuum heater. Use the manual block valve at the pump.`,
+    `${D.eiv.tag}: ${D.eiv.function} (${D.eiv.sif}, ${D.eiv.sil}), fail closed`],
+  ["Once the process side is drained, the seal is safe to pull.", false,
+    `This seal has its own energy. The barrier system keeps fluid between the two seals at a pressure above the pump, held by a nitrogen-charged accumulator. Draining the casing does nothing to it. It has to be blocked in and vented separately.`,
+    `Equipment list: ${P.tag} seal ${P.seal}, pump type ${P.api610}, material ${P.moc}`],
+  ["It is isolated and depressurised. The casing is ready to open.", false,
+    `Not at ${HOT} °C. Thermal energy is stored energy too. The residue in the casing is above its auto-ignition temperature, so it needs no spark: it lights when it reaches air. The casing has to cool below ${TOUCH} °C before the bolts come out.`,
+    `Stream ${D.fluid.no}: ${D.fluid.name}, ${D.fluid.T} °C, ${D.fluid.kgph} t/h to ${D.fluid.dest}. Pump design temperature ${P.desT} °C`],
+  ["Drained means clean.", false,
+    `Heavy residue does not drain like water: it coats the casing and sets as it cools. This stream carries ${D.fluid.sulfur} wt% sulphur, so expect hydrogen sulphide in the vapour space and iron sulphide scale that can heat up and ignite as it dries in air. Gas test, keep the scale wet, and wear what the permit says.`,
+    `${D.fluid.name}: ${D.fluid.sulfur} wt% S. Area classification at the pump: ${M.zone}`],
+  ["Even with the breaker locked out, this shaft can still turn.", true,
+    `If the discharge side passes, flow runs backwards through the pump and spins it in reverse, with no electricity involved. Electrical lockout alone does not make the coupling safe. The shaft is safe when the breaker is out and every process path is shut and proven.`,
+    `Header ${HP} barg against column ${SP} barg: ${(HP - SP).toFixed(1)} bar driving backflow`],
+];
+let curB = 1;
+function renderHunt() {
+  const s = sch();
+  $$(".hs", s).forEach(h => { const a = saved.hunt[h.dataset.n]; h.classList.toggle("right", a === 1); h.classList.toggle("wrong", a === 0); h.classList.toggle("cur", +h.dataset.n === curB) });
+  $("#dots").innerHTML = BELIEFS.map((_, i) => { const a = saved.hunt[i + 1]; return `<button data-n="${i + 1}" class="${a === 1 ? "right" : a === 0 ? "wrong" : ""} ${i + 1 === curB ? "cur" : ""}" aria-label="Statement ${i + 1}">${i + 1}</button>` }).join("");
+  const [text, truth, why, fact] = BELIEFS[curB - 1], a = saved.hunt[curB];
+  const next = BELIEFS.findIndex((_, i) => saved.hunt[i + 1] === undefined) + 1;
+  $("#belief").innerHTML = `<span class="eyebrow">Statement ${curB} of ${BELIEFS.length}</span><blockquote>${esc(text)}</blockquote>` + (a === undefined
+    ? `<div class="acts"><button class="btn primary" data-ans="1">True</button><button class="btn primary" data-ans="0">False</button></div>`
+    : `<span class="verdict ${a ? "right" : "wrong"}">${truth ? "True" : "False"}. ${a ? "You called it." : "You called it the other way."}</span><p>${esc(why)}</p><p class="fact">${esc(fact)}</p>
+       <div class="acts">${next ? `<button class="btn primary" data-go="${next}">Next statement</button>` : `<button class="btn primary" data-go="sim">Now isolate the pump</button>`}</div>`);
+  tabs();
+}
+$("#part-hunt").addEventListener("click", e => {
+  const h = e.target.closest(".hs, #dots button"); if (h) { curB = +h.dataset.n; return renderHunt() }
+  const a = e.target.closest("[data-ans]"); if (a) { saved.hunt[curB] = (+a.dataset.ans === +BELIEFS[curB - 1][1]) ? 1 : 0; save(); return renderHunt() }
+  const g = e.target.closest("[data-go]"); if (g) { if (g.dataset.go === "sim") return show("sim"); curB = +g.dataset.go; renderHunt(); $("#belief").scrollIntoView({ block: "nearest" }) }
+});
+
+/* ---------- part 3: judgment calls ---------- */
+const QUIZ = [
+  ["Twenty minutes", `The fitter only wants to check the coupling alignment on ${P.tag}. He has turned the local switch to OFF and hung a tag on it. "Twenty minutes. Not worth racking a ${M.kV} kV breaker for."`, 1,
+    ["Fine for a short job, as long as the tag stays on the switch.", "No. A switch at the pump is a control device, not an isolation. The breaker is racked out and locked first.", "Fine if someone stands at the switch for the twenty minutes."],
+    `A selector switch, push button or DCS command only asks the breaker not to close. The standby auto-start does not go through that switch at all. Short jobs are where people get caught, because the shortcut looks reasonable.`, "29 CFR 1910.147(b): control-circuit devices are not energy-isolating devices"],
+  ["The helpful board operator", `The control room offers to close ${D.eiv.tag} from the console "so your suction is isolated before you even get out there".`, 2,
+    ["Accept. A safety-rated valve is better than a manual one.", "Accept, and ask them to put a note on the console.", `Decline. It is a remote valve on the common suction; you need the locked manual block valve at ${P.tag}.`],
+    `Anything a signal closed, a signal can open. And ${D.eiv.tag} is upstream of both pumps: closing it stops ${P.twin} and the feed to H-201. An isolation has to be a device you can physically lock, on your equipment only.`, `${D.eiv.tag}: ${D.eiv.function}`],
+  ["The gauge says zero", `Suction, discharge and spillback are closed and locked. The drain has been open for a while and ${D.gauge.tag} reads 0 barg. The fitter reaches for the casing bolts.`, 0,
+    ["Stop. Confirm at the open vent and drain that nothing is coming out, then break the joint with the bolts farthest from you first.", "Go ahead. The gauge is the proof.", "Tap the gauge. If the needle does not move, go ahead."],
+    `In residue service the small-bore tapping to a gauge can plug with cold oil or coke and read zero at any pressure. Zero is proven by an open path that shows no flow, and the first joint is always broken as if it were still live.`, "Verification of isolation: 29 CFR 1910.147(d)(6)"],
+  ["Shift change", `It is 18:00. The seal is half out. The night fitter arrives and says: "Leave your lock on the box, I'll work under it. Saves us both a walk."`, 1,
+    ["Agree, and tell the supervisor in the morning.", "No. He hangs his own lock before you take yours off. Then you walk the isolations with him.", "Agree, and give him your key so he can take it off when he finishes."],
+    `A personal lock protects exactly one person: the one holding its key. The incoming person's lock goes on before the outgoing lock comes off, so the pump is never without a lock belonging to someone who is on it.`, "29 CFR 1910.147(f)(4): shift or personnel changes"],
+  ["The lock nobody owns", `The job is finished and ${P.twin} is showing high vibration. Operations want ${P.tag} back now. One personal lock is still on the lockbox. Its owner went home two hours ago.`, 2,
+    ["Cut it off. The job is finished and the unit needs the pump.", "Leave it and run the unit without a spare until the owner is back tomorrow, whatever happens.", "Follow the absent-owner procedure: confirm they are off site, try to reach them, get the supervisor's authorisation, inspect the pump, and tell them before their next shift."],
+    `Only the person who applied a lock removes it. The single exception is a written procedure run by the employer, with the checks in that order, because the other explanation for a lock left behind is that its owner is still inside the job.`, "29 CFR 1910.147(e)(3)"],
+  ["While it's locked out anyway", `An instrument technician walks up: "Since ${P.tag} is isolated, I'll swap ${D.gauge.tag} now. Five minutes."`, 0,
+    ["Not yet. His task goes on the permit, the isolation is checked against his job, and his own lock goes on the box before he touches it.", "Fine. The isolation is already proven.", "Fine, provided he finishes before the fitters do."],
+    `An isolation is designed for a task, not for a piece of equipment. A different task can need different boundaries, and a person with no lock on the box can be forgotten when the locks come off and the pump is handed back.`, "Group lockout: 29 CFR 1910.147(f)(3)"],
+  ["The bump test", `The new seal is in and the casing is closed. The fitters need the motor bumped for a second to check rotation before the coupling guard goes back on.`, 1,
+    ["Have the electrician rack the breaker in while the fitters stand back. Their locks can stay on the box.", "Clear tools and people, every lock off by its owner, energise and test, then isolate, lock and verify again before anyone goes back in.", "Bridge the start circuit at the cubicle so the locks do not have to come off."],
+    `Energising for a test is allowed, but only as a complete removal and a complete re-application. There is no state in which the motor is live and the lockout still counts.`, "29 CFR 1910.147(f)(1): testing or positioning"],
+];
+function renderQuiz() {
+  $("#quiz").innerHTML = QUIZ.map(([title, text, right, opts, why, ref], i) => { const a = saved.quiz[i];
+    return `<div class="q"><div class="qh"><span class="eyebrow">Call ${i + 1} of ${QUIZ.length}</span><h3>${esc(title)}</h3><p>${esc(text)}</p></div>
+      <div class="opts">${opts.map((o, j) => `<button data-q="${i}" data-o="${j}" ${a !== undefined ? "disabled" : ""} class="${a !== undefined && j === right ? "right" : a === j ? "wrong" : ""}">
+        <span class="mk">${a !== undefined && j === right ? "✓" : a === j ? "✗" : "ABC"[j]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+      ${a !== undefined ? `<div class="why"><p>${esc(why)}</p><p class="ref">${esc(ref)}</p></div>` : ""}</div>` }).join("")
+    + (Object.keys(saved.quiz).length === QUIZ.length ? `<div class="acts"><button class="btn primary" data-go="rec">See your training record</button></div>` : "");
+  tabs();
+}
+$("#part-quiz").addEventListener("click", e => {
+  const b = e.target.closest("[data-q]"); if (b && !b.disabled) { saved.quiz[b.dataset.q] = +b.dataset.o; save(); return renderQuiz() }
+  if (e.target.closest("[data-go]")) show("rec");
+});
+
+/* ---------- record + tabs ---------- */
+function scores() {
+  const hN = Object.keys(saved.hunt).length, hR = Object.values(saved.hunt).filter(v => v === 1).length;
+  const qN = Object.keys(saved.quiz).length, qR = QUIZ.filter((q, i) => saved.quiz[i] === q[2]).length;
+  const pass = hN === BELIEFS.length && !!saved.sim && qN === QUIZ.length && qR >= QUIZ.length - 1;
+  return { hN, hR, qN, qR, pass };
+}
+function tabs() {
+  const s = scores();
+  const set = (id, txt, done) => { const e = $("#s-" + id); e.textContent = txt; e.classList.toggle("done", done) };
+  set("hunt", s.hN ? `${s.hR} right of ${s.hN} answered` : `${BELIEFS.length} statements`, s.hN === BELIEFS.length);
+  set("sim", saved.sim ? `score ${saved.sim.score}` : "not yet isolated", !!saved.sim);
+  set("quiz", s.qN ? `${s.qR} right of ${s.qN} answered` : `${QUIZ.length} situations`, s.qN === QUIZ.length);
+  set("rec", s.pass ? "passed" : "open", s.pass);
+}
+function recordText() {
+  const s = scores(), d = new Date().toISOString().slice(0, 10);
+  return [`${D.doc.no} Rev ${D.doc.rev} · Hot pump lockout (${P.tag})`, `Name: ${saved.name || "(not entered)"} · Date: ${d}`,
+    `Part 1 Find the energy: ${s.hR}/${BELIEFS.length}`,
+    `Part 2 Isolate the pump: ${saved.sim ? `complete, score ${saved.sim.score}, ${saved.sim.strikes} strike(s), ${saved.sim.incidents} incident(s)` : "not complete"}`,
+    `Part 3 Judgment calls: ${s.qR}/${QUIZ.length}`, `Result: ${s.pass ? "PASSED" : "NOT YET COMPLETE"}`].join("\n");
+}
+function renderRec() {
+  const s = scores();
+  $("#stamp").textContent = s.pass ? "Passed" : "In progress"; $("#stamp").className = "stamp " + (s.pass ? "pass" : "open");
+  $("#rtab").innerHTML = `<tr><td>Part 1 · Find the energy</td><td>${s.hN < BELIEFS.length ? `${s.hN} of ${BELIEFS.length} answered` : `${s.hR} / ${BELIEFS.length}`}</td></tr>
+    <tr><td>Part 2 · Isolate the pump</td><td>${saved.sim ? `score ${saved.sim.score} · ${saved.sim.strikes} strikes · ${saved.sim.incidents} incidents` : "not complete"}</td></tr>
+    <tr><td>Part 3 · Judgment calls (pass: ${QUIZ.length - 1} of ${QUIZ.length})</td><td>${s.qN < QUIZ.length ? `${s.qN} of ${QUIZ.length} answered` : `${s.qR} / ${QUIZ.length}`}</td></tr>
+    <tr><td>To pass</td><td>all three parts complete</td></tr>`;
+  tabs();
+}
+$("#who").value = saved.name; $("#who").addEventListener("input", e => { saved.name = e.target.value; save() });
+$("#copy").addEventListener("click", () => { const t = recordText(), out = $("#copied");
+  const fallback = () => { out.style.whiteSpace = "pre-wrap"; out.textContent = t; getSelection().selectAllChildren(out) };
+  try { navigator.clipboard.writeText(t).then(() => { out.textContent = "Copied to the clipboard." }, fallback) } catch (e) { fallback() } });
+$("#resetall").addEventListener("click", () => { saved = { hunt: {}, quiz: {}, sim: null, name: saved.name }; save(); curB = 1; resetSim(); renderQuiz(); renderRec(); show("hunt") });
+
+function show(part) {
+  ["hunt", "sim", "quiz", "rec"].forEach(p => { $("#part-" + p).hidden = p !== part; $("#tab-" + p).setAttribute("aria-selected", p === part) });
+  if (part === "hunt" || part === "sim") { $("#sch-home-" + part).appendChild(schHost); sch().dataset.mode = part; $("#steps", schHost).hidden = part !== "sim"; drawState() }
+  if (part === "hunt") renderHunt(); if (part === "sim") renderSim(); if (part === "quiz") renderQuiz(); if (part === "rec") renderRec();
+  try { if (location.hash.slice(1) !== part) history.replaceState(null, "", "#" + part) } catch (e) {}
+}
+$$(".tabs button").forEach(b => b.addEventListener("click", () => show(b.dataset.part)));
+schHost.addEventListener("click", e => { const d = e.target.closest(".dev"); if (d && sch().dataset.mode === "sim") pick(d.dataset.dev) });
+schHost.addEventListener("keydown", e => { if (e.key !== "Enter" && e.key !== " ") return; const t = e.target.closest(".dev, .hs"); if (t) { e.preventDefault(); t.dispatchEvent(new MouseEvent("click", { bubbles: true })) } });
+addEventListener("hashchange", () => { const p = location.hash.slice(1); if (["hunt", "sim", "quiz", "rec"].includes(p)) show(p) });
+
+st = fresh(); coach("ok", "", ""); resetSim(); renderQuiz(); renderRec();
+show(["hunt", "sim", "quiz", "rec"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "hunt");
+raf = requestAnimationFrame(tick);
+</script>
+<!--/PAGE-->
+</body>
+</html>

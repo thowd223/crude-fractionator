@@ -16,6 +16,13 @@ Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 1
 `deliverables/06-wrapup/portal/dependencies.html` maps the design steps: the order they run in, what each needs from
 upstream, and what it affects downstream.
 
+## Lockout / tagout training
+
+`deliverables/07-training/CFU-000-PM-TRN-001_Hot-Pump-Lockout.html` is an interactive energy-isolation exercise for
+operations and construction: isolate the standby atmospheric-residue pump P-112A (4.16 kV motor, 349 C residue,
+19 barg header) for a seal change. Its numbers and tags are read from `data/`, so it follows the design.
+Rebuild it alone with `python build.py training`.
+
 ## Design dependency map
 
 The activity network lives in `cfu/wrapup/activities.py` (45 activities, including the ones still needed before
@@ -51,11 +58,12 @@ adding a module or a data file; the report (CFU-000-PM-DEP-001, section 8) lists
 | `04-instrumentation` | Control philosophy & proposed control scheme, 6 control scheme diagrams, ICS architecture, C&E matrix, SIF/SIL (LOPA), control valve sizing, instrument index (694 tags), I/O list, loop diagrams |
 | `05-electrical` | Load list, 4 single-line diagrams, sizing calcs, cable schedule, hazardous area classification |
 | `06-wrapup` | Preliminary HAZOP, cost estimate, design dependency map (sequence, inputs, change impact, DSM), document register, portal |
+| `07-training` | Interactive lockout / tagout training on hot pump P-112A |
 
 ## Repository layout
 
 * `cfu/`: calculation and drawing generators (`hmb.py` process model, `sizing.py`, `pid/`, `mech/`, `layout/`,
-  `piping/`, `elec/`, `ic/`, `wrapup/`)
+  `piping/`, `elec/`, `ic/`, `wrapup/`, `training/`)
 * `data/`: master data exchanged between disciplines (JSON)
 * `CONVENTIONS.md`: numbering, tagging, piping classes, plot frame and data ownership
 
