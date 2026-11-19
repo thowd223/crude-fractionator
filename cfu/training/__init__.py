@@ -3,5 +3,6 @@ from __future__ import annotations
 
 
 def build():
-    from . import loto
+    from . import board, loto
     loto.build()
+    board.build()

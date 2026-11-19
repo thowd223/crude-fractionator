@@ -16,6 +16,14 @@ Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 1
 `deliverables/06-wrapup/portal/dependencies.html` maps the design steps: the order they run in, what each needs from
 upstream, and what it affects downstream.
 
+## Board operator simulator
+
+`deliverables/07-training/CFU-000-PM-TRN-002_Board-Operator-Simulator.html` runs the unit live in the browser: nine
+controller faceplates, three pump pairs, two heaters, an alarm list and the safety functions, with four upset shifts
+(controller left in manual, reflux pump trip, residue pump trip with the spare locked out, loss of vacuum) and a
+debrief. The steady state, tags, alarm and trip settings come from `data/` and the cause-and-effect generator; the
+dynamics are simplified for training. Rebuild with `python build.py training`.
+
 ## Lockout / tagout training
 
 `deliverables/07-training/CFU-000-PM-TRN-001_Hot-Pump-Lockout.html` is an interactive energy-isolation exercise for
@@ -58,7 +66,7 @@ adding a module or a data file; the report (CFU-000-PM-DEP-001, section 8) lists
 | `04-instrumentation` | Control philosophy & proposed control scheme, 6 control scheme diagrams, ICS architecture, C&E matrix, SIF/SIL (LOPA), control valve sizing, instrument index (694 tags), I/O list, loop diagrams |
 | `05-electrical` | Load list, 4 single-line diagrams, sizing calcs, cable schedule, hazardous area classification |
 | `06-wrapup` | Preliminary HAZOP, cost estimate, design dependency map (sequence, inputs, change impact, DSM), document register, portal |
-| `07-training` | Interactive lockout / tagout training on hot pump P-112A |
+| `07-training` | Board operator simulator; interactive lockout / tagout training on hot pump P-112A |
 
 ## Repository layout
 

@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--PAGE-->
+<title>Crude Unit Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: a control-room console in the high-performance HMI convention - grey process graphic, colour reserved
+   for alarms. Overview and alarm list on top, controller faceplates below, then trend, safety functions, journal. */
+:root {
+  --bg: #e2e5e3; --panel: #f2f3f2; --well: #d3d8d6; --ink: #1f2a33; --muted: #58656e; --rule: #b7bfc3;
+  --pipe: #56636c; --val: #0c3c66; --fill: #8a979f; --flame: #c8501e;
+  --a1: #c62828; --a1bg: #fbe2df; --a2: #8f6000; --a2bg: #fff0c4; --ok: #2b7a4b; --okbg: #e1f0e6;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #151b20; --panel: #1d252b; --well: #10161a; --ink: #dfe6ea; --muted: #8e9faa; --rule: #34424c;
+  --pipe: #7f8e98; --val: #a6d4f7; --fill: #53626c; --flame: #f08a52;
+  --a1: #ff6f66; --a1bg: #47201e; --a2: #f0b93a; --a2bg: #3b2f0f; --ok: #6cc28f; --okbg: #173226; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #151b20; --panel: #1d252b; --well: #10161a; --ink: #dfe6ea; --muted: #8e9faa; --rule: #34424c;
+  --pipe: #7f8e98; --val: #a6d4f7; --fill: #53626c; --flame: #f08a52;
+  --a1: #ff6f66; --a1bg: #47201e; --a2: #f0b93a; --a2bg: #3b2f0f; --ok: #6cc28f; --okbg: #173226; color-scheme: dark }
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+html, body { margin: 0 }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14.5px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px }
+.wrap { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px }
+button { font: inherit; color: inherit }
+button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--val); outline-offset: 2px }
+.mono { font-family: var(--f-mono) }
+.eyebrow { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+h2 { font: 600 16px/1.1 var(--f-display); letter-spacing: .07em; text-transform: uppercase; margin: 0 }
+.box { background: var(--panel); border: 1.5px solid var(--ink); min-width: 0 }
+.box > h2 { padding: 7px 12px; border-bottom: 1.5px solid var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 8px }
+.box > h2 small { font: 400 11.5px var(--f-mono); letter-spacing: 0; text-transform: none; color: var(--muted) }
+
+header.top { margin-top: 16px; display: grid; grid-template-columns: 1fr auto; border: 1.5px solid var(--ink); background: var(--panel) }
+.top .main { padding: 14px 18px; min-width: 0 }
+.top h1 { font: 700 clamp(30px, 4.6vw, 46px)/1 var(--f-display); letter-spacing: .02em; text-transform: uppercase; margin: 4px 0 6px }
+.top p { margin: 0; color: var(--muted); max-width: 70ch }
+.top .cells { display: grid; grid-template-columns: repeat(3, auto); border-left: 1.5px solid var(--ink) }
+.cell { padding: 8px 14px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); min-width: 104px }
+.cell b { display: block; font: 500 10.5px var(--f-mono); letter-spacing: .08em; color: var(--muted) }
+.cell span { font: 600 23px/1.15 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap }
+.cell.wide { grid-column: span 3; border-bottom: 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+@media (max-width: 860px) { header.top { grid-template-columns: 1fr } .top .cells { border-left: 0; border-top: 1.5px solid var(--ink) } }
+.seg { display: inline-flex; border: 1.5px solid var(--ink) }
+.seg button { border: 0; background: transparent; padding: 4px 10px; cursor: pointer; font: 500 12.5px var(--f-mono); border-right: 1px solid var(--rule) }
+.seg button:last-child { border-right: 0 }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel) }
+.btn { border: 1.5px solid var(--ink); background: var(--panel); padding: 5px 11px; cursor: pointer; font-weight: 500; font-size: 13.5px }
+.btn:hover:not([disabled]) { background: var(--well) }
+.btn[disabled] { border-color: var(--rule); color: var(--muted); cursor: default }
+.btn.primary { background: var(--ink); color: var(--panel) } .btn.primary:hover:not([disabled]) { background: var(--ink); opacity: .88 }
+.btn.sm { padding: 2px 8px; font-size: 12.5px }
+.btn.esd { border-color: var(--a1); color: var(--a1); font-weight: 600 } .btn.esd.arm { background: var(--a1); color: #fff }
+
+/* scenarios */
+.scn { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border: 1.5px solid var(--ink); background: var(--panel) }
+.scn button { text-align: left; border: 0; border-right: 1px solid var(--rule); background: transparent; padding: 9px 12px; cursor: pointer; display: grid; gap: 2px; align-content: start }
+.scn button:last-child { border-right: 0 }
+.scn .t { font: 600 18px/1.1 var(--f-display); letter-spacing: .04em; text-transform: uppercase }
+.scn .d { font-size: 12.5px; color: var(--muted); line-height: 1.35 }
+.scn .g { font: 500 11px var(--f-mono); color: var(--muted) }
+.scn button[aria-pressed="true"] { background: var(--ink); color: var(--panel) }
+.scn button[aria-pressed="true"] .d, .scn button[aria-pressed="true"] .g { color: inherit; opacity: .75 }
+@media (max-width: 900px) { .scn { grid-template-columns: 1fr 1fr } .scn button { border-bottom: 1px solid var(--rule) } }
+
+.brief { border: 1.5px solid var(--ink); border-left-width: 8px; background: var(--panel); padding: 12px 16px; display: grid; gap: 6px }
+.brief h3 { font: 700 22px/1.1 var(--f-display); letter-spacing: .03em; text-transform: uppercase; margin: 0 }
+.brief p { margin: 0; max-width: 92ch } .brief ul { margin: 0; padding-left: 20px; max-width: 92ch } .brief li { margin: 2px 0 }
+.brief .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px }
+.brief.end { border-color: var(--ink) } .brief.gA, .brief.gB { border-left-color: var(--ok) } .brief.gC { border-left-color: var(--a2) } .brief.gD { border-left-color: var(--a1) }
+.grade { font: 700 44px/1 var(--f-display); } .gA .grade, .gB .grade { color: var(--ok) } .gC .grade { color: var(--a2) } .gD .grade { color: var(--a1) }
+.stats { display: flex; flex-wrap: wrap; gap: 4px 22px; font: 12.5px var(--f-mono); color: var(--muted) } .stats b { color: var(--ink); font-weight: 500 }
+
+/* console */
+.console { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 12px; align-items: start }
+@media (max-width: 1020px) { .console { grid-template-columns: minmax(0, 1fr) } }
+.ov-scroll { overflow-x: auto }
+#ov { display: block; width: 100%; min-width: 800px; height: auto }
+#ov text { font-family: var(--f-mono); font-size: 11px; fill: var(--muted) }
+#ov text.eqt { font: 600 15px var(--f-display); fill: var(--ink); letter-spacing: .04em }
+#ov .pipe { fill: none; stroke: var(--pipe); stroke-width: 2.5; stroke-linejoin: round }
+#ov .pipe.util { stroke-width: 1.5; stroke-dasharray: 4 3 }
+#ov .eq { fill: var(--panel); stroke: var(--ink); stroke-width: 1.5 }
+#ov .lvl { fill: var(--fill) }
+#ov .vb rect { fill: var(--well); stroke: var(--rule) }
+#ov .vb text.v { font-size: 12.5px; font-weight: 600; fill: var(--val) }
+#ov .vb.a2 rect { fill: var(--a2bg); stroke: var(--a2) } #ov .vb.a2 text.v { fill: var(--a2) }
+#ov .vb.a1 rect { fill: var(--a1bg); stroke: var(--a1) } #ov .vb.a1 text.v { fill: var(--a1) }
+#ov .pump circle { fill: var(--panel); stroke: var(--ink); stroke-width: 1.5 } #ov .pump path { fill: var(--ink) }
+#ov .pump.run circle { fill: var(--fill) }
+#ov .pump.off circle { stroke: var(--a1); stroke-width: 2.5 } #ov .pump.off path { fill: var(--a1) } #ov .pump.off text { fill: var(--a1); font-weight: 600 }
+#ov .flame { fill: var(--flame); transition: opacity .4s } #ov .flame.out { opacity: 0 }
+#ov .htr.trip rect.eq, #ov .htr.trip path.eq { stroke: var(--a1); stroke-width: 2.5 }
+#ov .xv path { fill: var(--panel); stroke: var(--ink); stroke-width: 1.3 } #ov .xv.shut path { fill: var(--a1); stroke: var(--a1) }
+#ov .arrow { fill: var(--pipe) }
+
+.alist { list-style: none; margin: 0; padding: 0; height: 112px; overflow-y: auto; font: 12.5px var(--f-mono) }
+.alist li { display: grid; grid-template-columns: 58px 1fr; gap: 6px; padding: 3px 10px; border-bottom: 1px solid var(--rule) }
+.alist li.p1 { background: var(--a1bg); color: var(--a1) } .alist li.p2 { background: var(--a2bg); color: var(--a2) }
+.alist li.un b { animation: blink 1s steps(2) infinite } .alist li.none { color: var(--muted); display: block }
+@keyframes blink { 50% { opacity: .25 } }
+@media (prefers-reduced-motion: reduce) { .alist li.un b { animation: none; text-decoration: underline } }
+.motors { display: grid } .mrow { display: grid; grid-template-columns: 66px 1fr auto; gap: 8px; align-items: center; padding: 4px 10px; border-bottom: 1px solid var(--rule); font-size: 13px }
+.mrow:last-child { border-bottom: 0 } .mrow .tag { font: 500 13px var(--f-mono) } .mrow .stt { font: 12px var(--f-mono); color: var(--muted) }
+.mrow .stt.run { color: var(--ok) } .mrow .stt.bad { color: var(--a1); font-weight: 600 }
+
+.faces { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; align-content: start }
+.face { background: var(--panel); border: 1.5px solid var(--ink); padding: 8px 10px; display: grid; gap: 4px; cursor: pointer; min-width: 0 }
+.face.sel { outline: 2px solid var(--val); outline-offset: 1px }
+.face .hd { display: flex; justify-content: space-between; align-items: center; gap: 6px }
+.face .tag { font: 600 14px var(--f-mono) } .face .svc { font-size: 12px; color: var(--muted); line-height: 1.3; min-height: 2.6em }
+.face .mode { font: 600 11.5px var(--f-mono); padding: 2px 8px; border: 1.5px solid var(--ink); background: var(--panel); cursor: pointer; letter-spacing: .05em }
+.face .mode.man { background: var(--a2bg); border-color: var(--a2); color: var(--a2) }
+.face .pv { font: 600 28px/1 var(--f-display); color: var(--val); font-variant-numeric: tabular-nums }
+.face .pv small { font: 400 12px var(--f-mono); color: var(--muted); margin-left: 4px }
+.face.a2 .pv { color: var(--a2) } .face.a1 .pv { color: var(--a1) }
+.face .sp { font: 12px var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; display: flex; justify-content: space-between }
+.face .bar { height: 7px; background: var(--well); border: 1px solid var(--rule) } .face .bar i { display: block; height: 100%; background: var(--fill) }
+.face .nud { display: grid; grid-template-columns: auto repeat(4, 1fr); gap: 4px; align-items: center }
+.face .nud span { font: 500 11px var(--f-mono); color: var(--muted); width: 28px }
+.face .nud button { border: 1.5px solid var(--ink); background: var(--panel); cursor: pointer; padding: 2px 0; font: 600 13px var(--f-mono) }
+.face .nud button:hover { background: var(--well) }
+
+.lower { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 12px; align-items: start }
+.lower > div { display: grid; gap: 12px; min-width: 0 }
+@media (max-width: 1020px) { .lower { grid-template-columns: minmax(0, 1fr) } }
+#trend { display: block; width: 100%; height: 220px }
+.tscroll { overflow-x: auto }
+table.sif { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 470px }
+.sif th { text-align: left; font: 500 10.5px var(--f-mono); letter-spacing: .08em; color: var(--muted); padding: 5px 10px; border-bottom: 1px solid var(--rule) }
+.sif td { padding: 5px 10px; border-bottom: 1px solid var(--rule); vertical-align: top } .sif td.m { font-family: var(--f-mono); white-space: nowrap; font-variant-numeric: tabular-nums }
+.sif tr.trip td { background: var(--a1bg) } .sif tr.trip td.s { color: var(--a1); font-weight: 600 } .sif td.s { color: var(--ok); font-family: var(--f-mono) }
+.sif td small { display: block; color: var(--muted); font-size: 11.5px }
+.jr { list-style: none; margin: 0; padding: 6px 12px; font: 12px var(--f-mono); color: var(--muted); max-height: 170px; overflow-y: auto }
+.jr li.op { color: var(--ink) } .jr li.al { color: var(--a2) } .jr li.tr { color: var(--a1); font-weight: 600 }
+footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 10px; max-width: 105ch }
+</style>
+<!--/PAGE-->
+</head>
+<body>
+<!--PAGE-->
+<div class="wrap">
+<header class="top">
+  <div class="main">
+    <div class="eyebrow"><span id="docno"></span> · Board operator simulator</div>
+    <h1>Crude unit board</h1>
+    <p>The unit is running at design rates from the project's own heat and material balance. You have the board: nine
+    controllers, three pump pairs, two heaters. Pick a shift below. The safety functions trip where the cause-and-effect matrix says they trip.</p>
+  </div>
+  <div class="cells">
+    <div class="cell"><b>SITE CLOCK</b><span id="k-clock">06:00:00</span></div>
+    <div class="cell"><b>CHARGE</b><span id="k-bpsd"></span></div>
+    <div class="cell"><b>ACTIVE ALARMS</b><span id="k-al">0</span></div>
+    <div class="cell wide"><div class="seg" id="speed" role="group" aria-label="Simulation speed">
+      <button data-x="0">Pause</button><button data-x="3">3×</button><button data-x="6">6×</button><button data-x="12">12×</button></div>
+      <button class="btn esd" id="esd">ESD-1</button><button class="btn" id="endbtn" hidden>End shift</button></div>
+  </div>
+</header>
+
+<div class="scn" id="scn" role="group" aria-label="Shifts"></div>
+<div class="brief" id="brief" aria-live="polite"></div>
+
+<div class="console">
+  <div class="box"><h2>Unit overview <small id="ov-note"></small></h2><div class="ov-scroll" id="ovhost"></div></div>
+  <div style="display:grid;gap:12px;min-width:0">
+    <div class="box"><h2>Alarms <button class="btn sm" id="ack">Acknowledge</button></h2><ul class="alist" id="alist"></ul></div>
+    <div class="box"><h2>Motors and heaters</h2><div class="motors" id="motors"></div></div>
+  </div>
+</div>
+
+<div class="lower">
+  <div class="faces" id="faces"></div>
+  <div>
+    <div class="box"><h2><span id="tr-title">Trend</span> <small>last 20 min · PV solid, SP dashed</small></h2><canvas id="trend"></canvas></div>
+    <div class="box"><h2>Safety functions <small id="ce-ref"></small></h2><div class="tscroll"><table class="sif" id="sif"></table></div></div>
+  </div>
+</div>
+<div class="box"><h2>Journal</h2><ol class="jr" id="jr"></ol></div>
+
+<footer>
+  Training simulator generated from the FEED design data of the <span id="f-proj"></span>. Steady-state flows, temperatures and pressures come from
+  the heat and material balance; controller tags from the control-loop list; alarm and trip settings, voting and trip actions from the cause-and-effect
+  matrix; pump duties from the load list. The dynamics (lags, holdups, controller tuning, yield shifts) are simplified for training and are not a
+  validated dynamic model: do not use this page for tuning, alarm rationalisation or procedures.
+</footer>
+</div>
+
+<script>
+const D = {"doc":{"no":"CFU-000-PM-TRN-002","rev":"A","project":"100 kBPSD Crude & Vacuum Distillation Unit","stage":"FEED","ce":"CFU-000-IC-CE-001"},"bpsd":100000,"turndown":0.5,"F":569.9,"CIT":274.0,"COT":365.7,"passes1":8,"fired1":67.4,"AR":256.9,"Tbot":348.7,"Ttop":133.8,"Ptop":1.19,"Pdrum":0.69,"reflux":101.3,"naph":114.9,"kero":68.6,"diesel":81.6,"ago":45.8,"psv":2.4,"psvTag":"PSV-1001","COT2":398.4,"passes2":4,"fired2":17.5,"Pvac":20.0,"Pfz":60.0,"lvgo":50.4,"hvgo":90.4,"vr":108.3,"fgHdr":3.49,"trip":{"pass1":28.5,"pass2":25.8,"cot1":380.7,"cot2":410.4,"fgLL":0.15,"fgHH":2.2,"lvlHH":85.0,"lvl2HH":85.0},"alarm":{"cot1":373.7,"cot2":404.4,"lvlL":25,"lvlH":75,"fgH":2.0},"loops":{"FIC-1001":{"service":"Crude charge flow (unit throughput)","final":"FV-1001"},"TIC-1020":{"service":"H-101 coil outlet temperature (COT)","final":"Cascade to PIC-1021"},"PIC-1021":{"service":"H-101 fuel gas burner pressure","final":"PV-1021"},"TIC-1030":{"service":"C-101 top temperature (naphtha end point)","final":"Cascade to FIC-1031"},"FIC-1031":{"service":"C-101 reflux","final":"FV-1031"},"PIC-1032":{"service":"OH drum pressure (split range)","final":"PV-1032A off-gas / PV-1032B FG make-up"},"LIC-1033":{"service":"D-102 hydrocarbon level","final":"Cascade to FIC-1034"},"FIC-1034":{"service":"Unstabilised naphtha to C-105","final":"FV-1034"},"LIC-1082":{"service":"C-101 bottom level","final":"Cascade to FIC-1083"},"FIC-1083":{"service":"Atm. residue to H-201","final":"FV-1083"},"TIC-2005":{"service":"H-201 COT","final":"Cascade to PIC-2006"},"PIC-2006":{"service":"H-201 fuel gas pressure","final":"PV-2006"},"PIC-2010":{"service":"C-201 top pressure (vacuum)","final":"PV-2010 off-gas recycle to J-201 suction"},"LIC-2024":{"service":"C-201 bottom level","final":"Cascade to FIC-2025"},"FIC-2025":{"service":"Vacuum residue product","final":"FV-2025"}},"sifs":{"SIF-101":{"fn":"H-101 low-low pass flow (any pass) -> trip fuel","sil":"SIL 2","init":"FT-1011..1018 (2oo3 each pass)","vote":"2oo3","acts":["XV-1021/1022: H-101 main FG SSOVs close","XV-1230: H-101 FG vent opens (DB&B)","XV-1026: H-101 pilot gas SSOV close","PV-1021 / TIC-1020: H-101 FG control to min / track"]},"SIF-102":{"fn":"H-101 low-low fuel gas pressure -> trip fuel","sil":"SIL 1","init":"PT-1027A/B/C 2oo3","vote":"2oo3","acts":["XV-1021/1022: H-101 main FG SSOVs close","XV-1230: H-101 FG vent opens (DB&B)","XV-1026: H-101 pilot gas SSOV close","PV-1021 / TIC-1020: H-101 FG control to min / track"]},"SIF-103":{"fn":"H-101 high-high fuel gas pressure -> trip fuel","sil":"SIL 1","init":"PT-1027A/B/C 2oo3","vote":"2oo3","acts":["XV-1021/1022: H-101 main FG SSOVs close","XV-1230: H-101 FG vent opens (DB&B)","XV-1026: H-101 pilot gas SSOV close","PV-1021 / TIC-1020: H-101 FG control to min / track"]},"SIF-106":{"fn":"H-101 high-high COT -> trip fuel","sil":"SIL 1","init":"TT-1020A/B/C 2oo3","vote":"2oo3","acts":["XV-1021/1022: H-101 main FG SSOVs close","XV-1230: H-101 FG vent opens (DB&B)","XV-1026: H-101 pilot gas SSOV close","PV-1021 / TIC-1020: H-101 FG control to min / track"]},"SIF-108":{"fn":"C-101 high-high bottom level -> stop P-101 / close FV-1001","sil":"SIL 1","init":"LT-1082B","vote":"1oo1","acts":["XV-1001: Crude charge XV close","P-101A/B: Crude charge pumps trip"]},"SIF-201":{"fn":"H-201 low-low pass flow -> trip fuel","sil":"SIL 2","init":"FT-2001..2004","vote":"2oo3","acts":["XV-2006A/B: H-201 FG SSOVs close","XV-2105: H-201 FG vent opens (DB&B)","FV-2007: H-201 coil steam to max (sweep coils)"]},"SIF-203":{"fn":"C-201 high-high bottom level -> trip FV-1083 / P-112","sil":"SIL 1","init":"LT-2024B","vote":"1oo1","acts":["XV-1083: AR to H-201 XV close","P-112A/B: AR / H-201 charge pumps trip"]},"SIF-901":{"fn":"Unit emergency shutdown (ESD-1, manual)","sil":"SIL 2","init":"HS-9000 (CCR + field)","vote":"1oo2","acts":["XV-1021/1022: H-101 main FG SSOVs close","XV-1230: H-101 FG vent opens (DB&B)","XV-1026: H-101 pilot gas SSOV close","PV-1021 / TIC-1020: H-101 FG control to min / track"]}},"pumps":{"P-101":{"duty":"A","kW":710,"busA":"SWG-102A","busB":"SWG-102B","relays":"50/51, 50G, 46, 49, 87M, 27, 66, 86","service":"Crude charge"},"P-103":{"duty":"B","kW":55,"busA":"MCC-101A","busB":"MCC-101B","relays":"","service":"Atm. reflux"},"P-112":{"duty":"B","kW":315,"busA":"SWG-102A","busB":"SWG-102B","relays":"50/51, 50G, 46, 49, 27, 66, 86","service":"Atm. residue / vacuum heater charge"}}};
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let best = {}; try { best = JSON.parse(localStorage.getItem("cfu-board") || "{}") } catch (e) {}
+
+/* ---------- design point (from the design data) ---------- */
+const Fd = D.F, ARd = D.AR, Rd = D.reflux, Nd = D.naph, VRd = D.vr, fARd = ARd / Fd, fVRd = VRd / ARd;
+const dT1 = D.COT - D.CIT, dT2 = D.COT2 - D.Tbot, FMAX = Fd / 0.75, PB = 1.5, KFG = PB / (0.5 * (D.fgHdr - 0.2));
+const HOLD = 600, VRMAX = 1.3 * VRd, T = D.trip, AL = D.alarm;
+const arFrac = cot => cot >= 300 ? fARd + 0.003 * (D.COT - cot) : clamp(fARd + 0.003 * (D.COT - 300) + (300 - cot) / 100 * (1 - fARd - 0.003 * (D.COT - 300)), 0, 1);
+
+/* controllers: op = output %, kc in % per unit, ti in s; dir is carried by the sign of kc */
+const CT = [
+  ["FIC-1001", "t/h", 0, s => s.F, Fd, 75, 0.06, 12, [10, 50], "FV-1001"],
+  ["TIC-1020", "°C", 1, s => s.COT, D.COT, 50, 1.5, 120, [1, 5], "PIC-1021 fuel gas"],
+  ["TIC-1030", "°C", 1, s => s.Ttop, D.Ttop, 50, -1.0, 150, [1, 5], "FIC-1031 reflux"],
+  ["PIC-1032", "barg", 2, s => s.Pd, D.Pdrum, 50, -25, 60, [0.05, 0.2], "PV-1032A/B"],
+  ["LIC-1033", "%", 0, s => s.Ld, 50, 50, -2, 600, [5, 10], "FIC-1034 naphtha"],
+  ["LIC-1082", "%", 0, s => s.Lb, 50, 50, -2, 600, [5, 10], "FIC-1083 residue"],
+  ["TIC-2005", "°C", 1, s => s.COT2, D.COT2, 50, 2.5, 120, [1, 5], "PIC-2006 fuel gas"],
+  ["PIC-2010", "mbar", 0, s => s.Pv, D.Pvac, 30, 1.5, 40, [2, 10], "PV-2010 recycle"],
+  ["LIC-2024", "%", 0, s => s.Lb2, 50, 100 * VRd / VRMAX, -3, 600, [5, 10], "FIC-2025 residue"],
+].map(([tag, unit, dec, pv, sp, op, kc, ti, step, out]) => ({ tag, unit, dec, pv, sp0: sp, op0: op, kc, ti, step, out, service: D.loops[tag].service }));
+
+/* ---------- scenarios ---------- */
+const SC = {
+  free: { name: "Steady state", card: "Design rates, everything in AUTO. Learn the board.", dur: 0,
+    brief: `Normal operation at ${D.bpsd.toLocaleString()} BPSD. Nothing is scheduled to go wrong. Try a move: take the charge up 20 t/h and watch the heater follow, or put TIC-1020 in MAN and see how quickly the coil outlet temperature drifts without it.` },
+  handover: { name: "The quiet handover", card: "Nights report a steady board. Is it?", dur: 600, distAt: 60,
+    brief: `Night shift hands over: "Steady all night, nothing to report." Refinery fuel gas has been swinging since a hydrotreater came down at 05:30. Walk the board before you sit down.`,
+    setup(s) { s.ctl["TIC-1020"].mode = "MAN" },
+    events: [[60, s => { ramp("hdr", 4.85, 0.023); jr("Refinery fuel gas header pressure rising", "al") }]],
+    fix: s => s.ctl["TIC-1020"].mode === "AUTO" || s.ctl["TIC-1020"].op < 44,
+    what: `TIC-1020 was left in MAN at 50 % output. When the fuel gas header rose from ${D.fgHdr} to 4.85 barg, the same valve position put more gas through the burners. With nobody adjusting the output, the coil outlet temperature climbed through the ${AL.cot1} °C alarm toward the ${T.cot1} °C trip (SIF-106).`,
+    good: [`Check every controller mode at handover. A faceplate in MAN with a normal-looking value is the hardest fault to see.`, `Return TIC-1020 to AUTO, or cut its output by hand, as soon as the burner pressure moves.`, `Use the high alarm as the cue. There are ${(T.cot1 - AL.cot1).toFixed(0)} °C between alarm and trip.`] },
+  reflux: { name: "Reflux pump trip", card: "The duty reflux pump stops. The spare does not start.", dur: 600, distAt: 45,
+    brief: `Hot afternoon. The duty reflux pump has been on the vibration watch list for a week. Its spare is lined up in auto.`,
+    setup(s) { s.noAuto["P-103"] = true },
+    events: [[45, s => tripPump("P-103", "motor protection")]],
+    fix: s => running("P-103"),
+    what: `The duty reflux pump tripped and the standby did not pick up on auto-start. With no reflux the top of C-101 heats up fast: naphtha end point goes off specification, more vapour reaches the condensers and the overhead pressure climbs toward the off-gas valve and, eventually, ${D.psvTag} at ${D.psv} barg.`,
+    good: [`Start the standby pump by hand at once. An auto-start is a convenience, not a guarantee.`, `Before the pump starts, look at TIC-1030: it has wound its output to 100 % asking for reflux it could not get. Put it in MAN at about 50 % so the column is not flooded with cold reflux when flow returns, then give it back to AUTO.`, `Tell the field operator which pump failed to start. That is two faults to find, not one.`] },
+  hotpump: { name: "No spare", card: "P-112A is locked out. Then P-112B trips.", dur: 780, distAt: 45,
+    brief: `P-112A is locked out for a seal change (see the lockout training, CFU-000-PM-TRN-001). You are running P-112B with no spare. There are thunderstorms west of the site.`,
+    setup(s) { s.pumps["P-112"][spare("P-112")].st = "loto" },
+    events: [[45, s => { const w = runWhich("P-112"); tripPump("P-112", "undervoltage (27) on a voltage dip"); s.pumps["P-112"][w].until = s.t + 170; jr("Electrician called to reset the 86 lockout relay on " + "P-112" + w, "op") }]],
+    fix: s => s.ctl["FIC-1001"].sp < 0.82 * Fd || s.ctl["FIC-1001"].op < 60,
+    expect: ["SIF-201"],
+    what: `A voltage dip tripped P-112B on undervoltage and the spare was locked out. Residue kept arriving in the bottom of C-101 with nowhere to go. H-201 lost its pass flow and SIF-201 tripped its fuel, which is correct and unavoidable. The open question was the C-101 bottom level: at full charge it reaches the ${T.lvlHH} % trip (SIF-108) before the electrician can reset the pump.`,
+    good: [`Cut crude charge straight away, toward turndown (${(D.turndown * 100).toFixed(0)} %). Less charge means less residue and more minutes before the level trip.`, `Do not go below turndown: the H-101 passes trip at ${T.pass1} t/h each (SIF-101).`, `Restart P-112B the moment it is available, let LIC-1082 pull the level down, then purge and relight H-201 and bring the charge back in steps.`, `Running with a locked-out spare is a decision. It belongs on the permit and in the shift brief.`] },
+  vacuum: { name: "Losing vacuum", card: "Ejector steam pressure sags for ten minutes.", dur: 960, distAt: 45,
+    brief: `The utilities board warns that a boiler is unstable. Your vacuum ejectors run on that steam.`,
+    events: [[45, s => { ramp("steam", 0.55, 0.005); jr("MP steam header pressure falling", "al") }], [600, s => { ramp("steam", 1, 0.004); jr("MP steam header recovering", "op") }]],
+    fix: s => s.ctl["FIC-1001"].sp < 0.8 * Fd || s.ctl["FIC-1001"].op < 60,
+    what: `Motive steam to the ejectors sagged and C-201 lost vacuum. At higher pressure far less gas oil flashes, so most of the feed falls to the bottom as residue. The residue rundown has a ceiling of about ${VRMAX.toFixed(0)} t/h, LIC-2024 ran out of valve, and the level rose toward ${T.lvl2HH} % (SIF-203). If that trips, it stops P-112, H-201 loses flow, C-101 backs up and the charge trips behind it.`,
+    good: [`A level controller at 100 % output has stopped controlling. Watch outputs, not just levels.`, `Cut the feed to the vacuum unit by cutting crude charge until the rundown can keep up.`, `Hold the reduced rate until steam is back and the vacuum has recovered, then raise charge in steps.`, `One trip here becomes four. Know which safety function hands its problem to the next unit upstream.`] },
+};
+
+/* ---------- state ---------- */
+let S, scn = "free", speed = 6, paused = false, sel = "TIC-1020";
+function fresh(id) {
+  const s = { t: 0, F: Fd, hdr: D.fgHdr, steam: 1, Pfg1: PB, COT: D.COT, lit1: true, purge1: 0, Lb: 50, FAR: ARd, Ttop: D.Ttop, R: Rd, Pd: D.Pdrum,
+    Ld: 50, Nout: Nd, Nmake: Nd, Pfg2: PB, COT2: D.COT2, lit2: true, purge2: 0, Pv: D.Pvac, Lb2: 50, VR: VRd, VRmake: VRd, xv1001: true, xv1083: true,
+    sif: {}, ctl: {}, pumps: {}, noAuto: {}, ramps: [], pend: [], al: {}, jr: [], hist: [], ev: 0, psv: false,
+    kpi: { bbl: 0, plan: 0, off: 0, flare: 0, psv: 0, tFix: null }, over: false, started: id === "free" };
+  CT.forEach(c => s.ctl[c.tag] = { mode: "AUTO", sp: c.sp0, op: c.op0, e0: 0 });
+  for (const p in D.pumps) { const d = D.pumps[p].duty; s.pumps[p] = { A: { st: d === "A" ? "run" : "auto", until: 0 }, B: { st: d === "B" ? "run" : "auto", until: 0 } } }
+  return s;
+}
+const running = p => S.pumps[p].A.st === "run" || S.pumps[p].B.st === "run";
+const runWhich = p => S.pumps[p].A.st === "run" ? "A" : S.pumps[p].B.st === "run" ? "B" : null;
+const spare = p => D.pumps[p].duty === "A" ? "B" : "A";
+const op = tag => S.ctl[tag].op;
+const clock = (t = S.t) => { const x = 21600 + Math.floor(t); return [x / 3600, x / 60 % 60, x % 60].map(v => String(Math.floor(v)).padStart(2, "0")).join(":") };
+function jr(msg, cls) { S.jr.unshift({ t: clock(), msg, cls: cls || "" }); if (S.jr.length > 120) S.jr.pop(); dirty.jr = true }
+function ramp(key, to, rate) { S.ramps = S.ramps.filter(r => r.key !== key); S.ramps.push({ key, to, rate }) }
+function interlock(p) { return p === "P-101" ? S.sif["SIF-108"] || S.sif["SIF-901"] : p === "P-112" ? S.sif["SIF-203"] || S.sif["SIF-901"] : false }
+function tripPump(p, why, quiet) {
+  const w = runWhich(p); if (!w) return; S.pumps[p][w].st = "trip"; if (!quiet) jr(`${p}${w} tripped: ${why}`, "tr");
+  const o = w === "A" ? "B" : "A";
+  if (S.pumps[p][o].st === "auto" && !interlock(p)) S.pend.push([S.t + 3, () => { if (running(p) || S.pumps[p][o].st !== "auto") return;
+    if (S.noAuto[p]) { S.pumps[p][o].st = "stop"; jr(`${p}${o} auto-start sent: no run feedback`, "tr") } else { S.pumps[p][o].st = "run"; jr(`${p}${o} started on auto-start`, "op") } }]);
+}
+function tripSIF(tag, detail) {
+  if (S.sif[tag]) return; S.sif[tag] = S.t; jr(`${tag} TRIPPED: ${detail}`, "tr");
+  const h1 = () => { if (S.lit1 || S.purge1) { S.lit1 = false; S.purge1 = 0; Object.assign(S.ctl["TIC-1020"], { mode: "MAN", op: 0 }) } };
+  const h2 = () => { if (S.lit2 || S.purge2) { S.lit2 = false; S.purge2 = 0; Object.assign(S.ctl["TIC-2005"], { mode: "MAN", op: 0 }) } };
+  const chg = () => { S.xv1001 = false; tripPump("P-101", tag, true); Object.assign(S.ctl["FIC-1001"], { mode: "MAN", op: 0 }) };
+  const vdu = () => { S.xv1083 = false; tripPump("P-112", tag, true) };
+  if (/SIF-10[1236]/.test(tag)) h1(); else if (tag === "SIF-201") h2(); else if (tag === "SIF-108") chg(); else if (tag === "SIF-203") vdu();
+  else if (tag === "SIF-901") { h1(); h2(); chg(); vdu() }
+}
+
+/* ---------- the model ---------- */
+function step(dt) {
+  const s = S; s.t += dt;
+  const sc = SC[scn];
+  while (sc.events && s.ev < sc.events.length && s.t >= sc.events[s.ev][0]) sc.events[s.ev++][1](s);
+  s.pend = s.pend.filter(([t, f]) => t > s.t || (f(), false));
+  s.ramps = s.ramps.filter(r => { const d = r.to - s[r.key], m = r.rate * dt; s[r.key] += Math.abs(d) <= m ? d : Math.sign(d) * m; return Math.abs(d) > m });
+  for (const c of CT) { const k = s.ctl[c.tag], e = k.sp - c.pv(s); if (k.mode === "AUTO") k.op = clamp(k.op + c.kc * ((e - k.e0) + e * dt / c.ti), 0, 100); k.e0 = e }
+
+  // crude charge and H-101
+  const Ft = running("P-101") && s.xv1001 ? FMAX * op("FIC-1001") / 100 : 0;
+  const F0 = s.F; s.F += (Ft - s.F) * dt / 8;
+  { const k = s.ctl["TIC-1020"]; if (k.mode === "AUTO" && s.lit1 && F0 > 50) k.op = clamp(k.op * (1 + 2 * (s.F - F0) / F0), 0, 100) }   // feed-forward from FIC-1001
+  if (s.purge1 && s.t >= s.purge1) { s.purge1 = 0; s.lit1 = true; s.ctl["TIC-1020"].op = 20; ["SIF-101", "SIF-102", "SIF-103", "SIF-106"].forEach(k => delete s.sif[k]); jr("H-101 purge complete, burners lit at minimum fire", "op") }
+  const P1 = s.lit1 ? Math.max(0.25, op("TIC-1020") / 100 * (s.hdr - 0.2) * KFG) : 0;
+  s.Pfg1 += (P1 - s.Pfg1) * dt / 3;
+  s.COT += (Math.min(560, D.CIT + dT1 * Math.sqrt(s.Pfg1 / PB) / Math.max(s.F / Fd, 0.12)) - s.COT) * dt / 90;
+  if (s.lit1) {
+    if (s.F / D.passes1 < T.pass1) tripSIF("SIF-101", `pass flow ${(s.F / D.passes1).toFixed(1)} t/h below ${T.pass1} t/h`);
+    else if (s.Pfg1 > T.fgHH) tripSIF("SIF-103", `burner pressure above ${T.fgHH} barg`);
+    else if (s.Pfg1 < T.fgLL) tripSIF("SIF-102", `burner pressure below ${T.fgLL} barg`);
+    else if (s.COT > T.cot1) tripSIF("SIF-106", `coil outlet above ${T.cot1} °C`);
+  }
+  // C-101 bottom
+  const ARmake = s.F * arFrac(s.COT);
+  const FARt = running("P-112") && s.xv1083 && s.Lb > 0.5 ? 2 * ARd * op("LIC-1082") / 100 : 0;
+  s.FAR += (FARt - s.FAR) * dt / 5;
+  s.Lb = clamp(s.Lb + (ARmake - s.FAR) / ARd * 100 / HOLD * dt, 0, 100);
+  if (s.Lb >= T.lvlHH) tripSIF("SIF-108", `C-101 bottom level above ${T.lvlHH} %`);
+  // C-101 overhead
+  const distr = Math.max(0, s.F - ARmake) / (Fd - ARd);
+  s.Nmake = Nd * distr * (1 + 0.012 * (s.Ttop - D.Ttop));
+  const Rt = running("P-103") && s.Ld > 1 ? 2 * Rd * op("TIC-1030") / 100 : 0;
+  s.R += (Rt - s.R) * dt / 5;
+  const tt = D.Ttop + 0.4 * (s.COT - D.COT) + 60 * (1 - Math.min(s.R / (Rd * Math.max(distr, 0.15)), 2.2));
+  s.Ttop += (clamp(tt, 60, 230) - s.Ttop) * dt / 120;
+  const excess = (s.Nmake + s.R) * (1 + 0.006 * (s.Ttop - D.Ttop)) / (1.12 * (Nd + Rd)) - 1 / 1.12;
+  s.Pd += (Math.max(0, D.Pdrum + 2.5 * excess - 1.2 * (op("PIC-1032") - 50) / 50) - s.Pd) * dt / 40;
+  s.psv = s.Pd + (D.Ptop - D.Pdrum) >= D.psv; if (s.psv) { s.Pd = D.psv - (D.Ptop - D.Pdrum); s.kpi.psv += dt }
+  s.Nout += (2 * Nd * op("LIC-1033") / 100 * (s.Ld > 0.5 ? 1 : 0) - s.Nout) * dt / 5;
+  s.Ld = clamp(s.Ld + (s.Nmake - s.Nout) / Nd * 100 / HOLD * dt, 0, 100);
+  // H-201 and C-201
+  if (s.purge2 && s.t >= s.purge2) { s.purge2 = 0; s.lit2 = true; s.ctl["TIC-2005"].op = 20; delete s.sif["SIF-201"]; jr("H-201 purge complete, burners lit at minimum fire", "op") }
+  const P2 = s.lit2 ? Math.max(0.25, op("TIC-2005") / 100 * (s.hdr - 0.2) * KFG) : 0;
+  s.Pfg2 += (P2 - s.Pfg2) * dt / 3;
+  s.COT2 += (Math.min(560, s.COT - (D.COT - D.Tbot) + dT2 * Math.sqrt(s.Pfg2 / PB) / Math.max(s.FAR / ARd, 0.12)) - s.COT2) * dt / 90;
+  if (s.lit2 && s.FAR / D.passes2 < T.pass2) tripSIF("SIF-201", `pass flow ${(s.FAR / D.passes2).toFixed(1)} t/h below ${T.pass2} t/h`);
+  s.Pv += (Math.min(900, (D.Pvac - 12) / Math.pow(s.steam, 5.5) + 0.4 * op("PIC-2010")) - s.Pv) * dt / 30;
+  s.VRmake = s.FAR * clamp(fVRd + 0.0016 * (s.Pv - D.Pvac) - 0.004 * (s.COT2 - D.COT2), 0.25, 1);
+  s.VR += ((s.Lb2 > 0.5 ? VRMAX * op("LIC-2024") / 100 : 0) - s.VR) * dt / 5;
+  s.Lb2 = clamp(s.Lb2 + (s.VRmake - s.VR) / VRd * 100 / HOLD * dt, 0, 100);
+  if (s.Lb2 >= T.lvl2HH) tripSIF("SIF-203", `C-201 bottom level above ${T.lvl2HH} %`);
+  // accounting
+  const k = s.kpi; k.bbl += s.F / Fd * D.bpsd / 86400 * dt; k.plan += D.bpsd / 86400 * dt;
+  if (s.Ttop > D.Ttop + 10) k.off += dt; if (op("PIC-1032") > 60) k.flare += dt;
+  if (sc.fix && k.tFix === null && s.t > sc.distAt && Object.keys(s.sif).every(t => (sc.expect || []).includes(t)) && sc.fix(s)) k.tFix = s.t - sc.distAt;
+  alarms();
+  if (s.t - (s.lastH || -9) >= 5) { s.lastH = s.t; const h = {}; CT.forEach(c => h[c.tag] = [c.pv(s), s.ctl[c.tag].sp]); s.hist.push(h); if (s.hist.length > 240) s.hist.shift() }
+  if (sc.dur && s.t >= sc.dur && !s.over) finish();
+}
+const ALARMS = [
+  ["FAL-1001", "Crude charge flow low", 2, s => s.F < Fd * 0.45],
+  ["TAH-1020", "H-101 coil outlet temperature high", 2, s => s.COT > AL.cot1],
+  ["TAL-1020", "H-101 coil outlet temperature low", 2, s => s.lit1 && s.COT < D.COT - 10],
+  ["PAH-1021", "H-101 burner pressure high", 2, s => s.Pfg1 > AL.fgH],
+  ["FAL-1011", "H-101 pass flow low", 1, s => s.lit1 && s.F / D.passes1 < T.pass1 * 1.25],
+  ["TAH-1030", "C-101 top temperature high", 2, s => s.Ttop > D.Ttop + 8],
+  ["PAH-1032", "Overhead drum pressure high", 2, s => s.Pd > D.Pdrum + 0.3],
+  ["PSV-1001", `${D.psvTag} lifting to flare`, 1, s => s.psv],
+  ["LAH-1033", "D-102 level high", 2, s => s.Ld > AL.lvlH], ["LAL-1033", "D-102 level low", 2, s => s.Ld < AL.lvlL],
+  ["LAH-1082", "C-101 bottom level high", 1, s => s.Lb > AL.lvlH], ["LAL-1082", "C-101 bottom level low", 2, s => s.Lb < AL.lvlL],
+  ["TAH-2005", "H-201 coil outlet temperature high", 2, s => s.COT2 > AL.cot2],
+  ["FAL-2001", "H-201 pass flow low", 1, s => s.lit2 && s.FAR / D.passes2 < T.pass2 * 1.25],
+  ["PAH-2010", "C-201 top pressure high: losing vacuum", 2, s => s.Pv > D.Pvac + 15],
+  ["LAH-2024", "C-201 bottom level high", 1, s => s.Lb2 > AL.lvlH], ["LAL-2024", "C-201 bottom level low", 2, s => s.Lb2 < AL.lvlL],
+  ["XA-P101", "No crude charge pump running", 1, s => !running("P-101")], ["XA-P103", "No reflux pump running", 1, s => !running("P-103")],
+  ["XA-P112", "No residue pump running", 1, s => !running("P-112")],
+  ["PAH-9001", "Fuel gas header pressure high", 2, s => s.hdr > D.fgHdr + 0.7], ["PAL-9010", "MP steam header pressure low", 2, s => s.steam < 0.85],
+  ["XA-H101", "H-101 tripped", 1, s => !s.lit1], ["XA-H201", "H-201 tripped", 1, s => !s.lit2],
+];
+const FACE_AL = { "FIC-1001": ["FAL-1001", "FAL-1011", "XA-P101"], "TIC-1020": ["TAH-1020", "TAL-1020", "PAH-1021", "XA-H101"], "TIC-1030": ["TAH-1030", "XA-P103"],
+  "PIC-1032": ["PAH-1032", "PSV-1001"], "LIC-1033": ["LAH-1033", "LAL-1033"], "LIC-1082": ["LAH-1082", "LAL-1082", "XA-P112"], "TIC-2005": ["TAH-2005", "FAL-2001", "XA-H201"],
+  "PIC-2010": ["PAH-2010"], "LIC-2024": ["LAH-2024", "LAL-2024"] };
+function alarms() {
+  for (const [tag, desc, pri, fn] of ALARMS) { const on = fn(S), a = S.al[tag];
+    if (on && !a) { S.al[tag] = { t: S.t, ack: false, pri, desc }; jr(`${tag} ${desc}`, "al"); dirty.al = true }
+    else if (!on && a) { delete S.al[tag]; dirty.al = true } }
+}
+
+/* ---------- operator actions ---------- */
+function nudge(tag, dir, big) { const c = CT.find(c => c.tag === tag), k = S.ctl[tag];
+  if (k.mode === "AUTO") { k.sp = +(k.sp + dir * c.step[big ? 1 : 0]).toFixed(3); jr(`${tag} SP ${k.sp.toFixed(c.dec)} ${c.unit}`, "op") }
+  else { k.op = clamp(k.op + dir * (big ? 10 : 2), 0, 100); jr(`${tag} output ${k.op.toFixed(0)} %`, "op") } }
+function mode(tag) { const k = S.ctl[tag], c = CT.find(c => c.tag === tag); k.mode = k.mode === "AUTO" ? "MAN" : "AUTO"; k.e0 = k.sp - c.pv(S); jr(`${tag} to ${k.mode}`, "op") }
+function pumpBtn(p, w) { const u = S.pumps[p][w];
+  if (u.st === "run") { u.st = "stop"; jr(`${p}${w} stopped by operator`, "op") }
+  else if (startable(p, w)) { u.st = "run"; jr(`${p}${w} started by operator`, "op") } }
+function startable(p, w) { const u = S.pumps[p][w]; return u.st !== "loto" && u.st !== "run" && !running(p) && !interlock(p) && S.t >= u.until }
+function relight(n) { const ok = n === 1 ? S.F / D.passes1 > T.pass1 * 1.2 && !S.sif["SIF-901"] : S.FAR / D.passes2 > T.pass2 * 1.2 && !S.sif["SIF-901"];
+  if (!ok || S["lit" + n] || S["purge" + n]) return; S["purge" + n] = S.t + 120; jr(`H-${n}01 purge started (120 s), then relight`, "op") }
+function resetSIF(tag) {
+  if (tag === "SIF-108" && S.Lb < AL.lvlH) { delete S.sif[tag]; S.xv1001 = true } else if (tag === "SIF-203" && S.Lb2 < AL.lvlH) { delete S.sif[tag]; S.xv1083 = true }
+  else if (tag === "SIF-901") { delete S.sif[tag]; if (S.Lb < AL.lvlH) S.xv1001 = true; if (S.Lb2 < AL.lvlH) S.xv1083 = true } else return;
+  for (const p of ["P-101", "P-112"]) for (const w of "AB") if (S.pumps[p][w].st === "trip") S.pumps[p][w].st = "stop";
+  jr(`${tag} reset by operator`, "op");
+}
+function finish() {
+  S.over = true; paused = true; const sc = SC[scn], k = S.kpi;
+  const unit = ["SIF-101", "SIF-102", "SIF-103", "SIF-106", "SIF-108", "SIF-203", "SIF-901"], seen = S.jr.filter(j => /TRIPPED/.test(j.msg)).map(j => j.msg.slice(0, 7));
+  const bad = [...new Set(seen)].filter(t => unit.includes(t) || !(sc.expect || []).includes(t));
+  const lost = Math.max(0, k.plan - k.bbl), lostPct = lost / k.plan * 100;
+  let score = 100 - 35 * bad.filter(t => unit.includes(t)).length - 15 * bad.filter(t => !unit.includes(t)).length - 0.3 * lostPct - 3 * k.off / 60 - 3 * k.flare / 60 - (k.psv ? 20 : 0) - (k.tFix === null ? 10 : 0);
+  score = Math.round(clamp(score, 0, 100)); const g = score >= 85 ? "A" : score >= 65 ? "B" : score >= 40 ? "C" : "D";
+  S.result = { score, g, bad, lost, lostPct };
+  if (!best[scn] || score > best[scn].score) { best[scn] = { score, g }; try { localStorage.setItem("cfu-board", JSON.stringify(best)) } catch (e) {} }
+  renderScn(); renderBrief(); $("#brief").scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+function load(id) { scn = id; S = fresh(id); const sc = SC[id]; if (sc.setup) sc.setup(S); paused = !S.started; esdArm = false;
+  jr(id === "free" ? "Board running at design rates" : "Shift handover: " + sc.name, "op"); Object.keys(dirty).forEach(k => dirty[k] = true); renderScn(); renderBrief(); renderAll() }
+
+/* ---------- overview graphic ---------- */
+function vb(id, x, y, tag, w = 84) { return `<g class="vb" id="vb-${id}"><text x="${x}" y="${y - 3}">${tag}</text><rect x="${x}" y="${y}" width="${w}" height="19"/><text class="v" id="v-${id}" x="${x + w / 2}" y="${y + 14}" text-anchor="middle"></text></g>` }
+function pump(p, x, y, lx) { return `<g class="pump" id="pm-${p}"><circle cx="${x}" cy="${y}" r="11"/><path d="M${x - 4} ${y - 6}L${x + 7} ${y}L${x - 4} ${y + 6}Z"/><text id="pt-${p}" x="${lx ?? x}" y="${y + 26}" text-anchor="middle"></text></g>` }
+const arrow = (x, y) => `<path class="arrow" d="M${x} ${y}l-9 -5v10z"/>`;
+function heater(n, x, y, w, h) { return `<g class="htr" id="ht-${n}"><path class="eq" d="M${x + 14} ${y}L${x + 22} ${y - 30}H${x + w - 22}L${x + w - 14} ${y}"/><rect class="eq" x="${x}" y="${y}" width="${w}" height="${h}"/>
+  <path class="flame" id="fl-${n}" d="M${x + w / 2} ${y + h - 8}c-13 0 -15 -13 -6 -22c0 8 6 6 5 -6c9 7 15 28 1 28z"/><text class="eqt" x="${x + w / 2}" y="${y + 20}" text-anchor="middle">H-${n}01</text></g>` }
+$("#ovhost").innerHTML = `<svg id="ov" viewBox="0 0 1000 470" role="img" aria-label="Process overview of the crude and vacuum unit">
+  <text x="8" y="287">CRUDE</text><path class="pipe" d="M8 300H132"/>${pump("P-101", 52, 300)}
+  <g class="xv" id="xv-1001"><path d="M96 293V307L106 300Z M116 293V307L106 300Z"/></g>
+  ${vb("F", 66, 252, "FIC-1001")}
+  <rect class="eq" x="132" y="280" width="104" height="40"/><text x="184" y="297" text-anchor="middle">DESALTER</text><text x="184" y="311" text-anchor="middle">+ PREHEAT</text>
+  <path class="pipe" d="M236 300H284"/><text x="240" y="292">${D.CIT.toFixed(0)} °C</text>
+  ${heater(1, 284, 246, 76, 86)}<path class="pipe" d="M360 300H440"/>
+  ${vb("COT", 364, 262, "TIC-1020", 74)}${vb("PFG1", 284, 352, "PIC-1021 burner", 96)}${vb("PASS1", 284, 392, "PASS FLOW ×" + D.passes1, 96)}
+  <rect class="eq" x="440" y="50" width="50" height="345" rx="24"/><rect class="lvl" id="lv-Lb" x="446" y="340" width="38" height="50" rx="3"/>
+  <text class="eqt" x="465" y="112" text-anchor="middle">C-101</text>
+  ${vb("TTOP", 346, 62, "TIC-1030 top")}${vb("LB", 498, 332, "LIC-1082", 76)}
+  <path class="pipe" d="M465 50V28H548"/><circle class="eq" cx="560" cy="28" r="12"/><path class="pipe" d="M551 20L569 36M569 20L551 36" style="stroke-width:1.5"/>
+  <path class="pipe" d="M572 28H662V62"/>
+  <rect class="eq" x="606" y="62" width="112" height="40" rx="20"/><rect class="lvl" id="lv-Ld" x="614" y="82" width="96" height="16" rx="3"/><text class="eqt" x="662" y="80" text-anchor="middle">D-102</text>
+  <path class="pipe" d="M630 102V134H520V84H490"/>${pump("P-103", 580, 134)}
+  <path class="pipe" d="M718 82H990"/>${arrow(996, 82)}
+  ${vb("PD", 728, 40, "PIC-1032")}${vb("LD", 728, 100, "LIC-1033")}${vb("R", 498, 172, "REFLUX", 70)}${vb("N", 900, 50, "NAPHTHA", 84)}
+  ${[["K", "KERO", 222], ["DS", "DIESEL", 262], ["AG", "AGO", 302]].map(([id, n, y]) => `<path class="pipe" d="M490 ${y}H566"/>${arrow(572, y)}<text x="578" y="${y + 4}">${n}</text><text class="v" id="v-${id}" x="630" y="${y + 4}" style="fill:var(--val);font-weight:600"></text>`).join("")}
+  <path class="pipe" d="M465 395V428H612"/>${pump("P-112", 514, 428)}
+  <g class="xv" id="xv-1083"><path d="M560 421V435L570 428Z M580 421V435L570 428Z"/></g>
+  ${vb("FAR", 534, 376, "RESIDUE", 70)}
+  ${heater(2, 612, 366, 66, 76)}<path class="pipe" d="M678 392H800"/>
+  ${vb("COT2", 686, 354, "TIC-2005", 76)}${vb("PASS2", 686, 412, "PASS FLOW ×" + D.passes2, 96)}
+  <rect class="eq" x="800" y="160" width="50" height="262" rx="24"/><rect class="lvl" id="lv-Lb2" x="806" y="367" width="38" height="50" rx="3"/>
+  <text class="eqt" x="825" y="222" text-anchor="middle">C-201</text>
+  <path class="pipe" d="M825 160V138H872"/><path class="eq" d="M872 130L896 138L872 146Z M896 134H920V142H896Z"/><path class="pipe" d="M920 138H990"/>${arrow(996, 138)}
+  <path class="pipe util" d="M884 112V132"/><text x="892" y="118">MP STEAM</text>
+  ${vb("PV", 720, 150, "PIC-2010 vacuum", 76)}${vb("STM", 892, 168, "EJECTOR STEAM", 84)}
+  ${[["LV", "LVGO", 250], ["HV", "HVGO", 296]].map(([id, n, y]) => `<path class="pipe" d="M850 ${y}H896"/>${arrow(902, y)}<text x="908" y="${y + 4}">${n}</text><text class="v" id="v-${id}" x="950" y="${y + 4}" style="fill:var(--val);font-weight:600"></text>`).join("")}
+  ${vb("LB2", 708, 352 - 60, "LIC-2024", 84)}
+  <path class="pipe" d="M825 422V448H990"/>${arrow(996, 448)}<circle class="eq" cx="880" cy="448" r="11"/><path d="M876 442L887 448L876 454Z" fill="var(--ink)"/><text x="880" y="432" text-anchor="middle">P-204</text>
+  ${vb("VR", 900, 394, "VAC RESIDUE", 84)}
+</svg>`;
+
+/* ---------- rendering ---------- */
+const dirty = { al: true, jr: true, motors: true };
+function renderScn() {
+  $("#scn").innerHTML = Object.entries(SC).map(([id, sc]) => `<button data-s="${id}" aria-pressed="${id === scn}"><span class="t">${sc.name}</span><span class="d">${sc.card}</span>
+    <span class="g">${sc.dur ? (best[id] ? `best: grade ${best[id].g}, ${best[id].score}` : `${Math.round(sc.dur / 60)} min of plant time`) : "free play"}</span></button>`).join("");
+}
+function renderBrief() {
+  const sc = SC[scn], el = $("#brief"), k = S.kpi, r = S.result;
+  $("#endbtn").hidden = !sc.dur || !S.started || S.over;
+  if (S.over && r) { el.className = "brief end g" + r.g;
+    el.innerHTML = `<span class="eyebrow">Debrief · ${sc.name}</span><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="grade">${r.g}</span>
+      <div class="stats"><span>Score <b>${r.score}</b></span><span>Safety functions that had to act <b>${r.bad.length ? r.bad.join(", ") : "none"}</b></span>
+      <span>Response <b>${k.tFix === null ? "no effective action" : Math.round(k.tFix) + " s after the upset"}</b></span><span>Throughput lost <b>${Math.round(r.lost).toLocaleString()} bbl (${r.lostPct.toFixed(0)} %)</b></span>
+      <span>Naphtha off-spec <b>${(k.off / 60).toFixed(1)} min</b></span><span>Off-gas to flare <b>${(k.flare / 60).toFixed(1)} min</b></span></div></div>
+      <p><b>What happened.</b> ${esc(sc.what)}</p><p><b>What a good board operator does.</b></p><ul>${sc.good.map(g => `<li>${esc(g)}</li>`).join("")}</ul>
+      <div class="row"><button class="btn primary" data-s="${scn}">Run this shift again</button><button class="btn" data-s="free">Back to steady state</button></div>`;
+  } else { el.className = "brief";
+    el.innerHTML = `<span class="eyebrow">${sc.dur ? "Shift brief" : "Free play"}</span><h3>${sc.name}</h3><p>${esc(sc.brief)}</p>
+      ${sc.dur && !S.started ? `<div class="row"><button class="btn primary" id="take">Take the board</button><span class="mono" style="align-self:center;color:var(--muted);font-size:12.5px">${Math.round(sc.dur / 60)} min of plant time, about ${Math.round(sc.dur / 6 / 60 * 10) / 10} min at 6×</span></div>` : ""}`; }
+}
+const setV = (id, txt, lvl) => { const t = $("#v-" + id); if (t.textContent !== txt) t.textContent = txt; const g = $("#vb-" + id); if (g) g.setAttribute("class", "vb" + (lvl ? " a" + lvl : "")) };
+const sev = (...tags) => { let m = 0; for (const t of tags) if (S.al[t]) m = m ? Math.min(m, S.al[t].pri) : S.al[t].pri; return m };
+function renderAll() {
+  const s = S, f1 = (v, d = 0) => v.toFixed(d);
+  $("#k-clock").textContent = clock(); $("#k-bpsd").textContent = Math.round(s.F / Fd * D.bpsd / 100) * 100 >= 100 ? (Math.round(s.F / Fd * D.bpsd / 100) * 100).toLocaleString() + " BPSD" : "0 BPSD";
+  const n = Object.keys(s.al).length; $("#k-al").textContent = n; $("#k-al").style.color = n ? (sev(...Object.keys(s.al)) === 1 ? "var(--a1)" : "var(--a2)") : "";
+  $$("#speed button").forEach(b => b.setAttribute("aria-pressed", paused ? b.dataset.x === "0" : +b.dataset.x === speed));
+  setV("F", f1(s.F) + " t/h", sev("FAL-1001", "XA-P101")); setV("COT", f1(s.COT, 1) + " °C", s.sif["SIF-106"] ? 1 : sev("TAH-1020", "TAL-1020"));
+  setV("PFG1", f1(s.Pfg1, 2) + " barg", sev("PAH-1021")); setV("PASS1", f1(s.F / D.passes1, 1) + " t/h", sev("FAL-1011"));
+  setV("TTOP", f1(s.Ttop, 1) + " °C", sev("TAH-1030")); setV("LB", f1(s.Lb) + " %", sev("LAH-1082", "LAL-1082"));
+  setV("PD", f1(s.Pd, 2) + " barg", sev("PAH-1032", "PSV-1001")); setV("LD", f1(s.Ld) + " %", sev("LAH-1033", "LAL-1033"));
+  setV("R", f1(s.R) + " t/h", sev("XA-P103")); setV("N", f1(s.Nout) + " t/h", s.Ttop > D.Ttop + 10 ? 2 : 0);
+  const dq = Math.max(0, s.F - s.F * arFrac(s.COT)) / (Fd - ARd);
+  $("#v-K").textContent = f1(D.kero * dq, 1); $("#v-DS").textContent = f1(D.diesel * dq, 1); $("#v-AG").textContent = f1(D.ago * dq, 1);
+  setV("FAR", f1(s.FAR) + " t/h", sev("XA-P112")); setV("COT2", f1(s.COT2, 1) + " °C", sev("TAH-2005")); setV("PASS2", f1(s.FAR / D.passes2, 1) + " t/h", sev("FAL-2001"));
+  setV("PV", f1(s.Pv) + " mbar", sev("PAH-2010")); setV("STM", f1(s.steam * 100) + " %", sev("PAL-9010")); setV("LB2", f1(s.Lb2) + " %", sev("LAH-2024", "LAL-2024")); setV("VR", f1(s.VR) + " t/h", 0);
+  const go = Math.max(0, s.FAR - s.VRmake) / (ARd - VRd); $("#v-LV").textContent = f1(D.lvgo * go, 1); $("#v-HV").textContent = f1(D.hvgo * go, 1);
+  [["Lb", 390, 50, s.Lb], ["Lb2", 417, 50, s.Lb2]].forEach(([id, base, h, v]) => { const e = $("#lv-" + id), hh = Math.max(1, h * v / 100); e.setAttribute("y", base - hh); e.setAttribute("height", hh) });
+  { const e = $("#lv-Ld"), hh = Math.max(1, 32 * s.Ld / 100); e.setAttribute("y", 98 - hh); e.setAttribute("height", Math.min(hh, 16)) }
+  for (const p in D.pumps) { const w = runWhich(p), g = $("#pm-" + p); g.setAttribute("class", "pump " + (w ? "run" : "off")); $("#pt-" + p).textContent = w ? p + w : p + " OFF" }
+  [1, 2].forEach(nn => { $("#fl-" + nn).classList.toggle("out", !s["lit" + nn]); $("#ht-" + nn).classList.toggle("trip", !s["lit" + nn]) });
+  $("#xv-1001").classList.toggle("shut", !s.xv1001); $("#xv-1083").classList.toggle("shut", !s.xv1083);
+  // faceplates
+  for (const c of CT) { const k = s.ctl[c.tag], el = document.getElementById("f-" + c.tag), pv = c.pv(s);
+    $(".pvv", el).textContent = pv.toFixed(c.dec); $(".spv", el).textContent = k.sp.toFixed(c.dec); $(".opv", el).textContent = k.op.toFixed(0) + " %";
+    $(".bar i", el).style.width = k.op + "%"; const m = $(".mode", el); m.textContent = k.mode; m.classList.toggle("man", k.mode === "MAN");
+    $(".nl", el).textContent = k.mode === "AUTO" ? "SP" : "OUT"; el.classList.toggle("sel", c.tag === sel);
+    const sv = sev(...FACE_AL[c.tag]); el.classList.toggle("a1", sv === 1); el.classList.toggle("a2", sv === 2) }
+  if (dirty.al) { dirty.al = false; const a = Object.entries(s.al).sort((x, y) => y[1].t - x[1].t);
+    $("#alist").innerHTML = a.length ? a.map(([tag, v]) => `<li class="p${v.pri} ${v.ack ? "" : "un"}"><span>${clock(v.t).slice(0, 5)}</span><span><b>${tag}</b> ${esc(v.desc)}</span></li>`).join("") : `<li class="none">No active alarms.</li>` }
+  if (dirty.jr) { dirty.jr = false; $("#jr").innerHTML = s.jr.map(j => `<li class="${j.cls}">${j.t}  ${esc(j.msg)}</li>`).join("") }
+  renderMotors(); renderSIF(); drawTrend();
+}
+let motorKey = "";
+function renderMotors() {
+  const s = S, rows = [];
+  for (const p in D.pumps) for (const w of "AB") { const u = s.pumps[p][w], can = startable(p, w), wait = u.st === "trip" && s.t < u.until;
+    const txt = { run: "RUNNING", auto: "STANDBY, AUTO", stop: "STOPPED", trip: wait ? `TRIPPED · reset in ${Math.ceil(u.until - s.t)} s` : "TRIPPED", loto: "LOCKED OUT" }[u.st];
+    rows.push(`<div class="mrow"><span class="tag">${p}${w}</span><span class="stt ${u.st === "run" ? "run" : u.st === "trip" || u.st === "loto" ? "bad" : ""}">${txt}</span>
+      <button class="btn sm" data-pump="${p}:${w}" ${u.st === "run" || can ? "" : "disabled"}>${u.st === "run" ? "Stop" : "Start"}</button></div>`) }
+  [1, 2].forEach(n => { const lit = s["lit" + n], pg = s["purge" + n], q = n === 1 ? D.fired1 * Math.sqrt(s.Pfg1 / PB) : D.fired2 * Math.sqrt(s.Pfg2 / PB);
+    const ok = n === 1 ? s.F / D.passes1 > T.pass1 * 1.2 : s.FAR / D.passes2 > T.pass2 * 1.2;
+    rows.push(`<div class="mrow"><span class="tag">H-${n}01</span><span class="stt ${lit ? "run" : "bad"}">${lit ? `FIRING ${q.toFixed(0)} MW` : pg ? `PURGING ${Math.ceil(pg - s.t)} s` : ok ? "TRIPPED" : "TRIPPED · needs pass flow"}</span>
+      <button class="btn sm" data-relight="${n}" ${!lit && !pg && ok && !s.sif["SIF-901"] ? "" : "disabled"}>Purge + relight</button></div>`) });
+  const html = rows.join(""); if (html !== motorKey) { motorKey = html; const f = document.activeElement?.dataset; const key = f && (f.pump ? `[data-pump="${f.pump}"]` : f.relight ? `[data-relight="${f.relight}"]` : null);
+    $("#motors").innerHTML = html; if (key) $(key)?.focus({ preventScroll: true }) }
+}
+let sifKey = "";
+function renderSIF() {
+  const s = S, now = { "SIF-101": [`${T.pass1} t/h`, `${(s.F / D.passes1).toFixed(1)} t/h`], "SIF-102": [`${T.fgLL} barg`, `${s.Pfg1.toFixed(2)} barg`], "SIF-103": [`${T.fgHH} barg`, `${s.Pfg1.toFixed(2)} barg`],
+    "SIF-106": [`${T.cot1} °C`, `${s.COT.toFixed(1)} °C`], "SIF-108": [`${T.lvlHH} %`, `${s.Lb.toFixed(0)} %`], "SIF-201": [`${T.pass2} t/h`, `${(s.FAR / D.passes2).toFixed(1)} t/h`],
+    "SIF-203": [`${T.lvl2HH} %`, `${s.Lb2.toFixed(0)} %`], "SIF-901": ["manual", "-"] };
+  const html = `<tr><th>FUNCTION</th><th>TRIPS AT</th><th>NOW</th><th>STATUS</th></tr>` + Object.entries(D.sifs).map(([tag, f]) => { const tr = s.sif[tag] !== undefined;
+    const can = tr && (tag === "SIF-108" ? s.Lb < AL.lvlH : tag === "SIF-203" ? s.Lb2 < AL.lvlH : tag === "SIF-901");
+    return `<tr class="${tr ? "trip" : ""}"><td><b class="mono">${tag}</b> · ${f.sil} · ${esc(f.vote)}<small>${esc(f.fn.replace("->", "→"))}</small></td><td class="m">${now[tag][0]}</td><td class="m">${now[tag][1]}</td>
+      <td class="s">${tr ? "TRIPPED" : "healthy"}${/SIF-(108|203|901)/.test(tag) && tr ? ` <button class="btn sm" data-reset="${tag}" ${can ? "" : "disabled"}>Reset</button>` : tr ? "<small>clears on relight</small>" : ""}</td></tr>` }).join("");
+  if (html !== sifKey) { sifKey = html; $("#sif").innerHTML = html }
+}
+function drawTrend() {
+  const cv = $("#trend"), c = CT.find(c => c.tag === sel), r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1; if (!r.width) return;
+  if (cv.width !== Math.round(r.width * dpr)) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr) }
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, r.width, r.height);
+  $("#tr-title").textContent = `Trend · ${sel}`;
+  const lim = { "TIC-1020": [[AL.cot1, "a2", "alarm"], [T.cot1, "a1", "trip"]], "LIC-1082": [[AL.lvlH, "a2", "alarm"], [T.lvlHH, "a1", "trip"]], "LIC-2024": [[AL.lvlH, "a2", "alarm"], [T.lvl2HH, "a1", "trip"]],
+    "TIC-2005": [[AL.cot2, "a2", "alarm"]], "FIC-1001": [[T.pass1 * D.passes1, "a1", "pass-flow trip"]], "TIC-1030": [[D.Ttop + 8, "a2", "alarm"]], "PIC-2010": [[D.Pvac + 15, "a2", "alarm"]], "PIC-1032": [[D.Pdrum + 0.3, "a2", "alarm"]] }[sel] || [];
+  const h = S.hist.map(x => x[sel]); const vals = h.flat().concat(lim.map(l => l[0]), [c.pv(S)]);
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max((hi - lo) * 0.12, c.step[0] * 2); lo -= pad; hi += pad;
+  const L = 46, R = 8, Tp = 10, B = 20, W = r.width - L - R, H = r.height - Tp - B, X = i => L + W * (1 - (h.length - 1 - i) / 239), Y = v => Tp + H * (1 - (v - lo) / (hi - lo));
+  g.font = `11px ${css("--f-mono")}`; g.fillStyle = css("--muted"); g.strokeStyle = css("--rule"); g.lineWidth = 1; g.textBaseline = "middle";
+  for (let i = 0; i <= 4; i++) { const v = lo + (hi - lo) * i / 4, y = Y(v); g.beginPath(); g.moveTo(L, y); g.lineTo(L + W, y); g.stroke(); g.textAlign = "right"; g.fillText(v.toFixed(c.dec || (hi - lo < 8 ? 1 : 0)), L - 6, y) }
+  g.textAlign = "center"; g.textBaseline = "alphabetic"; [0, 5, 10, 15, 20].forEach(m => g.fillText(m ? `-${m} min` : "now", L + W * (1 - m / 20) - (m ? 0 : 12), r.height - 5));
+  lim.forEach(([v, col, name]) => { g.strokeStyle = g.fillStyle = css("--" + col); g.setLineDash([2, 3]); g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(L + W, Y(v)); g.stroke(); g.setLineDash([]); g.textAlign = "left"; g.fillText(name, L + 4, Y(v) - 4) });
+  if (h.length < 2) return;
+  g.strokeStyle = css("--muted"); g.setLineDash([5, 4]); g.beginPath(); h.forEach((p, i) => i ? g.lineTo(X(i), Y(p[1])) : g.moveTo(X(i), Y(p[1]))); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = css("--val"); g.lineWidth = 2; g.beginPath(); h.forEach((p, i) => i ? g.lineTo(X(i), Y(p[0])) : g.moveTo(X(i), Y(p[0]))); g.stroke();
+  const last = h[h.length - 1]; g.fillStyle = css("--val"); g.beginPath(); g.arc(X(h.length - 1), Y(last[0]), 3.5, 0, 7); g.fill();
+}
+
+/* ---------- wiring ---------- */
+$("#faces").innerHTML = CT.map(c => `<div class="face" id="f-${c.tag}" data-face="${c.tag}" tabindex="0"><div class="hd"><span class="tag">${c.tag}</span><button class="mode" data-mode="${c.tag}" aria-label="${c.tag} mode"></button></div>
+  <div class="svc">${esc(c.service)}</div><div class="pv"><span class="pvv"></span><small>${c.unit}</small></div>
+  <div class="sp"><span>SP <span class="spv"></span></span><span>OUT <span class="opv"></span></span></div><div class="bar"><i></i></div>
+  <div class="nud"><span class="nl"></span>${[[-1, 1, "«"], [-1, 0, "‹"], [1, 0, "›"], [1, 1, "»"]].map(([d, b, t]) => `<button data-n="${c.tag}" data-d="${d}" data-b="${b}" aria-label="${c.tag} ${d < 0 ? "lower" : "raise"}${b ? " (large step)" : ""}">${t}</button>`).join("")}</div></div>`).join("");
+let esdArm = false;
+document.addEventListener("click", e => {
+  const t = e.target, b = t.closest("button");
+  if (b) {
+    if (b.dataset.s) return load(b.dataset.s);
+    if (b.id === "take") { S.started = true; paused = false; jr("You have the board", "op"); renderBrief(); return }
+    if (b.id === "endbtn") return finish();
+    if (b.dataset.x !== undefined) { if (S.over) return; if (b.dataset.x === "0") paused = true; else { speed = +b.dataset.x; paused = !S.started } return renderAll() }
+    if (b.id === "ack") { Object.values(S.al).forEach(a => a.ack = true); dirty.al = true; return renderAll() }
+    if (b.id === "esd") { if (!esdArm) { esdArm = true; b.textContent = "Confirm ESD-1"; b.classList.add("arm"); setTimeout(() => { esdArm = false; b.textContent = "ESD-1"; b.classList.remove("arm") }, 4000) }
+      else { tripSIF("SIF-901", "unit emergency shutdown pressed in the control room"); esdArm = false; b.textContent = "ESD-1"; b.classList.remove("arm") } return renderAll() }
+    if (S.over) return;
+    if (b.dataset.mode) mode(b.dataset.mode); else if (b.dataset.n) nudge(b.dataset.n, +b.dataset.d, b.dataset.b === "1");
+    else if (b.dataset.pump) pumpBtn(...b.dataset.pump.split(":")); else if (b.dataset.relight) relight(+b.dataset.relight); else if (b.dataset.reset) resetSIF(b.dataset.reset);
+  }
+  const f = t.closest("[data-face]"); if (f) sel = f.dataset.face;
+  renderAll();
+});
+$("#faces").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.dataset.face) { sel = e.target.dataset.face; renderAll() } });
+$("#docno").textContent = `${D.doc.no} Rev ${D.doc.rev}`; $("#f-proj").textContent = `${D.doc.project} (${D.doc.no}, Rev ${D.doc.rev}, ${D.doc.stage})`;
+$("#ce-ref").textContent = `settings from ${D.doc.ce}`; $("#ov-note").textContent = `design ${D.bpsd.toLocaleString()} BPSD · ${Fd} t/h`;
+
+let lastNow = 0, acc = 0, lastDraw = 0;
+function frame(now) {
+  requestAnimationFrame(frame);
+  const dt = Math.min(0.25, (now - (lastNow || now)) / 1000); lastNow = now;
+  if (!paused && !S.over) { acc += dt * speed; let n = 0; while (acc >= 0.5 && n++ < 60) { step(0.5); acc -= 0.5 } }
+  if (now - lastDraw > 200) { lastDraw = now; renderAll() }
+}
+load("free");
+for (let i = 0; i < 120; i++) step(0.5);   // a minute of history so the trend is drawn on first view
+requestAnimationFrame(frame);
+window.__board = { get S() { return S }, step, load, ff(sec) { S.started = true; for (let i = 0; i < sec * 2 && !S.over; i++) step(0.5); renderAll() } };
+addEventListener("resize", drawTrend);
+</script>
+<!--/PAGE-->
+</body>
+</html>
