@@ -62,6 +62,7 @@
 | CFU-100-IC-LD-002 | Instrumentation & control | TIC 1020 PIC 1021 | A | pdf, svg | 04-instrumentation/loop-diagrams |
 | CFU-100-IC-LD-003 | Instrumentation & control | SIF 101 | A | pdf, svg | 04-instrumentation/loop-diagrams |
 | CFU-100-IC-LD-ALL | Instrumentation & control | Loop Diagrams | A | pdf | 04-instrumentation |
+| CFU-100-ME-3DM-001 | Mechanical | C 101 Interactive Model | A | html | 02-equipment/3d |
 | CFU-100-ME-GA-001 | Mechanical | C 101 Column GA | A | pdf, svg | 02-equipment/ga |
 | CFU-100-ME-GA-002 | Mechanical | Side Strippers GA | A | pdf, svg | 02-equipment/ga |
 | CFU-100-ME-GA-003 | Mechanical | C 105 C 106 GA | A | pdf, svg | 02-equipment/ga |

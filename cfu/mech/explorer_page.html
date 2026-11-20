@@ -1,0 +1,807 @@
+<title>C-101 Crude Fractionator</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: equipment-tag header, 3D viewport in the middle, controls on the left, datasheet card on the right;
+   on a phone the viewport sits on top and both panels scroll beneath it. */
+:root{
+  --bg:#e6ecf0; --panel:#f6f8fa; --raise:#ffffff; --ink:#13212b; --mute:#566673; --line:#c9d3da;
+  --accent:#0a6f8c; --accent-ink:#ffffff; --hot:#b85c00; --ground:#d5dde3; --grid:#bcc8d0; --plate:#13212b; --plate-ink:#f2f6f8;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c141a; --panel:#121d25; --raise:#1a2832; --ink:#e1eaf0; --mute:#8fa2b0; --line:#2a3b47;
+  --accent:#4cc2dd; --accent-ink:#06222b; --hot:#ffab45; --ground:#111c24; --grid:#22323d; --plate:#e1eaf0; --plate-ink:#0c141a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c141a; --panel:#121d25; --raise:#1a2832; --ink:#e1eaf0; --mute:#8fa2b0; --line:#2a3b47;
+  --accent:#4cc2dd; --accent-ink:#06222b; --hot:#ffab45; --ground:#111c24; --grid:#22323d; --plate:#e1eaf0; --plate-ink:#0c141a; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);overflow:hidden}
+*{box-sizing:border-box}
+.app{height:100%;display:grid;grid-template:"head head head" auto "left view right" minmax(0,1fr) / 320px minmax(0,1fr) 310px}
+header{grid-area:head;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding-block:10px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  border-bottom:1px solid var(--line);background:var(--panel)}
+.id{display:flex;align-items:center;gap:12px;min-width:0}
+.tag{white-space:nowrap;font:700 22px/1 var(--display);letter-spacing:.04em;background:var(--plate);color:var(--plate-ink);padding:7px 10px 6px;border-radius:3px}
+h1{font:600 21px/1.05 var(--display);letter-spacing:.02em;margin:0;text-transform:uppercase;text-wrap:balance}
+.sub{font:400 11.5px/1.3 var(--mono);color:var(--mute);margin-top:3px}
+.tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+button{font:inherit;color:inherit;cursor:pointer}
+.tabs button,.seg button{border:1px solid var(--line);background:var(--raise);padding:7px 12px;border-radius:4px;font:600 15px/1 var(--display);letter-spacing:.05em;text-transform:uppercase}
+.tabs button[aria-selected="true"],.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panels{display:contents}
+aside{overflow:auto;background:var(--panel);padding-block:14px;min-width:0}
+#left{grid-area:left;border-right:1px solid var(--line);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:16px}
+#right{grid-area:right;border-left:1px solid var(--line);padding-right:max(16px,env(safe-area-inset-right,0px));padding-left:16px}
+.view{grid-area:view;position:relative;min-height:0;overflow:hidden;touch-action:none}
+canvas{display:block;width:100%;height:100%;cursor:grab}
+canvas:active{cursor:grabbing}
+.hint{position:absolute;left:12px;bottom:10px;font:400 11px/1.3 var(--mono);color:var(--mute);pointer-events:none}
+.legend{position:absolute;right:12px;bottom:10px;font:400 11px/1.2 var(--mono);color:var(--mute);pointer-events:none;text-align:right}
+.legend i{display:block;width:150px;height:8px;border-radius:2px;margin:4px 0 2px auto;background:linear-gradient(90deg,#2f7fd6,#35b6c9,#f2d13c,#f08a24,#d9361a)}
+.legend span{display:flex;justify-content:space-between;width:150px;margin-left:auto}
+.lab{position:absolute;left:0;top:0;white-space:nowrap;pointer-events:none;font:500 11px/1.25 var(--mono);color:var(--ink);
+  background:color-mix(in srgb,var(--raise) 88%,transparent);border:1px solid var(--line);border-left:3px solid var(--accent);padding:3px 7px;border-radius:2px;will-change:transform}
+.lab b{display:block;font:600 13px/1.1 var(--display);letter-spacing:.05em;text-transform:uppercase}
+.lab.hotl{border-left-color:var(--hot)}
+h2{font:600 13px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 0 8px}
+.pane{display:flex;flex-direction:column;gap:16px}
+.ctl{display:flex;flex-direction:column;gap:6px}
+.ctl label.r{display:flex;justify-content:space-between;font-weight:500}
+.ctl output{font:500 12px var(--mono);color:var(--mute)}
+input[type=range]{width:100%;accent-color:var(--accent);margin:0;height:24px}
+.seg{display:flex;gap:4px;flex-wrap:wrap}
+.seg button{padding:6px 9px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--raise);border-radius:4px;padding:5px 9px;cursor:pointer;font-size:13px}
+.chips input{accent-color:var(--accent);margin:0}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px;counter-reset:s}
+ol.steps button{counter-increment:s;width:100%;text-align:left;border:1px solid transparent;background:none;padding:6px 8px;border-radius:4px;display:flex;gap:10px;align-items:baseline}
+ol.steps button::before{content:counter(s,decimal-leading-zero);font:500 11px var(--mono);color:var(--mute)}
+ol.steps button:hover{background:var(--raise)}
+ol.steps button[aria-current="true"]{background:var(--raise);border-color:var(--line);font-weight:600;box-shadow:inset 3px 0 0 var(--accent)}
+ol.steps button.done{color:var(--mute)}
+.story{border-top:1px solid var(--line);padding-top:12px}
+.story h3,#info h3{font:600 20px/1.1 var(--display);letter-spacing:.02em;text-transform:uppercase;margin:0 0 6px;text-wrap:balance}
+.story p,#info p{margin:0 0 8px;max-width:62ch}
+.row{display:flex;gap:6px;align-items:center}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:4px;padding:8px 14px;font:600 15px/1 var(--display);letter-spacing:.06em;text-transform:uppercase}
+.btn.ghost{background:none;color:var(--accent)}
+.kicker{font:500 11px/1.2 var(--mono);color:var(--accent);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0;margin:10px 0 0;border-top:1px solid var(--line)}
+dt,dd{padding:5px 0;border-bottom:1px solid var(--line);margin:0}
+dt{color:var(--mute);padding-right:12px;font-size:12.5px}
+dd{font:500 12.5px/1.45 var(--mono);text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.regime{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--raise);padding:8px 10px;border-radius:2px}
+.regime.warn{border-left-color:var(--hot)}
+.regime b{font:600 15px var(--display);letter-spacing:.05em;text-transform:uppercase;display:block}
+.note{font-size:12px;color:var(--mute)}
+#fail{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--mute)}
+@media (max-width:900px){
+  body{overflow:hidden}
+  .app{grid-template:"head" auto "view" minmax(260px,46%) "panels" minmax(0,1fr) / minmax(0,1fr)}
+  .panels{display:block;grid-area:panels;overflow:auto;background:var(--panel);border-top:1px solid var(--line)}
+  aside{overflow:visible}
+  #left,#right{border:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  #right{border-top:1px solid var(--line)}
+  .tabs{margin-left:0;width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .tabs button{padding:8px 6px;font-size:14px}
+  h1{font-size:18px}.tag{font-size:19px}
+  .hint{display:none}
+}
+</style>
+
+<div class="app">
+  <header>
+    <div class="id">
+      <span class="tag" id="tag">C-101</span>
+      <div><h1>Atmospheric Crude Fractionator</h1><div class="sub" id="sub"></div></div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="View">
+      <button role="tab" data-mode="anatomy" aria-selected="true">Anatomy</button>
+      <button role="tab" data-mode="process" aria-selected="false">How it works</button>
+      <button role="tab" data-mode="assembly" aria-selected="false">Assembly</button>
+      <button role="tab" data-mode="tray" aria-selected="false">Tray close-up</button>
+    </div>
+  </header>
+
+  <div class="view" id="view">
+    <canvas id="c" aria-label="3D model of the crude fractionator. Drag to rotate, scroll or pinch to zoom, click a part for its data."></canvas>
+    <div id="labels"></div>
+    <div class="hint">drag: rotate &middot; scroll / pinch: zoom &middot; right-drag / two fingers: move up and down &middot; click a part</div>
+    <div class="legend" id="legend" hidden>tray temperature<i></i><span><b id="lgA"></b><b id="lgB"></b></span></div>
+  </div>
+
+  <div class="panels">
+    <aside id="left">
+      <div class="pane" data-pane="anatomy">
+        <div class="ctl">
+          <label class="r" for="explode">Explode <output id="explodeOut">0%</output></label>
+          <input type="range" id="explode" min="0" max="100" value="0">
+          <div class="note">Insulation comes off first, then the shell opens in four petals, then the tray stack spreads apart.</div>
+        </div>
+        <div class="ctl"><h2>Cutaway</h2>
+          <div class="seg" id="cut">
+            <button data-cut="0" aria-pressed="false">Closed</button>
+            <button data-cut="1" aria-pressed="true">Quarter</button>
+            <button data-cut="2" aria-pressed="false">Half</button>
+          </div>
+        </div>
+        <div class="ctl"><h2>Layers</h2>
+          <div class="chips" id="layers">
+            <label><input type="checkbox" id="ly-insul" data-layer="insul" checked>Insulation</label>
+            <label><input type="checkbox" id="ly-plat" data-layer="plat" checked>Platforms</label>
+            <label><input type="checkbox" id="ly-shell" data-layer="shell" checked>Shell</label>
+            <label><input type="checkbox" id="ly-liner" data-layer="liner" checked>Alloy lining</label>
+            <label><input type="checkbox" id="ly-noz" data-layer="noz" checked>Nozzles</label>
+            <label><input type="checkbox" id="ly-int" data-layer="int" checked>Internals</label>
+          </div>
+        </div>
+        <div class="ctl"><h2>Display</h2>
+          <div class="chips">
+            <label><input type="checkbox" id="thermal">Colour trays by temperature</label>
+            <label><input type="checkbox" id="showLabels" checked>Callouts</label>
+          </div>
+        </div>
+        <div class="row"><button class="btn ghost" id="demo">Play explode demo</button></div>
+      </div>
+
+      <div class="pane" data-pane="process" hidden>
+        <div class="row"><button class="btn" id="flowBtn">Pause flow</button>
+          <button class="btn ghost" id="prevStep" aria-label="Previous step">&larr;</button>
+          <button class="btn ghost" id="nextStep" aria-label="Next step">&rarr;</button></div>
+        <ol class="steps" id="procSteps"></ol>
+        <div class="story" id="procStory" aria-live="polite"></div>
+      </div>
+
+      <div class="pane" data-pane="assembly" hidden>
+        <div class="ctl">
+          <label class="r" for="asm">Build progress <output id="asmOut"></output></label>
+          <input type="range" id="asm" min="0" max="900" value="900">
+        </div>
+        <div class="row"><button class="btn" id="asmPlay">Play assembly</button></div>
+        <ol class="steps" id="asmSteps"></ol>
+        <div class="story" id="asmStory" aria-live="polite"></div>
+      </div>
+
+      <div class="pane" data-pane="tray" hidden>
+        <div class="ctl"><h2>Tray</h2><div class="seg" id="trayPick"></div></div>
+        <div class="ctl">
+          <label class="r" for="trayExplode">Explode <output id="trayExplodeOut">60%</output></label>
+          <input type="range" id="trayExplode" min="0" max="100" value="60">
+        </div>
+        <div class="ctl">
+          <label class="r" for="vap">Vapour rate <output id="vapOut">80% of flood</output></label>
+          <input type="range" id="vap" min="0" max="120" value="80">
+        </div>
+        <div class="regime" id="regime"></div>
+        <div class="note">Valve count, valve size and lift are drawn for clarity, not to the tray vendor's layout. Diameter, pass count, spacing and loads are the design values.</div>
+      </div>
+    </aside>
+
+    <aside id="right"><h2>Selected part</h2><div id="info" aria-live="polite"></div></aside>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var DATA = /*__DATA__*/null;
+var $ = function(s){return document.querySelector(s)}, $$ = function(s){return [].slice.call(document.querySelectorAll(s))};
+var view = $('#view'), canvas = $('#c');
+if(!window.THREE || !DATA){ view.innerHTML = '<div id="fail">The 3D library could not be loaded, so the model cannot be drawn.</div>'; return; }
+var T3 = THREE, D2R = Math.PI/180;
+var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+var narrow = function(){return view.clientWidth < 620};
+
+/* ---------- numbers ---------- */
+var M = DATA.mech, ATM = DATA.atm, ST = DATA.streams;
+var Y0 = M.skirt_height_m, R = DATA.D/2, R2 = DATA.D2/2, H = DATA.H, CONE = DATA.cone;
+var HEADTOP = H + R/2, INS = M.insulation_mm/1000 + 0.015;
+var Y = function(z){return z + Y0};
+var th = function(kg){return (kg/1000).toFixed(kg < 20000 ? 1 : 0) + ' t/h'};
+var dC = function(t){return Math.round(t) + ' °C'};
+var mw = function(kw){return (kw/1000).toFixed(1) + ' MW'};
+var f1 = function(x){return (+x).toFixed(1)}, f2 = function(x){return (+x).toFixed(2)};
+function Rz(z){ // inside radius at elevation z above the bottom tangent line
+  if(z < 0) return R2*Math.sqrt(Math.max(0, 1 - Math.pow(z/(R2/2), 2)));
+  if(z <= CONE[0]) return R2;
+  if(z < CONE[1]) return R2 + (R - R2)*(z - CONE[0])/(CONE[1] - CONE[0]);
+  if(z <= H) return R;
+  return R*Math.sqrt(Math.max(0, 1 - Math.pow((z - H)/(R/2), 2)));
+}
+var TR = DATA.trays, NT = TR.length;
+function Tz(z){ if(z >= TR[0].z) return TR[0].T; for(var i=1;i<NT;i++) if(z >= TR[i].z){ var a=TR[i-1], b=TR[i]; return b.T + (a.T-b.T)*(z-b.z)/(a.z-b.z);} return TR[NT-1].T; }
+var RAMP = [[130,0x2f7fd6],[190,0x35b6c9],[250,0xf2d13c],[310,0xf08a24],[365,0xd9361a]];
+function tempColor(T, out){ out = out || new T3.Color(); var i=1; while(i<RAMP.length-1 && T>RAMP[i][0]) i++;
+  var a=RAMP[i-1], b=RAMP[i], k=Math.min(1,Math.max(0,(T-a[0])/(b[0]-a[0]))); return out.setHex(a[1]).lerp(new T3.Color(b[1]),k); }
+var dir = function(deg){return [Math.cos(deg*D2R), -Math.sin(deg*D2R)]};
+var P = function(deg, r, z){var d=dir(deg); return new T3.Vector3(d[0]*r, Y(z), d[1]*r)};
+var QSTART = 280, VIEW_AZ = 325, TRAY_AZ = 55;
+var quadOf = function(deg){return Math.floor((((deg - QSTART) % 360) + 360) % 360 / 90)};
+var quadMid = function(q){return QSTART + 45 + 90*q};
+var ss = function(x){x=Math.min(1,Math.max(0,x)); return x*x*(3-2*x)};
+var nozBy = {}; DATA.nozzles.forEach(function(n){nozBy[n.mark]=n});
+
+$('#sub').textContent = DATA.crude.bpsd.toLocaleString('en-US') + ' BPSD · ID ' + DATA.D + ' / ' + DATA.D2 + ' m × ' + H + ' m T/T · ' + NT + ' valve trays · ' + DATA.docno;
+$('#lgA').textContent = dC(ATM.T_top); $('#lgB').textContent = dC(ATM.T_fz);
+
+/* ---------- renderer, scene, camera ---------- */
+var renderer;
+try{ renderer = new T3.WebGLRenderer({canvas:canvas, antialias:true}); }
+catch(e){ view.innerHTML = '<div id="fail">This browser could not start WebGL, so the 3D model cannot be drawn.</div>'; return; }
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio||1));
+renderer.outputEncoding = T3.sRGBEncoding;
+var scene = new T3.Scene(), camera = new T3.PerspectiveCamera(32, 1, 0.5, 600);
+var hemi = new T3.HemisphereLight(0xffffff, 0x556270, 0.75); scene.add(hemi);
+var sun = new T3.DirectionalLight(0xffffff, 0.85); sun.position.set(40, 70, 55); scene.add(sun);
+var fill = new T3.DirectionalLight(0xbfd8ff, 0.3); fill.position.set(-50, 20, -30); scene.add(fill);
+(function(){ // soft studio environment so the metal reads as metal
+  var c=document.createElement('canvas'); c.width=256; c.height=128; var g=c.getContext('2d');
+  var gr=g.createLinearGradient(0,0,0,128); gr.addColorStop(0,'#f4f8fb'); gr.addColorStop(.45,'#b9c6cf'); gr.addColorStop(.55,'#5e6c76'); gr.addColorStop(1,'#2a3238');
+  g.fillStyle=gr; g.fillRect(0,0,256,128); g.fillStyle='#ffffff'; g.fillRect(30,18,60,26); g.fillRect(150,10,40,20);
+  var t=new T3.CanvasTexture(c); t.mapping=T3.EquirectangularReflectionMapping; t.encoding=T3.sRGBEncoding;
+  var pm=new T3.PMREMGenerator(renderer); scene.environment=pm.fromEquirectangular(t).texture; t.dispose(); pm.dispose();
+})();
+var ground = new T3.Mesh(new T3.CircleGeometry(60, 64).rotateX(-Math.PI/2), new T3.MeshBasicMaterial());
+ground.position.y = -1.02; scene.add(ground);
+var grid = new T3.GridHelper(120, 48); grid.position.y = -1.0; scene.add(grid);
+function theme(){
+  var cs = getComputedStyle(document.documentElement), v=function(n){return cs.getPropertyValue(n).trim()};
+  scene.background = new T3.Color(v('--bg')); ground.material.color.set(v('--ground'));
+  grid.material.color.set(v('--grid')); grid.material.vertexColors = false; grid.material.needsUpdate = true;
+  var dark = new T3.Color(v('--bg')).getHSL({}).l < .4;
+  hemi.intensity = dark ? .55 : .8; if(S && S.vap) S.vap.material.blending = dark ? T3.AdditiveBlending : T3.NormalBlending;
+}
+var S = {};
+
+/* ---------- materials ---------- */
+function std(c, m, r, o){ return new T3.MeshStandardMaterial(Object.assign({color:c, metalness:m, roughness:r, envMapIntensity:.7}, o||{})); }
+var MAT = {
+  shell: std(0x7f8d98,.55,.5,{side:T3.DoubleSide}), l410: std(0xcbd3d8,.8,.32,{side:T3.DoubleSide}), monel: std(0xb9bf9c,.8,.34,{side:T3.DoubleSide}),
+  insul: std(0xe3e8ea,.85,.3,{side:T3.DoubleSide}), skirt: std(0x9c9d97,.05,.95,{side:T3.DoubleSide}), conc: std(0xa9aaa4,0,1),
+  noz: std(0x64727d,.6,.45), flange: std(0x4d5963,.6,.5), bolt: std(0x30383e,.7,.4),
+  dc: std(0x9aa5ad,.7,.4,{side:T3.DoubleSide}), part: std(0xc98a2b,.5,.45,{side:T3.DoubleSide}),
+  grate: std(0x8f9a8c,.4,.7,{side:T3.DoubleSide, transparent:true, opacity:.72}), rail: std(0xe2b200,.3,.6),
+  water: new T3.MeshStandardMaterial({color:0x2f8fd6, transparent:true, opacity:.4, roughness:.1, metalness:0, depthWrite:false}),
+  ghost: std(0x8aa0ae,.3,.6,{transparent:true, opacity:.22, side:T3.DoubleSide, depthWrite:false}),
+  hx: std(0x4f7f8f,.6,.4)
+};
+var deckTex = (function(){ var c=document.createElement('canvas'); c.width=c.height=128; var g=c.getContext('2d');
+  g.fillStyle='#d9dee2'; g.fillRect(0,0,128,128);
+  [[32,32],[96,32],[0,96],[64,96],[128,96]].forEach(function(p){ g.fillStyle='#59646d'; g.beginPath(); g.arc(p[0],p[1],15,0,7); g.fill(); g.fillStyle='#f3f5f6'; g.beginPath(); g.arc(p[0]-2,p[1]-2,10,0,7); g.fill(); });
+  var t=new T3.CanvasTexture(c); t.wrapS=t.wrapT=T3.RepeatWrapping; t.repeat.set(1/.32,1/.32); t.encoding=T3.sRGBEncoding; t.anisotropy=4; return t; })();
+var flowTex = (function(){ var c=document.createElement('canvas'); c.width=64; c.height=16; var g=c.getContext('2d');
+  g.fillStyle='#777'; g.fillRect(0,0,64,16); g.fillStyle='#fff'; g.beginPath(); g.moveTo(8,0); g.lineTo(30,0); g.lineTo(44,8); g.lineTo(30,16); g.lineTo(8,16); g.lineTo(22,8); g.fill();
+  var t=new T3.CanvasTexture(c); t.wrapS=t.wrapT=T3.RepeatWrapping; return t; })();
+var dotTex = (function(){ var c=document.createElement('canvas'); c.width=c.height=32; var g=c.getContext('2d'); var r=g.createRadialGradient(16,16,2,16,16,15);
+  r.addColorStop(0,'rgba(255,255,255,1)'); r.addColorStop(.6,'rgba(255,255,255,.75)'); r.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle=r; g.fillRect(0,0,32,32); return new T3.CanvasTexture(c); })();
+
+/* ---------- part registry ---------- */
+var column = new T3.Group(), procG = new T3.Group(), trayG = new T3.Group(); scene.add(column, procG, trayG);
+var parts = [], pickables = [], byPid = {};
+function tagMeshes(o, pid){ o.traverse(function(m){ if(m.isMesh){ m.userData.pid=pid; m.userData.mat=m.material; pickables.push(m); (byPid[pid]=byPid[pid]||[]).push(m); } }); }
+function reg(obj, o){ // layer, pid, yc (y of centre), q (shell quadrant or null), vecs [[azDeg,k1,k2]], top, v, step, stag, fly [x,y,z]
+  var p = Object.assign({obj:obj, layer:'shell', yc:Y0, q:null, vecs:[], top:0, v:1, step:0, stag:0, fly:[0,30,0]}, o);
+  p.vecs = p.vecs.map(function(a){var d=dir(a[0]); return [d[0],d[1],a[1],a[2]]});
+  parts.push(p); if(p.pid) tagMeshes(obj, p.pid); column.add(obj); return p;
+}
+function lathe(prof, q, mat){ // prof: [[r,y],...]; q: quadrant index or null for a full revolution
+  var pts = prof.map(function(p){return new T3.Vector2(Math.max(p[0],1e-3), p[1])});
+  var g = q==null ? new T3.LatheGeometry(pts, 64) : new T3.LatheGeometry(pts, 18, (QSTART+90*q)*D2R + Math.PI/2, Math.PI/2);
+  return new T3.Mesh(g, mat);
+}
+function headProf(Rh, z0, up, off){ var a=[]; for(var i=0;i<=12;i++){ var t=i/12*Math.PI/2; a.push([(Rh+off)*Math.cos(t), Y(z0) + (up?1:-1)*(Rh/2+off)*Math.sin(t)]); } return a; }
+
+/* ---------- pressure envelope: shell cans, alloy lining, insulation, skirt ---------- */
+var CANS = [
+  {id:'bottom', prof:function(o){return headProf(R2,0,false,o).reverse()}, z0:-R2/2, z1:0, step:1, v:0},
+  {id:'strip', prof:function(o){return [[R2+o,Y(0)],[R2+o,Y(CONE[0])]]}, z0:0, z1:CONE[0], step:1, v:0},
+  {id:'cone', prof:function(o){return [[R2+o,Y(CONE[0])],[R+o,Y(CONE[1])]]}, z0:CONE[0], z1:CONE[1], step:2},
+  {id:'main0', z0:CONE[1], z1:20.6, step:3, stag:0}, {id:'main1', z0:20.6, z1:29.0, step:3, stag:.33}, {id:'main2', z0:29.0, z1:H, step:3, stag:.66},
+  {id:'top', prof:function(o){return headProf(R,H,true,o)}, z0:H, z1:HEADTOP, step:4, top:1}
+];
+CANS.forEach(function(c){ if(!c.prof) c.prof = function(o){return [[R+o,Y(c.z0)],[R+o,Y(c.z1)]]}; c.yc = Y((c.z0+c.z1)/2); if(c.v==null) c.v=1; });
+var canOf = function(z){ for(var i=0;i<CANS.length;i++) if(z <= CANS[i].z1) return CANS[i]; return CANS[CANS.length-1]; };
+CANS.forEach(function(c){
+  var head = c.id==='top' || c.id==='bottom', k = head ? 0 : 5, pid = 'sh-'+c.id;
+  for(var q=0;q<4;q++){
+    var com = {q:q, yc:c.yc, v:c.v, step:c.step, stag:c.stag||0, top:c.top ? 5 : 0};
+    reg(lathe(c.prof(0), q, MAT.shell), Object.assign({layer:'shell', pid:pid, vecs:[[quadMid(q),0,k]]}, com));
+    reg(lathe(c.prof(INS), q, MAT.insul), Object.assign({layer:'insul', pid:'insul', vecs:[[quadMid(q),3.5,k]]}, com, {step:8, stag:(c.z0+1)/40, fly:[dir(quadMid(q))[0]*16,0,dir(quadMid(q))[1]*16], top:c.top?8:0}));
+    DATA.clad.forEach(function(cl){ // roll-bonded alloy lining, clipped to this can
+      var a=Math.max(cl.z0,c.z0), b=Math.min(cl.z1,c.z1); if(b-a < .05) return;
+      var prof = c.prof(-.035).filter(function(p){return p[1] >= Y(a)-1e-6 && p[1] <= Y(b)+1e-6});
+      if(!head && c.id!=='cone') prof = [[Rz((a+b)/2)-.035,Y(a)],[Rz((a+b)/2)-.035,Y(b)]];
+      if(prof.length < 2) return;
+      var monel = /monel/i.test(cl.mat);
+      reg(lathe(prof, q, monel?MAT.monel:MAT.l410), Object.assign({layer:'liner', pid:monel?'liner-monel':'liner-410', vecs:[[quadMid(q),0,k*.55]]}, com, {top:c.top?4:0}));
+    });
+  }
+});
+for(var q=0;q<4;q++) reg(lathe([[R2+.022,0],[R2+.022,Y0]], q, MAT.skirt), {layer:'shell', pid:'skirt', q:q, yc:Y0/2, v:0, step:1, vecs:[]});
+(function(){ // foundation, base ring, anchor bolts
+  var f = new T3.Mesh(new T3.CylinderGeometry(3.3,3.3,1,8), MAT.conc); f.position.y=-.5; reg(f,{layer:'base', pid:'found', yc:0, v:0, step:0, fly:[0,-4,0]});
+  var ring = new T3.Mesh(new T3.RingGeometry(R2-.12, R2+.42, 64).rotateX(-Math.PI/2), MAT.flange); ring.position.y=.04; reg(ring,{layer:'shell', pid:'skirt', yc:0, v:0, step:1});
+  var ab = M.anchor_bolts, im = new T3.InstancedMesh(new T3.CylinderGeometry(.045,.045,.7,8), MAT.bolt, ab.n), m4=new T3.Matrix4();
+  for(var i=0;i<ab.n;i++){ var a=i/ab.n*2*Math.PI; m4.makeTranslation(Math.cos(a)*ab.bcd_m/2, .15, Math.sin(a)*ab.bcd_m/2); im.setMatrixAt(i,m4); }
+  reg(im,{layer:'base', pid:'bolts', yc:0, v:0, step:0, stag:.5, fly:[0,6,0]});
+})();
+var water = lathe([[.001,Y(-R2/2)]].concat(headProf(R2,0,false,-.05).reverse(), [[R2-.05,Y(CONE[0])],[R-.05,Y(CONE[1])],[R-.05,Y(H)]], headProf(R,H,true,-.05)), null, MAT.water);
+water.geometry.translate(0,-Y(-R2/2),0); water.position.y = Y(-R2/2); water.visible=false; column.add(water);
+
+/* ---------- trays ---------- */
+function trayLayout(passes, Rt, odd){ // downcomer boxes [x, halfWidth] in the tray frame, and the deck slabs between them
+  var xs = Rt*(passes===2 ? .78 : .86), dcs, L;
+  if(passes===2) dcs = odd ? [[0,.2]] : [[-xs,0],[xs,0]];
+  else dcs = odd ? [[-Rt*.46,.16],[Rt*.46,.16]] : [[-xs,0],[0,.16],[xs,0]];
+  L = dcs[0][1]===0 ? xs : Rt;
+  var edges=[-L]; dcs.forEach(function(d){ if(d[1]>0){edges.push(d[0]-d[1], d[0]+d[1]);} }); edges.push(L);
+  var slabs=[]; for(var i=0;i<edges.length;i+=2) slabs.push([edges[i],edges[i+1]]);
+  return {dcs:dcs, slabs:slabs, dcx:dcs.map(function(d){return d[0]})};
+}
+function clipCircle(Rc, x0, x1, z0, z1){ // polygon of the disc radius Rc inside the box
+  var pts=[], i; for(i=0;i<72;i++){ var a=i/72*2*Math.PI; pts.push([Rc*Math.cos(a), Rc*Math.sin(a)]); }
+  [[0,x0,1],[0,x1,-1],[1,z0,1],[1,z1,-1]].forEach(function(c){ var out=[], n=pts.length; for(i=0;i<n;i++){ var a=pts[i], b=pts[(i+1)%n];
+    var ia=(a[c[0]]-c[1])*c[2] >= 0, ib=(b[c[0]]-c[1])*c[2] >= 0;
+    if(ia) out.push(a); if(ia!==ib){ var t=(c[1]-a[c[0]])/(b[c[0]]-a[c[0]]); out.push([a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t]); } } pts=out; });
+  return pts;
+}
+function shapeOf(pts){ var s=new T3.Shape(); pts.forEach(function(p,i){ i ? s.lineTo(p[0],-p[1]) : s.moveTo(p[0],-p[1]) }); return s; }
+function plate(x, Rt, yTop, yBot, mat, t){ var half=Math.sqrt(Math.max(.01, Rt*Rt - x*x)) - .02;
+  var m=new T3.Mesh(new T3.BoxGeometry(t||.02, yTop-yBot, 2*half), mat); m.position.set(x,(yTop+yBot)/2,0); return m; }
+var trayMats = [];
+TR.forEach(function(t, i){
+  var Rt=t.D/2 - .03, lay=trayLayout(t.passes, Rt, t.no%2===1), other=trayLayout(t.passes, Rt, t.no%2===0);
+  t.R=Rt; t.dcx=lay.dcx; t.inx=other.dcx; t.gap = i<NT-1 && TR[i+1].D===t.D ? t.z-TR[i+1].z : .62;
+  var g=new T3.Group(), y=Y(t.z), monel = t.no<=5;
+  var dm = new T3.MeshStandardMaterial({color:0xffffff, map:deckTex, metalness:.55, roughness:.5, side:T3.DoubleSide, envMapIntensity:.6});
+  var pm = MAT.dc.clone(); trayMats.push({t:t, deck:dm, dc:pm, base:new T3.Color(monel?0xc6cba8:0xd2d8dc), baseDc:new T3.Color(monel?0xa9ae8e:0x9aa5ad)});
+  lay.slabs.forEach(function(s){ var m=new T3.Mesh(new T3.ShapeGeometry(shapeOf(clipCircle(Rt,s[0],s[1],-Rt,Rt)),10).rotateX(-Math.PI/2), dm); m.position.y=y; g.add(m); });
+  lay.dcs.forEach(function(d){ (d[1]>0 ? [d[0]-d[1], d[0]+d[1]] : [d[0]]).forEach(function(x){ g.add(plate(x, Rt, y+.05, y-t.gap+.06, pm)); }); });
+  g.rotation.y = TRAY_AZ*D2R;
+  reg(g, {layer:'int', pid:'tray-'+t.no, yc:y, step:6, stag:(NT-1-i)/NT*.92, fly:[dir(VIEW_AZ)[0]*14, 0, dir(VIEW_AZ)[1]*14]});
+});
+
+/* ---------- other internals ---------- */
+var flyIn = [dir(VIEW_AZ)[0]*14, 0, dir(VIEW_AZ)[1]*14];
+function radialCyl(r, len, mat){ return new T3.Mesh(new T3.CylinderGeometry(r,r,len,14), mat); }
+function along(m, a, b){ var d=new T3.Vector3().subVectors(b,a); m.position.copy(a).addScaledVector(d,.5); m.quaternion.setFromUnitVectors(new T3.Vector3(0,1,0), d.normalize()); return m; }
+DATA.parts.forEach(function(p){
+  if(p.kind==='horn'){
+    var m = new T3.Mesh(new T3.LatheGeometry([new T3.Vector2(R-.04,Y(p.z1)), new T3.Vector2(R-.95,Y(p.z1)), new T3.Vector2(R-.95,Y(p.z0))], 48, (nozBy.N1.angle-20)*D2R+Math.PI/2, 300*D2R), MAT.part);
+    reg(m, {layer:'int', pid:'horn', yc:Y((p.z0+p.z1)/2), step:6, stag:.05, fly:flyIn});
+  } else if(p.kind==='steam'){
+    var g=new T3.Group(), n=nozBy.N16, tor=new T3.Mesh(new T3.TorusGeometry(R2*.55,.09,10,48).rotateX(Math.PI/2), MAT.part); tor.position.y=Y(p.z); g.add(tor);
+    g.add(along(radialCyl(.09,1,MAT.part), P(n.angle,R2*.55,p.z), P(n.angle,R2,p.z)));
+    reg(g, {layer:'int', pid:'sparger', yc:Y(p.z), v:0, step:6, stag:0, fly:flyIn});
+  } else if(p.kind==='vortex'){
+    var g2=new T3.Group(); [0,Math.PI/2].forEach(function(a){ var b=new T3.Mesh(new T3.BoxGeometry(1.1,.5,.03), MAT.part); b.rotation.y=a; b.position.y=Y(-R2/2+.3); g2.add(b); });
+    reg(g2, {layer:'int', pid:'vortex', yc:Y(0), v:0, step:6, stag:0, fly:flyIn});
+  } else if(p.kind==='draw'){
+    var n2 = DATA.nozzles.filter(function(n){return Math.abs(n.z-p.z)<.02 && /draw/i.test(n.service)})[0]; if(!n2) return;
+    var b2=new T3.Mesh(new T3.BoxGeometry(1.2,.5,1.6), MAT.part); b2.position.copy(P(n2.angle, R-.68, p.z-.12)); b2.rotation.y=n2.angle*D2R;
+    reg(b2, {layer:'int', pid:'sump-'+n2.mark, yc:Y(p.z), step:6, stag:.5, fly:flyIn});
+  }
+});
+DATA.nozzles.forEach(function(n){ // inlet pipes behind the return, reflux and stripper-vapour nozzles
+  if(!/return|reflux/i.test(n.service) || n.side==='T') return;
+  var rn=n.nps*.0254/2, m=along(radialCyl(rn,1,MAT.part), P(n.angle,R-.02,n.z), P(n.angle,-R*.35,n.z)); m.scale.y = R*1.33;
+  reg(m, {layer:'int', pid:'dist-'+n.mark, yc:Y(n.z), step:6, stag:.6, fly:flyIn});
+});
+
+/* ---------- nozzles and manways ---------- */
+DATA.nozzles.forEach(function(n){
+  var rn = n.nps*.0254/2, g = new T3.Group(), can, o;
+  function stub(a, b, cover){ g.add(along(radialCyl(rn,1,MAT.noz), a, b)); g.children[g.children.length-1].scale.y = a.distanceTo(b);
+    var f = along(radialCyl(rn*1.5+.03, 1, MAT.flange), b.clone().lerp(a,.12), b); f.scale.y=.09; g.add(f);
+    if(cover){ var c2 = along(radialCyl(rn*1.5+.03, 1, MAT.flange), b, b.clone().lerp(a,-.1)); c2.scale.y=.07; g.add(c2); } }
+  if(n.side==='T'){
+    var k = n.mark==='N2' ? 0 : 1; for(var i=0;i<n.qty;i++){ var az = n.mark==='N18' ? 100 : 30 + i*52, rr = k ? 1.9 : 0, z0 = H + (R/2)*Math.sqrt(1 - rr*rr/(R*R));
+      stub(P(az,rr,z0-.1), P(az,rr,z0+.75), false); }
+    o = {q:null, yc:Y(H), top:5, step:4, vecs:[]};
+  } else if(n.side==='B'){
+    stub(new T3.Vector3(0,Y(-R2/2)+.1,0), new T3.Vector3(0,Y(-R2/2)-.7,0), false); o = {q:null, yc:Y(0), v:0, step:1, vecs:[]};
+  } else {
+    var rs = Rz(n.z), q = quadOf(n.angle); can = canOf(n.z);
+    for(var j=0;j<n.qty;j++) stub(P(n.angle+j*8, rs-.05, n.z + j*2.6), P(n.angle+j*8, rs+.62+rn, n.z + j*2.6), n.kind==='MW');
+    o = {q:q, yc:can.yc, v:can.v, step:can.step, stag:can.stag||0, vecs:[[quadMid(q),0,(can.id==='bottom')?0:5],[n.angle,0,1.4]]};
+  }
+  reg(g, Object.assign({layer:'noz', pid:'noz-'+n.mark}, o));
+});
+
+/* ---------- platforms and ladders ---------- */
+DATA.platforms.forEach(function(z, i, all){
+  var topP = z > H, r0 = topP ? .75 : Rz(z)+INS+.03, r1 = topP ? 2.6 : r0+1.25, y = Y(z);
+  var segs = topP ? [[280,90],[10,90],[100,90],[190,90]] : [[280,90],[10,100]];
+  segs.forEach(function(sg){
+    var g = new T3.Group(), a0 = sg[0]*D2R, al = sg[1]*D2R;
+    var gr = new T3.Mesh(new T3.RingGeometry(r0, r1, 24, 1, a0, al).rotateX(-Math.PI/2), MAT.grate); gr.position.y=y; g.add(gr);
+    [.55,1.1].forEach(function(h){ var t=new T3.Mesh(new T3.TorusGeometry(r1,.028,6,24,al).rotateZ(a0).rotateX(-Math.PI/2), MAT.rail); t.position.y=y+h; g.add(t); });
+    var np=Math.round(sg[1]/15)+1, im=new T3.InstancedMesh(new T3.CylinderGeometry(.025,.025,1.1,6), MAT.rail, np), m4=new T3.Matrix4();
+    for(var k=0;k<np;k++){ var d=dir(sg[0]+sg[1]*k/(np-1)); m4.makeTranslation(d[0]*r1, y+.55, d[1]*r1); im.setMatrixAt(k,m4); } g.add(im);
+    var mid = sg[0]+sg[1]/2, d2=dir(mid);
+    reg(g, {layer:'plat', pid:'plat', q:quadOf(mid), yc:topP?Y(H):y, v:z<CONE[0]?0:1, top:topP?9:0, step:7, stag:i/all.length*.8, vecs:[[mid,6,topP?0:5]], fly:[d2[0]*18,0,d2[1]*18]});
+  });
+  var zb = i ? all[i-1] : -Y0 + .02; if(topP) zb = all[i-1];
+  var azL = i%2 ? 85 : 35, rl = (topP ? R : Math.max(Rz(z), Rz(Math.max(zb,0)))) + INS + .55, hgt = z - zb + (topP?0:1.0), lg = new T3.Group();
+  [-.22,.22].forEach(function(s){ var b=new T3.Mesh(new T3.BoxGeometry(.05,hgt,.05), MAT.rail); b.position.set(0,0,s); lg.add(b); });
+  var nr=Math.floor(hgt/.3), rungs=new T3.InstancedMesh(new T3.BoxGeometry(.03,.03,.44), MAT.rail, nr), m5=new T3.Matrix4();
+  for(var r=0;r<nr;r++){ m5.makeTranslation(0, -hgt/2+.15+r*.3, 0); rungs.setMatrixAt(r,m5); } lg.add(rungs);
+  var pl = P(azL, rl, zb + hgt/2); lg.position.copy(pl); lg.rotation.y = azL*D2R;
+  var holder = new T3.Group(); holder.add(lg); var d3=dir(azL);
+  reg(holder, {layer:'plat', pid:'ladder', q:quadOf(azL), yc:Y((z+Math.max(zb,0))/2), v:z<CONE[0]?0:1, step:7, stag:i/all.length*.8+.1, vecs:[[azL,6,5]], fly:[d3[0]*18,0,d3[1]*18]});
+});
+
+/* ---------- process: pipes, side strippers, particles ---------- */
+var pipes = [], chips = [], Rt = R + .62 + .2;
+function pipe(key, pts, rad, color, speed, pid){
+  var curve = new T3.CatmullRomCurve3(pts, false, 'catmullrom', .04), len = curve.getLength();
+  var tex = flowTex.clone(); tex.needsUpdate = true; tex.repeat.set(Math.max(2, Math.round(len/(rad*9))), 2);
+  var m = new T3.Mesh(new T3.TubeGeometry(curve, Math.max(24, Math.round(len*3)), rad, 12), new T3.MeshStandardMaterial({color:color, map:tex, metalness:.3, roughness:.5}));
+  procG.add(m); tagMeshes(m, pid || 'pipe-'+key); pipes.push({tex:tex, speed:speed/ (len/tex.repeat.x)}); return m;
+}
+function chip(step, pos, title, sub, hot){ chips.push({steps:step, pos:pos, title:title, sub:sub, hot:hot}); }
+var COL = {feed:0xd0622a, vap:0x58a8d8, liq:0xc9962e, steam:0xb9c3ca, heavy:0x7a4a22, kero:0xd9c24a, diesel:0xc98f2e, ago:0xa5632a};
+(function(){
+  var n1=nozBy.N1, s=ST;
+  pipe('feed', [P(n1.angle,Rt+11,n1.z-4.5), P(n1.angle,Rt+8,n1.z-4.5), P(n1.angle,Rt+5,n1.z), P(n1.angle,R-.1,n1.z)], n1.nps*.0127, COL.feed, 5);
+  chip([0,1], P(n1.angle,Rt+11,n1.z-4.5), 'Crude from H-101', th(s.feed.kg_h)+' · '+dC(ATM.cot)+' · '+Math.round(DATA.vf_feed*100)+' wt% vapour', true);
+  pipe('ovhd', [new T3.Vector3(0,Y(HEADTOP+.7),0), new T3.Vector3(0,Y(HEADTOP+3),0), P(190,7,HEADTOP+3), P(190,7,H-6)], nozBy.N2.nps*.0127, COL.vap, 6);
+  chip([0,7], P(190,7,H-6), 'Overhead vapour', th(s.ovhd.kg_h)+' · '+dC(ATM.T_top)+' → '+s.ovhd.to);
+  var n3=nozBy.N3; pipe('reflux', [P(n3.angle,Rt+4.5,n3.z-6), P(n3.angle,Rt+4.5,n3.z), P(n3.angle,R-.1,n3.z)], .16, COL.liq, 3);
+  chip([0,7], P(n3.angle,Rt+4.5,n3.z-6), 'Reflux', th(s.reflux.kg_h)+' from '+s.reflux.frm);
+  var n16=nozBy.N16; pipe('steam', [P(n16.angle,R2+5,n16.z), P(n16.angle,R2-.1,n16.z)], .13, COL.steam, 5);
+  chip([0,2], P(n16.angle,R2+5,n16.z), 'Stripping steam', th(ATM.steam.bottom));
+  var d=dir(VIEW_AZ); pipe('AR', [new T3.Vector3(0,Y(-R2/2)-.7,0), new T3.Vector3(0,1.6,0), new T3.Vector3(d[0]*7,1.6,d[1]*7)], nozBy.N17.nps*.0127, COL.heavy, 2.5);
+  chip([0,2], new T3.Vector3(d[0]*7,1.6,d[1]*7), 'Atmospheric residue', th(s.AR.kg_h)+' · '+dC(ATM.T_bot)+' → '+s.AR.to, true);
+  [['TPA','N5','N4','E-101'],['MPA','N9','N8','E-106'],['BPA','N13','N12','E-110 / E-113']].forEach(function(a){
+    var pa=ATM.pa[a[0]], nd=nozBy[a[1]], nr=nozBy[a[2]], ro=Rt+3.2, zl=nd.z-2.6;
+    pipe(a[0], [P(nd.angle,R-.1,nd.z), P(nd.angle,ro,nd.z), P(nd.angle,ro,zl), P(nr.angle,ro,zl), P(nr.angle,ro,nr.z), P(nr.angle,R-.1,nr.z)], .2, COL.liq, 3.5, 'pa-'+a[0]);
+    var hx = along(radialCyl(.62,1,MAT.hx), P(nd.angle,ro,zl).lerp(P(nr.angle,ro,zl),.28), P(nd.angle,ro,zl).lerp(P(nr.angle,ro,zl),.72)); hx.scale.y = 2.6; procG.add(hx); tagMeshes(hx,'pa-'+a[0]);
+    chip([0,5], P((nd.angle+nr.angle)/2, ro+.9, zl), a[0]+' · '+a[3], mw(pa.duty_kw)+' to crude · '+dC(pa.T_draw)+' → '+dC(pa.T_ret));
+  });
+  DATA.strippers.forEach(function(sp, i){
+    var nd=nozBy[['N6','N10','N14'][i]], nv=nozBy[['N7','N11','N15'][i]], rsv=Rt+4.6, az=142, ztop=nd.z-1.2, zbot=ztop-sp.H, rr=sp.D/2;
+    var prof=[], k; for(k=0;k<=8;k++){ var t=k/8*Math.PI/2; prof.push(new T3.Vector2(Math.max(.001,rr*Math.sin(t)), -rr/2*Math.cos(t))); }
+    prof.push(new T3.Vector2(rr, sp.H)); for(k=1;k<=8;k++){ var t2=k/8*Math.PI/2; prof.push(new T3.Vector2(Math.max(.001,rr*Math.cos(t2)), sp.H + rr/2*Math.sin(t2))); }
+    var v=new T3.Mesh(new T3.LatheGeometry(prof,24), MAT.insul); v.position.copy(P(az,rsv,zbot)); procG.add(v); tagMeshes(v,'strip-'+sp.tag);
+    var c=[COL.kero,COL.diesel,COL.ago][i], top=P(az,rsv,ztop+rr/2), bot=P(az,rsv,zbot-rr/2);
+    pipe(sp.key+'d', [P(nd.angle,R-.1,nd.z), P(nd.angle,Rt+1.6,nd.z), P(az-2,rsv-rr-.9,ztop-.9), P(az,rsv-rr+.05,ztop-.9)], nd.nps*.0127, c, 2.5);
+    pipe(sp.key+'v', [top, P(az,rsv,nv.z), P(nv.angle,Rt+1.2,nv.z), P(nv.angle,R-.1,nv.z)], nv.nps*.0127, COL.vap, 5);
+    pipe(sp.key+'p', [bot, P(az,rsv,zbot-1.6), P(az,rsv+4.5,zbot-1.6)], .14, c, 2.5);
+    var key=sp.key.toLowerCase(), names={kero:'Kerosene',diesel:'Diesel',ago:'AGO'};
+    chip([0,6], P(az,rsv+4.5,zbot-1.6), names[key]+' · '+sp.tag, th(ST[sp.key].kg_h)+' · drawn at '+dC(ATM.T_draw[sp.key])+' from tray '+ATM.tray[sp.key]);
+  });
+})();
+var NV = 1700, NL = 2400;
+function points(n, size){ var g=new T3.BufferGeometry(); g.setAttribute('position', new T3.BufferAttribute(new Float32Array(n*3),3)); g.setAttribute('color', new T3.BufferAttribute(new Float32Array(n*3),3));
+  var p=new T3.Points(g, new T3.PointsMaterial({size:size, map:dotTex, vertexColors:true, transparent:true, opacity:.9, depthWrite:false, sizeAttenuation:true})); p.frustumCulled=false; return p; }
+var vap = points(NV,.34), liq = points(NL,.2); procG.add(vap); S.vap = vap;
+var liqHolder = new T3.Group(); liqHolder.rotation.y = TRAY_AZ*D2R; liqHolder.add(liq); procG.add(liqHolder);
+var vp = [], lp = [], zFeed = nozBy.N1.z, zSteam = nozBy.N16.z, tmpC = new T3.Color();
+function spawnV(o, first){ var steam = Math.random() < .14, a=Math.random()*6.283, r=Math.sqrt(Math.random())*.93;
+  o.u=Math.cos(a)*r; o.w=Math.sin(a)*r; o.z = first ? zSteam + Math.random()*(HEADTOP-zSteam) : (steam ? zSteam : zFeed) + Math.random()*.6; o.s = 2.6 + Math.random()*2.2; o.ph=Math.random()*6.28; return o; }
+for(var i=0;i<NV;i++) vp.push(spawnV({}, true));
+function nearestIn(t, x){ var best=t.inx[0]; t.inx.forEach(function(v){ if(Math.abs(v-x) < Math.abs(best-x)) best=v; }); return best; }
+function target(t, x){ var lo=null, hi=null; t.dcx.forEach(function(v){ if(v < x-.05 && (lo==null || v>lo)) lo=v; if(v > x+.05 && (hi==null || v<hi)) hi=v; });
+  return lo==null ? hi : hi==null ? lo : (Math.random()<.5 ? lo : hi); }
+function landL(o, ti){ var t=TR[ti]; o.ti=ti; o.x0=nearestIn(t, Math.max(-t.R, Math.min(t.R, o.x1==null ? (Math.random()-.5)*2*t.R : o.x1))); o.x1=target(t,o.x0); if(o.x1==null) o.x1=o.x0;
+  var xm=Math.max(Math.abs(o.x0),Math.abs(o.x1)); o.zc=(Math.random()*2-1)*Math.sqrt(Math.max(.01,t.R*t.R-xm*xm))*.94; o.t=0; }
+for(i=0;i<NL;i++){ var o={x1:null, s:.35+Math.random()*.3}; landL(o, Math.floor(Math.random()*NT)); o.t=Math.random(); lp.push(o); }
+function stepParticles(dt){
+  var a=vap.geometry.attributes.position.array, c=vap.geometry.attributes.color.array, j, o, time=performance.now()/1000;
+  for(j=0;j<NV;j++){ o=vp[j]; o.z += o.s*dt; if(o.z > HEADTOP-.15) spawnV(o,false);
+    var rr = Rz(o.z)*.95, sw = .12*Math.sin(time*2+o.ph);
+    a[j*3]=(o.u+sw*o.w)*rr; a[j*3+1]=Y(o.z); a[j*3+2]=(o.w-sw*o.u)*rr; tempColor(Tz(o.z),tmpC); c[j*3]=tmpC.r; c[j*3+1]=tmpC.g; c[j*3+2]=tmpC.b; }
+  vap.geometry.attributes.position.needsUpdate = vap.geometry.attributes.color.needsUpdate = true;
+  a=liq.geometry.attributes.position.array; c=liq.geometry.attributes.color.array;
+  for(j=0;j<NL;j++){ o=lp[j]; o.t += o.s*dt; if(o.t>=1){ var nx=o.ti+1; if(nx>=NT){ o.x1=null; nx=0; } landL(o,nx); }
+    var t=TR[o.ti], x, y; if(o.t<.72){ x=o.x0+(o.x1-o.x0)*o.t/.72; y=Y(t.z)+.09; } else { x=o.x1; y=Y(t.z)+.05-(o.t-.72)/.28*t.gap; }
+    a[j*3]=x; a[j*3+1]=y; a[j*3+2]=o.zc; tempColor(t.T,tmpC).lerp(new T3.Color(0x2b1a08),.45); c[j*3]=tmpC.r; c[j*3+1]=tmpC.g; c[j*3+2]=tmpC.b; }
+  liq.geometry.attributes.position.needsUpdate = liq.geometry.attributes.color.needsUpdate = true;
+}
+
+/* ---------- tray close-up ---------- */
+var tparts = [], trayState = {no:12, valves:null, vpos:[], froth:[], bub:null, bp:[]};
+function buildTray(no){
+  while(trayG.children.length){ var ch=trayG.children.pop(); ch.traverse(function(m){ if(m.geometry) m.geometry.dispose(); }); }
+  pickables = pickables.filter(function(m){return !m.userData.trayPart}); Object.keys(byPid).forEach(function(k){ if(k.indexOf('tr-')===0) delete byPid[k]; });
+  tparts = []; trayState.no = no; trayState.froth = []; trayState.vpos = [];
+  var t=TR[no-1], Rt=t.D/2-.03, lay=trayLayout(t.passes,Rt,t.no%2===1), other=trayLayout(t.passes,Rt,t.no%2===0), gap=t.TS;
+  function add(o, pid, lift){ trayG.add(o); o.traverse(function(m){ if(m.isMesh){ m.userData.trayPart=true; } }); tagMeshes(o,pid); tparts.push({obj:o, lift:lift, y0:o.position.y}); return o; }
+  add(new T3.Mesh(new T3.LatheGeometry([new T3.Vector2(Rt+.03,-gap-.25), new T3.Vector2(Rt+.03,.75)], 48, (TRAY_AZ+45)*D2R+Math.PI/2, 250*D2R), MAT.ghost), 'tr-shell', 0);
+  var ring=new T3.Mesh(new T3.RingGeometry(Rt-.09,Rt+.03,96).rotateX(-Math.PI/2), MAT.flange); ring.position.y=-.02; add(ring,'tr-ring',0);
+  if(t.D > 5){ var bg=new T3.Group(); [-.36,.36].forEach(function(f){ var z=f*Rt, b=new T3.Mesh(new T3.BoxGeometry(2*Math.sqrt(Rt*Rt-z*z)-.1,.4,.12), MAT.noz); b.position.set(0,-.24,z); bg.add(b); }); add(bg,'tr-beam',-1.5); }
+  var dg=new T3.Group(), wg=new T3.Group();
+  lay.dcs.forEach(function(d){ (d[1]>0 ? [d[0]-d[1], d[0]+d[1]] : [d[0]]).forEach(function(x){ dg.add(plate(x,Rt,-.01,-gap+.06,MAT.dc)); wg.add(plate(x,Rt,.06,0,MAT.part,.025)); }); });
+  add(dg,'tr-dc',-.75); add(wg,'tr-weir',.55);
+  var ag=new T3.Group(); other.dcs.forEach(function(d){ (d[1]>0 ? [d[0]-d[1], d[0]+d[1]] : [d[0]]).forEach(function(x){ ag.add(plate(x,Rt,gap,.06,MAT.ghost)); }); }); add(ag,'tr-above',3.0);
+  var deckMat = std(0xaab4bb,.45,.55,{side:T3.DoubleSide}), manMat = std(0x4cc2dd,.5,.45,{side:T3.DoubleSide}), pg=new T3.Group(), mg=new T3.Group(), fr=new T3.Group();
+  var frothMat = new T3.MeshStandardMaterial({color:0xd9a441, transparent:true, opacity:.4, roughness:.3, depthWrite:false});
+  lay.slabs.forEach(function(s, si){ var w=.62, n=Math.ceil(2*Rt/w), k;
+    for(k=0;k<n;k++){ var z0=-Rt+k*w, pts=clipCircle(Rt-.1, s[0]+.01, s[1]-.01, z0+.008, Math.min(Rt,z0+w)-.008); if(pts.length<3) continue;
+      var man = k===Math.floor(n/2)+ (si%2), m=new T3.Mesh(new T3.ShapeGeometry(shapeOf(pts),6).rotateX(-Math.PI/2), man?manMat:deckMat); (man?mg:pg).add(m); }
+    var f=new T3.Mesh(new T3.ExtrudeGeometry(shapeOf(clipCircle(Rt-.1,s[0]+.01,s[1]-.01,-Rt,Rt)),{depth:1,bevelEnabled:false,curveSegments:8}).rotateX(-Math.PI/2), frothMat); f.position.y=.01; fr.add(f); trayState.froth.push(f);
+    for(var x=s[0]+.16, row=0; x<=s[1]-.14; x+=.15, row++) for(var z=-Rt+(row%2?.08:.155); z<Rt; z+=.15) if(x*x+z*z < (Rt-.24)*(Rt-.24)) trayState.vpos.push([x,z]);
+  });
+  add(pg,'tr-deck',1.15); add(mg,'tr-manway',1.6);
+  trayG.add(fr); trayState.frothG = fr; trayState.frothMat = frothMat;
+  var vg=new T3.CylinderGeometry(.05,.05,.014,10), im=new T3.InstancedMesh(vg, std(0xf0f3f5,.8,.3), trayState.vpos.length);
+  trayState.valves = add(im,'tr-valve',2.15);
+  var nb=Math.min(900, trayState.vpos.length); trayState.bub=points(nb,.11); trayState.bp=[]; for(var b=0;b<nb;b++) trayState.bp.push({i:Math.floor(Math.random()*trayState.vpos.length), h:Math.random()});
+  trayG.add(trayState.bub); trayG.rotation.y = TRAY_AZ*D2R; state.trayDirty = true;
+}
+function updateTray(dt){
+  var E=state.trayE, v=state.vapRate/100, lift=Math.min(1,Math.max(0,(v-.2)/.5))*.07, m4=new T3.Matrix4(), i;
+  tparts.forEach(function(p){ p.obj.position.y = p.y0 + p.lift*E; });
+  if(state.trayDirty){ for(i=0;i<trayState.vpos.length;i++){ m4.makeTranslation(trayState.vpos[i][0], .012+lift, trayState.vpos[i][1]); trayState.valves.setMatrixAt(i,m4); } trayState.valves.instanceMatrix.needsUpdate=true; state.trayDirty=false; }
+  var t=TR[trayState.no-1], fh = v<.2 ? .03 : Math.min(t.TS-.02, .07 + .3*Math.pow(v,1.6) + (v>1 ? (v-1)*2.2 : 0)), show = E < .12;
+  trayState.frothG.visible = show; trayState.frothMat.opacity = .25 + .3*Math.min(1,v); trayState.froth.forEach(function(f){ f.scale.y = fh; });
+  trayState.bub.visible = show && v > .22;
+  if(trayState.bub.visible){ var a=trayState.bub.geometry.attributes.position.array, c=trayState.bub.geometry.attributes.color.array;
+    for(i=0;i<trayState.bp.length;i++){ var b=trayState.bp[i]; b.h += dt*(.8+2.2*v); if(b.h>1){ b.h=0; b.i=Math.floor(Math.random()*trayState.vpos.length); }
+      var p=trayState.vpos[b.i]; a[i*3]=p[0]; a[i*3+1]=.03+b.h*(fh+.25); a[i*3+2]=p[1]; c[i*3]=.75; c[i*3+1]=.9; c[i*3+2]=1; }
+    trayState.bub.geometry.attributes.position.needsUpdate = trayState.bub.geometry.attributes.color.needsUpdate = true; }
+}
+
+/* ---------- state and layout ---------- */
+var state = {mode:'anatomy', explode:0, cut:1, layers:{insul:true,plat:true,shell:true,liner:true,noz:true,'int':true,base:true}, thermal:false, labels:true,
+  flow:!reduced, pstep:0, asm:9, asmPlay:false, trayE:.6, vapRate:80, trayDirty:true, sel:null, hover:null, demo:null};
+var NSTEP = 9, CUTS = [[], [0], [0,3]];
+function layout(){
+  var s = state.mode==='anatomy' ? state.explode : 0, e1=ss(s/.35), e2=ss((s-.2)/.45), e3=ss((s-.45)/.55);
+  S.e3 = e3; S.e2 = e2;
+  var cut = CUTS[state.mode==='anatomy' ? state.cut : 1], asm = state.mode==='assembly';
+  var lay = state.mode==='process' ? {insul:false,plat:false,shell:true,liner:true,noz:true,'int':true,base:true} : state.mode==='assembly' ? null : state.layers;
+  for(var i=0;i<parts.length;i++){ var p=parts[i], o=p.obj, f=1;
+    if(asm) f = Math.min(1, Math.max(0, (state.asm - p.step - p.stag*.62)/.38));
+    o.visible = (!lay || lay[p.layer]) && !(p.q!=null && cut.indexOf(p.q)>=0) && f>0; if(!o.visible) continue;
+    var x=0, y=e3*.6*Math.max(0,p.yc-Y0)*p.v + p.top*e2, z=0;
+    for(var k=0;k<p.vecs.length;k++){ var v=p.vecs[k], m=v[2]*e1+v[3]*e2; x+=v[0]*m; z+=v[1]*m; }
+    if(f<1){ var g=1-ss(f); x+=p.fly[0]*g; y+=p.fly[1]*g; z+=p.fly[2]*g; }
+    o.position.set(x,y,z);
+  }
+  var ht = asm ? Math.min(1,Math.max(0,(state.asm-5)/.7)) * (1-Math.min(1,Math.max(0,(state.asm-5.8)/.2))) : 0;
+  water.visible = asm && state.asm > 5 && state.asm < 6; if(water.visible){ var up = Math.min(1,(state.asm-5)/.55); water.scale.y = Math.max(.01, up); MAT.water.opacity = .42*(state.asm<5.8 ? 1 : (6-state.asm)/.2); }
+}
+function applyThermal(){ var on = state.thermal || state.mode==='process';
+  trayMats.forEach(function(m){ if(on){ tempColor(m.t.T, m.deck.color); m.dc.color.copy(m.deck.color).multiplyScalar(.8); } else { m.deck.color.copy(m.base); m.dc.color.copy(m.baseDc); } });
+  $('#legend').hidden = !on || state.mode==='tray'; paint(); }
+var VY = function(y){ return y + S.e3*.6*Math.max(0,y-Y0); };
+
+/* ---------- camera ---------- */
+var cam = {az:VIEW_AZ+18, phi:1.26, r:120, ty:Y(H/2)-2}, goal = Object.assign({}, cam), auto = !reduced;
+function fit(){ var asp = view.clientWidth/Math.max(1,view.clientHeight), fov = camera.fov*D2R/2;
+  return function(h, w){ return Math.max(h/2/Math.tan(fov), w/2/Math.tan(fov)/asp)*1.12; }; }
+function frameMode(){ var f=fit();
+  if(state.mode==='tray'){ var D=TR[trayState.no-1].D; goal.ty=.4+state.trayE*.6; goal.r=f(D*.75+state.trayE*4.2, D*1.25); goal.phi=1.0; goal.az=VIEW_AZ; return; }
+  if(state.mode==='process'){ procView(); return; }
+  var e3=ss((state.explode-.45)/.55), e2=ss((state.explode-.2)/.45), e1=ss(state.explode/.35), top=Y(HEADTOP+2)+(state.mode==='anatomy'?e3*.6*HEADTOP+5*e2:0);
+  var ex = state.mode==='anatomy' ? e3 : 0; goal.ty = top/2 - 1 + 3*ex; goal.r = f(top+3, 2*(R+2.5+(state.mode==='anatomy'?5*e2+6*e1:0)))*(1+.14*ex); goal.phi=1.26+.1*ex;
+}
+function placeCamera(dt){ var k = 1-Math.exp(-dt*6);
+  var da = ((goal.az-cam.az+540)%360)-180; cam.az += da*k; cam.phi += (goal.phi-cam.phi)*k; cam.r += (goal.r-cam.r)*k; cam.ty += (goal.ty-cam.ty)*k;
+  var d=dir(cam.az), sp=Math.sin(cam.phi); camera.position.set(d[0]*sp*cam.r, cam.ty+Math.cos(cam.phi)*cam.r, d[1]*sp*cam.r); camera.lookAt(0,cam.ty,0);
+  sun.position.set(camera.position.x*.6 - d[1]*40, camera.position.y+50, camera.position.z*.6 + d[0]*40);
+}
+var ptrs = {}, drag = null;
+canvas.addEventListener('pointerdown', function(e){ canvas.setPointerCapture(e.pointerId); ptrs[e.pointerId]={x:e.clientX,y:e.clientY}; auto=false; stopDemo();
+  drag = {x:e.clientX, y:e.clientY, moved:0, btn:e.button, shift:e.shiftKey, pinch:null}; });
+canvas.addEventListener('pointermove', function(e){
+  if(!ptrs[e.pointerId]){ hoverAt(e); return; }
+  var p=ptrs[e.pointerId], dx=e.clientX-p.x, dy=e.clientY-p.y; p.x=e.clientX; p.y=e.clientY; if(!drag) return; drag.moved += Math.abs(dx)+Math.abs(dy);
+  var ids=Object.keys(ptrs);
+  if(ids.length>=2){ var a=ptrs[ids[0]], b=ptrs[ids[1]], dist=Math.hypot(a.x-b.x,a.y-b.y); if(drag.pinch) goal.r = Math.min(260, Math.max(4, goal.r*drag.pinch/dist)); drag.pinch=dist; goal.ty += dy*goal.r*.0007; cam.r=goal.r; cam.ty=goal.ty; return; }
+  if(drag.btn===2 || drag.shift){ goal.ty += dy*goal.r*.0012; cam.ty=goal.ty; }
+  else { goal.az -= dx*.35; goal.phi = Math.min(1.72, Math.max(.12, goal.phi - dy*.006)); cam.az=goal.az; cam.phi=goal.phi; }
+});
+function endPtr(e){ var was=drag; delete ptrs[e.pointerId]; if(!Object.keys(ptrs).length) drag=null; else if(drag) drag.pinch=null; if(was && was.moved<6 && e.type==='pointerup') select(pickAt(e)); }
+canvas.addEventListener('pointerup', endPtr); canvas.addEventListener('pointercancel', endPtr);
+canvas.addEventListener('contextmenu', function(e){e.preventDefault()});
+canvas.addEventListener('wheel', function(e){ e.preventDefault(); auto=false; goal.r = Math.min(260, Math.max(4, goal.r*Math.exp(e.deltaY*.0012))); }, {passive:false});
+canvas.tabIndex = 0;
+canvas.addEventListener('keydown', function(e){ var k=e.key, hit=true; auto=false;
+  if(k==='ArrowLeft') goal.az+=8; else if(k==='ArrowRight') goal.az-=8; else if(k==='ArrowUp') goal.ty+=goal.r*.04; else if(k==='ArrowDown') goal.ty-=goal.r*.04;
+  else if(k==='+'||k==='=') goal.r*=.88; else if(k==='-') goal.r*=1.14; else hit=false; if(hit) e.preventDefault(); });
+
+/* ---------- picking and highlight ---------- */
+var ray = new T3.Raycaster(), hlMats = [];
+function pickAt(e){ var r=canvas.getBoundingClientRect(); ray.setFromCamera({x:(e.clientX-r.left)/r.width*2-1, y:-((e.clientY-r.top)/r.height*2-1)}, camera);
+  var hits = ray.intersectObjects(pickables.filter(visibleDeep), false); return hits.length ? hits[0].object.userData.pid : null; }
+function visibleDeep(o){ for(;o;o=o.parent) if(!o.visible) return false; return true; }
+var lastHover = 0;
+function hoverAt(e){ if(e.pointerType==='touch') return; var now=performance.now(); if(now-lastHover<60) return; lastHover=now; var pid=pickAt(e); if(pid!==state.hover){ state.hover=pid; paint(); canvas.style.cursor = pid ? 'pointer' : ''; } }
+function paint(){
+  pickables.forEach(function(m){ if(m.material!==m.userData.mat) m.material=m.userData.mat; }); hlMats.forEach(function(m){m.dispose()}); hlMats=[];
+  [[state.hover,.22],[state.sel,.5]].forEach(function(a){ (byPid[a[0]]||[]).forEach(function(m){ var c=m.userData.mat.clone(); c.emissive = new T3.Color(0x1aa7c7); c.emissiveIntensity=a[1]; if(c.opacity<.5) c.opacity=.5; hlMats.push(c); m.material=c; }); });
+}
+function select(pid){ state.sel = pid; paint(); showInfo(pid); }
+
+/* ---------- datasheet card ---------- */
+function facts(rows){ return '<dl>'+rows.filter(function(r){return r && r[1]!=null && r[1]!==''}).map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>'; }
+function card(k, t, p, rows){ $('#info').innerHTML = '<div class="kicker">'+k+'</div><h3>'+t+'</h3>'+(p||[]).map(function(x){return '<p>'+x+'</p>'}).join('')+facts(rows||[]); }
+var course = function(i){ return M.shell_courses[i]; };
+function trayRole(n){ var t=ATM.tray, r=[];
+  if(n===t.top) r.push('Reflux and top-pumparound return land here.'); if(n===t.TPA_draw) r.push('Top pumparound draw sump.');
+  if(n===t.KERO) r.push('Kerosene draw tray, feeding side stripper C-102.'); if(n===t.MPA_ret) r.push('Middle pumparound return.'); if(n===t.MPA_draw) r.push('Middle pumparound draw sump.');
+  if(n===t.DIESEL) r.push('Diesel draw tray, feeding side stripper C-103.'); if(n===t.BPA_ret) r.push('Bottom pumparound return.'); if(n===t.BPA_draw) r.push('Bottom pumparound draw sump.');
+  if(n===t.AGO) r.push('Atmospheric gas oil draw tray, feeding side stripper C-104.'); if(n===t.wash_bot) r.push('Last tray above the flash zone.'); if(n===t.bottom) r.push('Bottom tray; liquid leaving it is atmospheric residue.');
+  return r; }
+function showInfo(pid){
+  if(!pid && state.mode==='tray') pid = 'tray-'+trayState.no;
+  if(!pid){ var wb=M.weight_breakdown_t;
+    return card(DATA.docno, 'Why this column is hard', ['One vessel splits '+th(DATA.crude.kg_h)+' of part-vaporised crude into six streams at once. It runs '+dC(ATM.T_fz)+' at the feed and '+dC(ATM.T_top)+' at the top, with a different vapour and liquid load on almost every tray.',
+      'Click any part of the model for its design data.'],
+      [['Service',DATA.service],['Size','ID '+DATA.D+' / '+DATA.D2+' m × '+H+' m T/T'],['Design',M.design_P_barg+' barg at '+M.design_T_C+' °C'],['Operating',DATA.op_P+' barg, '+DATA.op_T+' °C (top / flash zone)'],
+       ['Shell',M.material+', '+course(2).t_nom_mm+'–'+course(0).t_nom_mm+' mm'],['Internals',wb.internals+' t of '+M.weight_empty_t+' t empty'],['Operating weight',M.weight_operating_t+' t'],['Hydrotest weight',M.weight_hydrotest_t+' t'],['Volume',Math.round(M.volume_m3)+' m³']]); }
+  var m, n;
+  if((m=/^tray-(\d+)$/.exec(pid))){ var t=TR[m[1]-1], s=DATA.sections[t.sec], role=trayRole(t.no);
+    return card('Internals · valve tray', 'Tray '+t.no+' of '+NT, ['Rising vapour lifts the valves and bubbles through the liquid flowing across the deck. Heavier molecules condense into the liquid, lighter ones boil out of it. Liquid then drops through the downcomers to the tray below.'].concat(role),
+      [['Section', s ? s.name+' (trays '+s.trays+')' : 'between sections'],['Liquid passes',t.passes],['Tray spacing',Math.round(t.TS*1000)+' mm'],['Diameter',t.D+' m'],['Temperature (profile)','about '+dC(t.T)],
+       s&&['Vapour load',th(s.V_kg_h)],s&&['Liquid load',th(s.L_kg_h)],s&&['Pressure',f2(s.P)+' bar(a)'],s&&['Flood velocity',f2(s.u_flood)+' m/s'],s&&['Diameter needed at 80% flood',f2(s.D_calc)+' m'],['Elevation','TL + '+f2(t.z)+' m'],['Material',t.no<=5?'Monel 400':'410S stainless']]); }
+  if((m=/^noz-(.+)$/.exec(pid))){ n=nozBy[m[1]]; var mwy=n.kind==='MW';
+    return card(mwy?'Manway':'Nozzle', n.mark+(n.qty>1?' × '+n.qty:''), [n.service+'.', mwy?'Tray panels go in and out through manways like this one. Every tray has a removable panel so a person can climb from one manway to the next through the stack.':'Nozzles are sized on velocity: slow enough for liquid to drain by gravity, fast enough to keep vapour lines compact.'],
+      [['Size','NPS '+n.nps+'"'],['Flange rating',n.rating?n.rating+'#':null],['Elevation','TL + '+f2(n.z)+' m'],n.side!=='T'&&n.side!=='B'&&['Orientation',n.angle+'°'],n.v?['Velocity',f1(n.v)+' m/s']:null,['Sizing rule',n.crit]]); }
+  if((m=/^sh-(.+)$/.exec(pid))){ var id=m[1], ci = id==='strip'||id==='bottom' ? 0 : id==='cone' ? 1 : 2, c=course(ci), head = id==='top'||id==='bottom';
+    var txt = {bottom:'2:1 elliptical head closing the bottom sump, where atmospheric residue collects before the bottoms pumps.', strip:'Narrow lower section. Only residue and stripping steam flow here, so it needs about half the diameter of the main column.',
+      cone:'Conical transition that widens the vessel just below the flash zone. The cone-to-cylinder junctions carry the highest local stress in the shell.', top:'2:1 elliptical top head carrying the overhead vapour nozzle and the relief valves. Lined with Monel because acidic water can condense here.'}[id] || 'Main shell can. Rolled plate welded into rings, then ring to ring. Internal pressure is low; wind and weight set much of the thickness.';
+    return card('Pressure envelope', head ? (id==='top'?'Top head':'Bottom head') : c.section, [txt],
+      [['Material',M.material],['Inside diameter', head ? (id==='top'?DATA.D:DATA.D2)+' m' : id==='cone' ? DATA.D2+' → '+DATA.D+' m' : c.ID_mm/1000+' m'],
+       ['Thickness', (head ? (id==='top'?M.head_top_t_mm:M.head_bottom_t_mm) : c.t_nom_mm)+' mm'], !head&&['Required by code',c.t_req_mm+' mm'], !head&&['Elevation','TL + '+f2(c.z_from_m)+' to '+f2(c.z_to_m)+' m'],['Corrosion allowance',M.CA_mm+' mm'],['Shell weight (all courses)',M.weight_breakdown_t.shell+' t']]); }
+  var cl;
+  if(pid==='liner-410' || pid==='liner-monel'){ cl = DATA.clad.filter(function(c){return /monel/i.test(c.mat) === (pid==='liner-monel')})[0];
+    return card('Corrosion barrier', cl.mat+' lining', [pid==='liner-monel' ? 'The top of the column is cool enough for water and hydrochloric acid to condense. Carbon steel would not last, so the top head and upper shell are lined with a nickel-copper alloy.' : 'Above about 230 °C the sulphur in crude attacks carbon steel. The hot lower part of the shell is clad with a thin layer of 12% chromium stainless steel bonded to the plate.'],
+      [['Alloy',cl.mat],['Thickness',cl.t+' mm'],['Extent','TL '+(cl.z0<0?'−':'+')+' '+f2(Math.abs(cl.z0))+' to + '+f2(cl.z1)+' m'],['Cladding weight (all)',M.weight_breakdown_t.clad+' t'],['Basis',DATA.moc]]); }
+  var simple = {
+    insul:['Thermal','Insulation and jacketing',['Mineral-wool blanket under sheet-metal jacketing. It keeps heat in the process and keeps the surface safe to touch.'],[['Thickness',M.insulation_mm+' mm'],['Weight',M.weight_breakdown_t.insulation+' t']]],
+    skirt:['Support','Skirt',['A steel cylinder welded to the bottom head carries the whole column down to the foundation. It is fireproofed so the column stays standing in a pool fire. The height gives the bottoms pumps the suction head they need.'],[['Height',M.skirt_height_m+' m'],['Outside diameter',M.skirt_OD_mm/1000+' m'],['Thickness',M.skirt_t_mm+' mm'],['Skirt weight',M.weight_breakdown_t.skirt+' t'],['Fireproofing',M.weight_breakdown_t.fireproofing+' t'],['Bottom tangent line','EL '+M.BTL_elevation_m+' m']]],
+    found:['Civil','Foundation',['A reinforced-concrete block spreads the column weight and the overturning moment from wind into the ground.'],[['Wind base shear',M.wind_base_shear_kN+' kN'],['Wind base moment',M.wind_base_moment_kNm.toLocaleString('en-US')+' kNm'],['Wind basis',M.wind_basis],['Hydrotest weight',M.weight_hydrotest_t+' t']]],
+    bolts:['Support','Anchor bolts',['Cast into the foundation before the column arrives. They hold the skirt down against wind trying to tip the column over.'],[['Number',M.anchor_bolts.n],['Size',M.anchor_bolts.size],['Bolt circle',M.anchor_bolts.bcd_m+' m'],['Design tension each',M.anchor_bolts.F_kN+' kN'],['Natural frequency',M.natural_freq_Hz+' Hz']]],
+    plat:['Access','Platforms',['One platform at each manway elevation, plus a top platform for the relief valves and overhead line.'],[['Levels',DATA.platforms.length],['Weight with ladders',M.weight_breakdown_t.platforms+' t']]],
+    ladder:['Access','Ladders',['Ladders run between platforms and change side at each level, so a fall is never longer than one flight.'],[['Weight with platforms',M.weight_breakdown_t.platforms+' t']]],
+    horn:['Internals','Feed vapour horn',['The feed arrives as a fast two-phase jet. The horn turns it around the wall so liquid drops out downward and vapour rises evenly, without carrying black residue up into the gas oil.'],[['Feed nozzle','NPS '+nozBy.N1.nps+'" at '+f1(nozBy.N1.v)+' m/s'],['Feed',th(ST.feed.kg_h)+' at '+dC(ATM.cot)],['Vapour fraction',Math.round(DATA.vf_feed*100)+' wt%'],['Flash zone',dC(ATM.T_fz)+', '+f2(ATM.P_fz_barg)+' barg']]],
+    sparger:['Internals','Stripping steam sparger',['Steam injected below the bottom tray lowers the oil partial pressure, so the lightest part of the residue boils off and goes back up the column.'],[['Steam',th(ATM.steam.bottom)],['Nozzle','NPS '+nozBy.N16.nps+'"'],['Residue out',dC(ATM.T_bot)]]],
+    vortex:['Internals','Vortex breaker',['Crossed plates over the bottom outlet stop a whirlpool forming and pulling vapour into the bottoms pumps.'],[['Outlet','NPS '+nozBy.N17.nps+'" to P-112'],['Normal liquid level','TL + '+DATA.levels.NLL+' m']]],
+    'tr-shell':['Tray close-up','Column shell',['The tray is built inside the finished shell. Everything that goes in has to fit through a 24-inch manway.'],[]],
+    'tr-ring':['Tray close-up','Tray support ring',['A flat ring welded to the shell wall in the fabrication shop. Deck panels are clamped to it, never welded, so they can be removed.'],[]],
+    'tr-beam':['Tray close-up','Major support beams',['A deck almost seven metres wide cannot span on its own. Beams bolted to wall clips carry the panels and the liquid on them.'],[]],
+    'tr-dc':['Tray close-up','Downcomers',['Vertical plates that form the channels carrying liquid to the tray below. They stop just above the next deck so the liquid there seals the opening against vapour.'],[]],
+    'tr-weir':['Tray close-up','Outlet weirs',['A low dam at the entrance to each downcomer. It sets how much liquid stays on the deck for the vapour to bubble through.'],[]],
+    'tr-above':['Tray close-up','Downcomers from the tray above',['Liquid arrives here from the tray above. Downcomer positions alternate from tray to tray, which forces the liquid to cross the deck.'],[]],
+    'tr-deck':['Tray close-up','Deck panels',['Strips of sheet narrow enough to pass through a manway, bolted edge to edge into a level floor.'],[]],
+    'tr-manway':['Tray close-up','Tray manway panels',['One panel per pass lifts out from above or below. With these out on every tray, a person can climb through the whole stack.'],[]],
+    'tr-valve':['Tray close-up','Valves',['Each valve is a loose disc over a hole in the deck. Vapour lifts it; at low rates it settles back and stops liquid weeping through. This is why valve trays tolerate turndown better than plain sieve trays.'],[]]
+  };
+  if(simple[pid]) return card.apply(null, simple[pid]);
+  if((m=/^sump-(.+)$/.exec(pid))){ n=nozBy[m[1]]; return card('Internals','Draw sump', ['A box under the tray that collects liquid and gives the draw nozzle a steady, vapour-free supply.'], [['Feeds',n.mark+', NPS '+n.nps+'"'],['Service',n.service],['Draw velocity',f1(n.v)+' m/s'],['Elevation','TL + '+f2(n.z)+' m']]); }
+  if((m=/^dist-(.+)$/.exec(pid))){ n=nozBy[m[1]]; return card('Internals','Inlet pipe', ['Carries the returning stream across the column and spreads it over the tray instead of dumping it at the wall.'], [['Nozzle',n.mark+', NPS '+n.nps+'"'],['Service',n.service],['Velocity',f1(n.v)+' m/s']]); }
+  if((m=/^pa-(.+)$/.exec(pid))){ var pa=ATM.pa[m[1]]; return card('Heat removal', {TPA:'Top',MPA:'Middle',BPA:'Bottom'}[m[1]]+' pumparound', ['Hot liquid is drawn off, cooled against cold crude in the preheat train, and returned two trays higher. The cold return condenses rising vapour, which is how the column makes its internal reflux without sending all the heat to the overhead condenser.'],
+      [['Duty',mw(pa.duty_kw)],['Circulation',th(pa.flow)],['Draw','tray '+pa.draw_tray+' at '+dC(pa.T_draw)],['Return','tray '+pa.ret_tray+' at '+dC(pa.T_ret)]]); }
+  if((m=/^strip-(.+)$/.exec(pid))){ var sp=DATA.strippers.filter(function(s){return s.tag===m[1]})[0]; return card('Side stripper', sp.tag, [sp.service+'. A small column that steams the light ends out of the side draw so the product meets its flash point. The stripped vapour goes back into the main column one tray above the draw.'],
+      [['Size','ID '+sp.D+' m × '+sp.H+' m T/T'],['Product',th(ST[sp.key].kg_h)],['Draw temperature',dC(ATM.T_draw[sp.key])],['Product out',dC(ATM.T_strip_out[sp.key])],['Stripping steam',th(ATM.steam[sp.key])]]); }
+  if(/^pipe-/.test(pid)){ var key=pid.slice(5).replace(/[dvp]$/,''), s2=ST[key]; if(s2) return card('Stream '+s2.no, s2.name, [], [['Flow',th(s2.kg_h)],s2.bpsd&&['Volume',Math.round(s2.bpsd).toLocaleString('en-US')+' BPSD'],['From',s2.frm],['To',s2.to]]);
+    if(key==='steam') return showInfo('sparger'); }
+  showInfo(null);
+}
+
+/* ---------- callouts ---------- */
+var labelsEl = $('#labels'), labs = [];
+function mkLab(o){ var el=document.createElement('div'); el.className='lab'+(o.hot?' hotl':''); el.innerHTML='<b></b><span></span>'; el.firstChild.textContent=o.title; el.lastChild.textContent=o.sub||''; labelsEl.appendChild(el); o.el=el; labs.push(o); return o; }
+(function(){ var t=ATM.tray, edge=QSTART+2, zt=function(n){return TR[n-1].z};
+  [[HEADTOP-.6,'Top head','Monel-lined · '+dC(ATM.T_top)],[zt(2),'Trays 1–'+t.TPA_draw,'reflux + top pumparound'],[zt(t.KERO),'Tray '+t.KERO,'kerosene draw · '+dC(ATM.T_draw.KERO)],[zt(t.DIESEL),'Tray '+t.DIESEL,'diesel draw · '+dC(ATM.T_draw.DIESEL)],
+   [zt(t.AGO),'Tray '+t.AGO,'gas oil draw · '+dC(ATM.T_draw.AGO)],[nozBy.N1.z,'Flash zone','feed in · '+dC(ATM.T_fz)],[zt(38),'Stripping section','trays '+(t.wash_bot+1)+'–'+t.bottom+' · steam'],[-Y0/2,'Skirt',M.skirt_height_m+' m · fireproofed']]
+  .forEach(function(a){ mkLab({mode:'anatomy', z:a[0], az:edge, title:a[1], sub:a[2]}); });
+  chips.forEach(function(c){ mkLab({mode:'process', pos:c.pos, steps:c.steps, title:c.title, sub:c.sub, hot:c.hot}); });
+})();
+var v3 = new T3.Vector3();
+function placeLabels(){ var w=view.clientWidth, h=view.clientHeight, nar=narrow(), used=[];
+  labs.forEach(function(l){ var on = l.mode===state.mode && (l.mode==='process' ? (l.steps.indexOf(state.pstep)>=0 && !(nar && state.pstep===0)) : state.labels && !nar && state.explode<.2);
+    if(on){ if(l.pos) v3.copy(l.pos); else { var y=Y(l.z), r=Rz(Math.max(l.z,0))+.1; v3.copy(P(l.az, l.z<0?R2:r, 0)); v3.y=VY(y); } v3.project(camera); on = v3.z<1 && Math.abs(v3.x)<1.05 && Math.abs(v3.y)<1.05; }
+    l.el.hidden = !on; if(!on) return; var x=(v3.x*.5+.5)*w, y2=(-v3.y*.5+.5)*h, bw=l.el.offsetWidth, bh=l.el.offsetHeight;
+    var left = l.mode==='anatomy' || x < w/2 ? x-bw-10 : x+10; left = Math.max(6, Math.min(w-bw-6, left)); var top = Math.max(6, Math.min(h-bh-6, y2-bh/2));
+    for(var k=0;k<used.length;k++){ var u=used[k]; if(left < u[0]+u[2] && left+bw > u[0] && top < u[1]+u[3]+3 && top+bh+3 > u[1]) top = u[1]+u[3]+3; }
+    used.push([left,top,bw,bh]); l.el.style.transform='translate('+Math.round(left)+'px,'+Math.round(top)+'px)'; });
+}
+
+/* ---------- process tour ---------- */
+var PSTEPS = [
+  {t:'The whole column', z:H/2, r:1, az:VIEW_AZ+12, p:['Hot crude enters near the bottom, about half of it already vapour. Vapour climbs through '+NT+' trays, cooling as it goes, from '+dC(ATM.T_fz)+' to '+dC(ATM.T_top)+'. Liquid runs back down, tray by tray.',
+    'Each product leaves at the height where the column is at its boiling range: naphtha overhead, then kerosene, diesel and gas oil from the side, and residue from the bottom. Dots show vapour (coloured by temperature) and liquid (dark).']},
+  {t:'Feed and flash zone', z:nozBy.N1.z, r:.36, az:VIEW_AZ+25, p:['The heater sends '+th(ST.feed.kg_h)+' of crude at '+dC(ATM.cot)+' through a '+nozBy.N1.nps+'-inch transfer line. In the flash zone the pressure is only '+f2(ATM.P_fz_barg)+' barg, and '+Math.round(DATA.vf_feed*100)+'% of the feed by weight is vapour.',
+    'The vapour horn swirls the feed around the wall. Liquid falls into the stripping section; vapour turns upward into the wash trays.']},
+  {t:'Stripping the residue', z:3.5, r:.36, az:VIEW_AZ+10, p:['The liquid still holds diesel-range material. It crosses trays '+(ATM.tray.wash_bot+1)+' to '+ATM.tray.bottom+' against '+th(ATM.steam.bottom)+' of steam, which boils the light material out and sends it back up.',
+    'What is left, '+th(ST.AR.kg_h)+' of atmospheric residue at '+dC(ATM.T_bot)+', goes to the vacuum unit. This section is half the diameter because it carries so little vapour.']},
+  {t:'Wash zone', z:TR[ATM.tray.wash_bot-2].z, r:.3, az:VIEW_AZ+20, p:['Vapour leaving the flash zone carries droplets of black residue, with metals that would poison downstream catalysts. Trays '+(ATM.tray.AGO+1)+' to '+ATM.tray.wash_bot+' wash it with a small flow of clean gas oil.',
+    'That wash liquid is the overflash: slightly more feed is vaporised than the products need, purely to keep these trays wet.']},
+  {t:'Fractionation on the trays', z:TR[17].z, r:.4, az:VIEW_AZ+14, p:['On every tray, vapour bubbles through a layer of liquid a few centimetres deep. The heaviest molecules in the vapour condense; the heat released boils the lightest molecules out of the liquid.',
+    'Repeat that tray after tray and the vapour gets steadily lighter going up while the liquid gets heavier going down. Most trays here split the liquid into four passes to handle the flow.']},
+  {t:'Pumparounds remove the heat', z:TR[12].z, r:.85, az:238, p:['Three loops draw hot liquid, cool it against incoming cold crude, and return it higher up: '+mw(ATM.pa.TPA.duty_kw)+', '+mw(ATM.pa.MPA.duty_kw)+' and '+mw(ATM.pa.BPA.duty_kw)+'.',
+    'The cold return condenses vapour inside the column. Without pumparounds all that heat would reach the overhead condenser ('+mw(ATM.Q_cond_kw)+' already) and be thrown away, and the top of the column would need to be far wider.']},
+  {t:'Side draws and strippers', z:16.5, r:.95, az:172, p:['Kerosene leaves tray '+ATM.tray.KERO+' at '+dC(ATM.T_draw.KERO)+', diesel tray '+ATM.tray.DIESEL+' at '+dC(ATM.T_draw.DIESEL)+', gas oil tray '+ATM.tray.AGO+' at '+dC(ATM.T_draw.AGO)+'.',
+    'Each draw contains some lighter material that happened to be on that tray. A small steam stripper beside the column removes it and sends the vapour back in one tray above the draw.']},
+  {t:'Overhead and reflux', z:H-1.5, r:.4, az:VIEW_AZ+30, p:[th(ST.ovhd.kg_h)+' of naphtha vapour and steam leave the top at '+dC(ATM.T_top)+' and '+f2(ATM.P_top_barg)+' barg for the air-cooled condenser.',
+    'Part of the condensed naphtha, '+th(ATM.reflux_kg_h)+', is pumped back onto tray 1 as reflux. Its flow is the main handle on top temperature, and so on where the naphtha / kerosene cut falls.']}
+];
+function procView(){ var s=PSTEPS[state.pstep], f=fit(), full=f(Y(HEADTOP+4), 2*(R+9)); goal.ty=Y(s.z)-(state.pstep?0:3); goal.r=Math.max(16, full*s.r); goal.az=s.az; goal.phi=state.pstep===7?1.05:1.3; }
+function setPStep(i){ state.pstep=(i+PSTEPS.length)%PSTEPS.length; auto=false; $$('#procSteps button').forEach(function(b,k){ b.setAttribute('aria-current', k===state.pstep) });
+  var s=PSTEPS[state.pstep]; $('#procStory').innerHTML='<h3>'+s.t+'</h3>'+s.p.map(function(x){return '<p>'+x+'</p>'}).join(''); if(state.mode==='process') procView(); }
+PSTEPS.forEach(function(s,i){ var li=document.createElement('li'), b=document.createElement('button'); b.textContent=s.t; b.onclick=function(){setPStep(i)}; li.appendChild(b); $('#procSteps').appendChild(li); });
+
+/* ---------- assembly sequence ---------- */
+var ab = M.anchor_bolts, wbd = M.weight_breakdown_t;
+var ASTEPS = [
+  ['Foundation and anchor bolts','The concrete foundation is poured with '+ab.n+' '+ab.size+' anchor bolts cast in on a '+ab.bcd_m+' m circle. A steel template holds them in position to within a few millimetres, because the skirt base ring has to drop over all of them at once.'],
+  ['Bottom section','The skirt, bottom head and '+DATA.D2+' m stripping section arrive as one shop-built piece and are lifted onto the bolts. The skirt is '+M.skirt_height_m+' m tall so the bottoms pumps have enough liquid head above them.'],
+  ['Swage cone','The cone widens the vessel from '+DATA.D2+' m to '+DATA.D+' m. Its two junctions are the most highly stressed welds in the shell and are fully radiographed.'],
+  ['Main shell cans','Rolled-plate rings '+course(2).t_nom_mm+' mm thick are stacked and welded. Nozzles, manways and tray support rings are already welded in. At '+DATA.D+' m the shell is too wide for most roads, so large columns are often finished at site or shipped by barge.'],
+  ['Top head','The Monel-lined top head closes the vessel. The bare fabricated column now weighs about '+M.weight_fabricated_t+' t.'],
+  ['Hydrotest','The vessel is filled with water and pressurised to '+M.hydrotest_P_top_barg+' barg at the top ('+M.hydrotest_P_bottom_barg+' barg at the bottom with the water head). Full of water it weighs '+M.weight_hydrotest_t.toLocaleString('en-US')+' t, the heaviest it will ever be, and this case sizes the foundation.'],
+  ['Trays and internals',wbd.internals+' t of internals go in through the 24-inch manways, piece by piece. Crews work from the bottom of each section upward: beams, downcomers, deck panels, then valves. This is slow, confined-space work and is usually on the critical path.'],
+  ['Platforms and ladders',DATA.platforms.length+' platform levels and their ladders ('+wbd.platforms+' t) are bolted to clips already welded on the shell.'],
+  ['Insulation',M.insulation_mm+' mm of mineral wool and metal jacketing goes on last, after the nozzle piping is connected and leak-tested. Operating weight: '+M.weight_operating_t+' t.']
+];
+ASTEPS.forEach(function(s,i){ var li=document.createElement('li'), b=document.createElement('button'); b.textContent=s[0]; b.onclick=function(){ stopAsm(); state.asm=i+1; syncAsm(); }; li.appendChild(b); $('#asmSteps').appendChild(li); });
+function syncAsm(){ var cur=Math.min(NSTEP-1, Math.max(0, Math.ceil(state.asm-1e-6)-1)); $('#asm').value=Math.round(state.asm*100); $('#asmOut').textContent='step '+(cur+1)+' of '+NSTEP;
+  $$('#asmSteps button').forEach(function(b,k){ b.setAttribute('aria-current', k===cur); b.classList.toggle('done', k<cur); });
+  if(S.asmCur!==cur){ S.asmCur=cur; $('#asmStory').innerHTML='<h3>'+ASTEPS[cur][0]+'</h3><p>'+ASTEPS[cur][1]+'</p>'; } }
+function stopAsm(){ state.asmPlay=false; $('#asmPlay').textContent='Play assembly'; }
+$('#asmPlay').onclick=function(){ if(state.asmPlay) return stopAsm(); if(state.asm>=NSTEP-.01) state.asm=0; state.asmPlay=true; this.textContent='Pause'; };
+$('#asm').oninput=function(){ stopAsm(); state.asm=this.value/100; syncAsm(); };
+
+/* ---------- controls ---------- */
+function setMode(m){ state.mode=m; stopDemo(); auto=false;
+  $$('.tabs button').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.mode===m) }); $$('.pane').forEach(function(p){ p.hidden = p.dataset.pane!==m });
+  column.visible = m!=='tray'; procG.visible = m==='process'; trayG.visible = m==='tray'; ground.visible = grid.visible = m!=='tray';
+  if(m==='assembly'){ state.asm=0; state.asmPlay=!reduced; if(reduced) state.asm=NSTEP; $('#asmPlay').textContent=state.asmPlay?'Pause':'Play assembly'; syncAsm(); }
+  if(m==='process') setPStep(state.pstep);
+  if(m==='tray') updateRegime();
+  select(null); applyThermal(); frameMode(); if(m!=='process') goal.az = VIEW_AZ + (m==='tray'?0:14);
+}
+$$('.tabs button').forEach(function(b){ b.onclick=function(){ setMode(b.dataset.mode) } });
+$('#explode').oninput=function(){ stopDemo(); state.explode=this.value/100; $('#explodeOut').textContent=this.value+'%'; frameMode(); };
+$$('#cut button').forEach(function(b){ b.onclick=function(){ state.cut=+b.dataset.cut; $$('#cut button').forEach(function(x){ x.setAttribute('aria-pressed', x===b) }); } });
+$$('#layers input').forEach(function(c){ c.onchange=function(){ state.layers[c.dataset.layer]=c.checked; } });
+$('#thermal').onchange=function(){ state.thermal=this.checked; applyThermal(); };
+$('#showLabels').onchange=function(){ state.labels=this.checked; };
+$('#flowBtn').onclick=function(){ state.flow=!state.flow; this.textContent=state.flow?'Pause flow':'Play flow'; };
+$('#flowBtn').textContent = state.flow ? 'Pause flow' : 'Play flow';
+$('#prevStep').onclick=function(){ setPStep(state.pstep-1) }; $('#nextStep').onclick=function(){ setPStep(state.pstep+1) };
+function stopDemo(){ if(state.demo!=null){ state.demo=null; $('#demo').textContent='Play explode demo'; } }
+$('#demo').onclick=function(){ if(state.demo!=null) return stopDemo(); state.demo=0; this.textContent='Stop demo'; };
+[12,38].forEach(function(no){ var t=TR[no-1], b=document.createElement('button'); b.textContent='Tray '+no+' · '+t.passes+'-pass · '+t.D+' m'; b.setAttribute('aria-pressed', no===12);
+  b.onclick=function(){ $$('#trayPick button').forEach(function(x){ x.setAttribute('aria-pressed', x===b) }); buildTray(no); select(null); frameMode(); updateRegime(); }; $('#trayPick').appendChild(b); });
+$('#trayExplode').oninput=function(){ state.trayE=this.value/100; $('#trayExplodeOut').textContent=this.value+'%'; frameMode(); };
+$('#vap').oninput=function(){ state.vapRate=+this.value; state.trayDirty=true; updateRegime(); };
+function updateRegime(){ var v=state.vapRate, t=TR[trayState.no-1], s=DATA.sections[t.sec], r, warn=true;
+  if(v<20) r=['Weeping','Too little vapour to hold the liquid up. Valves sit closed and liquid leaks down through the deck without being contacted.'];
+  else if(v<45) r=['Turndown','Valves are partly open. The tray still works, which is the advantage of valves over plain holes.'], warn=false;
+  else if(v<=88) r=['Normal operation','Valves fully open, a steady froth on the deck. The column is sized to run near 80% of flood.'], warn=false;
+  else if(v<=100) r=['Approaching flood','The froth is nearly as tall as the tray spacing and droplets are being carried to the tray above.'];
+  else r=['Flooded','Froth fills the space between trays. Liquid cannot get down, pressure drop climbs, and separation collapses.'];
+  $('#vapOut').textContent = v+'% of flood'+(s ? ' · '+f2(s.u_flood*v/100)+' m/s' : '');
+  $('#regime').className='regime'+(warn?' warn':''); $('#regime').innerHTML='<b>'+r[0]+'</b>'+r[1]+(state.trayE>=.12?' <span class="note">Set Explode to 0% to see the froth.</span>':''); }
+
+/* ---------- loop ---------- */
+function resize(){ var w=view.clientWidth, h=view.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); frameMode(); }
+new ResizeObserver(resize).observe(view);
+new MutationObserver(theme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+if(window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change', theme);
+var last = performance.now();
+function tick(now){ requestAnimationFrame(tick); var dt=Math.min(.05,(now-last)/1000); last=now;
+  if(auto && state.mode==='anatomy') goal.az -= dt*5;
+  if(state.demo!=null){ state.demo += dt/9; var ph=state.demo%1, e = ph<.42 ? ss(ph/.42) : ph<.6 ? 1 : ph<.92 ? 1-ss((ph-.6)/.32) : 0; state.explode=e; $('#explode').value=Math.round(e*100); $('#explodeOut').textContent=Math.round(e*100)+'%'; frameMode(); goal.az -= dt*6; }
+  if(state.mode==='assembly' && state.asmPlay){ state.asm = Math.min(NSTEP, state.asm + dt/2.6); if(state.asm>=NSTEP) stopAsm(); syncAsm(); goal.az -= dt*3; }
+  if(state.mode==='tray') updateTray(dt); else layout();
+  if(state.mode==='process' && state.flow){ stepParticles(dt); pipes.forEach(function(p){ p.tex.offset.x -= dt*p.speed; }); }
+  placeCamera(dt); renderer.render(scene,camera); placeLabels();
+}
+buildTray(12); theme(); resize(); syncAsm(); setPStep(0); setMode('anatomy'); layout(); stepParticles(0);
+goal.az = VIEW_AZ+18; cam.az = goal.az; cam.r = goal.r; cam.ty = goal.ty; auto = !reduced; requestAnimationFrame(tick);
+})();
+</script>

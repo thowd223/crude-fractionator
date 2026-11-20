@@ -200,6 +200,26 @@
   "op": "write"
  },
  {
+  "module": "cfu/mech/explorer.py",
+  "data": "equipment.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/explorer.py",
+  "data": "mech.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/explorer.py",
+  "data": "process_results.json",
+  "op": "read"
+ },
+ {
+  "module": "cfu/mech/explorer.py",
+  "data": "streams.json",
+  "op": "read"
+ },
+ {
   "module": "cfu/mech/geometry.py",
   "data": "process_results.json",
   "op": "read"

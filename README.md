@@ -12,7 +12,7 @@ python build.py              # all 12 stages, ~45 s
 python build.py process pid  # or selected stages
 ```
 
-Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 104 documents.
+Open `deliverables/06-wrapup/portal/index.html` for an indexed overview of all 105 documents.
 `deliverables/06-wrapup/portal/dependencies.html` maps the design steps: the order they run in, what each needs from
 upstream, and what it affects downstream.
 
@@ -46,7 +46,7 @@ adding a module or a data file; the report (CFU-000-PM-DEP-001, section 8) lists
 |---|---|
 | `00-basis` | Basis of design, heat & material balance (34 streams), process design report |
 | `01-process` | Block flow diagram, 6 PFDs, 17 P&IDs (legend + 16) |
-| `02-equipment` | Equipment list, 7 datasheet sets, ASME VIII / API 530 mechanical calcs, 8 GA drawings |
+| `02-equipment` | Equipment list, 7 datasheet sets, ASME VIII / API 530 mechanical calcs, 8 GA drawings, interactive 3D model of C-101 (`3d/`) |
 | `03-layout-piping` | Plot plan, 3 sections, 3D model + web viewers, line list (245 lines), piping classes, routing/stress study, 15 isometric sheets, MTO |
 | `04-instrumentation` | Control philosophy & proposed control scheme, 6 control scheme diagrams, ICS architecture, C&E matrix, SIF/SIL (LOPA), control valve sizing, instrument index (694 tags), I/O list, loop diagrams |
 | `05-electrical` | Load list, 4 single-line diagrams, sizing calcs, cable schedule, hazardous area classification |
